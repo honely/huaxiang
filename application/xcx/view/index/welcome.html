@@ -1,0 +1,21 @@
+{include file="index/header" /}
+<style>
+    .red{
+        color: red;
+    }
+</style>
+<div class="layui-body" style="width: 97%;">
+    <div class="layui-main" style="width: 97%;">
+        <fieldset class="layui-elem-field layui-field-title" style="margin-top: 30px;">
+            <legend>网站首页</legend>
+        </fieldset>
+    </div>
+</div>
+<script>
+    layui.use(['element','jquery','layer'], function(){
+        var element = layui.element,
+            $ = layui.jquery,
+            layer = layui.layer;
+    });
+</script>
+{include file="index/footer" /}
