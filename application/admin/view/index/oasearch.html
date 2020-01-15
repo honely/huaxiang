@@ -1,0 +1,131 @@
+{include file="index/header" /}
+<style>
+    .red{
+        color: red;
+    }
+</style>
+<div class="layui-body" style="width: 97%;">
+    <div class="layui-main" style="width: 97%;">
+        <fieldset class="layui-elem-field layui-field-title" style="margin-top: 30px;">
+            <legend>网站首页</legend>
+        </fieldset>
+        <section class="panel panel-padding" style="padding-top: 10px;padding-left: 10px;">
+            <form class="layui-form layui-form-pane1" action="<?=url('index/oasearch')?>" method="post">
+                <div class="layui-form-item  demoTable">
+                    <div class="layui-inline">
+                        <div class="layui-input-inline" style="width: 500px;" >
+                            <input type="text" name="keywords" id="keywords"  placeholder="请输入地址/订单号/用户ID/付款单号/微信id/用户姓名" value="{$keywords}" style="width: 500px;" class="layui-input">
+                        </div>
+                    </div>
+                    <div class="layui-inline">
+                        <div class="layui-input-inline">
+                            <button class="layui-btn layui-btn-normal"  id="reload">全局查找</button>
+                            <a class="layui-btn layui-btn-primary" href="<?=url('index/welcome')?>">返回</a>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </section>
+        为您找到<span style="color:red;">{$count}</span>条相关信息,点击查看可以查看详细信息。
+        <div class="layui-tab">
+            <table lay-skin="line" class="layui-table" lay-filter="parse-table-demo" style="padding: 10px;text-align: left;border: 1px;solid-color: #28282c">
+                <thead>
+                <tr>
+                    <td style="padding-left: 30px;">编号</td>
+                    <td>搜索结果</td>
+                    <td  style="text-align: right;padding-right: 50px;">操作</td>
+                </tr>
+                </thead>
+                <tbody>
+                {volist name='res1' id='na'}
+                <tr>
+                    <td style="padding-left: 30px;">{$na.cl_id}</td>
+                    <td>{$na.cl_order_id}</td>
+                    <td style="text-align: right;padding-right: 30px;">
+                        <a class="layui-btn layui-btn-xs" onclick="detail1({$na.cl_id})">查看</a>
+                    </td>
+                </tr>
+                {/volist}
+                {volist name='res2' id='na'}
+                <tr>
+                    <td style="padding-left: 30px;">{$na.crm_id}</td>
+                    <td>{$na.order_id}</td>
+                    <td style="text-align: right;padding-right: 30px;">
+                        <span class="layui-btn layui-btn-xs" onclick="detail2({$na.crm_id},{$na.order_step},{$na.order_status})">查看</span>
+                    </td>
+                </tr>
+                {/volist}
+                {volist name='res3' id='na'}
+                <tr>
+                    <td style="padding-left: 30px;">{$na.cc_id}</td>
+                    <td>{$na.cc_order_id}</td>
+                    <td style="text-align: right;padding-right: 30px;">
+                        <a class="layui-btn layui-btn-xs" onclick="detail3({$na.cc_id})">查看</a>
+                    </td>
+                </tr>
+                {/volist}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+<script>
+    layui.use(['element','jquery','layer'], function(){
+        var element = layui.element,
+            $ = layui.jquery,
+            layer = layui.layer;
+
+    });
+    function detail1(id) {
+       var  href="<?=url('light/detail')?>?type=3&cl_id="+id;
+        layer.open({
+            type: 2,
+            title: '查看详情',
+            shadeClose: true,
+            shade: false,
+            maxmin: true,
+            area: ['80%', '80%'],
+            content: href
+        });
+    }
+    function detail2(crm_id,step,status) {
+        var url = '';
+        if(status != 1){
+            if(step == 6){
+                url = "<?=url('light/subdet4')?>?crm_id="+crm_id;
+            }else{
+                url = "<?=url('order/orderDet')?>?crm_id="+crm_id;
+            }
+        }else{
+            if(step == 1){
+                url = "<?=url('light/subdet1')?>?crm_id="+crm_id;
+            }else if(step == 2){
+                url = "<?=url('light/subdet2')?>?crm_id="+crm_id;
+            }else if(step == 3){
+                url = "<?=url('light/subdet3')?>?crm_id="+crm_id;
+            }
+        }
+        layer.open({
+            type: 2,
+            title: '查看详情',
+            shadeClose: true,
+            shade: false,
+            maxmin: true,
+            area: ['80%', '80%'],
+            content: url
+        });
+    }
+    function detail3(id) {
+        var  href="<?=url('clean/details')?>?cc_id="+id;
+        layer.open({
+            type: 2,
+            title: '查看详情',
+            shadeClose: true,
+            shade: false,
+            maxmin: true,
+            area: ['80%', '80%'],
+            content: href
+        });
+    }
+</script>
+{include file="index/footer" /}

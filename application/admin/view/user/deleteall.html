@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+</body>
+</html>
+
+
+
+<table class="layui-table" lay-filter="demo1112" lay-data="{height: 'full-200', cellMinWidth:80, url:'/admin/banner/bannerPhone/', limit:20,limits:[20,30,50] ,id: 'testReload'}" >
+    <thead>
+    <tr>
+        <th lay-data="{field:'ba_id', align:'center',  sort: true}">编号</th>
+        <th lay-data="{field:'ba_title',  align:'center'}">主题</th>
+        <th lay-data="{field:'ba_img', align:'center'}">预览图</th>
+        <th lay-data="{field:'b_name', align:'center'}">显示分站</th>
+        <th lay-data="{field:'ba_createtime', align:'center'}">添加时间</th>
+        <th lay-data="{field:'ba_isable', align:'center' ,templet: '#switchTpl', unresize: true}">是否显示</th>
+        <th lay-data="{align:'center', toolbar: '#barDemo'}">操作</th>
+    </tr>
+    </thead>
+</table>

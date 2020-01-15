@@ -1,0 +1,142 @@
+{include file="index/header" /}
+<div style="margin: 20px;">
+    <span class="layui-breadcrumb" lay-separator=">">
+        <a>系统管理</a>
+        <a><cite>站点列表</cite></a>
+    </span>
+    {if condition="$ad_role eq 1"}
+        <div style="float:right;">
+            <button class="layui-btn layui-btn-primary layui-btn-sm"  onclick="addLevel()"><i class="layui-icon"></i>开通新站</button>
+        </div>
+    {/if}
+</div>
+<hr/>
+<section class="panel panel-padding">
+    <table lay-skin="line" class="layui-table" lay-filter="demo" lay-data="{height: 'full-200', cellMinWidth:80, url:'/admin/setinfo/branchData/', limit:20,limits:[20,30,50] ,id: 'testReload'}" >
+            <thead>
+            <tr>
+                <th lay-data="{field:'b_bid', sort: true}">站点编号</th>
+                <th lay-data="{field:'c_name', sort: true}">省份城市</th>
+                <th lay-data="{field:'b_name'}">站点名称</th>
+                <th lay-data="{field:'b_tel', sort: true}">站点电话</th>
+                <th lay-data="{field:'b_adminphone', sort: true}">短信绑定</th>
+                <th lay-data="{field:'b_createtime',  sort: true}">开站时间</th>
+                <th lay-data="{field:'b_autosms',templet: '#smsTpl',sort:true, unresize: true}">自动发送短信</th>
+                <th lay-data="{field:'b_isopen', templet: '#switchTpl',sort:true, unresize: true}">是否启用</th>
+                <th lay-data="{width:220, toolbar: '#barDemo',fixed: 'right',}">操作</th>
+            </tr>
+            </thead>
+        </table>
+</section>
+<script type="text/html" id="barDemo">
+    <a class="layui-btn layui-btn-xs" lay-event="tohome"><i class="layui-icon">&#xe64c;</i>链接</a>
+    <a class="layui-btn layui-btn-xs" lay-event="edit"><i class="layui-icon">&#xe642;</i>编辑</a>
+    {if condition="$ad_role eq 1"}
+    <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del"><i class="layui-icon">&#xe640;</i>删除</a>
+    {/if}
+</script>
+<script type="text/html" id="switchTpl">
+    <input type="checkbox" name="sex" lay-skin="switch" value="{{d.b_id}}" lay-text="是|否" lay-filter="sexDemo" {{ d.b_isopen == 1 ? 'checked' : '' }}>
+</script>
+<script type="text/html" id="smsTpl">
+    <input type="checkbox" name="sms" lay-skin="switch" value="{{d.b_id}}" lay-text="是|否" lay-filter="smsDemo" {{ d.b_autosms == 1 ? 'checked' : '' }}>
+</script>
+<script>
+    layui.use(['table','laydate','form'], function(){
+        var table = layui.table
+            ,form = layui.form;
+        table.on('tool(demo)', function(obj){
+            var data = obj.data;
+            if(obj.event === 'edit'){
+                var b_id = data.b_id;
+                window.location.href='<?=url("setinfo/editBranch")?>?b_id='+ b_id ;
+            }else if(obj.event === 'tohome'){
+                var b_id = data.b_prex;
+                window.open(b_id);
+            }else if(obj.event === 'del'){
+                var b_id = data.b_id;
+                layer.confirm('确定删除该分站？删除后不可恢复！', {
+                    btn : [ '确定', '取消' ]//按钮
+                }, function() {
+                    $.ajax({
+                        'type':"get",
+                        'url':"<?=url('setinfo/delBranch')?>",
+                        'data':{b_id:b_id},
+                        'success':function (result) {
+                            if(result.code < 1){
+                                layer.msg(result.msg);
+                            }else {
+                                layer.msg(result.msg);
+                                layer.open({
+                                    title: '信息'
+                                    ,content: result.msg
+                                    ,yes: function(index){
+                                        layer.close(index);
+                                        window.location.href='<?=url("setinfo/branch")?>';
+                                    }
+                                    ,cancel:function (index) {
+                                        layer.close(index);
+                                        window.location.href='<?=url("setinfo/branch")?>';
+                                    }
+                                });
+                            }
+                        },
+                        'error':function () {
+                            console.log('error');
+                        }
+                    })
+                },function(){
+                    layer.msg('您已取消该操作！',{
+                        time: 2000
+                    });
+                });
+            }
+        });
+        //监听是否开启操作
+        form.on('switch(sexDemo)', function(obj){
+            var id = this.value;
+            //如果选中状态是true,后台数据将要改为显示
+            var change = obj.elem.checked;
+            if(change){
+                change = 1;
+            }else{
+                change = 0;
+            }
+            $.ajax({
+                type: 'POST',
+                url: "<?=url('setinfo/status')?>?b_id="+id+ "&change="+change,
+                dataType:  'json',
+                success: function(data){
+                    console.log(data);
+                    layer.msg(data.msg);
+                }
+            });
+        });
+        //监听是否开启短信自动发送
+        form.on('switch(smsDemo)', function(obj){
+            var id = this.value;
+            //如果选中状态是true,后台数据将要改为显示
+            var change = obj.elem.checked;
+            if(change){
+                change = 1;
+            }else{
+                change = 0;
+            }
+            $.ajax({
+                type: 'POST',
+                url: "<?=url('setinfo/autoSms')?>?b_id="+id+ "&change="+change,
+                dataType:  'json',
+                success: function(data){
+                    console.log(data);
+                    layer.msg(data.msg);
+                }
+            });
+        });
+    });
+</script>
+<script type="text/javascript">
+    function addLevel(){
+        window.location.href='<?=url('setinfo/addbranch')?>';
+    }
+</script>
+{include file="index/footer" /}

@@ -1,0 +1,397 @@
+{include file="index/header" /}
+<style>
+    #pages .layui-laypage-prev {
+        padding: 0 12px;
+    }
+    #pages .layui-laypage-next{
+        padding: 0 12px;
+    }
+    #pages .layui-laypage a{
+        border:none;
+    }
+    #pages .layui-laypage-curr{
+        padding: 0 11px;
+        height: 24px;
+        line-height: 24px;
+    }
+    #pages .layui-laypage input{
+        padding: 0 11px;
+        height: 26px;
+        line-height: 26px;
+    }
+    #pages .layui-laypage input, .layui-laypage button{
+        padding: 0 11px;
+        height: 26px;
+        line-height: 26px;
+    }
+    #pages .layui-laypage select{
+        height: 18px;
+    }
+</style>
+<div class="layui-body">
+    <div style="margin: 20px;">
+        <span class="layui-breadcrumb" lay-separator=">">
+            <a>客户管理</a>
+            <a><cite>回收站</cite></a>
+        </span>
+    </div>
+    <hr/>
+    <section class="panel panel-padding" style="padding-top: 10px;padding-left: 10px;">
+        <form class="layui-form layui-form-pane1" action="<?=url('user/back')?>">
+            <div class="layui-form-item">
+                <div class="layui-inline">
+                    <div class="layui-input-inline">
+                        <input type="text" name="keywords" value="{if isset($keywords)}{$keywords}{/if}"  placeholder="请输入编号/手机/姓名" class="layui-input">
+                    </div>
+                </div>
+                <div class="layui-inline">
+                    <div class="layui-input-inline">
+                        <input type="text" name="cus_opptime" value="{if isset($cus_opptime)}{$cus_opptime}{/if}" class="layui-input" id="test6" placeholder="请选择客户预约日期">
+                    </div>
+                </div>
+                <div class="layui-inline">
+                    <div class="layui-input-inline">
+                        <input type="text" name="cus_backtime" value="{if isset($cus_backtime)}{$cus_backtime}{/if}" class="layui-input" id="test" placeholder="请选择员工操作日期">
+                    </div>
+                </div>
+                <div class="layui-inline">
+                    <div class="layui-input-inline">
+                        <select name="cus_admin" id="cus_admin">
+                            <option value="">请选择操作人</option>
+                            {volist name="admin" id="ad"}
+                            <option value="{$ad.ad_id}" {if isset($cus_admin)}{if condition="$cus_admin eq $ad.ad_id"}selected{/if}{/if}>{$ad.ad_realname}</option>
+                            {/volist}
+                        </select>
+                    </div>
+                </div>
+                <div class="layui-inline">
+                    <div class="layui-input-inline">
+                        <button class="layui-btn"  lay-submit lay-filter="*">查询</button>
+                        <a href="<?=url('user/back')?>" class="layui-btn layui-btn-warm">刷新</a>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </section>
+    <section class="panel panel-padding" style="padding-left: 10px;padding-right: 10px;">
+        <div class="layui-inline">
+            <div class="layui-input-inline">
+                <a href="<?=url('user/back')?>?cus_sys=1"  class="layui-btn layui-btn-primary layui-btn-xs">当前全部&nbsp;&nbsp;({$count})</a>
+            </div>
+        </div>
+        <div class="layui-inline" style="float: right;margin-right: 8px; margin-bottom: 10px;">
+            <div class="layui-input-inline" style="margin-left: 8px;">
+                <a href="<?=url('user/back')?>?cus_sys=1"  class="layui-btn layui-btn-primary layui-btn-xs">手机端&nbsp;&nbsp;({$mobileCount})</a>
+            </div>
+            <div class="layui-input-inline" style="margin-left: 8px;">
+                <a href="<?=url('user/back')?>?cus_sys=2"  class="layui-btn layui-btn-primary layui-btn-xs">电脑端&nbsp;&nbsp;({$pcCount})</a>
+            </div>
+        </div>
+    </section>
+    <style>
+        table tr td {
+            height: 30px;
+        }
+    </style>
+    <table   class="layui-form layui-table layui-table-box layui-table-view" lay-size="sm" lay-filter="parse-table-demo" lay-skin="line">
+        <colgroup>
+            <col width="30">
+            <col width="100">
+            <col width="160">
+            <col width="140">
+            <col width="100">
+            <col width="100">
+            <col width="100">
+            <col width="280">
+            <col width="180">
+            <col width="200">
+            <col width="100">
+            <col width="160">
+            <col width="100">
+            <col width="160">
+        </colgroup>
+        <thead>
+        <tr>
+            <td>
+                <input type="checkbox" lay-skin="primary" lay-filter="checkAll" class="checks"  id="checkAll"/>
+            </td>
+            <td>客户编号</td>
+            <td>预约时间</td>
+            <td>省份城市</td>
+            <td>客户姓名</td>
+            <td>联系电话</td>
+            <td>项目面积</td>
+            <td>预约入口</td>
+            <td>推广来源</td>
+            <td>关键词</td>
+            <td>客户状态</td>
+            <td>操作时间</td>
+            <td>操作人</td>
+            <td>操作</td>
+        </tr>
+        </thead>
+        <tbody>
+        {if condition="$cusInfo eq null"}
+        <tr><td colspan="14" style="text-align: center">暂无数据</td></tr>
+        {else/}
+        {volist name='cusInfo' id='cus'}
+        <tr>
+            <td>
+                <input type="checkbox" lay-skin="primary" lay-filter="checks" class="checks" value="{$cus.cus_id}"/>
+            </td>
+            <td>{$cus.cus_bid}</td>
+            <td>{$cus.cus_opptime}</td>
+            <td>{$cus.p_name}-{$cus.c_name}</td>
+            <td>{$cus.cus_name}</td>
+            <td>{$cus.cus_phone}</td>
+            <td>
+                {if condition="$cus.cus_area neq null"}
+                {$cus.cus_area}m²
+                {else/}
+                ---
+                {/if}
+            </td>
+            <td style="font-size: x-small">{$cus.cus_device}&nbsp;&nbsp;{$cus.cus_position}<br/>{$cus.cus_link}</td>
+            <td>{$cus.cus_from}&nbsp;&nbsp;{$cus.cus_origin}</td>
+            <td>{$cus.cus_keywords}</td>
+            <td>{$cus.type_name}</td>
+            <td>{$cus.cus_backtime}</td>
+            <td>{$cus.ad_realname}</td>
+            <td>
+                <button onclick="editUser({$cus.cus_id})" class="layui-btn layui-btn-xs"><i class="layui-icon">&#x1005;</i>恢复</button>
+                <button class="layui-btn layui-btn-danger layui-btn-xs" onclick="delUser({$cus.cus_id})" ><i class="layui-icon">&#xe640;</i>删除</button>
+                <!--<input type="button" class="layui-btn layui-btn-xs sendMsg" name="{$cus.cus_id}" value="短信" >-->
+            </td>
+        </tr>
+        {/volist}
+        {/if}
+        </tbody>
+    </table>
+    <div id="batch" style="margin: 5px;display: none;">
+        <div class="layui-btn-group demoTable" >
+            <button class="layui-btn layui-btn-xs" id="recBatch">批量恢复</button>
+        </div>
+        <div class="layui-btn-group demoTable" >
+            <button class="layui-btn layui-btn-xs" id="delBatch">批量彻删</button>
+        </div>
+    </div>
+    {if condition="$cusInfo eq null"}
+    {else/}
+    <div id="pages" style="text-align: left;padding: 7px;"></div>
+    {/if}
+</div>
+<script>
+    layui.use(['laypage', 'layer','laydate','form','jquery'], function(){
+        var laypage = layui.laypage,
+            laydate = layui.laydate,
+            form = layui.form,
+            $ = layui.jquery;
+        laydate.render({
+            elem: '#test6'
+            ,range: true
+        });
+        laydate.render({
+            elem: '#test'
+            ,range: true
+        });
+        laypage.render({
+            //自定义每页条数的选择项
+            elem: 'pages'
+            ,count: {$count}
+            ,limit: {$limit}
+            ,curr: {$page}
+            ,limits: [20, 30, 50]
+            ,prev:'<i class="layui-icon">&#xe603;</i>'
+            ,next:'<i class="layui-icon">&#xe602;</i>'
+            ,layout: ['prev', 'page', 'next', 'skip','count',  'limit']
+            ,jump: function(obj,frist){
+                if(!frist){
+                    window.location.href="<?=url('user/back')?>?page="+obj.curr+"&limit="+obj.limit;
+                }
+            }
+        });
+        //全选，全不选
+        form.on("checkbox(checkAll)",function (data) {
+            console.log(data.elem);
+            var child = $(data.elem).parents('table').find('tbody input[type="checkbox"]');
+            child.each(function (index,item) {
+                item.checked = data.elem.checked;
+                if(item.checked){
+                    $('#batch').show();
+                }else{
+                    $('#batch').hide();
+                }
+            });
+            form.render('checkbox');
+        });
+        form.on("checkbox(checks)",function (data) {
+            var ids='';
+            var icheck=document.getElementsByClassName('checks');
+            for(var i=0;i<icheck.length;i++){
+                if(icheck.item(i).checked){
+                    ids+=icheck.item(i).value;
+                    ids+=",";
+                }
+            }
+            if(ids){
+                $('#batch').show();
+            }else{
+                $('#batch').hide();
+            }
+        });
+        //批量删除
+        $('#delBatch').click(function () {
+            layer.confirm('确定批量删除客户？删除后不可恢复！', {
+                btn : [ '确定', '取消' ]//按钮
+            }, function() {
+                //1.获取选中的id；
+                var ids = "";
+                var icheck=document.getElementsByClassName('checks');
+                for(var i=0;i<icheck.length;i++){
+                    if(icheck.item(i).checked){
+                        ids+=icheck.item(i).value;
+                        ids+=",";
+                    }
+                }
+                //2.获取到了选中的id；把选中的id传到后台进行删除或导出操作；
+                $.ajax({
+                    type: 'POST',
+                    url: "<?=url('user/absdelBatch')?>?ids="+ids,
+                    data: {ids:ids},
+                    dataType:  'json',
+                    success: function(data){
+                        if(data.code == '1'){
+                            layer.alert('批量删除成功！', {
+                                icon: 1,
+                                skin: 'layer-ext-moon',
+                                time: 2000,
+                                end: function(){
+                                    window.location.href='<?=url("user/back")?>';
+                                }
+                            });
+                        }
+                    }
+                });
+            },function(){
+                layer.msg('您已取消该操作！',{
+                    time: 2000,
+                    end: function(){
+                        window.location.href='<?=url("user/back")?>';
+                    }
+                });
+            });
+        });
+        //批量恢复
+        $('#recBatch').click(function () {
+            layer.confirm('确定批量恢复客户？', {
+                btn : [ '确定', '取消' ]//按钮
+            }, function() {
+                //1.获取选中的id；
+                var ids = "";
+                var icheck=document.getElementsByClassName('checks');
+                for(var i=0;i<icheck.length;i++){
+                    if(icheck.item(i).checked){
+                        ids+=icheck.item(i).value;
+                        ids+=",";
+                    }
+                }
+                //2.获取到了选中的id；把选中的id传到后台进行删除或导出操作；
+                $.ajax({
+                    type: 'POST',
+                    url: "<?=url('user/backBatch')?>?ids="+ids,
+                    data: {ids:ids},
+                    dataType:  'json',
+                    success: function(data){
+                        if(data.code == '1'){
+                            layer.alert('批量恢复成功！', {
+                                icon: 1,
+                                skin: 'layer-ext-moon',
+                                time: 2000,
+                                end: function(){
+                                    window.location.href='<?=url("user/back")?>';
+                                }
+                            });
+                        }
+                    }
+                });
+            },function(){
+                layer.msg('您已取消该操作！',{
+                    time: 2000,
+                    end: function(){
+                        window.location.href='<?=url("user/back")?>';
+                    }
+                });
+            });
+        });
+
+        //批量导出  该功能目前还有点问题
+        // $('#exportExl').click(function () {
+        //     layer.confirm('您将要批量导出所选数据！', {
+        //         btn : [ '继续', '取消' ]//按钮
+        //     }, function() {
+        //         //1.获取选中的id；
+        //         var ids = "";
+        //         var icheck=document.getElementsByClassName('checks');
+        //         for(var i=0;i<icheck.length;i++){
+        //             if(icheck.item(i).checked){
+        //                 ids+=icheck.item(i).value;
+        //                 ids+=",";
+        //             }
+        //         }
+        //         //2.获取到了选中的id；把选中的id传到后台进行删除或导出操作；
+        //         $.ajax({
+        //             type: 'POST',
+        //             url: "<?=url('excel/outExcelRecharge')?>?ids="+ids,
+        //             data: {ids:ids},
+        //             dataType:  'json',
+        //             // success: function(data){
+        //             //     if(data.code == '1'){
+        //             //         layer.alert('批量删除成功！', {
+        //             //             icon: 1,
+        //             //             skin: 'layer-ext-moon',
+        //             //             time: 2000,
+        //             //             end: function(){
+        //             //                 window.location.href='<?=url("user/userlist")?>';
+        //             //             }
+        //             //         });
+        //             //     }
+        //             // }
+        //         });
+        //     },function(){
+        //         layer.msg('您已取消该操作！',{
+        //             time: 2000,
+        //             end: function(){
+        //                 window.location.href='<?=url("user/userlist")?>';
+        //             }
+        //         });
+        //     });
+        // });
+    });
+
+    function delUser(cus_id) {
+        layer.confirm('确定删除该客户？删除后不可恢复！', {
+            btn : [ '确定', '取消' ]//按钮
+        }, function() {
+            layer.msg('您已删除该客户', {icon: 1});
+            window.location.href='<?=url("user/absdelete")?>?cus_id='+ cus_id ;
+        },function(){
+            layer.msg('您已取消该操作！',{
+                time: 2000
+            });
+        });
+    }
+    //恢复用户
+    function editUser(cus_id){
+        layer.confirm('确定恢复该客户？', {
+            btn : [ '确定', '取消' ]//按钮
+        }, function() {
+            layer.msg('您已恢复该客户', {icon: 1});
+            window.location.href='<?=url("user/backNormal")?>?cus_id='+ cus_id ;
+        },function(){
+            layer.msg('您已取消该操作！',{
+                time: 2000
+            });
+        });
+    }
+</script>
+{include file="index/footer" /}

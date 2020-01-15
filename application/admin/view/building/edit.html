@@ -1,0 +1,303 @@
+{include file="index/header" /}
+<style>
+    .one-pan{
+        position: relative;
+    }
+    .one{
+        position: absolute;
+        left:300px;
+        top:0;
+    }
+    .logoPre{
+        width: 216px;
+        height: 150px;
+    }
+    .casePre{
+        display:none;
+    }
+</style>
+<div class="layui-body">
+    <div style="margin: 20px;">
+    <span class="layui-breadcrumb" lay-separator=">">
+        <a>内容管理</a>
+        <a href="<?=url('building/builds')?>">楼盘管理</a>
+        <a><cite>修改楼盘</cite></a>
+    </span>
+        <div style="float:right;">
+            <a href="<?=url('building/builds')?>" class="layui-btn layui-btn-primary layui-btn-sm">
+                <i class="layui-icon layui-icon-return"></i>
+                返回列表</a>
+        </div>
+    </div>
+    <hr/>
+    <div style="padding: 15px;">
+        <form class="layui-form layui-form-pane1" action="<?=url('building/edit')?>?bu_id={$builds.bu_id}" method="post">
+            <div class="layui-form-item">
+                <label class="layui-form-label"><span style="color: red;">*</span>楼盘名称</label>
+                <div class="layui-input-block">
+                    <input type="text" name="bu_name" id="bu_name" onblur="checkBulids()" value="{$builds.bu_name}" lay-verify="required|title" placeholder="请输入楼盘名称" autocomplete="off" class="layui-input">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label"><span style="color: red;">*</span>SEO关键词</label>
+                <div class="layui-input-block">
+                    <input type="text" name="bu_seo_keywords" value="{$builds.bu_seo_keywords}" lay-verify="required|title" placeholder="请输入SEO关键词,多个关键词之间用英文逗号隔开。" autocomplete="off" class="layui-input">
+                </div>
+            </div>
+            <div class="layui-form-item layui-form-text">
+                <label class="layui-form-label"><span style="color: red;">*</span>楼盘描述</label>
+                <div class="layui-input-block">
+                    <textarea placeholder="请输入楼盘描述，同SEO描述" lay-verify="required" name="bu_desc" class="layui-textarea">{$builds.bu_desc}</textarea>
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label"><span style="color: red;">*</span>省份城市</label>
+                {if condition="$ad_role == 1"}
+                <div class="layui-input-inline">
+                    <select name="bu_p_id" lay-verify="required" lay-filter="bu_p_id">
+                        <option value="">请选择省份</option>
+                        {volist name='prov' id='vo'}
+                        <option value="{$vo.p_id}" {if condition="$vo.p_id eq $builds.bu_p_id"}selected{/if} >{$vo.p_name}</option>
+                        {/volist}
+                    </select>
+                </div>
+                <div class="layui-input-inline">
+                    <select name="bu_c_id" lay-verify="required" id="bu_c_id" lay-filter="bu_c_id">
+                        <option value="">请选择城市</option>
+                        {volist name='city' id='city'}
+                        <option value="{$city.c_id}" {if condition="$city.c_id eq $builds.bu_c_id"}selected{/if} >{$city.c_name}</option>
+                        {/volist}
+                    </select>
+                </div>
+                <div class="layui-input-inline">
+                    <select name="bu_branch" id="branch" lay-verify="required">
+                        <option value="">请选择站点</option>
+                        {volist name="branchs" id="vos"}
+                        <option value="{$vos.b_id}" {if condition="$vos.b_id eq $builds.bu_branch"}selected{/if}>{$vos.b_name}</option>
+                        {/volist}
+                    </select>
+                </div>
+                {else/}
+                <div class="layui-input-inline">
+                    <input type="text" placeholder="请写入站点信息" class="layui-input" value="{$builds.p_name}-{$builds.c_name}-{$builds.b_name}" readonly/>
+                </div>
+                {/if}
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label"><span style="color: red;">*</span>详细地址</label>
+                <div class="layui-input-block">
+                    <input type="text" name="bu_address" value="{$builds.bu_address}" lay-verify="required" placeholder="请输入详细地址" autocomplete="off" class="layui-input">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">经纬位置</label>
+                <div class="layui-input-block">
+                    <input type="text" name="bu_location" value="{$builds.bu_location}"  placeholder="请输入地理位置" autocomplete="off" class="layui-input">
+                </div>
+            </div>
+
+            <div class="layui-form-item one-pan">
+                <label class="layui-form-label"><span style="color: red;">*</span>封面图片</label>
+
+                <div {if condition="$builds.bu_img eq null"}class="layui-upload-drag"{/if} id="uploadLogo" style="display:inline-block;" >
+                <image id="logoPre"
+                       {if condition="$builds.bu_img eq null"}
+                       {else/}
+                src="__PUBLIC__{$builds.bu_img}"
+                class="logoPre"
+                {/if}
+                >
+                    <input type="hidden" lay-verify="imgreq"  name="bu_img" id="bu_img" value="{$builds.bu_img}"/>
+                </image>
+                    {if condition="$builds.bu_img eq null"}
+                        <div id="display">
+                            <i class="layui-icon"></i>
+                            <p>请点击此处上传封面图片</p>
+                        </div>
+                    {/if}
+                 </div>
+                <div class="one">
+                    <div class="layui-form-mid layui-word-aux" style="margin-left: 39px; ">图片要求：1200*800px，最大600KB，支持JPG/JEPG/PNG格式</div>
+                    <div class="layui-form-item">
+                        <textarea name="bu_img_alt" style="resize:none;width: 1315px;height: 115px; margin-left:39px;"  placeholder="图片描述，建议不超过15个字（等同图片ALT属性）" class="layui-textarea">{$builds.bu_img_alt}</textarea>
+                    </div>
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label"><span style="color: red;">*</span>楼盘详情</label>
+                <div class="layui-input-block">
+                    <textarea id="demo" placeholder="请输入楼盘详情"  lay-verify="content" name="bu_activity" style="display: none;">{$builds.bu_activity}</textarea>
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">活动链接</label>
+                <div class="layui-input-block">
+                    <input type="text" name="bu_url" value="{$builds.bu_url}" lay-verify="urlTest" placeholder="请输入活动链接" autocomplete="off" class="layui-input">
+                </div>
+            </div>
+            
+            <div class="layui-form-item" pane>
+                <label class="layui-form-label">是否置顶</label>
+                <div class="layui-input-block">
+                    <input type="radio" name="bu_istop" value="2" title="常规" {if condition="$builds.bu_istop eq '2'"}checked{/if} >
+                    <input type="radio" name="bu_istop" value="1" title="置顶" {if condition ="$builds.bu_istop eq  '1'"}checked{/if}>
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <div class="layui-input-block">
+                    <button class="layui-btn" lay-submit lay-filter="saveInfo">修改</button>
+                    <a class="layui-btn layui-btn-primary" href="<?=url('building/builds')?>">返回</a>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+<script>
+    layui.use(['form', 'laydate','upload','jquery','layedit'], function(){
+        var form = layui.form
+            ,laydate = layui.laydate
+            ,upload = layui.upload
+            ,layedit = layui.layedit
+            ,$ = layui.jquery;
+        //编辑器图片上传接口
+        layedit.set({
+            uploadImage: {
+                url: '/index/article/editUpload' //接口url
+                ,type: 'post', //默认post
+                success:function(res){
+                    console.log(res);
+                },
+                error:function (res) {
+                    console.log(res);
+                }
+            }
+        });
+        var index = layedit.build('demo');
+        //日期
+        laydate.render({
+            elem: '#date'
+        });
+        //自定义验证规则
+        form.verify({
+            title: function(value){
+                if(value.length < 2){
+                    return '至少得2个字符啊';
+                }
+            }
+            ,pass: [/(.+){6,12}$/, '密码必须6到12位']
+            ,content: function(value){
+               var cont=layedit.getContent(index); //获取编辑器内容
+                if(cont.length <= 0){
+                    return '请输入楼盘详情！';
+                }
+            }
+            ,imgreq:function (value) {
+                if(value.length <= 0){
+                    return '请上传图片';
+                }
+            }
+            ,urlTest:function(value){
+                if(value.length >0 ){
+                    var Expression=/http(s)?:\/\/([\w-]+\.)+[\w-]+(\/[\w- .\/?%&=]*)?/;
+                    if(Expression.test(value)){
+                    }else{
+                        return "请输入正确的链接！";
+                    }
+                }else{
+                }
+            }
+        });
+        form.on('select(bu_p_id)', function(data){
+            var p_id=data.value;
+            $.ajax({
+                type: 'POST',
+                url: "<?=url('user/getCityName')?>?p_id="+p_id,
+                data: {p_id:p_id},
+                dataType:  'json',
+                success: function(data){
+                    var code=data.data;
+                    $("#bu_c_id").html("<option value=''>请选择城市</option>");
+                    $.each(code, function(i, val) {
+                        var option1 = $("<option>").val(val.c_id).text(val.c_name);
+                        $("#bu_c_id").append(option1);
+                        form.render('select');
+                    });
+                    $("#bu_c_id").get(0).selectedIndex=0;
+                }
+            });
+        });
+        //调用该城市下面的分站
+        form.on('select(bu_c_id)', function(data){
+            var c_id=data.value;
+            $.ajax({
+                type: 'POST',
+                url: "<?=url('admin/getBranchName')?>?c_id="+c_id,
+                data: {c_id:c_id},
+                dataType:  'json',
+                success: function(data){
+                    var code=data.data;
+                    $("#branch").html("<option value=''>请选择站点</option>");
+                    $.each(code, function(i, val) {
+                        var option1 = $("<option>").val(val.b_id).text(val.b_name);
+                        $("#branch").append(option1);
+                        form.render('select');
+                    });
+                    $("#branch").get(0).selectedIndex=0;
+                }
+            });
+        });
+        //图片上传
+        upload.render({
+            elem: '#uploadLogo'
+            ,url: '{:url("setinfo/upload")}'
+            ,size:600 //限制文件大小，单位 KB
+            ,ext: 'jpg|png|gif'
+            ,accept: 'images' //限制文件大小，单位 KB
+            ,before: function(input){
+                loading = layer.load(2, {
+                    shade: [0.2,'#000']
+                });
+            }
+            ,done: function(res){
+                $('#logoPre').removeAttr('src');
+                $('#bu_img').val('');
+                console.log(res);
+                layer.close(loading);
+                $('#bu_img').val(res.path);
+                $('#uploadLogo').removeClass('layui-upload-drag');
+                $('#logoPre').css('width','216px');
+                $('#logoPre').css('height','150px');
+                $('#logoPre').attr('src',"__PUBLIC__"+res.path);
+                $('#display').hide();
+                layer.msg(res.msg, {icon: 1, time: 1000});
+            }
+            ,error: function(res){
+                layer.msg(res.msg, {icon: 2, time: 1000});
+            }
+        });
+    });
+
+    //检测楼盘的唯一性；
+    function checkBulids(){
+        var bu_name=$('#bu_name').val();
+        var bu_id={$builds.bu_id};
+        $.ajax({
+            type:"post",
+            url:"<?=url('building/checkBuname')?>",
+            dataType: 'json',
+            data:{'bu_id':bu_id,'bu_name':bu_name},
+            success:function (data) {
+                console.log(data);
+                if(data.code >1){
+                    layer.msg(data.msg, {icon: 2, time: 1000});
+                }else if(data.code <= 1){
+                    layer.msg(data.msg, {icon: 1, time: 1000});
+                }
+            },
+            error:function (error) {
+                console.log(error);
+            }
+        })
+    }
+</script>
+{include file="index/footer" /}

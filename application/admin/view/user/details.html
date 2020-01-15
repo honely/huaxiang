@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <link rel="stylesheet" href="__LAY__/css/layui.css">
+    <script src="__PUBLIC__/static/jquery-1.10.2.min.js"></script>
+    <script src="__LAY__/layui.js"></script>
+</head>
+<form class="layui-form" action="" id="cusInfo" method="post">
+    <fieldset class="layui-elem-field layui-field-title" style="margin-top: 20px;">
+        <legend>推广信息</legend>
+    </fieldset>
+    <div class="layui-form-item" style="margin-left:20px">
+        <div class="layui-form-item">
+        <div class="layui-form-mid layui-word-aux">系统来源: {$cus.cus_device}</div>
+        </div>
+        <div class="layui-form-item">
+        <div class="layui-form-mid layui-word-aux">网络类型: {$cus.cus_net_type}</div>
+        </div>
+        <div class="layui-form-item">
+        <div class="layui-form-mid layui-word-aux">网址入口:{$cus.cus_link}</div>
+        </div>
+        <div class="layui-form-item">
+        <div class="layui-form-mid layui-word-aux">推广来源:{$cus.cus_from}</div>
+        </div>
+        <div class="layui-form-item">
+        <div class="layui-form-mid layui-word-aux">用户IP:{$cus.cus_ip}</div>
+        </div>
+        <div class="layui-form-item">
+        <div class="layui-form-mid layui-word-aux">预约位置:{$cus.cus_position}</div>
+        </div>
+        <div class="layui-form-item">
+        <div class="layui-form-mid layui-word-aux">推广创意：{$cus.cus_origin}</div>
+        </div>
+        <div class="layui-form-item">
+        <div class="layui-form-mid layui-word-aux">关键词：{$cus.cus_keywords}</div>
+        </div>
+    </div>
+
+    <fieldset class="layui-elem-field layui-field-title" style="margin-top: 20px;">
+        <legend>预约客户详细信息</legend>
+    </fieldset>
+    <div class="layui-form-item">
+        <div class="layui-inline">
+            <label class="layui-form-label">客户姓名</label>
+            <div class="layui-input-inline">
+                <input type="text" name="cus_name" value="{$cus.cus_name}" autocomplete="off" placeholder="请输入客户姓名" class="layui-input">
+            </div>
+        </div>
+        <div class="layui-inline">
+            <label class="layui-form-label">联系方式</label>
+            <div class="layui-input-inline">
+                <input type="text" name="cus_phone" readonly value="{$cus.cus_phone}"  lay-verify="required|phone" autocomplete="off" class="layui-input">
+            </div>
+            <div class="layui-form-mid layui-word-aux">客户提交号码无法修改！</div>
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <div class="layui-inline">
+            <label class="layui-form-label">备用电话</label>
+            <div class="layui-input-inline">
+                <input type="tel" name="cus_phone2" value="{$cus.cus_phone2}" autocomplete="off" class="layui-input">
+            </div>
+        </div>
+        <div class="layui-inline">
+            <label class="layui-form-label">预约时间</label>
+            <div class="layui-input-inline">
+                <input type="text" value="{$cus.cus_opptime}" readonly class="layui-input">
+            </div>
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <div class="layui-inline">
+            <label class="layui-form-label">称呼</label>
+            <div class="layui-input-block">
+                <input type="radio" name="cus_sex" value="1" title="先生"  {if condition="1 eq $cus.cus_sex"}checked{/if}>
+                <input type="radio" name="cus_sex" value="2" title="女士"  {if condition="2 eq $cus.cus_sex"}checked{/if}>
+                <input type="radio" name="cus_sex" value="3" title="未知"  {if condition="3 eq $cus.cus_sex"}checked{/if}>
+            </div>
+        </div>
+    </div>
+    <fieldset class="layui-elem-field layui-field-title" style="margin-top: 20px;">
+        <legend>装修信息</legend>
+    </fieldset>
+
+    <div class="layui-form-item">
+        <div class="layui-inline">
+            <label class="layui-form-label">预计单值</label>
+            <div class="layui-input-inline">
+                <input type="text" name="cus_promoney" value="{$cus.cus_promoney}" placeholder="￥" autocomplete="off" class="layui-input">
+            </div>
+            <div class="layui-form-mid">单位：（元）</div>
+        </div>
+        <div class="layui-inline">
+            <label class="layui-form-label">房屋面积</label>
+            <div class="layui-input-inline">
+                <input type="text" name="cus_area" value="{$cus.cus_area}" placeholder="m²" autocomplete="off" class="layui-input">
+            </div>
+            <div class="layui-form-mid">单位：（m²）</div>
+        </div>
+    </div>
+
+    <div class="layui-form-item">
+        <div class="layui-inline">
+            <label class="layui-form-label">装修风格</label>
+            <div class="layui-input-inline">
+                <select name="cus_style" lay-filter="aihao">
+                    <option value=""></option>
+                    {volist name="style" id="sty" }
+                    <option value="{$sty.type_id}" {if condition="$sty.type_id eq $cus.cus_style"}selected{/if}>{$sty.type_name}</option>
+                    {/volist}
+                </select>
+            </div>
+        </div>
+        <div class="layui-inline">
+            <label class="layui-form-label">装修品质</label>
+            <div class="layui-input-inline">
+                <select name="cus_quality" lay-filter="aihao">
+                    <option value=""></option>
+                    {volist name="level" id="lev" }
+                    <option value="{$lev.type_id}" {if condition="$lev.type_id eq $cus.cus_quality"}selected{/if}>{$lev.type_name}</option>
+                    {/volist}
+                </select>
+            </div>
+        </div>
+    </div>
+
+    <div class="layui-form-item">
+        <div class="layui-inline">
+            <label class="layui-form-label">房屋类型</label>
+            <div class="layui-input-inline">
+                <input type="radio" name="cus_type" value="1" title="新房"  {if condition="1 eq $cus.cus_type"}checked{/if}>
+                <input type="radio" name="cus_type" value="2" title="二手房"  {if condition="2 eq $cus.cus_type"}checked{/if}>
+            </div>
+        </div>
+        <div class="layui-inline">
+            <label class="layui-form-label">房屋户型</label>
+            <div class="layui-input-inline">
+                <input type="text" name="cus_house_type" value="{$cus.cus_house_type}" placeholder="如：两室一厅"  class="layui-input">
+            </div>
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <div class="layui-inline">
+            <label class="layui-form-label">小区名称</label>
+            <div class="layui-input-inline">
+                <input type="text" name="cus_build" value="{$cus.cus_build}" class="layui-input">
+            </div>
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">城市</label>
+        <div class="layui-input-inline">
+            <select name="cus_provid" id="cus_provid" lay-filter="cus_provid">
+                <option value="">请选择省份</option>
+                {volist name='prov' id='vo'}
+                    <option value="{$vo.p_id}" {if condition="$vo.p_id eq $cus.cus_provid"}selected{/if}>{$vo.p_name}</option>
+                {/volist}
+            </select>
+        </div>
+        <div class="layui-input-inline">
+            <select name="cus_cityid" id="cityName" lay-filter="myselect2">
+                <option value="">请选择市</option>
+                {volist name='cusCity' id='city'}
+                    <option value="{$city.c_id}" {if condition="$city.c_id eq $cus.cus_cityid"}selected{/if} >{$city.c_name}</option>
+                {/volist}
+            </select>
+        </div>
+    </div>
+    <fieldset class="layui-elem-field layui-field-title" style="margin-top: 20px;">
+        <legend>回访信息</legend>
+    </fieldset>
+    <div class="layui-form-item">
+        <div class="layui-inline">
+            <label class="layui-form-label">预估见面</label>
+            <div class="layui-input-inline">
+                <input type="text" readonly name="cus_seetime" value="{$cus.cus_seetime}"  id="date" placeholder="yyyy-MM-dd" autocomplete="off" class="layui-input">
+            </div>
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">标记状态</label>
+        <div class="layui-input-inline">
+            <select name="cus_status" lay-filter="aihao">
+                <option value="">请选择标记状态</option>
+                {volist name="userTip" id="tip" }
+                <option value="{$tip.type_id}" {if condition="$tip.type_id eq $cus.cus_status"}selected{/if}>{$tip.type_name}</option>
+                {/volist}
+            </select>
+        </div>
+    </div>
+    <div class="layui-form-item layui-form-text">
+        <label class="layui-form-label">回访备注</label>
+        <div class="layui-input-block">
+            <textarea placeholder="请输入回访备注" name="cus_remarks" class="layui-textarea">{$cus.cus_remarks}</textarea>
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <div class="layui-input-block">
+            <span class="layui-btn" lay-submit="" lay-filter="editCus">保存</span>
+        </div>
+    </div>
+</form>
+</html>
+<script>
+    layui.use(['form', 'laydate','layer', 'jquery'], function(){
+        var form = layui.form
+            ,laydate = layui.laydate
+            ,layer=layui.layer
+            ,$ = layui.jquery;
+
+        //日期
+        laydate.render({
+            elem: '#date'
+        });
+        //自定义验证规则
+        form.verify({
+            title: function(value){
+                if(value.length < 2){
+                    return '标题至少得2个字符啊';
+                }
+            }
+            ,pass: [/(.+){6,12}$/, '密码必须6到12位']
+            ,content: function(value){
+                layedit.sync(editIndex);
+            }
+        });
+        form.on('select(cus_provid)', function(data){
+            var p_id=data.value;
+            $.ajax({
+                type: 'POST',
+                url: "<?=url('user/getCityName')?>?p_id="+p_id,
+                data: {p_id:p_id},
+                dataType:  'json',
+                success: function(data){
+                    var code=data.data;
+                    $("#cityName").html("<option value=''>请选择市</option>");
+                    $.each(code, function(i, val) {
+                        var option1 = $("<option>").val(val.c_id).text(val.c_name);
+                        $("#cityName").append(option1);
+                        form.render('select');
+                    });
+                    $("#cityName").get(0).selectedIndex=0;
+                }
+            });
+        });
+        //ajax提交表单数据
+        form.on('submit(editCus)', function(data){
+            $.ajax({
+                'type':"post",
+                'url':"<?=url('user/editUser')?>?cus_id={$cus.cus_id}",
+                'data':$("#cusInfo").serialize(),
+                'success':function (result) {
+                   if(result.code == '1'){
+                       var index=parent.layer.getFrameIndex(window.name);
+                       parent.layer.close(index);
+                       window.parent.location.reload();
+                   }
+                },
+                'error':function (error) {
+                    console.log(error);
+                }
+            })
+        });
+    });
+</script>

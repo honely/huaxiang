@@ -1,0 +1,49 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title></title>
+    <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0">
+    <link rel="stylesheet" href="__WEIUI__/css/weui.css"/>
+    <link rel="stylesheet" href="__WEIUI__/css/weuix.css"/>
+
+    <script src="__WEIUI__/js/zepto.min.js"></script>
+</head>
+
+<body ontouchstart class="page-bg">
+<div class="weui-news">
+    <ul class="weui-news-list">
+        {if condition='$log neq null'}
+        {volist name='log' id='vo'}
+        <li class="weui-news-item">
+            <a href="<?=url('index/detail')?>?ol_id={$vo.ol_id}">
+                <div class="weui-news-inners">
+                    <div class="weui-news-title">订单编号：{$vo.order_id}【{$vo.orderStep}】
+                        {if condition='$vo.order_step eq 1'}
+                            （{$vo.order_type}）
+                        {/if}
+
+                    </div>
+                    <div class="weui-news-text">
+                        <p class="weui-news-p">{$vo.order_city}{$vo.order_house_address}</p>
+                    </div>
+                    <div class="weui-news-info">
+                        <div class="weui-news-infoitem">
+                            <span>{$vo.ol_status}</span>
+                        </div>
+                        <div class="weui-news-infoitem">看房时间：{$vo.order_show_time}</div>
+                    </div>
+                </div>
+            </a>
+        </li>
+        {/volist}
+        {else/}
+        <div class="page-hd">
+            <p class="page-hd-desc">您暂未接到任何订单，继续努力哦！</p>
+        </div>
+        {/if}
+
+    </ul>
+</div>
+</body>
+</html>

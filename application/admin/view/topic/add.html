@@ -1,0 +1,182 @@
+{include file="index/header" /}
+<!-- 配置文件 -->
+<script type="text/javascript" src="__PUBLIC__/ueditor/ueditor.config.js"></script>
+<!-- 编辑器源码文件 -->
+<script type="text/javascript" src="__PUBLIC__/ueditor/ueditor.all.js"></script>
+<div class="layui-body">
+    <div style="margin: 20px;">
+    <span class="layui-breadcrumb" lay-separator=">">
+        <a>内容管理</a>
+        <a href="<?=url('topic/topic')?>">专题一</a>
+        <a><cite>添加专题</cite></a>
+    </span>
+        <div style="float:right;">
+            <a href="<?=url('topic/topic')?>" class="layui-btn layui-btn-primary layui-btn-sm">
+                <i class="layui-icon layui-icon-return"></i>
+                返回列表</a>
+        </div>
+    </div>
+    <hr/>
+    <div class="layui-tab">
+        <div class="layui-tab-content">
+            <div class="layui-tab-item layui-show">
+                <div style="margin: 10px">
+                    <div style="padding: 15px;">
+                        <form class="layui-form" id="addTopic" >
+                            <div class="layui-form-item">
+                                <label class="layui-form-label">专题名称</label>
+                                <div class="layui-input-block">
+                                    <input type="text" name="tp_title" lay-verify="required|title" placeholder="请输入文章标题" autocomplete="off" class="layui-input">
+                                </div>
+                            </div>
+                            <div class="layui-form-item">
+                                <label class="layui-form-label">文章内容</label>
+                                <div class="layui-input-block">
+                                    <textarea name="tp_content" id="container"></textarea>
+                                </div>
+                            </div>
+                                <div class="layui-form-item">
+                                    <label class="layui-form-label">省份</label>
+                                    <div class="layui-input-inline">
+                                    <select name="tp_p_id" lay-verify="required" lay-filter="bu_p_id">
+                                    <option value="">请选择省份</option>
+                                {volist name='prov' id='vo'}
+                                <option value="{$vo.p_id}">{$vo.p_name}</option>
+                                {/volist}
+                                </select>
+                                </div>
+                                <div class="layui-input-inline">
+                                    <select name="tp_c_id" id="bu_c_id" lay-verify="required" lay-filter="bu_c_id">
+                                    <option value="">请选择城市</option>
+                                    </select>
+                                    </div>
+                                    <div class="layui-input-inline">
+                                        <select name="tp_b_id" id="branch" lay-verify="required">
+                                            <option value="">请选择站点</option>
+                                        </select>
+                                    </div>
+                                    </div>
+                            <div class="layui-form-item" pane>
+                                <label class="layui-form-label">是否显示</label>
+                                <div class="layui-input-block">
+                                    <input type="radio" name="tp_isable" value="1" title="是" checked>
+                                    <input type="radio" name="tp_isable" value="2" title="否">
+                                </div>
+                            </div>
+                            <div class="layui-form-item">
+                                <label class="layui-form-label">SEO标题</label>
+                                <div class="layui-input-block">
+                                    <input type="text" name="tp_seo_title" lay-verify="required|title" placeholder="请输入SEO标题" autocomplete="off" class="layui-input">
+                                </div>
+                            </div>
+                            <div class="layui-form-item">
+                                <label class="layui-form-label">SEO关键词</label>
+                                <div class="layui-input-block">
+                                    <input type="text" name="tp_seo_keywords" lay-verify="required|title" placeholder="请输入SEO关键词,多个关键词之间用英文逗号隔开。" autocomplete="off" class="layui-input">
+                                </div>
+                            </div>
+                            <div class="layui-form-item layui-form-text">
+                                <label class="layui-form-label">SEO描述</label>
+                                <div class="layui-input-block">
+                                    <textarea placeholder="请输入SEO描述" name="tp_seo_desc" class="layui-textarea"></textarea>
+                                </div>
+                            </div>
+                            <div class="layui-form-item">
+                                <div class="layui-input-block">
+                                    <span class="layui-btn" id="saveInfo" >发布</span>
+                                    <a class="layui-btn layui-btn-primary" href="<?=url('topic/topic')?>">返回</a>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    layui.use(['form', 'jquery','layedit'], function(){
+        var form = layui.form
+            ,$ = layui.jquery;
+        form.on('select(bu_p_id)', function(data){
+            var p_id=data.value;
+            $("#bu_c_id").html("<option value=''>请选择城市</option>");
+            $("#branch").html("<option value=''>请选择站点</option>");
+            $.ajax({
+                type: 'POST',
+                url: "<?=url('user/getCityName')?>?p_id="+p_id,
+                data: {p_id:p_id},
+                dataType:  'json',
+                success: function(data){
+                    var code=data.data;
+                    $("#bu_c_id").html("<option value=''>请选择城市</option>");
+                    $.each(code, function(i, val) {
+                        var option1 = $("<option>").val(val.c_id).text(val.c_name);
+                        $("#bu_c_id").append(option1);
+                        form.render('select');
+                    });
+                    $("#bu_c_id").get(0).selectedIndex=0;
+                }
+            });
+        });
+        //调用该城市下面的分站
+        form.on('select(bu_c_id)', function(data){
+            var c_id=data.value;
+            $("#branch").html("<option value=''>请选择站点</option>");
+            $.ajax({
+                type: 'POST',
+                url: "<?=url('admin/getBranchName')?>?c_id="+c_id,
+                data: {c_id:c_id},
+                dataType:  'json',
+                success: function(data){
+                    var code=data.data;
+                    $("#branch").html("<option value=''>请选择站点</option>");
+                    $.each(code, function(i, val) {
+                        var option1 = $("<option>").val(val.b_id).text(val.b_name);
+                        $("#branch").append(option1);
+                        form.render('select');
+                    });
+                    $("#branch").get(0).selectedIndex=0;
+                }
+            });
+        });
+    });
+</script>
+<script>
+    var ue= UE.getEditor('container',{    //content为要编辑的textarea的id
+
+        initialFrameWidth: 1100,   //初始化宽度
+
+        initialFrameHeight: 500,   //初始化高度
+
+    });
+    $('#saveInfo').click(function(){
+        ue.sync('#addTopic');
+        $.ajax({
+            'type':"post",
+            'url':"<?=url('topic/add')?>",
+            'data':$('#addTopic').serialize(),
+            'success':function (result) {
+                console.log();
+                if(result.code == '1'){
+                    layer.msg(result.msg, {icon: 1, time: 2000},function () {
+                        window.history.go(-1);
+                    });
+                }else if(result.code == '2'){
+                    layer.msg(result.msg, {icon: 2, time: 2000},function () {
+                        window.history.go(-1);
+                    });
+                }else if(result.code == '3'){
+                    layer.msg(result.msg, {icon: 3, time: 2000},function () {
+                        window.history.go(-1);
+                    });
+                }
+            },
+            'error':function (error) {
+                console.log(error);
+            }
+        })
+    })
+
+</script>
+{include file="index/footer" /}

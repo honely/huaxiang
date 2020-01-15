@@ -1,0 +1,50 @@
+{include file="index/header" /}
+<div class="layui-body">
+    <div style="margin: 20px;">
+    <span class="layui-breadcrumb" lay-separator=">">
+        <a>系统配置</a>
+        <a href="<?=url('district/district')?>">区域管理-省份</a>
+        <a><cite>添加省份</cite></a>
+    </span>
+        <div style="float:right;">
+            <a href="<?=url('district/district')?>" class="layui-btn layui-btn-primary layui-btn-sm">
+                <i class="layui-icon layui-icon-return"></i>
+                返回列表</a>
+        </div>
+    </div>
+    <hr/>
+    <div style="padding: 15px;">
+        <form class="layui-form layui-form-pane1" action="<?=url('regin/addProv')?>" method="post">
+            <div class="layui-form-item">
+                <label class="layui-form-label"><span style="color: red;">*</span>省份名称</label>
+                <div class="layui-input-inline">
+                    <input type="text" name="p_name" lay-verify="required" placeholder="请输入省份名称" autocomplete="off" class="layui-input">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label"><span style="color: red;">*</span>省份编码</label>
+                <div class="layui-input-inline">
+                    <input type="text" name="p_code" lay-verify="required" placeholder="请输入省份编码" autocomplete="off" class="layui-input">
+                </div>
+                <div class="layui-form-mid layui-word-aux" style="color: red !important;">此编码用来生成房源编号，一旦填写请勿随意修改！</div>
+            </div>
+            <div class="layui-form-item">
+                <div class="layui-input-block">
+                    <button class="layui-btn">添加</button>
+                    <a class="layui-btn" href="<?=url('district/district')?>">返回</a>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+<script>
+    layui.use('form', function(){
+        var form = layui.form;
+        //监听提交
+        form.on('submit(*)', function(data){
+            console.log(data)
+            return false;
+        });
+    });
+</script>
+{include file="index/footer" /}

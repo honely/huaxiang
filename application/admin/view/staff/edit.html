@@ -1,0 +1,175 @@
+{include file="index/header" /}
+<div class="layui-body">
+    <div style="margin: 20px;">
+    <span class="layui-breadcrumb" lay-separator=">">
+        <a>内部员工</a>
+        <a href="<?=url('staff/index')?>">员工列表</a>
+        <a><cite>修改员工</cite></a>
+    </span>
+        <div style="float:right;">
+            <a href="<?=url('staff/index')?>" class="layui-btn layui-btn-primary layui-btn-sm">
+                <i class="layui-icon layui-icon-return"></i>
+                返回列表</a>
+        </div>
+    </div>
+    <hr/>
+    <div style="padding: 15px;">
+        <form class="layui-form layui-form-pane1" action="<?=url('staff/edit')?>?u_id={$admin.u_id}" method="post">
+            <div class="layui-form-item">
+                <label class="layui-form-label"><span style="color: red;">*</span>员工姓名</label>
+                <div class="layui-input-block">
+                    <input type="text" name="u_name"  value="{$admin.u_name}" lay-verify="required|title" placeholder="请输入员工姓名" autocomplete="off" class="layui-input">
+                </div>
+            </div>
+            <div class="layui-form-item" pane>
+                <label class="layui-form-label"><span style="color: red;">*</span>性别</label>
+                <div class="layui-input-block">
+                    <input type="radio" name="u_sex" value="1" title="男" {if condition="$admin.u_sex eq 1"}checked{/if} >
+                    <input type="radio" name="u_sex" value="2" title="女" {if condition="$admin.u_sex eq 2"}checked{/if}>
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label"><span style="color: red;">*</span>手机号码</label>
+                <div class="layui-input-block">
+                    <input type="text" name="u_phone" id="u_phone" onblur="checkPhone()" value="{$admin.u_phone}" lay-verify="required|phone" placeholder="请输入手机号码" autocomplete="off" class="layui-input">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label"><span style="color: red;">*</span>电子邮箱</label>
+                <div class="layui-input-block">
+                    <input type="text" name="u_email" id="u_email"  onblur="checkEmail()"  value="{$admin.u_email}" lay-verify="required|email" placeholder="请输入电子邮箱" autocomplete="off" class="layui-input">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label"><span style="color: red;">*</span>部门</label>
+                <div class="layui-input-inline">
+                    <select name="u_c_id" lay-verify="required">
+                        <option value="">请选择城市</option>
+                        {volist name="city" id="depart"}
+                        <option value="{$depart.c_id}" {if condition="$depart.c_id eq $admin.u_c_id" }selected{/if}>{$depart.c_name}</option>
+                        {/volist}
+                    </select>
+                </div>
+                <div class="layui-input-inline">
+                    <select name="u_depart_id" lay-verify="required">
+                        <option value="">请选择部门</option>
+                        {volist name="department" id="depart"}
+                        <option value="{$depart.d_id}" {if condition="$depart.d_id eq $admin.u_depart_id" }selected{/if}>{$depart.d_name}</option>
+                        {/volist}
+                    </select>
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label"><span style="color: red;">*</span>职位</label>
+                <div class="layui-input-block">
+                    <input type="text" name="u_job" value="{$admin.u_job}" lay-verify="required|title" placeholder="请输入职位" autocomplete="off" class="layui-input">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <div class="layui-input-block">
+                    <button class="layui-btn" lay-submit lay-filter="saveInfo">修改</button>
+                    <a class="layui-btn layui-btn-primary" href="<?=url('staff/index')?>">返回</a>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+<script>
+    layui.use(['form','jquery'], function(){
+        var form = layui.form
+            ,$ = layui.jquery;
+        //自定义验证规则
+        form.verify({
+            title: function(value){
+                if(value.length < 2){
+                    return '至少得2个字符啊';
+                }
+            }
+        });
+        form.on('select(bu_p_id)', function(data){
+            var p_id=data.value;
+            $.ajax({
+                type: 'POST',
+                url: "<?=url('user/getCityName')?>?p_id="+p_id,
+                data: {p_id:p_id},
+                dataType:  'json',
+                success: function(data){
+                    var code=data.data;
+                    $("#bu_c_id").html("<option value=''>请选择城市</option>");
+                    $("#branch").html("<option value=''>请选择站点</option>");
+                    $.each(code, function(i, val) {
+                        var option1 = $("<option>").val(val.c_id).text(val.c_name);
+                        $("#bu_c_id").append(option1);
+                        form.render('select');
+                    });
+                    $("#bu_c_id").get(0).selectedIndex=0;
+                }
+            });
+        });
+
+        //调用该城市下面的分站
+        form.on('select(bu_c_id)', function(data){
+            var c_id=data.value;
+            $.ajax({
+                type: 'POST',
+                url: "<?=url('admin/getBranchName')?>?c_id="+c_id,
+                data: {c_id:c_id},
+                dataType:  'json',
+                success: function(data){
+                    var code=data.data;
+                    $("#branch").html("<option value=''>请选择站点</option>");
+                    $.each(code, function(i, val) {
+                        var option1 = $("<option>").val(val.b_id).text(val.b_name);
+                        $("#branch").append(option1);
+                        form.render('select');
+                    });
+                    $("#branch").get(0).selectedIndex=0;
+                }
+            });
+        });
+    });
+
+    function checkPhone(){
+        var u_phone=$('#u_phone').val();
+        $.ajax({
+                type:"post",
+                url:"<?=url('admin/checkPhone')?>",
+                dataType: 'json',
+                data:{'u_phone':u_phone,'u_id':{$admin.u_id}},
+            success:function (data) {
+            console.log(data);
+            if(data.code >1){
+                layer.msg(data.msg, {icon: 2, time: 1000});
+            }else if(data.code <= 1){
+                layer.msg(data.msg, {icon: 1, time: 1000});
+            }
+        },
+        error:function (error) {
+            console.log(error);
+        }
+    })
+    }
+
+    function checkEmail(){
+        var u_email=$('#u_email').val();
+        $.ajax({
+                type:"post",
+                url:"<?=url('admin/checkEmail')?>",
+                dataType: 'json',
+                data:{'u_email':u_email,'u_id':{$admin.u_id}},
+            success:function (data) {
+            console.log(data);
+            if(data.code >1){
+                layer.msg(data.msg, {icon: 2, time: 1000});
+            }else if(data.code <= 1){
+                layer.msg(data.msg, {icon: 1, time: 1000});
+            }
+        },
+        error:function (error) {
+            console.log(error);
+        }
+    })
+    }
+
+</script>
+{include file="index/footer" /}

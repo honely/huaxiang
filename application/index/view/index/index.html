@@ -1,0 +1,205 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title></title>
+    <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0">
+    <link rel="stylesheet" href="__WEIUI__/css/weui.css"/>
+    <link rel="stylesheet" href="__WEIUI__/css/weuix.css"/>
+    <style>
+        #slide1{height:200px;}
+        .weui-navbar a{text-decoration: none;color: #333;}
+
+        .weui_tab_bd_item{display:none;height: 100%;overflow: auto;}
+        .weui_tab_bd_item.weui_tab_bd_item_active{display:block;}
+    </style>
+</head>
+<body ontouchstart>
+<div class="container">
+    <div class="weui-cells" style="margin-top: 0px;">
+        <div class="weui-cell">
+            <div class="weui-cell__hd" style="position: relative;margin-right: 10px;">
+                <img src="__WEIUI__/images/pic_160.png" style="width: 50px; border-radius: 50%;display: block">
+            </div>
+            <div class="weui-cell__bd">
+                <p>小宝租房</p>
+            </div>
+        </div>
+    </div>
+    <div class="slide" id="slide1">
+        <ul>
+            {volist name='discount' id='vo'}
+                <li>
+                    <a href="{$vo.art_url}" target="_blank">
+                        <img src='{$vo.art_img}' alt="">
+                    </a>
+                    <div class="slide-desc" style="text-align:left;">{$vo.art_title}</div>
+                </li><li>
+                    <a href="{$vo.art_url}" target="_blank">
+                        <img src='{$vo.art_img}' alt="">
+                    </a>
+                    <div class="slide-desc" style="text-align:left;">{$vo.art_title}</div>
+                </li>
+            {/volist}
+        </ul>
+        <div class="dot">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+    </div>
+    <div class="weui-search-bar">
+        <input type="search" class="search-input" id='keywords' value="{$keywords}" placeholder='请搜索关键词'/><button id="query" class="weui-btn weui-btn_mini weui-btn_primary"><i class="icon icon-4"></i></button>
+    </div>
+    <div class="weui-tab" id="t1" style="height:44px;">
+        <div class="weui-navbar">
+            <a class="weui-navbar__item" href="#tab1">
+                好房推荐
+            </a>
+            <a class="weui-navbar__item" href="#tab2">
+                租房干货
+            </a>
+            <a class="weui-navbar__item" href="#tab3">
+                生活百科
+            </a>
+        </div>
+
+    </div>
+    <div class="weui-panel weui-panel_access">
+        <div class="weui-tab__panel">
+            <div id="tab1" class="weui_tab_bd_item weui_tab_bd_item_active">
+                {if condition="$recommend neq null"}
+                {volist name='recommend' id='vo'}
+                <a href="{$vo.art_url}" target="_blank" class="weui-media-box weui-media-box_appmsg">
+                    <div class="weui-media-box__hd">
+                        <img class="weui-media-box__thumb" src="{$vo.art_img}" alt="">
+                    </div>
+                    <div class="weui-media-box__bd">
+                        <h4 class="weui-media-box__title">{$vo.art_title}</h4>
+                        <p class="weui-media-box__desc">{$vo.art_preview}</p>
+                    </div>
+                </a>
+                <a href="{$vo.art_url}" target="_blank" class="weui-media-box weui-media-box_appmsg">
+                    <div class="weui-media-box__hd">
+                        <img class="weui-media-box__thumb" src="{$vo.art_img}" alt="">
+                    </div>
+                    <div class="weui-media-box__bd">
+                        <h4 class="weui-media-box__title">{$vo.art_title}</h4>
+                        <p class="weui-media-box__desc">{$vo.art_preview}</p>
+                    </div>
+                </a>
+                {/volist}
+                {else /}
+                <a class="weui-media-box weui-media-box_appmsg">暂无内容</a>
+                {/if}
+
+            </div>
+            <div id="tab2" class="weui_tab_bd_item">
+                {if condition="$rent neq null"}
+                {volist name='rent' id='vo'}
+                <a href="{$vo.art_url}" target="_blank" class="weui-media-box weui-media-box_appmsg">
+                    <div class="weui-media-box__hd">
+                        <img class="weui-media-box__thumb" src="{$vo.art_img}" alt="">
+                    </div>
+                    <div class="weui-media-box__bd">
+                        <h4 class="weui-media-box__title">{$vo.art_title}</h4>
+                        <p class="weui-media-box__desc">{$vo.art_preview}</p>
+                    </div>
+                </a>
+                <a href="{$vo.art_url}" target="_blank" class="weui-media-box weui-media-box_appmsg">
+                    <div class="weui-media-box__hd">
+                        <img class="weui-media-box__thumb" src="{$vo.art_img}" alt="">
+                    </div>
+                    <div class="weui-media-box__bd">
+                        <h4 class="weui-media-box__title">{$vo.art_title}</h4>
+                        <p class="weui-media-box__desc">{$vo.art_preview}</p>
+                    </div>
+                </a>
+                {/volist}
+                {else /}
+                <a class="weui-media-box weui-media-box_appmsg">暂无内容</a>
+                {/if}
+            </div>
+            <div id="tab3" class="weui_tab_bd_item">
+                {if condition="$life neq null"}
+                {volist name='life' id='vo'}
+                <a href="{$vo.art_url}" target="_blank" class="weui-media-box weui-media-box_appmsg">
+                    <div class="weui-media-box__hd">
+                        <img class="weui-media-box__thumb" src="{$vo.art_img}" alt="">
+                    </div>
+                    <div class="weui-media-box__bd">
+                        <h4 class="weui-media-box__title">{$vo.art_title}</h4>
+                        <p class="weui-media-box__desc">{$vo.art_preview}</p>
+                    </div>
+                </a>
+                <a href="{$vo.art_url}" target="_blank" class="weui-media-box weui-media-box_appmsg">
+                    <div class="weui-media-box__hd">
+                        <img class="weui-media-box__thumb" src="{$vo.art_img}" alt="">
+                    </div>
+                    <div class="weui-media-box__bd">
+                        <h4 class="weui-media-box__title">{$vo.art_title}</h4>
+                        <p class="weui-media-box__desc">{$vo.art_preview}</p>
+                    </div>
+                </a>
+                {/volist}
+                {else /}
+                <a class="weui-media-box weui-media-box_appmsg">暂无内容</a>
+                {/if}
+            </div>
+        </div>
+<!--        <div class="weui-panel__ft">-->
+<!--            <a href="javascript:void(0);" class="weui-cell weui-cell_access weui-cell_link">-->
+<!--                <div class="weui-cell__bd">查看更多</div>-->
+<!--                <span class="weui-cell__ft"></span>-->
+<!--            </a>-->
+<!--        </div>-->
+    </div>
+</div>
+</body>
+<script src="__WEIUI__/js/zepto.min.js"></script>
+<script src="__WEIUI__/js/swipe.js"></script>
+<script src="__WEIUI__/js/zepto.weui.js"></script>
+<script src="__WEIUI__/js/iscroll-lite.js"></script>
+
+<script>
+
+    $(function(){
+        $('#t1').tab({
+            defaultIndex: 0,
+            activeClass: 'tab-green',
+            onToggle: function (index) {
+                // console.log('index'+index);
+            }
+        });
+        $('.weui-navbar__item').on('click', function () {
+            $(this).addClass('weui-bar__item_on').siblings('.weui-bar__item_on').removeClass('weui-bar__item_on');
+
+            //内容切换
+            $(".weui-tab__panel .weui_tab_bd_item_active").removeClass('weui_tab_bd_item_active');
+            var data_toggle =$(this).attr("href");
+            $(data_toggle).addClass("weui_tab_bd_item_active");
+        });
+        $('#query').on('click', function () {
+            var keywords = $('#keywords').val();
+            window.location.href = "<?=url('index/index')?>?keywords="+keywords;
+        });
+    });
+</script>
+<script>
+    $(function(){
+        $('#slide1').swipeSlide({
+            autoSwipe:true,//自动切换默认是
+            speed:3000,//速度默认4000
+            continuousScroll:true,//默认否
+            transitionType:'cubic-bezier(0.22, 0.69, 0.72, 0.88)',//过渡动画linear/ease/ease-in/ease-out/ease-in-out/cubic-bezier
+            lazyLoad:true,//懒加载默认否
+            firstCallback : function(i,sum,me){
+                me.find('.dot').children().first().addClass('cur');
+            },
+            callback : function(i,sum,me){
+                me.find('.dot').children().eq(i).addClass('cur').siblings().removeClass('cur');
+            }
+        });
+    })
+</script>
+</html>

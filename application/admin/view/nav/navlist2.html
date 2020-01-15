@@ -1,0 +1,152 @@
+{include file="index/header" /}
+<style>
+    #pages .layui-laypage-prev {
+        padding: 0 12px;
+    }
+    #pages .layui-laypage-next{
+        padding: 0 12px;
+    }
+    #pages .layui-laypage a{
+        border:none;
+    }
+    #pages .layui-laypage-curr{
+        padding: 0 11px;
+        height: 24px;
+        line-height: 24px;
+    }
+    #pages .layui-laypage input{
+        padding: 0 11px;
+        height: 26px;
+        line-height: 26px;
+    }
+    #pages .layui-laypage input, .layui-laypage button{
+        padding: 0 11px;
+        height: 26px;
+        line-height: 26px;
+    }
+    #pages .layui-laypage select{
+        height: 18px;
+    }
+</style>
+<div class="layui-body">
+    <div style="margin: 20px;">
+    <span class="layui-breadcrumb" lay-separator=">">
+        <a>导航管理</a>
+        <a><cite>导航列表</cite></a>
+    </span>
+        <div style="float:right;">
+            <a href="<?=url('nav/add')?>?nav_fid={$nav_fid}" class="layui-btn layui-btn-primary layui-btn-sm" ><i class="layui-icon"></i>添加导航</a>
+        </div>
+    </div>
+    <hr/>
+    <section class="panel panel-padding layui-form" >
+        <table lay-skin="line" class="layui-table" lay-filter="parse-table-demo" style="padding: 10px;text-align: left;border: 1px;solid-color: #28282c">
+            <colgroup>
+                <col width="120">
+                <col width="200">
+                <col width="200">
+                <col width="260">
+                <col width="260">
+                <col width="160">
+                <col width="160">
+            </colgroup>
+            <thead>
+            <tr>
+                <th></th>
+                <th>导航编号</th>
+                <th>导航名称</th>
+                <th>导航等级</th>
+                <th>导航图标</th>
+                <th>导航排序</th>
+                <th>是否显示</th>
+                <th>操作时间</th>
+                <th>操作人</th>
+                <th>操作</th>
+            </tr>
+            </thead>
+            <tbody>
+            {if condition="$navList eq null"}
+            <tr><td colspan="8" style="text-align: center">暂无内容</td></tr>
+            {/if}
+            {volist name='navList' id='na'}
+            <tr>
+                <td>
+                    <i class="layui-icon layui-icon-down" ></i>
+                </td>
+                <td>{$na.nav_id}</td>
+                <td>{$na.nav_title}</td>
+                <td>{$na.fName}</td>
+                <td><img src="{$na.nav_hover_img}"/></td>
+                <td>{$na.nav_order}</td>
+                <td>
+                    <input type="checkbox" lay-filter="is_member" name="zzz" lay-skin="switch" lay-text="是|否">
+                </td>
+                <td>{$na.nav_opeatime}</td>
+                <td>{$na.ad_realname}</td>
+                <td >
+                    <button class="layui-btn layui-btn-xs" onclick="editMenu({$na.nav_id})"><i class="layui-icon">&#xe642;</i>编辑</button>
+                    {if condition="$nav_fid eq 0"}
+                    <button class="layui-btn layui-btn-xs" onclick="showSub({$na.nav_id})"><i class="layui-icon">&#xe61a;</i>二级导航</button>
+                    {else/}
+                    {/if}
+
+                </td>
+            </tr>
+            {/volist}
+            </tbody>
+        </table>
+        <div id="pages" style="text-align: left;padding: 7px;"></div>
+    </section>
+    <script>
+        layui.use(['form','laypage','layer'], function(){
+            var form = layui.form,
+                laypage = layui.laypage,
+                layer = layui.layer; //独立版的layer无需执行这一句
+            laypage.render({
+                //自定义每页条数的选择项
+                elem: 'pages'
+                ,count: {$count}
+                ,limit: {$limit}
+                ,curr: {$page}
+                ,limits: [10, 15, 20]
+                ,prev:'<i class="layui-icon">&#xe603;</i>'
+                ,next:'<i class="layui-icon">&#xe602;</i>'
+                ,layout: ['prev', 'page', 'next', 'skip','count',  'limit']
+                ,jump: function(obj,frist){
+                    if(!frist){
+                        window.location.href="<?=url('nav/navlist')?>?page="+obj.curr+"&limit="+obj.limit;
+                    }
+                }
+            });
+            //监听指定开关
+            form.on('switch(switchTest)', function(data){
+                layer.msg('开关checked：'+ (this.checked ? 'true' : 'false'), {
+                    offset: '6px'
+                });
+                layer.tips('温馨提示：请注意开关状态的文字可以随意定义，而不仅仅是ON|OFF', data.othis)
+            });
+        });
+        //删除管理员
+        function delMenu(nav_id) {
+            layer.confirm('确定删除这个菜单？删除后不可恢复！', {
+                btn : [ '确定', '取消' ]
+            }, function() {
+                layer.msg('您已删除此菜单', {icon: 1});
+                window.location.href='<?=url("admin/delmenu")?>?nav_id='+ nav_id ;
+            },function(){
+                layer.msg('您已取消该操作！',{
+                    time: 2000
+                });
+            });
+        }
+    </script>
+    <script type="text/javascript">
+        function editMenu(nav_id){
+            window.location.href='<?=url("nav/edit")?>?nav_id='+ nav_id +"&nav_fid="+{$nav_fid} ;
+        }
+
+        function showSub(nav_id) {
+            window.location.href='<?=url("nav/navlist")?>?nav_id='+nav_id+ "&nav_fid=" +{$nav_fid};
+        }
+    </script>
+{include file="index/footer" /}

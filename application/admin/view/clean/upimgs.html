@@ -1,0 +1,137 @@
+{include file="index/header" /}
+<style>
+    .one-pan{
+        position: relative;
+    }
+    .one{
+        position: absolute;
+        left:300px;
+        top:0;
+    }
+    .logoPre{
+        width: 216px;
+        height: 150px;
+    }
+</style>
+<div class="layui-body">
+    <div style="margin: 10px">
+        <div style="padding: 15px;">
+            <form class="layui-form" id="logForm">
+                <div class="layui-form-item" pane>
+                    <label class="layui-form-label"><span style="color: red;">*</span>检查时间</label>
+                    <div class="layui-input-inline">
+                        <input type="text" class="layui-input" lay-verify="required"  name="cl_date" id="cl_date" readonly  value="{$log.cl_date}" placeholder="请选择检查时间">
+                        <input type="hidden" name="cl_id" value="{$log.cl_id}">
+                        <input type="hidden" name="cl_cid" value="{$cc_id}">
+                    </div>
+                    <div class="layui-form-mid layui-word-aux" style="color:red !important;">检查时间为澳洲时间。</div>
+                </div>
+                <div class="layui-form-item one-pan">
+                    <label class="layui-form-label"><span style="color: red;">*</span>退款凭证</label>
+
+                    <div {if condition="$log.cl_imgs eq null"}class="layui-upload-drag"{/if} id="uploadLogo" style="display:inline-block;" >
+                    <image id="logoPre"
+                           {if condition="$log.cl_imgs eq null"}
+                           {else/}
+                    src="__PUBLIC__/{$log.cl_imgs}"
+                    class="logoPre"
+                    {/if}
+                    >
+                    <input type="hidden" lay-verify="imgReg" name="cl_imgs" id="cl_imgs" value="{$log.cl_imgs}"/>
+                    </image>
+                    {if condition="$log.cl_imgs eq null"}
+                    <div id="display">
+                        <i class="layui-icon"></i>
+                        <p>请点击此处上传封面图片</p>
+                    </div>
+                    {/if}
+                </div>
+                <div class="layui-form-item" pane>
+                    <label class="layui-form-label">是否通过检查</label>
+                    <div class="layui-input-block">
+                        <input type="radio" name="cl_status" value="1" title="是" {if condition="$log.cl_status eq 1"} checked{/if}>
+                        <input type="radio" name="cl_status" value="2" title="否" {if condition="$log.cl_status neq 1"} checked{/if}>
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <div class="layui-input-block">
+                        <span class="layui-btn" id="saveInfo">
+                            保存
+                            </span>
+                        <span class="layui-btn layui-btn-primary" onclick="closeAlls()">关闭</span>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<script>
+    layui.use(['form', 'jquery','upload','laydate'], function(){
+        var form = layui.form
+            ,upload = layui.upload
+            ,laydate = layui.laydate
+            ,layer = layui.layer
+            ,$ = layui.jquery;
+        laydate.render({
+            elem: '#cl_date'
+            ,type: 'date'
+            ,trigger: 'click'
+        });
+        //图片上传
+        upload.render({
+            elem: '#uploadLogo'
+            ,url: '{:url("clean/upload")}'
+            ,size:600 //限制文件大小，单位 KB
+            ,ext: 'jpg|png|gif'
+            ,accept: 'images' //限制文件大小，单位 KB
+            ,before: function(input){
+                loading = layer.load(2, {
+                    shade: [0.2,'#000']
+                });
+            }
+            ,done: function(res){
+                $('#logoPre').removeAttr('src');
+                $('#cl_imgs').val('');
+                console.log(res);
+                console.log(res.filepath);
+                layer.close(loading);
+                $('#cl_imgs').val(res.filepath);
+                $('#uploadLogo').removeClass('layui-upload-drag');
+                $('#logoPre').css('width','216px');
+                $('#logoPre').css('height','150px');
+                $('#logoPre').attr('src',"__PUBLIC__/"+res.filepath);
+                $('#display').hide();
+                layer.msg(res.msg, {icon: 1, time: 1000});
+            }
+            ,error: function(res){
+                layer.msg(res.msg, {icon: 2, time: 1000});
+            }
+        });
+    });
+    function closeAlls(){
+        var index = parent.layer.getFrameIndex(window.name); //获取窗口索引
+        parent.layer.close(index);
+    }
+    $('#saveInfo').click(function () {
+        $.ajax({
+            type:'post',
+            url:'/admin/clean/editlogs',
+            data:$("#logForm").serialize(),
+            success:function (data) {
+                if(data.code == 1){
+                    var index = parent.layer.getFrameIndex(window.name); //获取窗口索引
+                    parent.layer.close(index);
+                    parent.location.reload();
+                }else{
+                    var index = parent.layer.getFrameIndex(window.name); //获取窗口索引
+                    parent.layer.close(index);
+                    parent.location.reload();
+                }
+            },
+            error:function (data) {
+                console.log(data)
+            }
+        })
+    });
+</script>
+{include file="index/footer" /}

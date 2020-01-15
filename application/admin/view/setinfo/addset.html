@@ -1,0 +1,61 @@
+{include file="index/header" /}
+<div class="layui-body">
+    <div style="margin: 20px;">
+    <span class="layui-breadcrumb" lay-separator=">">
+        <a>系统配置</a>
+        <a href="<?=url('setinfo/setlist')?>">基础配置</a>
+        <a><cite>添加配置</cite></a>
+    </span>
+        <div style="float:right;">
+            <a href="<?=url('setinfo/setlist')?>" class="layui-btn layui-btn-primary layui-btn-sm">
+                <i class="layui-icon layui-icon-return"></i>
+                返回列表</a>
+        </div>
+    </div>
+    <hr/>
+    <div style="padding: 15px;">
+        <form class="layui-form layui-form-pane1" action="<?=url('setinfo/addset')?>" method="post">
+            <div class="layui-form-item">
+                <label class="layui-form-label"><span style="color: red;">*</span>配置key</label>
+                <div class="layui-input-block">
+                    <input type="text" name="s_key" lay-verify="required" placeholder="请输入配置key" autocomplete="off" class="layui-input">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label"><span style="color: red;">*</span>配置名称</label>
+                <div class="layui-input-block">
+                    <input type="text" name="s_desc" lay-verify="required" placeholder="请输入配置名称" autocomplete="off" class="layui-input">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label"><span style="color: red;">*</span>配置value</label>
+                <div class="layui-input-block">
+                    <input type="text" name="s_value" lay-verify="required" placeholder="请输入配置value" autocomplete="off" class="layui-input">
+                </div>
+            </div>
+
+            <div class="layui-form-item" pane>
+                <label class="layui-form-label">是否可用</label>
+                <div class="layui-input-block">
+                    <input type="radio" name="s_is_able" value="1" title="是" checked>
+                    <input type="radio" name="s_is_able" value="2" title="否">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <div class="layui-input-block">
+                    <button class="layui-btn" lay-submit lay-filter="*">添加</button>
+                    <a class="layui-btn layui-btn-primary" href="setlist.html">返回</a>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+<script>
+    layui.use('form', function(){
+        var form = layui.form;
+        form.on('radio', function(data){
+            console.log(data);
+        });
+    });
+</script>
+{include file="index/footer" /}

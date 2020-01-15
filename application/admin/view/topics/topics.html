@@ -1,0 +1,243 @@
+{include file="index/header" /}
+<div style="margin: 20px;">
+    <span class="layui-breadcrumb" lay-separator=">">
+        <a>内容管理</a>
+        <a><cite>推广页面</cite></a>
+    </span>
+    <div style="float:right;">
+        <button class="layui-btn layui-btn-primary layui-btn-sm"  onclick="addTop()"><i class="layui-icon"></i>添加页面</button>
+    </div>
+</div>
+<hr/>
+<section class="panel panel-padding" style="padding-top: 10px;padding-left: 10px;">
+    <form class="layui-form layui-form-pane1">
+        <div class="layui-form-item  demoTable">
+            <div class="layui-inline">
+                <div class="layui-input-inline">
+                    <input type="text" name="keywords" id="keywords"  placeholder="请输入页面名称/编号" class="layui-input">
+                </div>
+            </div>
+            <div class="layui-inline">
+                <div class="layui-input-inline">
+                    <select name="case_admin" id="case_admin">
+                        <option value="">请选择操作人</option>
+                        {volist name="admin" id="ad"}
+                        <option value="{$ad.ad_id}">{$ad.ad_realname}</option>
+                        {/volist}
+                    </select>
+                </div>
+            </div>
+            <div class="layui-inline">
+                <div class="layui-input-inline">
+                    <input type="text" name="case_decotime" readonly class="layui-input" id="case_decotime" placeholder="请选择发布时间">
+                </div>
+            </div>
+            <div class="layui-inline">
+                <div class="layui-input-inline">
+                    <span class="layui-btn" data-type="reload">查询</span>
+                    <a href="<?=url('topics/topics')?>" class="layui-btn layui-btn-warm">刷新</a>
+                </div>
+            </div>
+        </div>
+    </form>
+</section>
+<section class="panel panel-padding" style="padding-left: 10px;padding-right: 10px;">
+    <div class="layui-inline">
+        <div class="layui-input-inline">
+            <span onclick="query(0)" class="layui-btn layui-btn-xs layui-btn-primary">当前页面数量&nbsp;&nbsp;(<span class="all">{$all}</span>)</span>
+        </div>
+    </div>
+    <div class="layui-inline" style="float: right;margin-right: 8px;">
+        <div class="layui-input-inline" style="margin-left: 8px;">
+            <span onclick="sysQuery(1)" class="layui-btn layui-btn-primary layui-btn-xs">已展示&nbsp;&nbsp;(<span class="display">{$display}</span>)</span>
+        </div>
+        <div class="layui-input-inline" style="margin-left: 8px;">
+            <span onclick="sysQuery(2)"  class="layui-btn layui-btn-primary layui-btn-xs">未展示&nbsp;&nbsp;(<span class="none">{$none}</span>)</span>
+        </div>
+    </div>
+</section>
+<section class="panel panel-padding">
+    <table lay-skin="line" class="layui-table" lay-filter="demo" lay-data="{height: 'full-200', cellMinWidth:80, url:'/admin/topics/topicsData/', limit:20,limits:[20,30,50] ,id: 'testReload',page:true}" >
+        <thead>
+            <tr>
+                <th lay-data="{field:'tp_bid', width:150,  sort: true}">页面编号</th>
+                <th lay-data="{field:'tp_title'}">页面名称</th>
+                <th lay-data="{field:'tp_topic_url'}">页面链接</th>
+                <th lay-data="{field:'ad_realname',sort: true,width:80}">操作人</th>
+                <th lay-data="{field:'tp_isable',templet: '#switchTpl',sort:true, unresize: true,width:100}">是否显示</th>
+                <th lay-data="{width:160,toolbar: '#barDemo'}">操作</th>
+            </tr>
+        </thead>
+    </table>
+</section>
+<script type="text/html" id="barDemo">
+    <a class="layui-btn layui-btn-xs" lay-event="edit"><i class="layui-icon">&#xe642;</i>编辑</a>
+    <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del"><i class="layui-icon">&#xe640;</i>删除</a>
+</script>
+<script type="text/html" id="switchTpl">
+    <input type="checkbox" name="sex" lay-skin="switch" value="{{d.tp_id}}" lay-text="是|否" lay-filter="sexDemo" {{ d.tp_isable == 1 ? 'checked' : '' }}>
+</script>
+<script>
+    layui.use(['table','laydate','form'], function(){
+        var table = layui.table
+            ,laydate = layui.laydate
+            ,form = layui.form;
+        laydate.render({
+            elem: '#case_decotime'
+            ,range: true
+        });
+        var $ = layui.$, active = {
+            //表格重载
+            reload: function(){
+                var keywords = $('#keywords').val();
+                var case_admin = $('#case_admin').val();
+                var case_isable = $('#case_isable').val();
+                var case_decotime = $('#case_decotime').val();
+                //执行重载
+                table.reload('testReload', {
+                    url: '/admin/topics/topicsData/'
+                    ,page: {
+                        curr: 1 //重新从第 1 页开始
+                    }
+                    ,where: {
+                        keywords: keywords,
+                        case_isable: case_isable,
+                        case_decotime: case_decotime,
+                        case_admin: case_admin
+                    },
+                    success:function (data) {
+                        console.log(data);
+                    }
+                });
+                $.ajax({
+                    type:'post',
+                    url:'/admin/topics/topics',
+                    data:{'keywords':keywords,'case_decotime':case_decotime,'case_admin':case_admin},
+                    success:function (data) {
+                        console.log(data);
+                        $('.all').html(data.all);
+                        $('.display').html(data.display);
+                        $('.none').html(data.none);
+                    },
+                    error:function (data) {
+                        console.log(data)
+                    }
+                })
+            }
+
+        };
+        $('.demoTable .layui-btn').on('click', function(){
+            var type = $(this).data('type');
+            active[type] ? active[type].call(this) : '';
+        });
+        table.on('tool(demo)', function(obj){
+            var data = obj.data;
+            if(obj.event === 'edit'){
+                var tp_id = data.tp_id;
+                window.location.href='<?=url("topics/edit")?>?tp_id='+ tp_id ;
+            } else if(obj.event === 'del'){
+                var tp_id = data.tp_id;
+                layer.confirm('确定删除该推广页面？删除后不可恢复！', {
+                    btn : [ '确定', '取消' ]//按钮
+                }, function() {
+                    $.ajax({
+                        'type':"get",
+                        'url':"<?=url('topics/del')?>",
+                        'data':{tp_id:tp_id},
+                        'success':function (result) {
+                            if(result.code < 1){
+                                layer.msg(result.msg);
+                            }else {
+                                layer.msg(result.msg);
+                                layer.open({
+                                    title: '信息'
+                                    ,content: result.msg
+                                    ,yes: function(index){
+                                        layer.close(index);
+                                        window.location.href='<?=url("topics/topics")?>';
+                                    }
+                                    ,cancel:function (index) {
+                                        layer.close(index);
+                                        window.location.href='<?=url("topics/topics")?>';
+                                    }
+                                });
+                            }
+                        },
+                        'error':function () {
+                            console.log('error');
+                        }
+                    })
+                },function(){
+                    layer.msg('您已取消该操作！',{
+                        time: 2000
+                    });
+                });
+            }
+        });
+        //监听是否开启操作
+        form.on('switch(sexDemo)', function(obj){
+            var id = this.value;
+            //如果选中状态是true,后台数据将要改为显示
+            var change = obj.elem.checked;
+            if(change){
+                change = 1;
+            }else{
+                change = 0;
+            }
+            $.ajax({
+                type: 'POST',
+                url: "<?=url('topics/status')?>?tp_id="+id+ "&change="+change,
+                dataType:  'json',
+                success: function(data){
+                    console.log(data);
+                    layer.msg(data.msg);
+                }
+            });
+        });
+    });
+    function sysQuery(tp_isable){
+        var keywords = $('#keywords').val();
+        var case_admin = $('#case_admin').val();
+        var case_isable = tp_isable;
+        var case_decotime = $('#case_decotime').val();
+        //执行重载
+        layui.use(['table','jquery'], function(){
+            var table = layui.table;
+            table.reload('testReload', {
+                url: '/admin/topics/topicsData/'
+                ,page: {
+                    curr: 1 //重新从第 1 页开始
+                }
+                ,where: {
+                    keywords: keywords,
+                    case_isable: case_isable,
+                    case_decotime: case_decotime,
+                    case_admin: case_admin
+                },
+                success:function (data) {
+                    console.log(data);
+                }
+            });
+            $.ajax({
+                type:'post',
+                url:'/admin/topics/topics',
+                data:{'keywords':keywords,'case_decotime':case_decotime,'case_admin':case_admin},
+                success:function (data) {
+                    console.log(data);
+                    $('.all').html(data.all);
+                    $('.display').html(data.display);
+                    $('.none').html(data.none);
+                },
+                error:function (data) {
+                    console.log(data)
+                }
+            })
+        })
+    }
+</script>
+<script type="text/javascript">
+    function addTop(){
+        window.location.href='<?=url('topics/add')?>';
+    }
+</script>
+{include file="index/footer" /}

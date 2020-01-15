@@ -1,0 +1,110 @@
+{include file="index/header" /}
+<div class="layui-body">
+    <div style="margin: 20px;">
+    <span class="layui-breadcrumb" lay-separator=">">
+        <a>员工管理</a>
+        <a href="<?=url('admin/admin')?>">员工列表</a>
+        <a><cite>修改员工</cite></a>
+    </span>
+        <div style="float:right;">
+            <a href="<?=url('admin/admin')?>" class="layui-btn layui-btn-primary layui-btn-sm">
+                <i class="layui-icon layui-icon-return"></i>
+                返回列表</a>
+        </div>
+    </div>
+    <hr/>
+    <div style="padding: 15px;">
+        <form class="layui-form layui-form-pane1" action="<?=url('admin/edit')?>?ad_id={$admin.ad_id}" method="post">
+            <div class="layui-form-item">
+                <label class="layui-form-label"><span style="color: red;">*</span>员工姓名</label>
+                <div class="layui-input-block">
+                    <input type="text" name="ad_realname"  value="{$admin.ad_realname}" lay-verify="required|title" placeholder="请输入管理员姓名" autocomplete="off" class="layui-input">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label"><span style="color: red;">*</span>员工编号</label>
+                <div class="layui-input-block">
+                    <input type="text" value="{$admin.ad_bid}" name="ad_bid" onblur="checkPhone()" id="ad_bid" class="layui-input" />
+                </div>
+            </div>
+            <div class="layui-form-item" pane>
+                <label class="layui-form-label"><span style="color: red;">*</span>性别</label>
+                <div class="layui-input-block">
+                    <input type="radio" name="ad_sex" value="1" title="男" {if condition="$admin.ad_sex eq 1"}checked{/if} >
+                    <input type="radio" name="ad_sex" value="2" title="女" {if condition="$admin.ad_sex eq 2"}checked{/if}>
+                </div>
+            </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label"><span style="color: red;">*</span>员工角色</label>
+                    <div class="layui-input-inline">
+                        <select name="ad_role" lay-verify="required">
+                            <option value="">请选择角色</option>
+                            {volist name="role" id="vo"}
+                            <option value="{$vo.r_id}"  {if condition="$admin.ad_role eq $vo.r_id"}selected{/if} >{$vo.r_name}</option>
+                            {/volist}
+                        </select>
+                    </div>
+                </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">手机号码</label>
+                <div class="layui-input-block">
+                    <input type="text" name="ad_phone" id="ad_phone" value="{$admin.ad_phone}" placeholder="请输入手机号码" autocomplete="off" class="layui-input">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">电子邮箱</label>
+                <div class="layui-input-block">
+                    <input type="text" name="ad_email" id="ad_email" value="{$admin.ad_email}" placeholder="请输入电子邮箱" autocomplete="off" class="layui-input">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <div class="layui-input-block">
+                    <button class="layui-btn" lay-submit lay-filter="saveInfo">修改</button>
+                    <a class="layui-btn layui-btn-primary" href="<?=url('admin/admin')?>">返回</a>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+<script>
+    layui.use(['form','jquery'], function(){
+        var form = layui.form
+            ,$ = layui.jquery;
+        //自定义验证规则
+        form.verify({
+            title: function(value){
+                if(value.length < 2){
+                    return '至少得2个字符啊';
+                }
+            }
+        });
+    });
+
+
+    /***
+     * 检测工号是否重复
+     */
+    function checkPhone(){
+        var ad_bid=$('#ad_bid').val();
+        var ad_id={$admin.ad_id};
+        $.ajax({
+            type:"post",
+            url:"<?=url('admin/checkPhone')?>",
+            dataType: 'json',
+            data:{'ad_bid':ad_bid,'ad_id':ad_id},
+            success:function (data) {
+                console.log(data);
+                if(data.code >1){
+                    layer.msg(data.msg, {icon: 2, time: 1000});
+                }else if(data.code <= 1){
+                    layer.msg(data.msg, {icon: 1, time: 1000});
+                }
+            },
+            error:function (error) {
+                console.log(error);
+            }
+        })
+    }
+
+</script>
+{include file="index/footer" /}

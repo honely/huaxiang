@@ -1,0 +1,479 @@
+{include file="index/header" /}
+<style>
+    .item_img{
+        width: 120px;
+        height: 105px;
+        float: left;
+        margin-top: 20px;
+    }
+    .item_img{
+        width: 120px;
+        height: 105px;
+        float: left;
+        margin-top: 20px;
+    }
+</style>
+<div class="layui-body">
+    <div style="margin: 20px;">
+    <span class="layui-breadcrumb" lay-separator=">">
+        <a>租房订单</a>
+        <a><cite>修改订单（售后）</cite></a>
+    </span>
+    </div>
+    <div style="margin: 10px">
+        <div style="padding: 15px;">
+            <form class="layui-form" id="myForm">
+                <blockquote class="layui-elem-quote">
+                    <legend style="color:red; font-weight: bolder;">
+                        截止时间：{$light.cl_sl_deadline}
+                        <br/>
+                        <br/>
+                        订单状态：{$light.cl_orderStatus}
+                    </legend>
+                </blockquote>
+                <fieldset class="layui-elem-field layui-field-title" style="margin-top: 20px;">
+                    <legend>售前需求</legend>
+                </fieldset>
+                <blockquote class="layui-elem-quote layui-quote-nm">
+                    售前工号：
+                    {$light.cl_admin_sale}
+                    <br><br>
+                    订单编号：
+                    {$light.cl_order_id}
+                    <input type="hidden" value="{$light.cl_order_id}" id="cl_order_id"/>
+                    <br><br>
+                    客户编号：{if condition='$light.cl_user_ids neq null'}
+                    {volist name='light.cl_user_idss' id="item" key="k"}
+                    <a class="layui-badge layui-bg-blue" href="<?=url('crm/details')?>?user_bid={$item}">{$item}</a>
+<!--                    <span class="layui-badge layui-bg-blue">{$item}</span>-->
+                    {/volist}
+                    {/if}
+                    <br><br>
+                    付款时间：{$light.cl_pay_time}
+                    <br><br>
+                    付款金额：{$light.cl_price}
+                    <br><br>
+                    付款方式：{$light.cl_pay_type}
+                    <br><br>
+                    付款ID：{$light.cl_pay_id}
+                    <br><br>
+                    收款凭证：
+                    <div class="pic-more">
+                        <ul class="pic-more-upload-list">
+                            <div id="layer-photos-demo" class="layer-photos-demo">
+                                {if condition='$light.cl_pay_img neq null'}
+                                {volist name='light.cl_pay_imgs' id="item" key="k"}
+                                <li class="item_img">
+                                    <img style="height: 80px;width:100px;" src="__PUBLIC__/{$item}" class="img" layer-src="__PUBLIC__/{$item}" >
+                                    <input type="hidden" name="cl_pay_img[]" value="{$item}" />
+                                </li>
+                                {/volist}
+                                {else/}
+                                未上传
+                                {/if}
+                            </div>
+                        </ul>
+                    </div>
+                    <br><br>
+                    <br><br>
+                    <br><br>
+                    <br><br>
+                    服务协议：
+                    {if condition='$light.cl_agreement neq null'}
+                    <span id="showDoc" data-href="__PUBLIC__/{$light.cl_agreement}" class="layui-btn layui-btn-xs" >{if condition='$light.cl_agree_name neq null'}{$light.cl_agree_name}{else/}点击查看协议{/if}</span>
+                    {/if}
+                    <br><br>
+                    售前备注：{$light.cl_remarks}
+                </blockquote>
+                <fieldset class="layui-elem-field layui-field-title" style="margin-top: 20px;">
+                    <legend>租房顾问</legend>
+                </fieldset>
+                <br/>
+                <blockquote class="layui-elem-quote layui-quote-nm">
+                    顾问工号：
+                    {$light.cl_cl_admin}
+                    <br><br>
+                    接单时间：
+                    {$light.cl_end_time}
+                    <br><br>
+                    转交时间：
+                    {$light.cl_to_sale_time}
+                    <br><br>
+                    合同解读&签约订房：
+                    {if condition="$light.cl_cl_agree_sign eq 1"} 是{else/}否{/if}
+                    <br><br>
+                    删除资料：
+                    {if condition="$light.cl_cl_delete eq 1"} 是{else/}否{/if}
+                    <br><br>
+                    房源地址: {$light.cl_cl_house_address}
+                    <br><br>
+                    中介名称: {$light.cl_cl_inter}
+                    <br><br>
+                    顾问备注：{$light.cl_cl_remarks}
+                </blockquote>
+
+                <fieldset class="layui-elem-field layui-field-title" style="margin-top: 20px;">
+                    <legend>售后服务</legend>
+                </fieldset>
+                <span style="margin-left: 50px;" id="createSub" class="layui-btn layui-btn-sm">创建子订单</span>
+                <br/>
+                <br/>
+                <table class="layui-table" lay-skin="line">
+                    <colgroup>
+                        <col width="150">
+                        <col width="150">
+                        <col width="200">
+                        <col width="200">
+                        <col>
+                    </colgroup>
+                    <thead>
+                    <tr>
+                        <th>订单类型</th>
+                        <th>订单编号</th>
+                        <th>订单状态</th>
+                        <th>操作</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {if condition='$light.subOrder neq null'}
+                    {volist name='light.subOrder' id='vo'}
+                    <tr>
+                        <td>{$vo.orderStep}</td>
+                        <td>{$vo.order_id}</td>
+                        <td>{$vo.order_statuss}</td>
+                        <td>
+                            <span class="layui-btn layui-btn-normal layui-btn-xs details" data-id="{$vo.crm_id}" data-step="{$vo.order_step}" data-status="{$vo.order_status}">查看</span>
+                        </td>
+                    </tr>
+                    {/volist}
+                    {/if}
+                    {volist name='clean' id='vo'}
+                    <tr>
+                        <td>清洁检查</td>
+                        <td>{$vo.cc_order_id}</td>
+                        <td>---</td>
+                        <td>
+                            <span class="layui-btn layui-btn-normal layui-btn-xs" onclick="details({$vo.cc_id})">查看</span>
+                            <a class="layui-btn layui-btn-xs"  href="<?=url('clean/index')?>?keywords={$light.cl_order_id}" >管理</a>
+                        </td>
+                    </tr>
+                    {/volist}
+                    </tbody>
+                </table>
+                <blockquote class="layui-elem-quote">
+                    本页面子订单仅做展示，订单功能操作可前往：
+                    <a class="layui-btn layui-btn-normal layui-btn-sm" href="<?=url('order/order')?>?keywords={$light.cl_order_id}">订单管理</a>
+                </blockquote>
+                <br/>
+                <blockquote class="layui-elem-quote layui-quote-nm">
+                    是否结算：
+                    {if condition="$light.cl_is_pay eq 1"} 是{else/}否{/if}
+                    <br><br>
+                    结算操作员：{$light.cl_pay_admin}
+                    <br><br>
+                    结算时间: {$light.cl_fl_pay_time}
+                </blockquote>
+                <div class="layui-form-item" pane>
+                    <label class="layui-form-label"><span style="color: red;">*</span>检查归档</label>
+                    <div class="layui-input-block">
+                        <input type="radio" name="cl_sl_is_check" lay-filter="confirm"  value="1" {if condition="$light.cl_sl_is_check eq 1"}checked{/if} title="是">
+                        <input type="radio" name="cl_sl_is_check" lay-filter="confirm"  value="2" {if condition="$light.cl_sl_is_check eq 2"}checked{/if} title="否" >
+                        <input type="hidden"  value="{$light.cl_sl_is_check}" id="cl_sl_is_check" >
+                        <input type="hidden"  value="{$light.cl_is_pay}" name="cl_is_pay">
+                    </div>
+                </div>
+                <div class="layui-form-item" pane>
+                    <label class="layui-form-label"><span style="color: red;">*</span>要好评</label>
+                    <div class="layui-input-block">
+                        <input type="radio" name="cl_sl_good_com" lay-filter="delete"  value="1" {if condition="$light.cl_sl_good_com eq 1"}checked{/if} title="是">
+                        <input type="radio" name="cl_sl_good_com" lay-filter="delete"  value="2" {if condition="$light.cl_sl_good_com eq 2"}checked{/if} title="否" >
+                        <input type="hidden" value="{$light.cl_sl_good_com}" id="cl_sl_good_com">
+                    </div>
+                </div>
+                <div class="layui-form-item" pane>
+                    <label class="layui-form-label"><span style="color: red;">*</span>回访发圈拉群</label>
+                    <div class="layui-input-block">
+                        <input type="radio" name="cl_sl_is_review" lay-filter="review"  value="1" {if condition="$light.cl_sl_is_review eq 1"}checked{/if} title="是">
+                        <input type="radio" name="cl_sl_is_review" lay-filter="review"  value="2" {if condition="$light.cl_sl_is_review eq 2"}checked{/if} title="否" >
+                        <input type="hidden" id="cl_sl_is_review" value="{$light.cl_sl_is_review}">
+                    </div>
+                </div>
+                <div class="layui-form-item" id="pics">
+                    <div class="layui-form-label">回访图片</div>
+                    <div class="layui-input-block" style="width: 70%;">
+                        <div class="layui-upload">
+                            <button type="button" class="layui-btn layui-btn-sm layui-btn-normal pull-left" id="slide-pc">选择多图</button>
+
+                                <div class="pic-more">
+
+                                    <ul class="pic-more-upload-list" id="slide-pc-priview">
+                                        <div id="layer-photos-demo1" class="layer-photos-demo">
+                                            {if condition='$light.cl_sl_img neq null'}
+                                            {volist name='light.cl_sl_imgs' id="item" key="k"}
+                                            <li class="item_img"><div class="operate"><i  class="close layui-icon"></i></div>
+                                                <img style="height: 80px;width:100px;" src="__PUBLIC__/{$item}" class="img" layer-src="__PUBLIC__/{$item}" >
+                                                <input type="hidden" name="cl_sl_img[]" value="{$item}" />
+                                            </li>
+                                            {/volist}
+                                            {else/}
+                                            未上传
+                                            {/if}
+                                        </div>
+                                    </ul>
+                                </div>
+
+                        </div>
+                    </div>
+                    <div class="layui-form-mid layui-word-aux" style="color:red !important;font-weight: bolder">图片单个不大于2M！图片格式限于jpg|png|jpeg。</div>
+                </div>
+                <div class="layui-form-item layui-form-text">
+                    <label class="layui-form-label">售后备注</label>
+                    <div class="layui-input-block">
+                        <textarea placeholder="请输入备注" name="cl_sl_remarks" class="layui-textarea">{$light.cl_sl_remarks}</textarea>
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <div class="layui-input-block">
+                        <span class="layui-btn" lay-submit lay-filter="saves">提交</span>
+                        <span class="layui-btn layui-btn-primary" lay-submit lay-filter="saveInfo">保存</span>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<script>
+    layui.use(['form', 'jquery','upload','layer','laydate'], function(){
+        var form = layui.form
+            ,upload = layui.upload
+            ,laydate = layui.laydate
+            ,layer = layui.layer
+            ,$ = layui.jquery;
+        layer.photos({
+            photos: '#layer-photos-demo'
+            ,anim: 5
+        });
+        layer.photos({
+            photos: '#layer-photos-demo1'
+            ,anim: 5
+        });
+        //提交更新状态
+        form.on('submit(saves)', function(){
+            layer.confirm('提交后不能修改哦~~，确定提交吗？', {
+                btn : [ '提交', '取消' ]//按钮
+            }, function() {
+                var cl_id = {$light.cl_id};
+                var orderSattus = {$light.cl_order_status};
+                if(orderSattus == 2){
+                    return layer.alert('此订单目前是材料准备阶段，您还不能提交信息哦~您可以点击保存按钮保存您所修改的信息！');
+                }
+                $.ajax({
+                    type: 'POST',
+                    url: "<?=url('light/edit2')?>?cl_id="+cl_id,
+                    data:$('#myForm').serialize(),
+                    dataType:  'json',
+                    success: function(data){
+                        if(data.code == 1){
+                            layer.msg(data.msg,{
+                                time: 2000
+                            },function () {
+                                window.location.href='<?=url("light/sale")?>';
+                            });
+                        }else{
+                            layer.msg(data.msg);
+                        }
+                    }
+                });
+            },function(){
+                layer.msg('您已取消该操作！',{
+                    time: 2000
+                });
+            });
+        });
+        //保存不更新状态
+        form.on('submit(saveInfo)', function(){
+            var cl_id = {$light.cl_id};
+            $.ajax({
+                type: 'POST',
+                url: "<?=url('light/edit2')?>?cl_id="+cl_id+"&type=1",
+                data:$('#myForm').serialize(),
+                dataType:  'json',
+                success: function(data){
+                    if(data.code == 1){
+                        layer.msg(data.msg,{
+                            time: 2000
+                        },function () {
+                            window.location.href='<?=url("light/sale")?>';
+                        });
+                    }else{
+                        layer.msg(data.msg);
+                    }
+                }
+            });
+        });
+        $('#showDoc').click(function () {
+            var urls = $(this).attr('data-href');
+            layer.open({
+                type: 2,
+                title: '查看协议',
+                shadeClose: true,
+                shade: false,
+                maxmin: true,
+                area: ['80%', '80%'],
+                content: urls
+            });
+        });
+        $('.details').click(function () {
+            var crm_id = $(this).attr('data-id');
+            var step = $(this).attr('data-step');
+            var status = $(this).attr('data-status');
+            var url = '';
+            if(status != 1){
+                if(step == 6){
+                    url = "<?=url('light/subdet4')?>?crm_id="+crm_id;
+                }else{
+                    url = "<?=url('order/orderDet')?>?crm_id="+crm_id;
+                }
+            }else{
+                if(step == 1){
+                    url = "<?=url('light/subdet1')?>?crm_id="+crm_id;
+                }else if(step == 2){
+                    url = "<?=url('light/subdet2')?>?crm_id="+crm_id;
+                }else if(step == 3){
+                    url = "<?=url('light/subdet3')?>?crm_id="+crm_id;
+                }
+            }
+            layer.open({
+                type: 2,
+                title: '查看详情',
+                shadeClose: true,
+                shade: false,
+                maxmin: true,
+                area: ['80%', '80%'],
+                content: url
+            });
+        });
+        //alert
+        laydate.render({
+            elem: '#alert'
+            ,type: 'date'
+            ,trigger: 'click'
+        });
+        laydate.render({
+            elem: '#deadline'
+            ,type: 'date'
+            ,trigger: 'click'
+        });
+        //图片
+        upload.render({
+            elem: '#slide-pc',
+            url: '{:url("admin/light/upload")}',
+            size: 3000,
+            exts: 'jpg|png|jpeg',
+            multiple: true,
+            before: function(obj) {
+                layer.msg('图片上传中...', {
+                    icon: 16,
+                    shade: 0.01,
+                    time: 0
+                })
+            },
+            done: function(res) {
+                layer.close(layer.msg());//关闭上传提示窗口
+                if(res.status == 0) {
+                    return layer.msg(res.message);
+                }
+                console.log(res);
+                $('#layer-photos-demo1').append('' +
+                    '<li class="item_img"><div class="operate"><i  class="close layui-icon"></i></div><img style="height: 80px;width:100px;" src="__PUBLIC__/' + res.filepath + '" class="img" layer-src="__PUBLIC__/' + res.filepath + '"  ><input type="hidden" name="cl_sl_img[]" value="' + res.filepath + '" /></li>');
+            }
+        });
+        //检查归档
+        form.on('radio(confirm)', function (data) {
+            var need = data.value;
+            if(need == 1){
+                $('#cl_sl_is_check').val('1');
+                layer.msg('请检查是否已经检查归档');
+            }else{
+                $('#cl_sl_is_check').val('2');
+                layer.msg('请检查是否已经检查归档');
+            }
+        });
+
+        //要好评
+        form.on('radio(delete)', function (data) {
+            var need = data.value;
+            if(need == 1){
+                $('#cl_sl_good_com').val('1');
+                layer.msg('请检查是否已要好评');
+            }else{
+                $('#cl_sl_good_com').val('2');
+                layer.msg('请检查是否已要好评');
+            }
+        });
+        //回访
+        form.on('radio(review)', function (data) {
+            var need = data.value;
+            if(need == 1){
+                $('#cl_sl_is_review').val('1');
+                layer.msg('请检查是否已经回访发圈拉群');
+            }else{
+                $('#cl_sl_is_review').val('2');
+                layer.msg('请检查是否已经回访发圈拉群');
+            }
+        });
+        form.verify({
+            title: function(value){
+                if(value.length < 2){
+                    return '至少得2个字符啊';
+                }
+            },radioreq:function (value) {
+                var need = $("#cl_sl_is_check").val();
+                if(need  != 1){
+                    return '请检查是否已经检查归档';
+                }
+            },comreq:function (value) {
+                var need = $("#cl_sl_good_com").val();
+                if(need  != 1){
+                    return '请检查是否已要好评';
+                }
+            },reviewreq:function (value) {
+                var need = $("#cl_sl_is_review").val();
+                if(need  != 1){
+                    return '请检查是否已经回访发圈拉群';
+                }
+            }
+        });
+        $('#createSub').click(function () {
+            var orderId = $('#cl_order_id').val();
+            var cl_id = {$light.cl_id};
+            console.log(cl_id);
+            layer.open({
+                type: 2,
+                title: '【闪电租房】'+orderId+'创建子订单',
+                shadeClose: true,
+                shade: false,
+                maxmin: true,
+                area: ['80%', '80%'],
+                content: "<?=url('light/addsub1')?>?cl_id="+cl_id
+            });
+        });
+    });
+    //点击多图上传的X,删除当前的图片
+    $("body").on("click",".close",function(){
+        $(this).closest("li").remove();
+    });
+    function details(cc_id) {
+        var href='<?=url("clean/details")?>?cc_id='+cc_id;
+        layer.open({
+            type: 2,
+            title: '查看详情',
+            shadeClose: true,
+            shade: false,
+            maxmin: true,
+            area: ['80%', '80%'],
+            content: href
+        });
+    }
+</script>
+{include file="index/footer" /}

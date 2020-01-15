@@ -1,0 +1,52 @@
+{include file="index/header" /}
+<div class="layui-body">
+    <div style="margin: 20px;">
+    <span class="layui-breadcrumb" lay-separator=">">
+        <a>房源管理</a>
+        <a>出租渠道</a>
+    </span>
+        <div style="float:right;">
+            <button class="layui-btn layui-btn-primary layui-btn-sm"  onclick="addType()"><i class="layui-icon"></i>添加渠道</button>
+        </div>
+    </div>
+    <hr/>
+    <div style="padding: 20px; background-color: #F2F2F2;">
+        <div class="layui-row layui-col-space15">
+            {if condition="$channel neq null"}
+                {volist name="channel" id="chan"}
+                    <div class="layui-col-md2">
+                        <div class="grid-demo">
+                            <div class="layui-card">
+                                <div class="layui-card-header">{$chan.hrc_title}</div>
+                                <div class="layui-card-body">
+                                    <img style="width: 180px;height: 130px;" src="{$chan.hrc_img}"/>
+                                    <br>
+                                    <div style="padding-top: 20px;padding-bottom: 12px;">
+                                        <a class="layui-btn layui-btn-xs" href="<?=url('channel/edit')?>?hrc_id={$chan.hrc_id}"><i class="layui-icon">&#xe642;</i>编辑</a>
+                                        <a class="layui-btn layui-btn-danger layui-btn-xs" onclick="delChan({$chan.hrc_id})"><i class="layui-icon">&#xe640;</i>删除</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                {/volist}
+            {/if}
+        </div>
+    </div>
+</div>
+<script>
+    layui.use(['table','form'], function(){
+        var table = layui.table
+            ,form = layui.form;
+        // //修改排序
+    });
+</script>
+<script type="text/javascript">
+    function addType(){
+        window.location.href="<?=url('channel/add')?>";
+    }
+    function delChan(hrc_id){
+        window.location.href="<?=url('channel/del')?>?hrc_id="+hrc_id;
+    }
+</script>
+{include file="index/footer" /}

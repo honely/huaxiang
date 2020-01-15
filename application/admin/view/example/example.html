@@ -1,0 +1,495 @@
+{include file="index/header" /}
+<link rel="stylesheet" href="__PUBLIC__/static/pcb/pick-pcc.css"/>
+<script type="text/javascript" src="__PUBLIC__/static/pcb/pick-pcc.js"></script>
+<style>
+    .pick-county{
+        max-width: 71.3333px !important;
+
+    }
+</style>
+<div style="margin: 20px;">
+    <span class="layui-breadcrumb" lay-separator=">">
+        <a>内容管理</a>
+        <a><cite>案例列表</cite></a>
+    </span>
+    <div style="float:right;">
+        <button class="layui-btn layui-btn-primary layui-btn-sm"  onclick="addArt()"><i class="layui-icon"></i>添加案例</button>
+    </div>
+</div>
+<hr/>
+<section class="panel panel-padding" style="padding-top: 10px;padding-left: 10px;">
+    <form class="layui-form layui-form-pane1">
+        <div class="layui-form-item  demoTable">
+            {if condition="$ad_role eq 1"}
+            <div class="layui-inline" style="width: 280px;">
+                <div class="layui-input-inline">
+                    <div class="pick-area1" name=""></div>
+                </div>
+            </div>
+            {/if}
+            <div class="layui-inline">
+                <div class="layui-input-inline">
+                    <input type="text" name="keywords" id="keywords"  placeholder="请输入案例标题/编号" class="layui-input">
+                </div>
+            </div>
+            <div class="layui-inline">
+                <div class="layui-input-inline">
+                    <select name="case_admin" id="case_admin">
+                        <option value="">请选择操作人</option>
+                        {volist name="admin" id="ad"}
+                        <option value="{$ad.ad_id}">{$ad.ad_realname}</option>
+                        {/volist}
+                    </select>
+                </div>
+            </div>
+            <div class="layui-inline">
+                <div class="layui-input-inline">
+                    <select name="case_designer" id="case_designer" lay-verify="required" lay-filter="case_designer">
+                        <option value="">请选择设计师</option>
+                        {volist name='design' id='vo'}
+                        <option value="{$vo.des_id}">{$vo.des_name}</option>
+                        {/volist}
+                    </select>
+                </div>
+            </div>
+            <div class="layui-inline">
+                <div class="layui-input-inline">
+                    <select name="case_area" id="case_area" lay-verify="required" lay-filter="case_designer">
+                        <option value="">请选择面积区间</option>
+                        {volist name='areaRange' id='area'}
+                        <option value="{$area.type_id}">{$area.type_name}</option>
+                        {/volist}
+                    </select>
+                </div>
+            </div>
+            <div class="layui-inline">
+                <div class="layui-input-inline">
+                    <input type="text" name="case_decotime" readonly class="layui-input" id="case_decotime" placeholder="请选择发布时间">
+                </div>
+            </div>
+            <div class="layui-inline">
+                <div class="layui-input-inline">
+                    <span class="layui-btn" data-type="reload">查询</span>
+                    <a href="<?=url('example/example')?>" class="layui-btn layui-btn-warm">刷新</a>
+                </div>
+            </div>
+        </div>
+    </form>
+</section>
+<section class="panel panel-padding" style="padding-left: 10px;padding-right: 10px;">
+    <div class="layui-inline">
+        <div class="layui-input-inline">
+            <span onclick="query(0)" class="layui-btn layui-btn-xs layui-btn-primary">当前全部案例&nbsp;&nbsp;(<span class="all">{$styleConut}</span>)</span>
+        </div>
+        {volist name="decStyle" id="style"}
+            <div class="layui-input-inline">
+                <span onclick="query({$style.type_id})" class="layui-btn layui-btn-xs layui-btn-primary">{$style.type_name}&nbsp;&nbsp;(<span class="style{$style.type_id}">{$style.count}</span>)</span>
+            </div>
+        {/volist}
+    </div>
+    <div class="layui-inline" style="float: right;margin-right: 8px;">
+        <div class="layui-input-inline" style="margin-left: 8px;">
+            <span onclick="sysQuery(1)" class="layui-btn layui-btn-primary layui-btn-xs">已展示&nbsp;&nbsp;(<span class="display">{$display}</span>)</span>
+        </div>
+        <div class="layui-input-inline" style="margin-left: 8px;">
+            <span onclick="sysQuery(2)"  class="layui-btn layui-btn-primary layui-btn-xs">未展示&nbsp;&nbsp;(<span class="none">{$none}</span>)</span>
+        </div>
+    </div>
+</section>
+<section class="panel panel-padding">
+    <table lay-skin="line" class="layui-table" lay-filter="demo" lay-data="{height: 'full-200', cellMinWidth:60, url:'/admin/example/expData/', limit:20,limits:[20,30,50] ,id: 'testReload',page:true}" >
+            <thead>
+            <tr>
+                <th lay-data="{field:'case_bid', width:150, sort: true}">案例编号</th>
+                <th lay-data="{field:'c_name'}">省份城市</th>
+                <th lay-data="{field:'case_title'}">案例标题</th>
+                <th lay-data="{field:'des_name'}">设计团队</th>
+                <th lay-data="{field:'type_name'}">案例风格</th>
+                <th lay-data="{field:'case_view', sort: true}">浏览热度</th>
+                <th lay-data="{field:'case_updatetime',width:180,  sort: true}">操作时间</th>
+                <th lay-data="{field:'ad_realname',   sort: true}">操作人</th>
+                <th lay-data="{field:'case_istop', templet: '#switch',sort:true, unresize: true}">是否置顶</th>
+                <th lay-data="{field:'case_isable', templet: '#switchTpl',sort:true, unresize: true}">是否显示</th>
+                <th lay-data="{ width:220, toolbar: '#barDemo'}">操作</th>
+            </tr>
+            </thead>
+        </table>
+</section>
+<script type="text/html" id="barDemo">
+    <a class="layui-btn layui-btn-xs" lay-event="edit"><i class="layui-icon">&#xe642;</i>编辑</a>
+    <a class="layui-btn layui-btn-xs" lay-event="refresh"><i class="layui-icon">&#xe9aa;</i>刷新</a>
+    <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del"><i class="layui-icon">&#xe640;</i>删除</a>
+</script>
+<script type="text/html" id="switchTpl">
+    <input type="checkbox" name="sex" lay-skin="switch" value="{{d.case_id}}" lay-text="是|否" lay-filter="sexDemo" {{ d.case_isable == 1 ? 'checked' : '' }}>
+</script>
+<script type="text/html" id="switch">
+    <input type="checkbox" name="sex" lay-skin="switch" value="{{d.case_id}}" lay-text="是|否" lay-filter="isTop" {{ d.case_istop == 1 ? 'checked' : '' }}>
+</script>
+<script type="text/javascript">
+    $(".pick-area1").pickArea({
+        "format":"province/city/county", //格式
+        "width":"270",
+    });
+</script>
+<script>
+    layui.use(['table','laydate','form'], function(){
+        var table = layui.table
+            ,laydate = layui.laydate
+            ,form = layui.form;
+        laydate.render({
+            elem: '#case_decotime'
+            ,range: true
+        });
+        var $ = layui.$, active = {
+            //表格重载
+            reload: function(){
+                var keywords = $('#keywords').val();
+                var role={$ad_role};
+                if(role == 1){
+                    var sp=$('.pick-area').attr('data-areacode').split(',');
+                }else{
+                    var sp='';
+                }
+                var p_id = sp[0] == undefined ? '0' : sp[0];
+                var c_id = sp[1] == undefined ? '0' : sp[1];
+                var b_id = sp[2] == undefined ? '0' : sp[2];
+                var case_area = $('#case_area').val();
+                var case_admin = $('#case_admin').val()?$('#case_admin').val():0;
+                var case_designer = $('#case_designer').val();
+                var case_decotime = $('#case_decotime').val();
+                //执行重载
+                table.reload('testReload', {
+                    url: '/admin/example/expData/'
+                    ,page: {
+                        curr: 1 //重新从第 1 页开始
+                    }
+                    ,where: {
+                        keywords: keywords,
+                        case_p_id: p_id,
+                        bu_c_id: c_id,
+                        branch: b_id,
+                        case_area: case_area,
+                        case_decotime: case_decotime,
+                        case_designer: case_designer,
+                        case_admin: case_admin
+                    },
+                    success:function (data) {
+                        console.log(data);
+                    }
+                });
+
+                $.ajax({
+                    type:'post',
+                    url:'/admin/example/example',
+                    data:{'keywords':keywords,'case_p_id':p_id,'bu_c_id':c_id,'branch':b_id,'case_area':case_area,'case_decotime':case_decotime,'case_designer':case_designer,'case_admin':case_admin,'style_id':'0'},
+                    success:function (data) {
+                        $('.display').html(data.display);
+                        $('.none').html(data.none);
+                        $('.all').html(data.all);
+                        var style=data.decStyle;
+                        for(var i = 0; i < style.length; i++) {
+                            $('.style'+style[i].type_id).html(style[i].count)
+                        }
+                    },
+                    error:function (data) {
+                        console.log(data)
+                    }
+                })
+            }
+
+        };
+        $('.demoTable .layui-btn').on('click', function(){
+            var type = $(this).data('type');
+            active[type] ? active[type].call(this) : '';
+        });
+        table.on('tool(demo)', function(obj){
+            var data = obj.data;
+            if(obj.event === 'edit'){
+                var case_id = data.case_id;
+                window.location.href='<?=url("example/edit")?>?case_id='+ case_id ;
+            }else if(obj.event === 'refresh'){
+                var case_id = data.case_id;
+                $.ajax({
+                    'type':"get",
+                    'url':"<?=url('example/refresh')?>",
+                    'data':{case_id:case_id},
+                    'success':function (result) {
+                        if(result.code < 1){
+                            layer.msg(result.msg);
+                        }else {
+                            layer.msg(result.msg,{
+                                time: 2000,
+                            },function () {
+                                window.location.reload()
+                            });
+                        }
+                    },
+                    'error':function () {
+                        console.log('error');
+                    }
+                })
+            } else if(obj.event === 'del'){
+                var case_id = data.case_id;
+                layer.confirm('确定删除该案例？删除后不可恢复！', {
+                    btn : [ '确定', '取消' ]//按钮
+                }, function() {
+                    $.ajax({
+                        'type':"get",
+                        'url':"<?=url('example/del')?>",
+                        'data':{case_id:case_id},
+                        'success':function (result) {
+                            if(result.code < 1){
+                                layer.msg(result.msg);
+                            }else {
+                                layer.msg(result.msg);
+                                layer.open({
+                                    title: '信息'
+                                    ,content: result.msg
+                                    ,yes: function(index){
+                                        layer.close(index);
+                                        window.location.href='<?=url("example/example")?>';
+                                    }
+                                    ,cancel:function (index) {
+                                        layer.close(index);
+                                        window.location.href='<?=url("example/example")?>';
+                                    }
+                                });
+                            }
+                        },
+                        'error':function () {
+                            console.log('error');
+                        }
+                    })
+                },function(){
+                    layer.msg('您已取消该操作！',{
+                        time: 2000
+                    });
+                });
+            }
+        });
+        form.on('select(bu_p_id)', function(data){
+            var p_id=data.value;
+            $('#city').show();
+            $.ajax({
+                type: 'POST',
+                url: "<?=url('user/getCityName')?>?p_id="+p_id,
+                data: {p_id:p_id},
+                dataType:  'json',
+                success: function(data){
+                    var code=data.data;
+                    $("#bu_c_id").html("<option value=''>请选择城市</option>");
+                    $.each(code, function(i, val) {
+                        var option1 = $("<option>").val(val.c_id).text(val.c_name);
+                        $("#bu_c_id").append(option1);
+                        form.render('select');
+                    });
+                    $("#bu_c_id").get(0).selectedIndex=0;
+                }
+            });
+        });
+        //调用该城市下面的分站
+        form.on('select(bu_c_id)', function(data){
+            var c_id=data.value;
+            $('#branchs').show();
+            $.ajax({
+                type: 'POST',
+                url: "<?=url('admin/getBranchName')?>?c_id="+c_id,
+                data: {c_id:c_id},
+                dataType:  'json',
+                success: function(data){
+                    var code=data.data;
+                    $("#branch").html("<option value=''>请选择站点</option>");
+                    $.each(code, function(i, val) {
+                        var option1 = $("<option>").val(val.b_id).text(val.b_name);
+                        $("#branch").append(option1);
+                        form.render('select');
+                    });
+                    $("#branch").get(0).selectedIndex=0;
+                }
+            });
+        });
+        //调用该分站下面的管理员
+        form.on('select(ba_branch)', function(data){
+            var b_id=data.value;
+            $.ajax({
+                type: 'POST',
+                url: "<?=url('admin/getAdminName')?>",
+                data: {b_id:b_id},
+                dataType:  'json',
+                success: function(data){
+                    var code=data.data;
+                    $("#ba_admin").html("<option value=''>请选择操作人</option>");
+                    $.each(code, function(i, val) {
+                        var option1 = $("<option>").val(val.ad_id).text(val.ad_realname);
+                        $("#ba_admin").append(option1);
+                        form.render('select');
+                    });
+                    $("#ba_admin").get(0).selectedIndex=0;
+                }
+            });
+        });
+        //监听是否开启操作
+        form.on('switch(sexDemo)', function(obj){
+            var id = this.value;
+            //如果选中状态是true,后台数据将要改为显示
+            var change = obj.elem.checked;
+            if(change){
+                change = 1;
+            }else{
+                change = 0;
+            }
+            $.ajax({
+                type: 'POST',
+                url: "<?=url('example/status')?>?case_id="+id+ "&change="+change,
+                dataType:  'json',
+                success: function(data){
+                    console.log(data);
+                    layer.msg(data.msg);
+                }
+            });
+        });
+        //监听是否置顶
+        form.on('switch(isTop)', function(obj){
+            var id = this.value;
+            //如果选中状态是true,后台数据将要改为显示
+            var change = obj.elem.checked;
+            if(change){
+                change = 1;
+            }else{
+                change = 0;
+            }
+            $.ajax({
+                type: 'POST',
+                url: "<?=url('example/top')?>?case_id="+id+ "&change="+change,
+                dataType:  'json',
+                success: function(data){
+                    console.log(data);
+                    layer.msg(data.msg);
+                }
+            });
+        });
+    });
+    function query(style_id){
+        var keywords = $('#keywords').val();
+        var role={$ad_role};
+        if(role == 1){
+            var sp=$('.pick-area').attr('data-areacode').split(',');
+        }else{
+            var sp='';
+        }
+        var p_id = sp[0] == undefined ? '0' : sp[0];
+        var c_id = sp[1] == undefined ? '0' : sp[1];
+        var b_id = sp[2] == undefined ? '0' : sp[2];
+        var case_area = $('#case_area').val();
+        var case_admin = $('#case_admin').val()?$('#case_admin').val():0;
+        var case_designer = $('#case_designer').val();
+        var case_decotime = $('#case_decotime').val();
+        //执行重载
+        layui.use(['table','jquery'], function(){
+            var table = layui.table;
+            table.reload('testReload', {
+                url: '/admin/example/expData/'
+                ,page: {
+                    curr: 1 //重新从第 1 页开始
+                }
+                ,where: {
+                    keywords: keywords,
+                    case_p_id: p_id,
+                    bu_c_id: c_id,
+                    branch: b_id,
+                    case_area: case_area,
+                    style_id: style_id,
+                    case_decotime: case_decotime,
+                    case_designer: case_designer,
+                    case_admin: case_admin
+                },
+                success:function (data) {
+                    console.log(data);
+                }
+            });
+
+            $.ajax({
+                type:'post',
+                url:'/admin/example/example',
+                data:{'keywords':keywords,'case_p_id':p_id,'bu_c_id':c_id,'branch':b_id,'case_area':case_area,'case_decotime':case_decotime,'case_designer':case_designer,'case_admin':case_admin},
+                success:function (data) {
+                    $('.display').html(data.display);
+                    $('.none').html(data.none);
+                    $('.all').html(data.all);
+                    var style=data.decStyle;
+                    for(var i = 0; i < style.length; i++) {
+                        $('.style'+style[i].type_id).html(style[i].count)
+                    }
+                },
+                error:function (data) {
+                    console.log(data)
+                }
+            })
+        })
+    }
+    function sysQuery(case_isable){
+        var keywords = $('#keywords').val();
+        var role={$ad_role};
+        if(role == 1){
+            var sp=$('.pick-area').attr('data-areacode').split(',');
+        }else{
+            var sp='';
+        }
+        var p_id = sp[0] == undefined ? '0' : sp[0];
+        var c_id = sp[1] == undefined ? '0' : sp[1];
+        var b_id = sp[2] == undefined ? '0' : sp[2];
+        var case_area = $('#case_area').val();
+        var case_admin = $('#case_admin').val()?$('#case_admin').val():0;
+        var case_designer = $('#case_designer').val();
+        var case_decotime = $('#case_decotime').val();
+        //执行重载
+        layui.use(['table','jquery'], function(){
+            var table = layui.table;
+            table.reload('testReload', {
+                url: '/admin/example/expData/'
+                ,page: {
+                    curr: 1 //重新从第 1 页开始
+                }
+                ,where: {
+                    keywords: keywords,
+                    case_p_id: p_id,
+                    bu_c_id: c_id,
+                    branch: b_id,
+                    case_area: case_area,
+                    case_isable: case_isable,
+                    case_decotime: case_decotime,
+                    case_designer: case_designer,
+                    case_admin: case_admin
+                },
+                success:function (data) {
+                    console.log(data);
+                }
+            });
+
+            $.ajax({
+                type:'post',
+                url:'/admin/example/example',
+                data:{'keywords':keywords,'case_p_id':p_id,'bu_c_id':c_id,'branch':b_id,'case_area':case_area,'case_decotime':case_decotime,'case_designer':case_designer,'case_admin':case_admin},
+                success:function (data) {
+                    $('.display').html(data.display);
+                    $('.none').html(data.none);
+                    $('.all').html(data.all);
+                    var style=data.decStyle;
+                    for(var i = 0; i < style.length; i++) {
+                        $('.style'+style[i].type_id).html(style[i].count)
+                    }
+                },
+                error:function (data) {
+                    console.log(data)
+                }
+            })
+        })
+    }
+</script>
+<script type="text/javascript">
+    function addArt(){
+        window.location.href='<?=url('example/add')?>';
+    }
+</script>
+{include file="index/footer" /}

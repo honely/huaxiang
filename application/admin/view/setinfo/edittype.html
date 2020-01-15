@@ -1,0 +1,192 @@
+{include file="index/header" /}
+<div class="layui-body">
+    <div style="margin: 20px;">
+    <span class="layui-breadcrumb" lay-separator=">">
+        <a>系统配置</a>
+        {if condition="$type eq 1"}
+         <a href="<?=url('setinfo/typelist')?>">类型参数-客户标记</a>
+        {elseif condition="$type eq 2"}
+         <a href="<?=url('setinfo/decStyle')?>">类型参数-装修风格</a>
+        {elseif condition="$type eq 3"}
+         <a href="<?=url('setinfo/decLevel')?>">类型参数-装修品质</a>
+        {elseif condition="$type eq 4"}
+         <a href="<?=url('setinfo/houseType')?>">类型参数-房屋类型</a>
+        {elseif condition="$type eq 5"}
+         <a href="<?=url('setinfo/houseArea')?>">类型参数-房屋面积</a>
+        {elseif condition="$type eq 6"}
+         <a href="<?=url('setinfo/from')?>">类型参数-推广来源</a>
+        {elseif condition="$type eq 7"}
+         <a href="<?=url('setinfo/origin')?>">类型参数-推广创意</a>
+        {/if}
+        {if condition="$type eq 1"}
+            <a><cite>修改标记</cite></a>
+        {elseif condition="$type eq 2"}
+            <a><cite>修改风格</cite></a>
+        {elseif condition="$type eq 3"}
+            <a><cite>修改品质</cite></a>
+        {elseif condition="$type eq 4"}
+            <a><cite>修改类型</cite></a>
+        {elseif condition="$type eq 5"}
+            <a><cite>修改面积</cite></a>
+        {elseif condition="$type eq 6"}
+            <a><cite>修改来源</cite></a>
+        {elseif condition="$type eq 7"}
+            <a><cite>修改创意</cite></a>
+        {/if}
+    </span>
+        <div style="float:right;">
+            <a
+                    {if condition="$type eq 1"}
+                    href="<?=url('setinfo/typelist')?>"
+                    {elseif condition="$type eq 2"}
+                    href="<?=url('setinfo/decStyle')?>"
+                    {elseif condition="$type eq 3"}
+                    href="<?=url('setinfo/decLevel')?>"
+                    {elseif condition="$type eq 4"}
+                    href="<?=url('setinfo/houseType')?>"
+                    {elseif condition="$type eq 5"}
+                    href="<?=url('setinfo/houseArea')?>"
+                    {elseif condition="$type eq 6"}
+                    href="<?=url('setinfo/from')?>"
+                    {elseif condition="$type eq 7"}
+                    href="<?=url('setinfo/origin')?>"
+                    {/if}
+            class="layui-btn layui-btn-primary layui-btn-sm">
+            <i class="layui-icon layui-icon-return"></i>
+            返回列表</a>
+        </div>
+    </div>
+    <hr/>
+    <div style="padding: 15px;">
+        <form class="layui-form layui-form-pane1" action="<?=url('setinfo/edittype')?>?type={$type}&type_id={$typeInfo.type_id}" method="post">
+            <input type="hidden" value="{$type}"/>
+            <div class="layui-form-item">
+                <label class="layui-form-label"><span style="color: red;">*</span>
+                    {if condition="$type eq 1"}
+                    类型名称
+                    {elseif condition="$type eq 2"}
+                    风格名称
+                    {elseif condition="$type eq 3"}
+                    品质名称
+                    {elseif condition="$type eq 4"}
+                    房屋类型
+                    {elseif condition="$type eq 5"}
+                    房屋面积
+                    {elseif condition="$type eq 6"}
+                    来源名称
+                    {elseif condition="$type eq 7"}
+                    创意名称
+                    {/if}
+                </label>
+                <div class="layui-input-block">
+                    <input type="text" name="type_name" value="{$typeInfo.type_name}" lay-verify="required" placeholder=
+                            {if condition="$type eq 1"}
+                    '请输入类型名称'
+                    {elseif condition="$type eq 2"}
+                    '请输入风格名称'
+                    {elseif condition="$type eq 3"}
+                    '请输入品质名称'
+                    {elseif condition="$type eq 4"}
+                    '请输入房屋类型'
+                    {elseif condition="$type eq 5"}
+                    '请输入房屋面积'
+                    {elseif condition="$type eq 6"}
+                    '请输入推广来源'
+                    {elseif condition="$type eq 7"}
+                    '请输入推广创意'
+                    {/if}
+                    autocomplete="off" class="layui-input">
+                </div>
+            </div>
+            <div class="layui-form-item layui-form-text">
+                <label class="layui-form-label">
+                    {if condition="$type eq 1"}
+                    类型简介
+                    {elseif condition="$type eq 2"}
+                    风格简介
+                    {elseif condition="$type eq 3"}
+                    品质简介
+                    {elseif condition="$type eq 4"}
+                    房屋类型
+                    {elseif condition="$type eq 5"}
+                    面积区间
+                    {elseif condition="$type eq 6"}
+                    来源字段
+                    {elseif condition="$type eq 7"}
+                    创意字段
+                    {/if}
+                </label>
+                {if condition="$type eq 5"}
+                <div class="layui-input-inline" style="width: 100px;">
+                    <input type="text" name="minArea" lay-verify="required" value="{$typeInfo.type_remarks[0]}" autocomplete="off" class="layui-input">
+                </div>
+                <div class="layui-form-mid">-</div>
+                <div class="layui-input-inline" style="width: 100px;">
+                    <input type="text" name="maxArea" lay-verify="required" value="{$typeInfo.type_remarks[1]}" autocomplete="off" class="layui-input">
+                </div>
+                <div class="layui-form-mid">单位：（m²）</div>
+                <div class="layui-form-mid layui-word-aux">请填写请填写面积区间（如：80-100 表示面积大于等于80，小于100）</div>
+                {else/}
+                <div class="layui-input-block">
+                    <textarea lay-verify="required"  placeholder=
+                                      {if condition="$type eq 1"}
+                    "请输入类型简介"
+                    {elseif condition="$type eq 2"}
+                    "请输入风格简介"
+                    {elseif condition="$type eq 3"}
+                    "请输入品质简介"
+                    {elseif condition="$type eq 4"}
+                    "请输入房屋类型"
+                    {elseif condition="$type eq 6"}
+                    "请输入来源字段"
+                    {elseif condition="$type eq 7"}
+                    "请输入创意字段"
+                    {/if}
+                    name="type_remarks" class="layui-textarea">{$typeInfo.type_remarks}</textarea>
+                </div>
+                {/if}
+            </div>
+            <div class="layui-form-item" pane>
+                <label class="layui-form-label">是否可用</label>
+                <div class="layui-input-block">
+                    <input type="radio" name="type_isable" value="1" title="是" checked>
+                    <input type="radio" name="type_isable" value="2" title="否">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <div class="layui-input-block">
+                    <button class="layui-btn" type="submit">修改</button>
+                    {if condition="$type eq 1"}
+                    <a class="layui-btn layui-btn-primary" href="<?=url('setinfo/typelist')?>">返回</a>
+                    {elseif condition="$type eq 2"}
+                    <a class="layui-btn layui-btn-primary" href="<?=url('setinfo/decStyle')?>">返回</a>
+                    {elseif condition="$type eq 3"}
+                    <a class="layui-btn layui-btn-primary" href="<?=url('setinfo/declevel')?>">返回</a>
+                    {elseif condition="$type eq 4"}
+                    <a class="layui-btn layui-btn-primary" href="<?=url('setinfo/houseType')?>">返回</a>
+                    {elseif condition="$type eq 5"}
+                    <a class="layui-btn layui-btn-primary" href="<?=url('setinfo/houseArea')?>">返回</a>
+                    {elseif condition="$type eq 6"}
+                    <a class="layui-btn layui-btn-primary" href="<?=url('setinfo/from')?>">返回</a>
+                    {elseif condition="$type eq 7"}
+                    <a class="layui-btn layui-btn-primary" href="<?=url('setinfo/origin')?>">返回</a>
+                    {/if}
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+<script>
+    layui.use('form', function(){
+        var form = layui.form;
+        form.on('radio', function(data){
+            console.log(data);
+        });
+        //监听提交
+        form.on('submit(*)', function(data){
+            console.log(data)
+            return false;
+        });
+    });
+</script>
+{include file="index/footer" /}

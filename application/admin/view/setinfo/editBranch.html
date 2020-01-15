@@ -1,0 +1,384 @@
+{include file="index/header" /}
+<div class="layui-body">
+    <div style="margin: 20px;">
+    <span class="layui-breadcrumb" lay-separator=">">
+        <a>系统配置</a>
+        <a href="<?=url('setinfo/branch')?>">分站配置</a>
+        <a><cite>修改分站</cite></a>
+    </span>
+        <div style="float:right;">
+            <a href="<?=url('setinfo/branch')?>" class="layui-btn layui-btn-primary layui-btn-sm">
+                <i class="layui-icon layui-icon-return"></i>
+                返回列表</a>
+        </div>
+    </div>
+    <hr/>
+    <form class="layui-form" id="baseInfo" action="<?=url('setinfo/editBranch')?>?b_id={$branch.b_id}" method="post">
+    <div class="layui-tab">
+        <ul class="layui-tab-title">
+            <li class="layui-this">①开站信息</li>
+            <li>②联系通讯</li>
+            <li>③统计工具</li>
+        </ul>
+        <div class="layui-tab-content">
+            <!--基本信息-->
+            <div class="layui-tab-item layui-show">
+                <div style="margin: 10px">
+                    <div style="padding: 15px;">
+                        <div class="layui-form-item">
+                            <label class="layui-form-label">站点名称</label>
+                            <div class="layui-input-block">
+                                <input type="text" name="b_name" value="{$branch.b_name}" lay-verify="required" placeholder="请输入站点名称" autocomplete="off" class="layui-input">
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <label class="layui-form-label">站点logo</label>
+                            <div class="layui-upload">
+                                <button type="button" class="layui-btn" id="uploadLogo">上传logo</button>
+                                <input type="hidden" name="b_logo" id="b_logo" value="{$branch.b_logo}"/>
+                                <div class="layui-upload-list" style="margin-left: 60px;">
+                                    <img class="layui-upload-img" style="width: 120px;height: 120px"  src="__PUBLIC__{$branch.b_logo}" id="logoPre">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <label class="layui-form-label">图片alt</label>
+                            <div class="layui-input-block">
+                                <input type="text" name="b_logo_alt" value="{$branch.b_logo_alt}" lay-verify="required|b_logo_alt" required placeholder="请输入图片alt" autocomplete="off" class="layui-input">
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <label class="layui-form-label">网站首页</label>
+                            <div class="layui-input-block">
+                                <input type="text" name="b_prex" value="{$branch.b_prex}" lay-verify="required|s_value" required placeholder="请输入站点标识前缀" autocomplete="off" class="layui-input">
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <label class="layui-form-label">站点电话</label>
+                            <div class="layui-input-block">
+                                <input type="text" name="b_tel" value="{$branch.b_tel}" lay-verify="required|b_tel" required placeholder="请输入站点站点电话" autocomplete="off" class="layui-input">
+                            </div>
+                        </div>
+
+                        <div class="layui-form-item">
+                            <label class="layui-form-label">微信二维码</label>
+                            <div class="layui-upload">
+                                <button type="button" class="layui-btn" id="uploadWechat">上传微信二维码</button>
+                                <input type="hidden" name="b_weichat" id="b_weichat" value="{$branch.b_weichat}"/>
+                                <div class="layui-upload-list" style="margin-left: 60px;">
+                                    <img class="layui-upload-img" style="width: 120px;height: 120px"  src="__PUBLIC__{$branch.b_weichat}" id="WechatPre">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <label class="layui-form-label">微博二维码</label>
+                            <div class="layui-upload">
+                                <button type="button" class="layui-btn" id="uploadWeibo">上传微博二维码</button>
+                                <input type="hidden" name="b_weibo" id="b_weibo" value="{$branch.b_weichat}"/>
+                                <div class="layui-upload-list" style="margin-left: 60px;">
+                                    <img class="layui-upload-img" style="width: 120px;height: 120px"  src="__PUBLIC__{$branch.b_weichat}" id="weiboPre">
+                                    <p id="weiboText"></p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <label class="layui-form-label">城市</label>
+                            <div class="layui-input-inline">
+                                <select name="b_province" lay-verify="required" id="cus_provid" lay-filter="cus_provid">
+                                    <option value="">请选择省份</option>
+                                    {volist name='prov' id='vo'}
+                                    <option value="{$vo.p_id}" {if condition="$vo.p_id eq $branch.b_province"}selected{/if}>{$vo.p_name}</option>
+                                    {/volist}
+                                </select>
+                            </div>
+                            <div class="layui-input-inline">
+                                <select name="b_city" lay-verify="required" id="cityName" lay-filter="myselect2">
+                                    <option value="">请选择市</option>
+                                    {volist name="cusCity" id="city"}
+                                        <option value="{$city.c_id}" {if condition="$city.c_id eq $branch.b_city"}selected{/if} >{$city.c_name}</option>
+                                    {/volist}
+                                </select>
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <label class="layui-form-label">详细地址</label>
+                            <div class="layui-input-block">
+                                <input type="text" name="b_address" value="{$branch.b_address}" lay-verify="required|s_value" required placeholder="请输入详细地址" autocomplete="off" class="layui-input">
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <label class="layui-form-label">地理坐标</label>
+                            <div class="layui-input-block">
+                                <input type="text" name="b_location" value="{$branch.b_location}" lay-verify="required|b_location" required placeholder="请输入地理坐标" autocomplete="off" class="layui-input">
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <label class="layui-form-label">开通时间</label>
+                            <div class="layui-input-block">
+                                <input type="text" value="{$branch.b_createtime}"  name="b_createtime" id="date" lay-verify="required|s_value" required placeholder="请选择开通时间" autocomplete="off" class="layui-input">
+                            </div>
+                            <!--<div class="layui-input-block">-->
+                                <!--{$branch.b_createtime}-->
+                            <!--</div>-->
+                        </div>
+                        <div class="layui-form-item" pane>
+                            <label class="layui-form-label">是否开启</label>
+                            <div class="layui-input-block">
+                                <input type="radio" name="b_isopen" value="1" title="是" {if condition="$branch.b_isopen eq 1"}checked{/if} >
+                                <input type="radio" name="b_isopen" value="2" title="否" {if condition="$branch.b_isopen eq 2"}checked{/if} >
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--扩展信息-->
+            <div class="layui-tab-item">
+                <div style="margin: 10px">
+                    <div style="padding: 15px;">
+                        <div class="layui-form-item">
+                            <label class="layui-form-label">客服代码</label>
+                            <div class="layui-input-block">
+                                <textarea name="b_thridcode" class="layui-textarea" placeholder="请输入客服代码">{$branch.b_thridcode}</textarea>
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <label class="layui-form-label">客服链接</label>
+                            <div class="layui-input-block">
+                                <textarea name="b_serviceurl" class="layui-textarea" placeholder="请输入客服代码">{$branch.b_serviceurl}</textarea>
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <label class="layui-form-label">接受预约短信手机号</label>
+                            <div class="layui-input-block">
+                                <input type="text" name="b_adminphone" lay-verify="required" value="{$branch.b_adminphone}" placeholder="请输入手机号" autocomplete="off" class="layui-input">
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <label class="layui-form-label">管理员短信通知模板</label>
+                            <div class="layui-input-inline">
+                                <select name="b_admin_tem">
+                                    <option value="">请选择短信模板</option>
+                                    {volist name="adminTem" id="admin"}
+                                    <option value="{$admin.sms_id}" {if condition="$branch.b_admin_tem eq $admin.sms_id"}selected{/if} >{$admin.sms_title}</option>
+                                    {/volist}
+                                </select>
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <label class="layui-form-label">站点签名</label>
+                            <div class="layui-input-inline">
+                                <select name="b_sign" >
+                                    <option value="">请选择短信模板</option>
+                                    {volist name="sign" id="vo"}
+                                    <option value="{$vo.ali_sign_id}" {if condition="$branch.b_sign eq $vo.ali_sign_id"}selected{/if} >{$vo.ali_sign_name}</option>
+                                    {/volist}
+                                </select>
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <label class="layui-form-label">通用预约模板</label>
+                            <div class="layui-input-inline">
+                                <select name="b_order" >
+                                    <option value="">请选择短信模板</option>
+                                    {volist name="orderTem" id="order"}
+                                    <option value="{$order.sms_id}" {if condition="$branch.b_order eq $order.sms_id"}selected{/if} >{$order.sms_title}</option>
+                                    {/volist}
+                                </select>
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <label class="layui-form-label">预约报价模板</label>
+                            <div class="layui-input-inline">
+                                <select name="b_quote" >
+                                    <option value="">请选择短信模板</option>
+                                    {volist name="quoteTem" id="quote"}
+                                    <option value="{$quote.sms_id}" {if condition="$branch.b_quote eq $quote.sms_id"}selected{/if} >{$quote.sms_title}</option>
+                                    {/volist}
+                                </select>
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <label class="layui-form-label">预约活动模板</label>
+                            <div class="layui-input-inline">
+                                <select name="b_activity">
+                                    <option value="">请选择短信模板</option>
+                                    {volist name="activityTem" id="activity"}
+                                    <option value="{$activity.sms_id}" {if condition="$branch.b_activity eq $activity.sms_id"}selected{/if}  >{$activity.sms_title}</option>
+                                    {/volist}
+                                </select>
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <label class="layui-form-label">预约设计模板</label>
+                            <div class="layui-input-inline">
+                                <select name="b_design">
+                                    <option value="">请选择短信模板</option>
+                                    {volist name="designTem" id="design"}
+                                    <option value="{$design.sms_id}" {if condition="$branch.b_design eq $design.sms_id"}selected{/if} >{$design.sms_title}</option>
+                                    {/volist}
+                                </select>
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <label class="layui-form-label">预约量房模板</label>
+                            <div class="layui-input-inline">
+                                <select name="b_measure">
+                                    <option value="">请选择短信模板</option>
+                                    {volist name="measureTem" id="measure"}
+                                    <option value="{$measure.sms_id}" {if condition="$branch.b_measure eq $measure.sms_id"}selected{/if} >{$measure.sms_title}</option>
+                                    {/volist}
+                                </select>
+                            </div>
+                        </div>
+                        <!--<div class="layui-form-item">-->
+                            <!--<div class="layui-input-block">-->
+                                <!--<button class="layui-btn" >下一步</button>-->
+                            <!--</div>-->
+                        <!--</div>-->
+                    </div>
+                </div>
+            </div>
+            <!--统计工具-->
+            <div class="layui-tab-item">
+                <div style="margin: 10px">
+                    <div style="padding: 15px;">
+                        <div class="layui-form-item">
+                            <label class="layui-form-label">统计代码</label>
+                            <div class="layui-input-block">
+                                <textarea name="b_codecount" class="layui-textarea" placeholder="请输入客服代码">{$branch.b_codecount}</textarea>
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <label class="layui-form-label">其他代码</label>
+                            <div class="layui-input-block">
+                                <textarea name="b_othercode" class="layui-textarea" placeholder="请输入其他代码">{$branch.b_othercode}</textarea>
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <div class="layui-input-block">
+                                <button class="layui-btn" lay-submit lay-filter="*">修改</button>
+                                <a class="layui-btn layui-btn-primary" href="<?=url('setinfo/branch')?>">返回</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    </form>
+</div>
+<script>
+    layui.use(['form', 'laydate', 'jquery','upload'], function(){
+        var form = layui.form
+            ,laydate = layui.laydate
+            ,upload = layui.upload
+            ,$ = layui.jquery;
+
+        //日期
+        // laydate.render({
+        //     elem: '#opendate'
+        // });
+        //自定义验证规则
+        form.verify({
+            title: function(value){
+                if(value.length < 2){
+                    return '至少得2个字符啊';
+                }
+            }
+            ,pass: [/(.+){6,12}$/, '密码必须6到12位']
+            ,content: function(value){
+                layedit.sync(editIndex);
+            }
+        });
+        form.on('select(cus_provid)', function(data){
+            var p_id=data.value;
+            $.ajax({
+                type: 'POST',
+                url: "<?=url('user/getCityName')?>?p_id="+p_id,
+                data: {p_id:p_id},
+                dataType:  'json',
+                success: function(data){
+                    var code=data.data;
+                    $("#cityName").html("<option value=''>请选择市</option>");
+                    $.each(code, function(i, val) {
+                        var option1 = $("<option>").val(val.c_id).text(val.c_name);
+                        $("#cityName").append(option1);
+                        form.render('select');
+                    });
+                    $("#cityName").get(0).selectedIndex=0;
+                }
+            });
+        });
+        //站点LOGO上传
+        upload.render({
+            elem: '#uploadLogo'
+            ,url: '{:url("setinfo/branchupload")}'
+            ,size: 60 //限制文件大小，单位 KB
+            ,ext: 'jpg|png|gif'
+            ,accept: 'images' //限制文件大小，单位 KB
+            ,before: function(input){
+                loading = layer.load(2, {
+                    shade: [0.2,'#000']
+                });
+            }
+            ,done: function(res){
+                console.log(res);
+                layer.close(loading);
+                $('#b_logo').val(res.path);
+                $('#logoPre').attr('src',"__PUBLIC__"+res.path);
+                layer.msg(res.msg, {icon: 1, time: 1000});
+            }
+            ,error: function(res){
+                layer.msg(res.msg, {icon: 2, time: 1000});
+            }
+        });
+        //站点微信二维码上传
+        upload.render({
+            elem: '#uploadWechat'
+            ,url: '{:url("setinfo/branchupload")}'
+            ,size: 500 //限制文件大小，单位 KB
+            ,ext: 'jpg|png|gif'
+            ,accept: 'images' //限制文件大小，单位 KB
+            ,before: function(input){
+                loading = layer.load(2, {
+                    shade: [0.2,'#000']
+                });
+            }
+            ,done: function(res){
+                console.log(res);
+                layer.close(loading);
+                $('#b_weichat').val(res.path);
+                $('#WechatPre').attr('src',"__PUBLIC__"+res.path);
+                layer.msg(res.msg, {icon: 1, time: 1000});
+            }
+            ,error: function(res){
+                layer.msg(res.msg, {icon: 2, time: 1000});
+            }
+        });
+        //站点LOGO上传
+        upload.render({
+            elem: '#uploadWeibo'
+            ,url: '{:url("setinfo/branchupload")}'
+            ,size: 60 //限制文件大小，单位 KB
+            ,ext: 'jpg|png|gif'
+            ,accept: 'images' //限制文件大小，单位 KB
+            ,before: function(input){
+                loading = layer.load(2, {
+                    shade: [0.2,'#000']
+                });
+            }
+            ,done: function(res){
+                console.log(res);
+                layer.close(loading);
+                $('#b_weibo').val(res.path);
+                $('#weiboPre').attr('src',"__PUBLIC__"+res.path);
+                layer.msg(res.msg, {icon: 1, time: 1000});
+            }
+            ,error: function(res){
+                layer.msg(res.msg, {icon: 2, time: 1000});
+            }
+        });
+    });
+
+</script>
+{include file="index/footer" /}

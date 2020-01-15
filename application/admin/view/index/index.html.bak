@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <title>{$siteName}后台管理系统</title>
+    <link rel="stylesheet" href="__LAY__/css/layui.css">
+    <script src="__PUBLIC__/static/jquery-1.10.2.min.js"></script>
+    <script src="__LAY__/layui.js"></script>
+</head>
+<body class="layui-layout-body">
+<div class="layui-layout layui-layout-admin">
+    <div class="layui-header">
+        <div class="layui-logo">{$siteName}后台管理系统</div>
+        <ul class="layui-nav layui-layout-left">
+            <div style="line-height: 60px;">
+                <span>欢迎您，{$admin.r_name} &nbsp;
+                    {if condition="$ad_role eq 1" }
+                    总站
+                    {else/}
+                    {$admin.b_name}
+                    {/if}
+                    &nbsp;{$admin.ad_realname} </span>
+            </div>
+        </ul>
+        <ul class="layui-nav layui-layout-right">
+            <li class="layui-nav-item"><a style="padding-left: 10px !important;" href="javascript:location.reload();" >后台主页</a></li>
+            <li class="layui-nav-item"><a style="padding-left: 10px !important;"  href="{$branchWeb}" target="_blank">打开首页</a></li>
+            <li class="layui-nav-item"><a style="padding-left: 10px !important;"  id="resetPwd">修改账户</a></li>
+            <li class="layui-nav-item"><a style="padding-left: 10px !important;"  href="<?=url('login/loginOut')?>">退出登录</a></li>
+        </ul>
+    </div>
+    <div class="layui-side layui-bg-black">
+        <div class="layui-side-scroll" >
+            <ul class="layui-nav layui-nav-tree" lay-filter="test">
+                {if $menuList neq null}
+                {volist name="menuList" id="menu"}
+                {if isset($menu.child) && $menu.child}
+                <li class="layui-nav-item">
+                    <a href="javascript:;">{$menu.m_name}</a>
+                    {if isset($menu.child) && $menu.child neq null}
+                    {volist name="menu['child']" id="child"}
+                    <dl class="layui-nav-child">
+                        <dd><a href='javascript:' data-url="/admin/{$child['m_control']}/{$child['m_action']}.html">{$child.m_name}</a></dd>
+                    </dl>
+                    {/volist}
+                    {/if}
+                </li>
+                {else}
+                <li  class="layui-nav-item">
+                    <a href="{$menu.m_name}">{$menu.m_name}</a>
+                </li>
+                {/if}
+                {/volist}
+                {/if}
+            </ul>
+        </div>
+    </div>
+	<div class='layui-body'>
+		<iframe id='option' src="<?=url('index/welcome')?>" frameborder='no' width='100%' height='99%'>
+        </iframe>
+	</div>
+	<div class="layui-footer">
+    服务支持QQ：824913377
+</div>
+</div>	
+<script>
+    //JavaScript代码区域
+    layui.use(['element','jquery','layer'], function(){
+        var element = layui.element,
+		$ = layui.jquery;
+		element.on('nav(test)',function(elem){
+			var $url = $(elem).eq(0).attr('data-url');
+			$("#option").attr('src',$url)
+		})
+
+        //修改密码；
+        $('#resetPwd').click(function () {
+            layer.open({
+                type: 2,
+                title: '修改密码',
+                shadeClose: true,
+                shade: false,
+                maxmin: true,
+                area: ['893px', '600px'],
+                content: "<?=url('index/resetpwd')?>"
+            });
+        });
+        //修改密码；
+        $('#adminDetails').click(function () {
+            layer.open({
+                type: 2,
+                title: '完善信息',
+                shadeClose: true,
+                shade: false,
+                maxmin: true,
+                area: ['893px', '600px'],
+                content: "<?=url('index/adminDetails')?>"
+            });
+        })
+    });
+</script>
+</body>
+</html>

@@ -1,0 +1,57 @@
+{include file="index/header" /}
+<div class="layui-body">
+    <div style="margin: 20px;">
+    <span class="layui-breadcrumb" lay-separator=">">
+        <a>部门管理</a>
+        <a href="<?=url('department/index')?>">部门管理</a>
+        <a><cite>添加部门</cite></a>
+    </span>
+        <div style="float:right;">
+            <a href="<?=url('department/index')?>" class="layui-btn layui-btn-primary layui-btn-sm">
+                <i class="layui-icon layui-icon-return"></i>
+                返回列表</a>
+        </div>
+    </div>
+    <hr/>
+    <div style="padding: 15px;">
+        <form class="layui-form layui-form-pane1" action="<?=url('department/add')?>" method="post">
+            <div class="layui-form-item">
+                <label class="layui-form-label"><span style="color: red;">*</span>部门名称</label>
+                <div class="layui-input-block">
+                    <input type="text" name="d_name" lay-verify="required|title" placeholder="请输入部门名称" autocomplete="off" class="layui-input">
+                </div>
+            </div>
+            <div class="layui-form-item layui-form-text">
+                <label class="layui-form-label"><span style="color: red;">*</span>菜单父级</label>
+                <div class="layui-input-block">
+                    <input type="text" lay-verify="required" value="{$finfo.d_name}" readonly autocomplete="off" class="layui-input">
+                    <input type="hidden" name="d_f_id" value="{$finfo.d_id}" >
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <div class="layui-input-block">
+                    <button class="layui-btn" lay-submit lay-filter="saveInfo">添加</button>
+                    <a class="layui-btn layui-btn-primary" href="<?=url('department/index')?>">返回</a>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+<script>
+    layui.use(['form','jquery'], function(){
+        var form = layui.form
+            ,$ = layui.jquery;
+        //自定义验证规则
+        form.verify({
+            title: function(value){
+                if(value.length < 2){
+                    return '至少得2个字符啊';
+                }
+            }
+            ,pass: [/(.+){6,12}$/, '密码必须6到12位']
+            ,content: function(value){
+            }
+        });
+    });
+</script>
+{include file="index/footer" /}

@@ -1,0 +1,81 @@
+{include file="index/header" /}
+<div class="layui-body">
+    <div style="margin: 20px;">
+    <span class="layui-breadcrumb" lay-separator=">">
+        <a>系统配置</a>
+        <a href="<?=url('msg/msg')?>">信息配置</a>
+        <a href="<?=url('msg/msgtem')?>">短信模板</a>
+        <a><cite>添加短信模板</cite></a>
+    </span>
+        <div style="float:right;">
+            <a href="<?=url('msg/msgtem')?>" class="layui-btn layui-btn-primary layui-btn-sm">
+                <i class="layui-icon layui-icon-return"></i>
+                返回列表</a>
+        </div>
+    </div>
+    <hr/>
+    <div style="padding: 15px;">
+        <form class="layui-form layui-form-pane1" action="<?=url('msg/addtem')?>" method="post">
+            <div class="layui-form-item">
+                <label class="layui-form-label">
+                    模板类型
+                </label>
+                <div class="layui-input-inline">
+                    <select name="sms_type" lay-verify="required" lay-filter="cus_provid">
+                        <option value="">请选择模板类型</option>
+                        <option value="1">管理员通知</option>
+                        <option value="2">通用预约</option>
+                        <option value="3">报价预约</option>
+                        <option value="4">量房预约</option>
+                        <option value="5">活动预约</option>
+                        <option value="6">设计预约</option>
+                    </select>
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label"><span style="color: red;">*</span>
+                    模板名称
+                </label>
+                <div class="layui-input-block">
+                    <input type="text" name="sms_title" lay-verify="required" placeholder='请输入模板名称' autocomplete="off" class="layui-input">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">
+                    <span style="color: red;">*</span>模板CODE
+                </label>
+                <div class="layui-input-block">
+                    <input type="text" name="sms_code" lay-verify="required" placeholder='请输入模板CODE(填写已申请成功的阿里云短信模板的CODE)' autocomplete="off" class="layui-input">
+                </div>
+            </div>
+            <div class="layui-form-item layui-form-text">
+                <label class="layui-form-label"><span style="color: red;">*</span>模板内容</label>
+                <div class="layui-input-block">
+                    <textarea placeholder="请输入模板内容(填写已申请成功的阿里云短信模板内容)" lay-verify="required" name="sms_content" class="layui-textarea"></textarea>
+                    <div class="layui-form-mid layui-word-aux">短信模板常用参数-管理员姓名：${adminName}；客户姓名：${userName}；客户电话：${userTel}；城市名称：${cityName}；设计师：${designer}；报价金额：${price}；活动名称：${activity}</div>
+                </div>
+            </div>
+            <div class="layui-form-item layui-form-text">
+                <label class="layui-form-label">模板说明</label>
+                <div class="layui-input-block">
+                    <textarea placeholder="请输入模板说明（自己备注即可）" name="sms_remarks" class="layui-textarea"></textarea>
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <div class="layui-input-block">
+                    <button class="layui-btn" type="submit">添加</button>
+                    <a class="layui-btn layui-btn-primary" href="<?=url('msg/msgtem')?>">返回</a>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+<script>
+    layui.use('form', function(){
+        var form = layui.form;
+        form.on('radio', function(data){
+            console.log(data);
+        });
+    });
+</script>
+{include file="index/footer" /}

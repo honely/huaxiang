@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8" />
+    <title>Document</title>
+    <!--IP分流，根据不同的ip跳转不同的网站-->
+    <script src="https://pv.sohu.com/cityjson?ie=utf-8"></script>
+    <script type="text/javascript">
+        var city = returnCitySN["cname"];
+        document.write(city);
+        if(city != 'AUSTRALIA'){
+            window.location.href = 'https://huaxiangxiaobao.com/';
+        }
+    </script>
+</head>
+
+<body>
+</body>
+</html>

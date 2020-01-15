@@ -1,0 +1,384 @@
+{include file="index/header" /}
+<link rel="stylesheet" href="__PUBLIC__/static/pcb/pick-pcc.css"/>
+<script type="text/javascript" src="__PUBLIC__/static/pcb/pick-pcc.js"></script>
+<style>
+    .pick-county{
+        max-width: 71.3333px !important;
+
+    }
+</style>
+<div style="margin: 20px;">
+    <span class="layui-breadcrumb" lay-separator=">">
+        <a>内容管理</a>
+        <a><cite>施工团队</cite></a>
+    </span>
+    <div style="float:right;">
+        <button class="layui-btn layui-btn-primary layui-btn-sm"  onclick="addWorker()"><i class="layui-icon"></i>添加工长</button>
+    </div>
+</div>
+<hr/>
+<section class="panel panel-padding" style="padding-top: 10px;padding-left: 10px;">
+    <form class="layui-form layui-form-pane1">
+        <div class="layui-form-item  demoTable">
+            <div class="layui-inline" style="width: 280px;">
+                <div class="layui-input-inline">
+                    <div class="pick-area1" name=""></div>
+                </div>
+            </div>
+            <div class="layui-inline">
+                <div class="layui-input-inline">
+                    <input type="text" name="keywords" id="keywords"  placeholder="请输入工长姓名/编号" class="layui-input">
+                </div>
+            </div>
+            <div class="layui-inline">
+                <div class="layui-input-inline">
+                    <select name="case_admin" id="case_admin">
+                        <option value="">请选择操作人</option>
+                        {volist name="admin" id="ad"}
+                        <option value="{$ad.ad_id}">{$ad.ad_realname}</option>
+                        {/volist}
+                    </select>
+                </div>
+            </div>
+            <div class="layui-inline">
+                <div class="layui-input-inline">
+                    <input type="text" name="case_decotime" class="layui-input" id="case_decotime" placeholder="请选择操作日期">
+                </div>
+            </div>
+            <div class="layui-inline">
+                <div class="layui-input-inline">
+                    <span class="layui-btn" data-type="reload">查询</span>
+                    <a href="<?=url('worker/index')?>" class="layui-btn layui-btn-warm">刷新</a>
+                </div>
+            </div>
+        </div>
+    </form>
+</section>
+<section class="panel panel-padding" style="padding-left: 10px;padding-right: 10px;">
+    <div class="layui-inline">
+        <div class="layui-input-inline">
+            <span onclick="query(0)" class="layui-btn layui-btn-xs layui-btn-primary">当前全部工长&nbsp;&nbsp;(<span class="all">{$all}</span>)</span>
+        </div>
+    </div>
+    <div class="layui-inline" style="float: right;margin-right: 8px;">
+        <div class="layui-input-inline" style="margin-left: 8px;">
+            <span onclick="sysQuery(1)" class="layui-btn layui-btn-primary layui-btn-xs">已展示&nbsp;&nbsp;(<span class="display">{$show}</span>)</span>
+        </div>
+        <div class="layui-input-inline" style="margin-left: 8px;">
+            <span onclick="sysQuery(2)"  class="layui-btn layui-btn-primary layui-btn-xs">未展示&nbsp;&nbsp;(<span class="none">{$none}</span>)</span>
+        </div>
+    </div>
+</section>
+<section class="panel panel-padding">
+    <table lay-skin="line" class="layui-table" lay-filter="demo" lay-data="{height: 'full-200', cellMinWidth:60, url:'/admin/worker/workerData/', limit:20,limits:[20,30,50] ,id: 'testReload',page:true}" >
+        <thead>
+        <tr>
+            <th lay-data="{field:'wk_bid',sort: true}">工长编号</th>
+            <th lay-data="{field:'c_name'}">省份城市</th>
+            <th lay-data="{field:'wk_name'}">工长姓名</th>
+            <th lay-data="{field:'site_num'}">工地数量</th>
+            <th lay-data="{field:'wk_view',sort: true}">浏览热度</th>
+            <th lay-data="{field:'wk_updatetime', width:200,  sort: true}">操作时间</th>
+            <th lay-data="{field:'ad_realname', sort: true}">操作人</th>
+            <th lay-data="{field:'wk_istop', templet: '#topTpl',sort:true, unresize: true}">是否置顶</th>
+            <th lay-data="{field:'wk_isable',templet: '#switchTpl',sort:true, unresize: true}">是否显示</th>
+            <th lay-data="{width:220, toolbar: '#barDemo'}">操作</th>
+        </tr>
+        </thead>
+    </table>
+</section>
+<script type="text/html" id="barDemo">
+    <a class="layui-btn layui-btn-xs" lay-event="edit"><i class="layui-icon">&#xe642;</i>编辑</a>
+    <a class="layui-btn layui-btn-xs" lay-event="refresh"><i class="layui-icon">&#xe9aa;</i>刷新</a>
+    <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del"><i class="layui-icon">&#xe640;</i>删除</a>
+</script>
+<script type="text/html" id="switchTpl">
+    <input type="checkbox" name="sex" lay-skin="switch" value="{{d.wk_id}}" lay-text="是|否" lay-filter="sexDemo" {{ d.wk_isable == 1 ? 'checked' : '' }}>
+</script>
+<script type="text/html" id="topTpl">
+    <input type="checkbox" name="sex" lay-skin="switch" value="{{d.wk_id}}" lay-text="是|否" lay-filter="topDemo" {{ d.wk_istop == 1 ? 'checked' : '' }}>
+</script>
+<script type="text/javascript">
+    $(".pick-area1").pickArea({
+        "format":"province/city/county", //格式
+        "width":"270",
+    });
+</script>
+<script>
+    layui.use(['table','laydate','form'], function(){
+        var table = layui.table
+            ,laydate = layui.laydate
+            ,form = layui.form;
+        laydate.render({
+            elem: '#case_decotime'
+            ,range: true
+        });
+        var $ = layui.$, active = {
+            //表格重载
+            reload: function(){
+                var keywords = $('#keywords').val();
+                var sp=$('.pick-area').attr('data-areacode').split(',');
+                var case_p_id = sp[0] == undefined ? '0' : sp[0];
+                var bu_c_id = sp[1] == undefined ? '0' : sp[1];
+                var branch = sp[2] == undefined ? '0' : sp[2];
+                var case_admin = $('#case_admin').val();
+                var case_decotime = $('#case_decotime').val();
+                //执行重载
+                table.reload('testReload', {
+                    url: '/admin/worker/workerData/'
+                    ,page: {
+                        curr: 1 //重新从第 1 页开始
+                    }
+                    ,where: {
+                        keywords: keywords,
+                        case_p_id: case_p_id,
+                        bu_c_id: bu_c_id,
+                        branch: branch,
+                        case_decotime: case_decotime,
+                        case_admin: case_admin
+                    },
+                    success:function (data) {
+                        console.log(data);
+                    }
+                });
+                $.ajax({
+                    type:'post',
+                    url:'/admin/worker/index',
+                    data:{'keywords':keywords,'case_p_id':case_p_id,'bu_c_id':bu_c_id,'branch':branch,'case_decotime':case_decotime,'case_admin':case_admin},
+                    success:function (data) {
+                        console.log(data);
+                        $('.all').html(data.all);
+                        $('.display').html(data.display);
+                        $('.none').html(data.none);
+                    },
+                    error:function (data) {
+                        console.log(data)
+                    }
+                })
+            }
+
+
+        };
+        form.on('select(bu_p_id)', function(data){
+            var p_id=data.value;
+            $('#city').show();
+            $.ajax({
+                type: 'POST',
+                url: "<?=url('user/getCityName')?>?p_id="+p_id,
+                data: {p_id:p_id},
+                dataType:  'json',
+                success: function(data){
+                    var code=data.data;
+                    $("#bu_c_id").html("<option value=''>请选择城市</option>");
+                    $.each(code, function(i, val) {
+                        var option1 = $("<option>").val(val.c_id).text(val.c_name);
+                        $("#bu_c_id").append(option1);
+                        form.render('select');
+                    });
+                    $("#bu_c_id").get(0).selectedIndex=0;
+                }
+            });
+        });
+        //调用该城市下面的分站
+        form.on('select(bu_c_id)', function(data){
+            var c_id=data.value;
+            $('#branchs').show();
+            $.ajax({
+                type: 'POST',
+                url: "<?=url('admin/getBranchName')?>?c_id="+c_id,
+                data: {c_id:c_id},
+                dataType:  'json',
+                success: function(data){
+                    var code=data.data;
+                    $("#branch").html("<option value=''>请选择站点</option>");
+                    $.each(code, function(i, val) {
+                        var option1 = $("<option>").val(val.b_id).text(val.b_name);
+                        $("#branch").append(option1);
+                        form.render('select');
+                    });
+                    $("#branch").get(0).selectedIndex=0;
+                }
+            });
+        });
+        //调用该分站下面的管理员
+        form.on('select(ba_branch)', function(data){
+            var b_id=data.value;
+            $.ajax({
+                type: 'POST',
+                url: "<?=url('admin/getAdminName')?>",
+                data: {b_id:b_id},
+                dataType:  'json',
+                success: function(data){
+                    var code=data.data;
+                    $("#ba_admin").html("<option value=''>请选择操作人</option>");
+                    $.each(code, function(i, val) {
+                        var option1 = $("<option>").val(val.ad_id).text(val.ad_realname);
+                        $("#ba_admin").append(option1);
+                        form.render('select');
+                    });
+                    $("#ba_admin").get(0).selectedIndex=0;
+                }
+            });
+        });
+        $('.demoTable .layui-btn').on('click', function(){
+            var type = $(this).data('type');
+            active[type] ? active[type].call(this) : '';
+        });
+        table.on('tool(demo)', function(obj){
+            var data = obj.data;
+            if(obj.event === 'edit'){
+                var wk_id = data.wk_id;
+                window.location.href='<?=url("worker/edit")?>?wk_id='+ wk_id ;
+            } else if(obj.event === 'refresh'){
+                var wk_id = data.wk_id;
+                $.ajax({
+                    'type':"get",
+                    'url':"<?=url('worker/refresh')?>",
+                    'data':{wk_id:wk_id},
+                    'success':function (result) {
+                        if(result.code < 1){
+                            layer.msg(result.msg);
+                        }else {
+                            layer.msg(result.msg,{
+                                time: 2000,
+                            },function () {
+                                window.location.reload()
+                            });
+                        }
+                    },
+                    'error':function () {
+                        console.log('error');
+                    }
+                })
+            } else if(obj.event === 'del'){
+                var wk_id = data.wk_id;
+                layer.confirm('确定删除该工长？删除后不可恢复！', {
+                    btn : [ '确定', '取消' ]//按钮
+                }, function() {
+                    $.ajax({
+                        'type':"get",
+                        'url':"<?=url('worker/del')?>",
+                        'data':{wk_id:wk_id},
+                        'success':function (result) {
+                            if(result.code < 1){
+                                layer.msg(result.msg);
+                            }else {
+                                layer.msg(result.msg);
+                                layer.open({
+                                    title: '信息'
+                                    ,content: result.msg
+                                    ,yes: function(index){
+                                        layer.close(index);
+                                        window.location.href='<?=url("worker/index")?>';
+                                    }
+                                    ,cancel:function (index) {
+                                        layer.close(index);
+                                        window.location.href='<?=url("worker/index")?>';
+                                    }
+                                });
+                            }
+                        },
+                        'error':function () {
+                            console.log('error');
+                        }
+                    })
+                },function(){
+                    layer.msg('您已取消该操作！',{
+                        time: 2000
+                    });
+                });
+            }
+        });
+        //监听是否开启操作
+        form.on('switch(sexDemo)', function(obj){
+            var wk_id = this.value;
+            //如果选中状态是true,后台数据将要改为显示
+            var change = obj.elem.checked;
+            if(change){
+                change = 1;
+            }else{
+                change = 0;
+            }
+            $.ajax({
+                type: 'POST',
+                url: "<?=url('worker/status')?>?wk_id="+wk_id+ "&change="+change,
+                dataType:  'json',
+                success: function(data){
+                    console.log(data);
+                    layer.msg(data.msg);
+                }
+            });
+        });
+        //监听是否置顶操作
+        form.on('switch(topDemo)', function(obj){
+            var wk_id = this.value;
+            //如果选中状态是true,后台数据将要改为显示
+            var change = obj.elem.checked;
+            if(change){
+                change = 1;
+            }else{
+                change = 0;
+            }
+            $.ajax({
+                type: 'POST',
+                url: "<?=url('worker/top')?>?wk_id="+wk_id+ "&change="+change,
+                dataType:  'json',
+                success: function(data){
+                    layer.msg(data.msg);
+                }
+            });
+        });
+    });
+    function sysQuery(wk_isable){
+        var keywords = $('#keywords').val();
+        var sp=$('.pick-area').attr('data-areacode').split(',');
+        var case_p_id = sp[0] == undefined ? '0' : sp[0];
+        var bu_c_id = sp[1] == undefined ? '0' : sp[1];
+        var branch = sp[2] == undefined ? '0' : sp[2];
+        var case_admin = $('#case_admin').val();
+        var case_isable = wk_isable;
+        var case_decotime = $('#case_decotime').val();
+        //执行重载
+        layui.use(['table','jquery'], function(){
+            var table = layui.table;
+            table.reload('testReload', {
+                url: '/admin/worker/workerData/'
+                ,page: {
+                    curr: 1 //重新从第 1 页开始
+                }
+                ,where: {
+                    keywords: keywords,
+                    case_p_id: case_p_id,
+                    bu_c_id: bu_c_id,
+                    branch: branch,
+                    case_isable: case_isable,
+                    case_decotime: case_decotime,
+                    case_admin: case_admin
+                },
+                success:function (data) {
+                    console.log(data);
+                }
+            });
+            $.ajax({
+                type:'post',
+                url:'/admin/worker/index',
+                data:{'keywords':keywords,'case_p_id':case_p_id,'bu_c_id':bu_c_id,'branch':branch,'case_decotime':case_decotime,'case_admin':case_admin},
+                success:function (data) {
+                    console.log(data);
+                    $('.all').html(data.all);
+                    $('.display').html(data.display);
+                    $('.none').html(data.none);
+                },
+                error:function (data) {
+                    console.log(data)
+                }
+            })
+        })
+    }
+</script>
+<script type="text/javascript">
+    function addWorker(){
+        window.location.href='<?=url('worker/add')?>';
+    }
+</script>
+{include file="index/footer" /}

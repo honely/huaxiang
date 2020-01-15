@@ -1,0 +1,244 @@
+{include file="index/header" /}
+<style>
+    .item_img{
+        width: 120px;
+        height: 105px;
+        float: left;
+        margin-top: 20px;
+    }
+</style>
+<div class="layui-body">
+    <div style="margin: 10px">
+        <div style="padding: 15px;">
+            <form class="layui-form" id="myForm">
+                <div class="layui-form-item">
+                    <label class="layui-form-label">订单编号</label>
+                    <div class="layui-input-block">
+                        <input type="text" value="{$order.order_id}" readonly class="layui-input">
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">订单类型</label>
+                    <div class="layui-input-block">
+                        <input type="text" value="{$order.orderStep}" readonly class="layui-input">
+                    </div>
+                </div>
+                {if condition='$order.order_step eq 1'}
+                <div class="layui-form-item">
+                    <label class="layui-form-label">任务类型</label>
+                    <div class="layui-input-block">
+                        <input type="text" value="{$order.order_type}" readonly class="layui-input">
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">房源链接</label>
+                    <div class="layui-input-block">
+                        <input type="text" name="order_house_url" value="{$order.order_house_url}" lay-verify="required|title" placeholder="房源链接" autocomplete="off" class="layui-input">
+                    </div>
+                </div>
+                {/if}
+                <div class="layui-form-item">
+                    <label class="layui-form-label">任务地址</label>
+                    <div class="layui-input-block">
+                        <input type="text" value="{$order.order_house_address}" readonly class="layui-input">
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">截止时间</label>
+                    <div class="layui-input-block">
+                        <input type="text" value="{$order.order_show_time}" readonly class="layui-input">
+                    </div>
+                </div>
+                <div class="layui-form-item" id="pics">
+                    <div class="layui-form-label">上传图片</div>
+                    <div class="layui-input-block" style="width: 70%;">
+                        <div class="layui-upload">
+<!--                            <button type="button" class="layui-btn layui-btn-sm layui-btn-normal pull-left" id="slide-pc">选择多图</button>-->
+                            <div class="pic-more">
+                                <ul class="pic-more-upload-list" id="slide-pc-priview">
+                                    {if condition='$order.ol_images neq null'}
+                                        {volist name='order.ol_images' id="item" key="k"}
+                                            <li class="item_img">
+                                                <img style="height: 80px;width:100px;" src="__PUBLIC__/{$item}" class="img" >
+                                                <input type="hidden" name="ol_images[]" value="{$item}" />
+                                            </li>
+                                        {/volist}
+                                    {/if}
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="layui-form-item" id="video">
+                    <div class="layui-form-label">上传视频</div>
+                    <div class="layui-input-block" style="width: 70%;">
+                        <div class="layui-upload">
+                            <div class="pic-mores">
+                                <ul class="pic-more-upload-list" id="slide-video-priview">
+                                    {if condition='$order.ol_video neq null'}
+                                    {volist name='order.ol_video' id="item" key="k"}
+                                    <li class="item_img">
+                                        <video style="height: 80px;width:100px;" controls="controls" autobuffer="autobuffer"  autoplay="autoplay" loop="loop" src="__PUBLIC__/{$item}" class="img" >
+                                        <input type="hidden" name="ol_images[]" value="{$item}" />
+                                    </li>
+                                    {/volist}
+                                    {/if}
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="layui-form-item" pane>
+                    <label class="layui-form-label">看房报告</label>
+                    <div class="layui-input-inline">
+                        <a href="__PUBLIC__/{$order.ol_doc}" class="layui-btn layui-btn-xs" >点击查看文档</a>
+                    </div>
+                </div>
+                <div class="layui-form-item layui-form-text">
+                    <label class="layui-form-label">看房备注</label>
+                    <div class="layui-input-block">
+                        <textarea placeholder="请输入看房备注" name="ol_remarks" class="layui-textarea">{$order.ol_remarks}</textarea>
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">是否已完成</label>
+                    <div class="layui-input-block">
+                        <input type="checkbox" lay-skin="switch" lay-filter="switchTest" {if condition="$order.order_status eq 3"}checked{/if} lay-text="是|否">
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <div class="layui-input-block">
+                        <span class="layui-btn layui-btn-primary" onclick="closeAlls()">关闭</span>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<script>
+    function closeAlls(){
+        var index = parent.layer.getFrameIndex(window.name); //获取窗口索引
+        parent.layer.close(index);
+    }
+    layui.use(['form', 'jquery','upload','layer'], function(){
+        var form = layui.form
+            ,upload = layui.upload
+            ,layer = layui.layer
+            ,$ = layui.jquery;
+
+        //监听指定开关
+        form.on('switch(switchTest)', function(data){
+            if(this.checked == true){
+                $('#is_finish').val(1);
+                layer.msg('请检查您的看房资料是否以上传完整！');
+            }else{
+                $('#is_finish').val(0);
+            }
+        });
+        //添加商品基本信息第一步
+        form.on('submit(addPro)', function(){
+            var ol_id = {$order.ol_id};
+            $.ajax({
+                type: 'POST',
+                url: "<?=url('order/upDoc')?>?ol_id="+ol_id,
+                data:$('#myForm').serialize(),
+                dataType:  'json',
+                success: function(data){
+                    if(data.code == 1){
+                        layer.msg(data.msg);
+                        window.location.href='<?=url("order/todos")?>';
+                    }else{
+                        layer.msg(data.msg);
+                        // window.location.href='<?=url("order/todos")?>';
+                    }
+                }
+            });
+        });
+        form.verify({
+            title: function(value){
+                if(value.length < 2){
+                    return '至少得2个字符啊';
+                }
+            }
+            ,imgReg:function (value) {
+                if(value.length <= 0){
+                    return '请上传图片';
+                }
+            }
+            ,content: function(value){
+                var cont=layedit.getContent(index); //获取编辑器内容
+                if(cont.length <= 0){
+                    return '请输入内容信息！';
+                }
+            }
+        });
+        //文件
+        upload.render({
+            elem: '#test3'
+            ,url: '{:url("admin/order/upload")}'
+            ,exts: 'PDF'
+            ,done: function(res){
+                layer.close(layer.msg());//关闭上传提示窗口
+                if(res.status == 0) {
+                    return layer.msg(res.message);
+                }
+                console.log(res);
+                $('#docUrl').val('' +res.filepath + '');
+            }
+        });
+        //视频
+        upload.render({
+            elem: '#slide-video',
+            url: '{:url("admin/order/upload")}',
+            size: 10240,
+            exts: 'MP4',
+            multiple: true,
+            before: function(obj) {
+                layer.msg('视频上传中...', {
+                    icon: 16,
+                    shade: 0.01,
+                    time: 0
+                })
+            },
+            done: function(res) {
+                layer.close(layer.msg());//关闭上传提示窗口
+                if(res.status == 0) {
+                    return layer.msg(res.message);
+                }
+                console.log(res);
+                $('#slide-video-priview').append('' +
+                    '<li class="item_img"><div class="operate"><i  class="close layui-icon"></i></div><video style="height: 80px;width:100px;" src="__PUBLIC__/' + res.filepath + '" class="img" ><input type="hidden" name="ol_video[]" value="' + res.filepath + '" /></li>');
+            }
+        });
+
+        //图片
+        upload.render({
+            elem: '#slide-pc',
+            url: '{:url("admin/order/upload")}',
+            size: 3000,
+            exts: 'jpg|png|jpeg',
+            multiple: true,
+            before: function(obj) {
+                layer.msg('图片上传中...', {
+                    icon: 16,
+                    shade: 0.01,
+                    time: 0
+                })
+            },
+            done: function(res) {
+                layer.close(layer.msg());//关闭上传提示窗口
+                if(res.status == 0) {
+                    return layer.msg(res.message);
+                }
+                console.log(res);
+                $('#slide-pc-priview').append('' +
+                    '<li class="item_img"><div class="operate"><i  class="close layui-icon"></i></div><img style="height: 80px;width:100px;" src="__PUBLIC__/' + res.filepath + '" class="img" ><input type="hidden" name="ol_images[]" value="' + res.filepath + '" /></li>');
+            }
+        });
+    });
+    //点击多图上传的X,删除当前的图片
+    $("body").on("click",".close",function(){
+        $(this).closest("li").remove();
+    });
+</script>
+{include file="index/footer" /}

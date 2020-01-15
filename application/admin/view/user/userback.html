@@ -1,0 +1,260 @@
+{include file="index/header" /}
+<div class="layui-body">
+    <fieldset class="layui-elem-field layui-field-title" style="margin-top: 30px;">
+        <legend>客户信息回收站</legend>
+    </fieldset>
+    <section class="panel panel-padding" style="padding-top: 10px;padding-left: 10px;">
+        <form class="layui-form layui-form-pane1" action="<?=url('user/userback')?>">
+            <div class="layui-form-item">
+                <div class="layui-inline">
+                    <div class="layui-input-inline">
+                        <input type="text" name="keywords" value="{if isset($keywords)}{$keywords}{/if}"  placeholder="请输入客户姓名/手机" class="layui-input">
+                    </div>
+                </div>
+                <div class="layui-inline">
+                    <div class="layui-input-inline">
+                        <select name="cus_status">
+                            <option value="">请选择标记状态</option>
+                            {volist name='userTip' id='tip'}
+                            <option value="{$tip.type_id}" {if isset($cus_status)}{if condition="$cus_status eq $tip.type_id"}selected{/if}{/if}>{$tip.type_name}</option>
+                            {/volist}
+                        </select>
+                    </div>
+                </div>
+
+                <div class="layui-inline">
+                    <div class="layui-input-inline">
+                        <select name="cus_sys">
+                            <option value="">请选择用户终端</option>
+                            <option value="1" {if isset($cus_sys)}{if condition="$cus_sys eq 1"}selected{/if}{/if}>手机端</option>
+                            <option value="2" {if isset($cus_sys)}{if condition="$cus_sys eq 2"}selected{/if}{/if}>PC端</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="layui-inline">
+                    <div class="layui-input-inline">
+                        <input type="text" name="cus_opptime" value="{if isset($cus_opptime)}{$cus_opptime}{/if}" class="layui-input" id="test6" placeholder="请选择客户预约日期">
+                    </div>
+                </div>
+                <div class="layui-inline">
+                    <div class="layui-input-inline">
+                        <button class="layui-btn"  lay-submit lay-filter="*">查询</button>
+                        <a href="<?=url('user/userlist')?>" class="layui-btn layui-btn-warm">刷新</a>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </section>
+    <section class="panel panel-padding" style="padding-top: 10px;padding-left: 10px;">
+        <div class="layui-inline">
+            <div class="layui-input-inline">
+                <button id="backBatch" class="layui-btn">批量恢复</button>
+            </div>
+            <div class="layui-input-inline">
+                <button id="absdelBatch" class="layui-btn layui-btn-danger">批量彻删</button>
+            </div>
+        </div>
+    </section>
+    <table class="layui-form layui-table layui-table-box layui-table-view" lay-filter="parse-table-demo" style="padding: 10px;text-align: center;border: 1px;solid-color: #28282c">
+        <thead>
+        <tr>
+            <td><input type="checkbox" lay-skin="primary" lay-filter="checkAll"  id="checkAll"/></td>
+            <td>用户编号</td>
+            <td>预约城市</td>
+            <td>预约站点</td>
+            <td>预约时间</td>
+            <td>客户姓名</td>
+            <td>联系方式</td>
+            <td>建筑面积</td>
+            <td>小区楼盘</td>
+            <td>网址入口+位置</td>
+            <!--<td>用户IP</td>-->
+            <td>推广来源</td>
+            <td>系统来源</td>
+            <td>推广创意</td>
+            <td>关键词</td>
+            <td>标记状态</td>
+            <td>操作人</td>
+            <td>操作时间</td>
+            <td>操作</td>
+        </tr>
+        </thead>
+        <tbody>
+        {volist name='userBack' id='cus'}
+        <tr>
+            <td>
+                <input type="checkbox" lay-skin="primary" class="checks" value="{$cus.cus_id}"/>
+            </td>
+            <td>{$cus.cus_bid}</td>
+            <td>{$cus.p_name}-{$cus.c_name}</td>
+            <td>{$cus.b_name}</td>
+            <td>{$cus.cus_opptime}</td>
+            <td>{$cus.cus_name}</td>
+            <td>{$cus.cus_phone}</td>
+            <td>{$cus.cus_area}m²</td>
+            <td>{$cus.cus_build}</td>
+            <td>{$cus.cus_link}<br/>{$cus.cus_position}</td>
+            <!--<td>{$cus.cus_ip}</td>-->
+            <td>{$cus.cus_from}</td>
+            <td>{$cus.cus_sys}</td>
+            <td>{$cus.cus_origin}</td>
+            <td>{$cus.cus_keywords}</td>
+            <td>{$cus.type_name}</td>
+            <td>{$cus.cus_opeater}</td>
+            <td>{$cus.cus_backtime}</td>
+            <td>
+                <button onclick="backUser({$cus.cus_id})" class="layui-btn layui-btn-xs layui-btn-normal">恢复</button>
+                <button class="layui-btn layui-btn-danger layui-btn-xs" onclick="delUser({$cus.cus_id})" >彻底删除</button>
+            </td>
+        </tr>
+        {/volist}
+        </tbody>
+    </table>
+    <div id="pages" style="text-align: center"></div>
+</div>
+<script>
+    layui.use(['laypage', 'layer','laydate','form','jquery'], function(){
+        var laypage = layui.laypage,
+            laydate = layui.laydate,
+            form = layui.form,
+            $ = layui.jquery;
+        laydate.render({
+            elem: '#test6'
+            ,range: true
+        });
+        laypage.render({
+            //自定义每页条数的选择项
+            elem: 'pages'
+            ,count: {$count}
+            ,limit: {$limit}
+            ,curr: {$page}
+            ,limits: [10, 15, 20]
+            ,layout: ['count', 'prev', 'page', 'next', 'limit', 'skip']
+            ,jump: function(obj,frist){
+                if(!frist){
+                    window.location.href="<?=url('user/userback')?>?page="+obj.curr+"&limit="+obj.limit;
+                }
+            }
+        });
+        //全选，全不选；
+        form.on("checkbox(checkAll)",function (data) {
+            var child = $(data.elem).parents('table').find('tbody input[type="checkbox"]');
+            child.each(function (index,item) {
+                item.checked = data.elem.checked;
+            });
+            form.render('checkbox');
+        });
+        //批量删除
+        $('#absdelBatch').click(function () {
+            layer.confirm('确定批量删除客户？删除后不可恢复！', {
+                btn : [ '确定', '取消' ]//按钮
+            }, function() {
+                //1.获取选中的id；
+                var ids = "";
+                var icheck=document.getElementsByClassName('checks');
+                for(var i=0;i<icheck.length;i++){
+                    if(icheck.item(i).checked){
+                        ids+=icheck.item(i).value;
+                        ids+=",";
+                    }
+                }
+                //2.获取到了选中的id；把选中的id传到后台进行删除或导出操作；
+                $.ajax({
+                    type: 'POST',
+                    url: "<?=url('user/absdelBatch')?>?ids="+ids,
+                    data: {ids:ids},
+                    dataType:  'json',
+                    success: function(data){
+                        if(data.code == '1'){
+                            layer.alert('批量删除成功！', {
+                                icon: 1,
+                                skin: 'layer-ext-moon',
+                                time: 2000,
+                                end: function(){
+                                    window.location.href='<?=url("user/userback")?>';
+                                }
+                            });
+                        }
+                    }
+                });
+            },function(){
+                layer.msg('您已取消该操作！',{
+                    time: 2000,
+                    end: function(){
+                        window.location.href='<?=url("user/userback")?>';
+                    }
+                });
+            });
+        });
+        //批量恢复
+        $('#backBatch').click(function () {
+            layer.confirm('确定批量恢复这些客户？', {
+                btn : [ '确定', '取消' ]//按钮
+            }, function() {
+                //1.获取选中的id；
+                var ids = "";
+                var icheck=document.getElementsByClassName('checks');
+                for(var i=0;i<icheck.length;i++){
+                    if(icheck.item(i).checked){
+                        ids+=icheck.item(i).value;
+                        ids+=",";
+                    }
+                }
+                //2.获取到了选中的id；把选中的id传到后台进行删除或导出操作；
+                $.ajax({
+                    type: 'POST',
+                    url: "<?=url('user/backBatch')?>?ids="+ids,
+                    data: {ids:ids},
+                    dataType:  'json',
+                    success: function(data){
+                        if(data.code == '1'){
+                            layer.alert('批量恢复成功！', {
+                                icon: 1,
+                                skin: 'layer-ext-moon',
+                                time: 2000,
+                                end: function(){
+                                    window.location.href='<?=url("user/userback")?>';
+                                }
+                            });
+                        }
+                    }
+                });
+            },function(){
+                layer.msg('您已取消该操作！',{
+                    time: 2000,
+                    end: function(){
+                        window.location.href='<?=url("user/userback")?>';
+                    }
+                });
+            });
+        });
+    });
+
+    //从回收站恢复某一用户
+    function backUser(cus_id) {
+        layer.confirm('确定恢复该客户？', {
+            btn : [ '确定', '取消' ]//按钮
+        }, function() {
+            window.location.href='<?=url("user/backNormal")?>?cus_id='+ cus_id ;
+            layer.msg('您已恢复该客户', {icon: 1});
+        },function(){
+            layer.msg('您已取消该操作！',{
+                time: 2000
+            });
+        });
+    }
+    //彻底删除
+    function delUser(cus_id) {
+        layer.confirm('确定删除该客户？删除后不可恢复！', {
+            btn : [ '确定', '取消' ]//按钮
+        }, function() {
+            layer.msg('您已删除该客户', {icon: 1});
+            window.location.href='<?=url("user/absdelete")?>?cus_id='+ cus_id ;
+        },function(){
+            layer.msg('您已取消该操作！',{
+                time: 2000
+            });
+        });
+    }
+</script>
+{include file="index/footer" /}

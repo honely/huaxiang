@@ -1,0 +1,220 @@
+{include file="index/header" /}
+<div class="layui-body">
+    <div style="margin: 20px;">
+    <span class="layui-breadcrumb" lay-separator=">">
+        <a>内容管理</a>
+        <a href="<?=url('worker/index')?>">施工团队</a>
+        <a><cite>添加工长</cite></a>
+    </span>
+        <div style="float:right;">
+            <a href="<?=url('worker/index')?>" class="layui-btn layui-btn-primary layui-btn-sm">
+                <i class="layui-icon layui-icon-return"></i>
+                返回列表</a>
+        </div>
+    </div>
+    <hr/>
+    <div style="padding: 15px;">
+        <form class="layui-form layui-form-pane1" action="<?=url('worker/add')?>" method="post">
+            <div class="layui-form-item">
+                <label class="layui-form-label"><span style="color: red;">*</span>工长姓名</label>
+                <div class="layui-input-block">
+                    <input type="text" name="wk_name" lay-verify="required|title" placeholder="请输入工长姓名" autocomplete="off" class="layui-input">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label"><span style="color: red;">*</span>SEO关键词</label>
+                <div class="layui-input-block">
+                    <input type="text" name="wk_seo_keywords" lay-verify="required" placeholder="请输入SEO关键词,多个关键词之间用英文逗号隔开。" autocomplete="off" class="layui-input">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label"><span style="color: red;">*</span>基础信息</label>
+                <div class="layui-input-inline">
+                    <select name="wk_p_id" lay-verify="required" lay-filter="des_p_id">
+                        <option value="">请选择省份</option>
+                        {volist name='prov' id='vo'}
+                        <option value="{$vo.p_id}">{$vo.p_name}</option>
+                        {/volist}
+                    </select>
+                </div>
+                <div class="layui-input-inline">
+                    <select name="wk_c_id" lay-verify="required" id="des_c_id" lay-filter="bu_c_id">
+                        <option value="">请选择城市</option>
+                    </select>
+                </div>
+                <div class="layui-input-inline">
+                    <select name="wk_b_id" id="branch" lay-verify="required">
+                        <option value="">请选择站点</option>
+                    </select>
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label"><span style="color: red;">*</span>正方形头像</label>
+                <div class="layui-upload">
+                    <button type="button" class="layui-btn" id="uploadLogo">上传图片</button>
+                    <input type="hidden" lay-verify="avatarReg" name="wk_avatar" id="wk_avatar" value=""/>
+                    <div class="layui-upload-list" style="margin-left: 100px;">
+                        <img class="layui-upload-img" style="height: 100px;width:100px" id="logoPre">
+                    </div>
+                </div>
+                <div class="layui-form-mid layui-word-aux" id="tip" style="margin-left: 100px; color:red !important;">备注：图片规格100*100px</div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label"><span style="color: red;">*</span>长方形头像</label>
+                <div class="layui-upload">
+                    <button type="button" class="layui-btn" id="uploadLogo1">上传图片</button>
+                    <input type="hidden" lay-verify="imgReg" name="wk_img" id="wk_img" value=""/>
+                    <div class="layui-upload-list" style="margin-left: 100px;">
+                        <img class="layui-upload-img" style="height: 100px;width:160px" id="logoPre1">
+                    </div>
+                </div>
+                <div class="layui-form-mid layui-word-aux" id="tips" style="margin-left: 100px; color:red !important;">备注：图片规格100*160px</div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">图像alt</label>
+                <div class="layui-input-block">
+                    <input type="text" name="wk_img_alt" placeholder="请输入图像alt" autocomplete="off" class="layui-input">
+                </div>
+            </div>
+            <div class="layui-form-item layui-form-text">
+                <label class="layui-form-label"><span style="color: red;">*</span>工长简介</label>
+                <div class="layui-input-block">
+                    <textarea placeholder="请输入工长简介，同SEO描述" lay-verify="required" name="wk_des" class="layui-textarea"></textarea>
+                </div>
+            </div>
+            <div class="layui-form-item" pane>
+                <label class="layui-form-label">是否置顶</label>
+                <div class="layui-input-block">
+                    <input type="radio" name="wk_istop" value="2" title="常规" checked>
+                    <input type="radio" name="wk_istop" value="1" title="置顶">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <div class="layui-input-block">
+                    <button class="layui-btn" lay-submit lay-filter="saveInfo">添加</button>
+                    <a class="layui-btn layui-btn-primary" href="<?=url('worker/index')?>">返回</a>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+<script>
+    layui.use(['form', 'laydate','upload','jquery'], function(){
+        var form = layui.form
+            ,laydate = layui.laydate
+            ,upload = layui.upload
+            ,$ = layui.jquery;
+        //日期
+        laydate.render({
+            elem: '#date'
+        });
+        //自定义验证规则
+        form.verify({
+            title: function(value){
+                if(value.length < 2){
+                    return '至少得2个字符啊';
+                }
+            }
+            ,imgReg:function (value) {
+                if(value.length <= 0){
+                    return '请上传长方形图像';
+                }
+            }
+            ,avatarReg:function (value) {
+                if(value.length <= 0){
+                    return '请上传正方形图像';
+                }
+            }
+        });
+        form.on('select(des_p_id)', function(data){
+            var p_id=data.value;
+            $.ajax({
+                type: 'POST',
+                url: "<?=url('user/getCityName')?>?p_id="+p_id,
+                data: {p_id:p_id},
+                dataType:  'json',
+                success: function(data){
+                    var code=data.data;
+                    $("#des_c_id").html("<option value=''>请选择城市</option>");
+                    $.each(code, function(i, val) {
+                        var option1 = $("<option>").val(val.c_id).text(val.c_name);
+                        $("#des_c_id").append(option1);
+                        form.render('select');
+                    });
+                    $("#des_c_id").get(0).selectedIndex=0;
+                }
+            });
+        });
+        //调用该城市下面的分站
+        form.on('select(bu_c_id)', function(data){
+            var c_id=data.value;
+            $.ajax({
+                type: 'POST',
+                url: "<?=url('admin/getBranchName')?>?c_id="+c_id,
+                data: {c_id:c_id},
+                dataType:  'json',
+                success: function(data){
+                    var code=data.data;
+                    $("#branch").html("<option value=''>请选择站点</option>");
+                    $.each(code, function(i, val) {
+                        var option1 = $("<option>").val(val.b_id).text(val.b_name);
+                        $("#branch").append(option1);
+                        form.render('select');
+                    });
+                    $("#branch").get(0).selectedIndex=0;
+                }
+            });
+        });
+        //正方形图像上传
+        upload.render({
+            elem: '#uploadLogo'
+            ,url: '{:url("worker/upload")}'
+            ,size:120 //限制文件大小，单位 KB
+            ,ext: 'jpg|png|gif'
+            ,accept: 'images' //限制文件大小，单位 KB
+            ,before: function(input){
+                loading = layer.load(2, {
+                    shade: [0.2,'#000']
+                });
+            }
+            ,done: function(res){
+                $('#logoPre').removeAttr('src');
+                $('#wk_avatar').val('');
+                console.log(res);
+                layer.close(loading);
+                $('#wk_avatar').val(res.path);
+                $('#logoPre').attr('src',"__PUBLIC__"+res.path);
+                layer.msg(res.msg, {icon: 1, time: 1000});
+            }
+            ,error: function(res){
+                layer.msg(res.msg, {icon: 2, time: 1000});
+            }
+        });
+        //长方形图像上传
+        upload.render({
+            elem: '#uploadLogo1'
+            ,url: '{:url("worker/upload")}'
+            ,size:120 //限制文件大小，单位 KB
+            ,ext: 'jpg|png|gif'
+            ,accept: 'images' //限制文件大小，单位 KB
+            ,before: function(input){
+                loading = layer.load(2, {
+                    shade: [0.2,'#000']
+                });
+            }
+            ,done: function(res){
+                $('#logoPre1').removeAttr('src');
+                $('#wk_img').val('');
+                console.log(res);
+                layer.close(loading);
+                $('#wk_img').val(res.path);
+                $('#logoPre1').attr('src',"__PUBLIC__"+res.path);
+                layer.msg(res.msg, {icon: 1, time: 1000});
+            }
+            ,error: function(res){
+                layer.msg(res.msg, {icon: 2, time: 1000});
+            }
+        });
+    });
+</script>
+{include file="index/footer" /}

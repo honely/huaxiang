@@ -1,0 +1,491 @@
+{include file="index/header" /}
+<style>
+    .one-pan{
+        position: relative;
+    }
+    .one{
+        position: absolute;
+        left:300px;
+        top:0;
+    }
+    .logoPre{
+        width: 216px;
+        height: 150px;
+    }
+    .casePre{
+        display:none;
+    }
+    .layui-upload-img { width: 90px; height: 90px; margin: 0; }
+    .pic-more { width:100%; left; margin: 10px 0px 0px 0px;}
+    .pic-more li { width:300px; float: left; margin-right: 5px;margin-top: 10px;}
+    .pic-more li .layui-input { display: initial; }
+    .pic-more li a { position: absolute; top: 0; display: block; }
+    #slide-pc-priview .item_img img{ width:277px; height: 177px}
+    #slide-pc-priview li{position: relative;}
+    #slide-pc-priview li .operate{ color: #000; display: none;}
+    #slide-pc-priview li .toleft{ position: absolute;top: 40px; left: 1px; cursor:pointer;}
+    #slide-pc-priview li .toright{ position: absolute;top: 40px; right: 1px;cursor:pointer;}
+    #slide-pc-priview li .close{position: absolute;top: 5px; right: 5px;cursor:pointer;}
+    #slide-pc-priview li:hover .operate{ display: block;}
+</style>
+<script type="text/javascript" src="__PUBLIC__/ueditor/ueditor.config.js"></script>
+<script type="text/javascript" src="__PUBLIC__/ueditor/ueditor.all.js"></script>
+<div class="layui-body">
+    <div style="margin: 20px;">
+    <span class="layui-breadcrumb" lay-separator=">">
+       <a>房源管理</a>
+        <a href="<?=url('house/index')?>">房源列表</a>
+        <a><cite>修改房源</cite></a>
+    </span>
+        <div style="float:right;">
+            <a href="<?=url('house/index')?>" class="layui-btn layui-btn-primary layui-btn-sm">
+                <i class="layui-icon layui-icon-return"></i>
+                返回列表</a>
+        </div>
+    </div>
+    <hr/>
+    <div class="layui-tab">
+        <div class="layui-tab-content">
+            <div class="layui-tab-item layui-show">
+                <div style="margin: 10px">
+                    <div style="padding: 15px;">
+                        <form class="layui-form" id="houseForm">
+                            <div class="layui-form-item">
+                                <label class="layui-form-label"><span style="color: red;">*</span>房源名称</label>
+                                <div class="layui-input-block">
+                                    <input type="text" onblur="checkBulids()" id="case_title" name="h_name" lay-verify="required|title" placeholder="请输入房源名称" value="{$house.h_name}" autocomplete="off" class="layui-input">
+                                </div>
+                            </div>
+                            <div class="layui-form-item">
+                                <label class="layui-form-label"><span style="color: red;">*</span>房源编号</label>
+                                <div class="layui-input-block">
+                                    <input type="text" name="h_b_id" value="{$house.h_b_id}" lay-verify="required" placeholder="请输入房源编号" autocomplete="off" class="layui-input">
+                                </div>
+                            </div>
+                            <div class="layui-form-item">
+                                <label class="layui-form-label"><span style="color: red;">*</span>基础信息</label>
+                                <div class="layui-input-inline">
+                                    <select name="h_p_id" lay-verify="required" lay-filter="bu_p_id">
+                                        <option value="">请选择省份</option>
+                                        {volist name='prov' id='vo'}
+                                        <option value="{$vo.p_id}" {if condition="$vo.p_id eq $house.h_p_id"}selected{/if}>{$vo.p_name}</option>
+                                        {/volist}
+                                    </select>
+                                </div>
+                                <div class="layui-input-inline">
+                                    <select name="h_c_id" lay-verify="required" id="bu_c_id" lay-filter="bu_c_id">
+                                        <option value="">请选择城市</option>
+                                        {volist name='city' id='vo'}
+                                        <option value="{$vo.c_id}" {if condition="$vo.c_id eq $house.h_c_id"}selected{/if}>{$vo.c_name}</option>
+                                        {/volist}
+                                    </select>
+                                </div>
+                                <div class="layui-input-inline">
+                                    <select name="h_a_id" id="branch" lay-verify="required">
+                                        <option value="">请选择县区</option>
+                                        {volist name='area' id='vo'}
+                                        <option value="{$vo.area_id}" {if condition="$vo.area_id eq $house.h_a_id"}selected{/if}>{$vo.area_name}</option>
+                                        {/volist}
+                                    </select>
+                                </div>
+                                <div class="layui-input-inline">
+                                </div>
+                                <div class="layui-input-inline">
+                                    <select name="h_type"   lay-filter="case_style">
+                                        <option value="">请选择房屋类型</option>
+                                        {volist name="houseType" id="type"}
+                                        <option value="{$type.type_id}" {if condition="$type.type_id eq $house.h_type"}selected{/if}>{$type.type_name}</option>
+                                        {/volist}
+
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="layui-form-item">
+                                <label class="layui-form-label"><span style="color: red;">*</span>租金</label>
+                                <div class="layui-input-inline">
+                                    <input type="text" onkeyup="this.value=this.value.replace(/\D/g, '')" name="h_rent" lay-verify="required" placeholder="请输入租金" value="{$house.h_rent}" autocomplete="off" class="layui-input">
+                                </div>
+                                <div class="layui-form-mid layui-word-aux">单位：元。</div>
+                                <div class="layui-input-inline">
+                                    <input type="radio" name="h_rent_type" value="1" title="月租" {if condition="$house.h_rent_type eq 1"}checked{/if}>
+                                    <input type="radio" name="h_rent_type" value="2" title="日租" {if condition="$house.h_rent_type eq 2"}checked{/if}>
+                                </div>
+                            </div>
+                            <div class="layui-form-item">
+                                <label class="layui-form-label">视频url</label>
+                                <div class="layui-input-block">
+                                    <input type="text" name="h_video" value="{$house.h_video}" lay-verify="urlTest" placeholder="请输入视频url" autocomplete="off" class="layui-input">
+                                </div>
+                            </div>
+                            <div class="layui-form-item">
+                                <label class="layui-form-label"><span style="color: red;">*</span>小区名称</label>
+                                <div class="layui-input-block">
+                                    <input type="text" name="h_building" value="{$house.h_building}" lay-verify="required" placeholder="请输入小区名称" autocomplete="off" class="layui-input">
+                                </div>
+                            </div>
+                            <div class="layui-form-item one-pan">
+                                <label class="layui-form-label"><span style="color: red;">*</span>封面图片</label>
+                                <div {if condition="$house.h_house_img eq null"}class="layui-upload-drag"{/if} id="uploadLogo" style="display:inline-block;">
+                                    <image id="logoPre"
+                                           {if condition="$house.h_house_img eq null"}
+                                           {else/}
+                                            src="__PUBLIC__{$house.h_house_img}"
+                                            class="logoPre"
+                                            {/if}
+                                    >
+                                        <input type="hidden" lay-verify="imgReg"  name="h_house_img" id="art_img" value="{$house.h_house_img}"/>
+                                    </image>
+                                {if condition="$house.h_house_img eq null"}
+                                <div id="display">
+                                    <i class="layui-icon"></i>
+                                    <p>请点击此处上传封面图片</p>
+                                </div>
+                                {/if}
+                                </div>
+                                <div class="one">
+                                    <div class="layui-form-mid layui-word-aux" id="tips" style="margin-left: 39px; ">图片要求，最大600KB，支持JPG/JEPG/PNG格式</div>
+                                    <div class="layui-form-item">
+                                        <textarea name="h_img_alt" style="resize:none;width: 1315px;height: 115px; margin-left:39px;"  placeholder="图片描述，建议不超过15个字（等同图片ALT属性）" class="layui-textarea">{$house.h_img_alt}</textarea>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="layui-form-item">
+                                <label class="layui-form-label"><span style="color: red;">*</span>房屋面积</label>
+                                <div class="layui-input-inline">
+                                    <input type="text" onkeyup="this.value=this.value.replace(/\D/g, '')" name="h_area" lay-verify="required" placeholder="请输入房屋面积" value="{$house.h_area}" autocomplete="off" class="layui-input">
+                                </div>
+                                <div class="layui-form-mid layui-word-aux">单位：平方米。</div>
+                            </div>
+                            <div class="layui-form-item">
+                                <label class="layui-form-label"><span style="color: red;">*</span>房屋朝向</label>
+                                <div class="layui-input-block">
+                                    <input type="text" name="h_head" value="{$house.h_head}" lay-verify="required" placeholder="请输入房屋朝向" autocomplete="off" class="layui-input">
+                                </div>
+                            </div>
+                            <div class="layui-form-item">
+                                <label class="layui-form-label"><span style="color: red;">*</span>房屋楼层</label>
+                                <div class="layui-input-block">
+                                    <input type="text" name="h_floor" value="{$house.h_floor}" lay-verify="required" placeholder="请输入房屋楼层" autocomplete="off" class="layui-input">
+                                </div>
+                            </div>
+                            <div class="layui-form-item">
+                                <label class="layui-form-label"><span style="color: red;">*</span>房源地址</label>
+                                <div class="layui-input-block">
+                                    <input type="text" name="h_address" value="{$house.h_address}"  lay-verify="required" placeholder="请输入房源地址" autocomplete="off" class="layui-input">
+                                </div>
+                            </div>
+                            <div class="layui-form-item">
+                                <label class="layui-form-label"><span style="color: red;">*</span>地理坐标</label>
+                                <div class="layui-input-block">
+                                    <input type="text" name="h_location" value="{$house.h_location}"  lay-verify="required" placeholder="请输入地理坐标" autocomplete="off" class="layui-input">
+                                </div>
+                            </div>
+                            <div class="layui-form-item" pane="">
+                                <label class="layui-form-label"><span style="color: red;">*</span>房屋配置</label>
+                                <div class="layui-input-block">
+                                    {volist name="houseConf"  id="conf"}
+                                    <input type="checkbox" class="h_config" {volist name='type_list' id='item'}{if $item eq $conf.type_id}checked{/if}{/volist} lay-verify="h_config" name="h_config[{$conf.type_id}]" lay-skin="primary" title="{$conf.type_name}">
+                                    {/volist}
+                                </div>
+                            </div>
+                            <div class="layui-form-item">
+                                <label class="layui-form-label"><span style="color: red;">*</span>是否为特价</label>
+                                <div class="layui-input-block">
+                                    <input type="text" name="h_discount" value="{$house.h_discount}"  placeholder="是否为特价，为空不是特价，反之为特价，内容为特价内容。" autocomplete="off" class="layui-input">
+                                </div>
+                            </div>
+                            <div class="layui-form-item">
+                                <label class="layui-form-label"><span style="color: red;">*</span>附近交通</label>
+                                <div class="layui-input-block">
+                                    <input type="text" name="h_nearbus" value="{$house.h_nearbus}" lay-verify="required" placeholder="请输入附近交通" autocomplete="off" class="layui-input">
+                                </div>
+                            </div>
+                            <div class="layui-form-item">
+                                <label class="layui-form-label"><span style="color: red;">*</span>附近地铁</label>
+                                <div class="layui-input-block">
+                                    <input type="text" name="h_subway" value="{$house.h_subway}"  placeholder="请输入附近地铁" autocomplete="off" class="layui-input">
+                                </div>
+                            </div>
+                    <div class="layui-form-item" id="pics">
+                        <div class="layui-form-label">房源图片</div>
+                        <div class="layui-input-block" style="width: 70%;">
+                            <div class="layui-upload">
+                                <button type="button" class="layui-btn layui-btn pull-left" id="slide-pc">选择多图</button>
+                                <div class="pic-more">
+                                    <ul class="pic-more-upload-list" id="slide-pc-priview">
+                                        {volist name="house.h_img" id="items" key="k" }
+                                        <li class="item_img">
+                                            <div class="operate">
+                                                <i  class="close layui-icon"></i>
+                                            </div>
+                                            <img src="__PUBLIC__/{$items}" class="img" >
+                                            <input type="hidden" name="h_img[]" value="{$items}" />
+                                        </li>
+                                        {/volist}
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                            <div class="layui-form-item" style="margin-top: 65px;">
+                                <label class="layui-form-label">房源简介</label>
+                                <div class="layui-input-block">
+                                    <textarea name="h_description" id="container">{$house.h_description}</textarea>
+                                </div>
+                            </div>
+                            <div class="layui-form-item" pane style="width: 300px;">
+                                <label class="layui-form-label">是否置顶</label>
+                                <div class="layui-input-block">
+                                    <input type="radio" name="h_istop" value="2" title="常规" {if condition="$house.h_istop eq 2"}checked{/if}>
+                                    <input type="radio" name="h_istop" value="1" title="置顶" {if condition="$house.h_istop eq 1"}checked{/if}>
+                                </div>
+                            </div>
+                            <div class="layui-form-item" pane style="width: 300px;">
+                                <label class="layui-form-label">是否最新</label>
+                                <div class="layui-input-block">
+                                    <input type="radio" name="h_isnew" value="1" title="是" {if condition="$house.h_isnew eq 1"}checked{/if}>
+                                    <input type="radio" name="h_isnew" value="2" title="否" {if condition="$house.h_isnew eq 2"}checked{/if}>
+                                </div>
+                            </div>
+                            <div class="layui-form-item" pane style="width: 300px;">
+                                <label class="layui-form-label">是否合租</label>
+                                <div class="layui-input-block">
+                                    <input type="radio" name="h_iscop" value="1" title="是" {if condition="$house.h_iscop eq 1"}checked{/if}>
+                                    <input type="radio" name="h_iscop" value="2" title="否" {if condition="$house.h_iscop eq 2"}checked{/if}>
+                                </div>
+                            </div>
+                            <div class="layui-form-item">
+                                <div class="layui-input-block">
+                                    <span class="layui-btn" lay-submit lay-filter="saveInfo">发布</span>
+                                    <a class="layui-btn layui-btn-primary" href="<?=url('house/index')?>">返回</a>
+                                </div>
+                            </div>
+                        </form>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    var ue= UE.getEditor('container',{    //content为要编辑的textarea的id
+
+        initialFrameWidth: 1100,   //初始化宽度
+
+        initialFrameHeight: 500,   //初始化高度
+
+    });
+</script>
+<script id="img_template" type="text/html">
+    <div class="upload-img" filename="{{ d.index }}">
+        <input type="checkbox" name="" lay-skin="primary">
+        <img src="{{  d.result }}" alt="{{ d.name }}" class="layui-upload-img">
+    </div>
+</script>
+<script>
+    layui.use(['form', 'jquery','upload','laytpl','layedit'], function(){
+        var form = layui.form
+            ,upload = layui.upload
+            , laytpl = layui.laytpl
+            ,layedit = layui.layedit
+            ,$ = layui.jquery;
+        //编辑器图片上传接口
+        layedit.set({
+            uploadImage: {
+                url: '/admin/article/editUpload' //接口url
+                ,type: 'post', //默认post
+                success:function(res){
+                    console.log(res);
+                },
+                error:function (res) {
+                    console.log(res);
+                }
+            }
+        });
+        $("#addCaseIma").click(function () {
+            layer.open({
+                type: 2,
+                title: '添加案例全景图',
+                shadeClose: true,
+                shade: false,
+                maxmin: true,
+                area: ['893px', '600px'],
+                content: "<?=url('example/addimg')?>",
+            });
+
+        });
+        var index = layedit.build('demo');
+
+        //编辑器外部操作
+        var active = {
+            content: function(){
+                alert(layedit.getContent(index)); //获取编辑器内容
+            }
+            ,text: function(){
+                alert(layedit.getText(index)); //获取编辑器纯文本内容
+            }
+            ,selection: function(){
+                alert(layedit.getSelection(index));
+            }
+        };
+        //监听提交
+        form.on('submit(saveInfo)', function(data){
+            var h_imgs=$('#h_imgs').html();
+            $('#h_img').val(h_imgs);
+            var h_desc=layedit.getContent(index);
+            $('#h_description').val(h_desc);
+            $.ajax({
+                'type':"post",
+                'url':"<?=url('house/edit')?>?h_id={$house.h_id}",
+                'data':$('#houseForm').serialize(),
+                'success':function (result) {
+                    console.log(result.data);
+                    if(result.code == '1'){
+                        layer.msg(result.msg, {icon: 1, time: 2000},function () {
+                            window.location.href='<?=url('house/index')?>';
+                        });
+                    }else if(result.code == '2'){
+                        layer.msg(result.msg, {icon: 2, time: 3000});
+                    }else if(result.code == '3'){
+                        layer.msg(result.msg, {icon: 3, time: 3000});
+                    }
+                },
+                'error':function (error) {
+                    console.log(error);
+                }
+            })
+        });
+
+
+        //自定义验证规则
+        form.verify({
+            title: function(value){
+                if(value.length < 2){
+                    return '标题至少得2个字符啊';
+                }
+            }
+            ,imgRegCaseType:function (value) {
+                if(value.length <= 0){
+                    return '请上传户型图';
+                }
+            }
+            ,urlTest:function(value){
+                if(value.length >0 ){
+                    var Expression=/http(s)?:\/\/([\w-]+\.)+[\w-]+(\/[\w- .\/?%&=]*)?/;
+                    if(Expression.test(value)){
+                    }else{
+                        return "请输入正确的链接！";
+                    }
+                }
+            }
+            ,des_tanlent:function () {
+                if (!$(".h_config").is(":checked")) {
+                    return "一个房屋配置都没有嘛？";
+                }
+            }
+        });
+        form.on('select(bu_p_id)', function(data){
+            var p_id=data.value;
+            $.ajax({
+                type: 'POST',
+                url: "<?=url('user/getCityName')?>?p_id="+p_id,
+                data: {p_id:p_id},
+                dataType:  'json',
+                success: function(data){
+                    var code=data.data;
+                    $("#bu_c_id").html("<option value=''>请选择城市</option>");
+                    $.each(code, function(i, val) {
+                        var option1 = $("<option>").val(val.c_id).text(val.c_name);
+                        $("#bu_c_id").append(option1);
+                        form.render('select');
+                    });
+                    $("#bu_c_id").get(0).selectedIndex=0;
+                }
+            });
+        });
+        //调用该城市下面的分站
+        form.on('select(bu_c_id)', function(data){
+            var c_id=data.value;
+            $.ajax({
+                type: 'POST',
+                url: "<?=url('admin/getAreaName')?>?c_id="+c_id,
+                data: {c_id:c_id},
+                dataType:  'json',
+                success: function(data){
+                    var code=data.data;
+                    $("#branch").html("<option value=''>请选择县区</option>");
+                    $.each(code, function(i, val) {
+                        var option1 = $("<option>").val(val.area_id).text(val.area_name);
+                        $("#branch").append(option1);
+                        form.render('select');
+                    });
+                    $("#branch").get(0).selectedIndex=0;
+                }
+            });
+        });
+        //户型图片上传
+        upload.render({
+            elem: '#uploadLogo'
+            ,url: '{:url("example/upload")}'
+            ,size:1024 //限制文件大小，单位 KB
+            ,ext: 'jpg|png|gif'
+            ,accept: 'images' //限制文件大小，单位 KB
+            ,before: function(input){
+                loading = layer.load(2, {
+                    shade: [0.2,'#000']
+                });
+            }
+            ,done: function(res){
+                $('#logoPre').removeAttr('src');
+                $('#art_img').val('');
+                console.log(res);
+                layer.close(loading);
+                $('#art_img').val(res.path);
+                $('#uploadLogo').removeClass('layui-upload-drag');
+                $('#logoPre').css('width','216px');
+                $('#logoPre').css('height','150px');
+                $('#logoPre').attr('src',"__PUBLIC__"+res.path);
+                $('#display').hide();
+                layer.msg(res.msg, {icon: 1, time: 1000});
+            }
+            ,error: function(res){
+                layer.msg(res.msg, {icon: 2, time: 1000});
+            }
+        });
+    });
+</script>
+{include file="index/footer" /}
+<script>
+    layui.use('upload', function(){
+        var $ = layui.jquery;
+        var upload = layui.upload;
+        upload.render({
+            elem: '#slide-pc',
+            url: '{:url("admin/house/upload")}',
+            size: 5120,
+            exts: 'jpg|png|jpeg',
+            multiple: true,
+            before: function(obj) {
+                layer.msg('图片上传中...', {
+                    icon: 16,
+                    shade: 0.01,
+                    time: 0
+                })
+            },
+            done: function(res) {
+                layer.close(layer.msg());//关闭上传提示窗口
+                if(res.status == 0) {
+                    return layer.msg(res.message);
+                }
+                console.log(res);
+                $('#slide-pc-priview').append('' +
+                    '<li class="item_img"><div class="operate"><i  class="close layui-icon"></i></div><img src="__PUBLIC__/' + res.filepath + '" class="img" ><input type="hidden" name="h_img[]" value="' + res.filepath + '" /></li>');
+            }
+        });
+    });
+    //点击多图上传的X,删除当前的图片
+    $("body").on("click",".close",function(){
+        $(this).closest("li").remove();
+    });
+</script>

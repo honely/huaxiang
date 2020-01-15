@@ -1,0 +1,279 @@
+{include file="index/header" /}
+<style>
+    .one-pan{
+        position: relative;
+    }
+    .logoPre{
+        width: 216px;
+        height: 150px;
+    }
+     .item_img{
+         width: 120px;
+         height: 105px;
+         float: left;
+         margin-top: 20px;
+     }
+</style>
+<div class="layui-body">
+    <div style="margin: 10px">
+        <div style="padding: 15px;">
+            <form class="layui-form">
+                <div class="layui-form-item">
+                    <label class="layui-form-label">房源编号</label>
+                    <div class="layui-input-block">
+                        <input type="text" value="{$house.dsn}" readonly class="layui-input">
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">租金（A$）</label>
+                    <div class="layui-input-block">
+                        <input type="text" value="{$house.price}" readonly class="layui-input">
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">地址</label>
+                    <div class="layui-input-block">
+                        <input type="text" value="{$house.address}" readonly class="layui-input">
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">城市</label>
+                    <div class="layui-input-block">
+                        <input type="text" value="{$house.city}" readonly class="layui-input">
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">学生公寓</label>
+                    <div class="layui-input-block">
+                        <input type="text" value="{$house.studentapartment}" readonly class="layui-input">
+                    </div>
+                </div>
+
+                <div class="layui-form-item">
+                    <label class="layui-form-label">房东</label>
+                    <div class="layui-input-block">
+                        <input type="text" value="{$house.user_id}" readonly class="layui-input">
+                    </div>
+                </div>
+                  <div class="layui-form-item">
+                    <label class="layui-form-label">房源有效期</label>
+                    <div class="layui-input-block">
+                        <input type="text" value="{$house.validity}" readonly class="layui-input">
+                    </div>
+                </div>
+                  <div class="layui-form-item">
+                    <label class="layui-form-label">房屋来源</label>
+                    <div class="layui-input-block">
+                        <input type="text" value="{$house.source}" readonly class="layui-input">
+                    </div>
+                </div>
+                  <div class="layui-form-item">
+                    <label class="layui-form-label">出租方式</label>
+                    <div class="layui-input-block">
+                        <input type="text" value="{$house.type}" readonly class="layui-input">
+                    </div>
+                </div>
+                  <div class="layui-form-item">
+                    <label class="layui-form-label">性别限制</label>
+                    <div class="layui-input-block">
+                        <input type="text" value="{$house.sex}" readonly class="layui-input">
+                    </div>
+                </div>
+                  <div class="layui-form-item">
+                    <label class="layui-form-label">宠物</label>
+                    <div class="layui-input-block">
+                        <input type="text" value="{$house.pet}" readonly class="layui-input">
+                    </div>
+                </div>
+                  <div class="layui-form-item">
+                    <label class="layui-form-label">Bill相关</label>
+                    <div class="layui-input-block">
+                        <input type="text" value="{$house.bill}" readonly class="layui-input">
+                    </div>
+                </div>
+                  <div class="layui-form-item">
+                    <label class="layui-form-label">入住时间</label>
+                    <div class="layui-input-block">
+                        <input type="text" value="{$house.live_date}" readonly class="layui-input">
+                    </div>
+                </div>
+                  <div class="layui-form-item">
+                    <label class="layui-form-label">租期</label>
+                    <div class="layui-input-block">
+                        <input type="text" value="{$house.lease_term}" readonly class="layui-input">
+                    </div>
+                </div>  <div class="layui-form-item">
+                    <label class="layui-form-label">房屋类型</label>
+                    <div class="layui-input-block">
+                        <input type="text" value="{$house.house_type}" readonly class="layui-input">
+                    </div>
+                </div>  <div class="layui-form-item">
+                    <label class="layui-form-label">户型</label>
+                    <div class="layui-input-block">
+                        <input type="text" value="{$house.house_room}" readonly class="layui-input">
+                    </div>
+                </div>  <div class="layui-form-item">
+                    <label class="layui-form-label">卫生间</label>
+                    <div class="layui-input-block">
+                        <input type="text" value="{$house.toilet}" readonly class="layui-input">
+                    </div>
+                </div>  <div class="layui-form-item">
+                    <label class="layui-form-label">家具</label>
+                    <div class="layui-input-block">
+                        <input type="text" value="{$house.furniture}" readonly class="layui-input">
+                    </div>
+                </div>  <div class="layui-form-item">
+                    <label class="layui-form-label">车位</label>
+                    <div class="layui-input-block">
+                        <input type="text" value="{$house.car}" readonly class="layui-input">
+                    </div>
+                </div>  <div class="layui-form-item">
+                    <label class="layui-form-label">设施</label>
+                    <div class="layui-input-block">
+                        <input type="text" value="{$house.home}" readonly class="layui-input">
+                    </div>
+                </div>  <div class="layui-form-item">
+                    <label class="layui-form-label">交通</label>
+                    <div class="layui-input-block">
+                        <input type="text" value="{$house.sation}" readonly class="layui-input">
+                    </div>
+                </div>  <div class="layui-form-item">
+                    <label class="layui-form-label">区域</label>
+                    <div class="layui-input-block">
+                        <input type="text" value="{$house.area}" readonly class="layui-input">
+                    </div>
+                </div>  <div class="layui-form-item">
+                    <label class="layui-form-label">校区</label>
+                    <div class="layui-input-block">
+                        <input type="text" value="{$house.school}" readonly class="layui-input">
+                    </div>
+                </div>
+  <div class="layui-form-item">
+                    <label class="layui-form-label">姓名</label>
+                    <div class="layui-input-block">
+                        <input type="text" value="{$house.real_name}" readonly class="layui-input">
+                    </div>
+                </div>
+  <div class="layui-form-item">
+                    <label class="layui-form-label">电话</label>
+                    <div class="layui-input-block">
+                        <input type="text" value="{$house.tel}" readonly class="layui-input">
+                    </div>
+                </div>
+  <div class="layui-form-item">
+                    <label class="layui-form-label">微信号</label>
+                    <div class="layui-input-block">
+                        <input type="text" value="{$house.wchat}" readonly class="layui-input">
+                    </div>
+                </div>
+  <div class="layui-form-item">
+                    <label class="layui-form-label">邮箱</label>
+                    <div class="layui-input-block">
+                        <input type="text" value="{$house.email}" readonly class="layui-input">
+                    </div>
+                </div>
+                <div class="layui-form-item one-pan">
+                    <label class="layui-form-label"><span style="color: red;">*</span>封面图</label>
+                    <div {if condition="$house.thumnail eq null"}class="layui-upload-drag"{/if} id="uploadLogo" style="display:inline-block;">
+                    <image id="logoPre"
+                           {if condition="$house.thumnail eq null"}
+                           {else/}
+                    src="https://wx.xiaobaozufang.com/{$house.thumnail}"
+                    class="logoPre"
+                    {/if}
+                    >
+                    <input type="hidden" lay-verify="imgReg"  name="thumnail" id="thumnail" value="{$house.thumnail}"/>
+                    </image>
+                    {if condition="$house.thumnail eq null"}
+                    <div id="display">
+                        <i class="layui-icon"></i>
+                        <p>请点击此处上传封面图片</p>
+                    </div>
+                    {/if}
+                </div>
+        </div>
+        <div class="layui-form-item" id="pics">
+            <div class="layui-form-label">详情图</div>
+            <div class="layui-input-block" style="width: 70%;">
+                <div class="layui-upload">
+                    <div class="pic-more">
+                        <ul class="pic-more-upload-list" id="slide-pc-priview">
+                            <div id="layer-photos-demo" class="layer-photos-demo">
+                            {if condition='$house.images neq null'}
+                            {volist name='house.images' id="item" key="k"}
+                            <li class="item_img">
+                                <img style="height: 80px;width:100px;" src="https://wx.xiaobaozufang.com/{$item}" class="img" layer-src="https://wx.xiaobaozufang.com/{$item}">
+                            </li>
+                            {/volist}
+                            {else/}
+                            未上传
+                            {/if}
+                            </div>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+                <div class="layui-form-item">
+                    <label class="layui-form-label">房源描述</label>
+                      <div class="layui-input-block">
+                          <textarea placeholder="请输入任务备注" readonly name="cc_remarks" class="layui-textarea">{$house.content}</textarea>
+                      </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">房源状态</label>
+                    <div class="layui-input-block">
+                        <input type="text" value="{$house.status}" readonly class="layui-input">
+                    </div>
+                </div>
+                <div class="layui-form-item" pane>
+                    <span class="layui-btn" onclick="changeStatus(1)">通过</span>
+                    <span class="layui-btn layui-btn-danger" onclick="changeStatus(4)">驳回</span>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<script>
+    layui.use(['form', 'jquery','laydate','layer'], function(){
+        var form = layui.form
+            ,laydate = layui.laydate
+            ,layer = layui.layer
+            ,$ = layui.jquery;
+        layer.photos({
+            photos: '#layer-photos-demo'
+            ,anim: 5
+        });
+    });
+    function changeStatus(status){
+        var id = {$house.id};
+        console.log(id);
+        $.ajax({
+            'type':"get",
+            'url':"<?=url('house/reviewPro')?>?id="+id+ "&status="+status,
+            'data':{id:id,status:status},
+            'success':function (result) {
+                if(result.code < 1){
+                    layer.msg(result.msg);
+                    var index = parent.layer.getFrameIndex(window.name);
+                    parent.layer.close(index);
+                }else {
+                    layer.msg(result.msg,{
+                        time: 2000,
+                    },function () {
+                        var index = parent.layer.getFrameIndex(window.name);
+                        parent.layer.close(index);
+                    });
+                }
+            },
+            'error':function () {
+                var index = parent.layer.getFrameIndex(window.name);
+                parent.layer.close(index);
+                console.log('error');
+            }
+        })
+
+    }
+</script>
+{include file="index/footer" /}

@@ -1,0 +1,65 @@
+{include file="index/header" /}
+<div class="layui-body">
+    <div style="margin: 20px;">
+    <span class="layui-breadcrumb" lay-separator=">">
+        <a>系统配置</a>
+        <a href="<?=url('setinfo/setlist')?>">基础配置</a>
+        <a><cite>修改配置</cite></a>
+    </span>
+        <div style="float:right;">
+            <a href="<?=url('setinfo/setlist')?>" class="layui-btn layui-btn-primary layui-btn-sm">
+                <i class="layui-icon layui-icon-return"></i>
+                返回列表</a>
+        </div>
+    </div>
+    <hr/>
+    <div style="padding: 15px;">
+        <form class="layui-form layui-form-pane1" action="<?=url('setinfo/editset')?>?s_id={$set.s_id}&type={$type}" method="post">
+            <div class="layui-form-item">
+                <label class="layui-form-label">配置key</label>
+                <div class="layui-input-block">
+                    <input type="text" name="s_key" value="{$set.s_key}" lay-verify="required|s_key" placeholder="请输入配置key" autocomplete="off" class="layui-input">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">配置名称</label>
+                <div class="layui-input-block">
+                    <input type="text" name="s_desc" value="{$set.s_desc}" lay-verify="required" required placeholder="请输入配置名称" autocomplete="off" class="layui-input">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">配置value</label>
+                <div class="layui-input-block">
+                    <input type="text" name="s_value" value="{$set.s_value}" lay-verify="required|s_value" required placeholder="请输入配置value" autocomplete="off" class="layui-input">
+                </div>
+            </div>
+
+            <div class="layui-form-item" pane>
+                <label class="layui-form-label">是否可用</label>
+                <div class="layui-input-block">
+                    <input type="radio" name="s_is_able" value="1" title="是" {if condition="$set.s_is_able eq 1"}checked{/if} >
+                    <input type="radio" name="s_is_able" value="2" title="否" {if condition="$set.s_is_able eq 2"}checked{/if} >
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <div class="layui-input-block">
+                    <button class="layui-btn" lay-submit lay-filter="*">修改</button>
+                    {if condition="$type eq 1 "}
+                    <a class="layui-btn layui-btn-primary" href="<?=url('msg/msg')?>">返回</a>
+                    {else/}
+                    <a class="layui-btn layui-btn-primary" href="<?=url('setinfo/setlist')?>">返回</a>
+                    {/if}
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+<script>
+    layui.use('form', function(){
+        var form = layui.form;
+        form.on('radio', function(data){
+            console.log(data);
+        });
+    });
+</script>
+{include file="index/footer" /}

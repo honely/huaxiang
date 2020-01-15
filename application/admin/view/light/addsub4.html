@@ -1,0 +1,227 @@
+{include file="index/header" /}
+<style>
+    .one-pan{
+        position: relative;
+    }
+    .one{
+        position: absolute;
+        left:300px;
+        top:0;
+    }
+    .logoPre{
+        width: 216px;
+        height: 150px;
+    }
+</style>
+<div class="layui-body">
+    <div style="margin: 20px;">
+    <span class="layui-breadcrumb" lay-separator=">">
+        <a>闪电租房</a>
+        <a><cite>创建子订单</cite></a>
+    </span>
+    </div>
+    <div class="layui-tab layui-tab-brief" style="margin-left: 10px;" lay-filter="docDemoTabBrief">
+        <ul class="layui-tab-title">
+            <li>
+                <a href='<?=url("light/addsub1")?>?cl_id={$cl_id}'>
+                    看房订单
+                </a>
+            </li>
+            <li>
+                <a href='<?=url("light/addsub2")?>?cl_id={$cl_id}'>领钥匙订单</a>
+            </li>
+            <li>
+                <a href='<?=url("light/addsub3")?>?cl_id={$cl_id}'>水电气网</a>
+            </li>
+            <li class="layui-this">
+                代缴订金
+            </li>
+        </ul>
+    </div>
+    <div style="margin: 10px">
+        <div style="padding: 15px;">
+            <form class="layui-form" id="myForm">
+                <div class="layui-form-item" pane>
+                    <label class="layui-form-label"><span style="color: red;">*</span>订单类型</label>
+                    <div class="layui-input-inline">
+                        <input type="text" class="layui-input" readonly value="代缴定金">
+                        <input type="hidden" name="order_step" value="6">
+                        <input type="hidden" name="order_fu_id" value="{$cl_id}">
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label"><span style="color: red;">*</span>订单编号</label>
+                    <div class="layui-input-block">
+                        <input type="text" name="order_id" lay-verify="required|title" placeholder="请输入订单编号" value="{$orderBid}" readonly autocomplete="off" class="layui-input">
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label" id="houseAddress"><span style="color: red;">*</span>财务核对</label>
+                    <div class="layui-input-block">
+                        <input type="radio" name="other_docs" lay-filter="confirm" value="1" title="是">
+                        <input type="radio" name="other_docs" lay-filter="confirm" value="2" title="否" checked>
+                        <input type="hidden" id="other_docs" value="2" lay-verify="radioreq">
+                    </div>
+                </div>
+                <div class="layui-form-item one-pan">
+                    <label class="layui-form-label">支票留底</label>
+                    <div class="layui-upload-drag" id="uploadLogo" style="display:inline-block;">
+                        <image id="logoPre">
+                            <input type="hidden" name="order_house_url" id="order_house_url" value=""/>
+                        </image>
+                        <div id="display">
+                            <i class="layui-icon"></i>
+                            <p>请点击此处上传图片</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="layui-form-item" pane>
+                    <label class="layui-form-label"><span style="color: red;">*</span>服务费</label>
+                    <div class="layui-input-inline">
+                        <input type="number" class="layui-input" lay-verify="required"  name="order_price" placeholder="$">
+                    </div>
+                </div>
+                <div class="layui-form-item" pane>
+                    <label class="layui-form-label"><span style="color: red;">*</span>定金金额</label>
+                    <div class="layui-input-inline">
+                        <input type="number" class="layui-input" lay-verify="required"  name="order_pay_price" placeholder="$">
+                    </div>
+                </div>
+                <div class="layui-form-item" pane>
+                    <label class="layui-form-label">支付方式</label>
+                    <div class="layui-input-inline">
+                        <select name="order_pay_type">
+                            <option value="">请选择客户支付方式</option>
+                            <option value="4">汇款</option>
+                            <option value="5">支票</option>
+                        </select>
+                    </div>
+                    <div class="layui-form-mid layui-word-aux" style="color:red !important;">客户付给我们的钱的付款方式</div>
+                </div>
+                <div class="layui-form-item" pane>
+                    <label class="layui-form-label"><span style="color: red;">*</span>付款id</label>
+                    <div class="layui-input-inline">
+                        <input type="text" class="layui-input" lay-verify="required"  name="order_city" placeholder="$">
+                    </div>
+                </div>
+                <div class="layui-form-item" pane>
+                    <label class="layui-form-label"><span style="color: red;">*</span>收费时间</label>
+                    <div class="layui-input-inline">
+                        <input type="text" class="layui-input" lay-verify="required" name="order_paytime" readonly id="pay" placeholder="请选择收费时间">
+                    </div>
+                    <div class="layui-form-mid layui-word-aux" style="color:red !important;">收费时间为澳洲时间。</div>
+                </div>
+                <div class="layui-form-item layui-form-text">
+                    <label class="layui-form-label">任务备注</label>
+                    <div class="layui-input-block">
+                        <textarea placeholder="请输入任务备注" name="order_remarks" class="layui-textarea"></textarea>
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <div class="layui-input-block">
+                        <button class="layui-btn" lay-submit lay-filter="addPro">创建</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<script>
+    layui.use(['form', 'jquery','upload','laydate'], function(){
+        var form = layui.form
+            ,upload = layui.upload
+            ,laydate = layui.laydate
+            ,$ = layui.jquery;
+        //alert
+        laydate.render({
+            elem: '#alert'
+            ,type: 'datetime'
+            ,trigger: 'click'
+        });
+        //图片上传
+        upload.render({
+            elem: '#uploadLogo'
+            ,url: '{:url("light/upload")}'
+            ,size:600 //限制文件大小，单位 KB
+            ,ext: 'jpg|png|gif'
+            ,accept: 'images' //限制文件大小，单位 KB
+            ,before: function(input){
+                loading = layer.load(2, {
+                    shade: [0.2,'#000']
+                });
+            }
+            ,done: function(res){
+                $('#logoPre').removeAttr('src');
+                $('#order_house_url').val('');
+                console.log(res);
+                console.log(res.filepath);
+                layer.close(loading);
+                $('#order_house_url').val(res.filepath);
+                $('#uploadLogo').removeClass('layui-upload-drag');
+                $('#logoPre').css('width','216px');
+                $('#logoPre').css('height','150px');
+                $('#logoPre').attr('src',"__PUBLIC__/"+res.filepath);
+                $('#display').hide();
+                layer.msg(res.msg, {icon: 1, time: 1000});
+            }
+            ,error: function(res){
+                layer.msg(res.msg, {icon: 2, time: 1000});
+            }
+        });
+        laydate.render({
+            elem: '#pay'
+            ,type: 'datetime'
+            ,trigger: 'click'
+        });
+        form.on('radio(confirm)', function (data) {
+            var need = data.value;
+            if(need == 1){
+                $('#other_docs').val('1');
+                layer.msg('请检查财务是否已核对');
+            }else{
+                $('#other_docs').val('2');
+                layer.msg('请检查财务是否已核对');
+            }
+        });
+        form.on('submit(addPro)', function(){
+            var cl_id = {$cl_id};
+            $.ajax({
+                type: 'POST',
+                url: "<?=url('light/addsub4')?>?cl_id="+cl_id,
+                data:$('#myForm').serialize(),
+                dataType:  'json',
+                success: function(data){
+                    var index = parent.layer.getFrameIndex(window.name); //获取窗口索引
+                    if(data.code == 1){
+                        layer.msg(data.msg);
+                        parent.layer.close(index);
+                        window.parent.location.reload();
+                    }else{
+                        layer.msg(data.msg);
+                        parent.layer.close(index);
+                        window.parent.location.reload();
+                    }
+                }
+            });
+        });
+        form.verify({
+            title: function(value){
+                if(value.length < 2){
+                    return '至少得2个字符啊';
+                }
+            }
+            ,imgReg:function (value) {
+                if(value.length <= 0){
+                    return '请上传图片';
+                }
+            }
+            ,content: function(value){
+                var cont=layedit.getContent(index); //获取编辑器内容
+                if(cont.length <= 0){
+                    return '请输入内容信息！';
+                }
+            }
+        });
+    });
+</script>
+{include file="index/footer" /}

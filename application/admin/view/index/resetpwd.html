@@ -1,0 +1,69 @@
+{include file="index/header" /}
+<div class="layui-body">
+    <fieldset class="layui-elem-field layui-field-title" style="margin: 20px 30px 20px 20px;">
+        <legend>密码修改</legend>
+    </fieldset>
+    <form class="layui-form bform" id="reform" method="post" action="" enctype="multipart/form-data">
+        <input type="hidden" class="layui-input" name="ad_id" value="{$admin_id}">
+        <div class="layui-form-item">
+            <label class="layui-form-label">原密码</label>
+            <div class="layui-input-inline">
+                <input type="password" name="oldPwd" id="oldPwd" lay-verify="require|pass" placeholder="请输入原密码" autocomplete="off" class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">新密码</label>
+            <div class="layui-input-inline">
+                <input type="password" name="newPwd" id="newPwd" lay-verify="require|pass" placeholder="请输入新密码" autocomplete="off" class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">重复新密码</label>
+            <div class="layui-input-inline">
+                <input type="password" name="newPwd2" id="newPwd2" lay-verify="require|pass" placeholder="请重复新密码" autocomplete="off" class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <div class="layui-input-block">
+                <span class="layui-btn" onclick="resetPwd(this)" id="sub">确认修改</span>
+            </div>
+        </div>
+    </form>
+</div>
+<script>
+    layui.use(['element','jquery','layer'], function(){
+        var element = layui.element,
+            $ = layui.jquery,
+            layer = layui.layer;
+    });
+    function resetPwd(e) {
+        $.ajax({
+            'type':"post",
+            'url':"<?=url('index/resetpass')?>",
+            'data':$("#reform").serialize(),
+            'success':function (result) {
+                if(result.code < 1){
+                    layer.msg(result.msg);
+                }else {
+                    layer.msg(result.msg);
+                    layer.open({
+                        title: '信息'
+                        ,content: result.msg
+                        ,yes: function(index, layero){
+                            layer.close(index);
+                            window.parent.location.reload();
+                        }
+                        ,cancel:function (index, layero) {
+                            layer.close(index);
+                            window.parent.location.reload();
+                        }
+                    });
+                }
+            },
+            'error':function () {
+                console.log('error');
+            }
+        })
+    }
+</script>
+{include file="index/footer" /}

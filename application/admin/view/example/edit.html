@@ -1,0 +1,677 @@
+{include file="index/header" /}
+<style>
+    .one-pan{
+        position: relative;
+    }
+    .one{
+        position: absolute;
+        left:300px;
+        top:0;
+    }
+    .logoPre{
+        width: 216px;
+        height: 150px;
+    }
+    .casePre{
+        display:none;
+    }
+</style>
+<div class="layui-body">
+    <div style="margin: 20px;">
+    <span class="layui-breadcrumb" lay-separator=">">
+        <a>内容管理</a>
+        <a href="<?=url('example/example')?>">案例列表</a>
+        <a><cite>修改案例</cite></a>
+    </span>
+        <div style="float:right;">
+            <a href="<?=url('example/example')?>" class="layui-btn layui-btn-primary layui-btn-sm">
+                <i class="layui-icon layui-icon-return"></i>
+                返回列表</a>
+        </div>
+    </div>
+    <hr/>
+    <div class="layui-tab">
+        <div class="layui-tab-content">
+            <div class="layui-tab-item layui-show">
+                <div style="margin: 10px">
+                    <div style="padding: 15px;">
+                        <form class="layui-form" action="<?=url('example/edit')?>?case_id={$case.case_id}" method="post">
+                            <div class="layui-form-item">
+                                <label class="layui-form-label"><span style="color: red;">*</span>案例名称</label>
+                                <div class="layui-input-block">
+                                    <input type="text" onblur="checkBulids()" id="case_title"  name="case_title" lay-verify="required|title" placeholder="请输入案例名称" value="{$case.case_title}" autocomplete="off" class="layui-input">
+                                </div>
+                            </div>
+                            <div class="layui-form-item">
+                                <label class="layui-form-label"><span style="color: red;">*</span>基础信息</label>
+                                {if condition="$ad_role == 1"}
+                                <div class="layui-input-inline">
+                                    <select name="case_p_id" lay-verify="required" lay-filter="bu_p_id">
+                                        <option value="">请选择省份</option>
+                                        {volist name='prov' id='vo'}
+                                        <option value="{$vo.p_id}" {if condition="$vo.p_id eq $case.case_p_id"}selected{/if} >{$vo.p_name}</option>
+                                        {/volist}
+                                    </select>
+                                </div>
+                                <div class="layui-input-inline">
+                                    <select name="case_c_id" lay-verify="required" id="bu_c_id" lay-filter="bu_c_id">
+                                        <option value="">请选择城市</option>
+                                        {volist name='city' id='city'}
+                                        <option value="{$city.c_id}" {if condition="$city.c_id eq $case.case_c_id"}selected{/if} >{$city.c_name}</option>
+                                        {/volist}
+                                    </select>
+                                </div>
+                                <div class="layui-input-inline">
+                                    <select name="case_b_id" id="branch" lay-verify="required">
+                                        <option value="">请选择站点</option>
+                                        {volist name="branchs" id="vos"}
+                                        <option value="{$vos.b_id}" {if condition="$vos.b_id eq $case.case_b_id"}selected{/if}>{$vos.b_name}</option>
+                                        {/volist}
+                                    </select>
+                                </div>
+                                {else/}
+                                <div class="layui-input-inline">
+                                    <input type="text" placeholder="请写入站点信息" class="layui-input" value="{$case.p_name}-{$case.c_name}-{$case.b_name}" readonly/>
+                                </div>
+                                {/if}
+                                <div class="layui-input-inline">
+                                    <select name="case_designer" lay-verify="required" lay-filter="case_designer">
+                                        <option value="">请选择设计师</option>
+                                        {volist name='design' id='vo'}
+                                        <option value="{$vo.des_id}" {if condition="$vo.des_id eq $case.case_designer"}selected{/if} >{$vo.des_name}</option>
+                                        {/volist}
+                                    </select>
+                                </div>
+                                <div class="layui-input-inline">
+                                    <select name="case_style" lay-verify="required" lay-filter="case_style">
+                                        <option value="">请选择装修风格</option>
+                                        {volist name='style' id='vo'}
+                                        <option value="{$vo.type_id}" {if condition="$vo.type_id eq $case.case_style"}selected{/if} >{$vo.type_name}</option>
+                                        {/volist}
+                                    </select>
+                                </div>
+                                <div class="layui-input-inline">
+                                    <select name="case_bulid" lay-verify="required" lay-filter="case_bulid">
+                                        <option value="">请选择楼盘</option>
+                                        {volist name='build' id='vo'}
+                                        <option value="{$vo.bu_id}" {if condition="$vo.bu_id eq $case.case_bulid"}selected{/if} >{$vo.bu_name}</option>
+                                        {/volist}
+                                    </select>
+                                </div>
+
+                            </div>
+							<div class="layui-form-item">
+                                <label class="layui-form-label"><span style="color: red;">*</span>SEO关键词</label>
+                                <div class="layui-input-block">
+                                    <input type="text" name="case_seo_keywords" lay-verify="required" placeholder="请输入SEO关键词,多个关键词之间用英文逗号隔开。" value="{$case.case_seo_keywords}" autocomplete="off" class="layui-input">
+                                </div>
+                            </div>
+							 
+                            <div class="layui-form-item layui-form-text">
+                                <label class="layui-form-label">案例简介</label>
+                                <div class="layui-input-block">
+                                    <textarea placeholder="请输入案例简介" name="case_remarks" class="layui-textarea">{$case.case_remarks}</textarea>
+                                </div>
+                            </div>
+ 							<div class="layui-form-item">
+                                <label class="layui-form-label"><span style="color: red;">*</span>案例造价</label>
+                                <div class="layui-input-inline">
+                                    <input value="{$case.case_price}" onkeyup="this.value=this.value.replace(/\D/g, '')" type="text" name="case_price" lay-verify="required" placeholder="请输入案例造价" autocomplete="off" class="layui-input">
+                                </div>
+                                <div class="layui-form-mid layui-word-aux">单位：万元。</div>
+                            </div>
+                            <div class="layui-form-item">
+                                <label class="layui-form-label">案例全景</label>
+                                <div class="layui-input-block">
+                                    <input type="text" value="{$case.case_url}" lay-verify="urlTest" name="case_url" lay-verify="required" placeholder="请输入案例全景链接" autocomplete="off" class="layui-input">
+                                </div>
+                            </div>
+                            <div class="layui-form-item">
+                                <label class="layui-form-label"><span style="color: red;">*</span>房屋面积</label>
+                                <div class="layui-input-block">
+                                    <input type="text" value="{$case.case_area}" name="case_area" lay-verify="required" placeholder="请输入房屋面积" autocomplete="off" class="layui-input">
+                                </div>
+                            </div>
+                           
+                            <!--户型图-->
+                            <div class="layui-form-item one-pan">
+                                <label class="layui-form-label"><span style="color: red;">*</span>户型图片</label>
+                                <div {if condition="$case.case_type_iamge eq null"}class="layui-upload-drag"{/if} id="uploadLogo" style="display:inline-block;">
+                                    <image id="logoPre"
+                                        {if condition="$case.case_type_iamge eq null"}
+                                        {else/}
+                                            src="__PUBLIC__{$case.case_type_iamge}"
+                                            class="logoPre"
+                                        {/if}
+                                    >
+                                        <input type="hidden" lay-verify="imgRegCaseType"  name="case_type_iamge" id="case_type_iamge" value="{$case.case_type_iamge}"/>
+                                    </image>
+                                    <div id="logoPre1" {if condition="$case.case_type_iamge eq null"} {else/} class="casePre" {/if}>
+                                        <i class="layui-icon"></i>
+                                        <p>请点击此处上传封面图片</p>
+                                    </div>
+                                </div>
+                                <div class="one">
+                                    <div class="layui-form-mid layui-word-aux" style="margin-left: 39px; ">图片要求：1200*800px，最大1024KB，支持JPG/JEPG/PNG格式。</div>
+                                    <div class="layui-form-item">
+                                        <textarea name="case_type_alt" style="resize:none;width: 1315px;height: 115px; margin-left:39px;"  placeholder="图片描述，建议不超过15个字（等同图片ALT属性）" class="layui-textarea">{$case.case_type_alt}</textarea>
+                                    </div>
+                                </div>
+                            </div>
+                            <!--案例效果图-->
+                            <!--案例图1-->
+                            <div class="layui-form-item one-pan">
+                                <label class="layui-form-label"><span style="color: red;">*</span>客厅</label>
+                                <div {if condition="$case.case_img[0] eq null"} class="layui-upload-drag" {/if} id="uploadCase1" >
+                                <image  id="casePre1"
+                                        {if condition="$case.case_img[0] eq null"}
+                                        {else/}
+                                src="__PUBLIC__{$case.case_img[0]}"
+                                class="logoPre"
+                                {/if}
+                                >
+                                <input type="hidden" lay-verify="imgReg"  name="case_img[1]" id="case_img1" value="{$case['case_img'][0]}"/>
+                                </image>
+                                    <div {if condition="$case.case_img[0] eq null"} {else/}class="casePre" {/if} id="casePre11" >
+                                        <i class="layui-icon"></i>
+                                        <p>请点击此处上传封面图片</p>
+                                    </div>
+                                </div>
+                                <div class="one">
+                                    <div class="layui-form-mid layui-word-aux" style="margin-left: 39px; ">图片要求：1200*800px，最大1024KB，支持JPG/JEPG/PNG格式。</div>
+                                    <div class="layui-form-item">
+                                        <textarea name="case_img_alt[1]" style="resize:none;width: 1315px;height: 115px; margin-left:39px;"  placeholder="图片描述，建议不超过15个字（等同图片ALT属性）" class="layui-textarea">{$case['case_img_alt'][0]}</textarea>
+                                    </div>
+                                </div>
+                            </div>
+                            <!--案例图2-->
+                            <div class="layui-form-item one-pan">
+                                <label class="layui-form-label">餐厅</label>
+                                <div {if condition="$case.case_img[1] eq null"} class="layui-upload-drag" {/if} id="uploadCase2" >
+                                <image  id="casePre2"
+                                        {if condition="$case.case_img[1] eq null"}
+                                        {else/}
+                                src="__PUBLIC__{$case.case_img[1]}"
+                                class="logoPre"
+                                {/if}
+                                >
+                                <input type="hidden" name="case_img[2]" id="case_img2" value="{$case['case_img'][1]}"/>
+                                </image>
+                                <div {if condition="$case.case_img[1] eq null"} {else/}class="casePre" {/if} id="casePre22" >
+                                <i class="layui-icon"></i>
+                                <p>请点击此处上传封面图片</p>
+                            </div>
+                        </div>
+                        <div class="one">
+                            <div class="layui-form-mid layui-word-aux" style="margin-left: 39px; ">图片要求：1200*800px，最大1024KB，支持JPG/JEPG/PNG格式。</div>
+                            <div class="layui-form-item">
+                                <textarea name="case_img_alt[2]" style="resize:none;width: 1315px;height: 115px; margin-left:39px;"  placeholder="图片描述，建议不超过15个字（等同图片ALT属性）" class="layui-textarea">{$case['case_img_alt'][1]}</textarea>
+                            </div>
+                        </div>
+</div>
+                            <!--案例图3-->
+                                <div class="layui-form-item one-pan">
+                                    <label class="layui-form-label">卧室</label>
+                                    <div {if condition="$case.case_img[2] eq null"} class="layui-upload-drag" {/if} id="uploadCase3" >
+                                    <image  id="casePre3"
+                                            {if condition="$case.case_img[2] eq null"}
+                                            {else/}
+                                    src="__PUBLIC__{$case.case_img[2]}"
+                                    class="logoPre"
+                                    {/if}
+                                    >
+                                    <input type="hidden" name="case_img[3]" id="case_img3" value="{$case['case_img'][2]}"/>
+                                    </image>
+                                    <div {if condition="$case.case_img[2] eq null"} {else/}class="casePre" {/if} id="casePre33" >
+                                    <i class="layui-icon"></i>
+                                    <p>请点击此处上传封面图片</p>
+                                </div>
+                                </div>
+                                <div class="one">
+                                    <div class="layui-form-mid layui-word-aux" style="margin-left: 39px; ">图片要求：1200*800px，最大1024KB，支持JPG/JEPG/PNG格式。</div>
+                                    <div class="layui-form-item">
+                                        <textarea name="case_img_alt[3]" style="resize:none;width: 1315px;height: 115px; margin-left:39px;"  placeholder="图片描述，建议不超过15个字（等同图片ALT属性）" class="layui-textarea">{$case['case_img_alt'][2]}</textarea>
+                                    </div>
+                                </div>
+                                </div>
+                            <!--案例图4-->
+                                <div class="layui-form-item one-pan">
+                                    <label class="layui-form-label">厨房</label>
+                                    <div {if condition="$case.case_img[3] eq null"} class="layui-upload-drag" {/if} id="uploadCase4" >
+                                    <image  id="casePre4"
+                                            {if condition="$case.case_img[3] eq null"}
+                                            {else/}
+                                    src="__PUBLIC__{$case.case_img[3]}"
+                                    class="logoPre"
+                                    {/if}
+                                    >
+                                    <input type="hidden" name="case_img[4]" id="case_img4" value="{$case['case_img'][3]}"/>
+                                    </image>
+                                    <div {if condition="$case.case_img[3] eq null"} {else/}class="casePre" {/if} id="casePre44" >
+                                    <i class="layui-icon"></i>
+                                    <p>请点击此处上传封面图片</p>
+                                </div>
+                                </div>
+                                <div class="one">
+                                    <div class="layui-form-mid layui-word-aux" style="margin-left: 39px; ">图片要求：1200*800px，最大1024KB，支持JPG/JEPG/PNG格式。</div>
+                                    <div class="layui-form-item">
+                                        <textarea name="case_img_alt[4]" style="resize:none;width: 1315px;height: 115px; margin-left:39px;"  placeholder="图片描述，建议不超过15个字（等同图片ALT属性）" class="layui-textarea">{$case['case_img_alt'][3]}</textarea>
+                                    </div>
+                                </div>
+                                </div>
+                            <!--案例图5-->
+                            <!--案例图5-->
+                            <div class="layui-form-item one-pan">
+                                <label class="layui-form-label">阳台</label>
+                                <div {if condition="$case.case_img[4] eq null"} class="layui-upload-drag" {/if} id="uploadCase5" >
+                                <image  id="casePre5"
+                                        {if condition="$case.case_img[4] eq null"}
+                                        {else/}
+                                src="__PUBLIC__{$case.case_img[4]}"
+                                class="logoPre"
+                                {/if}
+                                >
+                                <input type="hidden" name="case_img[5]" id="case_img5" value="{$case['case_img'][4]}"/>
+                                </image>
+                                <div {if condition="$case.case_img[4] eq null"} {else/}class="casePre" {/if} id="casePre55" >
+                                <i class="layui-icon"></i>
+                                <p>请点击此处上传封面图片</p>
+                            </div>
+                            </div>
+                            <div class="one">
+                                <div class="layui-form-mid layui-word-aux" style="margin-left: 39px; ">图片要求：1200*800px，最大1024KB，支持JPG/JEPG/PNG格式。</div>
+                                <div class="layui-form-item">
+                                    <textarea name="case_img_alt[5]" style="resize:none;width: 1315px;height: 115px; margin-left:39px;"  placeholder="图片描述，建议不超过15个字（等同图片ALT属性）" class="layui-textarea">{$case['case_img_alt'][4]}</textarea>
+                                </div>
+                            </div>
+                            </div>
+                            <!--案例图6-->
+                            <div class="layui-form-item one-pan">
+                                <label class="layui-form-label">卫生间</label>
+                                <div {if condition="$case.case_img[5] eq null"} class="layui-upload-drag" {/if} id="uploadCase6" >
+                                <image  id="casePre6"
+                                        {if condition="$case.case_img[5] eq null"}
+                                        {else/}
+                                src="__PUBLIC__{$case.case_img[5]}"
+                                class="logoPre"
+                                {/if}
+                                >
+                                <input type="hidden" name="case_img[6]" id="case_img6" value="{$case['case_img'][5]}"/>
+                                </image>
+                                <div {if condition="$case.case_img[5] eq null"} {else/}class="casePre" {/if} id="casePre66" >
+                                <i class="layui-icon"></i>
+                                <p>请点击此处上传封面图片</p>
+                            </div>
+                            </div>
+                            <div class="one">
+                                <div class="layui-form-mid layui-word-aux" id="tips" style="margin-left: 39px; ">图片要求：1200*800px，最大1024KB，支持JPG/JEPG/PNG格式。</div>
+                                <div class="layui-form-item">
+                                    <textarea name="case_img_alt[6]" style="resize:none;width: 1315px;height: 115px; margin-left:39px;"  placeholder="图片描述，建议不超过15个字（等同图片ALT属性）" class="layui-textarea">{$case['case_img_alt'][5]}</textarea>
+                                </div>
+                            </div>
+                            </div>
+                           
+                            <div class="layui-form-item" pane>
+                                <label class="layui-form-label">是否置顶</label>
+                                <div class="layui-input-block">
+                                    <input type="radio" name="case_istop" value="2" title="常规" {if condition="$case.case_istop eq 2"}checked{/if}>
+                                    <input type="radio" name="case_istop" value="1" title="置顶" {if condition="$case.case_istop eq 1"}checked{/if}>
+                                </div>
+                            </div>
+                            <div class="layui-form-item">
+                                <div class="layui-input-block">
+                                    <button class="layui-btn" lay-submit lay-filter="saveInfo">修改</button>
+                                    <a class="layui-btn layui-btn-primary" href="<?=url('example/example')?>">返回</a>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    layui.use(['form', 'jquery','upload','layedit'], function(){
+        var form = layui.form
+            ,upload = layui.upload
+            ,layedit = layui.layedit
+            ,$ = layui.jquery;
+        //编辑器图片上传接口
+        layedit.set({
+            uploadImage: {
+                url: '/index/example/editUpload' //接口url
+                ,type: 'post', //默认post
+                success:function(res){
+                    console.log(res);
+                },
+                error:function (res) {
+                    console.log(res);
+                }
+            }
+        });
+        $("#addCaseIma").click(function () {
+            layer.open({
+                type: 2,
+                title: '添加案例全景图',
+                shadeClose: true,
+                shade: false,
+                maxmin: true,
+                area: ['893px', '600px'],
+                content: "<?=url('example/addimg')?>",
+            });
+
+        });
+        layedit.build('demo'); //建立编辑器
+        //自定义验证规则
+        form.verify({
+            title: function(value){
+                if(value.length < 2){
+                    return '标题至少得2个字符啊';
+                }
+            }
+            ,imgReg:function (value) {
+                if(value.length <= 0){
+                    return '请上传客厅图片';
+                }
+            }
+            ,imgRegCaseType:function (value) {
+                if(value.length <= 0){
+                    return '请上传户型图';
+                }
+            }
+            ,urlTest:function(value){
+                if(value.length >0 ){
+                    var Expression=/http(s)?:\/\/([\w-]+\.)+[\w-]+(\/[\w- .\/?%&=]*)?/;
+                    if(Expression.test(value)){
+                    }else{
+                        return "请输入正确的链接！";
+                    }
+                }else{
+                }
+            }
+        });
+        form.on('select(bu_p_id)', function(data){
+            var p_id=data.value;
+            $.ajax({
+                type: 'POST',
+                url: "<?=url('user/getCityName')?>?p_id="+p_id,
+                data: {p_id:p_id},
+                dataType:  'json',
+                success: function(data){
+                    var code=data.data;
+                    $("#bu_c_id").html("<option value=''>请选择城市</option>");
+                    $.each(code, function(i, val) {
+                        var option1 = $("<option>").val(val.c_id).text(val.c_name);
+                        $("#bu_c_id").append(option1);
+                        form.render('select');
+                    });
+                    $("#bu_c_id").get(0).selectedIndex=0;
+                }
+            });
+        });
+        //调用该城市下面的分站
+        form.on('select(bu_c_id)', function(data){
+            var c_id=data.value;
+            $.ajax({
+                type: 'POST',
+                url: "<?=url('admin/getBranchName')?>?c_id="+c_id,
+                data: {c_id:c_id},
+                dataType:  'json',
+                success: function(data){
+                    var code=data.data;
+                    $("#branch").html("<option value=''>请选择站点</option>");
+                    $.each(code, function(i, val) {
+                        var option1 = $("<option>").val(val.b_id).text(val.b_name);
+                        $("#branch").append(option1);
+                        form.render('select');
+                    });
+                    $("#branch").get(0).selectedIndex=0;
+                }
+            });
+        });
+        //户型图片上传
+        upload.render({
+            elem: '#uploadLogo'
+            ,url: '{:url("example/upload")}'
+            ,size:1024 //限制文件大小，单位 KB
+            ,ext: 'jpg|png|gif'
+            ,accept: 'images' //限制文件大小，单位 KB
+            ,before: function(input){
+                loading = layer.load(2, {
+                    shade: [0.2,'#000']
+                });
+            }
+            ,done: function(res){
+                $('#logoPre').removeAttr('src');
+                $('#case_type_iamge').val('');
+                console.log(res);
+                layer.close(loading);
+                $('#case_type_iamge').val(res.path);
+                $('#uploadLogo').removeClass('layui-upload-drag');
+                $('#logoPre').css('width','216px');
+                $('#logoPre').css('height','150px');
+                $('#logoPre').attr('src',"__PUBLIC__"+res.path);
+                $('#logoPre1').hide();
+                layer.msg(res.msg, {icon: 1, time: 1000});
+            }
+            ,error: function(res){
+                layer.msg(res.msg, {icon: 2, time: 1000});
+            }
+        });
+
+
+
+
+        //1.案例效果图片上传
+        upload.render({
+            elem: '#uploadCase1'
+            ,url: '{:url("example/upload")}'
+            ,size:1024//限制文件大小，单位 KB
+            ,ext: 'jpg|png|gif'
+            ,accept: 'images' //限制文件大小，单位 KB
+            ,before: function(input){
+                loading = layer.load(2, {
+                    shade: [0.2,'#000']
+                });
+            }
+            ,done: function(res){
+                $('#casePre1').removeAttr('src');
+                $('#case_img1').val('');
+                console.log(res);
+                layer.close(loading);
+                $('#case_img1').val(res.path);
+                $('#uploadCase1').removeClass('layui-upload-drag');
+                $('#casePre1').css('width','216px');
+                $('#casePre1').css('height','150px');
+                $('#casePre1').attr('src',"__PUBLIC__"+res.path);
+                $('#casePre11').hide();
+                layer.msg(res.msg, {icon: 1, time: 1000});
+            }
+            ,error: function(res){
+                layer.msg(res.msg, {icon: 2, time: 1000});
+            }
+        });
+
+
+        //2.案例效果图片上传
+        upload.render({
+            elem: '#uploadCase2'
+            ,url: '{:url("example/upload")}'
+            ,size:1024 //限制文件大小，单位 KB
+            ,ext: 'jpg|png|gif'
+            ,accept: 'images' //限制文件大小，单位 KB
+            ,before: function(input){
+                loading = layer.load(2, {
+                    shade: [0.2,'#000']
+                });
+            }
+            ,done: function(res){
+                $('#casePre2').removeAttr('src');
+                $('#case_img2').val('');
+                console.log(res);
+                layer.close(loading);
+                $('#case_img2').val(res.path);
+                $('#uploadCase2').removeClass('layui-upload-drag');
+                $('#casePre2').css('width','216px');
+                $('#casePre2').css('height','150px');
+                $('#casePre2').attr('src',"__PUBLIC__"+res.path);
+                $('#casePre22').hide();
+                layer.msg(res.msg, {icon: 1, time: 1000});
+            }
+            ,error: function(res){
+                layer.msg(res.msg, {icon: 2, time: 1000});
+            }
+        });
+
+
+        //3.案例效果图片上传
+        upload.render({
+            elem: '#uploadCase3'
+            ,url: '{:url("example/upload")}'
+            ,size:1024//限制文件大小，单位 KB
+            ,ext: 'jpg|png|gif'
+            ,accept: 'images' //限制文件大小，单位 KB
+            ,before: function(input){
+                loading = layer.load(2, {
+                    shade: [0.2,'#000']
+                });
+            }
+            ,done: function(res){
+                $('#casePre3').removeAttr('src');
+                $('#case_img3').val('');
+                console.log(res);
+                layer.close(loading);
+                $('#case_img3').val(res.path);
+                $('#uploadCase3').removeClass('layui-upload-drag');
+                $('#casePre3').css('width','216px');
+                $('#casePre3').css('height','150px');
+                $('#casePre3').attr('src',"__PUBLIC__"+res.path);
+                $('#casePre33').hide();
+                layer.msg(res.msg, {icon: 1, time: 1000});
+            }
+            ,error: function(res){
+                layer.msg(res.msg, {icon: 2, time: 1000});
+            }
+        });
+
+
+        //4.案例效果图片上传
+        upload.render({
+            elem: '#uploadCase4'
+            ,url: '{:url("example/upload")}'
+            ,size:1024 //限制文件大小，单位 KB
+            ,ext: 'jpg|png|gif'
+            ,accept: 'images' //限制文件大小，单位 KB
+            ,before: function(input){
+                loading = layer.load(2, {
+                    shade: [0.2,'#000']
+                });
+            }
+            ,done: function(res){
+                $('#casePre4').removeAttr('src');
+                $('#case_img4').val('');
+                console.log(res);
+                layer.close(loading);
+                $('#case_img4').val(res.path);
+                $('#uploadCase4').removeClass('layui-upload-drag');
+                $('#casePre4').css('width','216px');
+                $('#casePre4').css('height','150px');
+                $('#casePre4').attr('src',"__PUBLIC__"+res.path);
+                $('#casePre44').hide();
+                layer.msg(res.msg, {icon: 1, time: 1000});
+            }
+            ,error: function(res){
+                layer.msg(res.msg, {icon: 2, time: 1000});
+            }
+        });
+
+
+        //5.案例效果图片上传
+        upload.render({
+            elem: '#uploadCase5'
+            ,url: '{:url("example/upload")}'
+            ,size:1024//限制文件大小，单位 KB
+            ,ext: 'jpg|png|gif'
+            ,accept: 'images' //限制文件大小，单位 KB
+            ,before: function(input){
+                loading = layer.load(2, {
+                    shade: [0.2,'#000']
+                });
+            }
+            ,done: function(res){
+
+                $('#casePre5').removeAttr('src');
+                $('#case_img5').val('');
+                console.log(res);
+                layer.close(loading);
+                $('#case_img5').val(res.path);
+                $('#uploadCase5').removeClass('layui-upload-drag');
+                $('#casePre5').css('width','216px');
+                $('#casePre5').css('height','150px');
+                $('#casePre5').attr('src',"__PUBLIC__"+res.path);
+                $('#casePre55').hide();
+                layer.msg(res.msg, {icon: 1, time: 1000});
+            }
+            ,error: function(res){
+                layer.msg(res.msg, {icon: 2, time: 1000});
+            }
+        });
+
+
+        //6.案例效果图片上传
+        upload.render({
+            elem: '#uploadCase6'
+            ,url: '{:url("example/upload")}'
+            ,size:1024//限制文件大小，单位 KB
+            ,ext: 'jpg|png|gif'
+            ,accept: 'images' //限制文件大小，单位 KB
+            ,before: function(input){
+                loading = layer.load(2, {
+                    shade: [0.2,'#000']
+                });
+            }
+            ,done: function(res){
+                $('#casePre6').removeAttr('src');
+                $('#case_img6').val('');
+                console.log(res);
+                layer.close(loading);
+                $('#case_img6').val(res.path);
+                $('#uploadCase6').removeClass('layui-upload-drag');
+                $('#casePre6').css('width','216px');
+                $('#casePre6').css('height','150px');
+                $('#casePre6').attr('src',"__PUBLIC__"+res.path);
+                $('#casePre66').hide();
+                layer.msg(res.msg, {icon: 1, time: 1000});
+            }
+            ,error: function(res){
+                layer.msg(res.msg, {icon: 2, time: 1000});
+            }
+        });
+    });
+
+
+    //检测楼盘的唯一性；
+    function checkBulids(){
+        var case_title=$('#case_title').val();
+        var case_id={$case.case_id};
+        $.ajax({
+            type:"post",
+            url:"<?=url('example/checkBuname')?>",
+            dataType: 'json',
+            data:{'case_id':case_id,'case_title':case_title},
+            success:function (data) {
+                console.log(data);
+                if(data.code >1){
+                    layer.msg(data.msg, {icon: 2, time: 1000});
+                }else if(data.code <= 1){
+                    layer.msg(data.msg, {icon: 1, time: 1000});
+                }
+            },
+            error:function (error) {
+                console.log(error);
+            }
+        })
+    }
+</script>
+{include file="index/footer" /}

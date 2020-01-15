@@ -1,0 +1,382 @@
+{include file="index/header" /}
+<div style="margin-bottom: 5px;">
+</div>
+<fieldset class="layui-elem-field layui-field-title" style="margin-top: 30px;">
+    <legend>信息回收站</legend>
+</fieldset>
+<section class="panel panel-padding" style="padding-left: 10px;">
+    <form class="layui-form layui-form-pane1">
+        <div class="layui-form-item  demoTable">
+            <div class="layui-inline">
+                <div class="layui-input-inline">
+                    <input type="text" name="keywords" id="keywords"  placeholder="请输入客户姓名/手机" class="layui-input">
+                </div>
+            </div>
+            <div class="layui-inline">
+                <div class="layui-input-inline">
+                    <select name="case_p_id" id="case_p_id" lay-verify="required" lay-filter="bu_p_id">
+                        <option value="">请选择省份</option>
+                        {volist name='prov' id='vo'}
+                        <option value="{$vo.p_id}">{$vo.p_name}</option>
+                        {/volist}
+                    </select>
+                </div>
+            </div>
+            <div class="layui-inline" id="city" style="display:none">
+                <div class="layui-input-inline">
+                    <select name="case_c_id" lay-verify="required" id="bu_c_id" lay-filter="bu_c_id">
+                        <option value="">请选择城市</option>
+                    </select>
+                </div>
+            </div>
+            <div class="layui-inline">
+                <div class="layui-input-inline" id="branchs" style="display:none" >
+                    <select name="case_b_id" id="branch" lay-verify="required" lay-filter="ba_branch">
+                        <option value="">请选择站点</option>
+                    </select>
+                </div>
+            </div>
+            <div class="layui-inline">
+                <div class="layui-input-inline">
+                    <select name="case_admin" id="case_admin">
+                        <option value="">请选择操作人</option>
+                        {volist name="admin" id="ad"}
+                        <option value="{$ad.ad_id}">{$ad.ad_realname}</option>
+                        {/volist}
+                    </select>
+                </div>
+            </div>
+            <div class="layui-inline">
+                <div class="layui-input-inline">
+                    <select name="cus_status" id="cus_status">
+                        <option value="">请选择标记状态</option>
+                        {volist name='userTip' id='tip'}
+                        <option value="{$tip.type_id}">{$tip.type_name}</option>
+                        {/volist}
+                    </select>
+                </div>
+            </div>
+
+            <div class="layui-inline">
+                <div class="layui-input-inline">
+                    <select name="cus_sys" id="cus_sys">
+                        <option value="">请选择用户终端</option>
+                        <option value="1">手机端</option>
+                        <option value="2">PC端</option>
+                    </select>
+                </div>
+            </div>
+            <div class="layui-inline">
+                <div class="layui-input-inline">
+                    <input type="text" name="cus_opptime" class="layui-input" id="cus_opptime" placeholder="请选择客户预约日期">
+                </div>
+            </div>
+            <div class="layui-inline">
+                <div class="layui-input-inline">
+                    <span class="layui-btn" data-type="reload">查询</span>
+                    <a href="<?=url('user/back')?>" class="layui-btn layui-btn-warm">刷新</a>
+                </div>
+            </div>
+        </div>
+    </form>
+</section>
+<div class="layui-btn-group demoTable" style="margin: 5px;">
+    <button class="layui-btn" data-type="getCheckLength">批量恢复</button>
+</div>
+<div class="layui-btn-group demoTable" style="margin: 10px;">
+    <button class="layui-btn layui-btn-danger" data-type="getCheckData">批量彻删</button>
+</div>
+<table class="layui-table" lay-filter="demo" lay-data="{height: 'full-200', cellMinWidth: 80, page:true, url:'/admin/user/backData/', limit:20,limits:[20,30,50] ,id: 'testReload'}" >
+    <thead>
+    <tr>
+        <th lay-data="{type:'checkbox', align:'center', fixed: 'left'}">12</th>
+        <th lay-data="{field:'cus_bid', align:'center', width:150, sort: true, fixed: true}">用户编号</th>
+        <th lay-data="{field:'c_name',  align:'center',width:150, fixed: true}">预约城市</th>
+        <th lay-data="{field:'cus_opptime', align:'center', width:180, fixed: true}">预约时间</th>
+        <th lay-data="{field:'cus_name', align:'center', width:100, fixed: true}">客户姓名</th>
+        <th lay-data="{field:'cus_phone', align:'center', width:150, fixed: true}">联系方式</th>
+        <th lay-data="{field:'b_name',  align:'center',width:150}">预约站点</th>
+        <th lay-data="{field:'cus_area', align:'center', width:150}">建筑面积</th>
+        <th lay-data="{field:'cus_build', align:'center', width:150}">小区楼盘</th>
+        <th lay-data="{field:'cus_link', align:'center', width:350}">网址入口</th>
+        <th lay-data="{field:'cus_position', align:'center', width:150}">预约位置</th>
+        <th lay-data="{field:'cus_from', align:'center', width:150}">推广来源</th>
+        <th lay-data="{field:'cus_origin', align:'center', width:150}">推广创意</th>
+        <th lay-data="{field:'cus_sys', align:'center', width:150}">系统来源</th>
+        <th lay-data="{field:'cus_keywords', align:'center', width:150}">关键词</th>
+        <th lay-data="{field:'type_name',  align:'center', width:100, fixed: 'right'}">标记状态</th>
+        <th lay-data="{field:'ad_realname', align:'center', width:90, fixed: 'right'}">操作人</th>
+        <th lay-data="{field:'cus_backtime',  align:'center', width:150, sort: true, fixed: 'right'}">操作时间</th>
+        <th lay-data="{fixed: 'right', width:178, align:'center', toolbar: '#barDemo'}">操作</th>
+    </tr>
+    </thead>
+</table>
+<script type="text/html" id="barDemo">
+    <a class="layui-btn layui-btn-xs" lay-event="edit">恢复</a>
+    <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">彻删</a>
+</script>
+<script>
+    layui.use(['table','laydate','form'], function(){
+        var table = layui.table
+            ,form = layui.form
+            ,laydate = layui.laydate;
+        laydate.render({
+            elem: '#cus_opptime'
+            ,range: true
+        });
+        form.on('select(bu_p_id)', function(data){
+            var p_id=data.value;
+            $('#city').show();
+            $.ajax({
+                type: 'POST',
+                url: "<?=url('user/getCityName')?>?p_id="+p_id,
+                data: {p_id:p_id},
+                dataType:  'json',
+                success: function(data){
+                    var code=data.data;
+                    $("#bu_c_id").html("<option value=''>请选择城市</option>");
+                    $.each(code, function(i, val) {
+                        var option1 = $("<option>").val(val.c_id).text(val.c_name);
+                        $("#bu_c_id").append(option1);
+                        form.render('select');
+                    });
+                    $("#bu_c_id").get(0).selectedIndex=0;
+                }
+            });
+        });
+        //调用该城市下面的分站
+        form.on('select(bu_c_id)', function(data){
+            var c_id=data.value;
+            $('#branchs').show();
+            $.ajax({
+                type: 'POST',
+                url: "<?=url('admin/getBranchName')?>?c_id="+c_id,
+                data: {c_id:c_id},
+                dataType:  'json',
+                success: function(data){
+                    var code=data.data;
+                    $("#branch").html("<option value=''>请选择站点</option>");
+                    $.each(code, function(i, val) {
+                        var option1 = $("<option>").val(val.b_id).text(val.b_name);
+                        $("#branch").append(option1);
+                        form.render('select');
+                    });
+                    $("#branch").get(0).selectedIndex=0;
+                }
+            });
+        });
+        //调用该分站下面的管理员
+        form.on('select(ba_branch)', function(data){
+            var b_id=data.value;
+            $.ajax({
+                type: 'POST',
+                url: "<?=url('admin/getAdminName')?>",
+                data: {b_id:b_id},
+                dataType:  'json',
+                success: function(data){
+                    var code=data.data;
+                    $("#ba_admin").html("<option value=''>请选择操作人</option>");
+                    $.each(code, function(i, val) {
+                        var option1 = $("<option>").val(val.ad_id).text(val.ad_realname);
+                        $("#ba_admin").append(option1);
+                        form.render('select');
+                    });
+                    $("#ba_admin").get(0).selectedIndex=0;
+                }
+            });
+        });
+        table.on('tool(demo)', function(obj){
+            var data = obj.data;
+            if(obj.event === 'edit'){
+                var cus_id = data.cus_id;
+                layer.confirm('确定恢复该客户？', {
+                    btn : [ '确定', '取消' ]//按钮
+                }, function() {
+                    $.ajax({
+                        'type':"get",
+                        'url':"<?=url('user/backNormal')?>",
+                        'data':{cus_id:cus_id},
+                        'success':function (result) {
+                            if(result.code < 1){
+                                layer.msg(result.msg);
+                            }else {
+                                layer.msg(result.msg);
+                                layer.open({
+                                    title: '信息'
+                                    ,content: result.msg
+                                    ,yes: function(index){
+                                        layer.close(index);
+                                        window.location.href='<?=url("user/back")?>';
+                                    }
+                                    ,cancel:function (index) {
+                                        layer.close(index);
+                                        window.location.href='<?=url("user/back")?>';
+                                    }
+                                });
+                            }
+                        },
+                        'error':function () {
+                            console.log('error');
+                        }
+                    })
+                },function(){
+                    layer.msg('您已取消该操作！',{
+                        time: 2000
+                    });
+                });
+            } else if(obj.event === 'del'){
+                var cus_id = data.cus_id;
+                layer.confirm('确定删除该客户？删除后不可恢复！', {
+                    btn : [ '确定', '取消' ]//按钮
+                }, function() {
+                    $.ajax({
+                        'type':"get",
+                        'url':"<?=url('user/absdelete')?>",
+                        'data':{cus_id:cus_id},
+                        'success':function (result) {
+                            if(result.code < 1){
+                                layer.msg(result.msg);
+                            }else {
+                                layer.msg(result.msg);
+                                layer.open({
+                                    title: '信息'
+                                    ,content: result.msg
+                                    ,yes: function(index){
+                                        layer.close(index);
+                                        window.location.href='<?=url("user/back")?>';
+                                    }
+                                    ,cancel:function (index) {
+                                        layer.close(index);
+                                        window.location.href='<?=url("user/back")?>';
+                                    }
+                                });
+                            }
+                        },
+                        'error':function () {
+                            console.log('error');
+                        }
+                    })
+                },function(){
+                    layer.msg('您已取消该操作！',{
+                        time: 2000
+                    });
+                });
+            }
+        });
+
+
+        var $ = layui.$, active = {
+            getCheckData: function(){ //获取选中数据
+                layer.confirm('确定批量彻删客户？', {
+                    btn : [ '确定', '取消' ]//按钮
+                }, function() {
+                    var ids = '';
+                    var checkStatus = table.checkStatus('testReload')
+                        ,data = checkStatus.data;
+                    for(var i=0;i<data.length;i++){
+                        ids+=','+checkStatus.data[i].cus_id;
+                    }
+                    $.ajax({
+                        type: 'POST',
+                        url: "<?=url('user/absdelBatch')?>?ids="+ids,
+                        data: {ids:ids},
+                        dataType:  'json',
+                        success: function(data){
+                            if(data.code == '1'){
+                                layer.alert('批量删除成功！', {
+                                    icon: 1,
+                                    skin: 'layer-ext-moon',
+                                    time: 2000,
+                                    end: function(){
+                                        window.location.href='<?=url("user/back")?>';
+                                    }
+                                });
+                            }
+                        }
+                    });
+                },function(){
+                    layer.msg('您已取消该操作！',{
+                        time: 2000,
+                        end: function(){
+                            window.location.href='<?=url("user/back")?>';
+                        }
+                    });
+                });
+            },
+            getCheckLength: function(){
+                //批量恢复客户数据
+                layer.confirm('确定批量恢复客户？', {
+                    btn : [ '确定', '取消' ]//按钮
+                }, function() {
+                    var ids = '';
+                    var checkStatus = table.checkStatus('testReload')
+                        ,data = checkStatus.data;
+                    for(var i=0;i<data.length;i++){
+                        ids+=','+checkStatus.data[i].cus_id;
+                    }
+                    $.ajax({
+                        type: 'POST',
+                        url: "<?=url('user/backBatch')?>?ids="+ids,
+                        data: {ids:ids},
+                        dataType:  'json',
+                        success: function(data){
+                            if(data.code == '1'){
+                                layer.alert('批量恢复成功！', {
+                                    icon: 1,
+                                    skin: 'layer-ext-moon',
+                                    time: 2000,
+                                    end: function(){
+                                        window.location.href='<?=url("user/back")?>';
+                                    }
+                                });
+                            }
+                        }
+                    });
+                },function(){
+                    layer.msg('您已取消该操作！',{
+                        time: 2000,
+                        end: function(){
+                            window.location.href='<?=url("user/back")?>';
+                        }
+                    });
+                });
+            }
+            //表格重载  条件搜索
+            ,reload: function(){
+                var keywords = $('#keywords').val();
+                var cus_status = $('#cus_status').val();
+                var cus_sys = $('#cus_sys').val();
+                var cus_opptime = $('#cus_opptime').val();
+                var case_p_id = $('#case_p_id').val();
+                var bu_c_id = $('#bu_c_id').val();
+                var branch = $('#branch').val();
+                var case_admin = $('#case_admin').val();
+                //执行重载
+                table.reload('testReload', {
+                    url: '/admin/user/backData/'
+                    ,page: {
+                        curr: 1 //重新从第 1 页开始
+                    }
+                    ,where: {
+                        keywords: keywords,
+                        cus_status: cus_status,
+                        cus_sys: cus_sys,
+                        case_p_id: case_p_id,
+                        bu_c_id: bu_c_id,
+                        branch: branch,
+                        case_admin: case_admin,
+                        cus_opptime: cus_opptime
+                    },
+                    success:function (data) {
+                        console.log(data);
+                    }
+                });
+            }
+        };
+        $('.demoTable .layui-btn').on('click', function(){
+            var type = $(this).data('type');
+            active[type] ? active[type].call(this) : '';
+        });
+    });
+</script>
+{include file="index/footer" /}

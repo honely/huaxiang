@@ -1,0 +1,200 @@
+{include file="index/header" /}
+<div style="margin-bottom: 5px;">
+</div>
+<fieldset class="layui-elem-field layui-field-title" style="margin-top: 30px;">
+    <legend>客户列表</legend>
+</fieldset>
+<section class="panel panel-padding" style="padding-left: 10px;">
+    <form class="layui-form layui-form-pane1">
+        <div class="layui-form-item  demoTable">
+            <div class="layui-inline">
+                <div class="layui-input-inline">
+                    <input type="text" name="keywords" id="keywords"  placeholder="请输入客户姓名/手机" class="layui-input">
+                </div>
+            </div>
+            <div class="layui-inline">
+                <div class="layui-input-inline">
+                    <select name="cus_status" id="cus_status">
+                        <option value="">请选择标记状态</option>
+                        {volist name='userTip' id='tip'}
+                        <option value="{$tip.type_id}" {if isset($cus_status)}{if condition="$cus_status eq $tip.type_id"}selected{/if}{/if}>{$tip.type_name}</option>
+                        {/volist}
+                    </select>
+                </div>
+            </div>
+
+            <div class="layui-inline">
+                <div class="layui-input-inline">
+                    <select name="cus_sys" id="cus_sys">
+                        <option value="">请选择用户终端</option>
+                        <option value="1">手机端</option>
+                        <option value="2">PC端</option>
+                    </select>
+                </div>
+            </div>
+            <div class="layui-inline">
+                <div class="layui-input-inline">
+                    <input type="text" name="cus_opptime" class="layui-input" id="cus_opptime" placeholder="请选择客户预约日期">
+                </div>
+            </div>
+            <div class="layui-inline">
+                <div class="layui-input-inline">
+                    <span class="layui-btn" data-type="reload">查询</span>
+                    <a href="<?=url('user/user')?>" class="layui-btn layui-btn-warm">刷新</a>
+                </div>
+            </div>
+        </div>
+    </form>
+</section>
+<div class="layui-btn-group demoTable" style="margin: 10px">
+    <button class="layui-btn layui-btn-danger"  data-type="getCheckData">批量删除</button>
+</div>
+<table class="layui-table" lay-filter="demo" lay-data="{height: 'full-200', cellMinWidth: 80, page:true, url:'/admin/user/userData/', limit:20,limits:[20,30,50] ,id: 'testReload'}" >
+    <thead>
+    <tr>
+        <th lay-data="{type:'checkbox', align:'center', fixed: 'left'}">12</th>
+        <th lay-data="{field:'cus_bid', align:'center', width:150, sort: true, fixed: true}">用户编号</th>
+        <th lay-data="{field:'c_name',  align:'center',width:150, fixed: true}">预约城市</th>
+        <th lay-data="{field:'cus_opptime', align:'center',  width:180,  fixed: true}">预约时间</th>
+        <th lay-data="{field:'cus_name', align:'center', width:80, fixed: true}">客户姓名</th>
+        <th lay-data="{field:'cus_phone', align:'center', width:150, fixed: true}">联系方式</th>
+        <th lay-data="{field:'b_name',  align:'center',width:150}">预约站点</th>
+        <th lay-data="{field:'cus_area', align:'center', width:150}">建筑面积</th>
+        <th lay-data="{field:'cus_build', align:'center', width:150}">小区楼盘</th>
+        <th lay-data="{field:'cus_link', align:'center', width:350}">网址入口</th>
+        <th lay-data="{field:'cus_position', align:'center', width:150}">预约位置</th>
+        <th lay-data="{field:'cus_from', align:'center', width:150}">推广来源</th>
+        <th lay-data="{field:'cus_origin', align:'center', width:150}">推广创意</th>
+        <th lay-data="{field:'cus_sys', align:'center', width:150}">系统来源</th>
+        <th lay-data="{field:'cus_keywords', align:'center', width:150}">关键词</th>
+        <th lay-data="{field:'type_name',  align:'center', width:100, fixed: 'right'}">标记状态</th>
+        <th lay-data="{field:'ad_realname', align:'center', width:90, fixed: 'right'}">操作人</th>
+        <th lay-data="{field:'cus_backtime',  align:'center', width:150, sort: true, fixed: 'right'}">操作时间</th>
+        <th lay-data="{fixed: 'right', width:178, align:'center', toolbar: '#barDemo'}">操作</th>
+    </tr>
+    </thead>
+</table>
+<script type="text/html" id="barDemo">
+    <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
+</script>
+<script>
+    layui.use(['table','laydate'], function(){
+        var table = layui.table
+            ,laydate = layui.laydate;
+        laydate.render({
+            elem: '#cus_opptime'
+            ,range: true
+        });
+        table.on('tool(demo)', function(obj){
+            var data = obj.data;
+            if(obj.event === 'del'){
+                var cus_id = data.cus_id;
+                layer.confirm('确定删除该客户？删除后不可恢复！', {
+                    btn : [ '确定', '取消' ]//按钮
+                }, function() {
+                    $.ajax({
+                        'type':"get",
+                        'url':"<?=url('user/delUser')?>",
+                        'data':{cus_id:cus_id},
+                        'success':function (result) {
+                            if(result.code < 1){
+                                layer.msg(result.msg);
+                            }else {
+                                layer.msg(result.msg);
+                                layer.open({
+                                    title: '信息'
+                                    ,content: result.msg
+                                    ,yes: function(index){
+                                        layer.close(index);
+                                        window.location.href='<?=url("user/user")?>';
+                                    }
+                                    ,cancel:function (index) {
+                                        layer.close(index);
+                                        window.location.href='<?=url("user/user")?>';
+                                    }
+                                });
+                            }
+                        },
+                        'error':function () {
+                            console.log('error');
+                        }
+                    })
+                },function(){
+                    layer.msg('您已取消该操作！',{
+                        time: 2000
+                    });
+                });
+            }
+        });
+
+
+
+        var $ = layui.$, active = {
+            getCheckData: function(){ //获取选中数据
+                layer.confirm('确定批量删除客户？删除后不可恢复！', {
+                    btn : [ '确定', '取消' ]//按钮
+                }, function() {
+                    var ids = '';
+                    var checkStatus = table.checkStatus('testReload')
+                        ,data = checkStatus.data;
+                    for(var i=0;i<data.length;i++){
+                        ids+=','+checkStatus.data[i].cus_id;
+                    }
+                    $.ajax({
+                        type: 'POST',
+                        url: "<?=url('user/delBatch')?>?ids="+ids,
+                        data: {ids:ids},
+                        dataType:  'json',
+                        success: function(data){
+                            if(data.code == '1'){
+                                layer.alert('批量删除成功！', {
+                                    icon: 1,
+                                    skin: 'layer-ext-moon',
+                                    time: 2000,
+                                    end: function(){
+                                        window.location.href='<?=url("user/user")?>';
+                                    }
+                                });
+                            }
+                        }
+                    });
+                },function(){
+                    layer.msg('您已取消该操作！',{
+                        time: 2000,
+                        end: function(){
+                            window.location.href='<?=url("user/user")?>';
+                        }
+                    });
+                });
+            },
+            reload: function(){
+                var keywords = $('#keywords').val();
+                var cus_status = $('#cus_status').val();
+                var cus_sys = $('#cus_sys').val();
+                var cus_opptime = $('#cus_opptime').val();
+                //执行重载
+                table.reload('testReload', {
+                    url: '/admin/user/userData/'
+                    ,page: {
+                        curr: 1 //重新从第 1 页开始
+                    }
+                    ,where: {
+                        keywords: keywords,
+                        cus_status: cus_status,
+                        cus_sys: cus_sys,
+                        cus_opptime: cus_opptime
+                    },
+                    success:function (data) {
+                        console.log(data);
+                    }
+                });
+            }
+
+        };
+        $('.demoTable .layui-btn').on('click', function(){
+            var type = $(this).data('type');
+            active[type] ? active[type].call(this) : '';
+        });
+    });
+</script>
+{include file="index/footer" /}

@@ -1,0 +1,220 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>注册</title>
+    <meta content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=0" name="viewport" />
+    <meta content="yes" name="apple-mobile-web-app-capable" />
+    <meta content="black" name="apple-mobile-web-app-status-bar-style" />
+    <meta content="telephone=no" name="format-detection" />
+    <link href="assets1/css/zhuce.css" rel="stylesheet" type="text/css" />
+    <script type="text/javascript" src="assets1/js/jquery.min.js"></script>
+    <script src="assets1/js/jquery.validate.min.js"></script>
+    <script src="assets1/js/messages_zh.js"></script>
+
+</head>
+<body>
+
+
+<div class="aui-register-popup">
+    <div class="aui-register-box">
+        <div class="aui-register-link">
+            <!-- <a href="javascript:;" class="fl">返回首页</a> -->
+            <!-- <a href="./login.html" class="fr" >返回登陆？</a> -->
+        </div>
+        <!-- <div class="aui-register-logo">
+            <img src="images/xiaobao-logo.png" alt="">
+        </div> -->
+        <div class="aui-register-form" id="verifyCheck">
+            <div class="register-wrap" id="register-wrap">
+                <div class="register" id="register">
+                    <div class="register-top" id="reg-top">
+                        <h2 class="normal" id="normal">Hi &nbsp; 等你好久啦！赶紧绑定吧</h2>
+                        <!-- <h2 class="nopassword" id="nopw">手机无密码登录</h2> -->
+                        <!-- <h2 class="nopassword" id="nopw">返回首页</h2> -->
+
+                        <!-- 二维码 -->
+                        <!-- <a id="qrcode" href="#">
+                            <span class="aui-tag-size"></span>
+                        </a> -->
+                    </div>
+                    <!--注册-->
+                    <form action="" id="form-pp">
+                        <div class="register-con" id="rc">
+                            <!-- 输入手机号码 -->
+                            <div class="aui-register-form-item">
+                                <input type="text" name="phone" placeholder="手机号码" class="txt01 f-r3 required" keycodes="tel" tabindex="1" data-valid="isNonEmpty||isPhone" data-error="<i class='icon-tips'></i>请输入手机号||<i class='icon-tips'></i>手机号码格式不正确" maxlength="11" id="phone">
+                                <label class="focus valid"><div class="msg" style="display:none"><i class='icon-tips'></i>您还未输入手机号</div></label>
+                                <span class="aui-get-code btn btn-gray f-r3 f-ml5 f-size13" id="time_box" disabled style="display:none;"></span>
+                                <span class="aui-get-code btn btn-gray f-r3 f-ml5 f-size13" id="verifyYz" >获取验证码</span>
+                            </div>
+                            <!-- 验证码输入 -->
+                            <div class="aui-register-form-item">
+                                <input type="text" placeholder="输入验证码" maxlength="6" name="yzm" id="verifyNo" class="txt02 f-r3 f-fl required" tabindex="2" data-valid="isNonEmpty||isInt" data-error="<i class='icon-tips'></i>请填写正确的手机动态码||<i class='icon-tips'></i>请填写6位手机动态码">
+                                <label class="focus valid"></label>
+                            </div>
+
+                            <!-- 邮箱选填 -->
+                            <div class="aui-register-form-item">
+                                <input type="text" placeholder="请输入邮箱 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(选填)" maxlength="6" name="email" id="cemail" size="25" tabindex="2" data-valid="isNonEmpty||isInt" data-error="<i class='icon-tips'></i>请输入正确的邮箱格式<i class='icon-tips'></i>">
+                                <label class="focus valid"></label>
+                            </div>
+                            <!-- 注册按钮 -->
+                            <div class="aui-register-form-item">
+                                <input id="aui-btn-reg1" class="aui-btn-reg" placeholder="" type="submit"  readonly="readonly" value="创建并绑定">
+                            </div>
+                            <div class="aui-protocol">
+                                绑定即同意
+                                <a  href="#">《小宝租房网站使用协议》</a>
+                                <!-- <a  href="#">《隐私权条款》</a> -->
+                            </div>
+                            <div class="aui-thirds">
+                                <a href="#">
+                                    <!-- <i class="aui-qq-img"></i> -->
+                                    <i></i>
+                                </a>
+                                <a href="#">
+                                    <!-- <i class="aui-wx-img"></i> -->
+                                    <i></i>
+                                </a>
+
+                                <div class="clear"></div>
+                            </div>
+                            <!-- <div class="aui-register-form-item">
+                                <input type="text" name="username" maxlength="20"  placeholder="账户名" class="txt03 f-r3 required" tabindex="3" data-valid="isNonEmpty||between:3-20||isUname" data-error="<i class='icon-tips'></i>您还没有输入账户名||<i class='icon-tips'></i>用户名长度3-20位||<i class='icon-tips'></i>只能输入字母、数字、且以中文或字母开头" id="adminNo">
+                                <label class="focus valid"></label>
+                            </div>
+                            <div class="aui-register-form-item">
+                                <input type="password" name="password" placeholder="密码" id="password" maxlength="20" class="txt04 f-r3 required" tabindex="4" style="ime-mode:disabled;" onpaste="return  false" autocomplete="off" data-valid="isNonEmpty||between:6-20||level:2" data-error="<i class='icon-tips'></i>密码太短，最少6位||<i class='icon-tips'></i>密码长度6-20位||<i class='icon-tips'></i>密码太简单，有被盗风险，建议字母+数字的组合">
+                                <label class="focus valid"></label>
+
+                            </div>
+                            <div class="aui-register-form-item">
+                                    <p class="aui-for-pwd">
+                                            <a class="" href="#">忘记密码</a>
+                                        </p>
+                                <p class="aui-for-pwd">
+                                    <a class="" href="#">忘记密码</a>
+                                </p>
+                                <input id="aui-btn-reg" class="aui-btn-reg" placeholder=""  readonly="readonly" value="登录" >
+                            </div>
+                            <div class="aui-protocol">
+                                登录即同意
+                                <a  href="#">《小宝租房使用协议》</a>&
+                                <a  href="#">《隐私权条款》</a>
+                            </div>
+                            <div class="aui-thirds">
+                                <a href="#">
+                                    <i class="aui-qq-img"></i>
+                                    <i>QQ登录</i>
+                                </a>
+                                <a href="#">
+                                    <i class="aui-wx-img"></i>
+                                    <i>微信登录</i>
+                                </a>
+
+                                <div class="clear"></div>
+                            </div> -->
+                        </div>
+                    </form>
+
+                    <!--手机动态码登录-->
+                    <div class="login-con" id="lc">
+
+                    </div>
+
+
+                    <!-- 扫码登录 -->
+                    <div class="saoma" id="sm">
+                        <div class="screen-tu" id="screen">
+                            <span class="aui-tag-size">密码登录</span>
+                        </div>
+                        <div class="aui-text-item">
+                            <h1>方便又安全</h1>
+                        </div>
+                        <div class="qr-code">
+                            <span class="tips_img"></span>
+                            <img src="images/code.png" alt="">
+                        </div>
+                        <div class="aui-tab-footer">
+                            <p> <a href="#"></a></p>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            <div class="clearfix"></div>
+        </div>
+
+    </div>
+</div>
+
+
+<!-- <script type="text/javascript" src="assets1/js/login.js"></script> -->
+
+
+<!-- 校验 -->
+<script>
+
+    jQuery.validator.addMethod("isMobile", function(value, element) {
+        var length = value.length;
+        var mobile = /^(13[0-9]{9})|(18[0-9]{9})|(14[0-9]{9})|(17[0-9]{9})|(15[0-9]{9})$/;
+        return this.optional(element) || (length == 11 && mobile.test(value));
+    }, "请正确填写手机号码");
+
+
+
+    $("#form-pp").validate({
+        rules:{
+            phone:{
+                required:true,
+                minlength:11,
+                isMobile : true
+            },
+            yzm:{
+                required:true,
+                minlength:6
+            },
+            email:{
+                required:false,
+                email:true
+            }
+        },
+        /* 自定义错误消息*/
+        messages:{
+            phone:{
+                required:"手机号码不能为空",
+                minlength:"手机号码格式错误"
+            },
+            yzm:{
+                required:"验证码不能为空",
+                minlength:"验证码输入错误"
+            },
+            email:{
+                // required:验证码不能为空,
+                email:"邮箱格式不对"
+            }
+        }
+    });
+</script>
+<!-- <script type="text/javascript">
+$(function() {
+	
+	$("#aui-btn-reg").click(function() {
+		if (!verifyCheck._click()) return;
+		alert('登录成功')
+
+	});
+	$("#aui-btn-reg1").click(function() {
+		if (!verifyCheck._click()) return;
+		alert('注册成功')
+
+	});
+});
+</script> -->
+
+
+
+</body>
+</html>

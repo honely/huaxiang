@@ -1,0 +1,199 @@
+{include file="index/header" /}
+<style>
+    #pages .layui-laypage-prev {
+        padding: 0 12px;
+    }
+    #pages .layui-laypage-next{
+        padding: 0 12px;
+    }
+    #pages .layui-laypage a{
+        border:none;
+    }
+    #pages .layui-laypage-curr{
+        padding: 0 11px;
+        height: 24px;
+        line-height: 24px;
+    }
+    #pages .layui-laypage input{
+        padding: 0 11px;
+        height: 26px;
+        line-height: 26px;
+    }
+    #pages .layui-laypage input, .layui-laypage button{
+        padding: 0 11px;
+        height: 26px;
+        line-height: 26px;
+    }
+    #pages .layui-laypage select{
+        height: 18px;
+    }
+</style>
+<div class="layui-body">
+    <div style="margin: 20px;">
+        <span class="layui-breadcrumb" lay-separator=">">
+            <a>培训管理</a>
+            <a href="<?=url('learn/index')?>">课程列表</a>
+            <a><cite>{$ls_title}---章节列表</cite></a>
+        </span>
+        <div style="float:right;">
+            <button class="layui-btn layui-btn-primary layui-btn-sm"  onclick="addArt()"><i class="layui-icon"></i>添加章节</button>
+        </div>
+    </div>
+    <hr/>
+    <section class="panel panel-padding" style="padding-top: 10px;padding-left: 10px;">
+        <form id="queryForm" class="layui-form layui-form-pane1" action="<?=url('user/user')?>">
+            <div class="layui-form-item">
+                <div class="layui-inline">
+                    <div class="layui-input-inline">
+                        <input type="text" id="keywords" name="keywords" value="{if isset($keywords)}{$keywords}{/if}"  placeholder="请输入章节标题" class="layui-input">
+                    </div>
+                </div>
+                <div class="layui-inline">
+                    <div class="layui-input-inline">
+                        <button class="layui-btn "  lay-submit lay-filter="*">查询</button>
+                        <a href="<?=url('learn/sublesson')?>?ls_id={$ls_id}" class="layui-btn layui-btn-warm">刷新</a>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </section>
+    <table   class="layui-form layui-table layui-table-box layui-table-view" lay-filter="parse-table-demo" lay-skin="line">
+        <colgroup>
+            <col width="100">
+            <col width="160">
+            <col width="140">
+            <col width="100">
+            <col width="100">
+            <col width="100">
+            <col width="160">
+        </colgroup>
+        <thead>
+        <tr>
+            <td>章节编号</td>
+            <td>章节标题</td>
+            <td>操作时间</td>
+            <td>学习人数</td>
+            <td>是否显示</td>
+            <td>操作人</td>
+            <td>操作</td>
+        </tr>
+        </thead>
+        <tbody>
+        {volist name="subLesson" id="chapter"}
+            <tr>
+                <td>{$chapter.lc_id}</td>
+                <td>{$chapter.lc_title}</td>
+                <td>{$chapter.lc_updatetime}</td>
+                <td>{$chapter.lc_view}</td>
+                <td>
+                    <input type="checkbox" value="{$chapter.lc_id}" {if $chapter.lc_isable eq 1}checked{/if} lay-filter="isShow" lay-skin="switch" lay-text="是|否">
+                </td>
+                <td>{$chapter.ad_realname}</td>
+                <td>
+                    <button onclick="editUser({$chapter.lc_id})" class="layui-btn layui-btn-xs"><i class="layui-icon">&#xe642;</i>编辑</button>
+                    <button class="layui-btn layui-btn-danger layui-btn-xs" onclick="delUser({$chapter.lc_id})" ><i class="layui-icon">&#xe640;</i>删除</button>
+                </td>
+            </tr>
+        {/volist}
+        </tbody>
+    </table>
+    <div id="pages" style="text-align: left;padding: 7px;"></div>
+</div>
+<script>
+    function addArt(){
+        window.location.href='<?=url('learn/addsubles')?>?ls_id={$ls_id}';
+    }
+</script>
+<script>
+    layui.use(['laypage', 'layer','laydate','form','jquery'], function(){
+        var laypage = layui.laypage,
+            laydate = layui.laydate,
+            form = layui.form,
+            $ = layui.jquery;
+        //监听指定开关
+        laypage.render({
+            //自定义每页条数的选择项
+            elem: 'pages'
+            ,count: {$count}
+            ,limit: {$limit}
+            ,curr: {$page}
+            ,limits: [20, 30, 50]
+            ,prev:'<i class="layui-icon">&#xe603;</i>'
+            ,next:'<i class="layui-icon">&#xe602;</i>'
+            ,layout: ['prev', 'page', 'next', 'skip','count',  'limit']
+            ,jump: function(obj,frist){
+                if(!frist){
+                    window.location.href="<?=url('learn/sublesson')?>?ls_id={$ls_id}&page="+obj.curr+"&limit="+obj.limit;
+                }
+            }
+        });
+        form.on('switch(isShow)', function(obj){
+            var change = obj.elem.checked;
+            if(change){
+                change = 1;
+            }else{
+                change = 0;
+            }
+            //状态表示将要更改成为的状态
+            var lc_id = obj.value;
+            $.ajax({
+                type:"post",
+                url:"<?=url('learn/status')?>",
+                dataType: 'json',
+                data:{
+                    "change":change,
+                    'lc_id':lc_id
+                },
+                success:function (data) {
+                    layer.msg(data.msg);
+                },
+                error:function (error) {
+                    console.log(error);
+                }
+            })
+        });
+    });
+</script>
+<script>
+    function editUser(lc_id){
+        window.location.href="<?=url('learn/editsubles')?>?lc_id="+lc_id;
+    }
+    function delUser(lc_id){
+        layer.confirm('确定删除该课程？删除后不可恢复！', {
+            btn : [ '确定', '取消' ]//按钮
+        }, function() {
+            $.ajax({
+                'type':"get",
+                'url':"<?=url('learn/delchapter')?>",
+                'data':{lc_id:lc_id},
+                'success':function (result) {
+                    if(result.code < 1){
+                        layer.msg(result.msg);
+                    }else {
+                        layer.msg(result.msg);
+                        layer.open({
+                            title: '信息'
+                            ,content: result.msg
+                            ,yes: function(index){
+                                layer.close(index);
+                                window.location.href='<?=url("learn/index")?>';
+                            }
+                            ,cancel:function (index) {
+                                layer.close(index);
+                                window.location.href='<?=url("learn/index")?>';
+                            }
+                        });
+                    }
+                },
+                'error':function () {
+                    console.log('error');
+                }
+            })
+        },function(){
+            layer.msg('您已取消该操作！',{
+                time: 2000
+            });
+        });
+    }
+</script>
+{include file="index/footer" /}

@@ -1,0 +1,57 @@
+{include file="index/header" /}
+<div class="layui-body">
+    <div style="margin: 20px;">
+    <span class="layui-breadcrumb" lay-separator=">">
+        <a>系统配置</a>
+        <a href="<?=url('msg/msg')?>">信息配置</a>
+        <a href="<?=url('msg/msgsigns')?>">短信签名</a>
+        <a><cite>添加短信签名</cite></a>
+    </span>
+        <div style="float:right;">
+            <a href="<?=url('msg/msgsigns')?>" class="layui-btn layui-btn-primary layui-btn-sm">
+                <i class="layui-icon layui-icon-return"></i>
+                返回列表</a>
+        </div>
+    </div>
+    <hr/>
+    <div style="padding: 15px;">
+        <form class="layui-form layui-form-pane1" action="<?=url('msg/addsign')?>" method="post">
+            <div class="layui-form-item">
+                <label class="layui-form-label"><span style="color: red;">*</span>
+                    签名名称
+                </label>
+                <div class="layui-input-block">
+                    <input type="text" name="ali_sign_name" lay-verify="required" placeholder='请输入短信签名' autocomplete="off" class="layui-input">
+                </div>
+            </div>
+            <div class="layui-form-item layui-form-text">
+                <label class="layui-form-label"><span style="color: red;">*</span>签名说明</label>
+                <div class="layui-input-block">
+                    <textarea placeholder="请输入签名说明" name="ali_sign_remarks" class="layui-textarea"></textarea>
+                </div>
+            </div>
+            <div class="layui-form-item" pane>
+                <label class="layui-form-label">是否可用</label>
+                <div class="layui-input-block">
+                    <input type="radio" name="ali_sign_able" value="1" title="是" checked>
+                    <input type="radio" name="ali_sign_able" value="2" title="否">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <div class="layui-input-block">
+                    <button class="layui-btn" type="submit">添加</button>
+                    <a class="layui-btn layui-btn-primary" href="<?=url('msg/msgsigns')?>">返回</a>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+<script>
+    layui.use('form', function(){
+        var form = layui.form;
+        form.on('radio', function(data){
+            console.log(data);
+        });
+    });
+</script>
+{include file="index/footer" /}

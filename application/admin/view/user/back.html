@@ -1,0 +1,488 @@
+{include file="index/header" /}
+<link rel="stylesheet" href="__PUBLIC__/static/pcb/pick-pcc.css"/>
+<script type="text/javascript" src="__PUBLIC__/static/pcb/pick-pcc.js"></script>
+<style>
+    .pick-county{
+        max-width: 71.3333px !important;
+
+    }
+    .layui-table-cell{
+        height:36px !important;
+        line-height:36px !important;
+        clear: both;
+    }
+</style>
+<div style="margin: 20px;">
+        <span class="layui-breadcrumb" lay-separator=">">
+            <a>客户管理</a>
+            <a><cite>回收站</cite></a>
+        </span>
+</div>
+<hr/>
+<section class="panel panel-padding" style="padding-top: 10px;padding-left: 10px;">
+    <form class="layui-form layui-form-pane1">
+        <div class="layui-form-item  demoTable">
+            <div class="layui-inline" style="width: 280px;">
+                <div class="layui-input-inline">
+                    <div class="pick-area1" name=""></div>
+                </div>
+            </div>
+            <div class="layui-inline">
+                <div class="layui-input-inline" style="width: 250px;">
+                    <input type="text" name="keywords" id="keywords"  placeholder="请输入客户姓名/手机/推广来源" class="layui-input">
+                </div>
+            </div>
+            <div class="layui-inline">
+                <div class="layui-input-inline">
+                    <select name="case_admin" id="case_admin">
+                        <option value="">请选择操作人</option>
+                        {volist name="admin" id="ad"}
+                        <option value="{$ad.ad_id}">{$ad.ad_realname}</option>
+                        {/volist}
+                    </select>
+                </div>
+            </div>
+            <div class="layui-inline">
+                <div class="layui-input-inline">
+                    <select name="cus_status" id="cus_status">
+                        <option value="">请选择标记状态</option>
+                        {volist name='userTip' id='tip'}
+                        <option value="{$tip.type_id}" {if isset($cus_status)}{if condition="$cus_status eq $tip.type_id"}selected{/if}{/if}>{$tip.type_name}</option>
+                        {/volist}
+                    </select>
+                </div>
+            </div>
+            <div class="layui-inline">
+                <div class="layui-input-inline">
+                    <input type="text" readonly name="cus_opptime" class="layui-input" id="cus_opptime" placeholder="请选择客户预约日期">
+                </div>
+            </div>
+            <div class="layui-inline">
+                <div class="layui-input-inline">
+                    <span class="layui-btn" data-type="reload">查询</span>
+                    <a href="<?=url('user/back')?>" class="layui-btn layui-btn-warm">刷新</a>
+                </div>
+            </div>
+        </div>
+    </form>
+</section>
+<section class="panel panel-padding" style="padding-left: 10px;padding-right: 10px;">
+    <div class="layui-inline">
+        <div class="layui-input-inline">
+            <span onclick="query(0)" class="layui-btn layui-btn-xs layui-btn-primary">当前全部&nbsp;&nbsp;(<span class="all">{$tipsConut}</span>)</span>
+        </div>
+        {volist name='userTip' id='tip'}
+        <div class="layui-input-inline" style="margin-left: 8px;">
+            <span onclick="query({$tip.type_id})" class="layui-btn layui-btn-primary layui-btn-xs">{$tip.type_name}&nbsp;&nbsp;(<span class="style{$tip.type_id}">{$tip.count}</span>)</span>
+        </div>
+        {/volist}
+    </div>
+    <div class="layui-inline" style="float: right;margin-right: 8px;">
+        <div class="layui-input-inline" style="margin-left: 8px;">
+            <span onclick="sysQuery(1)" class="layui-btn layui-btn-primary layui-btn-xs">手机端&nbsp;&nbsp;(<span class="display">{$mobileCount}</span>)</span>
+        </div>
+        <div class="layui-input-inline" style="margin-left: 8px;">
+            <span onclick="sysQuery(2)"  class="layui-btn layui-btn-primary layui-btn-xs">电脑端&nbsp;&nbsp;(<span class="nones">{$pcCount}</span>)</span>
+        </div>
+    </div>
+</section>
+<table class="layui-table" lay-filter="demo" lay-size="sm" lay-skin="line" lay-data="{height: 'full-200', page:true, url:'/admin/user/backData/', limit:20,limits:[20,30,50] ,id: 'testReload'}" >
+    <thead>
+    <tr>
+        <th lay-data="{type:'checkbox', width:50}"></th>
+        <th lay-data="{field:'cus_bid', width:150, sort: true}">客户编号</th>
+        <th lay-data="{field:'cus_opptime', width:180}">预约时间</th>
+        <th lay-data="{field:'c_name', width:180}">省份城市</th>
+        <th lay-data="{field:'cus_name',  width:90}">客户姓名</th>
+        <th lay-data="{field:'cus_phone', width:120}">联系电话</th>
+        <th lay-data="{field:'cus_area', width:97}">项目面积</th>
+        <th lay-data="{field:'cus_link',width:200}">预约入口</th>
+        <th lay-data="{field:'cus_from', width:100}">推广来源</th>
+        <th lay-data="{field:'cus_keywords', width:80}">关键词</th>
+        <th lay-data="{field:'type_name',  width:80}">客户状态</th>
+        <th lay-data="{field:'cus_backtime',width:160, sort: true,}">操作时间</th>
+        <th lay-data="{field:'ad_realname',width:80}">操作人</th>
+        <th lay-data="{width:150, toolbar: '#barDemo'}">操作</th>
+    </tr>
+    </thead>
+</table>
+<div class="layui-btn-group demoTable batch" style="display:none; margin-left: 15px;">
+    <button class="layui-btn layui-btn-xs" data-type="getCheckData">批量删除</button>
+</div>
+<div class="layui-btn-group demoTable batch" style="display:none; margin-left: 15px;">
+    <button class="layui-btn layui-btn-xs"  data-type="recoverData">批量恢复</button>
+</div>
+<script type="text/html" id="barDemo">
+    <a class="layui-btn layui-btn-xs" lay-event="recover"><i class="layui-icon">&#x1005;</i>恢复</a>
+    <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del"><i class="layui-icon">&#xe640;</i>删除</a>
+</script>
+<script type="text/javascript">
+    $(".pick-area1").pickArea({
+        "format":"province/city/county", //格式
+        "width":"270",
+    });
+</script>
+<script>
+
+    function query(style_id){
+        var keywords = $('#keywords').val();
+        var sp=$('.pick-area').attr('data-areacode').split(',');
+        var p_id = sp[0] == undefined ? '0' : sp[0];
+        var c_id = sp[1] == undefined ? '0' : sp[1];
+        var b_id = sp[2] == undefined ? '0' : sp[2];
+        var case_admin = $('#case_admin').val();
+        var cus_opptime = $('#cus_opptime').val();
+        //执行重载
+        layui.use(['table','jquery'], function(){
+            var table = layui.table;
+            table.reload('testReload', {
+                url: '/admin/user/backData/'
+                ,page: {
+                    curr: 1 //重新从第 1 页开始
+                }
+                ,where: {
+                    keywords: keywords,
+                    case_p_id: p_id,
+                    bu_c_id: c_id,
+                    branch: b_id,
+                    style_id: style_id,
+                    cus_opptime: cus_opptime,
+                    case_admin: case_admin
+                },
+                success:function (data) {
+                    console.log(data);
+                }
+            });
+
+            $.ajax({
+                type:'post',
+                url:'/admin/user/back',
+                data:{'keywords':keywords,'case_p_id':p_id,'bu_c_id':c_id,'branch':b_id,'cus_opptime':cus_opptime,'case_admin':case_admin},
+                success:function (data) {
+                    console.log(data);
+                    $('.display').html(data.display);
+                    $('.nones').html(data.none);
+                    $('.all').html(data.all);
+                    var style=data.decStyle;
+                    for(var i = 0; i < style.length; i++) {
+                        $('.style'+style[i].type_id).html(style[i].count)
+                    }
+                },
+                error:function (data) {
+                    console.log(data)
+                }
+            })
+        })
+    }
+
+
+
+    function sysQuery(sys_id){
+        var keywords = $('#keywords').val();
+        var sp=$('.pick-area').attr('data-areacode').split(',');
+        var p_id = sp[0] == undefined ? '0' : sp[0];
+        var c_id = sp[1] == undefined ? '0' : sp[1];
+        var b_id = sp[2] == undefined ? '0' : sp[2];
+        var case_admin = $('#case_admin').val();
+        var cus_opptime = $('#cus_opptime').val();
+        //执行重载
+        layui.use(['table','jquery'], function(){
+            var table = layui.table;
+            table.reload('testReload', {
+                url: '/admin/user/backData/'
+                ,page: {
+                    curr: 1 //重新从第 1 页开始
+                }
+                ,where: {
+                    keywords: keywords,
+                    case_p_id: p_id,
+                    bu_c_id: c_id,
+                    branch: b_id,
+                    sys_id: sys_id,
+                    cus_opptime: cus_opptime,
+                    case_admin: case_admin
+                },
+                success:function (data) {
+                    console.log(data);
+                }
+            });
+
+            $.ajax({
+                type:'post',
+                url:'/admin/user/back',
+                data:{'keywords':keywords,'case_p_id':p_id,'bu_c_id':c_id,'branch':b_id,'cus_opptime':cus_opptime,'case_admin':case_admin},
+                success:function (data) {
+                    console.log(data);
+                    $('.display').html(data.display);
+                    $('.nones').html(data.none);
+                    $('.all').html(data.all);
+                    var style=data.decStyle;
+                    for(var i = 0; i < style.length; i++) {
+                        $('.style'+style[i].type_id).html(style[i].count)
+                    }
+                },
+                error:function (data) {
+                    console.log(data)
+                }
+            })
+        })
+    }
+
+    layui.use(['table','laydate','form'], function(){
+        var table = layui.table
+            ,form = layui.form
+            ,laydate = layui.laydate;
+        laydate.render({
+            elem: '#cus_opptime'
+            ,range: true
+        });
+
+
+        table.on('checkbox(demo)', function(obj){
+            var ids = '';
+            var checkStatus = table.checkStatus('testReload')
+                ,data = checkStatus.data;
+            for(var i=0;i<data.length;i++){
+                ids+=','+checkStatus.data[i].cus_id;
+            }
+            if(ids.length>0){
+                $('.batch').show();
+            }else{
+                $('.batch').hide();
+            }
+        });
+
+
+
+        //调用该分站下面的管理员
+        form.on('select(ba_branch)', function(data){
+            var b_id=data.value;
+            $.ajax({
+                type: 'POST',
+                url: "<?=url('admin/getAdminName')?>",
+                data: {b_id:b_id},
+                dataType:  'json',
+                success: function(data){
+                    var code=data.data;
+                    $("#ba_admin").html("<option value=''>请选择操作人</option>");
+                    $.each(code, function(i, val) {
+                        var option1 = $("<option>").val(val.ad_id).text(val.ad_realname);
+                        $("#ba_admin").append(option1);
+                        form.render('select');
+                    });
+                    $("#ba_admin").get(0).selectedIndex=0;
+                }
+            });
+        });
+        table.on('tool(demo)', function(obj){
+            var data = obj.data;
+            if(obj.event === 'recover'){
+                var cus_id = data.cus_id;
+                layer.confirm('确定恢复该客户？', {
+                    btn : [ '确定', '取消' ]//按钮
+                }, function() {
+                    $.ajax({
+                        'type':"get",
+                        'url':"<?=url('user/backNormal')?>",
+                        'data':{cus_id:cus_id},
+                        'success':function (result) {
+                            if(result.code < 1){
+                                layer.msg(result.msg);
+                            }else {
+                                layer.msg(result.msg);
+                                layer.open({
+                                    title: '信息'
+                                    ,content: result.msg
+                                    ,yes: function(index){
+                                        layer.close(index);
+                                        window.location.href='<?=url("user/back")?>';
+                                    }
+                                    ,cancel:function (index) {
+                                        layer.close(index);
+                                        window.location.href='<?=url("user/back")?>';
+                                    }
+                                });
+                            }
+                        },
+                        'error':function () {
+                            console.log('error');
+                        }
+                    })
+                },function(){
+                    layer.msg('您已取消该操作！',{
+                        time: 2000
+                    });
+                });
+            } else if(obj.event === 'del'){
+                var cus_id = data.cus_id;
+                    layer.confirm('确定删除该客户？删除后不可恢复！', {
+                        btn : [ '确定', '取消' ]//按钮
+                    }, function() {
+                        $.ajax({
+                            'type':"get",
+                            'url':"<?=url('user/absdelete')?>",
+                            'data':{cus_id:cus_id},
+                            'success':function (result) {
+                                if(result.code < 1){
+                                    layer.msg(result.msg);
+                                }else {
+                                    layer.msg(result.msg);
+                                    layer.open({
+                                        title: '信息'
+                                        ,content: result.msg
+                                        ,yes: function(index){
+                                            layer.close(index);
+                                            window.location.href='<?=url("user/back")?>';
+                                        }
+                                        ,cancel:function (index) {
+                                            layer.close(index);
+                                            window.location.href='<?=url("user/back")?>';
+                                        }
+                                    });
+                                }
+                            },
+                            'error':function () {
+                                console.log('error');
+                            }
+                        })
+                    },function(){
+                        layer.msg('您已取消该操作！',{
+                        time: 2000
+                    });
+                });
+            }
+        });
+        var $ = layui.$, active = {
+            getCheckData: function(){ //获取选中数据
+                layer.confirm('确定批量删除客户？删除后不可恢复！', {
+                    btn : [ '确定', '取消' ]//按钮
+                }, function() {
+                    var ids = '';
+                    var checkStatus = table.checkStatus('testReload')
+                        ,data = checkStatus.data;
+                    for(var i=0;i<data.length;i++){
+                        ids+=','+checkStatus.data[i].cus_id;
+                    }
+                    $.ajax({
+                        type: 'POST',
+                        url: "<?=url('user/absdelBatch')?>?ids="+ids,
+                        data: {ids:ids},
+                        dataType:  'json',
+                        success: function(data){
+                            if(data.code == '1'){
+                                layer.alert('批量删除成功！', {
+                                    icon: 1,
+                                    skin: 'layer-ext-moon',
+                                    time: 2000,
+                                    end: function(){
+                                        window.location.href='<?=url("user/back")?>';
+                                    }
+                                });
+                            }
+                        }
+                    });
+                },function(){
+                    layer.msg('您已取消该操作！',{
+                        time: 2000,
+                        end: function(){
+                            window.location.href='<?=url("user/back")?>';
+                        }
+                    });
+                });
+            },
+            recoverData: function(){ //获取选中数据
+                layer.confirm('确定批量恢复客户？', {
+                    btn : [ '确定', '取消' ]//按钮
+                }, function() {
+                    var ids = '';
+                    var checkStatus = table.checkStatus('testReload')
+                        ,data = checkStatus.data;
+                    for(var i=0;i<data.length;i++){
+                        ids+=','+checkStatus.data[i].cus_id;
+                    }
+                    $.ajax({
+                        type: 'POST',
+                        url: "<?=url('user/backBatch')?>?ids="+ids,
+                        data: {ids:ids},
+                        dataType:  'json',
+                        success: function(data){
+                            if(data.code == '1'){
+                                layer.alert('批量恢复成功！', {
+                                    icon: 1,
+                                    skin: 'layer-ext-moon',
+                                    time: 2000,
+                                    end: function(){
+                                        window.location.href='<?=url("user/back")?>';
+                                    }
+                                });
+                            }
+                        }
+                    });
+                },function(){
+                    layer.msg('您已取消该操作！',{
+                        time: 2000,
+                        end: function(){
+                            window.location.href='<?=url("user/back")?>';
+                        }
+                    });
+                });
+            },
+            reload: function(){
+                var keywords = $('#keywords').val();
+                var cus_status = $('#cus_status').val();
+                var cus_sys = $('#cus_sys').val();
+                var cus_opptime = $('#cus_opptime').val();
+                var sp=$('.pick-area').attr('data-areacode').split(',');
+                var case_p_id = sp[0] == undefined ? '0' : sp[0];
+                var bu_c_id = sp[1] == undefined ? '0' : sp[1];
+                var branch = sp[2] == undefined ? '0' : sp[2];
+                var case_admin = $('#case_admin').val();
+
+                //执行重载
+                table.reload('testReload', {
+                    url: '/admin/user/backData/'
+                    ,page: {
+                        curr: 1 //重新从第 1 页开始
+                    }
+                    ,where: {
+                        keywords: keywords,
+                        cus_status: cus_status,
+                        cus_sys: cus_sys,
+                        case_p_id: case_p_id,
+                        bu_c_id: bu_c_id,
+                        branch: branch,
+                        case_admin: case_admin,
+                        cus_opptime: cus_opptime
+                    },
+                    success:function (data) {
+                        console.log(data);
+                    }
+                });
+
+                $.ajax({
+                    type:'post',
+                    url:'/admin/user/back',
+                    data:{'keywords':keywords,'case_p_id':case_p_id,'bu_c_id':bu_c_id,'branch':branch,'cus_opptime':cus_opptime,'case_admin':case_admin},
+                    success:function (data) {
+                        $('.display').html(data.display);
+                        $('.nones').html(data.none);
+                        $('.all').html(data.all);
+                        var style=data.decStyle;
+                        for(var i = 0; i < style.length; i++) {
+                            $('.style'+style[i].type_id).html(style[i].count)
+                        }
+                    },
+                    error:function (data) {
+                        console.log(data)
+                    }
+                })
+            }
+
+        };
+        $('.demoTable .layui-btn').on('click', function(){
+            var type = $(this).data('type');
+            active[type] ? active[type].call(this) : '';
+        });
+    });
+</script>
+{include file="index/footer" /}

@@ -1,0 +1,82 @@
+{include file="index/header" /}
+<div class="layui-body">
+    <div style="margin: 20px;">
+    <span class="layui-breadcrumb" lay-separator=">">
+        <a>系统配置</a>
+        <a href="<?=url('district/city')?>">区域管理-城市</a>
+        <a><cite>修改城市</cite></a>
+    </span>
+        <div style="float:right;">
+            <a href="<?=url('district/city')?>" class="layui-btn layui-btn-primary layui-btn-sm">
+                <i class="layui-icon layui-icon-return"></i>
+                返回列表</a>
+        </div>
+    </div>
+    <hr/>
+    <div style="padding: 15px;">
+        <form class="layui-form layui-form-pane1" >
+            <div class="layui-form-item">
+                <label class="layui-form-label"><span style="color: red;">*</span>省份</label>
+                <div class="layui-input-block">
+                    <select name="p_id" lay-verify="required" id="p_id">
+                        <option value="">请选择省份</option>
+                        {volist name='prov' id='vo'}
+                            <option value="{$vo.p_id}" {if condition="$vo.p_id eq $city.p_id"}selected{/if}>{$vo.p_name}</option>
+                        {/volist}
+                    </select>
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label"><span style="color: red;">*</span>城市名称</label>
+                <div class="layui-input-block">
+                    <input type="text" name="c_name" id="c_name" value="{$city.c_name}" lay-verify="required" required placeholder="请输入城市名称" autocomplete="off" class="layui-input">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label"><span style="color: red;">*</span>城市编码</label>
+                <div class="layui-input-inline">
+                    <input type="text" name="c_code" id="c_code" lay-verify="required" value="{$city.c_code}" placeholder="请输入城市编码" autocomplete="off" class="layui-input">
+                </div>
+                <div class="layui-form-mid layui-word-aux" style="color: red !important;">此编码用来生成房源编号，一旦填写请勿随意修改！</div>
+            </div>
+            <div class="layui-form-item">
+                <div class="layui-input-block">
+                    <span class="layui-btn" id="saveInfo" >修改</span>
+                    <a class="layui-btn" href="<?=url('district/city')?>">返回</a>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+<script>
+    layui.use(['form','jquery'], function(){
+        // var form = layui.form,
+        var     $ = layui.jquery;
+        $('#saveInfo').click(function () {
+            var p_id=$('#p_id').val();
+            var c_name=$('#c_name').val();
+            var c_code=$('#c_code').val();
+            $.ajax({
+                type: 'POST',
+                url: "<?=url('regin/editcity')?>?c_id={$city.c_id}",
+                data: {p_id:p_id,c_name:c_name,c_code:c_code},
+                dataType:  'json',
+                success: function(data){
+                    console.log(data);
+                    console.log(data.code);
+                    if(data.code == 1){
+                        layer.alert('修改成功！', {
+                            icon: 1,
+                            skin: 'layer-ext-moon',
+                            time: 2000,
+                            end: function(){
+                                window.location.href='<?=url("district/city")?>';
+                            }
+                        });
+                    }
+                }
+            });
+        });
+    });
+</script>
+{include file="index/footer" /}

@@ -1,0 +1,57 @@
+{include file="index/header" /}
+<script type="text/javascript" src="__PUBLIC__/ueditor/ueditor.config.js"></script>
+<script type="text/javascript" src="__PUBLIC__/ueditor/ueditor.all.js"></script>
+<script type="text/javascript">
+    var ue = UE.getEditor('container');
+</script>
+<div class="layui-body">
+    <div style="margin: 20px;">
+    <span class="layui-breadcrumb" lay-separator=">">
+        <a>内容管理</a>
+        <a href="<?=url('topics/topics')?>">推广页面</a>
+        <a><cite>修改推广页面</cite></a>
+    </span>
+        <div style="float:right;">
+            <a href="<?=url('topics/topics')?>" class="layui-btn layui-btn-primary layui-btn-sm">
+                <i class="layui-icon layui-icon-return"></i>
+                返回列表</a>
+        </div>
+    </div>
+    <hr/>
+    <div style="padding: 15px;">
+        <form class="layui-form" action="<?=url('topics/edit')?>?tp_id={$topic.tp_id}" method="post">
+        <div class="layui-form-item">
+            <label class="layui-form-label">页面名称</label>
+            <div class="layui-input-block">
+            <input type="text" name="tp_title" value="{$topic.tp_title}" lay-verify="required|title" placeholder="请输入推广页面名称" autocomplete="off" class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item layui-form-text">
+            <label class="layui-form-label">推广链接</label>
+            <div class="layui-input-block">
+                <textarea placeholder="请输入推广链接" name="tp_topic_url" lay-verify="required|url" class="layui-textarea">{$topic.tp_topic_url}</textarea>
+            </div>
+        </div>
+        <div class="layui-form-item" pane>
+            <label class="layui-form-label">是否显示</label>
+            <div class="layui-input-block">
+            <input type="radio" name="tp_isable" value="1" title="是" {if condition="$topic.tp_isable eq '1'"}checked{/if} >
+            <input type="radio" name="tp_isable" value="2" title="否" {if condition="$topic.tp_isable eq '2'"}checked{/if} >
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <div class="layui-input-block">
+                <button class="layui-btn" lay-submit lay-filter="saveInfo">修改</button>
+                <a class="layui-btn layui-btn-primary" href="<?=url('topics/topics')?>">返回</a>
+            </div>
+        </div>
+    </form>
+    </div>
+</div>
+<script>
+    layui.use('form', function(){
+        var form = layui.form;
+        form.render();
+    });
+</script>
+{include file="index/footer" /}

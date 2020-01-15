@@ -1,0 +1,220 @@
+{include file="index/header" /}
+<div style="margin: 20px;">
+    <span class="layui-breadcrumb" lay-separator=">">
+        <a>房源管理</a>
+        <a><cite>房源列表</cite></a>
+    </span>
+<!--    <div style="float:right;">-->
+<!--        <button class="layui-btn layui-btn-primary layui-btn-sm"  onclick="addArt()"><i class="layui-icon"></i>添加房源</button>-->
+<!--    </div>-->
+</div>
+<hr/>
+<section class="panel panel-padding" style="padding-top: 10px;padding-left: 10px;">
+    <form class="layui-form layui-form-pane1">
+        <div class="layui-form-item  demoTable">
+            <div class="layui-inline">
+                <div class="layui-input-inline">
+                    <input type="text" name="keywords" id="keywords"  placeholder="请输入房源标题/编号/小区名称" class="layui-input">
+                </div>
+            </div>
+            <div class="layui-inline">
+                <div class="layui-input-inline">
+                    <input type="text" name="case_decotime" readonly class="layui-input" id="case_decotime" placeholder="请选择发布时间">
+                </div>
+            </div>
+            <div class="layui-inline">
+                <div class="layui-input-inline">
+                    <span class="layui-btn" data-type="reload">查询</span>
+                    <a href="<?=url('house/wait')?>" class="layui-btn layui-btn-warm">刷新</a>
+                </div>
+            </div>
+        </div>
+    </form>
+</section>
+<section class="panel panel-padding">
+    <table lay-skin="line" class="layui-table" lay-filter="demo" lay-data="{height: 'full-200', cellMinWidth:60, url:'/admin/house/waitData/', limit:20,limits:[20,30,50] ,id: 'testReload',page:true}" >
+        <thead>
+        <tr>
+            <th lay-data="{field:'dsn', width:120, sort: true}">房源编号</th>
+            <th lay-data="{field:'title', width:120}">房源标题</th>
+            <th lay-data="{field:'city', width:60}">城市</th>
+            <th lay-data="{field:'address', width:80}">地址</th>
+            <th lay-data="{field:'school', width:120}">所属区域</th>
+            <th lay-data="{field:'price', width:60}">租金</th>
+            <th lay-data="{field:'real_name', width:60}">姓名</th>
+            <th lay-data="{field:'wchat', width:80}">微信号</th>
+            <th lay-data="{field:'tel', width:130}">手机号</th>
+            <th lay-data="{field:'top', width:110}">是否置顶</th>
+            <th lay-data="{field:'tj', width:110}">是否推荐</th>
+            <th lay-data="{field:'status', width:80}">状态</th>
+            <th lay-data="{field:'cdate', width:160}">添加时间</th>
+            <th lay-data="{ width:100, toolbar: '#barDemo'}">操作</th>
+        </tr>
+        </thead>
+    </table>
+</section>
+<script type="text/html" id="barDemo">
+    <a class="layui-btn layui-btn-xs" lay-event="refresh"><i class="layui-icon">&#xe9aa;</i>审核</a>
+</script>
+<script type="text/html" id="switch">
+    <input type="checkbox" name="sex" lay-skin="switch" value="{{d.h_id}}" lay-text="是|否" lay-filter="isTop" {{ d.h_istop == 1 ? 'checked' : '' }}>
+</script>
+<script>
+    layui.use(['table','laydate','form'], function(){
+        var table = layui.table
+            ,laydate = layui.laydate
+            ,form = layui.form;
+        laydate.render({
+            elem: '#case_decotime'
+            ,range: true
+        });
+        var $ = layui.$, active = {
+            //表格重载
+            reload: function(){
+                var keywords = $('#keywords').val();
+                var case_decotime = $('#case_decotime').val();
+                //执行重载
+                table.reload('testReload', {
+                    url: '/admin/house/waitData/'
+                    ,page: {
+                        curr: 1 //重新从第 1 页开始
+                    }
+                    ,where: {
+                        keywords: keywords,
+                        case_decotime: case_decotime
+                    },
+                    success:function (data) {
+                        console.log(data);
+                    }
+                });
+            }
+
+        };
+        $('.demoTable .layui-btn').on('click', function(){
+            var type = $(this).data('type');
+            active[type] ? active[type].call(this) : '';
+        });
+        table.on('tool(demo)', function(obj){
+            var data = obj.data;
+            var id = data.id;
+            if(obj.event === 'refresh'){
+                layer.open({
+                    type: 2,
+                    title: '房源审核',
+                    shadeClose: true,
+                    shade: false,
+                    maxmin: true,
+                    area: ['80%', '80%'],
+                    content: "<?=url('house/review')?>?id="+id
+                });
+            }
+        });
+        form.on('select(bu_p_id)', function(data){
+            var p_id=data.value;
+            $('#city').show();
+            $.ajax({
+                type: 'POST',
+                url: "<?=url('user/getCityName')?>?p_id="+p_id,
+                data: {p_id:p_id},
+                dataType:  'json',
+                success: function(data){
+                    var code=data.data;
+                    $("#bu_c_id").html("<option value=''>请选择城市</option>");
+                    $.each(code, function(i, val) {
+                        var option1 = $("<option>").val(val.c_id).text(val.c_name);
+                        $("#bu_c_id").append(option1);
+                        form.render('select');
+                    });
+                    $("#bu_c_id").get(0).selectedIndex=0;
+                }
+            });
+        });
+        //调用该城市下面的分站
+        form.on('select(bu_c_id)', function(data){
+            var c_id=data.value;
+            $('#branchs').show();
+            $.ajax({
+                type: 'POST',
+                url: "<?=url('admin/getBranchName')?>?c_id="+c_id,
+                data: {c_id:c_id},
+                dataType:  'json',
+                success: function(data){
+                    var code=data.data;
+                    $("#branch").html("<option value=''>请选择站点</option>");
+                    $.each(code, function(i, val) {
+                        var option1 = $("<option>").val(val.b_id).text(val.b_name);
+                        $("#branch").append(option1);
+                        form.render('select');
+                    });
+                    $("#branch").get(0).selectedIndex=0;
+                }
+            });
+        });
+        //调用该分站下面的管理员
+        form.on('select(ba_branch)', function(data){
+            var b_id=data.value;
+            $.ajax({
+                type: 'POST',
+                url: "<?=url('admin/getAdminName')?>",
+                data: {b_id:b_id},
+                dataType:  'json',
+                success: function(data){
+                    var code=data.data;
+                    $("#ba_admin").html("<option value=''>请选择操作人</option>");
+                    $.each(code, function(i, val) {
+                        var option1 = $("<option>").val(val.ad_id).text(val.ad_realname);
+                        $("#ba_admin").append(option1);
+                        form.render('select');
+                    });
+                    $("#ba_admin").get(0).selectedIndex=0;
+                }
+            });
+        });
+        //监听是否开启操作
+        form.on('switch(sexDemo)', function(obj){
+            var id = this.value;
+            //如果选中状态是true,后台数据将要改为显示
+            var change = obj.elem.checked;
+            if(change){
+                change = 1;
+            }else{
+                change = 0;
+            }
+            $.ajax({
+                type: 'POST',
+                url: "<?=url('house/status')?>?h_id="+id+ "&change="+change,
+                dataType:  'json',
+                success: function(data){
+                    console.log(data);
+                    layer.msg(data.msg);
+                }
+            });
+        });
+        //监听是否置顶
+        form.on('switch(isTop)', function(obj){
+            var id = this.value;
+            //如果选中状态是true,后台数据将要改为显示
+            var change = obj.elem.checked;
+            if(change){
+                change = 1;
+            }else{
+                change = 0;
+            }
+            $.ajax({
+                type: 'POST',
+                url: "<?=url('house/top')?>?h_id="+id+ "&change="+change,
+                dataType:  'json',
+                success: function(data){
+                    console.log(data);
+                    layer.msg(data.msg);
+                }
+            });
+        });
+    });
+</script>
+<script type="text/javascript">
+    function addArt(){
+        window.location.href='<?=url('house/add')?>';
+    }
+</script>
+{include file="index/footer" /}

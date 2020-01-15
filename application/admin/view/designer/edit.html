@@ -1,0 +1,329 @@
+{include file="index/header" /}
+<style>
+    .one-pan{
+        position: relative;
+    }
+    .one{
+        position: absolute;
+        left:300px;
+        top:0;
+    }
+    .logoPre{
+        width: 216px;
+        height: 150px;
+    }
+</style>
+<div class="layui-body">
+    <div style="margin: 20px;">
+    <span class="layui-breadcrumb" lay-separator=">">
+        <a>内容管理</a>
+        <a href="<?=url('designer/team')?>">设计团队</a>
+        <a><cite>修改设计师</cite></a>
+    </span>
+        <div style="float:right;">
+            <a href="<?=url('designer/team')?>" class="layui-btn layui-btn-primary layui-btn-sm">
+                <i class="layui-icon layui-icon-return"></i>
+                返回列表</a>
+        </div>
+    </div>
+    <hr/>
+    <div style="padding: 15px;">
+        <form class="layui-form layui-form-pane1" action="<?=url('designer/edit')?>?des_id={$design.des_id}" method="post">
+            <div class="layui-form-item">
+                <label class="layui-form-label">设计师姓名</label>
+                <div class="layui-input-block">
+                    <input type="text" name="des_name" id="des_name" onblur="checkBulids()" value="{$design.des_name}" lay-verify="required|title" placeholder="请输入设计师姓名" autocomplete="off" class="layui-input">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label"><span style="color: red;">*</span>SEO关键词</label>
+                <div class="layui-input-block">
+                    <input type="text" name="des_seo_keywords" lay-verify="required" value="{$design.des_seo_keywords}"  placeholder="请输入SEO关键词,多个关键词之间用英文逗号隔开。" autocomplete="off" class="layui-input">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label"><span style="color: red;">*</span>基础信息</label>
+                {if condition="$ad_role == 1"}
+                <div class="layui-input-inline">
+                    <select name="des_p_id" lay-verify="required" lay-filter="des_p_id">
+                        <option value="">请选择省份</option>
+                        {volist name='prov' id='vo'}
+                        <option value="{$vo.p_id}" {if condition="$vo.p_id eq $design.des_p_id"}selected{/if} >{$vo.p_name}</option>
+                        {/volist}
+                    </select>
+                </div>
+                <div class="layui-input-inline">
+                    <select name="des_c_id" lay-verify="required" id="des_c_id" lay-filter="bu_c_id">
+                        <option value="">请选择城市</option>
+                        {volist name='city' id='city'}
+                        <option value="{$city.c_id}" {if condition="$city.c_id eq $design.des_c_id"}selected{/if} >{$city.c_name}</option>
+                        {/volist}
+                    </select>
+                </div>
+                <div class="layui-input-inline">
+                    <select name="des_b_id" id="branch" lay-verify="required">
+                        <option value="">请选择站点</option>
+                        {volist name="branchs" id="vos"}
+                        <option value="{$vos.b_id}" {if condition="$vos.b_id eq $design.des_b_id"}selected{/if}>{$vos.b_name}</option>
+                        {/volist}
+                    </select>
+                </div>
+                {else/}
+                <div class="layui-input-inline">
+                    <input type="text" placeholder="请写入站点信息" class="layui-input" value="{$design.p_name}-{$design.c_name}-{$design.b_name}" readonly/>
+                </div>
+                {/if}
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label"><span style="color: red;">*</span>年龄</label>
+                <div class="layui-input-inline">
+                    <input type="text" onkeyup="this.value=this.value.replace(/\D/g, '')"  name="des_age" value="{$design.des_age}" lay-verify="required" placeholder="请输入年龄" autocomplete="off" class="layui-input">
+                </div>
+                <div class="layui-form-mid layui-word-aux">岁</div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label"><span style="color: red;">*</span>从业经验</label>
+                <div class="layui-input-inline">
+                    <input type="text" name="des_exp" onkeyup="this.value=this.value.replace(/\D/g, '')"  value="{$design.des_exp}" lay-verify="required" placeholder="请输入从业年份" autocomplete="off" class="layui-input">
+                </div>
+                <div class="layui-form-mid layui-word-aux">年</div>
+            </div>
+            <div class="layui-form-item one-pan">
+                <label class="layui-form-label"><span style="color: red;">*</span>正方形图像</label>
+                <div {if condition="$design.des_avatar eq null"}class="layui-upload-drag"{/if} id="uploadLogo" style="display:inline-block;" >
+                    <image  id="logoPre" {if condition="$design.des_avatar eq null"}
+                           {else/}
+                        src="__PUBLIC__{$design.des_avatar}"
+                        class="logoPre"
+                        {/if}>
+                        <input type="hidden" lay-verify="avatarReg" name="des_avatar" id="des_avatar" value="{$design.des_avatar}"/>
+                    </image>
+                {if condition="$design.des_avatar eq null"}
+                <div id="display">
+                    <i class="layui-icon"></i>
+                    <p>请点击此处上传封面图片</p>
+                </div>
+                {/if}
+                </div>
+            </div>
+            <div class="layui-form-item one-pan">
+                <label class="layui-form-label"><span style="color: red;">*</span>长方形图像</label>
+                <div  {if condition="$design.des_img eq null"} class="layui-upload-drag"{/if} id="uploadLogo1" style="display:inline-block;">
+                    <image id="logoPre1" {if condition="$design.des_img eq null"}
+                           {else/}
+                src="__PUBLIC__{$design.des_img}"
+                class="logoPre"
+                {/if}>
+                        <input type="hidden" lay-verify="imgReg" name="des_img" id="des_img" value="{$design.des_img}"/>
+                    </image>
+                    {if condition="$design.des_img eq null"}
+                    <div id="display1">
+                        <i class="layui-icon"></i>
+                        <p>请点击此处上传封面图片</p>
+                    </div>
+                    {/if}
+                </div>
+                <div class="one">
+                    <div class="layui-form-mid layui-word-aux" style="margin-left: 39px; ">图片要求，最大600KB，支持JPG/JEPG/PNG格式</div>
+                    <div class="layui-form-item">
+                        <textarea name="des_img_alt" style="resize:none;width: 1315px;height: 115px; margin-left:39px;"  placeholder="图片描述，建议不超过15个字（等同图片ALT属性）" class="layui-textarea">{$design.des_img_alt}</textarea>
+                    </div>
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label"><span style="color: red;">*</span>毕业院校</label>
+                <div class="layui-input-block">
+                    <input type="text" name="des_guand" value="{$design.des_guand}" lay-verify="required" placeholder="请输入毕业院校" autocomplete="off" class="layui-input">
+                </div>
+            </div>
+            <div class="layui-form-item" pane="">
+                <label class="layui-form-label">擅长风格</label>
+                <div class="layui-input-block">
+                    {volist name="designStyle"  id="style"}
+                    <input type="checkbox" class="des_tanlent" lay-verify="des_tanlent" {volist name='type_list' id='item'}{if $item eq $style.type_id}checked{/if}{/volist} name="des_tanlent[{$style.type_id}]"  lay-skin="primary" title="{$style.type_name}">
+                    {/volist}
+                </div>
+            </div>
+
+            <div class="layui-form-item layui-form-text">
+                <label class="layui-form-label"><span style="color: red;">*</span>设计师简介</label>
+                <div class="layui-input-block">
+                    <textarea placeholder="请输入设计师简介，SEO描述"  lay-verify="required"  name="des_remarks" class="layui-textarea">{$design.des_remarks}</textarea>
+                </div>
+            </div>
+            <div class="layui-form-item" pane>
+                <label class="layui-form-label">是否置顶</label>
+                <div class="layui-input-block">
+                    <input type="radio" name="des_istop" value="2" title="常规"  {if condition="2 eq $design.des_istop"}checked{/if}>
+                    <input type="radio" name="des_istop" value="1" title="置顶"  {if condition="1 eq $design.des_istop"}checked{/if} >
+                </div>
+            </div>
+            
+            <div class="layui-form-item">
+                <div class="layui-input-block">
+                    <button class="layui-btn" lay-submit lay-filter="saveInfo">修改</button>
+                    <a class="layui-btn layui-btn-primary" href="<?=url('designer/team')?>">返回</a>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+<script>
+    layui.use(['form', 'laydate','upload','jquery'], function(){
+        var form = layui.form
+            ,laydate = layui.laydate
+            ,upload = layui.upload
+            ,$ = layui.jquery;
+        //日期
+        laydate.render({
+            elem: '#date'
+        });
+        //自定义验证规则
+        form.verify({
+            title: function(value){
+                if(value.length < 2){
+                    return '至少得2个字符啊';
+                }
+            }
+            ,imgReg:function (value) {
+                if(value.length <= 0){
+                    return '请上传长方形图像';
+                }
+            }
+            ,avatarReg:function (value) {
+                if(value.length <= 0){
+                    return '请上传正方形图像';
+                }
+            },
+            des_tanlent:function () {
+                if (!$(".des_tanlent").is(":checked")) {
+                    return "擅长风格必须选一个！";
+                }
+            }
+        });
+        form.on('select(des_p_id)', function(data){
+            var p_id=data.value;
+            $.ajax({
+                type: 'POST',
+                url: "<?=url('user/getCityName')?>?p_id="+p_id,
+                data: {p_id:p_id},
+                dataType:  'json',
+                success: function(data){
+                    var code=data.data;
+                    $("#des_c_id").html("<option value=''>请选择城市</option>");
+                    $.each(code, function(i, val) {
+                        var option1 = $("<option>").val(val.c_id).text(val.c_name);
+                        $("#des_c_id").append(option1);
+                        form.render('select');
+                    });
+                    $("#des_c_id").get(0).selectedIndex=0;
+                }
+            });
+        });
+        //调用该城市下面的分站
+        form.on('select(bu_c_id)', function(data){
+            var c_id=data.value;
+            $.ajax({
+                type: 'POST',
+                url: "<?=url('admin/getBranchName')?>?c_id="+c_id,
+                data: {c_id:c_id},
+                dataType:  'json',
+                success: function(data){
+                    var code=data.data;
+                    $("#branch").html("<option value=''>请选择站点</option>");
+                    $.each(code, function(i, val) {
+                        var option1 = $("<option>").val(val.b_id).text(val.b_name);
+                        $("#branch").append(option1);
+                        form.render('select');
+                    });
+                    $("#branch").get(0).selectedIndex=0;
+                }
+            });
+        });
+        //正方形图像上传
+        upload.render({
+            elem: '#uploadLogo'
+            ,url: '{:url("setinfo/upload")}'
+            ,size:600 //限制文件大小，单位 KB
+            ,ext: 'jpg|png|gif'
+            ,accept: 'images' //限制文件大小，单位 KB
+            ,before: function(input){
+                loading = layer.load(2, {
+                    shade: [0.2,'#000']
+                });
+            }
+            ,done: function(res){
+                $('#logoPre').removeAttr('src');
+                $('#des_avatar').val('');
+                console.log(res);
+                layer.close(loading);
+                $('#des_avatar').val(res.path);
+                $('#uploadLogo').removeClass('layui-upload-drag');
+                $('#logoPre').css('width','216px');
+                $('#logoPre').css('height','150px');
+                $('#logoPre').attr('src',"__PUBLIC__"+res.path);
+                $('#display').hide();
+                layer.msg(res.msg, {icon: 1, time: 1000});
+            }
+            ,error: function(res){
+                layer.msg(res.msg, {icon: 2, time: 1000});
+            }
+        });
+        //长方形图像上传
+        upload.render({
+            elem: '#uploadLogo1'
+            ,url: '{:url("setinfo/upload")}'
+            ,size:600 //限制文件大小，单位 KB
+            ,ext: 'jpg|png|gif'
+            ,accept: 'images' //限制文件大小，单位 KB
+            ,before: function(input){
+                loading = layer.load(2, {
+                    shade: [0.2,'#000']
+                });
+            }
+            ,done: function(res){
+                $('#logoPre1').removeAttr('src');
+                $('#des_img').val('');
+                console.log(res);
+                layer.close(loading);
+                $('#des_img').val(res.path);
+                $('#uploadLogo1').removeClass('layui-upload-drag');
+                $('#logoPre1').css('width','216px');
+                $('#logoPre1').css('height','150px');
+                $('#logoPre1').attr('src',"__PUBLIC__"+res.path);
+                $('#display1').hide();
+                layer.msg(res.msg, {icon: 1, time: 1000});
+            }
+            ,error: function(res){
+                layer.msg(res.msg, {icon: 2, time: 1000});
+            }
+        });
+    });
+
+
+    function checkBulids(){
+        var des_name=$('#des_name').val();
+        var des_id={$design.des_id};
+        $.ajax({
+            type:"post",
+            url:"<?=url('designer/checkBuname')?>",
+            dataType: 'json',
+            data:{'des_id':des_id,'des_name':des_name},
+            success:function (data) {
+                console.log(data);
+                if(data.code >1){
+                    layer.msg(data.msg, {icon: 2, time: 1000});
+                }else if(data.code <= 1){
+                    layer.msg(data.msg, {icon: 1, time: 1000});
+                }
+            },
+            error:function (error) {
+                console.log(error);
+            }
+        })
+    }
+
+
+
+</script>
+{include file="index/footer" /}

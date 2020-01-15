@@ -1,0 +1,612 @@
+{include file="index/header" /}
+<style>
+    .one-pan{
+        position: relative;
+    }
+    .one{
+        position: absolute;
+        left:980px;
+        top:0;
+    }
+</style>
+<div class="layui-body">
+    <div style="margin: 20px;">
+    <span class="layui-breadcrumb" lay-separator=">">
+        <a>内容管理</a>
+        <a href="<?=url('worksite/index')?>">在施工地</a>
+        <a><cite>添加工地</cite></a>
+    </span>
+        <div style="float:right;">
+            <a href="<?=url('worksite/index')?>" class="layui-btn layui-btn-primary layui-btn-sm">
+                <i class="layui-icon layui-icon-return"></i>
+                返回列表</a>
+        </div>
+    </div>
+    <hr/>
+    <div class="layui-tab">
+        <div class="layui-tab-content">
+            <div class="layui-tab-item layui-show">
+                <div style="margin: 10px">
+                    <div style="padding: 15px;">
+                        <form class="layui-form" action="<?=url('worksite/add')?>" method="post">
+                            <div class="layui-form-item">
+                                <label class="layui-form-label">案例名称</label>
+                                <div class="layui-input-block">
+                                    <input type="text" name="case_title" lay-verify="required|title" placeholder="例如：小区名称+空间类型+装修风格+建筑面积+（等同SEO标题）" autocomplete="off" class="layui-input">
+                                </div>
+                            </div>
+                            <div class="layui-form-item">
+                                <label class="layui-form-label">基础信息</label>
+                                <div class="layui-input-inline">
+                                    <select name="case_p_id" lay-verify="required" lay-filter="bu_p_id">
+                                        <option value="">请选择省份</option>
+                                        {volist name='prov' id='vo'}
+                                        <option value="{$vo.p_id}">{$vo.p_name}</option>
+                                        {/volist}
+                                    </select>
+                                </div>
+                                <div class="layui-input-inline">
+                                    <select name="case_c_id" lay-verify="required" id="bu_c_id" lay-filter="bu_c_id">
+                                        <option value="">请选择城市</option>
+                                    </select>
+                                </div>
+                                <div class="layui-input-inline">
+                                    <select name="case_b_id" id="branch" lay-verify="required">
+                                        <option value="">请选择站点</option>
+                                    </select>
+                                </div>
+                                <div class="layui-input-inline">
+                                    <select name="case_designer" lay-verify="required" lay-filter="case_designer">
+                                        <option value="">请选择设计师</option>
+                                        {volist name='design' id='vo'}
+                                        <option value="{$vo.des_id}">{$vo.des_name}</option>
+                                        {/volist}
+                                    </select>
+                                </div>
+                                <div class="layui-input-inline">
+                                    <select name="case_style" lay-verify="required" lay-filter="case_style">
+                                        <option value="">请选择装修风格</option>
+                                        {volist name='style' id='vo'}
+                                        <option value="{$vo.type_id}">{$vo.type_name}</option>
+                                        {/volist}
+                                    </select>
+                                </div>
+                                <div class="layui-input-inline">
+                                    <select name="case_bulid" lay-verify="required" lay-filter="case_bulid">
+                                        <option value="">请选择楼盘</option>
+                                        {volist name='build' id='vo'}
+                                        <option value="{$vo.bu_id}">{$vo.bu_name}</option>
+                                        {/volist}
+                                    </select>
+                                </div>
+                                <div class="layui-input-inline">
+                                    <select name="case_type" lay-verify="required" lay-filter="case_bulid">
+                                        <option value="">请选择房屋类型</option>
+                                        {volist name='houseType' id='vo'}
+                                        <option value="{$vo.type_id}">{$vo.type_name}</option>
+                                        {/volist}
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="layui-form-item one-pan">
+                                <label class="layui-form-label"><span style="color: red;">*</span>工地图</label>
+                                <div class="layui-upload-drag" id="uploadLogo" style="display:inline-block;margin-left: 5px;">
+                                    <image id="logoPre">
+                                        <input type="hidden" name="case_type_iamge" id="case_type_iamge" value=""/>
+                                    </image>
+                                    <div id="logoPre1">
+                                        <i class="layui-icon"></i>
+                                        <p>请点击此处上传封面图片</p>
+                                    </div>
+                                </div>
+                                <div class="layui-upload-drag" id="uploadLogo" style="display:inline-block;margin-left: 5px;">
+                                    <image id="logoPre">
+                                        <input type="hidden" name="case_type_iamge" id="case_type_iamge" value=""/>
+                                    </image>
+                                    <div id="logoPre1">
+                                        <i class="layui-icon"></i>
+                                        <p>请点击此处上传封面图片</p>
+                                    </div>
+                                </div>
+                                <div class="layui-upload-drag" id="uploadLogo" style="display:inline-block;margin-left: 5px;">
+                                    <image id="logoPre">
+                                        <input type="hidden" name="case_type_iamge" id="case_type_iamge" value=""/>
+                                    </image>
+                                    <div id="logoPre1">
+                                        <i class="layui-icon"></i>
+                                        <p>请点击此处上传封面图片</p>
+                                    </div>
+                                </div>
+                                <div class="layui-upload-drag" id="uploadLogo" style="display:inline-block;margin-left: 5px;">
+                                    <image id="logoPre">
+                                        <input type="hidden" name="case_type_iamge" id="case_type_iamge" value=""/>
+                                    </image>
+                                    <div id="logoPre1">
+                                        <i class="layui-icon"></i>
+                                        <p>请点击此处上传封面图片</p>
+                                    </div>
+                                </div>
+                                <div class="one">
+                                    <div class="layui-form-mid layui-word-aux" id="tips" style="margin-left: 39px; ">图片要求，最大100KB，支持JPG/JEPG/PNG格式</div>
+                                    <div class="layui-form-item">
+                                        <textarea name="case_type_alt" style="resize:none;width: 1315px;height: 115px; margin-left:39px;"  placeholder="图片描述，建议不超过15个字（等同图片ALT属性）" class="layui-textarea"></textarea>
+                                    </div>
+                                </div>
+                            </div>
+                            <!--案例效果图-->
+                            <!--案例图1-->
+                            <div class="layui-form-item one-pan">
+                                <label class="layui-form-label"><span style="color: red;">*</span>案例图1</label>
+                                <div class="layui-upload-drag" id="uploadCase1" style="display:inline-block;">
+                                    <image id="casePre1">
+                                        <input type="hidden" name="case_img[1]" id="case_img1" value=""/>
+                                    </image>
+                                    <div id="casePre11">
+                                        <i class="layui-icon"></i>
+                                        <p>请点击此处上传封面图片</p>
+                                    </div>
+                                </div>
+                                <div class="one">
+                                    <div class="layui-form-mid layui-word-aux" id="tips" style="margin-left: 39px; ">图片要求，最大100KB，支持JPG/JEPG/PNG格式</div>
+                                    <div class="layui-form-item">
+                                        <textarea name="case_img_alt[1]" style="resize:none;width: 1315px;height: 115px; margin-left:39px;"  placeholder="图片描述，建议不超过15个字（等同图片ALT属性）" class="layui-textarea"></textarea>
+                                    </div>
+                                </div>
+                            </div>
+                            <!--案例图2-->
+                            <div class="layui-form-item one-pan">
+                                <label class="layui-form-label"><span style="color: red;">*</span>案例图2</label>
+                                <div class="layui-upload-drag" id="uploadCase2" style="display:inline-block;">
+                                    <image id="casePre2">
+                                        <input type="hidden" name="case_img[2]" id="case_img2" value=""/>
+                                    </image>
+                                    <div id="casePre22">
+                                        <i class="layui-icon"></i>
+                                        <p>请点击此处上传封面图片</p>
+                                    </div>
+                                </div>
+                                <div class="one">
+                                    <div class="layui-form-mid layui-word-aux" id="tips" style="margin-left: 39px; ">图片要求，最大100KB，支持JPG/JEPG/PNG格式</div>
+                                    <div class="layui-form-item">
+                                        <textarea name="case_img_alt[2]" style="resize:none;width: 1315px;height: 115px; margin-left:39px;"  placeholder="图片描述，建议不超过15个字（等同图片ALT属性）" class="layui-textarea"></textarea>
+                                    </div>
+                                </div>
+                            </div>
+                            <!--案例图3-->
+                            <div class="layui-form-item one-pan">
+                                <label class="layui-form-label"><span style="color: red;">*</span>案例图3</label>
+                                <div class="layui-upload-drag" id="uploadCase3" style="display:inline-block;">
+                                    <image id="casePre3">
+                                        <input type="hidden" name="case_img[3]" id="case_img3" value=""/>
+                                    </image>
+                                    <div id="casePre33">
+                                        <i class="layui-icon"></i>
+                                        <p>请点击此处上传封面图片</p>
+                                    </div>
+                                </div>
+                                <div class="one">
+                                    <div class="layui-form-mid layui-word-aux" id="tips" style="margin-left: 39px; ">图片要求，最大100KB，支持JPG/JEPG/PNG格式</div>
+                                    <div class="layui-form-item">
+                                        <textarea name="case_img_alt[3]" style="resize:none;width: 1315px;height: 115px; margin-left:39px;"  placeholder="图片描述，建议不超过15个字（等同图片ALT属性）" class="layui-textarea"></textarea>
+                                    </div>
+                                </div>
+                            </div>
+                            <!--案例图4-->
+                            <div class="layui-form-item one-pan">
+                                <label class="layui-form-label"><span style="color: red;">*</span>案例图4</label>
+                                <div class="layui-upload-drag" id="uploadCase4" style="display:inline-block;">
+                                    <image id="casePre4">
+                                        <input type="hidden" name="case_img[4]" id="case_img4" value=""/>
+                                    </image>
+                                    <div id="casePre44">
+                                        <i class="layui-icon"></i>
+                                        <p>请点击此处上传封面图片</p>
+                                    </div>
+                                </div>
+                                <div class="one">
+                                    <div class="layui-form-mid layui-word-aux" id="tips" style="margin-left: 39px; ">图片要求，最大100KB，支持JPG/JEPG/PNG格式</div>
+                                    <div class="layui-form-item">
+                                        <textarea name="case_img_alt[4]" style="resize:none;width: 1315px;height: 115px; margin-left:39px;"  placeholder="图片描述，建议不超过15个字（等同图片ALT属性）" class="layui-textarea"></textarea>
+                                    </div>
+                                </div>
+                            </div>
+                            <!--案例图5-->
+                            <div class="layui-form-item one-pan">
+                                <label class="layui-form-label"><span style="color: red;">*</span>案例图5</label>
+                                <div class="layui-upload-drag" id="uploadCase5" style="display:inline-block;">
+                                    <image id="casePre5">
+                                        <input type="hidden" name="case_img[5]" id="case_img5" value=""/>
+                                    </image>
+                                    <div id="casePre55">
+                                        <i class="layui-icon"></i>
+                                        <p>请点击此处上传封面图片</p>
+                                    </div>
+                                </div>
+                                <div class="one">
+                                    <div class="layui-form-mid layui-word-aux" id="tips" style="margin-left: 39px; ">图片要求，最大100KB，支持JPG/JEPG/PNG格式</div>
+                                    <div class="layui-form-item">
+                                        <textarea name="case_img_alt[5]" style="resize:none;width: 1315px;height: 115px; margin-left:39px;"  placeholder="图片描述，建议不超过15个字（等同图片ALT属性）" class="layui-textarea"></textarea>
+                                    </div>
+                                </div>
+                            </div>
+                            <!--案例图6-->
+                            <div class="layui-form-item one-pan">
+                                <label class="layui-form-label"><span style="color: red;">*</span>案例图6</label>
+                                <div class="layui-upload-drag" id="uploadCase6" style="display:inline-block;">
+                                    <image id="casePre6">
+                                        <input type="hidden" name="case_img[6]" id="case_img6" value=""/>
+                                    </image>
+                                    <div id="casePre66">
+                                        <i class="layui-icon"></i>
+                                        <p>请点击此处上传封面图片</p>
+                                    </div>
+                                </div>
+                                <div class="one">
+                                    <div class="layui-form-mid layui-word-aux" id="tips" style="margin-left: 39px; ">图片要求，最大100KB，支持JPG/JEPG/PNG格式</div>
+                                    <div class="layui-form-item">
+                                        <textarea name="case_img_alt[6]" style="resize:none;width: 1315px;height: 115px; margin-left:39px;"  placeholder="图片描述，建议不超过15个字（等同图片ALT属性）" class="layui-textarea"></textarea>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="layui-form-item" pane>
+                                <label class="layui-form-label">是否显示</label>
+                                <div class="layui-input-block">
+                                    <input type="radio" name="case_isable" value="1" title="是" checked>
+                                    <input type="radio" name="case_isable" value="2" title="否">
+                                </div>
+                            </div>
+                            <div class="layui-form-item">
+                                <label class="layui-form-label">案例造价</label>
+                                <div class="layui-input-block">
+                                    <input type="text" name="case_price" lay-verify="required" placeholder="请输入案例造价" autocomplete="off" class="layui-input">
+                                </div>
+                            </div>
+                            <div class="layui-form-item">
+                                <label class="layui-form-label">案例全景</label>
+                                <div class="layui-input-block">
+                                    <input type="text" name="case_url" lay-verify="required" placeholder="请输入案例全景链接" autocomplete="off" class="layui-input">
+                                </div>
+                            </div>
+                            <div class="layui-form-item">
+                                <label class="layui-form-label">房屋面积</label>
+                                <div class="layui-input-block">
+                                    <input type="text" name="case_area" lay-verify="required" placeholder="请输入房屋面积" autocomplete="off" class="layui-input">
+                                </div>
+                            </div>
+                            <div class="layui-form-item">
+                                <label class="layui-form-label">SEO关键词</label>
+                                <div class="layui-input-block">
+                                    <input type="text" name="case_seo_keywords" lay-verify="required" placeholder="请输入SEO关键词,多个关键词之间用英文逗号隔开。" autocomplete="off" class="layui-input">
+                                </div>
+                            </div>
+                            <div class="layui-form-item layui-form-text">
+                                <label class="layui-form-label">案例简介</label>
+                                <div class="layui-input-block">
+                                    <textarea placeholder="请输入案例简介" name="case_remarks" class="layui-textarea"></textarea>
+                                </div>
+                            </div>
+                            <div class="layui-form-item" pane>
+                                <label class="layui-form-label">是否置顶</label>
+                                <div class="layui-input-block">
+                                    <input type="radio" name="case_istop" value="1" title="是">
+                                    <input type="radio" name="case_istop" value="2" title="否" checked>
+                                </div>
+                            </div>
+                            <div class="layui-form-item">
+                                <div class="layui-input-block">
+                                    <button class="layui-btn" lay-submit lay-filter="saveInfo">添加</button>
+                                    <a class="layui-btn layui-btn-primary" href="<?=url('worksite/index')?>">返回</a>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    layui.use(['form', 'jquery','upload','layedit'], function(){
+        var form = layui.form
+            ,upload = layui.upload
+            ,layedit = layui.layedit
+            ,$ = layui.jquery;
+        //编辑器图片上传接口
+        layedit.set({
+            uploadImage: {
+                url: '/index/example/editUpload' //接口url
+                ,type: 'post', //默认post
+                success:function(res){
+                    console.log(res);
+                },
+                error:function (res) {
+                    console.log(res);
+                }
+            }
+        });
+        $("#addCaseIma").click(function () {
+            layer.open({
+                type: 2,
+                title: '添加案例全景图',
+                shadeClose: true,
+                shade: false,
+                maxmin: true,
+                area: ['893px', '600px'],
+                content: "<?=url('example/addimg')?>",
+            });
+
+        });
+        layedit.build('demo'); //建立编辑器
+        //自定义验证规则
+        form.verify({
+            title: function(value){
+                if(value.length < 2){
+                    return '标题至少得2个字符啊';
+                }
+            }
+            ,pass: [/(.+){6,12}$/, '密码必须6到12位']
+            ,content: function(value){
+                layedit.sync(editIndex);
+            }
+        });
+        form.on('select(bu_p_id)', function(data){
+            var p_id=data.value;
+            $.ajax({
+                type: 'POST',
+                url: "<?=url('user/getCityName')?>?p_id="+p_id,
+                data: {p_id:p_id},
+                dataType:  'json',
+                success: function(data){
+                    var code=data.data;
+                    $("#bu_c_id").html("<option value=''>请选择城市</option>");
+                    $.each(code, function(i, val) {
+                        var option1 = $("<option>").val(val.c_id).text(val.c_name);
+                        $("#bu_c_id").append(option1);
+                        form.render('select');
+                    });
+                    $("#bu_c_id").get(0).selectedIndex=0;
+                }
+            });
+        });
+        //调用该城市下面的分站
+        form.on('select(bu_c_id)', function(data){
+            var c_id=data.value;
+            $.ajax({
+                type: 'POST',
+                url: "<?=url('admin/getBranchName')?>?c_id="+c_id,
+                data: {c_id:c_id},
+                dataType:  'json',
+                success: function(data){
+                    var code=data.data;
+                    $("#branch").html("<option value=''>请选择站点</option>");
+                    $.each(code, function(i, val) {
+                        var option1 = $("<option>").val(val.b_id).text(val.b_name);
+                        $("#branch").append(option1);
+                        form.render('select');
+                    });
+                    $("#branch").get(0).selectedIndex=0;
+                }
+            });
+        });
+        //户型图片上传
+        upload.render({
+            elem: '#uploadLogo'
+            ,url: '{:url("example/upload")}'
+            ,size:120 //限制文件大小，单位 KB
+            ,ext: 'jpg|png|gif'
+            ,accept: 'images' //限制文件大小，单位 KB
+            ,before: function(input){
+                loading = layer.load(2, {
+                    shade: [0.2,'#000']
+                });
+            }
+            ,done: function(res){
+                $('#logoPre').removeAttr('src');
+                $('#case_type_iamge').val('');
+                console.log(res);
+                layer.close(loading);
+                $('#case_type_iamge').val(res.path);
+                $('#uploadLogo').removeClass('layui-upload-drag');
+                $('#logoPre').css('width','216px');
+                $('#logoPre').css('height','150px');
+                $('#logoPre').attr('src',"__PUBLIC__"+res.path);
+                $('#logoPre1').hide();
+                layer.msg(res.msg, {icon: 1, time: 1000});
+            }
+            ,error: function(res){
+                layer.msg(res.msg, {icon: 2, time: 1000});
+            }
+        });
+
+
+
+
+        //1.案例效果图片上传
+        upload.render({
+            elem: '#uploadCase1'
+            ,url: '{:url("example/upload")}'
+            // ,size:120 //限制文件大小，单位 KB
+            ,ext: 'jpg|png|gif'
+            ,accept: 'images' //限制文件大小，单位 KB
+            ,before: function(input){
+                loading = layer.load(2, {
+                    shade: [0.2,'#000']
+                });
+            }
+            ,done: function(res){
+                $('#casePre1').removeAttr('src');
+                $('#case_img1').val('');
+                console.log(res);
+                layer.close(loading);
+                $('#case_img1').val(res.path);
+                $('#uploadCase1').removeClass('layui-upload-drag');
+                $('#casePre1').css('width','216px');
+                $('#casePre1').css('height','150px');
+                $('#casePre1').attr('src',"__PUBLIC__"+res.path);
+                $('#casePre11').hide();
+                layer.msg(res.msg, {icon: 1, time: 1000});
+            }
+            ,error: function(res){
+                layer.msg(res.msg, {icon: 2, time: 1000});
+            }
+        });
+
+
+        //2.案例效果图片上传
+        upload.render({
+            elem: '#uploadCase2'
+            ,url: '{:url("example/upload")}'
+            // ,size:120 //限制文件大小，单位 KB
+            ,ext: 'jpg|png|gif'
+            ,accept: 'images' //限制文件大小，单位 KB
+            ,before: function(input){
+                loading = layer.load(2, {
+                    shade: [0.2,'#000']
+                });
+            }
+            ,done: function(res){
+                $('#casePre2').removeAttr('src');
+                $('#case_img2').val('');
+                console.log(res);
+                layer.close(loading);
+                $('#case_img2').val(res.path);
+                $('#uploadCase2').removeClass('layui-upload-drag');
+                $('#casePre2').css('width','216px');
+                $('#casePre2').css('height','150px');
+                $('#casePre2').attr('src',"__PUBLIC__"+res.path);
+                $('#casePre22').hide();
+                layer.msg(res.msg, {icon: 1, time: 1000});
+            }
+            ,error: function(res){
+                layer.msg(res.msg, {icon: 2, time: 1000});
+            }
+        });
+
+
+        //3.案例效果图片上传
+        upload.render({
+            elem: '#uploadCase3'
+            ,url: '{:url("example/upload")}'
+            // ,size:120 //限制文件大小，单位 KB
+            ,ext: 'jpg|png|gif'
+            ,accept: 'images' //限制文件大小，单位 KB
+            ,before: function(input){
+                loading = layer.load(2, {
+                    shade: [0.2,'#000']
+                });
+            }
+            ,done: function(res){
+                $('#casePre3').removeAttr('src');
+                $('#case_img3').val('');
+                console.log(res);
+                layer.close(loading);
+                $('#case_img3').val(res.path);
+                $('#uploadCase3').removeClass('layui-upload-drag');
+                $('#casePre3').css('width','216px');
+                $('#casePre3').css('height','150px');
+                $('#casePre3').attr('src',"__PUBLIC__"+res.path);
+                $('#casePre33').hide();
+                layer.msg(res.msg, {icon: 1, time: 1000});
+            }
+            ,error: function(res){
+                layer.msg(res.msg, {icon: 2, time: 1000});
+            }
+        });
+
+
+        //4.案例效果图片上传
+        upload.render({
+            elem: '#uploadCase4'
+            ,url: '{:url("example/upload")}'
+            // ,size:120 //限制文件大小，单位 KB
+            ,ext: 'jpg|png|gif'
+            ,accept: 'images' //限制文件大小，单位 KB
+            ,before: function(input){
+                loading = layer.load(2, {
+                    shade: [0.2,'#000']
+                });
+            }
+            ,done: function(res){
+                $('#casePre4').removeAttr('src');
+                $('#case_img4').val('');
+                console.log(res);
+                layer.close(loading);
+                $('#case_img4').val(res.path);
+                $('#uploadCase4').removeClass('layui-upload-drag');
+                $('#casePre4').css('width','216px');
+                $('#casePre4').css('height','150px');
+                $('#casePre4').attr('src',"__PUBLIC__"+res.path);
+                $('#casePre44').hide();
+                layer.msg(res.msg, {icon: 1, time: 1000});
+            }
+            ,error: function(res){
+                layer.msg(res.msg, {icon: 2, time: 1000});
+            }
+        });
+
+
+        //5.案例效果图片上传
+        upload.render({
+            elem: '#uploadCase5'
+            ,url: '{:url("example/upload")}'
+            // ,size:120 //限制文件大小，单位 KB
+            ,ext: 'jpg|png|gif'
+            ,accept: 'images' //限制文件大小，单位 KB
+            ,before: function(input){
+                loading = layer.load(2, {
+                    shade: [0.2,'#000']
+                });
+            }
+            ,done: function(res){
+
+                $('#casePre5').removeAttr('src');
+                $('#case_img5').val('');
+                console.log(res);
+                layer.close(loading);
+                $('#case_img5').val(res.path);
+                $('#uploadCase5').removeClass('layui-upload-drag');
+                $('#casePre5').css('width','216px');
+                $('#casePre5').css('height','150px');
+                $('#casePre5').attr('src',"__PUBLIC__"+res.path);
+                $('#casePre55').hide();
+                layer.msg(res.msg, {icon: 1, time: 1000});
+            }
+            ,error: function(res){
+                layer.msg(res.msg, {icon: 2, time: 1000});
+            }
+        });
+
+
+        //6.案例效果图片上传
+        upload.render({
+            elem: '#uploadCase6'
+            ,url: '{:url("example/upload")}'
+            // ,size:120 //限制文件大小，单位 KB
+            ,ext: 'jpg|png|gif'
+            ,accept: 'images' //限制文件大小，单位 KB
+            ,before: function(input){
+                loading = layer.load(2, {
+                    shade: [0.2,'#000']
+                });
+            }
+            ,done: function(res){
+                $('#casePre6').removeAttr('src');
+                $('#case_img6').val('');
+                console.log(res);
+                layer.close(loading);
+                $('#case_img6').val(res.path);
+                $('#uploadCase6').removeClass('layui-upload-drag');
+                $('#casePre6').css('width','216px');
+                $('#casePre6').css('height','150px');
+                $('#casePre6').attr('src',"__PUBLIC__"+res.path);
+                $('#casePre66').hide();
+                layer.msg(res.msg, {icon: 1, time: 1000});
+            }
+            ,error: function(res){
+                layer.msg(res.msg, {icon: 2, time: 1000});
+            }
+        });
+    });
+</script>
+{include file="index/footer" /}
