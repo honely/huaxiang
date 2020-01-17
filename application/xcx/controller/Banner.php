@@ -71,11 +71,13 @@ class Banner extends Controller{
         return json($res);
     }
     //banner
-    public function banner(){
+    public function index(){
         return $this->fetch();
     }
 
-
+    public function loop(){
+        return $this->fetch();
+    }
 
     //更改是否显示的状态
     public function status(){
