@@ -35,276 +35,273 @@
         </div>
     </div>
     <hr/>
-    <div class="layui-tab">
-        <div class="layui-tab-content">
-            <div class="layui-tab-item layui-show">
-                <div style="margin: 10px">
-                    <div style="padding: 15px;">
-                        <form class="layui-form" id="houseForm">
-                            <div class="layui-form-item">
-                                <label class="layui-form-label"><span style="color: red;">*</span>房源名称</label>
-                                <div class="layui-input-block">
-                                    <input type="text" onblur="checkBulids()" id="case_title" name="h_name" lay-verify="required|title" placeholder="请输入房源名称" autocomplete="off" class="layui-input">
-                                </div>
-                            </div>
-                            <div class="layui-form-item">
-                                <label class="layui-form-label"><span style="color: red;">*</span>房源编号</label>
-                                <div class="layui-input-block">
-                                    <input type="text" name="h_b_id" lay-verify="required" placeholder="请输入房源编号" autocomplete="off" class="layui-input">
-                                </div>
-                            </div>
-                            <div class="layui-form-item">
-                                <label class="layui-form-label"><span style="color: red;">*</span>基础信息</label>
-                                <div class="layui-input-inline">
-                                    <select name="h_p_id" lay-verify="required" lay-filter="bu_p_id">
-                                        <option value="">请选择省份</option>
-
-                                    </select>
-                                </div>
-                                <div class="layui-input-inline">
-                                    <select name="h_c_id" lay-verify="required" id="bu_c_id" lay-filter="bu_c_id">
-                                        <option value="">请选择城市</option>
-                                    </select>
-                                </div>
-                                <div class="layui-input-inline">
-                                    <select name="h_a_id" id="branch" lay-verify="required">
-                                        <option value="">请选择县区</option>
-                                    </select>
-                                </div>
-                                <div class="layui-input-inline">
-                                </div>
-                                <div class="layui-input-inline">
-                                    <select name="h_type"   lay-filter="case_style">
-                                        <option value="">请选择房屋类型</option>
-
-
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="layui-form-item">
-                                <label class="layui-form-label"><span style="color: red;">*</span>租金</label>
-                                <div class="layui-input-inline">
-                                    <input type="text" onkeyup="this.value=this.value.replace(/\D/g, '')" name="h_rent" lay-verify="required" placeholder="请输入租金" autocomplete="off" class="layui-input">
-                                </div>
-                                <div class="layui-form-mid layui-word-aux">单位：元。</div>
-                                <div class="layui-input-inline">
-                                    <input type="radio" name="h_rent_type" value="1" title="月租" checked>
-                                    <input type="radio" name="h_rent_type" value="2" title="日租">
-                                </div>
-                            </div>
-                            <div class="layui-form-item">
-                                <label class="layui-form-label">视频url</label>
-                                <div class="layui-input-block">
-                                    <input type="text" name="h_video" lay-verify="urlTest" placeholder="请输入视频url" autocomplete="off" class="layui-input">
-                                </div>
-                            </div>
-                            <div class="layui-form-item">
-                                <label class="layui-form-label"><span style="color: red;">*</span>小区名称</label>
-                                <div class="layui-input-block">
-                                    <input type="text" name="h_building" lay-verify="required" placeholder="请输入小区名称" autocomplete="off" class="layui-input">
-                                </div>
-                            </div>
-                            <div class="layui-form-item one-pan">
-                                <label class="layui-form-label"><span style="color: red;">*</span>封面图片</label>
-                                <div class="layui-upload-drag" id="uploadLogo" style="display:inline-block;">
-                                    <image id="logoPre">
-                                        <input type="hidden" lay-verify="imgReg"  name="h_house_img" id="art_img" value=""/>
-                                    </image>
-                                    <div id="display">
-                                        <i class="layui-icon"></i>
-                                        <p>请点击此处上传封面图片</p>
-                                    </div>
-                                </div>
-                                <div class="one">
-                                    <div class="layui-form-mid layui-word-aux" id="tips" style="margin-left: 39px; ">图片要求，最大600KB，支持JPG/JEPG/PNG格式</div>
-                                    <div class="layui-form-item">
-                                        <textarea name="h_img_alt" style="resize:none;width: 1315px;height: 115px; margin-left:39px;"  placeholder="图片描述，建议不超过15个字（等同图片ALT属性）" class="layui-textarea"></textarea>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="layui-form-item">
-                                <label class="layui-form-label"><span style="color: red;">*</span>房屋面积</label>
-                                <div class="layui-input-inline">
-                                    <input type="text" onkeyup="this.value=this.value.replace(/\D/g, '')" name="h_area" lay-verify="required" placeholder="请输入房屋面积" autocomplete="off" class="layui-input">
-                                </div>
-                                <div class="layui-form-mid layui-word-aux">单位：平方米。</div>
-                            </div>
-                            <div class="layui-form-item">
-                                <label class="layui-form-label"><span style="color: red;">*</span>房屋朝向</label>
-                                <div class="layui-input-block">
-                                    <input type="text" name="h_head" lay-verify="required" placeholder="请输入房屋朝向" autocomplete="off" class="layui-input">
-                                </div>
-                            </div>
-                            <div class="layui-form-item">
-                                <label class="layui-form-label">房屋楼层</label>
-                                <div class="layui-input-block">
-                                    <input type="text" name="h_floor" placeholder="请输入房屋楼层" autocomplete="off" class="layui-input">
-                                </div>
-                            </div>
-                            <div class="layui-form-item">
-                                <label class="layui-form-label"><span style="color: red;">*</span>房源地址</label>
-                                <div class="layui-input-block">
-                                    <input type="text" name="h_address" lay-verify="required" placeholder="请输入房源地址" autocomplete="off" class="layui-input">
-                                </div>
-                            </div>
-                            <div class="layui-form-item">
-                                <label class="layui-form-label"><span style="color: red;">*</span>地理坐标</label>
-                                <div class="layui-input-block">
-                                    <input type="text" name="h_location" placeholder="请输入地理坐标" autocomplete="off" class="layui-input">
-                                </div>
-                            </div>
-                            <div class="layui-form-item" pane="">
-                                <label class="layui-form-label"><span style="color: red;">*</span>房屋配置</label>
-                                <div class="layui-input-block">
-
-                                </div>
-                            </div>
-                            <div class="layui-form-item">
-                                <label class="layui-form-label">是否为特价</label>
-                                <div class="layui-input-block">
-                                    <input type="text" name="h_discount" placeholder="是否为特价，为空不是特价，反之为特价，内容为特价内容。" autocomplete="off" class="layui-input">
-                                </div>
-                            </div>
-                            <div class="layui-form-item">
-                                <label class="layui-form-label"><span style="color: red;">*</span>附近交通</label>
-                                <div class="layui-input-block">
-                                    <input type="text" name="h_nearbus" lay-verify="required" placeholder="请输入附近交通" autocomplete="off" class="layui-input">
-                                </div>
-                            </div>
-                            <div class="layui-form-item">
-                                <label class="layui-form-label"><span style="color: red;">*</span>附近地铁</label>
-                                <div class="layui-input-block">
-                                    <input type="text" name="h_subway" placeholder="请输入附近地铁" autocomplete="off" class="layui-input">
-                                </div>
-                            </div>
-                            <div class="layui-form-item" id="pics">
-                                <div class="layui-form-label">房源图片</div>
-                                <div class="layui-input-block" style="width: 70%;">
-                                    <div class="layui-upload">
-                                        <button type="button" class="layui-btn layui-btn pull-left" id="slide-pc">选择多图</button>
-                                        <div class="pic-more">
-                                            <ul class="pic-more-upload-list" id="slide-pc-priview">
-                                            </ul>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="layui-form-item" style="margin-top: 65px;">
-                                <label class="layui-form-label">房源简介</label>
-                                <div class="layui-input-block">
-                                    <textarea name="h_description" id="container"></textarea>
-                                </div>
-                            </div>
-                            <div class="layui-form-item" pane style="width: 300px;">
-                                <label class="layui-form-label">是否置顶</label>
-                                <div class="layui-input-block">
-                                    <input type="radio" name="h_istop" value="2" title="常规" checked>
-                                    <input type="radio" name="h_istop" value="1" title="置顶">
-                                </div>
-                            </div>
-                            <div class="layui-form-item" pane style="width: 300px;">
-                                <label class="layui-form-label">是否最新</label>
-                                <div class="layui-input-block">
-                                    <input type="radio" name="h_isnew" value="1" title="是" checked>
-                                    <input type="radio" name="h_isnew" value="2" title="否">
-                                </div>
-                            </div>
-                            <div class="layui-form-item" pane style="width: 300px;">
-                                <label class="layui-form-label">是否合租</label>
-                                <div class="layui-input-block">
-                                    <input type="radio" name="h_iscop" value="1" title="是" checked>
-                                    <input type="radio" name="h_iscop" value="2" title="否">
-                                </div>
-                            </div>
-                            <div class="layui-form-item">
-                                <div class="layui-input-block">
-                                    <span class="layui-btn" lay-submit lay-filter="saveInfo">发布</span>
-                                    <a class="layui-btn layui-btn-primary" href="<?=url('house/index')?>">返回</a>
-                                </div>
-                            </div>
-                        </form>
-
-                    </div>
+<div style="margin: 10px">
+    <div style="padding: 15px;">
+        <form class="layui-form" action="<?=url('house/add')?>" method="post">
+            <fieldset class="layui-elem-field layui-field-title" style="margin-top: 20px;">
+                <legend>基础信息</legend>
+            </fieldset>
+            <div class="layui-form-item">
+                <label class="layui-form-label"><span style="color: red;">*</span>房源名称</label>
+                <div class="layui-input-block">
+                    <input type="text" name="title" lay-verify="required|title" placeholder="请输入房源名称" autocomplete="off" class="layui-input">
                 </div>
             </div>
-        </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label"><span style="color: red;">*</span>房源链接</label>
+                <div class="layui-input-block">
+                    <input type="text" name="http" lay-verify="required|title" placeholder="请输入房源链接" autocomplete="off" class="layui-input">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label"><span style="color: red;">*</span>租金</label>
+                <div class="layui-input-block">
+                    <input type="text" name="price" lay-verify="required|title" placeholder="请输入租金" autocomplete="off" class="layui-input">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label"><span style="color: red;">*</span>地址</label>
+                <div class="layui-input-block">
+                    <input type="text" name="address" id="address" lay-verify="required|title" placeholder="请输入地址" autocomplete="on" class="layui-input">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">学生公寓</label>
+                <div class="layui-input-block">
+                    <select name="studentapartment" lay-verify="required">
+                        <option value="">请选择学生公寓</option>
+                        {volist name='apartemnt' id='vo'}
+                        <option value="{$vo.title}">{$vo.title}</option>
+                        {/volist}
+                    </select>
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label"><span style="color: red;">*</span>基础信息</label>
+                <div class="layui-input-inline">
+                    <select name="city" lay-verify="required" lay-filter="bu_p_id">
+                        <option value="">请选择城市</option>
+                        {volist name='city' id='vo'}
+                        <option value="{$vo.id}">{$vo.name}</option>
+                        {/volist}
+                    </select>
+                </div>
+                <div class="layui-input-inline">
+                    <select name="school" lay-verify="required" id="school">
+                        <option value="">请选择校区</option>
+                    </select>
+                </div>
+            </div>
+            <fieldset class="layui-elem-field layui-field-title" style="margin-top: 20px;">
+                <legend>租约相关</legend>
+            </fieldset>
+            <div class="layui-form-item">
+                <label class="layui-form-label"><span style="color: red;">*</span>入住时间</label>
+                <div class="layui-input-inline">
+                    <input type="text" name="live_date" id="date" lay-verify="date" lay-verify="required" placeholder="请选择入住时间" autocomplete="off" class="layui-input">
+                </div>
+                <div class="layui-form-mid layui-word-aux">时间为澳洲时间</div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label"><span style="color: red;">*</span>房屋来源</label>
+                <div class="layui-input-block">
+                    <input type="radio" name="source" value="中介" title="中介" checked>
+                    <input type="radio" name="source" value="个人" title="个人">
+                    <input type="radio" name="source" value="学生公寓" title="学生公寓">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label"><span style="color: red;">*</span>出租方式</label>
+                <div class="layui-input-block">
+                    <input type="radio" name="type" value="整租" title="整租" checked>
+                    <input type="radio" name="type" value="单间" title="单间">
+                    <input type="radio" name="type" value="厅卧" title="厅卧">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label"><span style="color: red;">*</span>性别限制</label>
+                <div class="layui-input-block">
+                    <input type="radio" name="sex" value="男女不限" title="男女不限" checked>
+                    <input type="radio" name="sex" value="限男性" title="限男性">
+                    <input type="radio" name="sex" value="限女性" title="限女性">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label"><span style="color: red;">*</span>宠物</label>
+                <div class="layui-input-block">
+                    <input type="radio" name="pet" value="接受" title="接受" checked>
+                    <input type="radio" name="pet" value="不接受" title="不接受">
+                </div>
+            </div>
+            <div class="layui-form-item" pane="">
+                <label class="layui-form-label">Bill相关</label>
+                <div class="layui-input-block">
+                    <input type="checkbox" name="bill[包水]" lay-skin="primary" title="包水">
+                    <input type="checkbox" name="bill[包电]" lay-skin="primary" title="包电">
+                    <input type="checkbox" name="bill[包煤气]" lay-skin="primary" title="包煤气">
+                    <input type="checkbox" name="bill[包网]" lay-skin="primary" title="包网">
+                </div>
+            </div>
+            <div class="layui-form-item" pane="">
+                <label class="layui-form-label">租期</label>
+                <div class="layui-input-block">
+                    <input type="radio" name="lease_term" value="少于3个月" title="少于3个月" checked>
+                    <input type="radio" name="lease_term" value="3-6个月" title="3-6个月">
+                    <input type="radio" name="lease_term" value="6-12个月" title="6-12个月">
+                    <input type="radio" name="lease_term" value="租期可议" title="租期可议">
+                </div>
+            </div>
+            <fieldset class="layui-elem-field layui-field-title" style="margin-top: 20px;">
+                <legend>房屋相关</legend>
+            </fieldset>
+            <div class="layui-form-item">
+                <label class="layui-form-label"><span style="color: red;">*</span>房屋类型</label>
+                <div class="layui-input-block">
+                    <input type="radio" name="house_type" value="公寓" title="公寓" checked>
+                    <input type="radio" name="house_type" value="别墅" title="别墅">
+                    <input type="radio" name="house_type" value="其他" title="其他">
+                </div>
+            </div>
+
+            <div class="layui-form-item">
+                <label class="layui-form-label"><span style="color: red;">*</span>户型</label>
+                <div class="layui-input-block">
+                    <input type="radio" name="house_room" value="一室" title="一室" checked>
+                    <input type="radio" name="house_room" value="两室" title="两室">
+                    <input type="radio" name="house_room" value="三室" title="三室">
+                    <input type="radio" name="house_room" value="三室以上" title="三室以上">
+                </div>
+            </div>
+
+            <div class="layui-form-item">
+                <label class="layui-form-label"><span style="color: red;">*</span>卫生间</label>
+                <div class="layui-input-block">
+                    <input type="radio" name="toilet" value="1个" title="1个" checked>
+                    <input type="radio" name="toilet" value="2个" title="2个">
+                    <input type="radio" name="toilet" value="3个" title="3个">
+                    <input type="radio" name="toilet" value="3个以上" title="3个以上">
+                </div>
+            </div>
+
+            <div class="layui-form-item">
+                <label class="layui-form-label"><span style="color: red;">*</span>家具</label>
+                <div class="layui-input-block">
+                    <input type="radio" name="furniture" value="包家具" title="包家具" checked>
+                    <input type="radio" name="furniture" value="不包家具" title="不包家具">
+                </div>
+            </div>
+
+            <div class="layui-form-item">
+                <label class="layui-form-label"><span style="color: red;">*</span>车位</label>
+                <div class="layui-input-block">
+                    <input type="radio" name="car" value="0个" title="0个" checked>
+                    <input type="radio" name="car" value="1个" title="1个">
+                    <input type="radio" name="car" value="2个" title="2个">
+                    <input type="radio" name="car" value="3个" title="3个">
+                </div>
+            </div>
+            <div class="layui-form-item" pane="">
+                <label class="layui-form-label">设施</label>
+                <div class="layui-input-block">
+                    <input type="checkbox" name="home[游泳池]" lay-skin="primary" title="游泳池">
+                    <input type="checkbox" name="home[健身房]" lay-skin="primary" title="健身房">
+                    <input type="checkbox" name="home[车位]" lay-skin="primary" title="车位">
+                </div>
+            </div>
+
+            <div class="layui-form-item" pane="">
+                <label class="layui-form-label">交通</label>
+                <div class="layui-input-block">
+                    <input type="checkbox" name="sation[巴士站]" lay-skin="primary" title="巴士站">
+                    <input type="checkbox" name="sation[火车站]" lay-skin="primary" title="火车站">
+                    <input type="checkbox" name="sation[电车站]" lay-skin="primary" title="电车站">
+                    <input type="checkbox" name="sation[免费电车]" lay-skin="primary" title="免费电车">
+                </div>
+            </div>
+            <fieldset class="layui-elem-field layui-field-title" style="margin-top: 20px;">
+                <legend>联系方式</legend>
+            </fieldset>
+            <div class="layui-form-item">
+                <label class="layui-form-label"><span style="color: red;">*</span>姓名</label>
+                <div class="layui-input-block">
+                    <input type="text" name="real_name" lay-verify="required|title" placeholder="请输入姓名" autocomplete="off" class="layui-input">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label"><span style="color: red;">*</span>电话</label>
+                <div class="layui-input-block">
+                    <input type="text" name="tel" lay-verify="required|phone" placeholder="请输入电话" autocomplete="off" class="layui-input">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label"><span style="color: red;">*</span>微信号</label>
+                <div class="layui-input-block">
+                    <input type="text" name="wchat" lay-verify="required|title" placeholder="请输入微信号" autocomplete="off" class="layui-input">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label"><span style="color: red;">*</span>邮箱</label>
+                <div class="layui-input-block">
+                    <input type="text" name="email" lay-verify="required|email" placeholder="请输入邮箱" autocomplete="off" class="layui-input">
+                </div>
+            </div>
+            <fieldset class="layui-elem-field layui-field-title" style="margin-top: 20px;">
+                <legend>图片和视频</legend>
+            </fieldset>
+            <div class="layui-form-item" id="pics">
+                <div class="layui-form-label">房源图片</div>
+                <div class="layui-input-block" style="width: 70%;">
+                    <div class="layui-upload">
+                        <button type="button" class="layui-btn layui-btn pull-left" id="slide-pc">选择多图</button>
+                        <div class="pic-more">
+                            <ul class="pic-more-upload-list" id="slide-pc-priview">
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="layui-form-mid layui-word-aux">请上传1-8张图片，默认第一个为封面图。</div>
+            </div>
+            <div class="layui-form-item one-pan">
+                <label class="layui-form-label">房源视频</label>
+                <div class="layui-upload-drag" id="uploadLogo">
+                    <video id="logoPre">
+                        <input type="hidden" name="video" id="video" value=""/>
+                    </video>
+                    <div id="display">
+                        <i class="layui-icon"></i>
+                        <p>请点击此处上传房源视频</p>
+                    </div>
+                </div>
+                <br/>
+                <div class="layui-form-mid layui-word-aux">视频仅限一个视频，大小控制在10M以内。</div>
+            </div>
+            <div class="layui-form-item layui-form-text">
+                <label class="layui-form-label">房源简介</label>
+                <div class="layui-input-block">
+                    <textarea placeholder="请输入房源简介" name="content" class="layui-textarea"></textarea>
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <div class="layui-input-block">
+                    <button class="layui-btn" lay-submit>发布</button>
+                    <a class="layui-btn layui-btn-primary" href="<?=url('house/index')?>">返回</a>
+                </div>
+            </div>
+        </form>
+
     </div>
 </div>
 <script>
-    layui.use(['form', 'jquery','upload','laytpl','layedit'], function(){
+    layui.use(['form', 'jquery','upload','laydate','layedit'], function(){
         var form = layui.form
             ,upload = layui.upload
-            , laytpl = layui.laytpl
+            , laydate = layui.laydate
             ,layedit = layui.layedit
             ,$ = layui.jquery;
-        //编辑器图片上传接口
-        layedit.set({
-            uploadImage: {
-                url: '/admin/article/editUpload' //接口url
-                ,type: 'post', //默认post
-                success:function(res){
-                    console.log(res);
-                },
-                error:function (res) {
-                    console.log(res);
-                }
-            }
+        //日期
+        laydate.render({
+            elem: '#date'
         });
-        $("#addCaseIma").click(function () {
-            layer.open({
-                type: 2,
-                title: '添加案例全景图',
-                shadeClose: true,
-                shade: false,
-                maxmin: true,
-                area: ['893px', '600px'],
-                content: "<?=url('example/addimg')?>",
-            });
-
-        });
-        var index = layedit.build('demo');
-
-        //编辑器外部操作
-        var active = {
-            content: function(){
-                alert(layedit.getContent(index)); //获取编辑器内容
-            }
-            ,text: function(){
-                alert(layedit.getText(index)); //获取编辑器纯文本内容
-            }
-            ,selection: function(){
-                alert(layedit.getSelection(index));
-            }
-        };
-        //监听提交
-        form.on('submit(saveInfo)', function(data){
-            var h_imgs=$('#h_imgs').html();
-            $('#h_img').val(h_imgs);
-            var h_desc=layedit.getContent(index);
-            $('#h_description').val(h_desc);
-            $.ajax({
-                'type':"post",
-                'url':"<?=url('house/add')?>",
-                'data':$('#houseForm').serialize(),
-                'success':function (result) {
-                    console.log(result.data);
-                    if(result.code == '1'){
-                        layer.msg(result.msg, {icon: 1, time: 2000},function () {
-                            window.location.href='<?=url('house/index')?>';
-                        });
-                    }else if(result.code == '2'){
-                        layer.msg(result.msg, {icon: 2, time: 3000});
-                    }else if(result.code == '3'){
-                        layer.msg(result.msg, {icon: 3, time: 3000});
-                    }
-                },
-                'error':function (error) {
-                    console.log(error);
-                }
-            })
-        });
-
-
         //自定义验证规则
         form.verify({
             title: function(value){
@@ -333,51 +330,35 @@
             }
         });
         form.on('select(bu_p_id)', function(data){
-            var p_id=data.value;
+            console.log(data.elem); //得到select原始DOM对象
+            console.log(data.value); //得到被选中的值
+            console.log(data.date); //得到美化后的DOM对象
+            var id=data.value;
             $.ajax({
                 type: 'POST',
-                url: "<?=url('user/getCityName')?>?p_id="+p_id,
-                data: {p_id:p_id},
+                url: "<?=url('house/getSchool')?>",
+                data: {id:id},
                 dataType:  'json',
                 success: function(data){
+                    console.log(data);
                     var code=data.data;
-                    $("#bu_c_id").html("<option value=''>请选择城市</option>");
+                    $("#school").html("<option value=''>请选择校区</option>");
                     $.each(code, function(i, val) {
-                        var option1 = $("<option>").val(val.c_id).text(val.c_name);
-                        $("#bu_c_id").append(option1);
+                        var option1 = $("<option>").val(val.name).text(val.name);
+                        $("#school").append(option1);
                         form.render('select');
                     });
-                    $("#bu_c_id").get(0).selectedIndex=0;
-                }
-            });
-        });
-        //调用该城市下面的分站
-        form.on('select(bu_c_id)', function(data){
-            var c_id=data.value;
-            $.ajax({
-                type: 'POST',
-                url: "<?=url('admin/getAreaName')?>?c_id="+c_id,
-                data: {c_id:c_id},
-                dataType:  'json',
-                success: function(data){
-                    var code=data.data;
-                    $("#branch").html("<option value=''>请选择县区</option>");
-                    $.each(code, function(i, val) {
-                        var option1 = $("<option>").val(val.area_id).text(val.area_name);
-                        $("#branch").append(option1);
-                        form.render('select');
-                    });
-                    $("#branch").get(0).selectedIndex=0;
+                    $("#school").get(0).selectedIndex=0;
                 }
             });
         });
         //户型图片上传
         upload.render({
             elem: '#uploadLogo'
-            ,url: '{:url("example/upload")}'
-            ,size:1024 //限制文件大小，单位 KB
-            ,ext: 'jpg|png|gif'
-            ,accept: 'images' //限制文件大小，单位 KB
+            ,url: '{:url("house/upload")}'
+            ,size:10240 //限制文件大小，单位 KB
+            ,ext: 'mp4'
+            ,accept: 'video' //限制文件大小，单位 KB
             ,before: function(input){
                 loading = layer.load(2, {
                     shade: [0.2,'#000']
@@ -385,14 +366,14 @@
             }
             ,done: function(res){
                 $('#logoPre').removeAttr('src');
-                $('#art_img').val('');
+                $('#video').val('');
                 console.log(res);
                 layer.close(loading);
-                $('#art_img').val(res.path);
+                $('#video').val(res.filepath);
                 $('#uploadLogo').removeClass('layui-upload-drag');
                 $('#logoPre').css('width','216px');
                 $('#logoPre').css('height','150px');
-                $('#logoPre').attr('src',"__PUBLIC__"+res.path);
+                $('#logoPre').attr('src',"__PUBLIC__/"+res.filepath);
                 $('#display').hide();
                 layer.msg(res.msg, {icon: 1, time: 1000});
             }
@@ -409,7 +390,7 @@
         var upload = layui.upload;
         upload.render({
             elem: '#slide-pc',
-            url: '{:url("admin/house/upload")}',
+            url: '{:url("house/upload")}',
             size: 5120,
             exts: 'jpg|png|jpeg',
             multiple: true,
@@ -427,7 +408,7 @@
                 }
                 console.log(res);
                 $('#slide-pc-priview').append('' +
-                    '<li class="item_img"><div class="operate"><i  class="close layui-icon"></i></div><img src="__PUBLIC__/' + res.filepath + '" class="img" ><input type="hidden" name="h_img[]" value="' + res.filepath + '" /></li>');
+                    '<li class="item_img"><div class="operate"><i  class="close layui-icon"></i></div><img src="__PUBLIC__/' + res.filepath + '" class="img" ><input type="hidden" name="images[]" value="' + res.filepath + '" /></li>');
             }
         });
     });

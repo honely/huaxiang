@@ -9,19 +9,13 @@
 <div style="margin: 20px;">
     <span class="layui-breadcrumb" lay-separator=">">
         <a>房源管理</a>
-        <a><cite>房源列表123</cite></a>
+        <a><cite>房源列表</cite></a>
     </span>
     <div style="float:right;">
         <button class="layui-btn layui-btn-primary layui-btn-sm"  onclick="addArt()"><i class="layui-icon"></i>发布房源</button>
     </div>
 </div>
 <div class="layui-tab layui-tab-brief" lay-filter="docDemoTabBrief">
-<!--    <ul class="layui-tab-title">-->
-<!--        <li class="layui-this">后台房源</li>-->
-<!--        <li>-->
-<!--            <a href='<?=url("house/web")?>'>房东房源</a>-->
-<!--            </li>-->
-<!--    </ul>-->
     <div class="layui-tab-content" style="height: 100px;">
         <div class="layui-tab-item layui-show">
             <section class="panel panel-padding" style="padding-top: 10px;padding-left: 10px;">
@@ -29,37 +23,13 @@
                     <div class="layui-form-item  demoTable">
                         <div class="layui-inline">
                             <div class="layui-input-inline" style="width: 250px;">
-                                <input type="text" name="keywords" id="keywords"  placeholder="请输入订单编号" class="layui-input">
-                            </div>
-                        </div>
-                        <div class="layui-inline">
-                            <div class="layui-input-inline">
-                                <select name="ad_role" id="service">
-                                    <option value="">请选择订单区域</option>
-                                </select>
-                            </div>
-                        </div>
-                        <div class="layui-inline">
-                            <div class="layui-input-inline">
-                                <select name="ad_role" id="status">
-                                    <option value="">请选择订单状态</option>
-                                    <option value="1">未安排</option>
-                                    <option value="2">已安排</option>
-                                    <option value="3">已完成</option>
-                                    <option value="4">未完成</option>
-                                    <option value="5">已结算</option>
-                                </select>
-                            </div>
-                        </div>
-                        <div class="layui-inline">
-                            <div class="layui-input-inline">
-                                <input type="text" name="cus_opptime" readonly class="layui-input" id="live_time" placeholder="请选择截止时间">
+                                <input type="text" name="keywords" id="keywords"  placeholder="请输入房源标题或编号" class="layui-input">
                             </div>
                         </div>
                         <div class="layui-inline">
                             <div class="layui-input-inline">
                                 <span class="layui-btn" data-type="reload">查询</span>
-                                <!--                                <a href="<?=url('order/order')?>" class="layui-btn layui-btn-warm">刷新</a>-->
+                                <a href="<?=url('house/index')?>" class="layui-btn layui-btn-warm">刷新</a>
                             </div>
                         </div>
                     </div>
@@ -69,19 +39,19 @@
                 <table lay-skin="line" class="layui-table" lay-filter="demo" lay-data="{height: 'full-200', cellMinWidth:60, url:'/xcx/house/houseData/', limit:20,limits:[20,30,50] ,id: 'testReload',page:true}" >
                     <thead>
                     <tr>
-                        <th lay-data="{field:'dsn' ,width:100}">编号</th>
+                        <th lay-data="{field:'dsn' ,width:140}">房源编号</th>
                         <th lay-data="{field:'title',width:150}">标题</th>
-                        <th lay-data="{field:'city',width:150}">城市</th>
-                        <th lay-data="{field:'address',width:150}">地址</th>
-                        <th lay-data="{field:'school',width:150}">区域</th>
-                        <th lay-data="{field:'price',width:150}">租金</th>
-                        <th lay-data="{field:'real_name',width:150}">姓名</th>
-                        <th lay-data="{field:'wchat',width:150}">微信号</th>
-                        <th lay-data="{field:'tel',width:150}">手机号</th>
+                        <th lay-data="{field:'city',width:100}">城市</th>
+                        <th lay-data="{field:'address',width:100}">地址</th>
+                        <th lay-data="{field:'school',width:80}">区域</th>
+                        <th lay-data="{field:'price',width:60}">租金</th>
+                        <th lay-data="{field:'real_name',width:60}">姓名</th>
+                        <th lay-data="{field:'wchat',width:90}">微信号</th>
+                        <th lay-data="{field:'tel',width:80}">手机号</th>
                         <th lay-data="{field:'top', templet: '#switch',unresize: true}">置顶</th>
                         <th lay-data="{field:'tj', templet: '#switchTpl',unresize: true}">推荐</th>
-                        <th lay-data="{field:'status',width:150}">状态</th>
-                        <th lay-data="{field:'cdate',width:150}">添加时间</th>
+                        <th lay-data="{field:'status',width:80}">状态</th>
+                        <th lay-data="{field:'cdate',width:100}">添加时间</th>
                         <th lay-data="{ width:220, toolbar: '#barDemo'}">操作</th>
                     </tr>
                     </thead>
@@ -108,22 +78,14 @@
         var $ = layui.$, active = {
             reload: function(){
                 var keywords = $('#keywords').val();
-                var status = $('#status').val();
-                var step = $('#step').val();
-                var service = $('#service').val();
-                var live_time = $('#live_time').val();
                 //执行重载
                 table.reload('testReload', {
-                    url: '/admin/order/orderData/'
+                    url: '/xcx/house/houseData/'
                     ,page: {
                         curr: 1 //重新从第 1 页开始
                     }
                     ,where: {
-                        keywords: keywords,
-                        status: status,
-                        city: service,
-                        step: step,
-                        live_time: live_time
+                        keywords: keywords
                     },
                     success:function (data) {
                         console.log(data);
@@ -139,10 +101,9 @@
         table.on('tool(demo)', function(obj){
             var data = obj.data;
             var id = data.id;
-            var step = data.order_step;
             if(obj.event === 'edit'){
-                window.location.href='<?=url("order/edit1")?>?crm_id='+crm_id;
-            }else if(obj.event === 'details'){
+                window.location.href='<?=url("house/edit")?>?id='+id;
+            }else if(obj.event === 'alert'){
                 layer.open({
                     type: 2,
                     title: '查看详情',
@@ -150,7 +111,7 @@
                     shade: false,
                     maxmin: true,
                     area: ['80%', '80%'],
-                    content: "<?=url('order/orderDet')?>?crm_id="+crm_id
+                    content: "<?=url('house/detail')?>?id="+id
                 });
             } else if(obj.event === 'del'){
                 layer.confirm('确定删除该房源？删除后不可恢复！', {
@@ -193,6 +154,8 @@
     });
     function addArt() {
         window.location.href='<?=url("house/add")?>';
+    }    function addArt1() {
+        window.location.href='<?=url("house/add1")?>';
     }
     function switchOrder(id) {
         layui.use(['table','jquery'], function(){

@@ -44,12 +44,12 @@ class House extends Controller{
         $keywords = trim($this->request->param('keywords'));
         $case_decotime=trim($this->request->param('case_decotime'));
         if(isset($keywords) && !empty($keywords)){
-            $where.=" and ( h_name like '%".$keywords."%' or h_b_id like '%".$keywords."%' )";
+            $where.=" and ( title like '%".$keywords."%' or dsn like '%".$keywords."%' )";
         }
         if(isset($case_decotime) && !empty($case_decotime)){
             $sdate=strtotime(substr($case_decotime,'0','10')." 00:00:00");
             $edate=strtotime(substr($case_decotime,'-10')." 23:59:59");
-            $where.=" and ( h_addtime >= ".$sdate." and h_addtime <= ".$edate." ) ";
+            $where.=" and ( cdate >= ".$sdate." and cdate <= ".$edate." ) ";
         }
         $count=Db::table('tk_houses')
             ->where($where)
@@ -71,128 +71,101 @@ class House extends Controller{
         return json($res);
     }
 
-
-
-
-    public function wait(){
-        return $this->fetch();
-    }
-
-
-
-    public function waitData(){
-        $where ='status = 3';
-//        $where ='1 = 1';
-        $keywords = trim($this->request->param('keywords'));
-        $case_decotime=trim($this->request->param('case_decotime'));
-        if(isset($keywords) && !empty($keywords)){
-            $where.=" and ( h_name like '%".$keywords."%' or h_b_id like '%".$keywords."%' )";
-        }
-        if(isset($case_decotime) && !empty($case_decotime)){
-            $sdate=strtotime(substr($case_decotime,'0','10')." 00:00:00");
-            $edate=strtotime(substr($case_decotime,'-10')." 23:59:59");
-            $where.=" and ( h_addtime >= ".$sdate." and h_addtime <= ".$edate." ) ";
-        }
-        $count=Db::table('tk_houses')
-            ->where($where)
-            ->count();
-        $page= $this->request->param('page',1,'intval');
-        $limit=$this->request->param('limit',10,'intval');
-        $design=Db::table('tk_houses')
-            ->limit(($page-1)*$limit,$limit)
-            ->order('id desc')
-            ->where($where)
-            ->select();
-        foreach ($design as $k => $v){
-            $design[$k]['status'] = $this->houseStatus($v['status']);
-        }
-        $res['code'] = 0;
-        $res['msg'] = "";
-        $res['data'] = $design;
-        $res['count'] = $count;
-        return json($res);
-    }
-
-
-    public function review(){
-        $id= $this->request->param('id',0,'intval');
-        $house = Db::table('tk_houses')->where(['id' => $id])->find();
-        $house['images'] = explode(',',$house['images']);
-        $house['status'] = $this->houseStatus($house['status']);
-        $this->assign('house',$house);
-        return $this->fetch();
-    }
-
-
-
-    public function reviewPro(){
-        $id = $this->request->param('id',0,'intval');
-        $status = $this->request->param('status',0,'intval');
-        $changeStatus = Db::table('tk_houses')
-            ->where(['id' => $id])
-            ->update(['status' => $status]);
-        if($status == 1){
-            $house = Db::table('tk_houses')->where(['id' => $id])->find();
-            unset($house['id']);
-            $id = Db::connect('db2')
-                ->table('tk_houses')
-                ->insertGetId($house);
-            //生成小程序二维码
-            $common = new Commons();
-            $createQrCode = $common->xcxCode($id);
-            $codeUrl = $createQrCode['img'];
-            $addQrimg = Db::connect('db2')
-                ->table('tk_houses')
-                ->where(['id' => $id])
-                ->update(['qr_img' => $codeUrl]);
-        }
-        if($changeStatus){
-            $this->success('修改状态成功');
-        }else{
-            $this->error('修改状态失败');
-        }
-    }
-
-
-
-    public function qwe(){
-        $common = new Commons();
-        $code = $common->xcxCode('1896');
-        dump($code);
-    }
     /*
      * 房源添加
      * */
     public function add(){
         if($_POST){
-            $data=$_POST;
-            $data['h_addtime']=time();
-            $data['h_updatetime']=time();
-            $data['h_config'] =implode(',',array_keys($_POST['h_config']));
-            $img=$_POST['h_img'];
+            $data = $_POST;
+            $bill = $_POST['bill'];
+            $bills = '';
+            foreach($bill as $key => $val){
+                $bills .= $key.',';
+            }
+            $data['bill'] = rtrim($bills,',');
+            $home = $_POST['home'];
+            $homes = '';
+            foreach($home as $key => $val){
+                $homes .= $key.',';
+            }
+            $data['home'] = rtrim($homes,',');
+            $sation = $_POST['sation'];
+            $sations = '';
+            foreach($sation as $key => $val){
+                $sations .= $key.',';
+            }
+            $img=$_POST['images'];
             $h_img='';
             for ($i=0;$i<sizeof($img);$i++){
                 $h_img.=$img[$i].",";
             }
-            $data['h_img']=trim($h_img,',');
-            $data['h_admin'] = session('adminId');
-            $add=Db::table('super_houses')->insert($data);
+            $data['images'] = rtrim($h_img,',');
+            $data['sation'] = rtrim($sations,',');
+            $data['publish_date'] = date('Y-m-d H:i:s');
+            $data['cdate'] = date('Y-m-d H:i:s');
+            $data['mdate'] = date('Y-m-d H:i:s');
+            unset($data['file']);
+            $data['dsn'] = $this->genHouseDsn();
+            $add=Db::table('tk_houses')->insert($data);
             if($add){
-                return  json(['code' => '1','msg' => '发布成功！','data' => $data]);
+                $this->success('添加成功！');
             }else{
-                return  json(['code' => '2','msg' => '发布失败！','data' => $data]);
+                $this->error('添加失败！');
             }
         }else{
+            $apartemnt  = Db::table('tk_apartment')
+                ->where('status','1')
+                ->field('id,title,content,thumbnail')
+                ->select();
+            $city = Db::table('tk_cate')->where(['pid' => 0])->select();
+            $this->assign('city',$city);
+            $this->assign('apartemnt',$apartemnt);
             return $this->fetch();
         }
 
     }
 
-
-    public function web(){
-        return $this->fetch();
+    //重新生成找室友编码
+    private function genHouseDsn()
+    {
+        $dsn = 'A';
+        $max =$this->max();
+        $s = '';
+        for ($i = 1; $i < 10 - strlen($max); $i++) {
+            $s .= '0';
+        }
+        $max++;
+        $dsn .= $s.$max;
+        return $dsn;
     }
 
+    public function max(){
+        $max = Db::table('tk_houses')->order('id desc')->find();
+        return $max['id'] ? $max['id'] : 0;
+    }
+
+    public function getSchool(){
+        $id = $this->request->param('id',0,'intval');
+        $city = Db::table('tk_cate')
+            ->where(['pid' => $id,'type' => 2])
+            ->order(['id' => 'asc'])
+            ->select();
+        if($city){
+            return  json(['code' => '1','data' => $city]);
+        }else{
+            return  json(['code' => '0','data' => ['']]);
+        }
+    }
+
+    public function getAddress(){
+        $query = $this->request->param('id',22,'intval');
+        $App_id = "QuHxU6ypXzp37Dci84o8";
+        $app_code = "TDu_enlm0QIblRnIl33buw";
+        $url =  "https://autocomplete.geocoder.api.here.com/6.2/suggest.json?query=".$query."app_id=".$App_id."&app_code=".$app_code."&country=AUS";
+        $res = file_get_contents($url);
+        dump($res);
+
+    }
 
     /***
      * 发布状态 1：已发布；2：下线；3待审核；4。审核不通过；5草稿箱
@@ -227,301 +200,239 @@ class House extends Controller{
      * 房源修改
      * */
     public function edit(){
-        $h_id=intval(trim($_GET['h_id']));
+        $id = $this->request->param('id',22,'intval');
         if($_POST){
-            $data=$_POST;
-            $data['h_updatetime']=time();
-            $data['h_config'] =implode(',',array_keys($_POST['h_config']));
-            $img=$_POST['h_img'];
+            $data = $_POST;
+            $bill = $_POST['bill'];
+            $bills = '';
+            foreach($bill as $key => $val){
+                $bills .= $key.',';
+            }
+            $data['bill'] = rtrim($bills,',');
+            $home = $_POST['home'];
+            $homes = '';
+            foreach($home as $key => $val){
+                $homes .= $key.',';
+            }
+            $data['home'] = rtrim($homes,',');
+            $sation = $_POST['sation'];
+            $sations = '';
+            foreach($sation as $key => $val){
+                $sations .= $key.',';
+            }
+            $img=$_POST['images'];
             $h_img='';
             for ($i=0;$i<sizeof($img);$i++){
                 $h_img.=$img[$i].",";
             }
-            $data['h_img']=trim($h_img,',');
-            $data['h_admin'] = session('adminId');
-            $update=Db::table('super_houses')->where(['h_id' => $h_id])->update($data);
-            if($update){
-                return  json(['code' => '1','msg' => '修改成功！','data' => $data]);
+            $data['images'] = rtrim($h_img,',');
+            $data['sation'] = rtrim($sations,',');
+            $data['publish_date'] = date('Y-m-d H:i:s');
+            $data['mdate'] = date('Y-m-d H:i:s');
+            unset($data['file']);
+            $add=Db::table('tk_houses')->where(['id' => $id])->update($data);
+            if($add){
+                $this->success('修改成功！','index');
             }else{
-                return  json(['code' => '2','msg' => '修改失败！','data' => $data]);
+                $this->error('修改失败！','index');
             }
         }else{
-            $houseInfo=Db::table('super_houses')->where(['h_id' => $h_id])->find();
-            $houseInfo['h_imgs']=rtrim($houseInfo['h_img'],',');
-            $houseInfo['h_img']=explode(',',$houseInfo['h_imgs']);
-            $type_list = "";
-            if($houseInfo['h_config']){
-                $type_list = explode(',',trim($houseInfo['h_config'],','));
-            }
-            $this->assign('type_list',$type_list);
-            $this->assign('house',$houseInfo);
-            $city=Db::table('super_city')->where(['p_id' => $houseInfo['h_p_id']])->select();
+            $houseInfo = Db::table('tk_houses')->where(['id' => $id])->find();
+            $all_bill = [
+                [
+                    'bill' => '包水',
+                    'is_checked' => false
+                ],
+                [
+                    'bill' => '包电',
+                    'is_checked' => false
+                ],
+                [
+                    'bill' => '包煤气',
+                    'is_checked' => false
+                ],
+                [
+                    'bill' => '包网',
+                    'is_checked' => false
+                ]
+            ];
+            $houseBill = explode(',',$houseInfo['bill']);
+            foreach ($all_bill as $key => &$val) {
+                if(in_array($val['bill'], $houseBill)) {
+                    $val['is_checked'] = true;
+                }
+            }unset($val);
+            $houseInfo['sub'] = $houseBill;
+
+            $all_set = [
+                [
+                    'set' => '游泳池',
+                    'is_checked' => false
+                ],
+                [
+                    'set' => '健身房',
+                    'is_checked' => false
+                ],
+                [
+                    'set' => '车位',
+                    'is_checked' => false
+                ]
+            ];
+            $houseSet = explode(',',$houseInfo['home']);
+            foreach ($all_set as $key => &$val) {
+                if(in_array($val['set'], $houseSet)) {
+                    $val['is_checked'] = true;
+                }
+            }unset($val);
+            $houseInfo['set'] = $houseSet;
+
+            $all_trans = [
+                [
+                    'trans' => '巴士站',
+                    'is_checked' => false
+                ],
+                [
+                    'trans' => '火车站',
+                    'is_checked' => false
+                ],
+                [
+                    'trans' => '电车站',
+                    'is_checked' => false
+                ],
+                [
+                    'trans' => '免费电车',
+                    'is_checked' => false
+                ]
+            ];
+            $houseTrans= explode(',',$houseInfo['sation']);
+            foreach ($all_trans as $key => &$val) {
+                if(in_array($val['trans'], $houseTrans)) {
+                    $val['is_checked'] = true;
+                }
+            }unset($val);
+            $houseInfo['sub'] = $houseTrans;
+
+            $apartemnt  = Db::table('tk_apartment')
+                ->where('status','1')
+                ->field('id,title,content,thumbnail')
+                ->select();
+            $houseInfo['images1'] = explode(',',$houseInfo['images']);
+            $city = Db::table('tk_cate')->where(['pid' => 0])->select();
+            $this->assign('all_bill',$all_bill);
+            $this->assign('all_trans',$all_trans);
+            $this->assign('all_set',$all_set);
             $this->assign('city',$city);
-            $area=Db::table('super_area')->where(['area_c_id' => $houseInfo['h_c_id']])->select();
-            $this->assign('area',$area);
-            //房屋配置 备选
-            $houseConf=Db::table('super_type')
-                ->where(['type_sort' => 2,'type_isable' => 1])
-                ->order('type_order')
-                ->select();
-            $this->assign('houseConf',$houseConf);
-            //房屋类型 备选
-            $houseType=Db::table('super_type')
-                ->where(['type_sort' => 1,'type_isable' => 1])
-                ->order('type_order')
-                ->select();
-            $this->assign('houseType',$houseType);
-            $provInfo=Db::table('super_province')->select();
-            $this->assign('prov',$provInfo);
+            $this->assign('apartemnt',$apartemnt);
+            $this->assign('house',$houseInfo);
             return $this->fetch();
         }
     }
 
 
-
-
-
-    //更改是否显示的状态
-    public function status(){
-        $h_id = $_GET['h_id'];
-        $change = $_GET['change'];
-        if($h_id && isset($change)){
-            //如果选中状态是true,后台数据将要改为手机 显示
-            if($change){
-                $msg = '显示';
-                $data['h_isable'] = '1';
-                $data['h_admin'] = session('adminId');
-            }else{
-                $msg = '隐藏';
-                $data['h_isable'] = '2';
-                $data['h_istop'] = '2';
-                $data['h_admin'] = session('adminId');
+    public function detail(){
+        $id = $this->request->param('id',22,'intval');
+        $houseInfo = Db::table('tk_houses')->where(['id' => $id])->find();
+        $all_bill = [
+            [
+                'bill' => '包水',
+                'is_checked' => false
+            ],
+            [
+                'bill' => '包电',
+                'is_checked' => false
+            ],
+            [
+                'bill' => '包煤气',
+                'is_checked' => false
+            ],
+            [
+                'bill' => '包网',
+                'is_checked' => false
+            ]
+        ];
+        $houseBill = explode(',',$houseInfo['bill']);
+        foreach ($all_bill as $key => &$val) {
+            if(in_array($val['bill'], $houseBill)) {
+                $val['is_checked'] = true;
             }
-            $changeStatus = Db::table('super_houses')->where(['h_id' => $h_id])->update($data);
-            if($changeStatus){
-                $res['code'] = 1;
-                $res['msg'] = $msg.'成功！';
-            }else{
-                $res['code'] = 0;
-                $res['msg'] = $msg.'失败！';
+        }unset($val);
+        $houseInfo['sub'] = $houseBill;
+
+        $all_set = [
+            [
+                'set' => '游泳池',
+                'is_checked' => false
+            ],
+            [
+                'set' => '健身房',
+                'is_checked' => false
+            ],
+            [
+                'set' => '车位',
+                'is_checked' => false
+            ]
+        ];
+        $houseSet = explode(',',$houseInfo['home']);
+        foreach ($all_set as $key => &$val) {
+            if(in_array($val['set'], $houseSet)) {
+                $val['is_checked'] = true;
             }
-        }else{
-            $res['code'] = 0;
-            $res['msg'] = '这是个意外！';
-        }
-        return $res;
+        }unset($val);
+        $houseInfo['set'] = $houseSet;
+
+        $all_trans = [
+            [
+                'trans' => '巴士站',
+                'is_checked' => false
+            ],
+            [
+                'trans' => '火车站',
+                'is_checked' => false
+            ],
+            [
+                'trans' => '电车站',
+                'is_checked' => false
+            ],
+            [
+                'trans' => '免费电车',
+                'is_checked' => false
+            ]
+        ];
+        $houseTrans= explode(',',$houseInfo['sation']);
+        foreach ($all_trans as $key => &$val) {
+            if(in_array($val['trans'], $houseTrans)) {
+                $val['is_checked'] = true;
+            }
+        }unset($val);
+        $houseInfo['sub'] = $houseTrans;
+
+        $apartemnt  = Db::table('tk_apartment')
+            ->where('status','1')
+            ->field('id,title,content,thumbnail')
+            ->select();
+        $houseInfo['images1'] = explode(',',$houseInfo['images']);
+        $city = Db::table('tk_cate')->where(['pid' => 0])->select();
+        $this->assign('all_bill',$all_bill);
+        $this->assign('all_trans',$all_trans);
+        $this->assign('all_set',$all_set);
+        $this->assign('city',$city);
+        $this->assign('apartemnt',$apartemnt);
+        $this->assign('house',$houseInfo);
+        return $this->fetch();
     }
 
-    //top
-    public function top(){
-        $h_id = $_GET['h_id'];
-        $change = $_GET['change'];
-        if($h_id && isset($change)){
-            //如果选中状态是true,后台数据将要改为手机 显示
-            if($change){
-                $msg = '置顶';
-                $data['h_istop'] = '1';
-                $data['h_admin'] = session('adminId');
-            }else{
-                $msg = '取消置顶';
-                $data['h_istop'] = '2';
-                $data['h_admin'] = session('adminId');
-            }
-            $changeStatus = Db::table('super_houses')->where(['h_id' => $h_id])->update($data);
-            if($changeStatus){
-                $res['code'] = 1;
-                $res['msg'] = $msg.'成功！';
-            }else{
-                $res['code'] = 0;
-                $res['msg'] = $msg.'失败！';
-            }
-        }else{
-            $res['code'] = 0;
-            $res['msg'] = '这是个意外！';
-        }
-        return $res;
-    }
 
-
-
-
-    /*
-     * 删除某一房源
-     * */
     public function del(){
-        $h_id=intval($_GET['h_id']);
-        $delArt=Db::table('super_houses')->where(['h_id' => $h_id])->delete();
-        if($delArt){
-            $this->success('删除房源成功','index');
+        $id = $this->request->param('id',22,'intval');
+        $del = Db::table('tk_houses')
+            ->where(['id' => $id])
+            ->delete();
+        if($del){
+            $this->success('删除成功！','index');
         }else{
-            $this->error('删除房源失败','index');
+            $this->error('删除失败！','index');
         }
     }
-
-
-    public function refresh(){
-        $h_id=intval($_GET['h_id']);
-        $refresh=Db::table('super_houses')->where(['h_id' => $h_id])->update(['h_updatetime' => time()]);
-        $setView=Db::table('super_houses')->where(['h_id' => $h_id])->setInc('h_view');
-        if($refresh && $setView){
-            $this->success('刷新房源成功','index');
-        }else{
-            $this->error('刷新房源失败','index');
-        }
-    }
-
-
-
-    /*
-     * 房源托管列表
-     * */
-    public function seek(){
-        $admin_id=session('adminId');
-        $regin = Db::table('super_city')->field('c_id,c_name')->select();
-        if($regin){
-           $this->assign('regin',$regin);
-        }
-        $this->assign('admin_id',$admin_id);
-        return $this->fetch();
-    }
-
-
-
-
-    public function seekData(){
-        $where =' 1 = 1 ';
-        $city_id=session('ad_c_id');
-        $admin_id=session('adminId');
-        if($admin_id != 1){
-            if(!empty($city_id)){
-                $where .=' and dp_c_id = '.$city_id;
-            }
-        }
-        $case_admin = trim($this->request->param('case_admin'));
-        if(isset($case_admin) && !empty($case_admin)){
-            $where.=" and dp_c_id = ".$case_admin;
-        }
-        $count=Db::table('super_deposit')
-            ->where($where)
-            ->count();
-        $page= $this->request->param('page',1,'intval');
-        $limit=$this->request->param('limit',10,'intval');
-        $design=Db::table('super_deposit')
-            ->limit(($page-1)*$limit,$limit)
-            ->order('dp_addtime desc')
-            ->where($where)
-            ->select();
-        if($design){
-            foreach($design as $key => $val){
-                $design[$key]['dp_area'] = $this->getCityNameViaCid($val['dp_c_id']);
-                $design[$key]['dp_addtime'] = date('Y-m-d H:i:s',$val['dp_addtime']);
-                $design[$key]['dp_updatetime'] = date('Y-m-d H:i:s',$val['dp_updatetime']);
-                $design[$key]['dp_admin'] = $val['dp_admin'] == null? '暂未回访':Db::table('super_admin')->where(['ad_id ' => $val['dp_admin']])->column('ad_realname');
-            }
-        }
-        $res['code'] = 0;
-        $res['msg'] = "";
-        $res['data'] = $design;
-        $res['count'] = $count;
-        return json($res);
-    }
-
-    public function getCityNameViaCid($c_id){
-        $cityName=Db::table('super_city')->where(['c_id' => $c_id])->column('c_name');
-        return $cityName?$cityName[0]:'西安';
-    }
-
-    /*
-     * delseek
-     *
-     * */
-    public function delseek(){
-        $dp_id=intval($_GET['dp_id']);
-        $delArt=Db::table('super_deposit')->where(['dp_id' => $dp_id])->delete();
-        if($delArt){
-            $this->success('删除成功','seek');
-        }else{
-            $this->error('删除失败','seek');
-        }
-    }
-
-
-    /*
-     * editseek
-     * */
-    public function editseek(){
-        $dp_id=intval(trim($_GET['dp_id']));
-        $deposit=Db::table('super_deposit')->where(['dp_id' => $dp_id])->find();
-        $deposit['dp_addtime']=date('Y-m-d H:i:s',$deposit['dp_addtime']);
-        $this->assign('deposit',$deposit);
-        return $this->fetch();
-    }
-
-    /*
-     *
-     * editdept
-     * */
-    public function editdept(){
-        $dp_id=intval(trim($_GET['dp_id']));
-        $data['dp_tips']=$_POST['dp_tips'];
-        $data['dp_updatetime'] = time();
-        $data['dp_admin'] = session('adminId');
-        $update=Db::table('super_deposit')->where(['dp_id' => $dp_id])->update($data);
-        if($update){
-            $this->success('修改成功！');
-        }else{
-            $this->success('修改失败！');
-        }
-    }
-
-
-
-    /*
-     *预约看房
-     **/
-    public function orders(){
-        return $this->fetch();
-    }
-
-    public function orderData(){
-        $where =' 1 = 1';
-        $keywords = trim($this->request->param('keywords'));
-        $case_decotime=trim($this->request->param('case_decotime'));
-        if(isset($keywords) && !empty($keywords)){
-            $where.=" and ( h_name like '%".$keywords."%' or h_b_id like '%".$keywords."%' )";
-        }
-        if(isset($case_decotime) && !empty($case_decotime)){
-            $sdate=strtotime(substr($case_decotime,'0','10')." 00:00:00");
-            $edate=strtotime(substr($case_decotime,'-10')." 23:59:59");
-            $where.=" and ( h_addtime >= ".$sdate." and h_addtime <= ".$edate." ) ";
-        }
-        $count=Db::table('super_house_order')
-            ->where($where)
-            ->count();
-        $page= $this->request->param('page',1,'intval');
-        $limit=$this->request->param('limit',10,'intval');
-        $design=Db::table('super_house_order')
-            ->limit(($page-1)*$limit,$limit)
-            ->where($where)
-            ->order('ho_addtime desc')
-            ->select();
-        if($design){
-            foreach($design as $key => $val){
-                $design[$key]['ho_addtime'] = date('Y-m-d H:i:s',$val['ho_addtime']);
-            }
-        }
-        $res['code'] = 0;
-        $res['msg'] = "";
-        $res['data'] = $design;
-        $res['count'] = $count;
-        return json($res);
-    }
-
-
-    public function addquiz(){
-        return $this->fetch();
-    }
-
 
     //通用缩略图上传接口
     public function upload()
@@ -542,5 +453,4 @@ class House extends Controller{
             return $res;
         }
     }
-
 }

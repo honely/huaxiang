@@ -1096,4 +1096,10 @@ class User extends Controller{
     public function level(){
         return '会员等级';
     }
+
+
+
+    public function index(){
+
+    }
 }
