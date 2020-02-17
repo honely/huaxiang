@@ -104,7 +104,7 @@ class House extends Controller
         header('Access-Control-Allow-Methods:POST');
         header('Access-Control-Allow-Headers:x-requested-with, content-type');
         $data = $this->request->post();
-        if($data){
+        if(!$data){
             $res['code'] = 0;
             $res['msg'] = '缺少提交参数！';
             return json($res);

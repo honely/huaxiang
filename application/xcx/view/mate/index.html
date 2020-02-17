@@ -1,0 +1,176 @@
+{include file="index/header" /}
+<style>
+    .layui-table-cell{
+        height:36px !important;
+        line-height:36px !important;
+        clear: both;
+    }
+</style>
+<div style="margin: 20px;">
+    <span class="layui-breadcrumb" lay-separator=">">
+        <a>找室友管理</a>
+        <a><cite>找室友列表</cite></a>
+    </span>
+</div>
+<div class="layui-tab layui-tab-brief" lay-filter="docDemoTabBrief">
+    <div class="layui-tab-content" style="height: 100px;">
+        <div class="layui-tab-item layui-show">
+            <section class="panel panel-padding" style="padding-top: 10px;padding-left: 10px;">
+                <form class="layui-form layui-form-pane1">
+                    <div class="layui-form-item  demoTable">
+                        <div class="layui-inline">
+                            <div class="layui-input-inline" style="width: 250px;">
+                                <input type="text" name="keywords" id="keywords"  placeholder="请输入房源标题或编号" class="layui-input">
+                            </div>
+                        </div>
+                        <div class="layui-inline">
+                            <div class="layui-input-inline">
+                                <span class="layui-btn" data-type="reload">查询</span>
+                                <a href="<?=url('house/index')?>" class="layui-btn layui-btn-warm">刷新</a>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </section>
+            <section class="panel panel-padding">
+                <table lay-skin="line" class="layui-table" lay-filter="demo" lay-data="{height: 'full-200', cellMinWidth:60, url:'/xcx/mate/indexData/', limit:20,limits:[20,30,50] ,id: 'testReload',page:true}" >
+                    <thead>
+                    <tr>
+                        <th lay-data="{field:'dsn' ,width:140}">帖子编号</th>
+                        <th lay-data="{field:'title',width:150}">标题</th>
+                        <th lay-data="{field:'city',width:100}">城市</th>
+                        <th lay-data="{field:'address',width:100}">地址</th>
+                        <th lay-data="{field:'school',width:80}">区域</th>
+                        <th lay-data="{field:'price',width:60}">租金</th>
+                        <th lay-data="{field:'real_name',width:60}">姓名</th>
+                        <th lay-data="{field:'wchat',width:90}">微信号</th>
+                        <th lay-data="{field:'tel',width:80}">手机号</th>
+                        <th lay-data="{field:'top', templet: '#switch',unresize: true}">置顶</th>
+                        <th lay-data="{field:'tj', templet: '#switchTpl',unresize: true}">推荐</th>
+                        <th lay-data="{field:'status',width:80}">状态</th>
+                        <th lay-data="{field:'cdate',width:100}">添加时间</th>
+                        <th lay-data="{ width:220, toolbar: '#barDemo'}">操作</th>
+                    </tr>
+                    </thead>
+                </table>
+            </section>
+        </div>
+    </div>
+</div>
+<script type="text/html" id="barDemo">
+    <a class="layui-btn layui-btn-xs" lay-event="edit"><i class="layui-icon">&#xe642;</i>编辑</a>
+    <a class="layui-btn layui-btn-xs  layui-btn-warm" lay-event="alert"><i class="layui-icon">&#xe637;</i>详情</a>
+    <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del"><i class="layui-icon">&#xe640;</i>删除</a>
+</script>
+<script>
+    layui.use(['table','laydate','form','element'], function(){
+        var table = layui.table
+            ,form = layui.form
+            ,element = layui.element
+            ,laydate = layui.laydate;
+        laydate.render({
+            elem: '#live_time'
+            ,range: true
+        });
+        var $ = layui.$, active = {
+            reload: function(){
+                var keywords = $('#keywords').val();
+                //执行重载
+                table.reload('testReload', {
+                    url: '/xcx/house/houseData/'
+                    ,page: {
+                        curr: 1 //重新从第 1 页开始
+                    }
+                    ,where: {
+                        keywords: keywords
+                    },
+                    success:function (data) {
+                        console.log(data);
+                    }
+                });
+            }
+
+        };
+        $('.demoTable .layui-btn').on('click', function(){
+            var type = $(this).data('type');
+            active[type] ? active[type].call(this) : '';
+        });
+        table.on('tool(demo)', function(obj){
+            var data = obj.data;
+            var id = data.id;
+            if(obj.event === 'edit'){
+                window.location.href='<?=url("house/edit")?>?id='+id;
+            }else if(obj.event === 'alert'){
+                layer.open({
+                    type: 2,
+                    title: '查看详情',
+                    shadeClose: true,
+                    shade: false,
+                    maxmin: true,
+                    area: ['80%', '80%'],
+                    content: "<?=url('house/detail')?>?id="+id
+                });
+            } else if(obj.event === 'del'){
+                layer.confirm('确定删除该房源？删除后不可恢复！', {
+                    btn : [ '确定', '取消' ]//按钮
+                }, function() {
+                    $.ajax({
+                        'type':"get",
+                        'url':"<?=url('house/del')?>",
+                        'data':{id:id},
+                        'success':function (result) {
+                            if(result.code < 1){
+                                layer.msg(result.msg);
+                            }else {
+                                layer.msg(result.msg);
+                                layer.open({
+                                    title: '信息'
+                                    ,content: result.msg
+                                    ,yes: function(index){
+                                        layer.close(index);
+                                        window.location.href='<?=url("house/index")?>';
+                                    }
+                                    ,cancel:function (index) {
+                                        layer.close(index);
+                                        window.location.href='<?=url("house/index")?>';
+                                    }
+                                });
+                            }
+                        },
+                        'error':function () {
+                            console.log('error');
+                        }
+                    })
+                },function(){
+                    layer.msg('您已取消该操作！',{
+                        time: 2000
+                    });
+                });
+            }
+        });
+    });
+    function addArt() {
+        window.location.href='<?=url("house/add")?>';
+    }    function addArt1() {
+        window.location.href='<?=url("house/add1")?>';
+    }
+    function switchOrder(id) {
+        layui.use(['table','jquery'], function(){
+            var table = layui.table;
+            table.reload('testReload', {
+                url: '/admin/order/orderData/'
+                ,page: {
+                    curr: 1 //重新从第 1 页开始
+                }
+                ,where: {
+                    step: id,
+                },
+                success:function (data) {
+                    console.log(data);
+                }
+            });
+        })
+    }
+
+</script>
+{include file="index/footer" /}

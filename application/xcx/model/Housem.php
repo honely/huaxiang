@@ -34,6 +34,7 @@ class Housem extends Model
 
 
     public function addHouse($data){
+        $data['dsn'] = $this->genHouseDsn();
         $addHouse = Db::table('tk_houses')->insertGetId($data);
         return $addHouse ? $addHouse :  0;
     }
@@ -58,5 +59,31 @@ class Housem extends Model
             ->where(['id' => $id])
             ->find();
         return $house ? $house : null;
+    }
+
+    //生成房源编码
+    public function genHouseDsn()
+    {
+        $dsn = 'H';
+        $max =$this->getMax();
+        $s = '';
+        for ($i = 1; $i < 10 - strlen($max); $i++) {
+            $s .= '0';
+        }
+        $max++;
+        $dsn .= $s.$max;
+        return $dsn;
+    }
+
+    public function getMax(){
+        $max = Db::table('tk_houses')->order('id desc')->find();
+        return $max['id'] ? $max['id'] : 0;
+    }
+
+    public function houseCount($where){
+        $count = Db::table('tk_houses')
+            ->where($where)
+            ->count();
+        return $count ? $count : 0 ;
     }
 }
