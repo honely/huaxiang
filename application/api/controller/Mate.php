@@ -123,7 +123,7 @@ class Mate extends Controller
         //宠物
         //楼宇设施
         $order = 'publish_date desc';
-        $field = 'id,title,ager,school,habit';
+        $field = 'id,title,ager,sex,school,habit';
         $mateM = new Matem();
         $mate= $mateM->readData($where,$order,'12','0',$field);
         if($mate){
