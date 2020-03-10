@@ -32,7 +32,7 @@ class Cate extends Controller
             return json($res);
         }else{
             $res['code'] =2;
-            $res['msg'] ='读取失败';
+            $res['msg'] ='数据为空';
             return json($res);
         }
     }

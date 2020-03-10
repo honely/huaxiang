@@ -22,7 +22,7 @@ class Loop extends Controller
             return json($res);
         }
         $res['code'] = 0;
-        $res['msg'] = '读取失败！';
+        $res['msg'] = '数据为空！';
         $res['data'] = $mate;
         return json($res);
     }

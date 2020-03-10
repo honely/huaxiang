@@ -80,7 +80,7 @@ class Mate extends Controller
             return json($res);
         }
         $res['code'] = 0;
-        $res['msg'] = '读取失败！';
+        $res['msg'] = '数据为空！';
         return json($res);
     }
 
@@ -104,6 +104,10 @@ class Mate extends Controller
         $area = trim($this->request->param('area'));
         if(isset($area) && !empty($area) && $area){
             $where.=" and area = '".$area."'";
+        }
+        $keys = trim($this->request->param('keys'));
+        if(isset($keys) && !empty($keys) && $keys){
+            $where.=" and ( title like '%".$keys."%' or dsn like '%".$keys."%'  or school like '%".$keys."%' or city like '%".$keys."%')";
         }
         //学校
         $school = trim($this->request->param('school'));
@@ -133,7 +137,7 @@ class Mate extends Controller
             return json($res);
         }
         $res['code'] = 0;
-        $res['msg'] = '读取失败！';
+        $res['msg'] = '数据为空！';
         $res['data'] = $mate;
         return json($res);
     }
