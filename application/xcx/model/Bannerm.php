@@ -65,11 +65,12 @@ class Bannerm extends Model
      * @throws \think\exception\DbException
      * Created by Dangmengmeng At 2020/1/17 9:59
      */
-    public function readData($where,$order,$limit,$page){
+    public function readData($where,$order,$limit,$page,$field){
         $result = Db::table('xcx_banner')
             ->where($where)
             ->limit($limit,$page)
             ->order($order)
+            ->field($field)
             ->select();
         return $result ? $result :  null;
     }
