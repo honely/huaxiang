@@ -27,6 +27,10 @@ class House extends Controller
         if(isset($area) && !empty($area) && $area){
             $where.=" and area = '".$area."'";
         }
+        $keys = trim($this->request->param('keys'));
+        if(isset($keys) && !empty($keys) && $keys){
+            $where.=" and ( title like '%".$keys."%' or dsn like '%".$keys."%'  or address like '%".$keys."%')";
+        }
         //学校
         $school = trim($this->request->param('school'));
         if(isset($school) && !empty($school) && $school){
@@ -37,11 +41,11 @@ class House extends Controller
         //租房价格最大值 最小值
         $maxprice = trim($this->request->param('maxprice'));
         if(isset($maxprice) && !empty($maxprice) && $maxprice){
-            $where.=" and maxprice = ".$maxprice;
+            $where.=" and price <= ".$maxprice;
         }
         $mimprice = trim($this->request->param('minprice'));
         if(isset($mimprice) && !empty($mimprice) && $mimprice){
-            $where.=" and mimprice = ".$mimprice;
+            $where.=" and price >= ".$mimprice;
         }
         //户型
         $house_room = trim($this->request->param('house_room'));

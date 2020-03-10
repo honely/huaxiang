@@ -34,48 +34,16 @@ class Banner extends Controller{
     }
 
     public function baData(){
-        $ad_role=intval(session('ad_role'));
-        $where =' 1 = 1 and case_sort = 2 ';
-        $case_decotime=trim($this->request->param('case_decotime'));
-        if(isset($case_p_id) && !empty($case_p_id) && $case_p_id){
-            $where.=" and case_p_id = ".$case_p_id;
-        }
-        if(isset($bu_c_id) && !empty($bu_c_id) && $case_p_id){
-            $where.=" and case_c_id = ".$bu_c_id;
-        }
-        if(isset($branch) && !empty($branch) && $branch){
-            $where.=" and case_b_id = ".$branch;
-        }
-        if(isset($case_admin) && !empty($case_admin)){
-            $where.=" and case_admin = ".$case_admin;
-        }
-        if(isset($case_decotime) && !empty($case_decotime)){
-            $sdate=strtotime(substr($case_decotime,'0','10')." 00:00:00");
-            $edate=strtotime(substr($case_decotime,'-10')." 23:59:59");
-            $where.=" and ( case_decotime >= ".$sdate." and case_decotime <= ".$edate." ) ";
-        }
-        $count=Db::table('super_case')
-            ->join('super_province','super_province.p_id = super_case.case_p_id')
-            ->join('super_city','super_city.c_id = super_case.case_c_id')
-            ->join('super_branch','super_branch.b_id = super_case.case_b_id')
-            ->join('super_admin','super_admin.ad_id = super_case.case_admin')
+        $where ='b_status = 1 ';
+        $count=Db::table('xcx_banner')
             ->where($where)
             ->count();
         $page= $this->request->param('page',1,'intval');
         $limit=$this->request->param('limit',10,'intval');
-        $example=Db::table('super_case')
-            ->join('super_province','super_province.p_id = super_case.case_p_id')
-            ->join('super_city','super_city.c_id = super_case.case_c_id')
-            ->join('super_branch','super_branch.b_id = super_case.case_b_id')
-            ->join('super_admin','super_admin.ad_id = super_case.case_admin')
-            ->where($where)
+        $example=Db::table('xcx_banner')->where($where)
             ->limit(($page-1)*$limit,$limit)
-            ->order('case_istop ASC ,case_view desc')
+            ->order('b_update_time desc')
             ->select();
-        foreach($example as $k => $v ){
-            $example[$k]['case_updatetime'] = date('Y-m-d H:i:s',$v['case_updatetime']);
-            $example[$k]['c_name'] =$v['p_name']."-".$v['c_name']."-".$v['b_name'];
-        }
         $res['code'] = 0;
         $res['msg'] = "";
         $res['data'] = $example;
@@ -91,18 +59,18 @@ class Banner extends Controller{
     public function status(){
         $ba_id = intval(trim($_GET['ba_id']));
         $change = intval(trim($_GET['change']));
+        dump($ba_id);
+        dump($change);
         if($ba_id && isset($change)){
             //如果选中状态是true,后台数据将要改为手机 显示
             if($change){
                 $msg = '显示';
-                $data['ba_isable'] = '1';
-                $data['ba_admin'] = session('adminId');
+                $data['b_status'] = '1';
             }else{
                 $msg = '隐藏';
-                $data['ba_isable'] = '2';
-                $data['ba_admin'] = session('adminId');
+                $data['b_status'] = '2';
             }
-            $changeStatus = Db::table('super_banner')->where(['ba_id' => $ba_id])->update($data);
+            $changeStatus = Db::table('xcx_banner')->where(['b_id' => $ba_id])->update($data);
             if($changeStatus){
                 $res['code'] = 1;
                 $res['msg'] = $msg.'成功！';
@@ -124,7 +92,7 @@ class Banner extends Controller{
         $ba_id=intval(trim($_POST['ba_id']));
         $ba_order=intval(trim($_POST['value']));
         if(!empty($ba_order)){
-            $reOrder=Db::table('super_banner')->where(['ba_id' => $ba_id])->update(['ba_order' => $ba_order]);
+            $reOrder=Db::table('xcx_banner')->where(['b_id' => $ba_id])->update(['b_order' => $ba_order]);
             if($reOrder){
                 $this->success('修改排序成功！');
             }else{
@@ -146,68 +114,49 @@ class Banner extends Controller{
 
     public function addBanner(){
         $adminId=intval(session('adminId'));
-        $ad_role=intval(session('ad_role'));
         if($_POST){
-            $stime=strtotime(date('Y-m-d 00:00:00'));
-            $etime=strtotime(date('Y-m-d 23:59:59'));
-            $buNum=Db::table('super_banner')->where('ba_createtime','between',[$stime,$etime])->count();
-            //生成用户编号；
-            $data['ba_bid'] = date('Ymd').sprintf("%04d", $buNum+1);
-            $data['ba_title']=$_POST['ba_title'];
-            $data['ba_alt']=$_POST['ba_alt'];
-            $data['ba_img']=$_POST['ba_img'];
-            $data['ba_type']=1;
-            $data['ba_order']=$_POST['ba_order'];
-            $data['ba_isable']=$_POST['ba_isable'];
-            $data['ba_url']=$_POST['ba_url'];
-            $data['ba_admin'] = $adminId;
-            $data['ba_createtime']=time();
-            $addBan=Db::table('super_banner')->insert($data);
+            $data['b_title']=$_POST['b_title'];
+            $data['b_cover']=$_POST['b_cover'];
+            $data['b_url']=$_POST['b_url'];
+            $data['b_add_time']= date('Y-m-d H:i:s');
+            $data['b_update_time']= date('Y-m-d H:i:s');
+            $data['b_order']=$_POST['b_order'];
+            $data['b_status']=1;
+            $data['b_admin'] = $adminId;
+            $addBan=Db::table('xcx_banner')->insert($data);
             if($addBan){
-                $this->success('添加banner成功！','banner');
+                $this->success('添加banner成功！','index');
             }else{
-                $this->error('添加banner失败!','banner');
+                $this->error('添加banner失败!','index');
             }
         }else{
-            if($ad_role == 1 ){// 超级管理员
-                $provInfo=Db::table('super_province')->select();
-                $this->assign('prov',$provInfo);
-            }else{
-                $adminInfo=Db::table('super_admin')
-                    ->where(['ad_id' => $adminId])
-                    ->find();
-                $this->assign('admin',$adminInfo);
-            }
-            $this->assign('ad_role',$ad_role);
             return $this->fetch();
         }
     }
 
     public function editBanner(){
         $adminId=intval(session('adminId'));
-        $ad_role=intval(session('ad_role'));
-        $ba_id=$_GET['ba_id'];
+        $ba_id=$_GET['b_id'];
         if($_POST){
-            $data['ba_title']=$_POST['ba_title'];
-            $data['ba_alt']=$_POST['ba_alt'];
-            $data['ba_img']=$_POST['ba_img'];
-            $data['ba_order']=$_POST['ba_order'];
-            $data['ba_isable']=$_POST['ba_isable'];
-            $data['ba_url']=$_POST['ba_url'];
-            $data['ba_createtime']=time();
-            $data['ba_admin'] = $adminId;
-            $update=Db::table('super_banner')->where(['ba_id'=> $ba_id])->update($data);
+            $data['b_title']=$_POST['b_title'];
+            $data['b_cover']=$_POST['b_cover'];
+            $data['b_url']=$_POST['b_url'];
+            $data['b_add_time']= date('Y-m-d H:i:s');
+            $data['b_update_time']= date('Y-m-d H:i:s');
+            $data['b_order']=$_POST['b_order'];
+            $data['b_status']=1;
+            $data['b_admin'] = $adminId;
+            $update=Db::table('xcx_banner')->where(['b_id'=> $ba_id])->update($data);
             if($update){
-                $this->success('修改banner成功！','banner');
+                $this->success('修改banner成功！','index');
             }else{
-                $this->error('您未做任何修改！','banner');
+                $this->error('您未做任何修改！','index');
             }
         }else{
-            $banInfo=Db::table('super_banner')
-                ->where(['ba_id'=> $ba_id])
+            $banInfo=Db::table('xcx_banner')
+                ->where(['b_id'=> $ba_id])
                 ->find();
             $this->assign('ban',$banInfo);
-            $this->assign('ad_role',$ad_role);
             return $this->fetch();
         }
     }
@@ -224,19 +173,22 @@ class Banner extends Controller{
     }
 
 
-    //banner图片上传
-    public function upload(){
-        $file = request()->file('file');
-        $info = $file->move(ROOT_PATH . 'public' . DS . 'uploads/banner');
-        if($info){
-            $path_filename =  $info->getFilename();
-            $path_date=date("Ymd",time());
-            $path="/uploads/banner/".$path_date."/".$path_filename;
-            // 成功上传后 返回上传信息
-            return json(array('state'=>1,'path'=>$path,'msg'=> '图片上传成功！'));
-        }else{
-            // 上传失败返回错误信息
-            return json(array('state'=>0,'msg'=>'上传失败,请重新上传！'));
+    public function upload()
+    {
+        $path_date=date("Ym",time());
+        if($this->request->isPost()){
+            $res['code']=1;
+            $res['msg'] = '上传成功！';
+            $file = $this->request->file('file');
+            $info = $file->move(ROOT_PATH . 'public' . DS . 'uploads/banner/'.$path_date.'/');
+            if($info){
+                $res['name'] = $info->getFilename();
+                $res['filepath'] = 'uploads/banner/'.$path_date.'/'.$info->getSaveName();
+            }else{
+                $res['code'] = 0;
+                $res['msg'] = '上传失败！'.$file->getError();
+            }
+            return $res;
         }
     }
 

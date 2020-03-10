@@ -33,13 +33,13 @@
                             <div class="layui-form-item">
                                 <label class="layui-form-label"><span style="color: red;">*</span>banner主题</label>
                                 <div class="layui-input-block">
-                                    <input type="text" name="ba_title" lay-verify="required|title" placeholder="请输入banner主题" autocomplete="off" class="layui-input">
+                                    <input type="text" name="b_title" lay-verify="required|title" placeholder="请输入banner主题" autocomplete="off" class="layui-input">
                                 </div>
                             </div>
                             <div class="layui-form-item">
                                 <label class="layui-form-label"><span style="color: red;">*</span>基础信息</label>
                                 <div class="layui-input-inline">
-                                    <select name="ba_order" lay-verify="required" lay-filter="aihao">
+                                    <select name="b_order" lay-verify="required" lay-filter="aihao">
                                         <option value="">请选择排列顺序</option>
                                         <option value="1">1</option>
                                         <option value="2">2</option>
@@ -54,7 +54,7 @@
                                 <label class="layui-form-label"><span style="color: red;">*</span>banner图片</label>
                                 <div class="layui-upload-drag" id="uploadLogo" style="display:inline-block;">
                                     <image id="logoPre">
-                                        <input type="hidden" lay-verify="imgReg" name="ba_img" id="ba_img" value=""/>
+                                        <input type="hidden" lay-verify="imgReg" name="b_cover" id="b_cover" value=""/>
                                     </image>
                                     <div id="display">
                                         <i class="layui-icon"></i>
@@ -63,22 +63,19 @@
                                 </div>
                                 <div class="one">
                                     <div class="layui-form-mid layui-word-aux" style="margin-left: 39px; ">图片要求，最大800KB，支持JPG/JEPG/PNG格式</div>
-                                    <div class="layui-form-item">
-                                        <textarea name="ba_alt" style="resize:none;width: 1315px;height: 115px; margin-left:39px;"  placeholder="图片描述，建议不超过15个字（等同图片ALT属性）" class="layui-textarea"></textarea>
-                                    </div>
                                 </div>
                             </div>
                             <div class="layui-form-item">
                                 <label class="layui-form-label">跳转链接</label>
                                 <div class="layui-input-block">
-                                    <input type="text" name="ba_url"  placeholder="请输入banner图片跳转链接" autocomplete="off" class="layui-input">
+                                    <input type="text" name="b_url"  placeholder="请输入banner图片跳转链接" autocomplete="off" class="layui-input">
                                 </div>
                             </div>
                             <div class="layui-form-item" pane>
                                 <label class="layui-form-label">是否显示</label>
                                 <div class="layui-input-block">
-                                    <input type="radio" name="ba_isable" value="1" title="是" checked>
-                                    <input type="radio" name="ba_isable" value="2" title="否">
+                                    <input type="radio" name="b_status" value="1" title="是" checked>
+                                    <input type="radio" name="b_status" value="2" title="否">
                                 </div>
                             </div>
                             <div class="layui-form-item">
@@ -112,61 +109,22 @@
                 }
             }
         });
-        form.on('select(bu_p_id)', function(data){
-            var p_id=data.value;
-            $.ajax({
-                type: 'POST',
-                url: "<?=url('user/getCityName')?>?p_id="+p_id,
-                data: {p_id:p_id},
-                dataType:  'json',
-                success: function(data){
-                    var code=data.data;
-                    $("#bu_c_id").html("<option value=''>请选择城市</option>");
-                    $.each(code, function(i, val) {
-                        var option1 = $("<option>").val(val.c_id).text(val.c_name);
-                        $("#bu_c_id").append(option1);
-                        form.render('select');
-                    });
-                    $("#bu_c_id").get(0).selectedIndex=0;
-                }
-            });
-        });
-        //调用该城市下面的分站
-        form.on('select(bu_c_id)', function(data){
-            var c_id=data.value;
-            $.ajax({
-                type: 'POST',
-                url: "<?=url('admin/getBranchName')?>?c_id="+c_id,
-                data: {c_id:c_id},
-                dataType:  'json',
-                success: function(data){
-                    var code=data.data;
-                    $("#branch").html("<option value=''>请选择站点</option>");
-                    $.each(code, function(i, val) {
-                        var option1 = $("<option>").val(val.b_id).text(val.b_name);
-                        $("#branch").append(option1);
-                        form.render('select');
-                    });
-                    $("#branch").get(0).selectedIndex=0;
-                }
-            });
-        });
         upload.render({
             elem: '#uploadLogo'
-            ,url: '{:url("banner/upload")}'
-            ,size:800 //限制文件大小，单位 KB
-            ,ext: 'jpg|png|gif'
-            ,accept: 'images' //限制文件大小，单位 KB
-            ,before: function(input){
-                loading = layer.load(2, {
-                    shade: [0.2,'#000']
-                });
-            }
+            ,url: '{:url("xcx/banner/upload")}'
+            ,exts: 'PNG|JPG'
+            ,size: '30000'
             ,done: function(res){
-                $('#ba_img').val(res.path);
-            }
-            ,error: function(res){
-                layer.msg(res.msg, {icon: 2, time: 1000});
+                layer.close(layer.msg());//关闭上传提示窗口
+                if(res.status == 0) {
+                    return layer.msg(res.message);
+                }
+                $('#uploadLogo').removeClass('layui-upload-drag');
+                $('#logoPre').css('width','216px');
+                $('#logoPre').css('height','150px');
+                $('#logoPre').attr('src',"__PUBLIC__/"+res.filepath);
+                console.log(res);
+                $('#b_cover').val('' +res.filepath + '');
             }
         });
     });

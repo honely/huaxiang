@@ -1,8 +1,8 @@
 {include file="index/header" /}
 <div style="margin: 20px;">
     <span class="layui-breadcrumb" lay-separator=">">
-        <a>广告管理</a>
-        <a><cite>banner</cite></a>
+        <a>广告管理1</a>
+        <a><cite>banner1</cite></a>
     </span>
     <div style="float:right;">
         <button class="layui-btn layui-btn-primary layui-btn-sm"  onclick="addBanner()"><i class="layui-icon"></i>添加banner</button>
@@ -20,7 +20,7 @@
             <div class="layui-inline">
                 <div class="layui-input-inline">
                     <span class="layui-btn" data-type="reload">查询</span>
-                    <a href="<?=url('banner/banner')?>" class="layui-btn layui-btn-warm">刷新</a>
+                    <a href="<?=url('banner/index')?>" class="layui-btn layui-btn-warm">刷新</a>
                 </div>
             </div>
         </div>
@@ -34,7 +34,7 @@
     <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del"><i class="layui-icon">&#xe640;</i>删除</a>
 </script>
 <script type="text/html" id="switchTpl">
-    <input type="checkbox" name="sex" lay-skin="switch" value="{{d.ba_id}}" lay-text="是|否" lay-filter="sexDemo" {{ d.ba_isable == 1 ? 'checked' : '' }}>
+    <input type="checkbox" name="sex" lay-skin="switch" value="{{d.b_id}}" lay-text="是|否" lay-filter="sexDemo" {{ d.b_status == 1 ? 'checked' : '' }}>
 </script>
 <script>
     layui.use(['table','laydate','form'], function(){
@@ -46,13 +46,13 @@
             ,url:'/xcx/banner/baData/'
             ,height: 'full-200'
             ,cols: [[
-                {field:'ba_bid', sort: true, title:'广告编号'}
-                ,{field:'ba_title',title: '广告名称'}
-                ,{field:'ba_img', title: '广告封面',templet:'<div><img src="__PUBLIC__{{ d.ba_img}}"></div>'}
-                ,{field:'ba_order',title: '广告排序',edit:'text', sort: true}
-                ,{field:'ba_createtime', title: '操作时间'}
-                ,{field:'ad_realname',title: '操作人'}
-                ,{field:'ba_isable',templet: '#switchTpl',sort:true, unresize: true, title:'是否显示' }
+                {field:'b_id', sort: true, title:'ID'}
+                ,{field:'b_title',title: '广告名称'}
+                ,{field:'b_cover', title: '广告封面',templet:'<div><img src="__PUBLIC__/{{ d.b_cover}}"></div>'}
+                ,{field:'b_order',title: '广告排序',edit:'text', sort: true}
+                ,{field:'b_add_time', title: '操作时间'}
+                ,{field:'b_admin',title: '操作人'}
+                ,{field:'b_status',templet: '#switchTpl',sort:true, unresize: true, title:'是否显示' }
                 ,{align:'center',toolbar: '#barDemo',title:'操作' }
             ]]
             ,limit:15
@@ -65,7 +65,7 @@
         // //修改排序
         table.on('edit(demo)', function(obj){
             var value = obj.value;
-            var ba_id = obj.data.ba_id;
+            var ba_id = obj.data.b_id;
             $.ajax({
                 type: 'POST',
                 url: "<?=url('banner/reOrder')?>",
@@ -80,10 +80,10 @@
         table.on('tool(demo)', function(obj){
             var data = obj.data;
             if(obj.event === 'edit'){
-                var ba_id = data.ba_id;
+                var ba_id = data.b_id;
                 window.location.href='<?=url("banner/editBanner")?>?ba_id='+ ba_id ;
             } else if(obj.event === 'del'){
-                var ba_id = data.ba_id;
+                var ba_id = data.b_id;
                 layer.confirm('确定删除该图片？删除后不可恢复！', {
                     btn : [ '确定', '取消' ]//按钮
                 }, function() {
@@ -101,11 +101,11 @@
                                     ,content: result.msg
                                     ,yes: function(index){
                                         layer.close(index);
-                                        window.location.href='<?=url("banner/banner")?>';
+                                        window.location.href='<?=url("banner/index")?>';
                                     }
                                     ,cancel:function (index) {
                                         layer.close(index);
-                                        window.location.href='<?=url("banner/banner")?>';
+                                        window.location.href='<?=url("banner/index")?>';
                                     }
                                 });
                             }
@@ -124,6 +124,7 @@
         //监听是否开启操作
         form.on('switch(sexDemo)', function(obj){
             var id = this.value;
+            console.log(id);
             //如果选中状态是true,后台数据将要改为显示
             var change = obj.elem.checked;
             if(change){
@@ -136,6 +137,7 @@
                 url: "<?=url('banner/status')?>?ba_id="+id+ "&change="+change,
                 dataType:  'json',
                 success: function(data){
+                    console.log(data);
                     layer.msg(data.msg);
                 }
             });

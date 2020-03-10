@@ -1,25 +1,19 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: Dang Meng
- * Date: 2019/1/21
- * Time: 11:47
- */
 namespace app\api\controller;
-use app\xcx\model\Bannerm;
+use app\xcx\model\Loops;
 use think\Controller;
 
-class Banner extends Controller{
+class Loop extends Controller
+{
 
-
-    public function getBan(){
+    public function getMsg(){
         header("Access-Control-Allow-Origin:*");
         header('Access-Control-Allow-Methods:POST');
         header('Access-Control-Allow-Headers:x-requested-with, content-type');
-        $where = 'b_status = 1';
-        $order = 'b_update_time desc';
-        $field = 'b_id,b_title,b_cover';
-        $mateM = new Bannerm();
+        $where = '1 = 1';
+        $order = 'lm_add_time desc';
+        $field = 'lm_id,lm_title';
+        $mateM = new Loops();
         $mate= $mateM->readData($where,$order,'12','0',$field);
         if($mate){
             $res['code'] = 1;
@@ -32,4 +26,5 @@ class Banner extends Controller{
         $res['data'] = $mate;
         return json($res);
     }
+
 }
