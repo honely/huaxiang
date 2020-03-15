@@ -139,11 +139,11 @@ defaultOptions.exporting = {
 					});
 				}
 			}
-			// Enable this block to add "View SVG" to the dropdown menu
+			// Enable this block to add "Views SVG" to the dropdown menu
 			/*
 			,{
 
-				text: 'View SVG',
+				text: 'Views SVG',
 				onclick: function () {
 					var svg = this.getSVG()
 						.replace(/</g, '\n&lt;')

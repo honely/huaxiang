@@ -28,7 +28,7 @@
 class PHPExcel_Worksheet_SheetView
 {
 
-    /* Sheet View types */
+    /* Sheet Views types */
     const SHEETVIEW_NORMAL             = 'normal';
     const SHEETVIEW_PAGE_LAYOUT        = 'pageLayout';
     const SHEETVIEW_PAGE_BREAK_PREVIEW = 'pageBreakPreview';
@@ -58,7 +58,7 @@ class PHPExcel_Worksheet_SheetView
     private $zoomScaleNormal = 100;
 
     /**
-     * View
+     * Views
      *
      * Valid values range from 10 to 400.
      *
@@ -134,7 +134,7 @@ class PHPExcel_Worksheet_SheetView
     }
 
     /**
-     * Get View
+     * Get Views
      *
      * @return string
      */
@@ -144,7 +144,7 @@ class PHPExcel_Worksheet_SheetView
     }
 
     /**
-     * Set View
+     * Set Views
      *
      * Valid values are
      *        'normal'            self::SHEETVIEW_NORMAL

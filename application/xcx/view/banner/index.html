@@ -81,7 +81,7 @@
             var data = obj.data;
             if(obj.event === 'edit'){
                 var ba_id = data.b_id;
-                window.location.href='<?=url("banner/editBanner")?>?ba_id='+ ba_id ;
+                window.location.href='<?=url("banner/editBanner")?>?b_id='+ ba_id ;
             } else if(obj.event === 'del'){
                 var ba_id = data.b_id;
                 layer.confirm('确定删除该图片？删除后不可恢复！', {
@@ -90,7 +90,7 @@
                     $.ajax({
                         'type':"get",
                         'url':"<?=url('banner/delBanner')?>",
-                        'data':{ba_id:ba_id},
+                        'data':{b_id:ba_id},
                         'success':function (result) {
                             if(result.code < 1){
                                 layer.msg(result.msg);

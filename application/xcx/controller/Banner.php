@@ -59,8 +59,6 @@ class Banner extends Controller{
     public function status(){
         $ba_id = intval(trim($_GET['ba_id']));
         $change = intval(trim($_GET['change']));
-        dump($ba_id);
-        dump($change);
         if($ba_id && isset($change)){
             //如果选中状态是true,后台数据将要改为手机 显示
             if($change){
@@ -163,8 +161,8 @@ class Banner extends Controller{
 
     //删除banner图；
     public function delBanner(){
-        $ba_id=intval(trim($_GET['ba_id']));
-        $delBan=Db::table('super_banner')->where(['ba_id'=>$ba_id])->delete();
+        $ba_id=intval(trim($_GET['b_id']));
+        $delBan=Db::table('xcx_banner')->where(['b_id'=>$ba_id])->delete();
         if($delBan){
             $this->success('删除成功！','banner');
         }else{

@@ -27,7 +27,7 @@ class Banner extends Controller{
             $res['data'] = $mate;
             return json($res);
         }
-        $res['code'] = 0;
+        $res['code'] = 1;
         $res['msg'] = '数据为空！';
         $res['data'] = $mate;
         return json($res);

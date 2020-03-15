@@ -94,7 +94,7 @@ class House extends Controller
             $res['data'] = $house;
             return json($res);
         }
-        $res['code'] = 0;
+        $res['code'] = 1;
         $res['msg'] = '数据为空！';
         $res['data'] = $house;
         return json($res);
@@ -214,5 +214,27 @@ class House extends Controller
 
 
 
-
+    /***
+     * 网站端房源图片上传，通用这个一个接口
+     * @return \think\response\Json
+     * Dangmengmeng 2019年12月5日09:42:24
+     */
+    public function upload()
+    {
+        header("Access-Control-Allow-Origin:*");
+        header('Access-Control-Allow-Methods:POST');
+        header('Access-Control-Allow-Headers:x-requested-with, content-type');
+        $path_date=date("Ym",time());
+        $file = $_FILES['file']['name'];
+        if($file){
+            $file = $this->request->file('file');
+            $info = $file->move(ROOT_PATH . 'public' . DS . 'uploads/house/'.$path_date.'/');
+            if($file){
+                $path = 'uploads/house/'.$path_date.'/'.$info->getSaveName();
+                return json(array('code'=>1,'path'=>$path,'msg'=> '图片上传成功！'));
+            }else{
+                return json(array('code'=>0,'path'=>'','msg'=> '图片上传失败！'));
+            }
+        }
+    }
 }

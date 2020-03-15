@@ -1,0 +1,112 @@
+{include file="index/header" /}
+<div class="layui-body">
+    <div style="margin: 10px">
+        <div style="padding: 15px;">
+            <form class="layui-form" id="logForm">
+                <div class="layui-form-item">
+                    <label class="layui-form-label">客户预算</label>
+                    <div class="layui-input-block">
+                        <input type="text" value="{$help.h_price_min|default=''}" readonly class="layui-input">
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">房型</label>
+                    <div class="layui-input-block">
+                        <input type="text" value="{$help.h_house_type|default=''}" readonly class="layui-input">
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">户型</label>
+                    <div class="layui-input-block">
+                        <input type="text" value="{$help.h_room_type|default=''}" readonly class="layui-input">
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">租房方式</label>
+                    <div class="layui-input-block">
+                        <input type="text" value="{$help.h_house_style|default=''}" readonly class="layui-input">
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">租房区域</label>
+                    <div class="layui-input-block">
+                        <input type="text" value="{$help.h_regin|default=''}" readonly class="layui-input">
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">租房需求</label>
+                    <div class="layui-input-block">
+                        <input type="text" value="{$help.h_need|default=''}" readonly class="layui-input">
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">提交时间</label>
+                    <div class="layui-input-block">
+                        <input type="text" value="{$help.h_addtime|default=''}" readonly class="layui-input">
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">是否接机</label>
+                    <div class="layui-input-block">
+                        <input type="text" value="{$help.h_air|default=''}" readonly class="layui-input">
+                    </div>
+                </div>
+                <div class="layui-form-item layui-form-text">
+                    <label class="layui-form-label">回访备注</label>
+                    <div class="layui-input-block">
+                        <textarea placeholder="请输入回访备注" name="h_review" class="layui-textarea">{$help.h_review|default=''}</textarea>
+                        <input type="hidden" name="h_id" value="{$help.h_id}"/>
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <div class="layui-input-block">
+                        <span class="layui-btn" id="saveInfo">
+                            保存
+                            </span>
+                        <span class="layui-btn layui-btn-primary" onclick="closeAlls()">关闭</span>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<script>
+    layui.use(['form', 'jquery','upload','laydate'], function(){
+        var form = layui.form
+            ,upload = layui.upload
+            ,laydate = layui.laydate
+            ,layer = layui.layer
+            ,$ = layui.jquery;
+        laydate.render({
+            elem: '#cl_date'
+            ,type: 'date'
+            ,trigger: 'click'
+        });
+    });
+    function closeAlls(){
+        var index = parent.layer.getFrameIndex(window.name); //获取窗口索引
+        parent.layer.close(index);
+    }
+    $('#saveInfo').click(function () {
+        $.ajax({
+            type:'post',
+            url:'/xcx/help/review',
+            data:$("#logForm").serialize(),
+            success:function (data) {
+                if(data.code == 1){
+                    var index = parent.layer.getFrameIndex(window.name); //获取窗口索引
+                    parent.layer.close(index);
+                    parent.location.reload();
+                }else{
+                    var index = parent.layer.getFrameIndex(window.name); //获取窗口索引
+                    parent.layer.close(index);
+                    parent.location.reload();
+                }
+            },
+            error:function (data) {
+                console.log(data)
+            }
+        })
+    });
+</script>
+{include file="index/footer" /}
