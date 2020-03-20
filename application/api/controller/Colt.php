@@ -88,14 +88,11 @@ class Colt extends Controller
         header("Access-Control-Allow-Origin:*");
         header('Access-Control-Allow-Methods:POST');
         header('Access-Control-Allow-Headers:x-requested-with, content-type');
-        $uId = intval(trim($this->request->param('uid')));
+        $uId = intval(trim($this->request->param('uid','1')));
         $type = intval(trim($this->request->param('type',1)));
         $page = intval(trim($this->request->param('page',0)));
         $limit = intval(trim($this->request->param('limit',10)));
-        $where = [
-            'cl_user_id' => $uId,
-            'cl_type' => $type,
-        ];
+        $where = 'cl_user_id = '.$uId.' and cl_type = '.$type;
         $order = 'cl_addtime desc';
         $field = 'cl_id,cl_house_id';
         $colm = new Collects();

@@ -19,6 +19,7 @@ class House extends Controller
         header('Access-Control-Allow-Methods:POST');
         header('Access-Control-Allow-Headers:x-requested-with, content-type');
         //城市
+        $uid = trim($this->request->param('uid'));
         $city = trim($this->request->param('city','墨尔本'));
         //区域里面  热门  学校  所有区
         //热门区域
@@ -67,6 +68,11 @@ class House extends Controller
         if(isset($pet) && !empty($pet) && $pet){
             $where.=" and pet = '".$pet."'";
         }
+        //toilet
+        $pet = trim($this->request->param('toilet'));
+        if(isset($pet) && !empty($pet) && $pet){
+            $where.=" and toilet = '".$pet."'";
+        }
         //房源特色
         $tags = trim($this->request->param('tags'));
         if(isset($tags) && !empty($tags) && $tags){
@@ -79,10 +85,37 @@ class House extends Controller
         }
         //宠物
         //楼宇设施
-        $order = 'publish_date desc';
+        $limit = trim($this->request->param('limit','10'));
+        $page = trim($this->request->param('page','0'));
+        $order = trim($this->request->param('order','0'));
+        $orders = '';
+        if(isset($order)){
+            switch ($order)
+            {
+                //时间倒序
+                case 1:
+                    $orders = 'publish_date desc';
+                    break;
+                //时间顺序
+                case 2:
+                    $orders = 'publish_date asc';
+                    break;
+                //价格倒序
+                case 3:
+                    $orders = 'price desc';
+                    break;
+                //价格顺序
+                case 4:
+                    $orders = 'price asc';
+                    break;
+                default:
+                    $orders = 'top asc,publish_date desc';
+            }
+        }
+        $order = $orders;
         $field = 'id,type,house_room,area,images,price,toilet,furniture,home,school,address,tj';
         $housem = new Housem();
-        $house = $housem->readData($where,$order,'12','0',$field);
+        $house = $housem->readData($where,$order,$limit,$page,$field);
         if($house){
             foreach ($house as $k => $v){
                 $house[$k]['title'] = $v['type'].''.$v['house_room'].''.$v['area'];
@@ -162,13 +195,14 @@ class House extends Controller
         header('Access-Control-Allow-Methods:POST');
         header('Access-Control-Allow-Headers:x-requested-with, content-type');
         $id = trim($this->request->param('id'));
+        $uid = trim($this->request->param('uid'));
         if(!$id){
             $res['code'] = 2;
             $res['msg'] = '缺少参数！';
             return json($res);
         }
         $housem = new Housem();
-        $house = $housem->getHouse($id);
+        $house = $housem->getHouse($id,$uid);
         if($house){
             $res['code'] = 1;
             $res['msg'] = '读取成功！';
@@ -236,5 +270,66 @@ class House extends Controller
                 return json(array('code'=>0,'path'=>'','msg'=> '图片上传失败！'));
             }
         }
+    }
+
+
+    /***
+     * 我发布的房源
+     * title 时间  封面图 id  状态
+     */
+    public function my(){
+        header("Access-Control-Allow-Origin:*");
+        header('Access-Control-Allow-Methods:POST');
+        header('Access-Control-Allow-Headers:x-requested-with, content-type');
+        $uid = trim($this->request->param('uid'));
+        $limit = trim($this->request->param('limit','10'));
+        $page = trim($this->request->param('page','0'));
+        $where = "(user_id = '".$uid."')";
+        $order = 'publish_date desc';
+        $field = 'id,type,house_room,area,images,price,status,home';
+        $housem = new Housem();
+        $house = $housem->readData($where,$order,$limit,$page,$field);
+        if($house){
+            foreach ($house as $k => $v){
+                $house[$k]['title'] = $v['type'].''.$v['house_room'].''.$v['area'];
+
+            }
+            $res['code'] = 1;
+            $res['msg'] = '读取成功！';
+            $res['data'] = $house;
+            return json($res);
+        }
+        $res['code'] = 1;
+        $res['msg'] = '数据为空！';
+        $res['data'] = $house;
+        return json($res);
+    }
+
+    public function history(){
+        header("Access-Control-Allow-Origin:*");
+        header('Access-Control-Allow-Methods:POST');
+        header('Access-Control-Allow-Headers:x-requested-with, content-type');
+        $uid = trim($this->request->param('uid'));
+        $limit = trim($this->request->param('limit','10'));
+        $page = trim($this->request->param('page','0'));
+        $where = "(user_id = '".$uid."')";
+        $order = 'publish_date desc';
+        $field = 'id,type,house_room,area,images,price,status,home';
+        $housem = new Housem();
+        $house = $housem->readData($where,$order,$limit,$page,$field);
+        if($house){
+            foreach ($house as $k => $v){
+                $house[$k]['title'] = $v['type'].''.$v['house_room'].''.$v['area'];
+
+            }
+            $res['code'] = 1;
+            $res['msg'] = '读取成功！';
+            $res['data'] = $house;
+            return json($res);
+        }
+        $res['code'] = 1;
+        $res['msg'] = '数据为空！';
+        $res['data'] = $house;
+        return json($res);
     }
 }

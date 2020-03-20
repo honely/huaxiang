@@ -66,13 +66,14 @@ class Mate extends Controller
         header('Access-Control-Allow-Methods:POST');
         header('Access-Control-Allow-Headers:x-requested-with, content-type');
         $id = trim($this->request->param('id'));
+        $uid = trim($this->request->param('uid'));
         if(!$id){
             $res['code'] = 2;
             $res['msg'] = '缺少参数！';
             return json($res);
         }
         $mateM = new Matem();
-        $mate = $mateM->getMate($id);
+        $mate = $mateM->getMate($id,$uid);
         if($mate){
             $res['code'] = 1;
             $res['msg'] = '读取成功！';
@@ -139,6 +140,31 @@ class Mate extends Controller
         $res['code'] = 1;
         $res['msg'] = '数据为空！';
         $res['data'] = $mate;
+        return json($res);
+    }
+
+
+    public function my(){
+        header("Access-Control-Allow-Origin:*");
+        header('Access-Control-Allow-Methods:POST');
+        header('Access-Control-Allow-Headers:x-requested-with, content-type');
+        $uid = trim($this->request->param('uid',21));
+        $limit = trim($this->request->param('limit','10'));
+        $page = trim($this->request->param('page','0'));
+        $where = "(user_id = '".$uid."')";
+        $order = 'publish_date desc';
+        $field = 'id,title,area,images,price,status';
+        $housem = new Matem();
+        $house = $housem->readData($where,$order,$limit,$page,$field);
+        if($house){
+            $res['code'] = 1;
+            $res['msg'] = '读取成功！';
+            $res['data'] = $house;
+            return json($res);
+        }
+        $res['code'] = 1;
+        $res['msg'] = '数据为空！';
+        $res['data'] = $house;
         return json($res);
     }
 

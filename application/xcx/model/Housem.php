@@ -24,6 +24,7 @@ class Housem extends Model
             ->order($order)
             ->field($field)
             ->select();
+
         if($result){
             foreach ($result as $k => $v){
                 $result[$k]['images'] = $this->formatImg($v['images']);
@@ -54,10 +55,13 @@ class Housem extends Model
         return $img;
     }
 
-    public function getHouse($id){
+    public function getHouse($id,$uid){
         $house = Db::table('tk_houses')
             ->where(['id' => $id])
             ->find();
+        //写入一条浏览记录
+        $view = new Views();
+        $view->addView($uid,$id,1);
         return $house ? $house : null;
     }
 

@@ -33,10 +33,13 @@ class Matem extends Model
     }
 
 
-    public function getMate($id){
+    public function getMate($id,$uid){
         $house = Db::table('tk_roommates')
             ->where(['id' => $id])
             ->find();
+        //写入一条浏览记录
+        $view = new Views();
+        $view->addView($uid,$id,2);
         return $house ? $house : null;
     }
 
