@@ -214,7 +214,6 @@ class House extends Controller
         return json($res);
     }
 
-
     public function formatRoom($room){
 //        一室，两室，三室，三室以上
         switch ($room){

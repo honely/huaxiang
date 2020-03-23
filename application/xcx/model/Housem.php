@@ -59,12 +59,34 @@ class Housem extends Model
         $house = Db::table('tk_houses')
             ->where(['id' => $id])
             ->find();
+        $house['toilet'] = intval($house['toilet']);
+        $house['car'] = intval($house['car']);
+        $house['house_room'] = $this->numRoom($house['house_room']);
         //写入一条浏览记录
         $view = new Views();
         $view->addView($uid,$id,1);
         return $house ? $house : null;
     }
-
+    public function numRoom($room){
+        switch ($room){
+//        一室，两室，三室，三室以上
+            case '一室':
+                $room = '1';
+                break;
+            case '两室':
+                $room = '2';
+                break;
+            case '三室':
+                $room = '3';
+                break;
+            case '三室以上':
+                $room = '多';
+                break;
+            default:
+                $room ='';
+        }
+        return $room;
+    }
     //生成房源编码
     public function genHouseDsn()
     {
