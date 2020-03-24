@@ -204,9 +204,9 @@ class House extends Controller
         $housem = new Housem();
         $house = $housem->getHouse($id,$uid);
         if($house){
-            $res['code'] = 1;
-            $res['msg'] = '读取成功！';
-            $res['data'] = $house;
+            $res['code'] = $house['code'];
+            $res['msg'] = $house['msg'];
+            $res['data'] = $house['data'];
             return json($res);
         }
         $res['code'] = 0;

@@ -59,14 +59,37 @@ class Housem extends Model
         $house = Db::table('tk_houses')
             ->where(['id' => $id])
             ->find();
+        if (empty($house)) {
+            $res['code'] = 0;
+            $res['msg'] = '该房源已经不存在了';
+            $res['data'] = null;
+            return $res;
+        }
+        if (!@$house['area_img']) {
+            $this->get_area_id($house['id'], $house['x'], $house['y']);
+
+        }
         $house['toilet'] = intval($house['toilet']);
         $house['car'] = intval($house['car']);
         $house['house_room'] = $this->numRoom($house['house_room']);
         //写入一条浏览记录
         $view = new Views();
         $view->addView($uid,$id,1);
-        return $house ? $house : null;
+        $res['code'] = 1;
+        $res['msg'] = '读取成功';
+        $res['data'] = $house;
+        return $res;
     }
+
+
+    public function get_area_id($id, $x, $y) {
+       $url =  "https://image.maps.ls.hereapi.com/mia/1.6/mapview?c={$x}%2C{$y}&z=14&w=750&h=475&f=1&apiKey=WgZd-Ykul-3XNV5agUgW2vMohtzAlYEA64GIQvcrfaw";
+        $res = file_get_contents($url);
+        file_put_contents('uploads/area/'.$id.'.png', $res);
+        model('Houses')->where('id', $id)->update(['area_img' => 'https://wx.huaxiangxiaobao.com/uploads/area/'.$id.'.png']);
+    }
+
+
     public function numRoom($room){
         switch ($room){
 //        一室，两室，三室，三室以上
