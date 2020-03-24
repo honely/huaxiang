@@ -1,0 +1,321 @@
+---------------------------------------------------------------
+[ 2020-03-24T15:34:29+08:00 ] 127.0.0.1 127.0.0.1 GET /api/house/getlist
+[ info ] www.huaxiang.com/api/house/getlist [运行时间：0.397769s][吞吐率：2.51req/s] [内存消耗：1,945.19kb] [文件加载：41]
+[ info ] [ LANG ] D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\thinkphp\lang\zh-cn.php
+[ info ] [ ROUTE ] array (
+  'type' => 'module',
+  'module' => 
+  array (
+    0 => 'api',
+    1 => 'house',
+    2 => 'getlist',
+  ),
+)
+[ info ] [ HEADER ] array (
+  'accept-language' => 'zh-CN,zh;q=0.9',
+  'accept-encoding' => 'gzip, deflate',
+  'accept' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.70 Safari/537.36',
+  'upgrade-insecure-requests' => '1',
+  'connection' => 'close',
+  'host' => 'www.huaxiang.com',
+)
+[ info ] [ PARAM ] array (
+  '/api/house/getlist' => '',
+)
+[ info ] [ RUN ] app\api\controller\House->getList[ D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\application\api\controller\House.php ]
+[ info ] [ DB ] INIT mysql
+[ info ] [ LOG ] INIT File
+[ sql ] [ DB ] CONNECT:[ UseTime:0.089157s ] mysql:host=127.0.0.1;port=3306;dbname=xcxnew;charset=utf8
+[ sql ] [ SQL ] SHOW COLUMNS FROM `tk_houses` [ RunTime:0.161098s ]
+[ sql ] [ SQL ] SELECT `id`,`type`,`house_room`,`area`,`images`,`price`,`toilet`,`furniture`,`home`,`school`,`address`,`tj` FROM `tk_houses` WHERE  (  city = '墨尔本' ) ORDER BY top asc,publish_date desc LIMIT 10 [ RunTime:0.037300s ]
+---------------------------------------------------------------
+[ 2020-03-24T15:34:38+08:00 ] 127.0.0.1 127.0.0.1 GET /api/user/get_access_token
+[ info ] www.huaxiang.com/api/user/get_access_token [运行时间：0.068553s][吞吐率：14.59req/s] [内存消耗：1,010.58kb] [文件加载：30]
+[ info ] [ LANG ] D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\thinkphp\lang\zh-cn.php
+[ info ] [ ROUTE ] array (
+  'type' => 'module',
+  'module' => 
+  array (
+    0 => 'api',
+    1 => 'user',
+    2 => 'get_access_token',
+  ),
+)
+[ info ] [ HEADER ] array (
+  'accept-language' => 'zh-CN,zh;q=0.9',
+  'accept-encoding' => 'gzip, deflate',
+  'accept' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.70 Safari/537.36',
+  'upgrade-insecure-requests' => '1',
+  'connection' => 'close',
+  'host' => 'www.huaxiang.com',
+)
+[ info ] [ PARAM ] array (
+  '/api/user/get_access_token' => '',
+)
+[ info ] [ RUN ] app\api\controller\User->get_access_token[ D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\application\api\controller\User.php ]
+[ info ] [ LOG ] INIT File
+---------------------------------------------------------------
+[ 2020-03-24T15:36:50+08:00 ] 127.0.0.1 127.0.0.1 GET /api/user/get_access_token
+[ info ] www.huaxiang.com/api/user/get_access_token [运行时间：0.035167s][吞吐率：28.44req/s] [内存消耗：1,010.84kb] [文件加载：30]
+[ info ] [ LANG ] D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\thinkphp\lang\zh-cn.php
+[ info ] [ ROUTE ] array (
+  'type' => 'module',
+  'module' => 
+  array (
+    0 => 'api',
+    1 => 'user',
+    2 => 'get_access_token',
+  ),
+)
+[ info ] [ HEADER ] array (
+  'accept-language' => 'zh-CN,zh;q=0.9',
+  'accept-encoding' => 'gzip, deflate',
+  'accept' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.70 Safari/537.36',
+  'upgrade-insecure-requests' => '1',
+  'cache-control' => 'max-age=0',
+  'connection' => 'close',
+  'host' => 'www.huaxiang.com',
+)
+[ info ] [ PARAM ] array (
+  '/api/user/get_access_token' => '',
+)
+[ info ] [ RUN ] app\api\controller\User->get_access_token[ D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\application\api\controller\User.php ]
+[ info ] [ LOG ] INIT File
+---------------------------------------------------------------
+[ 2020-03-24T16:02:49+08:00 ] 127.0.0.1 127.0.0.1 GET /api/user/getShare
+[ info ] www.huaxiang.com/api/user/getShare [运行时间：4.282799s][吞吐率：0.23req/s] [内存消耗：1,102.13kb] [文件加载：36]
+[ info ] [ LANG ] D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\thinkphp\lang\zh-cn.php
+[ info ] [ ROUTE ] array (
+  'type' => 'module',
+  'module' => 
+  array (
+    0 => 'api',
+    1 => 'user',
+    2 => 'getShare',
+  ),
+)
+[ info ] [ HEADER ] array (
+  'accept-language' => 'zh-CN,zh;q=0.9',
+  'accept-encoding' => 'gzip, deflate',
+  'accept' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.70 Safari/537.36',
+  'upgrade-insecure-requests' => '1',
+  'connection' => 'close',
+  'host' => 'www.huaxiang.com',
+)
+[ info ] [ PARAM ] array (
+  '/api/user/getShare' => '',
+)
+[ info ] [ RUN ] app\api\controller\User->getShare[ D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\application\api\controller\User.php ]
+[ info ] [ LOG ] INIT File
+[ error ] [8]未定义数组索引: errcode[D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\application\api\controller\User.php:294]
+[ error ] [2]file_put_contents(uploads/qrcode/h.jpg): failed to open stream: No such file or directory[D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\application\api\controller\User.php:275]
+---------------------------------------------------------------
+[ 2020-03-24T16:12:56+08:00 ] 127.0.0.1 127.0.0.1 GET /api/user/getShare
+[ info ] www.huaxiang.com/api/user/getShare [运行时间：1.345772s][吞吐率：0.74req/s] [内存消耗：1,054.13kb] [文件加载：33]
+[ info ] [ LANG ] D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\thinkphp\lang\zh-cn.php
+[ info ] [ ROUTE ] array (
+  'type' => 'module',
+  'module' => 
+  array (
+    0 => 'api',
+    1 => 'user',
+    2 => 'getShare',
+  ),
+)
+[ info ] [ HEADER ] array (
+  'accept-language' => 'zh-CN,zh;q=0.9',
+  'accept-encoding' => 'gzip, deflate',
+  'accept' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.70 Safari/537.36',
+  'upgrade-insecure-requests' => '1',
+  'cache-control' => 'max-age=0',
+  'connection' => 'close',
+  'host' => 'www.huaxiang.com',
+)
+[ info ] [ PARAM ] array (
+  '/api/user/getShare' => '',
+)
+[ info ] [ RUN ] app\api\controller\User->getShare[ D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\application\api\controller\User.php ]
+[ info ] [ LOG ] INIT File
+[ error ] [8]未定义数组索引: errcode[D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\application\api\controller\User.php:297]
+---------------------------------------------------------------
+[ 2020-03-24T16:15:18+08:00 ] 127.0.0.1 127.0.0.1 GET /api/user/getShare
+[ info ] www.huaxiang.com/api/user/getShare [运行时间：0.378641s][吞吐率：2.64req/s] [内存消耗：1,115.53kb] [文件加载：36]
+[ info ] [ LANG ] D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\thinkphp\lang\zh-cn.php
+[ info ] [ ROUTE ] array (
+  'type' => 'module',
+  'module' => 
+  array (
+    0 => 'api',
+    1 => 'user',
+    2 => 'getShare',
+  ),
+)
+[ info ] [ HEADER ] array (
+  'accept-language' => 'zh-CN,zh;q=0.9',
+  'accept-encoding' => 'gzip, deflate',
+  'accept' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.70 Safari/537.36',
+  'upgrade-insecure-requests' => '1',
+  'cache-control' => 'max-age=0',
+  'connection' => 'close',
+  'host' => 'www.huaxiang.com',
+)
+[ info ] [ PARAM ] array (
+  '/api/user/getShare' => '',
+)
+[ info ] [ RUN ] app\api\controller\User->getShare[ D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\application\api\controller\User.php ]
+[ info ] [ LOG ] INIT File
+[ error ] [8]未定义数组索引: errcode[D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\application\api\controller\User.php:299]
+---------------------------------------------------------------
+[ 2020-03-24T16:17:37+08:00 ] 127.0.0.1 127.0.0.1 GET /api/user/getShare?id=1&type=1231
+[ info ] www.huaxiang.com/api/user/getShare?id=1&type=1231 [运行时间：0.880181s][吞吐率：1.14req/s] [内存消耗：1,102.42kb] [文件加载：36]
+[ info ] [ LANG ] D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\thinkphp\lang\zh-cn.php
+[ info ] [ ROUTE ] array (
+  'type' => 'module',
+  'module' => 
+  array (
+    0 => 'api',
+    1 => 'user',
+    2 => 'getShare',
+  ),
+)
+[ info ] [ HEADER ] array (
+  'accept-language' => 'zh-CN,zh;q=0.9',
+  'accept-encoding' => 'gzip, deflate',
+  'accept' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.70 Safari/537.36',
+  'upgrade-insecure-requests' => '1',
+  'connection' => 'close',
+  'host' => 'www.huaxiang.com',
+)
+[ info ] [ PARAM ] array (
+  '/api/user/getShare' => '',
+  'id' => '1',
+  'type' => '1231',
+)
+[ info ] [ RUN ] app\api\controller\User->getShare[ D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\application\api\controller\User.php ]
+[ info ] [ LOG ] INIT File
+[ error ] [8]未定义数组索引: errcode[D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\application\api\controller\User.php:299]
+[ error ] [2]file_put_contents(uploads/qrcode/h1.jpg): failed to open stream: No such file or directory[D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\application\api\controller\User.php:280]
+---------------------------------------------------------------
+[ 2020-03-24T16:22:45+08:00 ] 127.0.0.1 127.0.0.1 GET /api/user/get_access_token
+[ info ] www.huaxiang.com/api/user/get_access_token [运行时间：2.123854s][吞吐率：0.47req/s] [内存消耗：1,109.00kb] [文件加载：35]
+[ info ] [ LANG ] D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\thinkphp\lang\zh-cn.php
+[ info ] [ ROUTE ] array (
+  'type' => 'module',
+  'module' => 
+  array (
+    0 => 'api',
+    1 => 'user',
+    2 => 'get_access_token',
+  ),
+)
+[ info ] [ HEADER ] array (
+  'accept-language' => 'zh-CN,zh;q=0.9',
+  'accept-encoding' => 'gzip, deflate',
+  'accept' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.70 Safari/537.36',
+  'upgrade-insecure-requests' => '1',
+  'connection' => 'close',
+  'host' => 'www.huaxiang.com',
+)
+[ info ] [ PARAM ] array (
+  '/api/user/get_access_token' => '',
+)
+[ info ] [ RUN ] app\api\controller\User->get_access_token[ D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\application\api\controller\User.php ]
+[ info ] [ LOG ] INIT File
+[ error ] [8]未定义数组索引: errcode[D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\application\api\controller\User.php:299]
+---------------------------------------------------------------
+[ 2020-03-24T16:23:43+08:00 ] 127.0.0.1 127.0.0.1 GET /api/user/getShare
+[ info ] www.huaxiang.com/api/user/getShare [运行时间：0.039320s][吞吐率：25.43req/s] [内存消耗：1,065.53kb] [文件加载：32]
+[ info ] [ LANG ] D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\thinkphp\lang\zh-cn.php
+[ info ] [ ROUTE ] array (
+  'type' => 'module',
+  'module' => 
+  array (
+    0 => 'api',
+    1 => 'user',
+    2 => 'getShare',
+  ),
+)
+[ info ] [ HEADER ] array (
+  'accept-language' => 'zh-CN,zh;q=0.9',
+  'accept-encoding' => 'gzip, deflate',
+  'accept' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.70 Safari/537.36',
+  'upgrade-insecure-requests' => '1',
+  'connection' => 'close',
+  'host' => 'www.huaxiang.com',
+)
+[ info ] [ PARAM ] array (
+  '/api/user/getShare' => '',
+)
+[ info ] [ RUN ] app\api\controller\User->getShare[ D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\application\api\controller\User.php ]
+[ info ] [ LOG ] INIT File
+---------------------------------------------------------------
+[ 2020-03-24T16:24:01+08:00 ] 127.0.0.1 127.0.0.1 GET /api/user/getShare?id=1&type=123
+[ info ] www.huaxiang.com/api/user/getShare?id=1&type=123 [运行时间：0.613213s][吞吐率：1.63req/s] [内存消耗：1,101.66kb] [文件加载：36]
+[ info ] [ LANG ] D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\thinkphp\lang\zh-cn.php
+[ info ] [ ROUTE ] array (
+  'type' => 'module',
+  'module' => 
+  array (
+    0 => 'api',
+    1 => 'user',
+    2 => 'getShare',
+  ),
+)
+[ info ] [ HEADER ] array (
+  'accept-language' => 'zh-CN,zh;q=0.9',
+  'accept-encoding' => 'gzip, deflate',
+  'accept' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.70 Safari/537.36',
+  'upgrade-insecure-requests' => '1',
+  'connection' => 'close',
+  'host' => 'www.huaxiang.com',
+)
+[ info ] [ PARAM ] array (
+  '/api/user/getShare' => '',
+  'id' => '1',
+  'type' => '123',
+)
+[ info ] [ RUN ] app\api\controller\User->getShare[ D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\application\api\controller\User.php ]
+[ info ] [ LOG ] INIT File
+[ error ] [2]file_put_contents(uploads/qrcode/h1.jpg): failed to open stream: No such file or directory[D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\application\api\controller\User.php:280]
+---------------------------------------------------------------
+[ 2020-03-24T16:25:40+08:00 ] 127.0.0.1 127.0.0.1 GET /api/user/getShare?id=1&type=123
+[ info ] www.huaxiang.com/api/user/getShare?id=1&type=123 [运行时间：0.874496s][吞吐率：1.14req/s] [内存消耗：1,102.72kb] [文件加载：36]
+[ info ] [ LANG ] D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\thinkphp\lang\zh-cn.php
+[ info ] [ ROUTE ] array (
+  'type' => 'module',
+  'module' => 
+  array (
+    0 => 'api',
+    1 => 'user',
+    2 => 'getShare',
+  ),
+)
+[ info ] [ HEADER ] array (
+  'accept-language' => 'zh-CN,zh;q=0.9',
+  'accept-encoding' => 'gzip, deflate',
+  'accept' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.70 Safari/537.36',
+  'upgrade-insecure-requests' => '1',
+  'cache-control' => 'max-age=0',
+  'connection' => 'close',
+  'host' => 'www.huaxiang.com',
+)
+[ info ] [ PARAM ] array (
+  '/api/user/getShare' => '',
+  'id' => '1',
+  'type' => '123',
+)
+[ info ] [ RUN ] app\api\controller\User->getShare[ D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\application\api\controller\User.php ]
+[ info ] [ LOG ] INIT File
+[ error ] [8]未定义数组索引: errcode[D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\application\api\controller\User.php:299]
+[ error ] [2]file_put_contents(uploads/qrcode/h1.jpg): failed to open stream: No such file or directory[D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\application\api\controller\User.php:280]

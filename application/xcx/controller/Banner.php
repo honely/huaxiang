@@ -179,6 +179,7 @@ class Banner extends Controller{
             $res['msg'] = '上传成功！';
             $file = $this->request->file('file');
             $info = $file->move(ROOT_PATH . 'public' . DS . 'uploads/banner/'.$path_date.'/');
+            $image = \think\Image::open($save_path.$info->getSaveName());
             if($info){
                 $res['name'] = $info->getFilename();
                 $res['filepath'] = 'uploads/banner/'.$path_date.'/'.$info->getSaveName();

@@ -122,8 +122,8 @@ class User extends Controller
     }
 
     public function code2Session($code) {
-        $appid = 'wx45426a13290ecb64';
-        $appsecret = '0c323386f153831f379938f2c659fff7';
+        $appid = config('wx.appid');
+        $appsecret = config('wx.appsecret');
         $url = "https://api.weixin.qq.com/sns/jscode2session?appid=". $appid ."&secret=". $appsecret ."&js_code=". $code ."&grant_type=authorization_code";
         // echo $url;
         $res = file_get_contents($url);
@@ -133,8 +133,8 @@ class User extends Controller
     }
 
     public function code2Session_web($code) {
-        $appid = 'wx45426a13290ecb64';
-        $appsecret = '0c323386f153831f379938f2c659fff7';
+        $appid = config('wx.appid');
+        $appsecret = config('wx.appsecret');
         $url = "https://api.weixin.qq.com/sns/oauth2/access_token?appid=". $appid ."&secret=". $appsecret ."&code=". $code ."&grant_type=authorization_code";
         // echo $url;
         $res = file_get_contents($url);
@@ -176,8 +176,8 @@ class User extends Controller
     }
 
     public function code2Session_new($code,$encryptedData, $iv) {
-        $appid = 'wx45426a13290ecb64';
-        $appsecret = '0c323386f153831f379938f2c659fff7';
+        $appid = config('wx.appid');
+        $appsecret = config('wx.appsecret');
         $url = "https://api.weixin.qq.com/sns/jscode2session?appid=". $appid ."&secret=". $appsecret ."&js_code=". $code ."&grant_type=authorization_code";
         // echo $url;
         $res = file_get_contents($url);
@@ -242,5 +242,97 @@ class User extends Controller
         }
         $data = json_decode($result,true);
         return $data;
+    }
+
+
+    public function getShare() {
+        $id = input('param.id');
+        $type = input('param.type');
+        $access_token = $this->get_access_token();
+        $url = "https://api.weixin.qq.com/wxa/getwxacodeunlimit?access_token=" . $access_token;
+        if(!$id || !$type){
+            $res['code'] =0;
+            $res['msg'] ='缺少参数';
+            return json($res);
+        }
+        if ($type == 1) {
+            $data['scene'] = 'r' . $id;
+            $data['path'] = 'pages/roommateDetail/roommateDetail';
+        }
+        else if ($type == 2){
+            // 增加的这个部分为车位
+            $data['scene'] = 'h' . $id;
+            $data['path'] = 'pages/detail/detail';
+        }
+
+        $data['width'] = '430';
+        $res = $this->http($url, json_encode($data),1);
+        // var_dump($res);exit;
+        if ($type == "roommate") {
+            $path = 'uploads/qrcode/r' . $id . '.jpg';
+        }else{
+            $path = 'uploads/qrcode/h' . $id . '.jpg';
+        }
+        file_put_contents($path, $res);
+
+        $return['status_code'] = 1;
+        $return['msg'] = 'ok';
+        $return['data'] = config('appurl').'/' . $path;
+        // dd($id);
+        // echo '<img src="'.$path.'" />';exit;
+        return json($return);
+    }
+
+
+
+
+    public function get_access_token() {
+        $appid = config('wx.appid');
+        $appsecret = config('wx.appsecret');
+        $url = "https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=".$appid."&secret=".$appsecret;
+        $res = file_get_contents($url);
+        $res = json_decode($res, true);
+        if (@$res['errcode']) {
+            $return['status_code'] = '2001';
+            $return['msg'] = '微信请求失败';
+            $return['data'] = '';
+            echo json_encode($return);exit;
+        }
+        // dd($res);
+        return $res['access_token'];
+    }
+
+    //post curl 请求参数
+    function http($url, $data = NULL, $json = false)
+    {
+        $curl = curl_init();
+        curl_setopt($curl, CURLOPT_URL, $url);
+        curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false);
+        curl_setopt($curl, CURLOPT_SSL_VERIFYHOST, false);
+        if (!empty($data)) {
+            if($json && is_array($data)){
+                $data = json_encode( $data );
+            }
+            curl_setopt($curl, CURLOPT_POST, 1);
+            curl_setopt($curl, CURLOPT_POSTFIELDS, $data);
+            if($json){ //发送JSON数据
+                curl_setopt($curl, CURLOPT_HEADER, 0);
+                curl_setopt($curl, CURLOPT_HTTPHEADER,
+                    array(
+                        'Content-Type: application/json; charset=utf-8',
+                        'Content-Length:' . strlen($data))
+                );
+            }
+        }
+        curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
+        $res = curl_exec($curl);
+        // var_dump($res);exit;
+        $errorno = curl_errno($curl);
+
+        if ($errorno) {
+            return array('errorno' => false, 'errmsg' => $errorno);
+        }
+        curl_close($curl);
+        return $res;
     }
 }
