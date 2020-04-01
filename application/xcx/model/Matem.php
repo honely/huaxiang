@@ -20,6 +20,8 @@ class Matem extends Model
     public function addMate($data){
         $data['dsn'] = $this->getMateDsn();
         $addHouse = Db::table('tk_roommates')->insertGetId($data);
+        //写入一条
+        $str = '长安过客正在找室友';
         return $addHouse ? $addHouse :  0;
     }
 

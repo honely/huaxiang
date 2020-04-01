@@ -16,13 +16,16 @@ class User extends Controller
         header('Access-Control-Allow-Headers:x-requested-with, content-type');
         $data = $this->request->param();
         if (!@$data['nickname']) {
-            $this->sucess(-1, '昵称不能为空');
+            $this->sucess(0, '昵称不能为空');
         }
         if (!@$data['openid']) {
-            $this->sucess('-1', 'openid不能为空');
+            $this->sucess('0', 'openid不能为空');
         }
         if (!@$data['avaurl']) {
-            $this->sucess('-1', '头像不能为空');
+            $this->sucess('0', '头像不能为空');
+        }
+        if (!@$data['gender']) {
+            $this->sucess('0', '性别不能为空');
         }
         //登录
         $user = Db::table('tk_user')->where('openid', $data['openid'])->find();
@@ -34,7 +37,7 @@ class User extends Controller
             //保存张哈
             $res = $this->saveUserData($data);
             if ($res['code']) {
-                $this->sucess('-1', '账号信息保存失败,请联系管理员');
+                $this->sucess('0', '账号信息保存失败,请联系管理员');
             }
             $user = $res['data'];
         }
@@ -42,11 +45,11 @@ class User extends Controller
         //bltoken 添加更新
         $bltoken = $this->saveBlToken($user['id']);
         if ($bltoken['code']) {
-            $this->sucess('-1', '登录失败');
+            $this->sucess('0', '登录失败');
         }
         $return['user'] = $user;
         $return['bltoken'] = $bltoken['data'];
-        $this->sucess('0', 'ok', $return);
+        $this->sucess('1', 'ok', $return);
         //dd($bltoken);
     }
 
@@ -109,16 +112,20 @@ class User extends Controller
         return ['code' => 0, 'msg' => 'ok', 'data' => $data];
     }
 
+
+    /***
+     *
+     */
     public function get_code() {
         $data = input('param.');
         if (!isset($data['code']) || !$data['code']) {
-            $this->sucess(-2,"code 为空");
+            $this->sucess(0,"code 为空");
         }
         $res = $this->code2Session($data['code']);
         if (@$res['errcode']) {
-            $this->sucess('-1', $res['errmsg'] . $res['errcode']);
+            $this->sucess('0', $res['errmsg'] . $res['errcode']);
         }
-        $this->sucess('0', 'ok', $res);
+        $this->sucess('1', 'ok', $res);
     }
 
     public function code2Session($code) {
@@ -128,7 +135,6 @@ class User extends Controller
         // echo $url;
         $res = file_get_contents($url);
         $res = json_decode($res, true);
-        // var_dump($res);exit;
         return $res;
     }
 
@@ -152,7 +158,7 @@ class User extends Controller
         $data = input('param.');
 
         //网页登录
-        $user = model('User')->where('unionid', $data['unionid'])->find();
+        $user = Db::table('tk_user')->where('unionid', $data['unionid'])->find();
         if (!empty($user)) {
             // $res = model
             $res = $user['id'];
@@ -173,6 +179,21 @@ class User extends Controller
         //	$this->sucess('-1', $res['errmsg'] . $res['errcode']);
         //}
         $this->sucess('0', 'ok', $res);
+    }
+
+
+    public function getPhone(){
+        $data = input('param.');
+        $appid = config('wx.appid');
+        $sessionKey = $data['session_key'];
+        $encryptedData = $data['encryptedData'];
+        $iv = $data['iv'];
+        $err = $this->decryptData($appid,$sessionKey,$encryptedData,$iv);
+        if ($err != -41001 &&$err != -41002&&$err != -41003&&$err != -41004) {
+            $err['unionid'] = $err['unionId'];
+            return $err;
+        }
+        return $err;
     }
 
     public function code2Session_new($code,$encryptedData, $iv) {
@@ -260,22 +281,19 @@ class User extends Controller
             $data['path'] = 'pages/roommateDetail/roommateDetail';
         }
         else if ($type == 2){
-            // 增加的这个部分为车位
             $data['scene'] = 'h' . $id;
             $data['path'] = 'pages/detail/detail';
         }
 
         $data['width'] = '430';
         $res = $this->http($url, json_encode($data),1);
-        // var_dump($res);exit;
         if ($type == "roommate") {
             $path = 'uploads/qrcode/r' . $id . '.jpg';
         }else{
             $path = 'uploads/qrcode/h' . $id . '.jpg';
         }
         file_put_contents($path, $res);
-
-        $return['status_code'] = 1;
+        $return['code'] = 1;
         $return['msg'] = 'ok';
         $return['data'] = config('appurl').'/' . $path;
         // dd($id);
@@ -334,5 +352,30 @@ class User extends Controller
         }
         curl_close($curl);
         return $res;
+    }
+
+
+    public function saveUser(){
+        header("Access-Control-Allow-Origin:*");
+        header('Access-Control-Allow-Methods:POST');
+        header('Access-Control-Allow-Headers:x-requested-with, content-type');
+        $data = $this->request->param();
+        if (!@$data['id']) {
+            $this->sucess(0, '用户id为空！');
+        }
+        $id = $data['id'];
+        $data['mdate'] = date('Y-m-d H:i:s');
+        unset($data['id']);
+        $update = Db::table('tk_user')
+            ->where(['id' => $id])
+            ->update($data);
+        if($update){
+            $res['code'] = 1;
+            $res['msg'] = '修改成功！';
+            return json($res);
+        }
+        $res['code'] = 0;
+        $res['msg'] = '修改失败！';
+        return json($res);
     }
 }

@@ -2,6 +2,7 @@
 namespace app\api\controller;
 use app\xcx\model\Housem;
 use think\Controller;
+use think\Db;
 
 class House extends Controller
 {
@@ -329,6 +330,55 @@ class House extends Controller
         $res['code'] = 1;
         $res['msg'] = '数据为空！';
         $res['data'] = $house;
+        return json($res);
+    }
+    public function sucess($code, $msg = '', $data = '') {
+        $arr['code'] = $code;
+        $arr['msg'] = $msg;
+        $arr['data'] = $data;
+        echo json_encode($arr);exit;
+    }
+
+    public function topQuery(){
+        $data = input('param.');
+        if (!@$data['city']) {
+            $this->sucess('0', '城市不能为空');
+        }
+        // dd($_POST);
+        $condition['city'] = $data['city'];
+        $condition['status'] = 1;
+        $list = Db::table('tk_keyword')->where($condition)->field('name')->order('id DESC')->select();
+        if($list){
+            $res['code'] = 1;
+            $res['msg'] = '读取成功！';
+            $res['data'] = $list;
+            return json($res);
+        }
+        $res['code'] = 1;
+        $res['msg'] = '数据为空！';
+        $res['data'] = $list;
+        return json($res);
+    }
+
+    public function myQuery(){
+        header("Access-Control-Allow-Origin:*");
+        header('Access-Control-Allow-Methods:POST');
+        header('Access-Control-Allow-Headers:x-requested-with, content-type');
+        $uid = trim($this->request->param('uid'));
+        $list = Db::table('xcx_search_keywords')
+            ->where(['sk_userid' => $uid,'type' => 1])
+            ->limit(10)
+            ->field('sk_keywords')
+            ->select();
+        if($list){
+            $res['code'] = 1;
+            $res['msg'] = '读取成功！';
+            $res['data'] = $list;
+            return json($res);
+        }
+        $res['code'] = 1;
+        $res['msg'] = '数据为空！';
+        $res['data'] = $list;
         return json($res);
     }
 }
