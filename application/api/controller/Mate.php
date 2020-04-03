@@ -2,6 +2,7 @@
 namespace app\api\controller;
 use app\xcx\model\Matem;
 use think\Controller;
+use think\Db;
 
 class Mate extends Controller
 {
@@ -98,6 +99,7 @@ class Mate extends Controller
         header('Access-Control-Allow-Methods:POST');
         header('Access-Control-Allow-Headers:x-requested-with, content-type');
         //城市
+        $uid = trim($this->request->param('uid'));
         $city = trim($this->request->param('city','墨尔本'));
         //区域里面  热门  学校  所有区
         //热门区域
@@ -109,6 +111,8 @@ class Mate extends Controller
         $keys = trim($this->request->param('keys'));
         if(isset($keys) && !empty($keys) && $keys){
             $where.=" and ( title like '%".$keys."%' or dsn like '%".$keys."%'  or school like '%".$keys."%' or city like '%".$keys."%')";
+            //写入一条关键词查询记录
+            $this->addQueryLog($uid,$keys,2);
         }
         //学校
         $school = trim($this->request->param('school'));
@@ -131,6 +135,7 @@ class Mate extends Controller
         $field = 'id,title,ager,sex,school,habit';
         $mateM = new Matem();
         $mate= $mateM->readData($where,$order,'12','0',$field);
+        $this->addQueryContent($uid,$where,2);
         if($mate){
             $res['code'] = 1;
             $res['msg'] = '读取成功！';
@@ -168,5 +173,24 @@ class Mate extends Controller
         return json($res);
     }
 
+    //用户行为分析
+    public function addQueryLog($uid,$key,$type){
+        $data['sk_keywords'] = $key;
+        $data['sk_userid'] = $uid;
+        $data['sk_type'] = $type;
+        $data['sk_addtime'] = date('Y-m-d H:i:s');
+        $resault = Db::table('xcx_search_keywords')->insertGetId($data);
+        return $resault;
+    }
+
+    //用户行为分析
+    public function addQueryContent($uid,$content,$type){
+        $data['sk_userid'] = $uid;
+        $data['sk_type'] = $type;
+        $data['sk_content'] = $content;
+        $data['sk_addtime'] = date('Y-m-d H:i:s');
+        $resault = Db::table('xcx_search_keywords')->insertGetId($data);
+        return $resault;
+    }
 
 }

@@ -185,6 +185,15 @@ class User extends Controller
     public function getPhone(){
         $data = input('param.');
         $appid = config('wx.appid');
+        if (!isset($data['session_key']) || !$data['session_key']) {
+            $this->sucess(0,"code 为空");
+        }
+        if (!isset($data['encryptedData']) || !$data['encryptedData']) {
+            $this->sucess(0,"code 为空");
+        }
+        if (!isset($data['iv']) || !$data['iv']) {
+            $this->sucess(0,"code 为空");
+        }
         $sessionKey = $data['session_key'];
         $encryptedData = $data['encryptedData'];
         $iv = $data['iv'];
@@ -361,7 +370,9 @@ class User extends Controller
         header('Access-Control-Allow-Headers:x-requested-with, content-type');
         $data = $this->request->param();
         if (!@$data['id']) {
-            $this->sucess(0, '用户id为空！');
+            $res['code'] = 1;
+            $res['msg'] = '用户id为空！';
+            return json($res);
         }
         $id = $data['id'];
         $data['mdate'] = date('Y-m-d H:i:s');

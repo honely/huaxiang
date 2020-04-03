@@ -32,6 +32,8 @@ class House extends Controller
         $keys = trim($this->request->param('keys'));
         if(isset($keys) && !empty($keys) && $keys){
             $where.=" and ( title like '%".$keys."%' or dsn like '%".$keys."%'  or school like '%".$keys."%' or city like '%".$keys."%')";
+            //写入一条关键词查询记录
+            $this->addQueryLog($uid,$keys,1);
         }
         //学校
         $school = trim($this->request->param('school'));
@@ -342,9 +344,10 @@ class House extends Controller
     public function topQuery(){
         $data = input('param.');
         if (!@$data['city']) {
-            $this->sucess('0', '城市不能为空');
+            $res['code'] = 0;
+            $res['msg'] = '城市不能为空！';
+            return json($res);
         }
-        // dd($_POST);
         $condition['city'] = $data['city'];
         $condition['status'] = 1;
         $list = Db::table('tk_keyword')->where($condition)->field('name')->order('id DESC')->select();
@@ -365,8 +368,13 @@ class House extends Controller
         header('Access-Control-Allow-Methods:POST');
         header('Access-Control-Allow-Headers:x-requested-with, content-type');
         $uid = trim($this->request->param('uid'));
+        if (!@$uid) {
+            $res['code'] = 0;
+            $res['msg'] = '用户id不能为空！';
+            return json($res);
+        }
         $list = Db::table('xcx_search_keywords')
-            ->where(['sk_userid' => $uid,'type' => 1])
+            ->where(['sk_userid' => $uid,'sk_type' => 1])
             ->limit(10)
             ->field('sk_keywords')
             ->select();
@@ -380,5 +388,15 @@ class House extends Controller
         $res['msg'] = '数据为空！';
         $res['data'] = $list;
         return json($res);
+    }
+
+
+    public function addQueryLog($uid,$key,$type){
+        $data['sk_keywords'] = $key;
+        $data['sk_userid'] = $uid;
+        $data['sk_type'] = $type;
+        $data['sk_addtime'] = date('Y-m-d H:i:s');
+        $resault = Db::table('xcx_search_keywords')->insertGetId($data);
+        return $resault;
     }
 }

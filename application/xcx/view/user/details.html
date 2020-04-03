@@ -14,197 +14,111 @@
 </head>
 <form class="layui-form" action="" id="cusInfo" method="post">
     <fieldset class="layui-elem-field layui-field-title" style="margin-top: 20px;">
-        <legend>推广信息</legend>
+        <legend>用户信息</legend>
     </fieldset>
-    <div class="layui-form-item" style="margin-left:20px">
+    <div class="layui-form-item" style="margin:50px">
         <div class="layui-form-item">
-        <div class="layui-form-mid layui-word-aux">系统来源: {$cus.cus_device}</div>
-        </div>
-        <div class="layui-form-item">
-        <div class="layui-form-mid layui-word-aux">网络类型: {$cus.cus_net_type}</div>
+        <div class="layui-form-mid layui-word-aux">id: {$cus.id}</div>
         </div>
         <div class="layui-form-item">
-        <div class="layui-form-mid layui-word-aux">网址入口:{$cus.cus_link}</div>
+        <div class="layui-form-mid layui-word-aux">昵称: {$cus.nickname}</div>
         </div>
         <div class="layui-form-item">
-        <div class="layui-form-mid layui-word-aux">推广来源:{$cus.cus_from}</div>
+        <div class="layui-form-mid layui-word-aux">图像:
+            <img style="width: 60px;height: 60px;" src="{$cus.avaurl}" alt="{$cus.nickname}">
+        </div>
         </div>
         <div class="layui-form-item">
-        <div class="layui-form-mid layui-word-aux">用户IP:{$cus.cus_ip}</div>
+        <div class="layui-form-mid layui-word-aux">性别:{$cus.sex}</div>
         </div>
         <div class="layui-form-item">
-        <div class="layui-form-mid layui-word-aux">预约位置:{$cus.cus_position}</div>
+        <div class="layui-form-mid layui-word-aux">生日:{$cus.birth}</div>
         </div>
         <div class="layui-form-item">
-        <div class="layui-form-mid layui-word-aux">推广创意：{$cus.cus_origin}</div>
+        <div class="layui-form-mid layui-word-aux">邮箱:{$cus.email}</div>
         </div>
         <div class="layui-form-item">
-        <div class="layui-form-mid layui-word-aux">关键词：{$cus.cus_keywords}</div>
+        <div class="layui-form-mid layui-word-aux">注册日期：{$cus.cdate}</div>
         </div>
-    </div>
-
-    <fieldset class="layui-elem-field layui-field-title" style="margin-top: 20px;">
-        <legend>预约客户详细信息</legend>
-    </fieldset>
-    <div class="layui-form-item">
-        <div class="layui-inline">
-            <label class="layui-form-label">客户姓名</label>
-            <div class="layui-input-inline">
-                <input type="text" name="cus_name" value="{$cus.cus_name}" autocomplete="off" placeholder="请输入客户姓名" class="layui-input">
-            </div>
-        </div>
-        <div class="layui-inline">
-            <label class="layui-form-label">联系方式</label>
-            <div class="layui-input-inline">
-                <input type="text" name="cus_phone" readonly value="{$cus.cus_phone}"  lay-verify="required|phone" autocomplete="off" class="layui-input">
-            </div>
-            <div class="layui-form-mid layui-word-aux">客户提交号码无法修改！</div>
-        </div>
-    </div>
-    <div class="layui-form-item">
-        <div class="layui-inline">
-            <label class="layui-form-label">备用电话</label>
-            <div class="layui-input-inline">
-                <input type="tel" name="cus_phone2" value="{$cus.cus_phone2}" autocomplete="off" class="layui-input">
-            </div>
-        </div>
-        <div class="layui-inline">
-            <label class="layui-form-label">预约时间</label>
-            <div class="layui-input-inline">
-                <input type="text" value="{$cus.cus_opptime}" readonly class="layui-input">
-            </div>
-        </div>
-    </div>
-    <div class="layui-form-item">
-        <div class="layui-inline">
-            <label class="layui-form-label">称呼</label>
-            <div class="layui-input-block">
-                <input type="radio" name="cus_sex" value="1" title="先生"  {if condition="1 eq $cus.cus_sex"}checked{/if}>
-                <input type="radio" name="cus_sex" value="2" title="女士"  {if condition="2 eq $cus.cus_sex"}checked{/if}>
-                <input type="radio" name="cus_sex" value="3" title="未知"  {if condition="3 eq $cus.cus_sex"}checked{/if}>
-            </div>
+        <div class="layui-form-item">
+        <div class="layui-form-mid layui-word-aux">上次登录：{$cus.mdate}</div>
         </div>
     </div>
     <fieldset class="layui-elem-field layui-field-title" style="margin-top: 20px;">
-        <legend>装修信息</legend>
+        <legend>用户行为分析</legend>
     </fieldset>
-
-    <div class="layui-form-item">
+    <div class="layui-form-item" style="margin: 50px">
+        {if condition='$collect neq null'}
         <div class="layui-inline">
-            <label class="layui-form-label">预计单值</label>
-            <div class="layui-input-inline">
-                <input type="text" name="cus_promoney" value="{$cus.cus_promoney}" placeholder="￥" autocomplete="off" class="layui-input">
-            </div>
-            <div class="layui-form-mid">单位：（元）</div>
-        </div>
-        <div class="layui-inline">
-            <label class="layui-form-label">房屋面积</label>
-            <div class="layui-input-inline">
-                <input type="text" name="cus_area" value="{$cus.cus_area}" placeholder="m²" autocomplete="off" class="layui-input">
-            </div>
-            <div class="layui-form-mid">单位：（m²）</div>
-        </div>
-    </div>
-
-    <div class="layui-form-item">
-        <div class="layui-inline">
-            <label class="layui-form-label">装修风格</label>
-            <div class="layui-input-inline">
-                <select name="cus_style" lay-filter="aihao">
-                    <option value=""></option>
-                    {volist name="style" id="sty" }
-                    <option value="{$sty.type_id}" {if condition="$sty.type_id eq $cus.cus_style"}selected{/if}>{$sty.type_name}</option>
-                    {/volist}
-                </select>
-            </div>
-        </div>
-        <div class="layui-inline">
-            <label class="layui-form-label">装修品质</label>
-            <div class="layui-input-inline">
-                <select name="cus_quality" lay-filter="aihao">
-                    <option value=""></option>
-                    {volist name="level" id="lev" }
-                    <option value="{$lev.type_id}" {if condition="$lev.type_id eq $cus.cus_quality"}selected{/if}>{$lev.type_name}</option>
-                    {/volist}
-                </select>
-            </div>
-        </div>
-    </div>
-
-    <div class="layui-form-item">
-        <div class="layui-inline">
-            <label class="layui-form-label">房屋类型</label>
-            <div class="layui-input-inline">
-                <input type="radio" name="cus_type" value="1" title="新房"  {if condition="1 eq $cus.cus_type"}checked{/if}>
-                <input type="radio" name="cus_type" value="2" title="二手房"  {if condition="2 eq $cus.cus_type"}checked{/if}>
-            </div>
-        </div>
-        <div class="layui-inline">
-            <label class="layui-form-label">房屋户型</label>
-            <div class="layui-input-inline">
-                <input type="text" name="cus_house_type" value="{$cus.cus_house_type}" placeholder="如：两室一厅"  class="layui-input">
-            </div>
-        </div>
-    </div>
-    <div class="layui-form-item">
-        <div class="layui-inline">
-            <label class="layui-form-label">小区名称</label>
-            <div class="layui-input-inline">
-                <input type="text" name="cus_build" value="{$cus.cus_build}" class="layui-input">
-            </div>
-        </div>
-    </div>
-    <div class="layui-form-item">
-        <label class="layui-form-label">城市</label>
-        <div class="layui-input-inline">
-            <select name="cus_provid" id="cus_provid" lay-filter="cus_provid">
-                <option value="">请选择省份</option>
-                {volist name='prov' id='vo'}
-                    <option value="{$vo.p_id}" {if condition="$vo.p_id eq $cus.cus_provid"}selected{/if}>{$vo.p_name}</option>
+            <label class="layui-form-label">用户收藏</label>
+            <table class="layui-table" lay-size="sm">
+                <tr>
+                    <th>id</th>
+                    <th>房源/找室友编号</th>
+                    <th>收藏类型</th>
+                    <th>收藏时间</th>
+<!--                    <th>操作</th>-->
+                </tr>
+                {volist name='collect' id='vo'}
+                    <tr>
+                        <td>{$vo.cl_id}</td>
+                        <td>{$vo.cl_house_id}</td>
+                        <td>{$vo.cl_type == '1' ? '房源' : '找室友'}</td>
+                        <td>{$vo.cl_addtime}</td>
+<!--                        <td>-->
+<!--                            <span class="layui-btn layui-btn-xs">详情</span>-->
+<!--                        </td>-->
+                    </tr>
                 {/volist}
-            </select>
+            </table>
         </div>
-        <div class="layui-input-inline">
-            <select name="cus_cityid" id="cityName" lay-filter="myselect2">
-                <option value="">请选择市</option>
-                {volist name='cusCity' id='city'}
-                    <option value="{$city.c_id}" {if condition="$city.c_id eq $cus.cus_cityid"}selected{/if} >{$city.c_name}</option>
-                {/volist}
-            </select>
-        </div>
-    </div>
-    <fieldset class="layui-elem-field layui-field-title" style="margin-top: 20px;">
-        <legend>回访信息</legend>
-    </fieldset>
-    <div class="layui-form-item">
+        {/if}
+        {if condition='$view neq null'}
         <div class="layui-inline">
-            <label class="layui-form-label">预估见面</label>
-            <div class="layui-input-inline">
-                <input type="text" readonly name="cus_seetime" value="{$cus.cus_seetime}"  id="date" placeholder="yyyy-MM-dd" autocomplete="off" class="layui-input">
-            </div>
-        </div>
-    </div>
-    <div class="layui-form-item">
-        <label class="layui-form-label">标记状态</label>
-        <div class="layui-input-inline">
-            <select name="cus_status" lay-filter="aihao">
-                <option value="">请选择标记状态</option>
-                {volist name="userTip" id="tip" }
-                <option value="{$tip.type_id}" {if condition="$tip.type_id eq $cus.cus_status"}selected{/if}>{$tip.type_name}</option>
+            <label class="layui-form-label">用户浏览</label>
+            <table class="layui-table" lay-size="sm">
+                <tr>
+                    <th>id</th>
+                    <th>房源/找室友编号</th>
+                    <th>浏览类型</th>
+                    <th>浏览时间</th>
+<!--                    <th>操作</th>-->
+                </tr>
+                {volist name='view' id='vo'}
+                <tr>
+                    <td>{$vo.vh_id}</td>
+                    <td>{$vo.vh_house_id}</td>
+                    <td>{$vo.vh_type == '1' ? '房源' : '找室友'}</td>
+                    <td>{$vo.vh_add_time}</td>
+<!--                    <td>-->
+<!--                        <span class="layui-btn layui-btn-xs">详情</span>-->
+<!--                    </td>-->
+                </tr>
                 {/volist}
-            </select>
+            </table>
         </div>
-    </div>
-    <div class="layui-form-item layui-form-text">
-        <label class="layui-form-label">回访备注</label>
-        <div class="layui-input-block">
-            <textarea placeholder="请输入回访备注" name="cus_remarks" class="layui-textarea">{$cus.cus_remarks}</textarea>
+        {/if}
+        {if condition='$querys neq null'}
+        <div class="layui-inline">
+            <label class="layui-form-label">用户搜索</label>
+            <table class="layui-table" lay-size="sm">
+                <tr>
+                    <th>id</th>
+                    <th>搜索关键词</th>
+                    <th>搜索类型</th>
+                    <th>搜索时间</th>
+                </tr>
+                {volist name='querys' id='vo'}
+                <tr>
+                    <td>{$vo.sk_id}</td>
+                    <td>{$vo.sk_keywords}</td>
+                    <td>{$vo.sk_type == '1' ? '房源' : '找室友'}</td>
+                    <td>{$vo.sk_addtime}</td>
+                </tr>
+                {/volist}
+            </table>
         </div>
-    </div>
-    <div class="layui-form-item">
-        <div class="layui-input-block">
-            <span class="layui-btn" lay-submit="" lay-filter="editCus">保存</span>
-        </div>
+        {/if}
     </div>
 </form>
 </html>
@@ -254,7 +168,7 @@
         form.on('submit(editCus)', function(data){
             $.ajax({
                 'type':"post",
-                'url':"<?=url('user/editUser')?>?cus_id={$cus.cus_id}",
+                'url':"<?=url('user/editUser')?>?cus_id=",
                 'data':$("#cusInfo").serialize(),
                 'success':function (result) {
                    if(result.code == '1'){
