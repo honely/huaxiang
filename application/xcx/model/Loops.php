@@ -37,4 +37,12 @@ class Loops extends Model
         return $user ? $user['nickname'] : '外星人呀';
     }
 
+
+    public function getUnread($mpId){
+        $unRead = Db::table('xcx_msg_content')
+            ->where(['xcx_msg_mp_id' => $mpId,'xcx_msg_isread' => 2,'xcx_msg_isable' =>1])
+            ->count('xcx_msg_id');
+        return $unRead ? $unRead : 0;
+    }
+
 }

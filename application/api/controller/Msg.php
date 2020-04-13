@@ -71,6 +71,7 @@ class Msg extends Controller
                     $list[$k]['nickname'] = $msg->getUserNick($v['mp_u_id']);
                     $list[$k]['avaurl'] = $msg->getUserAvatar($v['mp_u_id']);
                 }
+                $list[$k]['count'] = $msg->getUnread($v['mp_id']);
             }
             $res['code'] = 1;
             $res['msg'] = '读取成功！';
@@ -81,6 +82,29 @@ class Msg extends Controller
         $res['msg'] = '数据为空！';
         $res['data'] = null;
         return json($res);
+    }
+
+    public function unRead(){
+        header("Access-Control-Allow-Origin:*");
+        header('Access-Control-Allow-Methods:POST');
+        header('Access-Control-Allow-Headers:x-requested-with, content-type');
+        $uId = intval(trim($this->request->param('uid')));
+        $list = Db::table('xcx_msg_person')
+            ->where(['mp_u_id' => $uId,'mp_isable' => 1])
+            ->whereOr(['mp_ul_id' => $uId,'mp_isable' => 1])
+            ->field('mp_id')
+            ->select();
+        if($list){
+            $msg = new Loops();
+            $count = 0;
+            foreach ($list as $k => $v){
+                $count += $msg->getUnread($v['mp_id']);
+            }
+            $res['code'] = 1;
+            $res['msg'] = '获取成功！';
+            $res['count'] = $count;
+            return json($res);
+        }
     }
 
 
