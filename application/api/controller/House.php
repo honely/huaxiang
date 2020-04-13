@@ -116,12 +116,12 @@ class House extends Controller
             }
         }
         $order = $orders;
-        $field = 'id,type,house_room,area,images,price,toilet,furniture,home,school,address,tj';
+        $field = 'id,type,title,house_room,area,images,price,toilet,furniture,home,school,address,tj';
         $housem = new Housem();
         $house = $housem->readData($where,$order,$limit,$page,$field);
         if($house){
             foreach ($house as $k => $v){
-                $house[$k]['title'] = $v['type'].''.$v['house_room'].''.$v['area'];
+//                $house[$k]['title'] = $v['type'].''.$v['house_room'].''.$v['area'];
                 $house[$k]['tj'] = $v['tj'] == '是' ? '推荐房源'  : '';
                 $house[$k]['tingwei'] = $this->formatRoom($v['house_room']).''.$this->formatToilet($v['toilet']);
             }
@@ -297,10 +297,6 @@ class House extends Controller
         $housem = new Housem();
         $house = $housem->readData($where,$order,$limit,$page,$field);
         if($house){
-            foreach ($house as $k => $v){
-                $house[$k]['title'] = $v['type'].''.$v['house_room'].''.$v['area'];
-
-            }
             $res['code'] = 1;
             $res['msg'] = '读取成功！';
             $res['data'] = $house;
@@ -321,12 +317,12 @@ class House extends Controller
         $page = trim($this->request->param('page','0'));
         $where = "(user_id = '".$uid."')";
         $order = 'publish_date desc';
-        $field = 'id,type,house_room,area,images,price,status,home';
+        $field = 'id,type,title,house_room,area,images,price,status,home';
         $housem = new Housem();
         $house = $housem->readData($where,$order,$limit,$page,$field);
         if($house){
             foreach ($house as $k => $v){
-                $house[$k]['title'] = $v['type'].''.$v['house_room'].''.$v['area'];
+//                $house[$k]['title'] = $v['type'].''.$v['house_room'].''.$v['area'];
 
             }
             $res['code'] = 1;

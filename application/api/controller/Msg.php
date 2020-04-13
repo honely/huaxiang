@@ -105,6 +105,10 @@ class Msg extends Controller
             $res['count'] = $count;
             return json($res);
         }
+        $res['code'] = 1;
+        $res['msg'] = '获取成功！';
+        $res['count'] = 0;
+        return json($res);
     }
 
 

@@ -13,11 +13,11 @@ class Index extends Controller
         header('Access-Control-Allow-Headers:x-requested-with, content-type');
         $housem = new Housem();
         $where = ['tj' => '是','status' =>1];
-        $filed = 'id,type,house_room,area,images,price,furniture,home,school,address';
+        $filed = 'id,title,type,house_room,area,images,price,furniture,home,school,address';
         $house = $housem->readData($where,'id desc','12','0',$filed);
         if($house){
             foreach ($house as $k => $v){
-                $house[$k]['title'] = $v['type'].''.$v['house_room'].''.$v['area'];
+//                $house[$k]['title'] = $v['type'].''.$v['house_room'].''.$v['area'];
             }
             $res['code'] = 1;
             $res['msg'] = '读取成功！';
