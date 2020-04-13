@@ -12,7 +12,7 @@ class Index extends Controller
         header('Access-Control-Allow-Methods:POST');
         header('Access-Control-Allow-Headers:x-requested-with, content-type');
         $housem = new Housem();
-        $where = ['tj' => '是'];
+        $where = ['tj' => '是','status' =>1];
         $filed = 'id,type,house_room,area,images,price,furniture,home,school,address';
         $house = $housem->readData($where,'id desc','12','0',$filed);
         if($house){

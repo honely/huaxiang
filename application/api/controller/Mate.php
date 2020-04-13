@@ -117,7 +117,7 @@ class Mate extends Controller
         //学校
         $school = trim($this->request->param('school'));
         if(isset($school) && !empty($school) && $school){
-            $where.=" and school = '".$school."'";
+            $where.=" and school like '%".$school."%'";
         }
         //年龄age
         $age = trim($this->request->param('age'));
@@ -132,7 +132,7 @@ class Mate extends Controller
         //宠物
         //楼宇设施
         $order = 'publish_date desc';
-        $field = 'id,title,ager,sex,school,habit';
+        $field = 'id,title,ager,sex,school,habit,user_id';
         $mateM = new Matem();
         $mate= $mateM->readData($where,$order,'12','0',$field);
         $this->addQueryContent($uid,$where,2);
@@ -153,12 +153,17 @@ class Mate extends Controller
         header("Access-Control-Allow-Origin:*");
         header('Access-Control-Allow-Methods:POST');
         header('Access-Control-Allow-Headers:x-requested-with, content-type');
-        $uid = trim($this->request->param('uid',21));
+        $uid = intval(trim($this->request->param('uid')));
         $limit = trim($this->request->param('limit','10'));
         $page = trim($this->request->param('page','0'));
+        if(!$uid){
+            $res['code'] = 0;
+            $res['msg'] = '缺少参数';
+            return json($res);
+        }
         $where = "(user_id = '".$uid."')";
         $order = 'publish_date desc';
-        $field = 'id,title,area,images,price,status';
+        $field = 'id,title,area,images,price,status,user_id';
         $housem = new Matem();
         $house = $housem->readData($where,$order,$limit,$page,$field);
         if($house){

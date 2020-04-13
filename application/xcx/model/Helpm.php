@@ -8,9 +8,13 @@ class Helpm extends Model
 
     public function addHelp($data){
         $addHouse = Db::table('xcx_helpme')->insertGetId($data);
+        $mateInfo = Db::table('xcx_helpme')->where(['id' =>$addHouse])->field('h_uid')->find();
+        $msg = new Loops();
+        $userNick = $msg->getUserNick($mateInfo['h_uid']);
+        $str = $userNick.'正在找房子';
+        $msg->insertMsg($str);
         return $addHouse ? $addHouse :  0;
     }
-
     public function editHelp($data){
         $id = $data['h_id'];
         unset($data['h_id']);

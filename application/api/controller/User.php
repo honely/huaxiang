@@ -27,9 +27,22 @@ class User extends Controller
         if (!@$data['gender']) {
             $this->sucess('0', '性别不能为空');
         }
+        switch ($data['gender']){
+            case 1:
+                $sex = '男';
+                break;
+            case 2:
+                $sex = '女';
+                break;
+            default:
+                $sex = '未知';
+                break;
+        }
+        $data['sex'] = $sex;
+        unset($data['gender']);
         //登录
         $user = Db::table('tk_user')->where('openid', $data['openid'])->find();
-        if (!empty($user)) {
+        if(!empty($user)) {
             //if ($user['unionid'] == null){
             //    $rest = model('User')->where('openid', $data['openid'])->setField('unionid',$data['unionid']);
             //}
@@ -186,24 +199,60 @@ class User extends Controller
         $data = input('param.');
         $appid = config('wx.appid');
         if (!isset($data['session_key']) || !$data['session_key']) {
-            $this->sucess(0,"code 为空");
+            $this->sucess(0,"session_key 为空");
         }
         if (!isset($data['encryptedData']) || !$data['encryptedData']) {
-            $this->sucess(0,"code 为空");
+            $this->sucess(0,"encryptedData 为空");
         }
         if (!isset($data['iv']) || !$data['iv']) {
-            $this->sucess(0,"code 为空");
+            $this->sucess(0,"iv 为空");
         }
-        $sessionKey = $data['session_key'];
         $encryptedData = $data['encryptedData'];
         $iv = $data['iv'];
-        $err = $this->decryptData($appid,$sessionKey,$encryptedData,$iv);
-        if ($err != -41001 &&$err != -41002&&$err != -41003&&$err != -41004) {
-            $err['unionid'] = $err['unionId'];
-            return $err;
-        }
-        return $err;
+        $sessionKey=$data['session_key'];
+        $res = $this->decryptDatas($encryptedData, $iv,$sessionKey);
+        return json($res);
+
     }
+
+    // 小程序解密
+    public function decryptDatas($encryptedData, $iv,$sessionKey)
+    {
+
+       $OK = 0;
+        $IllegalAesKey = -41001;
+        $IllegalIv = -41002;
+       $IllegalBuffer = -41003;
+       $appid = config('wx.appid');
+
+        if (strlen($sessionKey) != 24) {
+            return $IllegalAesKey;
+        }
+        $aesKey=base64_decode($sessionKey);
+
+
+        if (strlen($iv) != 24) {
+            return $IllegalIv;
+        }
+        $aesIV=base64_decode($iv);
+
+        $aesCipher=base64_decode($encryptedData);
+
+        $result=openssl_decrypt( $aesCipher, "AES-128-CBC", $aesKey, 1, $aesIV);
+
+        $dataObj=json_decode( $result );
+        if( $dataObj  == NULL )
+        {
+            return $IllegalBuffer;
+        }
+        if( $dataObj->watermark->appid != $appid)
+        {
+            return $IllegalBuffer;
+        }
+
+        return  $dataObj;
+    }
+
 
     public function code2Session_new($code,$encryptedData, $iv) {
         $appid = config('wx.appid');
@@ -387,6 +436,32 @@ class User extends Controller
         }
         $res['code'] = 0;
         $res['msg'] = '修改失败！';
+        return json($res);
+    }
+
+
+    public function getUser(){
+        header("Access-Control-Allow-Origin:*");
+        header('Access-Control-Allow-Methods:POST');
+        header('Access-Control-Allow-Headers:x-requested-with, content-type');
+        $id = $this->request->param('id');
+        if (!@$id) {
+            $res['code'] = 1;
+            $res['msg'] = '用户id为空！';
+            return json($res);
+        }
+        $user = Db::table('tk_user')
+            ->where(['id' => $id])->find();
+        if($user){
+            unset($user['openid']);
+            unset($user['unionid']);
+            $res['code'] = 1;
+            $res['msg'] = '读取成功！';
+            $res['data'] = $user;
+            return json($res);
+        }
+        $res['code'] = 0;
+        $res['msg'] = '无此用户！';
         return json($res);
     }
 }

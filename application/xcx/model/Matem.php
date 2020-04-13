@@ -13,6 +13,12 @@ class Matem extends Model
             ->order($order)
             ->field($field)
             ->select();
+        if($result){
+            $msg = new Loops();
+            foreach ($result as $k => $v){
+                $result[$k]['avatar'] = $msg->getUserAvatar($v['user_id']);
+            }
+        }
         return $result ? $result :  null;
     }
 
@@ -20,8 +26,12 @@ class Matem extends Model
     public function addMate($data){
         $data['dsn'] = $this->getMateDsn();
         $addHouse = Db::table('tk_roommates')->insertGetId($data);
-        //写入一条
-        $str = '长安过客正在找室友';
+        //写入一条轮播消息
+        $mateInfo = Db::table('tk_roommates')->where(['id' =>$addHouse])->field('user_id')->find();
+        $msg = new Loops();
+        $userNick = $msg->getUserNick($mateInfo['user_id']);
+        $str = $userNick.'正在找室友';
+        $msg->insertMsg($str);
         return $addHouse ? $addHouse :  0;
     }
 
@@ -39,12 +49,16 @@ class Matem extends Model
         $house = Db::table('tk_roommates')
             ->where(['id' => $id])
             ->find();
+        $msg = new Loops();
+        if($house['user_id']){
+            $house['real_name'] = $msg->getUserNick($house['user_id']);
+            $house['avaurl'] = $msg->getUserAvatar($house['user_id']);
+        }
         //写入一条浏览记录
         $view = new Views();
         $view->addView($uid,$id,2);
         return $house ? $house : null;
     }
-
 
     //生成找室友编码
     public function getMateDsn()

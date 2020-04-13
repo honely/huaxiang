@@ -37,6 +37,11 @@ class Housem extends Model
     public function addHouse($data){
         $data['dsn'] = $this->genHouseDsn();
         $addHouse = Db::table('tk_houses')->insertGetId($data);
+        $mateInfo = Db::table('tk_houses')->where(['id' =>$addHouse])->field('user_id')->find();
+        $msg = new Loops();
+        $userNick = $msg->getUserNick($mateInfo['user_id']);
+        $str = $userNick.'正在出租一套房源';
+        $msg->insertMsg($str);
         return $addHouse ? $addHouse :  0;
     }
 
@@ -72,9 +77,13 @@ class Housem extends Model
         $house = Db::table('tk_houses')
             ->where(['id' => $id])
             ->find();
-        $house['toilet'] = intval($house['toilet']);
-        $house['car'] = intval($house['car']);
-        $house['house_room'] = $this->numRoom($house['house_room']);
+        if($house){
+//            $house['title'] = $house['type'].''.$house['house_room'].''.$house['area'];
+            $house['toilet'] = intval($house['toilet']);
+            $house['car'] = intval($house['car']);
+            $house['house_room'] = $this->numRoom($house['house_room']);
+        }
+
         //写入一条浏览记录
         $view = new Views();
         $view->addView($uid,$id,1);
@@ -86,7 +95,7 @@ class Housem extends Model
 
 
     public function get_area_id($id, $x, $y) {
-       $url =  "https://image.maps.ls.hereapi.com/mia/1.6/mapview?c={$x}%2C{$y}&z=14&w=750&h=475&f=1&apiKey=WgZd-Ykul-3XNV5agUgW2vMohtzAlYEA64GIQvcrfaw";
+       $url =  "https://image.maps.ls.hereapi.com/mia/1.6/mapview?c={$x}%2C{$y}&z=17&w=750&h=475&f=1&apiKey=WgZd-Ykul-3XNV5agUgW2vMohtzAlYEA64GIQvcrfaw";
         $res = file_get_contents($url);
         file_put_contents('uploads/area/'.$id.'.png', $res);
         $data['id'] = $id;

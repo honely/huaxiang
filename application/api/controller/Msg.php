@@ -1,5 +1,6 @@
 <?php
 namespace app\api\controller;
+use app\xcx\model\Loops;
 use app\xcx\model\Msgs;
 use think\Controller;
 use think\Db;
@@ -61,13 +62,14 @@ class Msg extends Controller
             ->order('mp_mod_time desc')
             ->select();
         if($list){
+            $msg = new Loops();
             foreach ($list as $k => $v){
                 if($list[$k]['mp_u_id'] == $uId){
-                    $list[$k]['nickname'] = $this->getUserNick($v['mp_ul_id']);
-                    $list[$k]['avaurl'] = $this->getUserAvatar($v['mp_ul_id']);
+                    $list[$k]['nickname'] = $msg->getUserNick($v['mp_ul_id']);
+                    $list[$k]['avaurl'] = $msg->getUserAvatar($v['mp_ul_id']);
                 }else{
-                    $list[$k]['nickname'] = $this->getUserNick($v['mp_u_id']);
-                    $list[$k]['avaurl'] = $this->getUserAvatar($v['mp_u_id']);
+                    $list[$k]['nickname'] = $msg->getUserNick($v['mp_u_id']);
+                    $list[$k]['avaurl'] = $msg->getUserAvatar($v['mp_u_id']);
                 }
             }
             $res['code'] = 1;
@@ -140,23 +142,41 @@ class Msg extends Controller
         //会话id
         $uid = intval(trim($this->request->param('uid')));
         $mpid = intval(trim($this->request->param('mpid')));
-        if(!$mpid || !$uid){
+        $page = trim($this->request->param('page','0'));
+        $limit = 20;
+        if(!$mpid){
             $res['code'] = 0;
             $res['msg'] = '缺少参数';
             return json($res);
         }
         //更新已读状态
         Db::table('xcx_msg_content')
-            ->where(['xcx_msg_mp_id' => $mpid,'xcx_msg_uid' => $uid,'xcx_msg_isable' =>1])
+            ->where(['xcx_msg_mp_id' => $mpid,'xcx_msg_isable' =>1])
             ->update(['xcx_msg_isread' => 1]);
         $msgList = Db::table('xcx_msg_content')
-            ->where(['xcx_msg_mp_id' => $mpid,'xcx_msg_uid' => $uid,'xcx_msg_isable' =>1])
-            ->order('xcx_msg_add_time desc')
+            ->where(['xcx_msg_mp_id' => $mpid,'xcx_msg_isable' =>1])
+            ->order('xcx_msg_add_time')
+            ->limit($limit,$page)
             ->select();
         if($msgList){
+            $mpids= Db::table('xcx_msg_person')
+                ->where(['mp_id' =>$mpid])
+                ->field('mp_u_id,mp_ul_id')
+                ->find();
+            if($mpids['mp_u_id'] == $uid){
+                $otherid = $mpids['mp_ul_id'];
+            }else{
+                $otherid = $mpids['mp_u_id'];
+            }
+            $msg = new Loops();
+            $user['inickname'] =$msg->getUserNick($uid);
+            $user['unickname'] = $msg->getUserNick($otherid);
+            $user['iavaurl'] = $msg->getUserAvatar($uid);
+            $user['uavaurl'] = $msg->getUserAvatar($otherid);
             $res['code'] = 1;
             $res['msg'] = '读取成功！';
             $res['data'] = $msgList;
+            $res['user'] = $user;
             return json($res);
         }
         $res['code'] = 1;
@@ -230,18 +250,4 @@ class Msg extends Controller
         $res['msg'] = '删除失败！';
         return json($res);
     }
-
-
-
-    public function getUserNick($uid){
-        $user = Db::table('tk_user')->where(['id' => $uid])->field('nickname')->find();
-        return $user ? $user['nickname'] : '外星人呀';
-    }
-
-
-    public function getUserAvatar($uid){
-        $user = Db::table('tk_user')->where(['id' => $uid])->field('avaurl')->find();
-        return $user ? $user['avaurl'] : '外星人呀';
-    }
-
 }

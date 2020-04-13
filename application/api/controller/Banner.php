@@ -17,7 +17,7 @@ class Banner extends Controller{
         header('Access-Control-Allow-Methods:POST');
         header('Access-Control-Allow-Headers:x-requested-with, content-type');
         $where = 'b_status = 1';
-        $order = 'b_update_time desc';
+        $order = 'b_order desc,b_update_time desc';
         $field = 'b_id,b_title,b_cover';
         $mateM = new Bannerm();
         $mate= $mateM->readData($where,$order,'12','0',$field);

@@ -27,6 +27,11 @@ class Colt extends Controller
         header('Access-Control-Allow-Headers:x-requested-with, content-type');
         $uId = intval(trim($this->request->param('uid')));
         $hid = intval(trim($this->request->param('hid')));
+        if(!$uId || !$hid){
+            $res['code'] = 0;
+            $res['msg'] = '缺少参数！';
+            return json($res);
+        }
         $col = new Collects();
         $add = $col->addCollect($uId,$hid,1);
         if($add){
@@ -54,6 +59,11 @@ class Colt extends Controller
         header('Access-Control-Allow-Headers:x-requested-with, content-type');
         $uId = intval(trim($this->request->param('uid')));
         $mid = intval(trim($this->request->param('mid')));
+        if(!$uId || !$mid){
+            $res['code'] = 0;
+            $res['msg'] = '缺少参数！';
+            return json($res);
+        }
         $col = new Collects();
         $add = $col->addCollect($uId,$mid,2);
         if($add){
@@ -88,7 +98,7 @@ class Colt extends Controller
         header("Access-Control-Allow-Origin:*");
         header('Access-Control-Allow-Methods:POST');
         header('Access-Control-Allow-Headers:x-requested-with, content-type');
-        $uId = intval(trim($this->request->param('uid','1')));
+        $uId = intval(trim($this->request->param('uid',1)));
         $type = intval(trim($this->request->param('type',1)));
         $page = intval(trim($this->request->param('page',0)));
         $limit = intval(trim($this->request->param('limit',10)));

@@ -42,7 +42,7 @@ class Banner extends Controller{
         $limit=$this->request->param('limit',10,'intval');
         $example=Db::table('xcx_banner')->where($where)
             ->limit(($page-1)*$limit,$limit)
-            ->order('b_update_time desc')
+            ->order('b_order desc,b_update_time desc')
             ->select();
         $res['code'] = 0;
         $res['msg'] = "";

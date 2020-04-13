@@ -24,7 +24,7 @@ class House extends Controller
         $city = trim($this->request->param('city','墨尔本'));
         //区域里面  热门  学校  所有区
         //热门区域
-        $where = "city = '".$city."'";
+        $where = "status = 1 and city = '".$city."'";
         $area = trim($this->request->param('area'));
         if(isset($area) && !empty($area) && $area){
             $where.=" and area = '".$area."'";
@@ -283,12 +283,17 @@ class House extends Controller
         header("Access-Control-Allow-Origin:*");
         header('Access-Control-Allow-Methods:POST');
         header('Access-Control-Allow-Headers:x-requested-with, content-type');
-        $uid = trim($this->request->param('uid'));
+        $uid = intval(trim($this->request->param('uid')));
+        if(!$uid){
+            $res['code'] = 0;
+            $res['msg'] = '缺少参数';
+            return json($res);
+        }
         $limit = trim($this->request->param('limit','10'));
         $page = trim($this->request->param('page','0'));
-        $where = "(user_id = '".$uid."')";
+        $where = "(status >=1 and user_id = '".$uid."')";
         $order = 'publish_date desc';
-        $field = 'id,type,house_room,area,images,price,status,home';
+        $field = 'id,user_id,type,house_room,area,images,price,status,home';
         $housem = new Housem();
         $house = $housem->readData($where,$order,$limit,$page,$field);
         if($house){
