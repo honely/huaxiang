@@ -177,19 +177,10 @@ class House extends Controller{
         switch ($status)
         {
             case 1:
-                $type = '已发布';
+                $type = '发布';
                 break;
             case 2:
                 $type = '下线';
-                break;
-            case 3:
-                $type = '待审核';
-                break;
-            case 4:
-                $type = '审核被拒';
-                break;
-            case 5:
-                $type = '草稿箱';
                 break;
             default:
                 $type = '---';
@@ -327,6 +318,110 @@ class House extends Controller{
             return $this->fetch();
         }
     }
+
+
+
+    //更改是否显示的状态
+    public function status(){
+        $ba_id = intval(trim($_GET['id']));
+        $change = intval(trim($_GET['change']));
+        if($ba_id && isset($change)){
+            //如果选中状态是true,后台数据将要改为手机 显示
+            if($change){
+                //查询当前城市的房源置顶数量是否超过五个
+                $isBeyound = $this->greaterTop($ba_id);
+                if(!$isBeyound){
+                    $res['code'] =0;
+                    $res['msg'] ='置顶失败！此城市的置顶数量已达上限，请取消别的置顶再置顶此房源！';
+                    return $res;
+                }
+                $msg = '置顶';
+                $data['top'] = '是';
+            }else{
+                $msg = '取消置顶';
+                $data['top'] = '否';
+            }
+            $changeStatus = Db::table('tk_houses')->where(['id' => $ba_id])->update($data);
+            if($changeStatus){
+                $res['code'] = 1;
+                $res['msg'] = $msg.'成功！';
+            }else{
+                $res['code'] = 0;
+                $res['msg'] = $msg.'失败！';
+            }
+        }else{
+            $res['code'] = 0;
+            $res['msg'] = '这是个意外！';
+        }
+        return $res;
+    }
+
+
+    //更改是否显示的状态
+    public function tjstatus(){
+        $ba_id = intval(trim($_GET['id']));
+        $change = intval(trim($_GET['change']));
+        if($ba_id && isset($change)){
+            //如果选中状态是true,后台数据将要改为手机 显示
+            if($change){
+                //查询当前城市的房源置顶数量是否超过五个
+                $isBeyound = $this->greaterTj($ba_id);
+                if(!$isBeyound){
+                    $res['code'] =0;
+                    $res['msg'] ='推荐失败！此城市的推荐数量已达上限！';
+                    return $res;
+                }
+                $msg = '推荐';
+                $data['tj'] = '是';
+            }else{
+                $msg = '取消推荐';
+                $data['tj'] = '否';
+            }
+            $changeStatus = Db::table('tk_houses')->where(['id' => $ba_id])->update($data);
+            if($changeStatus){
+                $res['code'] = 1;
+                $res['msg'] = $msg.'成功！';
+            }else{
+                $res['code'] = 0;
+                $res['msg'] = $msg.'失败！';
+            }
+        }else{
+            $res['code'] = 0;
+            $res['msg'] = '这是个意外！';
+        }
+        return $res;
+    }
+
+
+    /***
+     * @param $id int  房源id
+     * @return bool
+     * @throws \think\Exception
+     * @throws \think\db\exception\DataNotFoundException
+     * @throws \think\db\exception\ModelNotFoundException
+     * @throws \think\exception\DbException
+     */
+    public function greaterTop($id){
+        $houseCity = Db::table('tk_houses')
+            ->where(['id' => $id])
+            ->field('city')
+            ->find();
+        $count =Db::table('tk_houses')
+            ->where(['city' => $houseCity['city'],'top' => '是'])
+            ->count();
+        return $count >=5 ? false : true;
+    }
+    public function greaterTj($id){
+        $houseCity = Db::table('tk_houses')
+            ->where(['id' => $id])
+            ->field('city')
+            ->find();
+        $count =Db::table('tk_houses')
+            ->where(['city' => $houseCity['city'],'tj' => '是'])
+            ->count();
+        return $count >=10 ? false : true;
+    }
+
 
 
     public function detail(){

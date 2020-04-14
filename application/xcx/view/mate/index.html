@@ -26,7 +26,7 @@
                         <div class="layui-inline">
                             <div class="layui-input-inline">
                                 <span class="layui-btn" data-type="reload">查询</span>
-                                <a href="<?=url('house/index')?>" class="layui-btn layui-btn-warm">刷新</a>
+                                <a href="<?=url('mate/index')?>" class="layui-btn layui-btn-warm">刷新</a>
                             </div>
                         </div>
                     </div>
@@ -39,17 +39,14 @@
                         <th lay-data="{field:'dsn' ,width:140}">帖子编号</th>
                         <th lay-data="{field:'title',width:150}">标题</th>
                         <th lay-data="{field:'city',width:100}">城市</th>
-                        <th lay-data="{field:'address',width:100}">地址</th>
-                        <th lay-data="{field:'school',width:80}">区域</th>
-                        <th lay-data="{field:'price',width:60}">租金</th>
-                        <th lay-data="{field:'real_name',width:60}">姓名</th>
-                        <th lay-data="{field:'wchat',width:90}">微信号</th>
-                        <th lay-data="{field:'tel',width:80}">手机号</th>
-                        <th lay-data="{field:'top', templet: '#switch',unresize: true}">置顶</th>
-                        <th lay-data="{field:'tj', templet: '#switchTpl',unresize: true}">推荐</th>
-                        <th lay-data="{field:'status',width:80}">状态</th>
-                        <th lay-data="{field:'cdate',width:100}">添加时间</th>
-                        <th lay-data="{ width:220, toolbar: '#barDemo'}">操作</th>
+                        <th lay-data="{field:'area',width:120}">区域</th>
+                        <th lay-data="{field:'collection',width:100}">收藏量</th>
+                        <th lay-data="{field:'view',width:100}">点击量</th>
+
+                        <th lay-data="{field:'cdate',width:180}">添加时间</th>
+                        <th lay-data="{field:'statuss',width:80}">状态</th>
+                        <th lay-data="{field:'top', templet: '#switchTop',unresize: true}">上下线</th>
+                        <th lay-data="{ width:250, toolbar: '#barDemo'}">操作</th>
                     </tr>
                     </thead>
                 </table>
@@ -57,8 +54,11 @@
         </div>
     </div>
 </div>
+<script type="text/html" id="switchTop">
+    <input type="checkbox" name="sex" lay-skin="switch" value="{{d.id}}" lay-text="上线|下线" lay-filter="topDemo" {{ d.status == '1' ? 'checked' : '' }}>
+</script>
 <script type="text/html" id="barDemo">
-    <a class="layui-btn layui-btn-xs" lay-event="edit"><i class="layui-icon">&#xe642;</i>编辑</a>
+<!--    <a class="layui-btn layui-btn-xs" lay-event="edit"><i class="layui-icon">&#xe642;</i>编辑</a>-->
     <a class="layui-btn layui-btn-xs  layui-btn-warm" lay-event="alert"><i class="layui-icon">&#xe637;</i>详情</a>
     <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del"><i class="layui-icon">&#xe640;</i>删除</a>
 </script>
@@ -68,6 +68,26 @@
             ,form = layui.form
             ,element = layui.element
             ,laydate = layui.laydate;
+        //监听是否开启操作
+        form.on('switch(topDemo)', function(obj){
+            var id = this.value;
+            //如果选中状态是true,后台数据将要改为显示
+            var change = obj.elem.checked;
+            if(change){
+                change = 1;
+            }else{
+                change = 0;
+            }
+            $.ajax({
+                type: 'POST',
+                url: "<?=url('mate/status')?>?id="+id+ "&change="+change,
+                dataType:  'json',
+                success: function(data){
+                    // console.log(data.msg);
+                    layer.msg(data.msg);
+                }
+            });
+        });
         laydate.render({
             elem: '#live_time'
             ,range: true
@@ -77,7 +97,7 @@
                 var keywords = $('#keywords').val();
                 //执行重载
                 table.reload('testReload', {
-                    url: '/xcx/house/houseData/'
+                    url: '/xcx/mate/indexData/'
                     ,page: {
                         curr: 1 //重新从第 1 页开始
                     }
@@ -111,12 +131,12 @@
                     content: "<?=url('house/detail')?>?id="+id
                 });
             } else if(obj.event === 'del'){
-                layer.confirm('确定删除该房源？删除后不可恢复！', {
+                layer.confirm('确定删除？删除后不可恢复！', {
                     btn : [ '确定', '取消' ]//按钮
                 }, function() {
                     $.ajax({
                         'type':"get",
-                        'url':"<?=url('house/del')?>",
+                        'url':"<?=url('mate/del')?>",
                         'data':{id:id},
                         'success':function (result) {
                             if(result.code < 1){
@@ -128,11 +148,11 @@
                                     ,content: result.msg
                                     ,yes: function(index){
                                         layer.close(index);
-                                        window.location.href='<?=url("house/index")?>';
+                                        window.location.href='<?=url("mate/index")?>';
                                     }
                                     ,cancel:function (index) {
                                         layer.close(index);
-                                        window.location.href='<?=url("house/index")?>';
+                                        window.location.href='<?=url("mate/index")?>';
                                     }
                                 });
                             }

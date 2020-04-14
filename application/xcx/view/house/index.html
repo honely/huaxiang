@@ -27,9 +27,10 @@
                             </div>
                         </div>
                         <div class="layui-inline">
-                            <div class="layui-input-inline">
+                            <div class="layui-input-inline" style="width: 300px;">
                                 <span class="layui-btn" data-type="reload">查询</span>
                                 <a href="<?=url('house/index')?>" class="layui-btn layui-btn-warm">刷新</a>
+<!--                                <span class="layui-btn layui-btn-normal" >导出</span>-->
                             </div>
                         </div>
                     </div>
@@ -39,20 +40,17 @@
                 <table lay-skin="line" class="layui-table" lay-filter="demo" lay-data="{height: 'full-200', cellMinWidth:60, url:'/xcx/house/houseData/', limit:20,limits:[20,30,50] ,id: 'testReload',page:true}" >
                     <thead>
                     <tr>
-                        <th lay-data="{field:'dsn' ,width:140}">房源编号</th>
-                        <th lay-data="{field:'title',width:150}">标题</th>
+                        <th lay-data="{field:'dsn' ,width:110}">房源编号</th>
+                        <th lay-data="{field:'title',width:230}">标题</th>
                         <th lay-data="{field:'city',width:100}">城市</th>
-                        <th lay-data="{field:'address',width:100}">地址</th>
-                        <th lay-data="{field:'school',width:80}">区域</th>
-                        <th lay-data="{field:'price',width:60}">租金</th>
-                        <th lay-data="{field:'real_name',width:60}">姓名</th>
-                        <th lay-data="{field:'wchat',width:90}">微信号</th>
-                        <th lay-data="{field:'tel',width:80}">手机号</th>
-                        <th lay-data="{field:'top', templet: '#switch',unresize: true}">置顶</th>
-                        <th lay-data="{field:'tj', templet: '#switchTpl',unresize: true}">推荐</th>
+                        <th lay-data="{field:'area',width:120}">区域</th>
+                        <th lay-data="{field:'collection',width:100}">收藏量</th>
+                        <th lay-data="{field:'view',width:100}">点击量</th>
+                        <th lay-data="{field:'top', templet: '#top1',unresize: true}">置顶</th>
+                        <th lay-data="{field:'tj', templet: '#switchTj',unresize: true}">推荐</th>
                         <th lay-data="{field:'status',width:80}">状态</th>
                         <th lay-data="{field:'cdate',width:100}">添加时间</th>
-                        <th lay-data="{ width:220, toolbar: '#barDemo'}">操作</th>
+                        <th lay-data="{ width:230, toolbar: '#barDemo'}">操作</th>
                     </tr>
                     </thead>
                 </table>
@@ -65,6 +63,12 @@
     <a class="layui-btn layui-btn-xs  layui-btn-warm" lay-event="alert"><i class="layui-icon">&#xe637;</i>详情</a>
     <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del"><i class="layui-icon">&#xe640;</i>删除</a>
 </script>
+<script type="text/html" id="top1">
+    <input type="checkbox" name="sex" lay-skin="switch" value="{{d.id}}" lay-text="是|否" lay-filter="topDemo" {{ d.top == '是' ? 'checked' : '' }}>
+</script>
+<script type="text/html" id="switchTj">
+    <input type="checkbox" name="sex" lay-skin="switch" value="{{d.id}}" lay-text="是|否" lay-filter="sexDemo" {{ d.tj == '是' ? 'checked' : '' }}>
+</script>
 <script>
     layui.use(['table','laydate','form','element'], function(){
         var table = layui.table
@@ -75,6 +79,51 @@
             elem: '#live_time'
             ,range: true
         });
+
+        //监听是否开启操作
+        form.on('switch(topDemo)', function(obj){
+            var id = this.value;
+            //如果选中状态是true,后台数据将要改为显示
+            var change = obj.elem.checked;
+            if(change){
+                change = 1;
+            }else{
+                change = 0;
+            }
+            $.ajax({
+                type: 'POST',
+                url: "<?=url('house/status')?>?id="+id+ "&change="+change,
+                dataType:  'json',
+                success: function(data){
+                    // console.log(data.msg);
+                    layer.msg(data.msg);
+                }
+            });
+        });
+
+
+        //监听是否开启操作
+        form.on('switch(sexDemo)', function(obj){
+            var id = this.value;
+            //如果选中状态是true,后台数据将要改为显示
+            var change = obj.elem.checked;
+            if(change){
+                change = 1;
+            }else{
+                change = 0;
+            }
+            $.ajax({
+                type: 'POST',
+                url: "<?=url('house/tjstatus')?>?id="+id+ "&change="+change,
+                dataType:  'json',
+                success: function(data){
+                    // console.log(data.msg);
+                    layer.msg(data.msg);
+                }
+            });
+        });
+
+
         var $ = layui.$, active = {
             reload: function(){
                 var keywords = $('#keywords').val();
@@ -156,23 +205,6 @@
         window.location.href='<?=url("house/add")?>';
     }    function addArt1() {
         window.location.href='<?=url("house/add1")?>';
-    }
-    function switchOrder(id) {
-        layui.use(['table','jquery'], function(){
-            var table = layui.table;
-            table.reload('testReload', {
-                url: '/admin/order/orderData/'
-                ,page: {
-                    curr: 1 //重新从第 1 页开始
-                }
-                ,where: {
-                    step: id,
-                },
-                success:function (data) {
-                    console.log(data);
-                }
-            });
-        })
     }
 
 </script>

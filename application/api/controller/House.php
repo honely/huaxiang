@@ -293,7 +293,7 @@ class House extends Controller
         $page = trim($this->request->param('page','0'));
         $where = "(status >=1 and user_id = '".$uid."')";
         $order = 'publish_date desc';
-        $field = 'id,user_id,type,house_room,area,images,price,status,home';
+        $field = 'id,user_id,title,type,house_room,area,images,price,status,home';
         $housem = new Housem();
         $house = $housem->readData($where,$order,$limit,$page,$field);
         if($house){

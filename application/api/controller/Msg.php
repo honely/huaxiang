@@ -57,8 +57,9 @@ class Msg extends Controller
             return json($res);
         }
         $list = Db::table('xcx_msg_person')
-            ->where(['mp_u_id' => $uId,'mp_isable' => 1])
-            ->whereOr(['mp_ul_id' => $uId,'mp_isable' => 1])
+            ->where("(mp_u_id = ".$uId." and mp_isable = 1) or (mp_ul_id = ".$uId." and  mp_isable = 1)")
+//            ->where(['mp_u_id' => $uId,'mp_isable' => 1])
+//            ->whereOr(['mp_ul_id' => $uId,'mp_isable' => 1])
             ->order('mp_mod_time desc')
             ->select();
         if($list){
