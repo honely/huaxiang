@@ -1,8 +1,8 @@
 {include file="index/header" /}
 <div style="margin: 20px;">
     <span class="layui-breadcrumb" lay-separator=">">
-        <a>广告管理1</a>
-        <a><cite>banner1</cite></a>
+        <a>广告管理</a>
+        <a><cite>banner</cite></a>
     </span>
     <div style="float:right;">
         <button class="layui-btn layui-btn-primary layui-btn-sm"  onclick="addBanner()"><i class="layui-icon"></i>添加banner</button>
@@ -81,7 +81,7 @@
             var data = obj.data;
             if(obj.event === 'edit'){
                 var ba_id = data.b_id;
-                window.location.href='<?=url("banner/editBanner")?>?b_id='+ ba_id ;
+                window.location.href='<?=url("banner/edit")?>?b_id='+ ba_id ;
             } else if(obj.event === 'del'){
                 var ba_id = data.b_id;
                 layer.confirm('确定删除该图片？删除后不可恢复！', {
@@ -89,7 +89,7 @@
                 }, function() {
                     $.ajax({
                         'type':"get",
-                        'url':"<?=url('banner/delBanner')?>",
+                        'url':"<?=url('banner/del')?>",
                         'data':{b_id:ba_id},
                         'success':function (result) {
                             if(result.code < 1){
@@ -171,7 +171,7 @@
 <script type="text/javascript">
 
     function addBanner(){
-        window.location.href='<?=url('banner/addBanner')?>';
+        window.location.href='<?=url('banner/add')?>';
     }
 </script>
 {include file="index/footer" /}

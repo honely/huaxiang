@@ -44,6 +44,33 @@ class Help extends Controller
             ->find();
         return $adimin ? $adimin['ad_bid'] : '---';
     }
+    //更改是否显示的状态
+    public function status(){
+        $ba_id = intval(trim($_GET['id']));
+        $change = intval(trim($_GET['change']));
+        if($ba_id && isset($change)){
+            //如果选中状态是true,后台数据将要改为手机 显示
+            if($change){
+                $msg = '回访';
+                $data['h_is_review'] = 1;
+            }else{
+                $msg = '取消回访';
+                $data['h_is_review'] = 2;
+            }
+            $changeStatus = Db::table('xcx_helpme')->where(['h_id' => $ba_id])->update($data);
+            if($changeStatus){
+                $res['code'] = 1;
+                $res['msg'] = $msg.'成功！';
+            }else{
+                $res['code'] = 0;
+                $res['msg'] = $msg.'失败！';
+            }
+        }else{
+            $res['code'] = 0;
+            $res['msg'] = '这是个意外！';
+        }
+        return $res;
+    }
 
     public function review(){
         $h_id = $this->request->param('h_id');
@@ -61,6 +88,9 @@ class Help extends Controller
             }
         }else{
             $help = Db::table('xcx_helpme')->where(['h_id' => $h_id])->find();
+            if($help){
+                $help['h_price_min'] = $help['h_price_min'].'---'.$help['h_price_max'];
+            }
             $this->assign('help',$help);
             return $this->fetch();
         }

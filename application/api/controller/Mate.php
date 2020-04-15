@@ -117,7 +117,7 @@ class Mate extends Controller
         //学校
         $school = trim($this->request->param('school'));
         if(isset($school) && !empty($school) && $school){
-            $where.=" and school like '%".$school."%'";
+            $where.=" and school = '".$school."'";
         }
         //年龄age
         $age = trim($this->request->param('age'));
@@ -131,8 +131,8 @@ class Mate extends Controller
         }
         //宠物
         //楼宇设施
-        $order = 'publish_date desc';
-        $field = 'id,title,ager,sex,school,habit,user_id';
+        $order = 'mdate desc';
+        $field = 'id,title,ager,sex,school,habit,user_id,mdate';
         $mateM = new Matem();
         $mate= $mateM->readData($where,$order,'12','0',$field);
         $this->addQueryContent($uid,$where,2);

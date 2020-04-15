@@ -110,11 +110,13 @@ class Banner extends Controller{
 
 
 
-    public function addBanner(){
+    public function add(){
         $adminId=intval(session('adminId'));
         if($_POST){
             $data['b_title']=$_POST['b_title'];
             $data['b_cover']=$_POST['b_cover'];
+            $data['b_class']=$_POST['b_class'];
+            $data['b_content']=$_POST['b_content'];
             $data['b_url']=$_POST['b_url'];
             $data['b_add_time']= date('Y-m-d H:i:s');
             $data['b_update_time']= date('Y-m-d H:i:s');
@@ -132,13 +134,15 @@ class Banner extends Controller{
         }
     }
 
-    public function editBanner(){
+    public function edit(){
         $adminId=intval(session('adminId'));
         $ba_id=$_GET['b_id'];
         if($_POST){
             $data['b_title']=$_POST['b_title'];
             $data['b_cover']=$_POST['b_cover'];
             $data['b_url']=$_POST['b_url'];
+            $data['b_class']=$_POST['b_class'];
+            $data['b_content']=$_POST['b_content'];
             $data['b_add_time']= date('Y-m-d H:i:s');
             $data['b_update_time']= date('Y-m-d H:i:s');
             $data['b_order']=$_POST['b_order'];
@@ -160,34 +164,30 @@ class Banner extends Controller{
     }
 
     //删除banner图；
-    public function delBanner(){
+    public function del(){
         $ba_id=intval(trim($_GET['b_id']));
         $delBan=Db::table('xcx_banner')->where(['b_id'=>$ba_id])->delete();
         if($delBan){
-            $this->success('删除成功！','banner');
+            $this->success('删除成功！','index');
         }else{
-            $this->error('删除失败！','banner');
+            $this->error('删除失败！','index');
         }
     }
 
 
     public function upload()
     {
-        $path_date=date("Ym",time());
-        if($this->request->isPost()){
-            $res['code']=1;
-            $res['msg'] = '上传成功！';
-            $file = $this->request->file('file');
-            $info = $file->move(ROOT_PATH . 'public' . DS . 'uploads/banner/'.$path_date.'/');
-            $image = \think\Image::open($save_path.$info->getSaveName());
-            if($info){
-                $res['name'] = $info->getFilename();
-                $res['filepath'] = 'uploads/banner/'.$path_date.'/'.$info->getSaveName();
-            }else{
-                $res['code'] = 0;
-                $res['msg'] = '上传失败！'.$file->getError();
-            }
-            return $res;
+        $file = request()->file('file');
+        $info = $file->move(ROOT_PATH . 'public' . DS . 'uploads/banner');
+        if($info){
+            $path_filename =  $info->getFilename();
+            $path_date=date("Ymd",time());
+            $path="/uploads/banner/".$path_date."/".$path_filename;
+            // 成功上传后 返回上传信息
+            return json(array('state'=>1,'path'=>$path,'msg'=> '图片上传成功！'));
+        }else{
+            // 上传失败返回错误信息
+            return json(array('state'=>0,'msg'=>'上传失败,请重新上传！'));
         }
     }
 
@@ -272,97 +272,5 @@ class Banner extends Controller{
         $res['data'] = $example;
         $res['count'] = $count;
         return json($res);
-    }
-
-
-
-
-    public function add(){
-        $adminId=intval(session('adminId'));
-        $ad_role=intval(session('ad_role'));
-        if($_POST){
-            $stime=strtotime(date('Y-m-d 00:00:00'));
-            $etime=strtotime(date('Y-m-d 23:59:59'));
-            //获取当日预约的数量
-            $buNum=Db::table('super_case')->where('case_decotime','between',[$stime,$etime])->count();
-            //生成用户编号；
-            $data['case_bid'] = date('Ymd').sprintf("%04d", $buNum+1);
-            $data['case_img'] = implode(',',$_POST['case_img']);
-            $data['case_img_alt'] = implode(',',$_POST['case_img_alt']);
-            $data['case_title']=$_POST['case_title'];
-            $data['case_p_id'] = $ad_role == 1 ? $_POST['case_p_id']: session('ad_p_id');
-            $data['case_c_id'] = $ad_role == 1 ? $_POST['case_c_id']: session('ad_c_id');
-            $data['case_b_id'] = $ad_role == 1 ? $_POST['case_b_id']: session('ad_branch');
-            $data['case_sort']=2;
-            $data['case_updatetime']=time();
-            $data['case_admin'] = session('adminId');
-            $add=Db::table('super_case')->insert($data);
-            if($add){
-                $this->success('发布效果图成功！','product');
-            }else{
-                $this->error('发布效果图失败！','product');
-            }
-        }else{
-
-            if($ad_role == 1 ){// 超级管理员
-                $provInfo=Db::table('super_province')->select();
-                $this->assign('prov',$provInfo);
-            }else{
-                $adminInfo=Db::table('super_admin')
-                    ->join('super_province','super_province.p_id = super_admin.ad_p_id')
-                    ->join('super_city','super_city.c_id = super_admin.ad_c_id')
-                    ->join('super_role','super_role.r_id = super_admin.ad_role')
-                    ->join('super_branch','super_branch.b_id = super_admin.ad_branch')
-                    ->field('super_admin.ad_realname,super_province.p_name,super_city.c_name,super_branch.b_name,super_role.r_name')
-                    ->where(['ad_id' => $adminId])
-                    ->find();
-                $this->assign('admin',$adminInfo);
-            }
-            $this->assign('ad_role',$ad_role);
-            return $this->fetch();
-        }
-    }
-
-
-    public function edit(){
-        $ad_role=intval(session('ad_role'));
-        $case_id=intval($_GET['case_id']);
-        if($_POST){
-            $data['case_img'] = implode(',',$_POST['case_img']);
-            $data['case_img_alt'] = implode(',',$_POST['case_img_alt']);
-            $data['case_title']=$_POST['case_title'];
-            $data['case_p_id'] = $ad_role == 1 ? $_POST['case_p_id']: session('ad_p_id');
-            $data['case_c_id'] = $ad_role == 1 ? $_POST['case_c_id']: session('ad_c_id');
-            $data['case_b_id'] = $ad_role == 1 ? $_POST['case_b_id']: session('ad_branch');
-            $data['case_updatetime']=time();
-            $data['case_admin'] = session('adminId');
-            $edit=Db::table('super_case')->where(['case_id'=>$case_id])->update($data);
-            if($edit){
-                $this->success('修改效果图成功','product');
-            }else{
-                $this->error('修改效果图失败','product');
-            }
-        }else{
-            $provInfo=Db::table('super_province')->select();
-            $this->assign('prov',$provInfo);
-            $artInfo=Db::table('super_case')
-                ->join('super_province','super_province.p_id = super_case.case_p_id')
-                ->join('super_city','super_city.c_id = super_case.case_c_id')
-                ->join('super_branch','super_branch.b_id = super_case.case_b_id')
-                ->where(['case_id'=>$case_id])
-                ->field('super_case.*,super_province.p_name,super_city.c_name,super_branch.b_name')
-                ->find();
-            //案例图片
-            $artInfo['case_img']=explode(',',$artInfo['case_img']);
-            $artInfo['case_img_alt']=explode(',',$artInfo['case_img_alt']);
-            $provId=$artInfo['case_p_id'];
-            $c_id=$artInfo['case_c_id'];
-            $city=Db::table('super_city')->where(['p_id' => $provId])->select();
-            $branchs=Db::table('super_branch')->where(['b_city' =>$c_id ])->field('b_id,b_name')->select();
-            $this->assign('branchs',$branchs);
-            $this->assign('city',$city);
-            $this->assign('case',$artInfo);
-            return $this->fetch();
-        }
     }
 }
