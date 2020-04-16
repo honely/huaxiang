@@ -4,6 +4,7 @@
 namespace app\xcx\controller;
 
 
+use app\xcx\model\Matem;
 use think\Controller;
 use think\Db;
 use think\Request;
@@ -105,33 +106,13 @@ class Mate extends Controller
         return $res;
     }
 
-    /***
-     * @param $id int  房源id
-     * @return bool
-     * @throws \think\Exception
-     * @throws \think\db\exception\DataNotFoundException
-     * @throws \think\db\exception\ModelNotFoundException
-     * @throws \think\exception\DbException
-     */
-    public function greaterTop($id){
-        $houseCity = Db::table('tk_roommates')
-            ->where(['id' => $id])
-            ->field('city')
-            ->find();
-        $count =Db::table('tk_roommates')
-            ->where(['city' => $houseCity['city'],'top' => '是'])
-            ->count();
-        return $count >=5 ? false : true;
-    }
-    public function greaterTj($id){
-        $houseCity = Db::table('tk_roommates')
-            ->where(['id' => $id])
-            ->field('city')
-            ->find();
-        $count =Db::table('tk_roommates')
-            ->where(['city' => $houseCity['city'],'tj' => '是'])
-            ->count();
-        return $count >=10 ? false : true;
+
+    public function details(){
+        $id = $this->request->param('id',22,'intval');
+        $matem = new Matem();
+        $details = $matem->getMate($id,0);
+        $this->assign('house',$details);
+        return $this->fetch();
     }
 
 }

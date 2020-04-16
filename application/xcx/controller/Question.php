@@ -34,6 +34,13 @@ class Question extends Controller
         return $this->fetch();
     }
 
+    public function about(){
+        return $this->fetch();
+    }
+    public function agreement(){
+        return $this->fetch();
+    }
+
     public function rentData(){
         $where =' 1 = 1';
         $keywords = trim($this->request->param('keywords'));
@@ -59,6 +66,14 @@ class Question extends Controller
         $res['data'] = $design;
         $res['count'] = $count;
         return json($res);
+    }
+
+
+    public function review1(){
+        $id = trim($this->request->param('id'));
+        $content = Db::table('tk_questions')->where(['id' => $id])->find();
+        $this->assign('content',$content);
+        return $this->fetch();
     }
 
 }

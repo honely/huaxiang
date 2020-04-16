@@ -74,4 +74,22 @@ class Bannerm extends Model
             ->select();
         return $result ? $result :  null;
     }
+
+
+
+    public function getBan($id){
+        $house = Db::table('xcx_banner')
+            ->where(['b_id' => $id])
+            ->find();
+        if (empty($house)) {
+            $res['code'] = 0;
+            $res['msg'] = '广告已经不存在了';
+            $res['data'] = null;
+            return $res;
+        }
+        $res['code'] = 1;
+        $res['msg'] = '读取成功';
+        $res['data'] = $house;
+        return $res;
+    }
 }

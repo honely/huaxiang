@@ -97,11 +97,11 @@ class House extends Controller
             {
                 //时间倒序
                 case 1:
-                    $orders = 'publish_date desc';
+                    $orders = 'mdate desc';
                     break;
                 //时间顺序
                 case 2:
-                    $orders = 'publish_date asc';
+                    $orders = 'mdate asc';
                     break;
                 //价格倒序
                 case 3:
@@ -112,16 +112,15 @@ class House extends Controller
                     $orders = 'price asc';
                     break;
                 default:
-                    $orders = 'top asc,publish_date desc';
+                    $orders = 'top desc,mdate desc';
             }
         }
         $order = $orders;
-        $field = 'id,type,title,house_room,area,images,price,toilet,furniture,home,school,address,tj';
+        $field = 'id,type,title,house_room,area,images,price,toilet,furniture,home,school,address,tj,top,mdate';
         $housem = new Housem();
         $house = $housem->readData($where,$order,$limit,$page,$field);
         if($house){
             foreach ($house as $k => $v){
-//                $house[$k]['title'] = $v['type'].''.$v['house_room'].''.$v['area'];
                 $house[$k]['tj'] = $v['tj'] == '是' ? '推荐房源'  : '';
                 $house[$k]['tingwei'] = $this->formatRoom($v['house_room']).''.$this->formatToilet($v['toilet']);
             }
@@ -150,8 +149,7 @@ class House extends Controller
             return json($res);
         }
         $data['source'] = '个人房源';
-        //待审核3
-        $data['status'] = '3';
+        $data['status'] = 1;
         $data['cdate'] = date('Y-m-d H:i:s');
         $data['mdate'] = date('Y-m-d H:i:s');
         $housem = new Housem();
@@ -306,6 +304,30 @@ class House extends Controller
         $res['msg'] = '数据为空！';
         $res['data'] = $house;
         return json($res);
+    }
+
+
+    public function getArea(){
+        header("Access-Control-Allow-Origin:*");
+        header('Access-Control-Allow-Methods:POST');
+        header('Access-Control-Allow-Headers:x-requested-with, content-type');
+        $city = trim($this->request->param('city','墨尔本'));
+        $result = Db::table('tk_houses')
+            ->where(['city' => $city])
+            ->where("area != ''")
+            ->group('area')
+            ->field('area')
+            ->select();
+        if($result){
+            $res['code'] =1;
+            $res['msg'] ='读取成功！';
+            $res['data'] =$result;
+            return json($res);
+        }else{
+            $res['code'] =1;
+            $res['msg'] ='数据为空';
+            return json($res);
+        }
     }
 
     public function history(){

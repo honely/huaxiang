@@ -54,9 +54,11 @@ class Matem extends Model
             $house['real_name'] = $msg->getUserNick($house['user_id']);
             $house['avaurl'] = $msg->getUserAvatar($house['user_id']);
         }
-        //写入一条浏览记录
-        $view = new Views();
-        $view->addView($uid,$id,2);
+        if($uid){
+            //写入一条浏览记录
+            $view = new Views();
+            $view->addView($uid,$id,2);
+        }
         return $house ? $house : null;
     }
 

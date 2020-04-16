@@ -16,8 +16,7 @@ class Mate extends Controller
             $res['msg'] = '缺少提交参数！';
             return json($res);
         }
-        //待审核3
-        $data['status'] = '0';
+        $data['status'] = 1;
         $data['cdate'] = date('Y-m-d H:i:s');
         $data['mdate'] = date('Y-m-d H:i:s');
         $housem = new Matem();
@@ -161,7 +160,7 @@ class Mate extends Controller
             $res['msg'] = '缺少参数';
             return json($res);
         }
-        $where = "(user_id = '".$uid."')";
+        $where = "(status >=1 and user_id = '".$uid."')";
         $order = 'publish_date desc';
         $field = 'id,title,area,images,price,status,user_id';
         $housem = new Matem();

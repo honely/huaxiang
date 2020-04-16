@@ -58,7 +58,6 @@
     <input type="checkbox" name="sex" lay-skin="switch" value="{{d.id}}" lay-text="上线|下线" lay-filter="topDemo" {{ d.status == '1' ? 'checked' : '' }}>
 </script>
 <script type="text/html" id="barDemo">
-<!--    <a class="layui-btn layui-btn-xs" lay-event="edit"><i class="layui-icon">&#xe642;</i>编辑</a>-->
     <a class="layui-btn layui-btn-xs  layui-btn-warm" lay-event="alert"><i class="layui-icon">&#xe637;</i>详情</a>
     <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del"><i class="layui-icon">&#xe640;</i>删除</a>
 </script>
@@ -128,7 +127,7 @@
                     shade: false,
                     maxmin: true,
                     area: ['80%', '80%'],
-                    content: "<?=url('house/detail')?>?id="+id
+                    content: "<?=url('mate/details')?>?id="+id
                 });
             } else if(obj.event === 'del'){
                 layer.confirm('确定删除？删除后不可恢复！', {

@@ -24,7 +24,6 @@ class Housem extends Model
             ->order($order)
             ->field($field)
             ->select();
-
         if($result){
             foreach ($result as $k => $v){
                 $result[$k]['images'] = $this->formatImg($v['images']);

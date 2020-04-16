@@ -14,7 +14,7 @@ class Index extends Controller
         $housem = new Housem();
         $where = ['tj' => '是','status' =>1];
         $filed = 'id,title,type,house_room,area,images,price,furniture,home,school,address';
-        $house = $housem->readData($where,'id desc','12','0',$filed);
+        $house = $housem->readData($where,'mdate desc','12','0',$filed);
         if($house){
             foreach ($house as $k => $v){
 //                $house[$k]['title'] = $v['type'].''.$v['house_room'].''.$v['area'];

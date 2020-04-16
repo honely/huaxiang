@@ -58,7 +58,7 @@ class House extends Controller{
         $limit=$this->request->param('limit',10,'intval');
         $design=Db::table('tk_houses')
             ->limit(($page-1)*$limit,$limit)
-            ->order('id desc')
+            ->order('top desc,mdate desc')
             ->where($where)
             ->select();
         foreach ($design as $k => $v){
