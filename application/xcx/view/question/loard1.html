@@ -11,6 +11,9 @@
             <a>常见问题</a>
             <a><cite>房东相关</cite></a>
         </span>
+    <div style="float:right;">
+        <button class="layui-btn layui-btn-primary layui-btn-sm"  onclick="addBanner()"><i class="layui-icon"></i>添加</button>
+    </div>
 </div>
 <hr/>
 <section class="panel panel-padding">
@@ -25,49 +28,66 @@
         </thead>
     </table>
 </section>
-<script type="text/html" id="top1">
-    <input type="checkbox" name="sex" lay-skin="switch" value="{{d.h_id}}" lay-text="已回访|未回访" lay-filter="topDemo" {{ d.h_is_review == '是' ? 'checked' : '' }}>
-</script>
 <script type="text/html" id="barDemo">
-    <a class="layui-btn layui-btn-xs" lay-event="review1">查看</a>
+    <a class="layui-btn layui-btn-xs" lay-event="review">修改</a>
+    <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
 </script>
 <script>
+
+    function addBanner(){
+        window.location.href="<?=url('question/add')?>?type=房东";
+    }
     layui.use(['table','laydate','form'], function(){
         var table = layui.table
             ,form = layui.form
             ,laydate = layui.laydate;
-        //监听是否开启操作
-        form.on('switch(topDemo)', function(obj){
-            var id = this.value;
-            //如果选中状态是true,后台数据将要改为显示
-            var change = obj.elem.checked;
-            if(change){
-                change = 1;
-            }else{
-                change = 0;
-            }
-            $.ajax({
-                type: 'POST',
-                url: "<?=url('help/status')?>?id="+id+ "&change="+change,
-                dataType:  'json',
-                success: function(data){
-                    // console.log(data.msg);
-                    layer.msg(data.msg);
-                }
-            });
-        });
         table.on('tool(demo)', function(obj){
             var data = obj.data;
-            var h_id = data.h_id;
+            var id = data.id;
             if(obj.event === 'review'){
                 layer.open({
                     type: 2,
-                    title: '回访信息',
                     shadeClose: true,
                     shade: false,
                     maxmin: true,
                     area: ['80%', '80%'],
-                    content: "<?=url('help/review')?>?h_id="+h_id
+                    content: "<?=url('question/review1')?>?id="+id
+                });
+            }else if(obj.event === 'del'){
+                layer.confirm('确定删除该记录？删除后不可恢复！', {
+                    btn : [ '确定', '取消' ]//按钮
+                }, function() {
+                    $.ajax({
+                        'type':"get",
+                        'url':"<?=url('question/del')?>",
+                        'data':{id:id},
+                        'success':function (result) {
+                            if(result.code < 1){
+                                layer.msg(result.msg);
+                            }else {
+                                layer.msg(result.msg);
+                                layer.open({
+                                    title: '信息'
+                                    ,content: result.msg
+                                    ,yes: function(index){
+                                        layer.close(index);
+                                        window.location.href='<?=url("question/loard1")?>';
+                                    }
+                                    ,cancel:function (index) {
+                                        layer.close(index);
+                                        window.location.href='<?=url("question/loard1")?>';
+                                    }
+                                });
+                            }
+                        },
+                        'error':function () {
+                            console.log('error');
+                        }
+                    })
+                },function(){
+                    layer.msg('您已取消该操作！',{
+                        time: 2000
+                    });
                 });
             }
         });

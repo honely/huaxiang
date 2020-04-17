@@ -38,9 +38,10 @@ class Loops extends Model
     }
 
 
-    public function getUnread($mpId){
+    public function getUnread($mpId,$uid){
         $unRead = Db::table('xcx_msg_content')
             ->where(['xcx_msg_mp_id' => $mpId,'xcx_msg_isread' => 2,'xcx_msg_isable' =>1])
+            ->where('xcx_msg_uid != '.$uid)
             ->count('xcx_msg_id');
         return $unRead ? $unRead : 0;
     }

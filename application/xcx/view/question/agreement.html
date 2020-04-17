@@ -26,7 +26,7 @@
     </table>
 </section>
 <script type="text/html" id="barDemo">
-    <a class="layui-btn layui-btn-xs" lay-event="review1">查看</a>
+    <a class="layui-btn layui-btn-xs" lay-event="review">编辑</a>
 </script>
 <script>
     layui.use(['table','laydate','form'], function(){
@@ -37,8 +37,8 @@
         table.on('tool(demo)', function(obj){
             var data = obj.data;
             var id = data.id;
-            if(obj.event === 'review11'){
-                window.location.href="<?=url('question/review1')?>?id="+id;
+            if(obj.event === 'review'){
+                window.location.href='<?=url("question/edit")?>?type=平台协议&id='+id;
             }
         });
     });

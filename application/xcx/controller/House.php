@@ -104,6 +104,7 @@ class House extends Controller{
             $data['publish_date'] = date('Y-m-d H:i:s');
             $data['cdate'] = date('Y-m-d H:i:s');
             $data['mdate'] = date('Y-m-d H:i:s');
+            $data['status'] = 1;
             unset($data['file']);
             $data['dsn'] = $this->genHouseDsn();
             $add=Db::table('tk_houses')->insert($data);

@@ -76,11 +76,13 @@ class Housem extends Model
         $house = Db::table('tk_houses')
             ->where(['id' => $id])
             ->find();
+        $loop = new Loops();
         if($house){
-//            $house['title'] = $house['type'].''.$house['house_room'].''.$house['area'];
             $house['toilet'] = intval($house['toilet']);
             $house['car'] = intval($house['car']);
             $house['house_room'] = $this->numRoom($house['house_room']);
+            $house['real_name'] = $loop->getUserNick($house['user_id']);
+            $house['avatar'] = $loop->getUserAvatar($house['user_id']);
         }
 
         //写入一条浏览记录

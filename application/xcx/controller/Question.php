@@ -71,9 +71,75 @@ class Question extends Controller
 
     public function review1(){
         $id = trim($this->request->param('id'));
-        $content = Db::table('tk_questions')->where(['id' => $id])->find();
-        $this->assign('content',$content);
-        return $this->fetch();
+        if($_POST){
+            $data = $_POST;
+            $data['mdate'] =  date('Y-m-d H:i:s');
+            unset($data['id']);
+            $update = Db::table('tk_questions')->where(['id' => $id])->update($data);
+            if($update){
+                $this->success('修改成功');
+            }else{
+                $this->error('修改失败');
+            }
+        }else{
+            $content = Db::table('tk_questions')->where(['id' => $id])->find();
+            $this->assign('content',$content);
+            return $this->fetch();
+        }
+    }
+
+
+    public function del(){
+        $cl_id = intval(trim($this->request->param('id')));
+        $del = Db::table('tk_questions')
+            ->where(['id' => $cl_id])->delete();
+        if($del){
+            $this->success('删除成功！');
+        }else{
+            $this->error('删除失败!');
+        }
+    }
+
+    public function add(){
+        $type = trim($this->request->param('type'));
+        if($_POST){
+            $data = $_POST;
+            $data['type'] = $type;
+            $data['cdate'] = date('Y-m-d H:i:s');
+            $data['mdate'] =  date('Y-m-d H:i:s');
+            $add = Db::table('tk_questions')->insertGetId($data);
+            $url = $type == '租房'  ? 'rent1' : 'loard1';
+            if($add){
+                $this->success('添加成功！',$url);
+            }else{
+                $this->error('添加失败!',$url);
+            }
+        }else{
+            $this->assign('type',$type);
+            return $this->fetch();
+        }
+    }
+
+    public function edit(){
+        $id = intval(trim($this->request->param('id')));
+        $type = trim($this->request->param('type'));
+        if($_POST){
+            $data = $_POST;
+            $data['cdate'] = date('Y-m-d H:i:s');
+            $data['mdate'] =  date('Y-m-d H:i:s');
+            $add = Db::table('tk_questions')->where(['id' =>$id])->update($data);
+            $url = $type == '关于我们'  ? 'about' : 'agreement';
+            if($add){
+                $this->success('修改成功！',$url);
+            }else{
+                $this->error('修改失败!',$url);
+            }
+        }else{
+            $content = Db::table('tk_questions')->where(['id' => $id])->find();
+            $this->assign('content',$content);
+            $this->assign('type',$type);
+            return $this->fetch();
+        }
     }
 
 }

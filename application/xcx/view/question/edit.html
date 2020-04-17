@@ -1,0 +1,80 @@
+{include file="index/header" /}
+<!-- 配置文件 -->
+<script type="text/javascript" src="__PUBLIC__/ueditor/ueditor.config.js"></script>
+<!-- 编辑器源码文件 -->
+<script type="text/javascript" src="__PUBLIC__/ueditor/ueditor.all.js"></script>
+<!-- 实例化编辑器 -->
+<script type="text/javascript">
+    var ue = UE.getEditor('container');
+</script>
+<div class="layui-body">
+    <div style="margin: 20px;">
+    <span class="layui-breadcrumb" lay-separator=">">
+        <a></a>
+        <a><cite>修改</cite></a>
+    </span>
+        <div style="float:right;">
+            <a href="javascript:history.back(-1)" class="layui-btn layui-btn-primary layui-btn-sm">
+                <i class="layui-icon layui-icon-return"></i>
+                返回列表</a>
+        </div>
+    </div>
+    <hr/>
+    <div class="layui-tab">
+        <div class="layui-tab-content">
+            <div class="layui-tab-item layui-show">
+                <div style="margin: 10px">
+                    <div style="padding: 15px;">
+                        <form class="layui-form" action="<?=url('question/edit')?>?id={$content.id}&type={$type}" method="post">
+                            <div class="layui-form-item">
+                                <label class="layui-form-label"><span style="color: red;">*</span>标题</label>
+                                <div class="layui-input-block">
+                                    <input type="text" name="title" lay-verify="required|title" placeholder="请输入banner主题" value="{$content.title}" class="layui-input">
+                                </div>
+                            </div>
+                            <div class="layui-form-item layui-form-text">
+                                <label class="layui-form-label">描述</label>
+                                <div class="layui-input-block">
+                                    <textarea placeholder="请输入" id="summary" name="summary" class="layui-textarea">{$content.summary}</textarea>
+                                </div>
+                            </div>
+                        <div class="layui-form-item">
+                            <label class="layui-form-label"><span style="color: red;">*</span>广告内容</label>
+                            <div class="layui-input-block">
+                                <script id="container" name="content"  style="width:1024px;height:500px;" type="text/plain">{$content.content}</script>
+                            </div>
+                        </div>
+                            <div class="layui-form-item">
+                                <div class="layui-input-block">
+                                    <button class="layui-btn" lay-submit lay-filter="saveInfo">修改</button>
+                                    <a class="layui-btn layui-btn-primary" href="javascript:history.back(-1)">返回</a>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    layui.use(['form', 'jquery','upload'], function(){
+        var form = layui.form
+            ,upload = layui.upload
+            ,$ = layui.jquery;
+        //自定义验证规则
+        form.verify({
+            title: function(value){
+                if(value.length < 2){
+                    return '至少得2个字符啊';
+                }
+            }
+            ,imgReg:function (value) {
+                if(value.length <= 0){
+                    return '请上传图片';
+                }
+            }
+        });
+    });
+</script>
+{include file="index/footer" /}

@@ -1,0 +1,67 @@
+{include file="index/header" /}
+<div class="layui-body">
+    <div style="margin: 20px;">
+    <span class="layui-breadcrumb" lay-separator=">">
+        <a>常见问题</a>
+        <a><cite>添加</cite></a>
+    </span>
+        <div style="float:right;">
+            <a href="javascript:history.back(-1)" class="layui-btn layui-btn-primary layui-btn-sm">
+                <i class="layui-icon layui-icon-return"></i>
+                返回</a>
+        </div>
+    </div>
+    <hr/>
+    <div class="layui-tab">
+        <div class="layui-tab-content">
+            <!--基本信息-->
+            <div class="layui-tab-item layui-show">
+                <div style="margin: 10px">
+                    <div style="padding: 15px;">
+                        <form class="layui-form" action="<?=url('question/add')?>?type={$type}" method="post">
+                            <div class="layui-form-item">
+                                <label class="layui-form-label"><span style="color: red;">*</span>问</label>
+                                <div class="layui-input-block">
+                                    <input type="text" name="title" lay-verify="required|title" placeholder="请输入" autocomplete="off" class="layui-input">
+                                </div>
+                            </div>
+                            <div class="layui-form-item layui-form-text">
+                                <label class="layui-form-label">答</label>
+                                <div class="layui-input-block">
+                                    <textarea placeholder="请输入" id="summary" name="summary" class="layui-textarea"></textarea>
+                                </div>
+                            </div>
+                            <div class="layui-form-item">
+                                <div class="layui-input-block">
+                                    <button class="layui-btn" lay-submit lay-filter="saveInfo">添加</button>
+                                    <a class="layui-btn layui-btn-primary" href="javascript:history.back(-1)">返回</a>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    layui.use(['form', 'jquery','upload'], function(){
+        var form = layui.form
+            ,upload = layui.upload
+            ,$ = layui.jquery;
+        //自定义验证规则
+        form.verify({
+            title: function(value){
+                if(value.length < 2){
+                    return '至少得2个字符啊';
+                }
+            }
+            ,imgReg:function (value) {
+                if(value.length <= 0){
+                    return '请上传图片';
+                }
+            }
+        });
+    });
+</script>
+{include file="index/footer" /}

@@ -58,8 +58,6 @@ class Msg extends Controller
         }
         $list = Db::table('xcx_msg_person')
             ->where("(mp_u_id = ".$uId." and mp_isable = 1) or (mp_ul_id = ".$uId." and  mp_isable = 1)")
-//            ->where(['mp_u_id' => $uId,'mp_isable' => 1])
-//            ->whereOr(['mp_ul_id' => $uId,'mp_isable' => 1])
             ->order('mp_mod_time desc')
             ->select();
         if($list){
@@ -72,7 +70,7 @@ class Msg extends Controller
                     $list[$k]['nickname'] = $msg->getUserNick($v['mp_u_id']);
                     $list[$k]['avaurl'] = $msg->getUserAvatar($v['mp_u_id']);
                 }
-                $list[$k]['count'] = $msg->getUnread($v['mp_id']);
+                $list[$k]['count'] = $msg->getUnread($v['mp_id'],$uId);
             }
             $res['code'] = 1;
             $res['msg'] = '读取成功！';
@@ -99,7 +97,7 @@ class Msg extends Controller
             $msg = new Loops();
             $count = 0;
             foreach ($list as $k => $v){
-                $count += $msg->getUnread($v['mp_id']);
+                $count += $msg->getUnread($v['mp_id'],$uId);
             }
             $res['code'] = 1;
             $res['msg'] = '获取成功！';

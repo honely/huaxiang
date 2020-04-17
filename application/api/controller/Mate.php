@@ -102,7 +102,7 @@ class Mate extends Controller
         $city = trim($this->request->param('city','墨尔本'));
         //区域里面  热门  学校  所有区
         //热门区域
-        $where = "city = '".$city."'";
+        $where = "status = 1 and city = '".$city."'";
         $area = trim($this->request->param('area'));
         if(isset($area) && !empty($area) && $area){
             $where.=" and area = '".$area."'";

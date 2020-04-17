@@ -25,50 +25,19 @@
         </thead>
     </table>
 </section>
-<script type="text/html" id="top1">
-    <input type="checkbox" name="sex" lay-skin="switch" value="{{d.h_id}}" lay-text="已回访|未回访" lay-filter="topDemo" {{ d.h_is_review == '是' ? 'checked' : '' }}>
-</script>
 <script type="text/html" id="barDemo">
-    <a class="layui-btn layui-btn-xs" lay-event="review1">查看</a>
+    <a class="layui-btn layui-btn-xs" lay-event="review">编辑</a>
 </script>
 <script>
     layui.use(['table','laydate','form'], function(){
         var table = layui.table
             ,form = layui.form
             ,laydate = layui.laydate;
-        //监听是否开启操作
-        form.on('switch(topDemo)', function(obj){
-            var id = this.value;
-            //如果选中状态是true,后台数据将要改为显示
-            var change = obj.elem.checked;
-            if(change){
-                change = 1;
-            }else{
-                change = 0;
-            }
-            $.ajax({
-                type: 'POST',
-                url: "<?=url('help/status')?>?id="+id+ "&change="+change,
-                dataType:  'json',
-                success: function(data){
-                    // console.log(data.msg);
-                    layer.msg(data.msg);
-                }
-            });
-        });
         table.on('tool(demo)', function(obj){
             var data = obj.data;
-            var h_id = data.h_id;
+            var id = data.id;
             if(obj.event === 'review'){
-                layer.open({
-                    type: 2,
-                    title: '回访信息',
-                    shadeClose: true,
-                    shade: false,
-                    maxmin: true,
-                    area: ['80%', '80%'],
-                    content: "<?=url('help/review')?>?h_id="+h_id
-                });
+                window.location.href='<?=url("question/edit")?>?type=关于我们&id='+id;
             }
         });
     });

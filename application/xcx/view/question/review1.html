@@ -1,118 +1,27 @@
 {include file="index/header" /}
-<!-- 配置文件 -->
-<script type="text/javascript" src="__PUBLIC__/ueditor/ueditor.config.js"></script>
-<!-- 编辑器源码文件 -->
-<script type="text/javascript" src="__PUBLIC__/ueditor/ueditor.all.js"></script>
-<!-- 实例化编辑器 -->
-<script type="text/javascript">
-    var ue = UE.getEditor('container');
-</script>
-<style>
-    .one-pan{
-        position: relative;
-    }
-    .one{
-        position: absolute;
-        left:300px;
-        top:0;
-    }
-    .logoPre{
-        width: 216px;
-        height: 150px;
-    }
-    .casePre{
-        display:none;
-    }
-</style>
 <div class="layui-body">
-    <div style="margin: 20px;">
-    <span class="layui-breadcrumb" lay-separator=">">
-        <a>广告管理</a>
-        <a href="<?=url('banner/index')?>">banner列表</a>
-        <a><cite>修改banner</cite></a>
-    </span>
-        <div style="float:right;">
-            <a href="<?=url('banner/index')?>" class="layui-btn layui-btn-primary layui-btn-sm">
-                <i class="layui-icon layui-icon-return"></i>
-                返回列表</a>
-        </div>
-    </div>
-    <hr/>
     <div class="layui-tab">
         <div class="layui-tab-content">
             <div class="layui-tab-item layui-show">
                 <div style="margin: 10px">
                     <div style="padding: 15px;">
-                        <form class="layui-form" action="<?=url('banner/edit')?>?b_id={$ban.b_id}" method="post">
+                        <form class="layui-form" >
                             <div class="layui-form-item">
-                                <label class="layui-form-label"><span style="color: red;">*</span>banner主题</label>
+                                <label class="layui-form-label"><span style="color: red;">*</span>问</label>
                                 <div class="layui-input-block">
-                                    <input type="text" name="b_title" lay-verify="required|title" placeholder="请输入banner主题" value="{$ban.b_title}" class="layui-input">
+                                    <input type="text" name="title" lay-verify="required|title" placeholder="请输入" id="title" value="{$content.title}" class="layui-input">
+                                    <input type="hidden" name="id" id="id" value="{$content.id}" class="layui-input">
                                 </div>
                             </div>
-                            <div class="layui-form-item" pane>
-                                <label class="layui-form-label">广告位置</label>
+                            <div class="layui-form-item layui-form-text">
+                                <label class="layui-form-label">答</label>
                                 <div class="layui-input-block">
-                                    <input type="radio" name="b_class" value="1" title="首页轮播" {if condition="$ban.b_class eq 1"} checked{/if}>
-                                    <input type="radio" name="b_class" value="2" title="详情页广告" {if condition="$ban.b_class eq 2"} checked{/if}>
-                                    <input type="radio" name="b_class" value="3" title="列表广告" {if condition="$ban.b_class eq 3"} checked{/if}>
+                                    <textarea placeholder="请输入" id="summary" name="summary" class="layui-textarea">{$content.summary}</textarea>
                                 </div>
                             </div>
-                            <div class="layui-form-item">
-                                <label class="layui-form-label"><span style="color: red;">*</span>基础信息</label>
-                                <div class="layui-input-inline">
-                                    <select name="b_order" lay-verify="required" lay-filter="aihao">
-                                        <option value="">请选择排列顺序</option>
-                                        <option value="1" {if condition="$ban.b_order eq 1"}selected{/if}>1</option>
-                                        <option value="2" {if condition="$ban.b_order eq 2"}selected{/if}>2</option>
-                                        <option value="3" {if condition="$ban.b_order eq 3"}selected{/if}>3</option>
-                                        <option value="4" {if condition="$ban.b_order eq 4"}selected{/if}>4</option>
-                                        <option value="5" {if condition="$ban.b_order eq 5"}selected{/if}>5</option>
-                                    </select>
-                                </div>
-                                <div class="layui-form-mid layui-word-aux">数字越大越靠前，默认排序为时间倒序！</div>
-                            </div>
-                            <div class="layui-form-item one-pan">
-                                <label class="layui-form-label"><span style="color: red;">*</span>封面图片</label>
-
-                                <div {if condition="$ban.b_cover eq null"}class="layui-upload-drag"{/if} id="uploadLogo" style="display:inline-block;" >
-                                <image id="logoPre"
-                                       {if condition="$ban.b_cover eq null"}
-                                       {else/}
-                                src="__PUBLIC__/{$ban.b_cover}"
-                                class="logoPre"
-                                {/if}
-                                >
-                                <input type="hidden" lay-verify="imgReg" name="b_cover" id="b_cover" value="{$ban.b_cover}"/>
-                                </image>
-                            </div>
-                            <div class="one">
-                                <div class="layui-form-mid layui-word-aux" style="margin-left: 39px; ">图片要求，最大800KB，支持JPG/JEPG/PNG格式</div>
-                            </div>
-                    </div>
-                    <div class="layui-form-item">
-                        <label class="layui-form-label">跳转链接</label>
-                        <div class="layui-input-block">
-                            <input type="text" name="b_url" value="{$ban.b_url}" placeholder="请输入banner图片跳转链接" autocomplete="off" class="layui-input">
-                        </div>
-                    </div>
-                    <div class="layui-form-item" pane>
-                        <label class="layui-form-label">是否显示</label>
-                        <div class="layui-input-block">
-                            <input type="radio" name="b_status" value="1" title="是" {if condition="$ban.b_status eq 1"} checked{/if}>
-                            <input type="radio" name="b_status" value="2" title="否" {if condition="$ban.b_status eq 2"} checked{/if}>
-                        </div>
-                    </div>
-                    <div class="layui-form-item">
-                        <label class="layui-form-label"><span style="color: red;">*</span>广告内容</label>
-                        <div class="layui-input-block">
-                            <script id="container" name="b_content"  style="width:1024px;height:500px;" type="text/plain">{$ban.b_content}</script>
-                        </div>
-                    </div>
                     <div class="layui-form-item">
                         <div class="layui-input-block">
-                            <button class="layui-btn" lay-submit lay-filter="saveInfo">修改</button>
-                            <a class="layui-btn layui-btn-primary" href="<?=url('banner/index')?>">返回</a>
+                            <span class="layui-btn" onclick="closeAlls()">提交</span>
                         </div>
                     </div>
                     </form>
@@ -123,41 +32,31 @@
 </div>
 </div>
 <script>
+    function closeAlls(){
+        var id = $('#id').val();
+        var title = $('#title').val();
+        var summary = $('#summary').val();
+        $.ajax({
+            type: 'post',
+            url: "<?=url('question/review1')?>",
+            data:{'id':id,'title':title,'summary':summary},
+            dataType:  'json',
+            success: function(data){
+                layer.msg(data.msg,{
+                    time: 2000
+                },function () {
+                    var index = parent.layer.getFrameIndex(window.name);
+                    parent.layer.close(index);
+                    parent.location.reload();
+                });
+            }
+        });
+    }
     layui.use(['form', 'jquery','upload'], function(){
         var form = layui.form
             ,upload = layui.upload
             ,$ = layui.jquery;
         //自定义验证规则
-        form.verify({
-            title: function(value){
-                if(value.length < 2){
-                    return '至少得2个字符啊';
-                }
-            }
-            ,imgReg:function (value) {
-                if(value.length <= 0){
-                    return '请上传图片';
-                }
-            }
-        });
-        upload.render({
-            elem: '#uploadLogo'
-            ,url: '{:url("xcx/banner/upload")}'
-            ,exts: 'PNG|JPG'
-            ,size: '30000'
-            ,done: function(res){
-                layer.close(layer.msg());//关闭上传提示窗口
-                if(res.status == 0) {
-                    return layer.msg(res.message);
-                }
-                $('#uploadLogo').removeClass('layui-upload-drag');
-                $('#logoPre').css('width','216px');
-                $('#logoPre').css('height','150px');
-                $('#logoPre').attr('src',"__PUBLIC__/"+res.filepath);
-                console.log(res);
-                $('#b_cover').val('' +res.filepath + '');
-            }
-        });
     });
 </script>
 {include file="index/footer" /}
