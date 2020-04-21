@@ -1,0 +1,81 @@
+{include file="index/header" /}
+<div class="layui-body">
+    <div style="margin: 20px;">
+    <span class="layui-breadcrumb" lay-separator=">">
+        <a>{$url}</a>
+        <a><cite>修改</cite></a>
+    </span>
+        <div style="float:right;">
+            <a href="javascript:history.back(-1)" class="layui-btn layui-btn-primary layui-btn-sm">
+                <i class="layui-icon layui-icon-return"></i>
+                返回列表</a>
+        </div>
+    </div>
+    <hr/>
+    <div class="layui-tab">
+        <div class="layui-tab-content">
+            <div class="layui-tab-item layui-show">
+                <div style="margin: 10px">
+                    <div style="padding: 15px;">
+                        <form class="layui-form" method="post">
+                            <div class="layui-form-item">
+                                <label class="layui-form-label"><span style="color: red;">*</span>标题</label>
+                                <div class="layui-input-block">
+                                    <input type="text" name="name" lay-verify="required|title" id="name" value="{$content.name}" class="layui-input">
+                                    <input type="hidden" name="id" id="id" value="{$content.id}" class="layui-input">
+                                    <input type="hidden" name="type" id="type" value="{$type}" class="layui-input">
+                                </div>
+                            </div>
+                            <div class="layui-form-item">
+                                <div class="layui-input-block">
+                                    <span class="layui-btn" onclick="closeAlls()">提交</span>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    function closeAlls(){
+        var id = $('#id').val();
+        var name = $('#name').val();
+        var type = $('#type').val();
+        $.ajax({
+            type: 'post',
+            url: "<?=url('tags/edit')?>",
+            data:{'id':id,'name':name,'type':type},
+            dataType:  'json',
+            success: function(data){
+                layer.msg(data.msg,{
+                    time: 2000
+                },function () {
+                    var index = parent.layer.getFrameIndex(window.name);
+                    parent.layer.close(index);
+                    parent.location.reload();
+                });
+            }
+        });
+    }
+    layui.use(['form', 'jquery','upload'], function(){
+        var form = layui.form
+            ,upload = layui.upload
+            ,$ = layui.jquery;
+        //自定义验证规则
+        form.verify({
+            title: function(value){
+                if(value.length < 2){
+                    return '至少得2个字符啊';
+                }
+            }
+            ,imgReg:function (value) {
+                if(value.length <= 0){
+                    return '请上传图片';
+                }
+            }
+        });
+    });
+</script>
+{include file="index/footer" /}

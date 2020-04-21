@@ -44,11 +44,34 @@ class Banner extends Controller{
             ->limit(($page-1)*$limit,$limit)
             ->order('b_order desc,b_update_time desc')
             ->select();
+        if($example){
+            foreach ($example as $k => $v){
+                $example[$k]['b_class'] = $this->getType($v['b_class']);
+            }
+        }
         $res['code'] = 0;
         $res['msg'] = "";
         $res['data'] = $example;
         $res['count'] = $count;
         return json($res);
+    }
+
+    public function getType($type){
+        switch ($type){
+//        一室，两室，三室，三室以上
+            case 1:
+                $room = '首页轮播';
+                break;
+            case 2:
+                $room = '详情页广告';
+                break;
+            case 3:
+                $room = '列表广告';
+                break;
+            default:
+                $room ='首页轮播';
+        }
+        return $room;
     }
 
     public function loop(){

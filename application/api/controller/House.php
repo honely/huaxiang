@@ -116,7 +116,7 @@ class House extends Controller
             }
         }
         $order = $orders;
-        $field = 'id,type,title,house_room,area,images,price,toilet,furniture,home,school,address,tj,top,mdate';
+        $field = 'id,type,title,house_room,area,images,price,toilet,furniture,home,school,address,tj,top,mdate,tags,area';
         $housem = new Housem();
         $house = $housem->readData($where,$order,$limit,$page,$field);
         if($house){

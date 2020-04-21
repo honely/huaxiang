@@ -89,8 +89,7 @@ class Msg extends Controller
         header('Access-Control-Allow-Headers:x-requested-with, content-type');
         $uId = intval(trim($this->request->param('uid')));
         $list = Db::table('xcx_msg_person')
-            ->where(['mp_u_id' => $uId,'mp_isable' => 1])
-            ->whereOr(['mp_ul_id' => $uId,'mp_isable' => 1])
+            ->where("(mp_u_id = ".$uId." and mp_isable = 1) or (mp_ul_id = ".$uId." and  mp_isable = 1)")
             ->field('mp_id')
             ->select();
         if($list){

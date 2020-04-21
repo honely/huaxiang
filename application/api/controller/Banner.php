@@ -23,7 +23,8 @@ class Banner extends Controller{
         header("Access-Control-Allow-Origin:*");
         header('Access-Control-Allow-Methods:POST');
         header('Access-Control-Allow-Headers:x-requested-with, content-type');
-        $where = 'b_status = 1 and b_class = 1';
+        $type = trim($this->request->param('type','1','intval'));
+        $where = 'b_status = 1 and b_class = '.$type;
         $order = 'b_order desc,b_update_time desc';
         $field = 'b_id,b_title,b_cover';
         $mateM = new Bannerm();

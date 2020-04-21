@@ -1,0 +1,39 @@
+{include file="index/header" /}
+<div class="layui-body">
+    <div style="margin: 10px">
+        <div style="padding: 15px;">
+            <form class="layui-form" action="<?=url('house/tags')?>?id={$house.id}" method="post">
+                <fieldset class="layui-elem-field layui-field-title" style="margin-top: 20px;">
+                    <legend>房源标签</legend>
+                </fieldset>
+                <div class="layui-form-item" pane="">
+                    <label class="layui-form-label">交通</label>
+                    <div class="layui-input-block">
+                        {volist name='tags' id='vo'}
+                        <input type="checkbox" class="checkbox" lay-skin="primary" name="tags[{$vo.name}]" title="{$vo.name}" {$vo.is_checked ? 'checked' : ''}>
+                        {/volist}
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <div class="layui-input-block">
+                        <button class="layui-btn">提交</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<script>
+    layui.use(['form', 'jquery','upload','laydate','layedit'], function(){
+        var form = layui.form
+            ,upload = layui.upload
+            , laydate = layui.laydate
+            ,layedit = layui.layedit
+            ,$ = layui.jquery;
+        //日期
+        laydate.render({
+            elem: '#date'
+        });
+    });
+</script>
+{include file="index/footer" /}

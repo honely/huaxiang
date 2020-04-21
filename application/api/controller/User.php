@@ -182,18 +182,47 @@ class User extends Controller
         return $res;
     }
 
-    public function get_code_new() {
-        $data = input('param.');
-        if (!isset($data['code']) || !$data['code']) {
-            $this->sucess(-2,"code 为空");
+    public function getLogin() {
+        header("Access-Control-Allow-Origin:*");
+        header('Access-Control-Allow-Methods:POST');
+        header('Access-Control-Allow-Headers:x-requested-with, content-type');
+        $data = $this->request->param();
+        if (!@$data['code']) {
+            $this->sucess(0, 'code 为空');
         }
-        $res = $this->code2Session_new($data['code'],$data['encryptedData'], $data['iv']);
-        //if (@$res['errcode']) {
-        //	$this->sucess('-1', $res['errmsg'] . $res['errcode']);
-        //}
-        $this->sucess('0', 'ok', $res);
+        if (!@$data['encryptedData']) {
+            $this->sucess('0', 'encryptedData为空');
+        }
+        if (!@$data['iv']) {
+            $this->sucess('0', 'iv为空');
+        }
+        $appid = config('wx.appid');
+        $secret = config('wx.appsecret');
+        $code = $data['code'];
+        $encryptedData = $data['encryptedData'];
+        $iv = $data['iv'];
+        $URL = "https://api.weixin.qq.com/sns/jscode2session?appid=$appid&secret=$secret&js_code=$code&grant_type=authorization_code";
+        $apiData=file_get_contents($URL);
+        if(!isset($apiData['errcode'])){
+            $res = json_decode($apiData);
+            $resArry = $this->objectToarray($res);
+            $sessionKey = $resArry['session_key'];
+            $errCode = $this->decryptData($appid,$sessionKey,$encryptedData,$iv);
+            if ($errCode != -41001 &&$errCode != -41002&&$errCode != -41003&&$errCode != -41004) {
+                return $res;
+            }
+        }
     }
 
+    function objectToarray($stdclassobject)
+    {
+        $_array = is_object($stdclassobject) ? get_object_vars($stdclassobject) : $stdclassobject;
+        foreach ($_array as $key => $value) {
+            $value = (is_array($value) || is_object($value)) ? std_class_object_to_array($value) : $value;
+            $array[$key] = $value;
+        }
+        return $array;
+    }
 
     public function getPhone(){
         $data = input('param.');
@@ -264,10 +293,8 @@ class User extends Controller
         $sessionKey = $res['session_key'];
         $errCode = $this->decryptData($appid,$sessionKey,$encryptedData,$iv);
         if ($errCode != -41001 &&$errCode != -41002&&$errCode != -41003&&$errCode != -41004) {
-            $res['unionid'] = $errCode['unionId'];
             return $res;
         }
-        // var_dump($res);exit;
         return $res;
     }
 

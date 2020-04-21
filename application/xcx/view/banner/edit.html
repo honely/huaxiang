@@ -153,9 +153,9 @@
                 $('#uploadLogo').removeClass('layui-upload-drag');
                 $('#logoPre').css('width','216px');
                 $('#logoPre').css('height','150px');
-                $('#logoPre').attr('src',"__PUBLIC__/"+res.filepath);
+                $('#logoPre').attr('src',"__PUBLIC__/"+res.path);
                 console.log(res);
-                $('#b_cover').val('' +res.filepath + '');
+                $('#b_cover').val('' +res.path + '');
             }
         });
     });

@@ -549,4 +549,44 @@ class House extends Controller{
             return $res;
         }
     }
+
+
+    public function tags(){
+        $id = $this->request->param('id',22,'intval');
+        if($_POST){
+            $bill = $_POST['tags'];
+            $bills = '';
+            foreach($bill as $key => $val){
+                $bills .= $key.',';
+            }
+            $data['tags'] = rtrim($bills,',');
+            $update = Db::table('tk_houses')->where(['id' => $id])->update($data);
+            if($update){
+                $this->success('更新成功！','index');
+            }else{
+                $this->error('更新失败！','index');
+            }
+        }else{
+            //读取房源的tags
+            $houseTags = Db::table('tk_houses')
+                ->where(['id' => $id])
+                ->field('id,tags')
+                ->find();
+            $Tags= explode(',',$houseTags['tags']);
+            $all_tags = Db::table('xcx_tags')
+                ->where(['type' => 1])
+                ->field('id,name')
+                ->select();
+            foreach ($all_tags as $key => &$val) {
+                $all_tags[$key]['is_checked'] = false;
+                if(in_array($val['name'], $Tags)) {
+                    $val['is_checked'] = true;
+                }
+            }unset($val);
+            $this->assign('house',$houseTags);
+            $this->assign('tags',$all_tags);
+            return $this->fetch();
+        }
+
+    }
 }

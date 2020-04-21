@@ -26,6 +26,10 @@ class Housem extends Model
             ->select();
         if($result){
             foreach ($result as $k => $v){
+//                $add = $v['address'];
+//                if(isset($add)){
+//                    $result[$k]['area'] = explode(',',$add)[1];
+//                }
                 $result[$k]['images'] = $this->formatImg($v['images']);
             }
         }
@@ -35,6 +39,10 @@ class Housem extends Model
 
     public function addHouse($data){
         $data['dsn'] = $this->genHouseDsn();
+        $add = $data['address'];
+        if(isset($add)){
+            $data['area'] = trim(explode(',',$add)[1]);
+        }
         $addHouse = Db::table('tk_houses')->insertGetId($data);
         $mateInfo = Db::table('tk_houses')->where(['id' =>$addHouse])->field('user_id')->find();
         $msg = new Loops();
@@ -46,6 +54,10 @@ class Housem extends Model
 
     public function editHouse($data){
         $id = $data['id'];
+        $add = $data['address'];
+        if(isset($add)){
+            $data['area'] = trim(explode(',',$add)[1]);
+        }
         unset($data['id']);
         $update = Db::table('tk_houses')
             ->where(['id' => $id])

@@ -16,7 +16,6 @@ class Mate extends Controller
             $res['msg'] = '缺少提交参数！';
             return json($res);
         }
-        $data['status'] = 1;
         $data['cdate'] = date('Y-m-d H:i:s');
         $data['mdate'] = date('Y-m-d H:i:s');
         $housem = new Matem();
