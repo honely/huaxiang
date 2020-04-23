@@ -54,25 +54,9 @@
                     </div>
                 </div>
                 <div class="layui-form-item">
-                    <label class="layui-form-label">学生公寓</label>
-                    <div class="layui-input-block">
-                        <select name="studentapartment" disabled >
-                            <option value="">请选择学生公寓</option>
-                            {volist name='apartemnt' id='vo'}
-                            <option value="{$vo.title}" {if condition="$house.studentapartment eq $vo.title"}selected{/if}>{$vo.title}</option>
-                            {/volist}
-                        </select>
-                    </div>
-                </div>
-                <div class="layui-form-item">
                     <label class="layui-form-label"><span style="color: red;">*</span>基础信息</label>
                     <div class="layui-input-inline">
-                        <select name="city" disabled >
-                            <option value="">请选择城市</option>
-                            {volist name='city' id='vo'}
-                            <option value="{$vo.id}" {if condition="$house.city eq $vo.id"}selected{/if}>{$vo.name}</option>
-                            {/volist}
-                        </select>
+                        <input type="text" readonly value="{$house.city}" class="layui-input">
                     </div>
                     <div class="layui-input-inline">
                         <input type="text" readonly value="{$house.school}" class="layui-input">
@@ -84,7 +68,7 @@
                 <div class="layui-form-item">
                     <label class="layui-form-label"><span style="color: red;">*</span>入住时间</label>
                     <div class="layui-input-inline">
-                        <input type="text" name="live_date" lay-verify="date" lay-verify="required" placeholder="请选择入住时间" value="{$house.live_date}" autocomplete="off" class="layui-input">
+                        <input type="text" name="live_date" lay-verify="date" lay-verify="required" placeholder="请选择入住时间" value="{if condition='$house.live_date eq 0000-00-00'}随时{else/}{$house.live_date}{/if}" autocomplete="off" class="layui-input">
                     </div>
                     <div class="layui-form-mid layui-word-aux">时间为澳洲时间</div>
                 </div>
@@ -130,10 +114,12 @@
                 <div class="layui-form-item" pane="">
                     <label class="layui-form-label">租期</label>
                     <div class="layui-input-block">
-                        <input type="radio" name="lease_term" disabled value="少于3个月" title="少于3个月" {if condition="$house.lease_term eq '少于3个月'"}checked{/if}>
-                        <input type="radio" name="lease_term" disabled value="3-6个月" title="3-6个月" {if condition="$house.lease_term eq '3-6个月'"}checked{/if}>
-                        <input type="radio" name="lease_term" disabled value="6-12个月" title="6-12个月" {if condition="$house.lease_term eq '6-12个月'"}checked{/if}>
-                        <input type="radio" name="lease_term" disabled value="租期可议" title="租期可议" {if condition="$house.lease_term eq '租期可议'"}checked{/if}>
+                        <input type="radio" name="lease_term" value="灵活" title="灵活" {if condition="$house.lease_term eq '灵活'"}checked{/if}>
+                        <input type="radio" name="lease_term" value="1周起租" title="1周起租" {if condition="$house.lease_term eq '1周起租'"}checked{/if}>
+                        <input type="radio" name="lease_term" value="1个月起租" title="1个月起租" {if condition="$house.lease_term eq '1个月起租'"}checked{/if}>
+                        <input type="radio" name="lease_term" value="3个月起租" title="3个月起租" {if condition="$house.lease_term eq '3个月起租'"}checked{/if}>
+                        <input type="radio" name="lease_term" value="6个月起租" title="6个月起租" {if condition="$house.lease_term eq '6个月起租'"}checked{/if}>
+                        <input type="radio" name="lease_term" value="12个月起租" title="12个月起租" {if condition="$house.lease_term eq '12个月起租'"}checked{/if}>
                     </div>
                 </div>
                 <fieldset class="layui-elem-field layui-field-title" style="margin-top: 20px;">
@@ -151,38 +137,52 @@
                 <div class="layui-form-item">
                     <label class="layui-form-label"><span style="color: red;">*</span>户型</label>
                     <div class="layui-input-block">
-                        <input type="radio" name="house_room" disabled value="一室" title="一室" {if condition="$house.house_room eq '一室'"}checked{/if}>
-                        <input type="radio" name="house_room" disabled value="两室" title="两室" {if condition="$house.house_room eq '两室'"}checked{/if}>
-                        <input type="radio" name="house_room" disabled value="三室" title="三室" {if condition="$house.house_room eq '三室'"}checked{/if}>
-                        <input type="radio" name="house_room" disabled value="三室以上" title="三室以上" {if condition="$house.house_room eq '三室以上'"}checked{/if}>
+                        <input type="radio" name="house_room" value="一室" title="一室" {if condition="$house.house_room eq '一室'"}checked{/if}>
+                        <input type="radio" name="house_room" value="两室" title="两室" {if condition="$house.house_room eq '两室'"}checked{/if}>
+                        <input type="radio" name="house_room" value="三室" title="三室" {if condition="$house.house_room eq '三室'"}checked{/if}>
+                        <input type="radio" name="house_room" value="四室" title="四室" {if condition="$house.house_room eq '四室'"}checked{/if}>
+                        <input type="radio" name="house_room" value="四室以上" title="四室以上" {if condition="$house.house_room eq '四室以上'"}checked{/if}>
                     </div>
                 </div>
 
                 <div class="layui-form-item">
                     <label class="layui-form-label"><span style="color: red;">*</span>卫生间</label>
                     <div class="layui-input-block">
-                        <input type="radio" name="toilet" disabled value="1个" title="1个" {if condition="$house.toilet eq '1个'"}checked{/if}>
-                        <input type="radio" name="toilet" disabled value="2个" title="2个" {if condition="$house.toilet eq '2个'"}checked{/if}>
-                        <input type="radio" name="toilet" disabled value="3个" title="3个" {if condition="$house.toilet eq '3个'"}checked{/if}>
-                        <input type="radio" name="toilet" disabled value="3个以上" title="3个以上" {if condition="$house.toilet eq '3个以上'"}checked{/if}>
+                        <input type="radio" name="toilet" disabled value="0" title="0" {if condition="$house.toilet eq '0'"}checked{/if}>
+                        <input type="radio" name="toilet" disabled value="1" title="1" {if condition="$house.toilet eq '1'"}checked{/if}>
+                        <input type="radio" name="toilet" disabled value="2" title="2" {if condition="$house.toilet eq '2'"}checked{/if}>
+                        <input type="radio" name="toilet" disabled value="3" title="3" {if condition="$house.toilet eq '3'"}checked{/if}>
+                        <input type="radio" name="toilet" disabled value="4" title="4" {if condition="$house.toilet eq '4'"}checked{/if}>
+                        <input type="radio" name="toilet" disabled value="5" title="5" {if condition="$house.toilet eq '5'"}checked{/if}>
+                        <input type="radio" name="toilet" disabled value="6" title="6" {if condition="$house.toilet eq '6'"}checked{/if}>
+                        <input type="radio" name="toilet" disabled value="7" title="7" {if condition="$house.toilet eq '7'"}checked{/if}>
+                        <input type="radio" name="toilet" disabled value="8" title="8" {if condition="$house.toilet eq '8'"}checked{/if}>
+                        <input type="radio" name="toilet" disabled value="9" title="9" {if condition="$house.toilet eq '9'"}checked{/if}>
                     </div>
                 </div>
 
                 <div class="layui-form-item">
                     <label class="layui-form-label"><span style="color: red;">*</span>家具</label>
                     <div class="layui-input-block">
-                        <input type="radio" name="furniture" disabled value="包家具" title="包家具" {if condition="$house.furniture eq '包家具'"}checked{/if}>
-                        <input type="radio" name="furniture" disabled value="不包家具" title="不包家具" {if condition="$house.furniture eq '不包家具'"}checked{/if}>
+                        {volist name='all_four' id='vo'}
+                        <input type="checkbox" class="checkbox" disabled lay-skin="primary" name="furniture[{$vo.furn}]" title="{$vo.furn}"  {$vo.is_checked ? 'checked' : ''}>
+                        {/volist}
                     </div>
                 </div>
 
                 <div class="layui-form-item">
                     <label class="layui-form-label"><span style="color: red;">*</span>车位</label>
                     <div class="layui-input-block">
-                        <input type="radio" name="car" disabled value="0个" title="0个" {if condition="$house.car eq '0个'"}checked{/if}>
-                        <input type="radio" name="car" disabled value="1个" title="1个" {if condition="$house.car eq '1个'"}checked{/if}>
-                        <input type="radio" name="car" disabled value="2个" title="2个" {if condition="$house.car eq '2个'"}checked{/if}>
-                        <input type="radio" name="car" disabled value="3个" title="3个" {if condition="$house.car eq '3个'"}checked{/if}>
+                        <input type="radio" name="car" disabled value="0" title="0" {if condition="$house.car eq '0'"}checked{/if}>
+                        <input type="radio" name="car" disabled value="1" title="1" {if condition="$house.car eq '1'"}checked{/if}>
+                        <input type="radio" name="car" disabled value="2" title="2" {if condition="$house.car eq '2'"}checked{/if}>
+                        <input type="radio" name="car" disabled value="3" title="3" {if condition="$house.car eq '3'"}checked{/if}>
+                        <input type="radio" name="car" disabled value="4" title="4" {if condition="$house.car eq '4'"}checked{/if}>
+                        <input type="radio" name="car" disabled value="5" title="5" {if condition="$house.car eq '5'"}checked{/if}>
+                        <input type="radio" name="car" disabled value="6" title="6" {if condition="$house.car eq '6'"}checked{/if}>
+                        <input type="radio" name="car" disabled value="7" title="7" {if condition="$house.car eq '7'"}checked{/if}>
+                        <input type="radio" name="car" disabled value="8" title="8" {if condition="$house.car eq '8'"}checked{/if}>
+                        <input type="radio" name="car" disabled value="9" title="9" {if condition="$house.car eq '9'"}checked{/if}>
                     </div>
                 </div>
                 <div class="layui-form-item" pane="">

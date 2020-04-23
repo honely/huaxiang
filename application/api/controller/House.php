@@ -149,7 +149,6 @@ class House extends Controller
             return json($res);
         }
         $data['source'] = '个人房源';
-        $data['status'] = 1;
         $data['cdate'] = date('Y-m-d H:i:s');
         $data['mdate'] = date('Y-m-d H:i:s');
         $housem = new Housem();

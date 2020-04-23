@@ -54,8 +54,8 @@ class Housem extends Model
 
     public function editHouse($data){
         $id = $data['id'];
-        $add = $data['address'];
-        if(isset($add)){
+        if(isset($data['address']) && $data['address']){
+            $add = $data['address'];
             $data['area'] = trim(explode(',',$add)[1]);
         }
         unset($data['id']);

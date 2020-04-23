@@ -89,6 +89,12 @@ class House extends Controller{
                 $homes .= $key.',';
             }
             $data['home'] = rtrim($homes,',');
+            $furn = $_POST['furniture'];
+            $furns = '';
+            foreach($furn as $key => $val){
+                $furns .= $key.',';
+            }
+            $data['furniture'] = rtrim($furns,',');
             $sation = $_POST['sation'];
             $sations = '';
             foreach($sation as $key => $val){
@@ -114,13 +120,8 @@ class House extends Controller{
                 $this->error('添加失败！');
             }
         }else{
-            $apartemnt  = Db::table('tk_apartment')
-                ->where('status','1')
-                ->field('id,title,content,thumbnail')
-                ->select();
             $city = Db::table('tk_cate')->where(['pid' => 0])->select();
             $this->assign('city',$city);
-            $this->assign('apartemnt',$apartemnt);
             return $this->fetch();
         }
 
@@ -240,7 +241,7 @@ class House extends Controller{
                     'is_checked' => false
                 ],
                 [
-                    'bill' => '包煤气',
+                    'bill' => '包气',
                     'is_checked' => false
                 ],
                 [
@@ -266,9 +267,13 @@ class House extends Controller{
                     'is_checked' => false
                 ],
                 [
-                    'set' => '车位',
+                    'set' => '电影院',
                     'is_checked' => false
-                ]
+                ],
+                [
+                'set' => '花园',
+                'is_checked' => false
+            ]
             ];
             $houseSet = explode(',',$houseInfo['home']);
             foreach ($all_set as $key => &$val) {
@@ -288,11 +293,7 @@ class House extends Controller{
                     'is_checked' => false
                 ],
                 [
-                    'trans' => '电车站',
-                    'is_checked' => false
-                ],
-                [
-                    'trans' => '免费电车',
+                    'trans' => '地铁站',
                     'is_checked' => false
                 ]
             ];
@@ -304,17 +305,62 @@ class House extends Controller{
             }unset($val);
             $houseInfo['sub'] = $houseTrans;
 
-            $apartemnt  = Db::table('tk_apartment')
-                ->where('status','1')
-                ->field('id,title,content,thumbnail')
-                ->select();
+
+            $allFours = [
+                [
+                    'furn' => '床',
+                    'is_checked' => false
+                ],
+                [
+                    'furn' => '沙发',
+                    'is_checked' => false
+                ],[
+                    'furn' => '餐桌',
+                    'is_checked' => false
+                ],[
+                    'furn' => '椅子',
+                    'is_checked' => false
+                ],[
+                    'furn' => 'WIFI',
+                    'is_checked' => false
+                ],[
+                    'furn' => '空调',
+                    'is_checked' => false
+                ],[
+                    'furn' => '洗衣机',
+                    'is_checked' => false
+                ],[
+                    'furn' => '冰箱',
+                    'is_checked' => false
+                ],[
+                    'furn' => '微波炉',
+                    'is_checked' => false
+                ],[
+                    'furn' => '暖气',
+                    'is_checked' => false
+                ],[
+                    'furn' => '电烤箱',
+                    'is_checked' => false
+                ],
+                [
+                    'furn' => '洗碗机',
+                    'is_checked' => false
+                ]
+            ];
+            $houseFor= explode(',',$houseInfo['furniture']);
+            foreach ($allFours as $key => &$val) {
+                if(in_array($val['furn'], $houseFor)) {
+                    $val['is_checked'] = true;
+                }
+            }unset($val);
+            $houseInfo['furniture'] = $houseFor;
             $houseInfo['images1'] = explode(',',$houseInfo['images']);
             $city = Db::table('tk_cate')->where(['pid' => 0])->select();
             $this->assign('all_bill',$all_bill);
             $this->assign('all_trans',$all_trans);
             $this->assign('all_set',$all_set);
+            $this->assign('all_four',$allFours);
             $this->assign('city',$city);
-            $this->assign('apartemnt',$apartemnt);
             $this->assign('house',$houseInfo);
             return $this->fetch();
         }
@@ -438,7 +484,7 @@ class House extends Controller{
                 'is_checked' => false
             ],
             [
-                'bill' => '包煤气',
+                'bill' => '包气',
                 'is_checked' => false
             ],
             [
@@ -502,17 +548,62 @@ class House extends Controller{
         }unset($val);
         $houseInfo['sub'] = $houseTrans;
 
-        $apartemnt  = Db::table('tk_apartment')
-            ->where('status','1')
-            ->field('id,title,content,thumbnail')
-            ->select();
+        $allFours = [
+            [
+                'furn' => '床',
+                'is_checked' => false
+            ],
+            [
+                'furn' => '沙发',
+                'is_checked' => false
+            ],[
+                'furn' => '餐桌',
+                'is_checked' => false
+            ],[
+                'furn' => '椅子',
+                'is_checked' => false
+            ],[
+                'furn' => 'WIFI',
+                'is_checked' => false
+            ],[
+                'furn' => '空调',
+                'is_checked' => false
+            ],[
+                'furn' => '洗衣机',
+                'is_checked' => false
+            ],[
+                'furn' => '冰箱',
+                'is_checked' => false
+            ],[
+                'furn' => '微波炉',
+                'is_checked' => false
+            ],[
+                'furn' => '暖气',
+                'is_checked' => false
+            ],[
+                'furn' => '电烤箱',
+                'is_checked' => false
+            ],
+            [
+                'furn' => '洗碗机',
+                'is_checked' => false
+            ]
+        ];
+        $houseFor= explode(',',$houseInfo['furniture']);
+        foreach ($allFours as $key => &$val) {
+            if(in_array($val['furn'], $houseFor)) {
+                $val['is_checked'] = true;
+            }
+        }unset($val);
+        $houseInfo['furniture'] = $houseFor;
+
         $houseInfo['images1'] = explode(',',$houseInfo['images']);
         $city = Db::table('tk_cate')->where(['pid' => 0])->select();
         $this->assign('all_bill',$all_bill);
         $this->assign('all_trans',$all_trans);
         $this->assign('all_set',$all_set);
         $this->assign('city',$city);
-        $this->assign('apartemnt',$apartemnt);
+        $this->assign('all_four',$allFours);
         $this->assign('house',$houseInfo);
         return $this->fetch();
     }

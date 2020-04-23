@@ -7,7 +7,7 @@
                     <legend>房源标签</legend>
                 </fieldset>
                 <div class="layui-form-item" pane="">
-                    <label class="layui-form-label">交通</label>
+                    <label class="layui-form-label">房源标签</label>
                     <div class="layui-input-block">
                         {volist name='tags' id='vo'}
                         <input type="checkbox" class="checkbox" lay-skin="primary" name="tags[{$vo.name}]" title="{$vo.name}" {$vo.is_checked ? 'checked' : ''}>

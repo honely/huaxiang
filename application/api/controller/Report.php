@@ -18,13 +18,13 @@ class Report extends Controller
         $content = trim($this->request->param('content'));
         $userName = trim($this->request->param('uname'));
         $title = trim($this->request->param('title'));
+        $type = trim($this->request->param('type','0','intval'));
         $col = new Reports();
-        $type = '找室友举报';
         $add = $col->addReport($uId,$mid,$content,$type,$userName,$title);
         if($add){
             $res['code'] = 1;
             $res['msg'] = '举报成功！';
-            $res['id'] = $add;
+            $res['id'] = $type;
             return json($res);
         }
         $res['code'] = 0;

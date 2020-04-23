@@ -138,7 +138,10 @@ class Msg extends Controller
         $data['xcx_msg_uid'] = $uId;
         $data['xcx_msg_content'] = $content;
         $data['xcx_msg_add_time'] = date('Y-m-d H:i:s');
+        $datas['mp_mod_time'] = date('Y-m-d H:i:s');
         $sendMsg = Db::table('xcx_msg_content')->insertGetId($data);
+        //更新会话修改时间
+        Db::table('xcx_msg_person')->where(['mp_id' => $mpid])->update($datas);
         if($sendMsg){
             $res['code'] = 1;
             $res['msg'] = '发送成功！';

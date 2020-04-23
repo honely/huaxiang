@@ -13,7 +13,7 @@ class Index extends Controller
         header('Access-Control-Allow-Headers:x-requested-with, content-type');
         $housem = new Housem();
         $where = ['tj' => '是','status' =>1];
-        $filed = 'id,title,type,house_room,area,images,price,furniture,home,school,address';
+        $filed = 'id,title,type,house_room,area,images,price,furniture,home,school,address,tags';
         $house = $housem->readData($where,'mdate desc','12','0',$filed);
         if($house){
             foreach ($house as $k => $v){
@@ -54,10 +54,9 @@ class Index extends Controller
         $res = json_decode($res, true);
         if ($res['status'] == 0) {
             if (@$res['result']['address_component']['nation'] =='澳大利亚') {
-                $row = @$res['result']['address_component']['ad_level_3'];
+                $row = @$res['result']['address_component']['ad_level_2'];
             } else {
                 $row = @$res['result']['address_component']['city'];
-
             }
             if (!@$row) {
                 $city = Db::table('tk_cate')->where('pid', 0)->order('id DESC')->value('name');

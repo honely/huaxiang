@@ -37,5 +37,23 @@ class Cate extends Controller
         }
     }
 
+    public function getTags(){
+        header("Access-Control-Allow-Origin:*");
+        header('Access-Control-Allow-Methods:POST');
+        header('Access-Control-Allow-Headers:x-requested-with, content-type');
+        $type = $this->request->param('type',1,'intval');
+        $tags = Db::table('xcx_tags')->where(['type' => $type])->field('name')->select();
+        if($tags){
+            $res['code'] =1;
+            $res['msg'] ='读取成功！';
+            $res['data'] =$tags;
+            return json($res);
+        }else{
+            $res['code'] =1;
+            $res['msg'] ='数据为空';
+            return json($res);
+        }
+    }
+
 
 }
