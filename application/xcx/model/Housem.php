@@ -159,7 +159,14 @@ class Housem extends Model
     public function houseCount($where){
         $count = Db::table('tk_houses')
             ->where($where)
-            ->count();
+            ->count('id');
+        return $count ? $count : 0 ;
+    }
+
+    public function userCount($where){
+        $count = Db::table('tk_user')
+            ->where($where)
+            ->count('id');
         return $count ? $count : 0 ;
     }
 }

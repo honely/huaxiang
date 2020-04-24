@@ -6,6 +6,7 @@
  * Time: 11:33
  */
 namespace app\xcx\controller;
+use app\xcx\model\Housem;
 use think\Controller;
 use think\Request;
 use think\Db;
@@ -110,6 +111,19 @@ class Index extends Controller
     public function welcome(){
         $adminId = session('adminId');
         $roleId = intval(session('ad_role'));
+        $houseM = new Housem();
+        $whereAll = '1 = 1';
+        $allHouse = $houseM->houseCount($whereAll);
+        $allUser = $houseM->userCount($whereAll);
+        $todayStart = date('Y-m-d').' 00:00:00';
+        $todayEnd = date('Y-m-d').' 23:59:59';
+        $whereToday = "cdate >= '".$todayStart."' and cdate <= '".$todayEnd."'";
+        $todayUser = $houseM->houseCount($whereToday);
+        $todayHouse = $houseM->userCount($whereToday);
+        $this->assign('allHouse',$allHouse);
+        $this->assign('allUser',$allUser);
+        $this->assign('todayHouse',$todayHouse);
+        $this->assign('todayUser',$todayUser);
         return $this->fetch();
     }
 

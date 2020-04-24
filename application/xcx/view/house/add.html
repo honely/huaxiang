@@ -51,6 +51,8 @@
                 <label class="layui-form-label"><span style="color: red;">*</span>地址</label>
                 <div class="layui-input-block" id="input">
                     <input type="text" name="address" id="end" autocomplete="off" class="layui-input" placeholder="目的地">
+                    <input type="hidden" name="x" id="x" autocomplete="off" class="layui-input" >
+                    <input type="hidden" name="y" id="y" autocomplete="off" class="layui-input" >
                 </div>
             </div>
             <div class="layui-form-item">
@@ -71,7 +73,7 @@
                     <select name="city" lay-verify="required" lay-filter="bu_p_id">
                         <option value="">请选择城市</option>
                         {volist name='city' id='vo'}
-                        <option value="{$vo.name}">{$vo.name}</option>
+                        <option value="{$vo.id}">{$vo.name}</option>
                         {/volist}
                     </select>
                 </div>
@@ -90,7 +92,7 @@
                     <input type="text" name="live_date" id="date" lay-verify="date" lay-verify="required" placeholder="请选择入住时间" autocomplete="off" class="layui-input">
                 </div>
                 <div class="layui-input-inline">
-                    <input type="checkbox" name="open" lay-skin="switch" lay-filter="switchTest" lay-text="随时|限时">
+                    <input type="checkbox" lay-skin="switch" lay-filter="switchTest" lay-text="随时|限时">
                 </div>
             </div>
             <div class="layui-form-item">
@@ -235,6 +237,14 @@
                     <input type="checkbox" name="sation[地铁站]" lay-skin="primary" title="地铁站">
                 </div>
             </div>
+            <div class="layui-form-item" pane="">
+                <label class="layui-form-label">房源标签</label>
+                <div class="layui-input-block">
+                    {volist name='tags' id='vo'}
+                    <input type="checkbox" class="checkbox" lay-skin="primary" name="tags[{$vo.name}]" title="{$vo.name}">
+                    {/volist}
+                </div>
+            </div>
             <fieldset class="layui-elem-field layui-field-title" style="margin-top: 20px;">
                 <legend>联系方式</legend>
             </fieldset>
@@ -247,7 +257,7 @@
             <div class="layui-form-item">
                 <label class="layui-form-label"><span style="color: red;">*</span>电话</label>
                 <div class="layui-input-block">
-                    <input type="text" name="tel" lay-verify="required|phone" placeholder="请输入电话" autocomplete="off" class="layui-input">
+                    <input type="text" name="tel" lay-verify="required" placeholder="请输入电话" autocomplete="off" class="layui-input">
                 </div>
             </div>
             <div class="layui-form-item">
@@ -325,31 +335,23 @@
         autocomplete.render({
             elem: $('#end'),
             cache: true,
-            url:"<?=url('house/getAdd')?>",
-            response: {code: 'code', data: 'data'},
-            template_val: '{{d.name}}',
-            template_txt: '{{d.name}}',
+            response: {code: 'code', data: 'suggestions'},
+            template_val: '{{d.label}}',
+            template_txt: '{{d.label}}',
             onselect: function (resp) {
-                console.log(resp);
-                $('#content1').html("NEW RENDER: " + JSON.stringify(resp));
+                var address = resp.label;
+                locationAD(address);
             }
         });
         let APP_ID_HERE = "QuHxU6ypXzp37Dci84o8";
         let APP_CODE_HERE = "TDu_enlm0QIblRnIl33buw";
-
-        function addressAC(query, callback) {
-            console.log(query);
-            $.getJSON("https://autocomplete.geocoder.api.here.com/6.2/suggest.json?query=" + query.term + "&app_id=" + APP_ID_HERE + "&app_code=" + APP_CODE_HERE+ "&country=AUS", function (data) {
-                var addresses = data.suggestions;
-                addresses = addresses.map(addr => {
-                    return {
-                        title: addr.label.split(",").reverse().join().trim(),
-                        value: addr.label.split(",").reverse().join().trim(),
-                        id: addr.locationId
-                    };
-                });
-
-                return callback(addresses);
+        function locationAD(query) {
+            $.getJSON("https://geocoder.api.here.com/6.2/geocode.json?gen=9&searchtext=" + query + "&app_id=" + APP_ID_HERE + "&app_code=" + APP_CODE_HERE, function (data) {
+                console.log(data);
+                var lati = data["Response"]["View"][0]["Result"][0]["Location"]["DisplayPosition"]["Latitude"];
+                var longi = data["Response"]["View"][0]["Result"][0]["Location"]["DisplayPosition"]["Longitude"];
+                $('#x').val(lati);
+                $('#y').val(longi);
             });
         }
         //日期
@@ -359,7 +361,7 @@
         //监听指定开关
         form.on('switch(switchTest)', function(data){
             if(this.checked){
-                $('#date').val('');
+                $('#date').val('0000-00-00');
                 $('#date').hide();
             }else{
                 $('#date').show();

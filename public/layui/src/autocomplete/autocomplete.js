@@ -73,14 +73,18 @@ layui.define(['jquery', 'laytpl', 'layer'], function (e) {
         if (_config.cache && Object.keys(_config.data).length > 0) return _self.renderData(_config.data);
         $.ajax($.extend({
             type: _config.method || "get",
-            url: _config.url,
+            //url: _config.url,
+            url: "https://autocomplete.geocoder.api.here.com/6.2/suggest.json?query=" + _config.filter + "&app_id=QuHxU6ypXzp37Dci84o8&app_code=TDu_enlm0QIblRnIl33buw&country=AUS",
             data: $.extend({[_config.request.keywords]: _config.filter, t: new Date().getTime()}, _config.params),
-            contentType: 'text/json,charset=utf-8',
-            dataType: "json",
+            // contentType: 'text/json,charset=utf-8',
+            // dataType: "json",
             beforeSend: function () {
                 _container.addClass(container_focus), _dom.html(['<dd style="text-align: center" autocomplete-load>', _config.text.loading, '</dd>'].join(''))
             },
             success: function (resp) {
+                if(eval('resp.' + _config.response.data)) {
+                    resp.code = 0;
+                }
                 return 0 != eval('resp.' + _config.response.code) ? layer.msg(eval('resp.' + _config.response.data)) : _config.data = eval('resp.' + _config.response.data), _self.renderData(_config.data)
             },
             error: function () {

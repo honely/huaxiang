@@ -62,7 +62,7 @@ class House extends Controller{
             ->where($where)
             ->select();
         foreach ($design as $k => $v){
-            $design[$k]['status'] = $this->houseStatus($v['status']);
+            $design[$k]['statuss'] = $this->houseStatus($v['status']);
         }
         $res['code'] = 0;
         $res['msg'] = "";
@@ -95,6 +95,12 @@ class House extends Controller{
                 $furns .= $key.',';
             }
             $data['furniture'] = rtrim($furns,',');
+            $tags = $_POST['tags'];
+            $furnss = '';
+            foreach($tags as $key => $val){
+                $furnss .= $key.',';
+            }
+            $data['tags'] = rtrim($furnss,',');
             $sation = $_POST['sation'];
             $sations = '';
             foreach($sation as $key => $val){
@@ -111,6 +117,7 @@ class House extends Controller{
             $data['cdate'] = date('Y-m-d H:i:s');
             $data['mdate'] = date('Y-m-d H:i:s');
             $data['status'] = 1;
+            $data['city'] = $this->getCityName($_POST['city']);
             unset($data['file']);
             $data['dsn'] = $this->genHouseDsn();
             $add=Db::table('tk_houses')->insert($data);
@@ -122,9 +129,19 @@ class House extends Controller{
         }else{
             $city = Db::table('tk_cate')->where(['pid' => 0])->select();
             $this->assign('city',$city);
+            $all_tags = Db::table('xcx_tags')
+                ->where(['type' => 1])
+                ->field('id,name')
+                ->select();
+            $this->assign('tags',$all_tags);
             return $this->fetch();
         }
 
+    }
+
+    public function getCityName($id){
+        $city = Db::table('tk_cate')->where(['id' =>$id])->field('name')->find();
+        return $city ? $city['name'] : '未知城市';
     }
 
     //重新生成找室友编码
@@ -144,6 +161,18 @@ class House extends Controller{
     public function max(){
         $max = Db::table('tk_houses')->order('id desc')->find();
         return $max['id'] ? $max['id'] : 0;
+    }
+
+    public function getSchools($city){
+        $cid = Db::table('tk_cate')
+            ->where(['name' => $city,'pid' => 0])
+            ->field('id')
+            ->find();
+        $city = Db::table('tk_cate')
+            ->where(['pid' => $cid['id'],'type' => 2])
+            ->order(['id' => 'asc'])
+            ->select();
+        return $city;
     }
 
     public function getSchool(){
@@ -196,6 +225,12 @@ class House extends Controller{
         $id = $this->request->param('id',22,'intval');
         if($_POST){
             $data = $_POST;
+            $tag = $_POST['tags'];
+            $tags = '';
+            foreach($tag as $key => $val){
+                $tags .= $key.',';
+            }
+            $data['tags'] = rtrim($tags,',');
             $bill = $_POST['bill'];
             $bills = '';
             foreach($bill as $key => $val){
@@ -213,13 +248,20 @@ class House extends Controller{
             foreach($sation as $key => $val){
                 $sations .= $key.',';
             }
+            $furn = $_POST['furniture'];
+            $furns = '';
+            foreach($furn as $key => $val){
+                $furns .= $key.',';
+            }
             $img=$_POST['images'];
             $h_img='';
             for ($i=0;$i<sizeof($img);$i++){
                 $h_img.=$img[$i].",";
             }
+            $data['city'] = $this->getCityName($_POST['city']);
             $data['images'] = rtrim($h_img,',');
             $data['sation'] = rtrim($sations,',');
+            $data['furniture'] = rtrim($furns,',');
             $data['publish_date'] = date('Y-m-d H:i:s');
             $data['mdate'] = date('Y-m-d H:i:s');
             unset($data['file']);
@@ -249,13 +291,16 @@ class House extends Controller{
                     'is_checked' => false
                 ]
             ];
-            $houseBill = explode(',',$houseInfo['bill']);
-            foreach ($all_bill as $key => &$val) {
-                if(in_array($val['bill'], $houseBill)) {
-                    $val['is_checked'] = true;
-                }
-            }unset($val);
-            $houseInfo['sub'] = $houseBill;
+            if($houseInfo['bill']){
+                $houseBill = explode(',',$houseInfo['bill']);
+                foreach ($all_bill as $key => &$val) {
+                    if(in_array($val['bill'], $houseBill)) {
+                        $val['is_checked'] = true;
+                    }
+                }unset($val);
+                $houseInfo['bill'] = $houseBill;
+            }
+
 
             $all_set = [
                 [
@@ -275,14 +320,15 @@ class House extends Controller{
                 'is_checked' => false
             ]
             ];
-            $houseSet = explode(',',$houseInfo['home']);
-            foreach ($all_set as $key => &$val) {
-                if(in_array($val['set'], $houseSet)) {
-                    $val['is_checked'] = true;
-                }
-            }unset($val);
-            $houseInfo['set'] = $houseSet;
-
+            if($houseInfo['home']){
+                $houseSet = explode(',',$houseInfo['home']);
+                foreach ($all_set as $key => &$val) {
+                    if(in_array($val['set'], $houseSet)) {
+                        $val['is_checked'] = true;
+                    }
+                }unset($val);
+                $houseInfo['home'] = $houseSet;
+            }
             $all_trans = [
                 [
                     'trans' => '巴士站',
@@ -297,15 +343,15 @@ class House extends Controller{
                     'is_checked' => false
                 ]
             ];
-            $houseTrans= explode(',',$houseInfo['sation']);
-            foreach ($all_trans as $key => &$val) {
-                if(in_array($val['trans'], $houseTrans)) {
-                    $val['is_checked'] = true;
-                }
-            }unset($val);
-            $houseInfo['sub'] = $houseTrans;
-
-
+            if($houseInfo['sation']){
+                $houseTrans= explode(',',$houseInfo['sation']);
+                foreach ($all_trans as $key => &$val) {
+                    if(in_array($val['trans'], $houseTrans)) {
+                        $val['is_checked'] = true;
+                    }
+                }unset($val);
+                $houseInfo['sub'] = $houseTrans;
+            }
             $allFours = [
                 [
                     'furn' => '床',
@@ -353,14 +399,28 @@ class House extends Controller{
                     $val['is_checked'] = true;
                 }
             }unset($val);
+            $Tags= explode(',',$houseInfo['tags']);
+            $all_tags = Db::table('xcx_tags')
+                ->where(['type' => 1])
+                ->field('id,name')
+                ->select();
+            foreach ($all_tags as $key => &$val) {
+                $all_tags[$key]['is_checked'] = false;
+                if(in_array($val['name'], $Tags)) {
+                    $val['is_checked'] = true;
+                }
+            }unset($val);
+            $this->assign('tags',$all_tags);
             $houseInfo['furniture'] = $houseFor;
             $houseInfo['images1'] = explode(',',$houseInfo['images']);
             $city = Db::table('tk_cate')->where(['pid' => 0])->select();
+            $shcool = $this->getSchools($houseInfo['city']);
             $this->assign('all_bill',$all_bill);
             $this->assign('all_trans',$all_trans);
             $this->assign('all_set',$all_set);
             $this->assign('all_four',$allFours);
             $this->assign('city',$city);
+            $this->assign('school',$shcool);
             $this->assign('house',$houseInfo);
             return $this->fetch();
         }
@@ -423,6 +483,35 @@ class House extends Controller{
             }else{
                 $msg = '取消推荐';
                 $data['tj'] = '否';
+            }
+            $changeStatus = Db::table('tk_houses')->where(['id' => $ba_id])->update($data);
+            if($changeStatus){
+                $res['code'] = 1;
+                $res['msg'] = $msg.'成功！';
+            }else{
+                $res['code'] = 0;
+                $res['msg'] = $msg.'失败！';
+            }
+        }else{
+            $res['code'] = 0;
+            $res['msg'] = '这是个意外！';
+        }
+        return $res;
+    }
+
+
+    //更改是否显示的状态
+    public function onstatus(){
+        $ba_id = intval(trim($_GET['id']));
+        $change = intval(trim($_GET['change']));
+        if($ba_id && isset($change)){
+            //如果选中状态是true,后台数据将要改为手机 显示
+            if($change){
+                $msg = '上线';
+                $data['status'] = 1;
+            }else{
+                $msg = '下线';
+                $data['status'] = 2;
             }
             $changeStatus = Db::table('tk_houses')->where(['id' => $ba_id])->update($data);
             if($changeStatus){
@@ -510,7 +599,11 @@ class House extends Controller{
                 'is_checked' => false
             ],
             [
-                'set' => '车位',
+                'set' => '电影院',
+                'is_checked' => false
+            ],
+            [
+                'set' => '花园',
                 'is_checked' => false
             ]
         ];
@@ -520,8 +613,7 @@ class House extends Controller{
                 $val['is_checked'] = true;
             }
         }unset($val);
-        $houseInfo['set'] = $houseSet;
-
+        $houseInfo['home'] = $houseSet;
         $all_trans = [
             [
                 'trans' => '巴士站',
@@ -532,11 +624,7 @@ class House extends Controller{
                 'is_checked' => false
             ],
             [
-                'trans' => '电车站',
-                'is_checked' => false
-            ],
-            [
-                'trans' => '免费电车',
+                'trans' => '地铁站',
                 'is_checked' => false
             ]
         ];
