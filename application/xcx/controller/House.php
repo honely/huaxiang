@@ -320,14 +320,14 @@ class House extends Controller{
                 'is_checked' => false
             ]
             ];
-            if($houseInfo['home']){
-                $houseSet = explode(',',$houseInfo['home']);
+            if($houseInfo['furniture']){
+                $houseSet = explode(',',$houseInfo['furniture']);
                 foreach ($all_set as $key => &$val) {
                     if(in_array($val['set'], $houseSet)) {
                         $val['is_checked'] = true;
                     }
                 }unset($val);
-                $houseInfo['home'] = $houseSet;
+                $houseInfo['furniture'] = $houseSet;
             }
             $all_trans = [
                 [
@@ -393,7 +393,7 @@ class House extends Controller{
                     'is_checked' => false
                 ]
             ];
-            $houseFor= explode(',',$houseInfo['furniture']);
+            $houseFor= explode(',',$houseInfo['home']);
             foreach ($allFours as $key => &$val) {
                 if(in_array($val['furn'], $houseFor)) {
                     $val['is_checked'] = true;
@@ -411,7 +411,7 @@ class House extends Controller{
                 }
             }unset($val);
             $this->assign('tags',$all_tags);
-            $houseInfo['furniture'] = $houseFor;
+            $houseInfo['home'] = $houseFor;
             $houseInfo['images1'] = explode(',',$houseInfo['images']);
             $city = Db::table('tk_cate')->where(['pid' => 0])->select();
             $shcool = $this->getSchools($houseInfo['city']);
@@ -607,13 +607,13 @@ class House extends Controller{
                 'is_checked' => false
             ]
         ];
-        $houseSet = explode(',',$houseInfo['home']);
+        $houseSet = explode(',',$houseInfo['furniture']);
         foreach ($all_set as $key => &$val) {
             if(in_array($val['set'], $houseSet)) {
                 $val['is_checked'] = true;
             }
         }unset($val);
-        $houseInfo['home'] = $houseSet;
+        $houseInfo['furniture'] = $houseSet;
         $all_trans = [
             [
                 'trans' => '巴士站',
@@ -677,13 +677,13 @@ class House extends Controller{
                 'is_checked' => false
             ]
         ];
-        $houseFor= explode(',',$houseInfo['furniture']);
+        $houseFor= explode(',',$houseInfo['home']);
         foreach ($allFours as $key => &$val) {
             if(in_array($val['furn'], $houseFor)) {
                 $val['is_checked'] = true;
             }
         }unset($val);
-        $houseInfo['furniture'] = $houseFor;
+        $houseInfo['home'] = $houseFor;
 
         $houseInfo['images1'] = explode(',',$houseInfo['images']);
         $city = Db::table('tk_cate')->where(['pid' => 0])->select();

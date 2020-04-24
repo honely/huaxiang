@@ -35,7 +35,6 @@
 </section>
 <script type="text/html" id="barDemo">
     <a class="layui-btn layui-btn-xs" lay-event="edit"><i class="layui-icon">&#xe642;</i>详情</a>
-    <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del"><i class="layui-icon">&#xe640;</i>删除</a>
 </script>
 <script type="text/html" id="switchTpl">
     <input type="checkbox" name="sex" lay-skin="switch" value="{{d.b_id}}" lay-text="是|否" lay-filter="sexDemo" {{ d.b_status == 1 ? 'checked' : '' }}>
@@ -68,42 +67,6 @@
             var id = data.id;
             if(obj.event === 'edit'){
                 window.location.href='<?=url("user/details")?>?id='+ id ;
-            } else if(obj.event === 'del'){
-                layer.confirm('确定删除该图片？删除后不可恢复！', {
-                    btn : [ '确定', '取消' ]//按钮
-                }, function() {
-                    $.ajax({
-                        'type':"get",
-                        'url':"<?=url('user/del')?>",
-                        'data':{id:id},
-                        'success':function (result) {
-                            if(result.code < 1){
-                                layer.msg(result.msg);
-                            }else {
-                                layer.msg(result.msg);
-                                layer.open({
-                                    title: '信息'
-                                    ,content: result.msg
-                                    ,yes: function(index){
-                                        layer.close(index);
-                                        window.location.href='<?=url("user/index")?>';
-                                    }
-                                    ,cancel:function (index) {
-                                        layer.close(index);
-                                        window.location.href='<?=url("user/index")?>';
-                                    }
-                                });
-                            }
-                        },
-                        'error':function () {
-                            console.log('error');
-                        }
-                    })
-                },function(){
-                    layer.msg('您已取消该操作！',{
-                        time: 2000
-                    });
-                });
             }
         });
         var $ = layui.$, active = {

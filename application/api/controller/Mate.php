@@ -74,6 +74,7 @@ class Mate extends Controller
         $mateM = new Matem();
         $mate = $mateM->getMate($id,$uid);
         if($mate){
+            $mate['live_date'] = $mate['live_date']== '0000-00-00' ? '随时入住' : $mate['live_date'];
             $res['code'] = 1;
             $res['msg'] = '读取成功！';
             $res['data'] = $mate;
@@ -120,11 +121,16 @@ class Mate extends Controller
         //年龄age
         $age = trim($this->request->param('age'));
         if(isset($age) && !empty($age) && $age){
-            $where.=" and age = '".$age."'";
+            $where.=" and ager = '".$age."'";
         }
         //性别
         $sex = trim($this->request->param('sex'));
         if(isset($sex) && !empty($sex) && $sex){
+//            if($sex == '不限'){
+//                $sexr = '男女不限';
+//            }else{
+//                $sexr = '限'.$sex;
+//            }
             $where.=" and sex = '".$sex."'";
         }
         //宠物

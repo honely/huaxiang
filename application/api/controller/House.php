@@ -72,9 +72,9 @@ class House extends Controller
             $where.=" and pet = '".$pet."'";
         }
         //toilet
-        $pet = trim($this->request->param('toilet'));
-        if(isset($pet) && !empty($pet) && $pet){
-            $where.=" and toilet = '".$pet."'";
+        $toilet = intval(trim($this->request->param('toilet')));
+        if(isset($toilet) && !empty($toilet) && $toilet){
+            $where.=" and toilet = ".$toilet;
         }
         //房源特色
         $tags = trim($this->request->param('tags'));

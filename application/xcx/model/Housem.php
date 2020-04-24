@@ -129,8 +129,11 @@ class Housem extends Model
             case '三室':
                 $room = '3';
                 break;
-            case '三室以上':
-                $room = '多';
+            case '四室':
+                $room = '4';
+                break;
+            case '四室以上':
+                $room = '5';
                 break;
             default:
                 $room ='';

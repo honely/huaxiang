@@ -1,4 +1,26 @@
-{include file="index/header" /}
+<?php if (!defined('THINK_PATH')) exit(); /*a:3:{s:89:"D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\public/../application/xcx\view\house\add.html";i:1587718560;s:82:"D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\application\xcx\view\index\header.html";i:1587691504;s:82:"D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\application\xcx\view\index\footer.html";i:1583744281;}*/ ?>
+<!DOCTYPE html>
+<html style="height: 100%">
+<head>
+    <meta charset="utf-8">
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <title>小宝租房后台管理系统</title>
+    <link rel="stylesheet" href="../../../layui/src/css/layui.css">
+    <script src="../../../static/jquery-1.10.2.min.js"></script>
+    <script src="../../../layui/src/layui.js"></script>
+	<style>
+		.layui-body{
+			left:0!important
+		}
+	</style>
+</head>
+<body class="layui-layout-body" style="height: 100%">
+
 <style>
     .one-pan{
         position: relative;
@@ -72,9 +94,9 @@
                 <div class="layui-input-inline">
                     <select name="city" lay-verify="required" lay-filter="bu_p_id">
                         <option value="">请选择城市</option>
-                        {volist name='city' id='vo'}
-                        <option value="{$vo.id}">{$vo.name}</option>
-                        {/volist}
+                        <?php if(is_array($city) || $city instanceof \think\Collection || $city instanceof \think\Paginator): $i = 0; $__LIST__ = $city;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$vo): $mod = ($i % 2 );++$i;?>
+                        <option value="<?php echo $vo['id']; ?>"><?php echo $vo['name']; ?></option>
+                        <?php endforeach; endif; else: echo "" ;endif; ?>
                     </select>
                 </div>
                 <div class="layui-input-inline">
@@ -240,9 +262,9 @@
             <div class="layui-form-item" pane="">
                 <label class="layui-form-label">房源标签</label>
                 <div class="layui-input-block">
-                    {volist name='tags' id='vo'}
-                    <input type="checkbox" class="checkbox" lay-skin="primary" name="tags[{$vo.name}]" title="{$vo.name}">
-                    {/volist}
+                    <?php if(is_array($tags) || $tags instanceof \think\Collection || $tags instanceof \think\Paginator): $i = 0; $__LIST__ = $tags;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$vo): $mod = ($i % 2 );++$i;?>
+                    <input type="checkbox" class="checkbox" lay-skin="primary" name="tags[<?php echo $vo['name']; ?>]" title="<?php echo $vo['name']; ?>">
+                    <?php endforeach; endif; else: echo "" ;endif; ?>
                 </div>
             </div>
             <fieldset class="layui-elem-field layui-field-title" style="margin-top: 20px;">
@@ -420,7 +442,7 @@
         //户型图片上传
         upload.render({
             elem: '#uploadLogo'
-            ,url: '{:url("house/upload")}'
+            ,url: '<?php echo url("house/upload"); ?>'
             ,size:10240 //限制文件大小，单位 KB
             ,ext: 'mp4'
             ,accept: 'video' //限制文件大小，单位 KB
@@ -438,7 +460,7 @@
                 $('#uploadLogo').removeClass('layui-upload-drag');
                 $('#logoPre').css('width','216px');
                 $('#logoPre').css('height','150px');
-                $('#logoPre').attr('src',"__PUBLIC__/"+res.filepath);
+                $('#logoPre').attr('src',"../../../"+res.filepath);
                 $('#display').hide();
                 layer.msg(res.msg, {icon: 1, time: 1000});
             }
@@ -448,14 +470,23 @@
         });
     });
 </script>
-{include file="index/footer" /}
+</div>
+<script>
+    //JavaScript代码区域
+    layui.use('element', function(){
+        var element = layui.element;
+
+    });
+</script>
+</body>
+</html>
 <script>
     layui.use('upload', function(){
         var $ = layui.jquery;
         var upload = layui.upload;
         upload.render({
             elem: '#slide-pc',
-            url: '{:url("house/upload")}',
+            url: '<?php echo url("house/upload"); ?>',
             size: 5120,
             exts: 'jpg|png|jpeg',
             multiple: true,
@@ -473,7 +504,7 @@
                 }
                 console.log(res);
                 $('#slide-pc-priview').append('' +
-                    '<li class="item_img"><div class="operate"><i  class="close layui-icon"></i></div><img src="__PUBLIC__/' + res.filepath + '" class="img" ><input type="hidden" name="images[]" value="' + res.filepath + '" /></li>');
+                    '<li class="item_img"><div class="operate"><i  class="close layui-icon"></i></div><img src="../../../' + res.filepath + '" class="img" ><input type="hidden" name="images[]" value="' + res.filepath + '" /></li>');
             }
         });
     });

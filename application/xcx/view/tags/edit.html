@@ -21,7 +21,7 @@
                             <div class="layui-form-item">
                                 <label class="layui-form-label"><span style="color: red;">*</span>标题</label>
                                 <div class="layui-input-block">
-                                    <input type="text" name="name" lay-verify="required|title" id="name" value="{$content.name}" class="layui-input">
+                                    <input type="text" name="name" lay-verify="required|title" id="name" value="{$content.name}" maxlength="5" class="layui-input">
                                     <input type="hidden" name="id" id="id" value="{$content.id}" class="layui-input">
                                     <input type="hidden" name="type" id="type" value="{$type}" class="layui-input">
                                 </div>

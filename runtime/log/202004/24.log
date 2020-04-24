@@ -1,0 +1,3741 @@
+---------------------------------------------------------------
+[ 2020-04-24T15:36:13+08:00 ] 127.0.0.1 GET www.huaxiang.com/xcx/mate/index.html
+[运行时间：0.140477s] [吞吐率：7.12req/s] [内存消耗：1,672.38kb] [文件加载：47]
+[ info ] [ LANG ] D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\thinkphp\lang\zh-cn.php
+[ info ] [ ROUTE ] array (
+  'type' => 'module',
+  'module' => 
+  array (
+    0 => 'xcx',
+    1 => 'mate',
+    2 => 'index',
+  ),
+)
+[ info ] [ HEADER ] array (
+  'cookie' => 'PHPSESSID=68uhe109do7kabq48p58pqht16',
+  'accept-language' => 'zh-CN,zh;q=0.9',
+  'accept-encoding' => 'gzip, deflate',
+  'referer' => 'http://www.huaxiang.com/xcx/index/index.html',
+  'accept' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.70 Safari/537.36',
+  'upgrade-insecure-requests' => '1',
+  'connection' => 'close',
+  'host' => 'www.huaxiang.com',
+)
+[ info ] [ PARAM ] array (
+  '/xcx/mate/index_html' => '',
+)
+[ info ] [ SESSION ] INIT array (
+  'id' => '',
+  'var_session_id' => '',
+  'prefix' => 'think',
+  'type' => '',
+  'auto_start' => true,
+)
+[ info ] [ RUN ] app\xcx\controller\Mate->index[ D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\application\xcx\controller\Mate.php ]
+[ info ] [ VIEW ] D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\public/../application/xcx\view\mate\index.html [ array (
+) ]
+[ info ] [ LOG ] INIT File
+---------------------------------------------------------------
+[ 2020-04-24T15:36:14+08:00 ] 127.0.0.1 GET www.huaxiang.com/xcx/mate/indexData/?page=1&limit=20
+[运行时间：0.281075s] [吞吐率：3.56req/s] [内存消耗：2,190.52kb] [文件加载：52]
+[ info ] [ LANG ] D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\thinkphp\lang\zh-cn.php
+[ info ] [ ROUTE ] array (
+  'type' => 'module',
+  'module' => 
+  array (
+    0 => 'xcx',
+    1 => 'mate',
+    2 => 'indexData',
+  ),
+)
+[ info ] [ HEADER ] array (
+  'cookie' => 'PHPSESSID=68uhe109do7kabq48p58pqht16',
+  'accept-language' => 'zh-CN,zh;q=0.9',
+  'accept-encoding' => 'gzip, deflate',
+  'referer' => 'http://www.huaxiang.com/xcx/mate/index.html',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.70 Safari/537.36',
+  'x-requested-with' => 'XMLHttpRequest',
+  'accept' => 'application/json, text/javascript, */*; q=0.01',
+  'connection' => 'close',
+  'host' => 'www.huaxiang.com',
+)
+[ info ] [ PARAM ] array (
+  '/xcx/mate/indexData/' => '',
+  'page' => '1',
+  'limit' => '20',
+)
+[ info ] [ SESSION ] INIT array (
+  'id' => '',
+  'var_session_id' => '',
+  'prefix' => 'think',
+  'type' => '',
+  'auto_start' => true,
+)
+[ info ] [ RUN ] app\xcx\controller\Mate->indexData[ D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\application\xcx\controller\Mate.php ]
+[ info ] [ DB ] INIT mysql
+[ info ] [ LOG ] INIT File
+[ sql ] [ DB ] CONNECT:[ UseTime:0.018922s ] mysql:host=127.0.0.1;port=3306;dbname=xcxnew;charset=utf8mb4
+[ sql ] [ SQL ] SHOW COLUMNS FROM `tk_roommates` [ RunTime:0.096846s ]
+[ sql ] [ SQL ] SELECT COUNT(*) AS tp_count FROM `tk_roommates` WHERE  (   1 = 1 ) LIMIT 1 [ RunTime:0.086631s ]
+[ sql ] [ SQL ] SELECT * FROM `tk_roommates` WHERE  (   1 = 1 ) ORDER BY `id` DESC LIMIT 0,20 [ RunTime:0.002842s ]
+---------------------------------------------------------------
+[ 2020-04-24T15:36:15+08:00 ] 127.0.0.1 GET www.huaxiang.com/xcx/mate/index.html
+[运行时间：0.049229s] [吞吐率：20.31req/s] [内存消耗：1,542.95kb] [文件加载：45]
+[ info ] [ LANG ] D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\thinkphp\lang\zh-cn.php
+[ info ] [ ROUTE ] array (
+  'type' => 'module',
+  'module' => 
+  array (
+    0 => 'xcx',
+    1 => 'mate',
+    2 => 'index',
+  ),
+)
+[ info ] [ HEADER ] array (
+  'cookie' => 'PHPSESSID=68uhe109do7kabq48p58pqht16',
+  'accept-language' => 'zh-CN,zh;q=0.9',
+  'accept-encoding' => 'gzip, deflate',
+  'referer' => 'http://www.huaxiang.com/xcx/index/index.html',
+  'accept' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.70 Safari/537.36',
+  'upgrade-insecure-requests' => '1',
+  'connection' => 'close',
+  'host' => 'www.huaxiang.com',
+)
+[ info ] [ PARAM ] array (
+  '/xcx/mate/index_html' => '',
+)
+[ info ] [ SESSION ] INIT array (
+  'id' => '',
+  'var_session_id' => '',
+  'prefix' => 'think',
+  'type' => '',
+  'auto_start' => true,
+)
+[ info ] [ RUN ] app\xcx\controller\Mate->index[ D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\application\xcx\controller\Mate.php ]
+[ info ] [ VIEW ] D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\public/../application/xcx\view\mate\index.html [ array (
+) ]
+[ info ] [ LOG ] INIT File
+---------------------------------------------------------------
+[ 2020-04-24T15:36:15+08:00 ] 127.0.0.1 GET www.huaxiang.com/xcx/mate/indexData/?page=1&limit=20
+[运行时间：0.114370s] [吞吐率：8.74req/s] [内存消耗：2,190.52kb] [文件加载：52]
+[ info ] [ LANG ] D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\thinkphp\lang\zh-cn.php
+[ info ] [ ROUTE ] array (
+  'type' => 'module',
+  'module' => 
+  array (
+    0 => 'xcx',
+    1 => 'mate',
+    2 => 'indexData',
+  ),
+)
+[ info ] [ HEADER ] array (
+  'cookie' => 'PHPSESSID=68uhe109do7kabq48p58pqht16',
+  'accept-language' => 'zh-CN,zh;q=0.9',
+  'accept-encoding' => 'gzip, deflate',
+  'referer' => 'http://www.huaxiang.com/xcx/mate/index.html',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.70 Safari/537.36',
+  'x-requested-with' => 'XMLHttpRequest',
+  'accept' => 'application/json, text/javascript, */*; q=0.01',
+  'connection' => 'close',
+  'host' => 'www.huaxiang.com',
+)
+[ info ] [ PARAM ] array (
+  '/xcx/mate/indexData/' => '',
+  'page' => '1',
+  'limit' => '20',
+)
+[ info ] [ SESSION ] INIT array (
+  'id' => '',
+  'var_session_id' => '',
+  'prefix' => 'think',
+  'type' => '',
+  'auto_start' => true,
+)
+[ info ] [ RUN ] app\xcx\controller\Mate->indexData[ D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\application\xcx\controller\Mate.php ]
+[ info ] [ DB ] INIT mysql
+[ info ] [ LOG ] INIT File
+[ sql ] [ DB ] CONNECT:[ UseTime:0.003096s ] mysql:host=127.0.0.1;port=3306;dbname=xcxnew;charset=utf8mb4
+[ sql ] [ SQL ] SHOW COLUMNS FROM `tk_roommates` [ RunTime:0.019148s ]
+[ sql ] [ SQL ] SELECT COUNT(*) AS tp_count FROM `tk_roommates` WHERE  (   1 = 1 ) LIMIT 1 [ RunTime:0.001028s ]
+[ sql ] [ SQL ] SELECT * FROM `tk_roommates` WHERE  (   1 = 1 ) ORDER BY `id` DESC LIMIT 0,20 [ RunTime:0.001914s ]
+---------------------------------------------------------------
+[ 2020-04-24T15:36:18+08:00 ] 127.0.0.1 GET www.huaxiang.com/xcx/mate/details.html?id=220
+[运行时间：1.003859s] [吞吐率：1.00req/s] [内存消耗：2,590.84kb] [文件加载：56]
+[ info ] [ LANG ] D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\thinkphp\lang\zh-cn.php
+[ info ] [ ROUTE ] array (
+  'type' => 'module',
+  'module' => 
+  array (
+    0 => 'xcx',
+    1 => 'mate',
+    2 => 'details',
+  ),
+)
+[ info ] [ HEADER ] array (
+  'cookie' => 'PHPSESSID=68uhe109do7kabq48p58pqht16',
+  'accept-language' => 'zh-CN,zh;q=0.9',
+  'accept-encoding' => 'gzip, deflate',
+  'referer' => 'http://www.huaxiang.com/xcx/mate/index.html',
+  'accept' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.70 Safari/537.36',
+  'upgrade-insecure-requests' => '1',
+  'connection' => 'close',
+  'host' => 'www.huaxiang.com',
+)
+[ info ] [ PARAM ] array (
+  '/xcx/mate/details_html' => '',
+  'id' => '220',
+)
+[ info ] [ SESSION ] INIT array (
+  'id' => '',
+  'var_session_id' => '',
+  'prefix' => 'think',
+  'type' => '',
+  'auto_start' => true,
+)
+[ info ] [ RUN ] app\xcx\controller\Mate->details[ D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\application\xcx\controller\Mate.php ]
+[ info ] [ DB ] INIT mysql
+[ info ] [ VIEW ] D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\public/../application/xcx\view\mate\details.html [ array (
+  0 => 'house',
+) ]
+[ info ] [ LOG ] INIT File
+[ sql ] [ DB ] CONNECT:[ UseTime:0.001363s ] mysql:host=127.0.0.1;port=3306;dbname=xcxnew;charset=utf8mb4
+[ sql ] [ SQL ] SHOW COLUMNS FROM `tk_roommates` [ RunTime:0.163870s ]
+[ sql ] [ SQL ] SELECT * FROM `tk_roommates` WHERE  `id` = 220 LIMIT 1 [ RunTime:0.049248s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `tk_user` [ RunTime:0.220624s ]
+[ sql ] [ SQL ] SELECT `nickname` FROM `tk_user` WHERE  `id` = 1 LIMIT 1 [ RunTime:0.010513s ]
+[ sql ] [ SQL ] SELECT `avaurl` FROM `tk_user` WHERE  `id` = 1 LIMIT 1 [ RunTime:0.000576s ]
+---------------------------------------------------------------
+[ 2020-04-24T16:00:16+08:00 ] 127.0.0.1 GET www.huaxiang.com/xcx/house/index.html
+[运行时间：0.143464s] [吞吐率：6.97req/s] [内存消耗：1,757.75kb] [文件加载：47]
+[ info ] [ LANG ] D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\thinkphp\lang\zh-cn.php
+[ info ] [ ROUTE ] array (
+  'type' => 'module',
+  'module' => 
+  array (
+    0 => 'xcx',
+    1 => 'house',
+    2 => 'index',
+  ),
+)
+[ info ] [ HEADER ] array (
+  'cookie' => 'PHPSESSID=68uhe109do7kabq48p58pqht16',
+  'accept-language' => 'zh-CN,zh;q=0.9',
+  'accept-encoding' => 'gzip, deflate',
+  'referer' => 'http://www.huaxiang.com/xcx/index/index.html',
+  'accept' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.70 Safari/537.36',
+  'upgrade-insecure-requests' => '1',
+  'connection' => 'close',
+  'host' => 'www.huaxiang.com',
+)
+[ info ] [ PARAM ] array (
+  '/xcx/house/index_html' => '',
+)
+[ info ] [ SESSION ] INIT array (
+  'id' => '',
+  'var_session_id' => '',
+  'prefix' => 'think',
+  'type' => '',
+  'auto_start' => true,
+)
+[ info ] [ RUN ] app\xcx\controller\House->index[ D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\application\xcx\controller\House.php ]
+[ info ] [ VIEW ] D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\public/../application/xcx\view\house\index.html [ array (
+) ]
+[ info ] [ LOG ] INIT File
+---------------------------------------------------------------
+[ 2020-04-24T16:00:16+08:00 ] 127.0.0.1 GET www.huaxiang.com/xcx/house/houseData/?page=1&limit=20
+[运行时间：0.114715s] [吞吐率：8.72req/s] [内存消耗：2,283.45kb] [文件加载：52]
+[ info ] [ LANG ] D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\thinkphp\lang\zh-cn.php
+[ info ] [ ROUTE ] array (
+  'type' => 'module',
+  'module' => 
+  array (
+    0 => 'xcx',
+    1 => 'house',
+    2 => 'houseData',
+  ),
+)
+[ info ] [ HEADER ] array (
+  'cookie' => 'PHPSESSID=68uhe109do7kabq48p58pqht16',
+  'accept-language' => 'zh-CN,zh;q=0.9',
+  'accept-encoding' => 'gzip, deflate',
+  'referer' => 'http://www.huaxiang.com/xcx/house/index.html',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.70 Safari/537.36',
+  'x-requested-with' => 'XMLHttpRequest',
+  'accept' => 'application/json, text/javascript, */*; q=0.01',
+  'connection' => 'close',
+  'host' => 'www.huaxiang.com',
+)
+[ info ] [ PARAM ] array (
+  '/xcx/house/houseData/' => '',
+  'page' => '1',
+  'limit' => '20',
+)
+[ info ] [ SESSION ] INIT array (
+  'id' => '',
+  'var_session_id' => '',
+  'prefix' => 'think',
+  'type' => '',
+  'auto_start' => true,
+)
+[ info ] [ RUN ] app\xcx\controller\House->houseData[ D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\application\xcx\controller\House.php ]
+[ info ] [ DB ] INIT mysql
+[ info ] [ LOG ] INIT File
+[ sql ] [ DB ] CONNECT:[ UseTime:0.004761s ] mysql:host=127.0.0.1;port=3306;dbname=xcxnew;charset=utf8mb4
+[ sql ] [ SQL ] SHOW COLUMNS FROM `tk_houses` [ RunTime:0.036049s ]
+[ sql ] [ SQL ] SELECT COUNT(*) AS tp_count FROM `tk_houses` WHERE  (   1 = 1 ) LIMIT 1 [ RunTime:0.000398s ]
+[ sql ] [ SQL ] SELECT * FROM `tk_houses` WHERE  (   1 = 1 ) ORDER BY `top` DESC,`mdate` DESC LIMIT 0,20 [ RunTime:0.002369s ]
+---------------------------------------------------------------
+[ 2020-04-24T16:00:18+08:00 ] 127.0.0.1 GET www.huaxiang.com/xcx/house/edit.html?id=236
+[运行时间：0.251307s] [吞吐率：3.98req/s] [内存消耗：2,533.91kb] [文件加载：54]
+[ info ] [ LANG ] D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\thinkphp\lang\zh-cn.php
+[ info ] [ ROUTE ] array (
+  'type' => 'module',
+  'module' => 
+  array (
+    0 => 'xcx',
+    1 => 'house',
+    2 => 'edit',
+  ),
+)
+[ info ] [ HEADER ] array (
+  'cookie' => 'PHPSESSID=68uhe109do7kabq48p58pqht16',
+  'accept-language' => 'zh-CN,zh;q=0.9',
+  'accept-encoding' => 'gzip, deflate',
+  'referer' => 'http://www.huaxiang.com/xcx/house/index.html',
+  'accept' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.70 Safari/537.36',
+  'upgrade-insecure-requests' => '1',
+  'connection' => 'close',
+  'host' => 'www.huaxiang.com',
+)
+[ info ] [ PARAM ] array (
+  '/xcx/house/edit_html' => '',
+  'id' => '236',
+)
+[ info ] [ SESSION ] INIT array (
+  'id' => '',
+  'var_session_id' => '',
+  'prefix' => 'think',
+  'type' => '',
+  'auto_start' => true,
+)
+[ info ] [ RUN ] app\xcx\controller\House->edit[ D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\application\xcx\controller\House.php ]
+[ info ] [ DB ] INIT mysql
+[ info ] [ VIEW ] D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\public/../application/xcx\view\house\edit.html [ array (
+  0 => 'tags',
+  1 => 'all_bill',
+  2 => 'all_trans',
+  3 => 'all_set',
+  4 => 'all_four',
+  5 => 'city',
+  6 => 'school',
+  7 => 'house',
+) ]
+[ info ] [ LOG ] INIT File
+[ sql ] [ DB ] CONNECT:[ UseTime:0.001571s ] mysql:host=127.0.0.1;port=3306;dbname=xcxnew;charset=utf8mb4
+[ sql ] [ SQL ] SHOW COLUMNS FROM `tk_houses` [ RunTime:0.017413s ]
+[ sql ] [ SQL ] SELECT * FROM `tk_houses` WHERE  `id` = 236 LIMIT 1 [ RunTime:0.002183s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `xcx_tags` [ RunTime:0.064277s ]
+[ sql ] [ SQL ] SELECT `id`,`name` FROM `xcx_tags` WHERE  `type` = 1 [ RunTime:0.000678s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `tk_cate` [ RunTime:0.031301s ]
+[ sql ] [ SQL ] SELECT * FROM `tk_cate` WHERE  `pid` = 0 [ RunTime:0.017556s ]
+[ sql ] [ SQL ] SELECT `id` FROM `tk_cate` WHERE  `name` = '墨尔本'  AND `pid` = 0 LIMIT 1 [ RunTime:0.021158s ]
+[ sql ] [ SQL ] SELECT * FROM `tk_cate` WHERE  `pid` = 27  AND `type` = 2 ORDER BY `id` ASC [ RunTime:0.002328s ]
+---------------------------------------------------------------
+[ 2020-04-24T16:00:21+08:00 ] 127.0.0.1 GET www.huaxiang.com/xcx/house/index.html
+[运行时间：0.044571s] [吞吐率：22.44req/s] [内存消耗：1,623.84kb] [文件加载：45]
+[ info ] [ LANG ] D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\thinkphp\lang\zh-cn.php
+[ info ] [ ROUTE ] array (
+  'type' => 'module',
+  'module' => 
+  array (
+    0 => 'xcx',
+    1 => 'house',
+    2 => 'index',
+  ),
+)
+[ info ] [ HEADER ] array (
+  'cookie' => 'PHPSESSID=68uhe109do7kabq48p58pqht16',
+  'accept-language' => 'zh-CN,zh;q=0.9',
+  'accept-encoding' => 'gzip, deflate',
+  'referer' => 'http://www.huaxiang.com/xcx/index/index.html',
+  'accept' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.70 Safari/537.36',
+  'upgrade-insecure-requests' => '1',
+  'connection' => 'close',
+  'host' => 'www.huaxiang.com',
+)
+[ info ] [ PARAM ] array (
+  '/xcx/house/index_html' => '',
+)
+[ info ] [ SESSION ] INIT array (
+  'id' => '',
+  'var_session_id' => '',
+  'prefix' => 'think',
+  'type' => '',
+  'auto_start' => true,
+)
+[ info ] [ RUN ] app\xcx\controller\House->index[ D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\application\xcx\controller\House.php ]
+[ info ] [ VIEW ] D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\public/../application/xcx\view\house\index.html [ array (
+) ]
+[ info ] [ LOG ] INIT File
+---------------------------------------------------------------
+[ 2020-04-24T16:00:21+08:00 ] 127.0.0.1 GET www.huaxiang.com/xcx/house/houseData/?page=1&limit=20
+[运行时间：0.089225s] [吞吐率：11.21req/s] [内存消耗：2,283.45kb] [文件加载：52]
+[ info ] [ LANG ] D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\thinkphp\lang\zh-cn.php
+[ info ] [ ROUTE ] array (
+  'type' => 'module',
+  'module' => 
+  array (
+    0 => 'xcx',
+    1 => 'house',
+    2 => 'houseData',
+  ),
+)
+[ info ] [ HEADER ] array (
+  'cookie' => 'PHPSESSID=68uhe109do7kabq48p58pqht16',
+  'accept-language' => 'zh-CN,zh;q=0.9',
+  'accept-encoding' => 'gzip, deflate',
+  'referer' => 'http://www.huaxiang.com/xcx/house/index.html',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.70 Safari/537.36',
+  'x-requested-with' => 'XMLHttpRequest',
+  'accept' => 'application/json, text/javascript, */*; q=0.01',
+  'connection' => 'close',
+  'host' => 'www.huaxiang.com',
+)
+[ info ] [ PARAM ] array (
+  '/xcx/house/houseData/' => '',
+  'page' => '1',
+  'limit' => '20',
+)
+[ info ] [ SESSION ] INIT array (
+  'id' => '',
+  'var_session_id' => '',
+  'prefix' => 'think',
+  'type' => '',
+  'auto_start' => true,
+)
+[ info ] [ RUN ] app\xcx\controller\House->houseData[ D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\application\xcx\controller\House.php ]
+[ info ] [ DB ] INIT mysql
+[ info ] [ LOG ] INIT File
+[ sql ] [ DB ] CONNECT:[ UseTime:0.001063s ] mysql:host=127.0.0.1;port=3306;dbname=xcxnew;charset=utf8mb4
+[ sql ] [ SQL ] SHOW COLUMNS FROM `tk_houses` [ RunTime:0.017772s ]
+[ sql ] [ SQL ] SELECT COUNT(*) AS tp_count FROM `tk_houses` WHERE  (   1 = 1 ) LIMIT 1 [ RunTime:0.000391s ]
+[ sql ] [ SQL ] SELECT * FROM `tk_houses` WHERE  (   1 = 1 ) ORDER BY `top` DESC,`mdate` DESC LIMIT 0,20 [ RunTime:0.001745s ]
+---------------------------------------------------------------
+[ 2020-04-24T16:00:24+08:00 ] 127.0.0.1 GET www.huaxiang.com/xcx/house/edit.html?id=246
+[运行时间：0.114559s] [吞吐率：8.73req/s] [内存消耗：2,362.52kb] [文件加载：52]
+[ info ] [ LANG ] D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\thinkphp\lang\zh-cn.php
+[ info ] [ ROUTE ] array (
+  'type' => 'module',
+  'module' => 
+  array (
+    0 => 'xcx',
+    1 => 'house',
+    2 => 'edit',
+  ),
+)
+[ info ] [ HEADER ] array (
+  'cookie' => 'PHPSESSID=68uhe109do7kabq48p58pqht16',
+  'accept-language' => 'zh-CN,zh;q=0.9',
+  'accept-encoding' => 'gzip, deflate',
+  'referer' => 'http://www.huaxiang.com/xcx/house/index.html',
+  'accept' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.70 Safari/537.36',
+  'upgrade-insecure-requests' => '1',
+  'connection' => 'close',
+  'host' => 'www.huaxiang.com',
+)
+[ info ] [ PARAM ] array (
+  '/xcx/house/edit_html' => '',
+  'id' => '246',
+)
+[ info ] [ SESSION ] INIT array (
+  'id' => '',
+  'var_session_id' => '',
+  'prefix' => 'think',
+  'type' => '',
+  'auto_start' => true,
+)
+[ info ] [ RUN ] app\xcx\controller\House->edit[ D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\application\xcx\controller\House.php ]
+[ info ] [ DB ] INIT mysql
+[ info ] [ VIEW ] D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\public/../application/xcx\view\house\edit.html [ array (
+  0 => 'tags',
+  1 => 'all_bill',
+  2 => 'all_trans',
+  3 => 'all_set',
+  4 => 'all_four',
+  5 => 'city',
+  6 => 'school',
+  7 => 'house',
+) ]
+[ info ] [ LOG ] INIT File
+[ sql ] [ DB ] CONNECT:[ UseTime:0.001259s ] mysql:host=127.0.0.1;port=3306;dbname=xcxnew;charset=utf8mb4
+[ sql ] [ SQL ] SHOW COLUMNS FROM `tk_houses` [ RunTime:0.015572s ]
+[ sql ] [ SQL ] SELECT * FROM `tk_houses` WHERE  `id` = 246 LIMIT 1 [ RunTime:0.001410s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `xcx_tags` [ RunTime:0.013891s ]
+[ sql ] [ SQL ] SELECT `id`,`name` FROM `xcx_tags` WHERE  `type` = 1 [ RunTime:0.000697s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `tk_cate` [ RunTime:0.015795s ]
+[ sql ] [ SQL ] SELECT * FROM `tk_cate` WHERE  `pid` = 0 [ RunTime:0.000974s ]
+[ sql ] [ SQL ] SELECT `id` FROM `tk_cate` WHERE  `name` = '悉尼'  AND `pid` = 0 LIMIT 1 [ RunTime:0.000429s ]
+[ sql ] [ SQL ] SELECT * FROM `tk_cate` WHERE  `pid` = 28  AND `type` = 2 ORDER BY `id` ASC [ RunTime:0.001007s ]
+---------------------------------------------------------------
+[ 2020-04-24T16:00:24+08:00 ] 127.0.0.1 GET www.huaxiang.com/uploads/text/20200424/addf64b7ce362a3d61b069c08cf42807.png
+[运行时间：0.066572s] [吞吐率：15.02req/s] [内存消耗：1,251.92kb] [文件加载：39]
+[ info ] [ LANG ] D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\thinkphp\lang\zh-cn.php
+[ info ] [ ROUTE ] array (
+  'type' => 'module',
+  'module' => 
+  array (
+    0 => 'uploads',
+    1 => 'text',
+    2 => '20200424',
+  ),
+)
+[ info ] [ HEADER ] array (
+  'cookie' => 'PHPSESSID=68uhe109do7kabq48p58pqht16',
+  'accept-language' => 'zh-CN,zh;q=0.9',
+  'accept-encoding' => 'gzip, deflate',
+  'referer' => 'http://www.huaxiang.com/xcx/house/edit.html?id=246',
+  'accept' => 'image/webp,image/apng,image/*,*/*;q=0.8',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.70 Safari/537.36',
+  'if-modified-since' => 'Fri, 24 Apr 2020 06:18:25 GMT',
+  'if-none-match' => 'W/"546ae-5a403553a3520"',
+  'connection' => 'close',
+  'host' => 'www.huaxiang.com',
+)
+[ info ] [ PARAM ] array (
+  '/uploads/text/20200424/addf64b7ce362a3d61b069c08cf42807_png' => '',
+)
+[ info ] [ LOG ] INIT File
+---------------------------------------------------------------
+[ 2020-04-24T16:00:34+08:00 ] 127.0.0.1 POST www.huaxiang.com/xcx/house/edit.html?id=246
+[运行时间：0.077881s] [吞吐率：12.84req/s] [内存消耗：1,588.57kb] [文件加载：48]
+[ info ] [ LANG ] D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\thinkphp\lang\zh-cn.php
+[ info ] [ ROUTE ] array (
+  'type' => 'module',
+  'module' => 
+  array (
+    0 => 'xcx',
+    1 => 'house',
+    2 => 'edit',
+  ),
+)
+[ info ] [ HEADER ] array (
+  'cookie' => 'PHPSESSID=68uhe109do7kabq48p58pqht16',
+  'accept-language' => 'zh-CN,zh;q=0.9',
+  'accept-encoding' => 'gzip, deflate',
+  'referer' => 'http://www.huaxiang.com/xcx/house/edit.html?id=246',
+  'accept' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.70 Safari/537.36',
+  'content-type' => 'application/x-www-form-urlencoded',
+  'upgrade-insecure-requests' => '1',
+  'origin' => 'http://www.huaxiang.com',
+  'cache-control' => 'max-age=0',
+  'content-length' => '917',
+  'connection' => 'close',
+  'host' => 'www.huaxiang.com',
+)
+[ info ] [ PARAM ] array (
+  '/xcx/house/edit_html' => '',
+  'id' => '246',
+  'title' => '这是我测试房源标签的一条记录',
+  'address' => 'Australia, VIC, 3184, Melbourne, Elwood',
+  'x' => '-37.88239',
+  'y' => '144.98426',
+  'http' => '133123',
+  'price' => '123',
+  'city' => '28',
+  'school' => '726',
+  'live_date' => '0100-01-01',
+  'source' => '个人',
+  'type' => '单间',
+  'sex' => '限男性',
+  'pet' => '接受',
+  'bill' => 
+  array (
+    '包电' => 'on',
+    '包气' => 'on',
+  ),
+  'lease_term' => '1周起租',
+  'house_type' => '公寓',
+  'house_room' => '一室',
+  'toilet' => '2',
+  'car' => '3',
+  'sation' => 
+  array (
+    '火车站' => 'on',
+    '地铁站' => 'on',
+  ),
+  'tags' => 
+  array (
+    '明芳' => 'on',
+    '网红楼' => 'on',
+    '落地窗' => 'on',
+  ),
+  'real_name' => '123',
+  'tel' => '1231',
+  'wchat' => '23',
+  'email' => '123@qq.com',
+  'file' => '',
+  'images' => 
+  array (
+    0 => 'uploads/text/20200424\\addf64b7ce362a3d61b069c08cf42807.png',
+  ),
+  'content' => '13123123',
+)
+[ info ] [ SESSION ] INIT array (
+  'id' => '',
+  'var_session_id' => '',
+  'prefix' => 'think',
+  'type' => '',
+  'auto_start' => true,
+)
+[ info ] [ RUN ] app\xcx\controller\House->edit[ D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\application\xcx\controller\House.php ]
+[ info ] [ LOG ] INIT File
+[ error ] [8]未定义数组索引: home[D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\application\xcx\controller\House.php:240]
+---------------------------------------------------------------
+[ 2020-04-24T16:02:04+08:00 ] 127.0.0.1 GET www.huaxiang.com/xcx/house/index.html
+[运行时间：0.308690s] [吞吐率：3.24req/s] [内存消耗：1,623.84kb] [文件加载：45]
+[ info ] [ LANG ] D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\thinkphp\lang\zh-cn.php
+[ info ] [ ROUTE ] array (
+  'type' => 'module',
+  'module' => 
+  array (
+    0 => 'xcx',
+    1 => 'house',
+    2 => 'index',
+  ),
+)
+[ info ] [ HEADER ] array (
+  'cookie' => 'PHPSESSID=68uhe109do7kabq48p58pqht16',
+  'accept-language' => 'zh-CN,zh;q=0.9',
+  'accept-encoding' => 'gzip, deflate',
+  'referer' => 'http://www.huaxiang.com/xcx/index/index.html',
+  'accept' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.70 Safari/537.36',
+  'upgrade-insecure-requests' => '1',
+  'connection' => 'close',
+  'host' => 'www.huaxiang.com',
+)
+[ info ] [ PARAM ] array (
+  '/xcx/house/index_html' => '',
+)
+[ info ] [ SESSION ] INIT array (
+  'id' => '',
+  'var_session_id' => '',
+  'prefix' => 'think',
+  'type' => '',
+  'auto_start' => true,
+)
+[ info ] [ RUN ] app\xcx\controller\House->index[ D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\application\xcx\controller\House.php ]
+[ info ] [ VIEW ] D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\public/../application/xcx\view\house\index.html [ array (
+) ]
+[ info ] [ LOG ] INIT File
+---------------------------------------------------------------
+[ 2020-04-24T16:02:04+08:00 ] 127.0.0.1 GET www.huaxiang.com/xcx/house/houseData/?page=1&limit=20
+[运行时间：0.166697s] [吞吐率：6.00req/s] [内存消耗：2,283.45kb] [文件加载：52]
+[ info ] [ LANG ] D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\thinkphp\lang\zh-cn.php
+[ info ] [ ROUTE ] array (
+  'type' => 'module',
+  'module' => 
+  array (
+    0 => 'xcx',
+    1 => 'house',
+    2 => 'houseData',
+  ),
+)
+[ info ] [ HEADER ] array (
+  'cookie' => 'PHPSESSID=68uhe109do7kabq48p58pqht16',
+  'accept-language' => 'zh-CN,zh;q=0.9',
+  'accept-encoding' => 'gzip, deflate',
+  'referer' => 'http://www.huaxiang.com/xcx/house/index.html',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.70 Safari/537.36',
+  'x-requested-with' => 'XMLHttpRequest',
+  'accept' => 'application/json, text/javascript, */*; q=0.01',
+  'connection' => 'close',
+  'host' => 'www.huaxiang.com',
+)
+[ info ] [ PARAM ] array (
+  '/xcx/house/houseData/' => '',
+  'page' => '1',
+  'limit' => '20',
+)
+[ info ] [ SESSION ] INIT array (
+  'id' => '',
+  'var_session_id' => '',
+  'prefix' => 'think',
+  'type' => '',
+  'auto_start' => true,
+)
+[ info ] [ RUN ] app\xcx\controller\House->houseData[ D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\application\xcx\controller\House.php ]
+[ info ] [ DB ] INIT mysql
+[ info ] [ LOG ] INIT File
+[ sql ] [ DB ] CONNECT:[ UseTime:0.010709s ] mysql:host=127.0.0.1;port=3306;dbname=xcxnew;charset=utf8mb4
+[ sql ] [ SQL ] SHOW COLUMNS FROM `tk_houses` [ RunTime:0.021914s ]
+[ sql ] [ SQL ] SELECT COUNT(*) AS tp_count FROM `tk_houses` WHERE  (   1 = 1 ) LIMIT 1 [ RunTime:0.000941s ]
+[ sql ] [ SQL ] SELECT * FROM `tk_houses` WHERE  (   1 = 1 ) ORDER BY `top` DESC,`mdate` DESC LIMIT 0,20 [ RunTime:0.002902s ]
+---------------------------------------------------------------
+[ 2020-04-24T16:02:05+08:00 ] 127.0.0.1 GET www.huaxiang.com/xcx/house/index.html
+[运行时间：0.043388s] [吞吐率：23.05req/s] [内存消耗：1,623.84kb] [文件加载：45]
+[ info ] [ LANG ] D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\thinkphp\lang\zh-cn.php
+[ info ] [ ROUTE ] array (
+  'type' => 'module',
+  'module' => 
+  array (
+    0 => 'xcx',
+    1 => 'house',
+    2 => 'index',
+  ),
+)
+[ info ] [ HEADER ] array (
+  'cookie' => 'PHPSESSID=68uhe109do7kabq48p58pqht16',
+  'accept-language' => 'zh-CN,zh;q=0.9',
+  'accept-encoding' => 'gzip, deflate',
+  'referer' => 'http://www.huaxiang.com/xcx/index/index.html',
+  'accept' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.70 Safari/537.36',
+  'upgrade-insecure-requests' => '1',
+  'connection' => 'close',
+  'host' => 'www.huaxiang.com',
+)
+[ info ] [ PARAM ] array (
+  '/xcx/house/index_html' => '',
+)
+[ info ] [ SESSION ] INIT array (
+  'id' => '',
+  'var_session_id' => '',
+  'prefix' => 'think',
+  'type' => '',
+  'auto_start' => true,
+)
+[ info ] [ RUN ] app\xcx\controller\House->index[ D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\application\xcx\controller\House.php ]
+[ info ] [ VIEW ] D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\public/../application/xcx\view\house\index.html [ array (
+) ]
+[ info ] [ LOG ] INIT File
+---------------------------------------------------------------
+[ 2020-04-24T16:02:05+08:00 ] 127.0.0.1 GET www.huaxiang.com/xcx/house/houseData/?page=1&limit=20
+[运行时间：0.086052s] [吞吐率：11.62req/s] [内存消耗：2,283.45kb] [文件加载：52]
+[ info ] [ LANG ] D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\thinkphp\lang\zh-cn.php
+[ info ] [ ROUTE ] array (
+  'type' => 'module',
+  'module' => 
+  array (
+    0 => 'xcx',
+    1 => 'house',
+    2 => 'houseData',
+  ),
+)
+[ info ] [ HEADER ] array (
+  'cookie' => 'PHPSESSID=68uhe109do7kabq48p58pqht16',
+  'accept-language' => 'zh-CN,zh;q=0.9',
+  'accept-encoding' => 'gzip, deflate',
+  'referer' => 'http://www.huaxiang.com/xcx/house/index.html',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.70 Safari/537.36',
+  'x-requested-with' => 'XMLHttpRequest',
+  'accept' => 'application/json, text/javascript, */*; q=0.01',
+  'connection' => 'close',
+  'host' => 'www.huaxiang.com',
+)
+[ info ] [ PARAM ] array (
+  '/xcx/house/houseData/' => '',
+  'page' => '1',
+  'limit' => '20',
+)
+[ info ] [ SESSION ] INIT array (
+  'id' => '',
+  'var_session_id' => '',
+  'prefix' => 'think',
+  'type' => '',
+  'auto_start' => true,
+)
+[ info ] [ RUN ] app\xcx\controller\House->houseData[ D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\application\xcx\controller\House.php ]
+[ info ] [ DB ] INIT mysql
+[ info ] [ LOG ] INIT File
+[ sql ] [ DB ] CONNECT:[ UseTime:0.001669s ] mysql:host=127.0.0.1;port=3306;dbname=xcxnew;charset=utf8mb4
+[ sql ] [ SQL ] SHOW COLUMNS FROM `tk_houses` [ RunTime:0.014854s ]
+[ sql ] [ SQL ] SELECT COUNT(*) AS tp_count FROM `tk_houses` WHERE  (   1 = 1 ) LIMIT 1 [ RunTime:0.000433s ]
+[ sql ] [ SQL ] SELECT * FROM `tk_houses` WHERE  (   1 = 1 ) ORDER BY `top` DESC,`mdate` DESC LIMIT 0,20 [ RunTime:0.001651s ]
+---------------------------------------------------------------
+[ 2020-04-24T16:02:09+08:00 ] 127.0.0.1 GET www.huaxiang.com/xcx/house/edit.html?id=246
+[运行时间：0.176855s] [吞吐率：5.65req/s] [内存消耗：2,536.39kb] [文件加载：54]
+[ info ] [ LANG ] D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\thinkphp\lang\zh-cn.php
+[ info ] [ ROUTE ] array (
+  'type' => 'module',
+  'module' => 
+  array (
+    0 => 'xcx',
+    1 => 'house',
+    2 => 'edit',
+  ),
+)
+[ info ] [ HEADER ] array (
+  'cookie' => 'PHPSESSID=68uhe109do7kabq48p58pqht16',
+  'accept-language' => 'zh-CN,zh;q=0.9',
+  'accept-encoding' => 'gzip, deflate',
+  'referer' => 'http://www.huaxiang.com/xcx/house/index.html',
+  'accept' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.70 Safari/537.36',
+  'upgrade-insecure-requests' => '1',
+  'connection' => 'close',
+  'host' => 'www.huaxiang.com',
+)
+[ info ] [ PARAM ] array (
+  '/xcx/house/edit_html' => '',
+  'id' => '246',
+)
+[ info ] [ SESSION ] INIT array (
+  'id' => '',
+  'var_session_id' => '',
+  'prefix' => 'think',
+  'type' => '',
+  'auto_start' => true,
+)
+[ info ] [ RUN ] app\xcx\controller\House->edit[ D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\application\xcx\controller\House.php ]
+[ info ] [ DB ] INIT mysql
+[ info ] [ VIEW ] D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\public/../application/xcx\view\house\edit.html [ array (
+  0 => 'tags',
+  1 => 'all_bill',
+  2 => 'all_trans',
+  3 => 'all_set',
+  4 => 'all_four',
+  5 => 'city',
+  6 => 'school',
+  7 => 'house',
+) ]
+[ info ] [ LOG ] INIT File
+[ sql ] [ DB ] CONNECT:[ UseTime:0.001270s ] mysql:host=127.0.0.1;port=3306;dbname=xcxnew;charset=utf8mb4
+[ sql ] [ SQL ] SHOW COLUMNS FROM `tk_houses` [ RunTime:0.015867s ]
+[ sql ] [ SQL ] SELECT * FROM `tk_houses` WHERE  `id` = 246 LIMIT 1 [ RunTime:0.001604s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `xcx_tags` [ RunTime:0.014720s ]
+[ sql ] [ SQL ] SELECT `id`,`name` FROM `xcx_tags` WHERE  `type` = 1 [ RunTime:0.000622s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `tk_cate` [ RunTime:0.017744s ]
+[ sql ] [ SQL ] SELECT * FROM `tk_cate` WHERE  `pid` = 0 [ RunTime:0.001142s ]
+[ sql ] [ SQL ] SELECT `id` FROM `tk_cate` WHERE  `name` = '悉尼'  AND `pid` = 0 LIMIT 1 [ RunTime:0.000530s ]
+[ sql ] [ SQL ] SELECT * FROM `tk_cate` WHERE  `pid` = 28  AND `type` = 2 ORDER BY `id` ASC [ RunTime:0.001313s ]
+---------------------------------------------------------------
+[ 2020-04-24T16:02:09+08:00 ] 127.0.0.1 GET www.huaxiang.com/uploads/text/20200424/addf64b7ce362a3d61b069c08cf42807.png
+[运行时间：0.066191s] [吞吐率：15.11req/s] [内存消耗：1,251.17kb] [文件加载：39]
+[ info ] [ LANG ] D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\thinkphp\lang\zh-cn.php
+[ info ] [ ROUTE ] array (
+  'type' => 'module',
+  'module' => 
+  array (
+    0 => 'uploads',
+    1 => 'text',
+    2 => '20200424',
+  ),
+)
+[ info ] [ HEADER ] array (
+  'cookie' => 'PHPSESSID=68uhe109do7kabq48p58pqht16',
+  'accept-language' => 'zh-CN,zh;q=0.9',
+  'accept-encoding' => 'gzip, deflate',
+  'referer' => 'http://www.huaxiang.com/xcx/house/edit.html?id=246',
+  'accept' => 'image/webp,image/apng,image/*,*/*;q=0.8',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.70 Safari/537.36',
+  'connection' => 'close',
+  'host' => 'www.huaxiang.com',
+)
+[ info ] [ PARAM ] array (
+  '/uploads/text/20200424/addf64b7ce362a3d61b069c08cf42807_png' => '',
+)
+[ info ] [ LOG ] INIT File
+---------------------------------------------------------------
+[ 2020-04-24T16:02:23+08:00 ] 127.0.0.1 POST www.huaxiang.com/xcx/house/edit.html?id=246
+[运行时间：0.187878s] [吞吐率：5.32req/s] [内存消耗：2,504.01kb] [文件加载：58]
+[ info ] [ LANG ] D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\thinkphp\lang\zh-cn.php
+[ info ] [ ROUTE ] array (
+  'type' => 'module',
+  'module' => 
+  array (
+    0 => 'xcx',
+    1 => 'house',
+    2 => 'edit',
+  ),
+)
+[ info ] [ HEADER ] array (
+  'cookie' => 'PHPSESSID=68uhe109do7kabq48p58pqht16',
+  'accept-language' => 'zh-CN,zh;q=0.9',
+  'accept-encoding' => 'gzip, deflate',
+  'referer' => 'http://www.huaxiang.com/xcx/house/edit.html?id=246',
+  'accept' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.70 Safari/537.36',
+  'content-type' => 'application/x-www-form-urlencoded',
+  'upgrade-insecure-requests' => '1',
+  'origin' => 'http://www.huaxiang.com',
+  'cache-control' => 'max-age=0',
+  'content-length' => '1073',
+  'connection' => 'close',
+  'host' => 'www.huaxiang.com',
+)
+[ info ] [ PARAM ] array (
+  '/xcx/house/edit_html' => '',
+  'id' => '246',
+  'title' => '这是我测试房源标签的一条记录',
+  'address' => 'Australia, VIC, 3184, Melbourne, Elwood',
+  'x' => '-37.88239',
+  'y' => '144.98426',
+  'http' => '133123',
+  'price' => '123',
+  'city' => '28',
+  'school' => '726',
+  'live_date' => '0100-01-01',
+  'source' => '个人',
+  'type' => '单间',
+  'sex' => '限男性',
+  'pet' => '接受',
+  'bill' => 
+  array (
+    '包电' => 'on',
+    '包气' => 'on',
+  ),
+  'lease_term' => '1周起租',
+  'house_type' => '公寓',
+  'house_room' => '一室',
+  'toilet' => '2',
+  'home' => 
+  array (
+    '餐桌' => 'on',
+    '椅子' => 'on',
+  ),
+  'car' => '3',
+  'furniture' => 
+  array (
+    '健身房' => 'on',
+    '电影院' => 'on',
+  ),
+  'sation' => 
+  array (
+    '火车站' => 'on',
+    '地铁站' => 'on',
+  ),
+  'tags' => 
+  array (
+    '明芳' => 'on',
+    '网红楼' => 'on',
+    '落地窗' => 'on',
+  ),
+  'real_name' => '123',
+  'tel' => '1231',
+  'wchat' => '23',
+  'email' => '123@qq.com',
+  'file' => '',
+  'images' => 
+  array (
+    0 => 'uploads/text/20200424\\addf64b7ce362a3d61b069c08cf42807.png',
+  ),
+  'content' => '13123123',
+)
+[ info ] [ SESSION ] INIT array (
+  'id' => '',
+  'var_session_id' => '',
+  'prefix' => 'think',
+  'type' => '',
+  'auto_start' => true,
+)
+[ info ] [ RUN ] app\xcx\controller\House->edit[ D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\application\xcx\controller\House.php ]
+[ info ] [ DB ] INIT mysql
+[ info ] [ CACHE ] INIT File
+[ info ] [ VIEW ] D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\thinkphp\tpl\dispatch_jump.tpl [ array (
+  0 => 'code',
+  1 => 'msg',
+  2 => 'data',
+  3 => 'url',
+  4 => 'wait',
+) ]
+[ info ] [ LOG ] INIT File
+[ sql ] [ DB ] CONNECT:[ UseTime:0.001580s ] mysql:host=127.0.0.1;port=3306;dbname=xcxnew;charset=utf8mb4
+[ sql ] [ SQL ] SHOW COLUMNS FROM `tk_cate` [ RunTime:0.015797s ]
+[ sql ] [ SQL ] SELECT `name` FROM `tk_cate` WHERE  `id` = 28 LIMIT 1 [ RunTime:0.000669s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `tk_houses` [ RunTime:0.017059s ]
+[ sql ] [ SQL ] UPDATE `tk_houses`  SET `title`='这是我测试房源标签的一条记录',`address`='Australia, VIC, 3184, Melbourne, Elwood',`x`='-37.88239',`y`='144.98426',`http`='133123',`price`=123,`city`='悉尼',`school`='726',`live_date`='0100-01-01',`source`='个人',`type`='单间',`sex`='限男性',`pet`='接受',`bill`='包电,包气',`lease_term`='1周起租',`house_type`='公寓',`house_room`='一室',`toilet`='2',`home`='餐桌,椅子',`car`='3',`furniture`='健身房,电影院',`sation`='火车站,地铁站',`tags`='明芳,网红楼,落地窗',`real_name`='123',`tel`='1231',`wchat`='23',`email`='123@qq.com',`images`='uploads/text/20200424\\addf64b7ce362a3d61b069c08cf42807.png',`content`='13123123',`publish_date`='2020-04-24 16:02:23',`mdate`='2020-04-24 16:02:23'  WHERE  `id` = 246 [ RunTime:0.021849s ]
+---------------------------------------------------------------
+[ 2020-04-24T16:02:25+08:00 ] 127.0.0.1 GET www.huaxiang.com/xcx/house/index.html
+[运行时间：0.043004s] [吞吐率：23.25req/s] [内存消耗：1,623.86kb] [文件加载：45]
+[ info ] [ LANG ] D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\thinkphp\lang\zh-cn.php
+[ info ] [ ROUTE ] array (
+  'type' => 'module',
+  'module' => 
+  array (
+    0 => 'xcx',
+    1 => 'house',
+    2 => 'index',
+  ),
+)
+[ info ] [ HEADER ] array (
+  'cookie' => 'PHPSESSID=68uhe109do7kabq48p58pqht16',
+  'accept-language' => 'zh-CN,zh;q=0.9',
+  'accept-encoding' => 'gzip, deflate',
+  'referer' => 'http://www.huaxiang.com/xcx/house/edit.html?id=246',
+  'accept' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.70 Safari/537.36',
+  'upgrade-insecure-requests' => '1',
+  'connection' => 'close',
+  'host' => 'www.huaxiang.com',
+)
+[ info ] [ PARAM ] array (
+  '/xcx/house/index_html' => '',
+)
+[ info ] [ SESSION ] INIT array (
+  'id' => '',
+  'var_session_id' => '',
+  'prefix' => 'think',
+  'type' => '',
+  'auto_start' => true,
+)
+[ info ] [ RUN ] app\xcx\controller\House->index[ D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\application\xcx\controller\House.php ]
+[ info ] [ VIEW ] D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\public/../application/xcx\view\house\index.html [ array (
+) ]
+[ info ] [ LOG ] INIT File
+---------------------------------------------------------------
+[ 2020-04-24T16:02:26+08:00 ] 127.0.0.1 GET www.huaxiang.com/xcx/house/houseData/?page=1&limit=20
+[运行时间：0.086188s] [吞吐率：11.60req/s] [内存消耗：2,283.46kb] [文件加载：52]
+[ info ] [ LANG ] D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\thinkphp\lang\zh-cn.php
+[ info ] [ ROUTE ] array (
+  'type' => 'module',
+  'module' => 
+  array (
+    0 => 'xcx',
+    1 => 'house',
+    2 => 'houseData',
+  ),
+)
+[ info ] [ HEADER ] array (
+  'cookie' => 'PHPSESSID=68uhe109do7kabq48p58pqht16',
+  'accept-language' => 'zh-CN,zh;q=0.9',
+  'accept-encoding' => 'gzip, deflate',
+  'referer' => 'http://www.huaxiang.com/xcx/house/index.html',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.70 Safari/537.36',
+  'x-requested-with' => 'XMLHttpRequest',
+  'accept' => 'application/json, text/javascript, */*; q=0.01',
+  'connection' => 'close',
+  'host' => 'www.huaxiang.com',
+)
+[ info ] [ PARAM ] array (
+  '/xcx/house/houseData/' => '',
+  'page' => '1',
+  'limit' => '20',
+)
+[ info ] [ SESSION ] INIT array (
+  'id' => '',
+  'var_session_id' => '',
+  'prefix' => 'think',
+  'type' => '',
+  'auto_start' => true,
+)
+[ info ] [ RUN ] app\xcx\controller\House->houseData[ D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\application\xcx\controller\House.php ]
+[ info ] [ DB ] INIT mysql
+[ info ] [ LOG ] INIT File
+[ sql ] [ DB ] CONNECT:[ UseTime:0.001178s ] mysql:host=127.0.0.1;port=3306;dbname=xcxnew;charset=utf8mb4
+[ sql ] [ SQL ] SHOW COLUMNS FROM `tk_houses` [ RunTime:0.016274s ]
+[ sql ] [ SQL ] SELECT COUNT(*) AS tp_count FROM `tk_houses` WHERE  (   1 = 1 ) LIMIT 1 [ RunTime:0.000984s ]
+[ sql ] [ SQL ] SELECT * FROM `tk_houses` WHERE  (   1 = 1 ) ORDER BY `top` DESC,`mdate` DESC LIMIT 0,20 [ RunTime:0.002349s ]
+---------------------------------------------------------------
+[ 2020-04-24T16:02:28+08:00 ] 127.0.0.1 GET www.huaxiang.com/xcx/house/edit.html?id=236
+[运行时间：0.112564s] [吞吐率：8.88req/s] [内存消耗：2,356.73kb] [文件加载：52]
+[ info ] [ LANG ] D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\thinkphp\lang\zh-cn.php
+[ info ] [ ROUTE ] array (
+  'type' => 'module',
+  'module' => 
+  array (
+    0 => 'xcx',
+    1 => 'house',
+    2 => 'edit',
+  ),
+)
+[ info ] [ HEADER ] array (
+  'cookie' => 'PHPSESSID=68uhe109do7kabq48p58pqht16',
+  'accept-language' => 'zh-CN,zh;q=0.9',
+  'accept-encoding' => 'gzip, deflate',
+  'referer' => 'http://www.huaxiang.com/xcx/house/index.html',
+  'accept' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.70 Safari/537.36',
+  'upgrade-insecure-requests' => '1',
+  'connection' => 'close',
+  'host' => 'www.huaxiang.com',
+)
+[ info ] [ PARAM ] array (
+  '/xcx/house/edit_html' => '',
+  'id' => '236',
+)
+[ info ] [ SESSION ] INIT array (
+  'id' => '',
+  'var_session_id' => '',
+  'prefix' => 'think',
+  'type' => '',
+  'auto_start' => true,
+)
+[ info ] [ RUN ] app\xcx\controller\House->edit[ D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\application\xcx\controller\House.php ]
+[ info ] [ DB ] INIT mysql
+[ info ] [ VIEW ] D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\public/../application/xcx\view\house\edit.html [ array (
+  0 => 'tags',
+  1 => 'all_bill',
+  2 => 'all_trans',
+  3 => 'all_set',
+  4 => 'all_four',
+  5 => 'city',
+  6 => 'school',
+  7 => 'house',
+) ]
+[ info ] [ LOG ] INIT File
+[ sql ] [ DB ] CONNECT:[ UseTime:0.001145s ] mysql:host=127.0.0.1;port=3306;dbname=xcxnew;charset=utf8mb4
+[ sql ] [ SQL ] SHOW COLUMNS FROM `tk_houses` [ RunTime:0.015307s ]
+[ sql ] [ SQL ] SELECT * FROM `tk_houses` WHERE  `id` = 236 LIMIT 1 [ RunTime:0.001329s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `xcx_tags` [ RunTime:0.013913s ]
+[ sql ] [ SQL ] SELECT `id`,`name` FROM `xcx_tags` WHERE  `type` = 1 [ RunTime:0.000586s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `tk_cate` [ RunTime:0.014946s ]
+[ sql ] [ SQL ] SELECT * FROM `tk_cate` WHERE  `pid` = 0 [ RunTime:0.000797s ]
+[ sql ] [ SQL ] SELECT `id` FROM `tk_cate` WHERE  `name` = '墨尔本'  AND `pid` = 0 LIMIT 1 [ RunTime:0.000360s ]
+[ sql ] [ SQL ] SELECT * FROM `tk_cate` WHERE  `pid` = 27  AND `type` = 2 ORDER BY `id` ASC [ RunTime:0.000958s ]
+---------------------------------------------------------------
+[ 2020-04-24T16:02:31+08:00 ] 127.0.0.1 GET www.huaxiang.com/xcx/house/index.html
+[运行时间：0.041278s] [吞吐率：24.23req/s] [内存消耗：1,623.84kb] [文件加载：45]
+[ info ] [ LANG ] D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\thinkphp\lang\zh-cn.php
+[ info ] [ ROUTE ] array (
+  'type' => 'module',
+  'module' => 
+  array (
+    0 => 'xcx',
+    1 => 'house',
+    2 => 'index',
+  ),
+)
+[ info ] [ HEADER ] array (
+  'cookie' => 'PHPSESSID=68uhe109do7kabq48p58pqht16',
+  'accept-language' => 'zh-CN,zh;q=0.9',
+  'accept-encoding' => 'gzip, deflate',
+  'referer' => 'http://www.huaxiang.com/xcx/index/index.html',
+  'accept' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.70 Safari/537.36',
+  'upgrade-insecure-requests' => '1',
+  'connection' => 'close',
+  'host' => 'www.huaxiang.com',
+)
+[ info ] [ PARAM ] array (
+  '/xcx/house/index_html' => '',
+)
+[ info ] [ SESSION ] INIT array (
+  'id' => '',
+  'var_session_id' => '',
+  'prefix' => 'think',
+  'type' => '',
+  'auto_start' => true,
+)
+[ info ] [ RUN ] app\xcx\controller\House->index[ D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\application\xcx\controller\House.php ]
+[ info ] [ VIEW ] D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\public/../application/xcx\view\house\index.html [ array (
+) ]
+[ info ] [ LOG ] INIT File
+---------------------------------------------------------------
+[ 2020-04-24T16:02:31+08:00 ] 127.0.0.1 GET www.huaxiang.com/xcx/house/houseData/?page=1&limit=20
+[运行时间：0.083813s] [吞吐率：11.93req/s] [内存消耗：2,283.46kb] [文件加载：52]
+[ info ] [ LANG ] D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\thinkphp\lang\zh-cn.php
+[ info ] [ ROUTE ] array (
+  'type' => 'module',
+  'module' => 
+  array (
+    0 => 'xcx',
+    1 => 'house',
+    2 => 'houseData',
+  ),
+)
+[ info ] [ HEADER ] array (
+  'cookie' => 'PHPSESSID=68uhe109do7kabq48p58pqht16',
+  'accept-language' => 'zh-CN,zh;q=0.9',
+  'accept-encoding' => 'gzip, deflate',
+  'referer' => 'http://www.huaxiang.com/xcx/house/index.html',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.70 Safari/537.36',
+  'x-requested-with' => 'XMLHttpRequest',
+  'accept' => 'application/json, text/javascript, */*; q=0.01',
+  'connection' => 'close',
+  'host' => 'www.huaxiang.com',
+)
+[ info ] [ PARAM ] array (
+  '/xcx/house/houseData/' => '',
+  'page' => '1',
+  'limit' => '20',
+)
+[ info ] [ SESSION ] INIT array (
+  'id' => '',
+  'var_session_id' => '',
+  'prefix' => 'think',
+  'type' => '',
+  'auto_start' => true,
+)
+[ info ] [ RUN ] app\xcx\controller\House->houseData[ D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\application\xcx\controller\House.php ]
+[ info ] [ DB ] INIT mysql
+[ info ] [ LOG ] INIT File
+[ sql ] [ DB ] CONNECT:[ UseTime:0.001532s ] mysql:host=127.0.0.1;port=3306;dbname=xcxnew;charset=utf8mb4
+[ sql ] [ SQL ] SHOW COLUMNS FROM `tk_houses` [ RunTime:0.016341s ]
+[ sql ] [ SQL ] SELECT COUNT(*) AS tp_count FROM `tk_houses` WHERE  (   1 = 1 ) LIMIT 1 [ RunTime:0.000739s ]
+[ sql ] [ SQL ] SELECT * FROM `tk_houses` WHERE  (   1 = 1 ) ORDER BY `top` DESC,`mdate` DESC LIMIT 0,20 [ RunTime:0.002429s ]
+---------------------------------------------------------------
+[ 2020-04-24T16:09:55+08:00 ] 127.0.0.1 GET www.huaxiang.com/xcx/house/index.html
+[运行时间：0.062165s] [吞吐率：16.09req/s] [内存消耗：1,624.59kb] [文件加载：45]
+[ info ] [ LANG ] D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\thinkphp\lang\zh-cn.php
+[ info ] [ ROUTE ] array (
+  'type' => 'module',
+  'module' => 
+  array (
+    0 => 'xcx',
+    1 => 'house',
+    2 => 'index',
+  ),
+)
+[ info ] [ HEADER ] array (
+  'cookie' => 'PHPSESSID=68uhe109do7kabq48p58pqht16',
+  'accept-language' => 'zh-CN,zh;q=0.9',
+  'accept-encoding' => 'gzip, deflate',
+  'referer' => 'http://www.huaxiang.com/xcx/index/index.html',
+  'accept' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.70 Safari/537.36',
+  'upgrade-insecure-requests' => '1',
+  'connection' => 'close',
+  'host' => 'www.huaxiang.com',
+)
+[ info ] [ PARAM ] array (
+  '/xcx/house/index_html' => '',
+)
+[ info ] [ SESSION ] INIT array (
+  'id' => '',
+  'var_session_id' => '',
+  'prefix' => 'think',
+  'type' => '',
+  'auto_start' => true,
+)
+[ info ] [ RUN ] app\xcx\controller\House->index[ D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\application\xcx\controller\House.php ]
+[ info ] [ VIEW ] D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\public/../application/xcx\view\house\index.html [ array (
+) ]
+[ info ] [ LOG ] INIT File
+---------------------------------------------------------------
+[ 2020-04-24T16:09:56+08:00 ] 127.0.0.1 GET www.huaxiang.com/xcx/house/houseData/?page=1&limit=20
+[运行时间：0.119766s] [吞吐率：8.35req/s] [内存消耗：2,283.46kb] [文件加载：52]
+[ info ] [ LANG ] D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\thinkphp\lang\zh-cn.php
+[ info ] [ ROUTE ] array (
+  'type' => 'module',
+  'module' => 
+  array (
+    0 => 'xcx',
+    1 => 'house',
+    2 => 'houseData',
+  ),
+)
+[ info ] [ HEADER ] array (
+  'cookie' => 'PHPSESSID=68uhe109do7kabq48p58pqht16',
+  'accept-language' => 'zh-CN,zh;q=0.9',
+  'accept-encoding' => 'gzip, deflate',
+  'referer' => 'http://www.huaxiang.com/xcx/house/index.html',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.70 Safari/537.36',
+  'x-requested-with' => 'XMLHttpRequest',
+  'accept' => 'application/json, text/javascript, */*; q=0.01',
+  'connection' => 'close',
+  'host' => 'www.huaxiang.com',
+)
+[ info ] [ PARAM ] array (
+  '/xcx/house/houseData/' => '',
+  'page' => '1',
+  'limit' => '20',
+)
+[ info ] [ SESSION ] INIT array (
+  'id' => '',
+  'var_session_id' => '',
+  'prefix' => 'think',
+  'type' => '',
+  'auto_start' => true,
+)
+[ info ] [ RUN ] app\xcx\controller\House->houseData[ D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\application\xcx\controller\House.php ]
+[ info ] [ DB ] INIT mysql
+[ info ] [ LOG ] INIT File
+[ sql ] [ DB ] CONNECT:[ UseTime:0.004516s ] mysql:host=127.0.0.1;port=3306;dbname=xcxnew;charset=utf8mb4
+[ sql ] [ SQL ] SHOW COLUMNS FROM `tk_houses` [ RunTime:0.029766s ]
+[ sql ] [ SQL ] SELECT COUNT(*) AS tp_count FROM `tk_houses` WHERE  (   1 = 1 ) LIMIT 1 [ RunTime:0.000669s ]
+[ sql ] [ SQL ] SELECT * FROM `tk_houses` WHERE  (   1 = 1 ) ORDER BY `top` DESC,`mdate` DESC LIMIT 0,20 [ RunTime:0.001662s ]
+---------------------------------------------------------------
+[ 2020-04-24T16:09:57+08:00 ] 127.0.0.1 GET www.huaxiang.com/xcx/index/index.html
+[运行时间：0.386255s] [吞吐率：2.59req/s] [内存消耗：2,394.30kb] [文件加载：54]
+[ info ] [ LANG ] D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\thinkphp\lang\zh-cn.php
+[ info ] [ ROUTE ] array (
+  'type' => 'module',
+  'module' => 
+  array (
+    0 => 'xcx',
+    1 => 'index',
+    2 => 'index',
+  ),
+)
+[ info ] [ HEADER ] array (
+  'cookie' => 'PHPSESSID=68uhe109do7kabq48p58pqht16',
+  'accept-language' => 'zh-CN,zh;q=0.9',
+  'accept-encoding' => 'gzip, deflate',
+  'referer' => 'http://www.huaxiang.com/xcx/login/login.html',
+  'accept' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.70 Safari/537.36',
+  'upgrade-insecure-requests' => '1',
+  'cache-control' => 'max-age=0',
+  'connection' => 'close',
+  'host' => 'www.huaxiang.com',
+)
+[ info ] [ PARAM ] array (
+  '/xcx/index/index_html' => '',
+)
+[ info ] [ SESSION ] INIT array (
+  'id' => '',
+  'var_session_id' => '',
+  'prefix' => 'think',
+  'type' => '',
+  'auto_start' => true,
+)
+[ info ] [ RUN ] app\xcx\controller\Index->index[ D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\application\xcx\controller\Index.php ]
+[ info ] [ DB ] INIT mysql
+[ info ] [ VIEW ] D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\public/../application/xcx\view\index\index.html [ array (
+  0 => 'admin',
+  1 => 'menuList',
+  2 => 'siteName',
+  3 => 'ad_role',
+) ]
+[ info ] [ LOG ] INIT File
+[ sql ] [ DB ] CONNECT:[ UseTime:0.028774s ] mysql:host=127.0.0.1;port=3306;dbname=xcxnew;charset=utf8mb4
+[ sql ] [ SQL ] SHOW COLUMNS FROM `super_admin` [ RunTime:0.078453s ]
+[ sql ] [ SQL ] SELECT * FROM `super_admin` `admin` INNER JOIN `super_role` `role` ON `admin`.`ad_role`=`role`.`r_id` WHERE  `admin`.`ad_id` = 1 LIMIT 1 [ RunTime:0.053394s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `super_menu` [ RunTime:0.035659s ]
+[ sql ] [ SQL ] SELECT * FROM `super_menu` WHERE  `m_id` = 10 LIMIT 1 [ RunTime:0.003803s ]
+[ sql ] [ SQL ] SELECT * FROM `super_menu` WHERE  `m_id` = 11 LIMIT 1 [ RunTime:0.001154s ]
+[ sql ] [ SQL ] SELECT * FROM `super_menu` WHERE  `m_id` = 87 LIMIT 1 [ RunTime:0.000705s ]
+[ sql ] [ SQL ] SELECT * FROM `super_menu` WHERE  `m_id` = 1 LIMIT 1 [ RunTime:0.000630s ]
+[ sql ] [ SQL ] SELECT * FROM `super_menu` WHERE  `m_id` = 2 LIMIT 1 [ RunTime:0.000576s ]
+[ sql ] [ SQL ] SELECT * FROM `super_menu` WHERE  `m_id` = 4 LIMIT 1 [ RunTime:0.000689s ]
+[ sql ] [ SQL ] SELECT * FROM `super_menu` WHERE  `m_id` = 201 LIMIT 1 [ RunTime:0.000664s ]
+[ sql ] [ SQL ] SELECT * FROM `super_menu` WHERE  `m_id` = 210 LIMIT 1 [ RunTime:0.000834s ]
+[ sql ] [ SQL ] SELECT * FROM `super_menu` WHERE  `m_id` = 202 LIMIT 1 [ RunTime:0.000769s ]
+[ sql ] [ SQL ] SELECT * FROM `super_menu` WHERE  `m_id` = 209 LIMIT 1 [ RunTime:0.000453s ]
+[ sql ] [ SQL ] SELECT * FROM `super_menu` WHERE  `m_id` = 203 LIMIT 1 [ RunTime:0.000758s ]
+[ sql ] [ SQL ] SELECT * FROM `super_menu` WHERE  `m_id` = 212 LIMIT 1 [ RunTime:0.000740s ]
+[ sql ] [ SQL ] SELECT * FROM `super_menu` WHERE  `m_id` = 208 LIMIT 1 [ RunTime:0.000800s ]
+[ sql ] [ SQL ] SELECT * FROM `super_menu` WHERE  `m_id` = 204 LIMIT 1 [ RunTime:0.000677s ]
+[ sql ] [ SQL ] SELECT * FROM `super_menu` WHERE  `m_id` = 207 LIMIT 1 [ RunTime:0.000915s ]
+[ sql ] [ SQL ] SELECT * FROM `super_menu` WHERE  `m_id` = 205 LIMIT 1 [ RunTime:0.000691s ]
+[ sql ] [ SQL ] SELECT * FROM `super_menu` WHERE  `m_id` = 206 LIMIT 1 [ RunTime:0.000641s ]
+[ sql ] [ SQL ] SELECT * FROM `super_menu` WHERE  `m_id` = 214 LIMIT 1 [ RunTime:0.000672s ]
+[ sql ] [ SQL ] SELECT * FROM `super_menu` WHERE  `m_id` = 215 LIMIT 1 [ RunTime:0.000681s ]
+[ sql ] [ SQL ] SELECT * FROM `super_menu` WHERE  `m_id` = 216 LIMIT 1 [ RunTime:0.000652s ]
+[ sql ] [ SQL ] SELECT * FROM `super_menu` WHERE  `m_id` = 217 LIMIT 1 [ RunTime:0.000781s ]
+[ sql ] [ SQL ] SELECT * FROM `super_menu` WHERE  `m_id` = 218 LIMIT 1 [ RunTime:0.000818s ]
+[ sql ] [ SQL ] SELECT * FROM `super_menu` WHERE  `m_id` = 219 LIMIT 1 [ RunTime:0.000760s ]
+[ sql ] [ SQL ] SELECT * FROM `super_menu` WHERE  `m_id` = 220 LIMIT 1 [ RunTime:0.000553s ]
+[ sql ] [ SQL ] SELECT * FROM `super_menu` WHERE  `m_id` = 221 LIMIT 1 [ RunTime:0.000703s ]
+[ sql ] [ SQL ] SELECT * FROM `super_admin` INNER JOIN `super_role` ON `super_admin`.`ad_role`=`super_role`.`r_id` WHERE  `ad_id` = 1 LIMIT 1 [ RunTime:0.000709s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `super_setinfo` [ RunTime:0.018811s ]
+[ sql ] [ SQL ] SELECT `s_value` FROM `super_setinfo` WHERE  `s_key` = 'webname' [ RunTime:0.011278s ]
+---------------------------------------------------------------
+[ 2020-04-24T16:09:57+08:00 ] 127.0.0.1 GET www.huaxiang.com/xcx/index/welcome.html
+[运行时间：0.234409s] [吞吐率：4.27req/s] [内存消耗：2,636.21kb] [文件加载：57]
+[ info ] [ LANG ] D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\thinkphp\lang\zh-cn.php
+[ info ] [ ROUTE ] array (
+  'type' => 'module',
+  'module' => 
+  array (
+    0 => 'xcx',
+    1 => 'index',
+    2 => 'welcome',
+  ),
+)
+[ info ] [ HEADER ] array (
+  'cookie' => 'PHPSESSID=68uhe109do7kabq48p58pqht16',
+  'accept-language' => 'zh-CN,zh;q=0.9',
+  'accept-encoding' => 'gzip, deflate',
+  'referer' => 'http://www.huaxiang.com/xcx/index/index.html',
+  'accept' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.70 Safari/537.36',
+  'upgrade-insecure-requests' => '1',
+  'connection' => 'close',
+  'host' => 'www.huaxiang.com',
+)
+[ info ] [ PARAM ] array (
+  '/xcx/index/welcome_html' => '',
+)
+[ info ] [ SESSION ] INIT array (
+  'id' => '',
+  'var_session_id' => '',
+  'prefix' => 'think',
+  'type' => '',
+  'auto_start' => true,
+)
+[ info ] [ RUN ] app\xcx\controller\Index->welcome[ D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\application\xcx\controller\Index.php ]
+[ info ] [ DB ] INIT mysql
+[ info ] [ VIEW ] D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\public/../application/xcx\view\index\welcome.html [ array (
+  0 => 'allHouse',
+  1 => 'allUser',
+  2 => 'todayHouse',
+  3 => 'todayUser',
+) ]
+[ info ] [ LOG ] INIT File
+[ sql ] [ DB ] CONNECT:[ UseTime:0.001277s ] mysql:host=127.0.0.1;port=3306;dbname=xcxnew;charset=utf8mb4
+[ sql ] [ SQL ] SHOW COLUMNS FROM `tk_houses` [ RunTime:0.022339s ]
+[ sql ] [ SQL ] SELECT COUNT(id) AS tp_count FROM `tk_houses` WHERE  (  1 = 1 ) LIMIT 1 [ RunTime:0.001232s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `tk_user` [ RunTime:0.035897s ]
+[ sql ] [ SQL ] SELECT COUNT(id) AS tp_count FROM `tk_user` WHERE  (  1 = 1 ) LIMIT 1 [ RunTime:0.000650s ]
+[ sql ] [ SQL ] SELECT COUNT(id) AS tp_count FROM `tk_houses` WHERE  (  cdate >= '2020-04-24 00:00:00' and cdate <= '2020-04-24 23:59:59' ) LIMIT 1 [ RunTime:0.000932s ]
+[ sql ] [ SQL ] SELECT COUNT(id) AS tp_count FROM `tk_user` WHERE  (  cdate >= '2020-04-24 00:00:00' and cdate <= '2020-04-24 23:59:59' ) LIMIT 1 [ RunTime:0.011649s ]
+---------------------------------------------------------------
+[ 2020-04-24T16:10:00+08:00 ] 127.0.0.1 GET www.huaxiang.com/xcx/house/index.html
+[运行时间：0.056895s] [吞吐率：17.58req/s] [内存消耗：1,623.84kb] [文件加载：45]
+[ info ] [ LANG ] D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\thinkphp\lang\zh-cn.php
+[ info ] [ ROUTE ] array (
+  'type' => 'module',
+  'module' => 
+  array (
+    0 => 'xcx',
+    1 => 'house',
+    2 => 'index',
+  ),
+)
+[ info ] [ HEADER ] array (
+  'cookie' => 'PHPSESSID=68uhe109do7kabq48p58pqht16',
+  'accept-language' => 'zh-CN,zh;q=0.9',
+  'accept-encoding' => 'gzip, deflate',
+  'referer' => 'http://www.huaxiang.com/xcx/index/index.html',
+  'accept' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.70 Safari/537.36',
+  'upgrade-insecure-requests' => '1',
+  'connection' => 'close',
+  'host' => 'www.huaxiang.com',
+)
+[ info ] [ PARAM ] array (
+  '/xcx/house/index_html' => '',
+)
+[ info ] [ SESSION ] INIT array (
+  'id' => '',
+  'var_session_id' => '',
+  'prefix' => 'think',
+  'type' => '',
+  'auto_start' => true,
+)
+[ info ] [ RUN ] app\xcx\controller\House->index[ D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\application\xcx\controller\House.php ]
+[ info ] [ VIEW ] D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\public/../application/xcx\view\house\index.html [ array (
+) ]
+[ info ] [ LOG ] INIT File
+---------------------------------------------------------------
+[ 2020-04-24T16:10:00+08:00 ] 127.0.0.1 GET www.huaxiang.com/xcx/house/houseData/?page=1&limit=20
+[运行时间：0.093914s] [吞吐率：10.65req/s] [内存消耗：2,283.46kb] [文件加载：52]
+[ info ] [ LANG ] D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\thinkphp\lang\zh-cn.php
+[ info ] [ ROUTE ] array (
+  'type' => 'module',
+  'module' => 
+  array (
+    0 => 'xcx',
+    1 => 'house',
+    2 => 'houseData',
+  ),
+)
+[ info ] [ HEADER ] array (
+  'cookie' => 'PHPSESSID=68uhe109do7kabq48p58pqht16',
+  'accept-language' => 'zh-CN,zh;q=0.9',
+  'accept-encoding' => 'gzip, deflate',
+  'referer' => 'http://www.huaxiang.com/xcx/house/index.html',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.70 Safari/537.36',
+  'x-requested-with' => 'XMLHttpRequest',
+  'accept' => 'application/json, text/javascript, */*; q=0.01',
+  'connection' => 'close',
+  'host' => 'www.huaxiang.com',
+)
+[ info ] [ PARAM ] array (
+  '/xcx/house/houseData/' => '',
+  'page' => '1',
+  'limit' => '20',
+)
+[ info ] [ SESSION ] INIT array (
+  'id' => '',
+  'var_session_id' => '',
+  'prefix' => 'think',
+  'type' => '',
+  'auto_start' => true,
+)
+[ info ] [ RUN ] app\xcx\controller\House->houseData[ D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\application\xcx\controller\House.php ]
+[ info ] [ DB ] INIT mysql
+[ info ] [ LOG ] INIT File
+[ sql ] [ DB ] CONNECT:[ UseTime:0.001370s ] mysql:host=127.0.0.1;port=3306;dbname=xcxnew;charset=utf8mb4
+[ sql ] [ SQL ] SHOW COLUMNS FROM `tk_houses` [ RunTime:0.018455s ]
+[ sql ] [ SQL ] SELECT COUNT(*) AS tp_count FROM `tk_houses` WHERE  (   1 = 1 ) LIMIT 1 [ RunTime:0.001008s ]
+[ sql ] [ SQL ] SELECT * FROM `tk_houses` WHERE  (   1 = 1 ) ORDER BY `top` DESC,`mdate` DESC LIMIT 0,20 [ RunTime:0.002043s ]
+---------------------------------------------------------------
+[ 2020-04-24T16:10:05+08:00 ] 127.0.0.1 GET www.huaxiang.com/xcx/house/add.html
+[运行时间：0.103372s] [吞吐率：9.67req/s] [内存消耗：2,450.05kb] [文件加载：54]
+[ info ] [ LANG ] D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\thinkphp\lang\zh-cn.php
+[ info ] [ ROUTE ] array (
+  'type' => 'module',
+  'module' => 
+  array (
+    0 => 'xcx',
+    1 => 'house',
+    2 => 'add',
+  ),
+)
+[ info ] [ HEADER ] array (
+  'cookie' => 'PHPSESSID=68uhe109do7kabq48p58pqht16',
+  'accept-language' => 'zh-CN,zh;q=0.9',
+  'accept-encoding' => 'gzip, deflate',
+  'referer' => 'http://www.huaxiang.com/xcx/house/index.html',
+  'accept' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.70 Safari/537.36',
+  'upgrade-insecure-requests' => '1',
+  'connection' => 'close',
+  'host' => 'www.huaxiang.com',
+)
+[ info ] [ PARAM ] array (
+  '/xcx/house/add_html' => '',
+)
+[ info ] [ SESSION ] INIT array (
+  'id' => '',
+  'var_session_id' => '',
+  'prefix' => 'think',
+  'type' => '',
+  'auto_start' => true,
+)
+[ info ] [ RUN ] app\xcx\controller\House->add[ D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\application\xcx\controller\House.php ]
+[ info ] [ DB ] INIT mysql
+[ info ] [ VIEW ] D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\public/../application/xcx\view\house\add.html [ array (
+  0 => 'city',
+  1 => 'tags',
+) ]
+[ info ] [ LOG ] INIT File
+[ sql ] [ DB ] CONNECT:[ UseTime:0.001267s ] mysql:host=127.0.0.1;port=3306;dbname=xcxnew;charset=utf8mb4
+[ sql ] [ SQL ] SHOW COLUMNS FROM `tk_cate` [ RunTime:0.015834s ]
+[ sql ] [ SQL ] SELECT * FROM `tk_cate` WHERE  `pid` = 0 [ RunTime:0.001103s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `xcx_tags` [ RunTime:0.014464s ]
+[ sql ] [ SQL ] SELECT `id`,`name` FROM `xcx_tags` WHERE  `type` = 1 [ RunTime:0.000823s ]
+---------------------------------------------------------------
+[ 2020-04-24T16:10:16+08:00 ] 127.0.0.1 POST www.huaxiang.com/xcx/house/getschool.html
+[运行时间：0.089242s] [吞吐率：11.21req/s] [内存消耗：2,192.67kb] [文件加载：51]
+[ info ] [ LANG ] D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\thinkphp\lang\zh-cn.php
+[ info ] [ ROUTE ] array (
+  'type' => 'module',
+  'module' => 
+  array (
+    0 => 'xcx',
+    1 => 'house',
+    2 => 'getschool',
+  ),
+)
+[ info ] [ HEADER ] array (
+  'cookie' => 'PHPSESSID=68uhe109do7kabq48p58pqht16',
+  'accept-language' => 'zh-CN,zh;q=0.9',
+  'accept-encoding' => 'gzip, deflate',
+  'referer' => 'http://www.huaxiang.com/xcx/house/add.html',
+  'content-type' => 'application/x-www-form-urlencoded; charset=UTF-8',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.70 Safari/537.36',
+  'x-requested-with' => 'XMLHttpRequest',
+  'origin' => 'http://www.huaxiang.com',
+  'accept' => 'application/json, text/javascript, */*; q=0.01',
+  'content-length' => '5',
+  'connection' => 'close',
+  'host' => 'www.huaxiang.com',
+)
+[ info ] [ PARAM ] array (
+  '/xcx/house/getschool_html' => '',
+  'id' => '27',
+)
+[ info ] [ SESSION ] INIT array (
+  'id' => '',
+  'var_session_id' => '',
+  'prefix' => 'think',
+  'type' => '',
+  'auto_start' => true,
+)
+[ info ] [ RUN ] app\xcx\controller\House->getSchool[ D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\application\xcx\controller\House.php ]
+[ info ] [ DB ] INIT mysql
+[ info ] [ LOG ] INIT File
+[ sql ] [ DB ] CONNECT:[ UseTime:0.001833s ] mysql:host=127.0.0.1;port=3306;dbname=xcxnew;charset=utf8mb4
+[ sql ] [ SQL ] SHOW COLUMNS FROM `tk_cate` [ RunTime:0.018625s ]
+[ sql ] [ SQL ] SELECT * FROM `tk_cate` WHERE  `pid` = 27  AND `type` = 2 ORDER BY `id` ASC [ RunTime:0.002109s ]
+---------------------------------------------------------------
+[ 2020-04-24T16:10:50+08:00 ] 127.0.0.1 POST www.huaxiang.com/xcx/house/upload.html
+[运行时间：0.097776s] [吞吐率：10.23req/s] [内存消耗：1,613.48kb] [文件加载：45]
+[ info ] [ LANG ] D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\thinkphp\lang\zh-cn.php
+[ info ] [ ROUTE ] array (
+  'type' => 'module',
+  'module' => 
+  array (
+    0 => 'xcx',
+    1 => 'house',
+    2 => 'upload',
+  ),
+)
+[ info ] [ HEADER ] array (
+  'cookie' => 'PHPSESSID=68uhe109do7kabq48p58pqht16',
+  'accept-language' => 'zh-CN,zh;q=0.9',
+  'accept-encoding' => 'gzip, deflate',
+  'referer' => 'http://www.huaxiang.com/xcx/house/add.html',
+  'content-type' => 'multipart/form-data; boundary=----WebKitFormBoundarypMBTpZ1IgE4pmMhG',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.70 Safari/537.36',
+  'x-requested-with' => 'XMLHttpRequest',
+  'origin' => 'http://www.huaxiang.com',
+  'accept' => 'application/json, text/javascript, */*; q=0.01',
+  'content-length' => '406961',
+  'connection' => 'close',
+  'host' => 'www.huaxiang.com',
+)
+[ info ] [ PARAM ] array (
+  '/xcx/house/upload_html' => '',
+)
+[ info ] [ SESSION ] INIT array (
+  'id' => '',
+  'var_session_id' => '',
+  'prefix' => 'think',
+  'type' => '',
+  'auto_start' => true,
+)
+[ info ] [ RUN ] app\xcx\controller\House->upload[ D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\application\xcx\controller\House.php ]
+[ info ] [ LOG ] INIT File
+---------------------------------------------------------------
+[ 2020-04-24T16:10:53+08:00 ] 127.0.0.1 POST www.huaxiang.com/xcx/house/add.html
+[运行时间：0.158305s] [吞吐率：6.32req/s] [内存消耗：2,273.61kb] [文件加载：52]
+[ info ] [ LANG ] D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\thinkphp\lang\zh-cn.php
+[ info ] [ ROUTE ] array (
+  'type' => 'module',
+  'module' => 
+  array (
+    0 => 'xcx',
+    1 => 'house',
+    2 => 'add',
+  ),
+)
+[ info ] [ HEADER ] array (
+  'cookie' => 'PHPSESSID=68uhe109do7kabq48p58pqht16',
+  'accept-language' => 'zh-CN,zh;q=0.9',
+  'accept-encoding' => 'gzip, deflate',
+  'referer' => 'http://www.huaxiang.com/xcx/house/add.html',
+  'accept' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.70 Safari/537.36',
+  'content-type' => 'application/x-www-form-urlencoded',
+  'upgrade-insecure-requests' => '1',
+  'origin' => 'http://www.huaxiang.com',
+  'cache-control' => 'max-age=0',
+  'content-length' => '805',
+  'connection' => 'close',
+  'host' => 'www.huaxiang.com',
+)
+[ info ] [ PARAM ] array (
+  '/xcx/house/add_html' => '',
+  'title' => '123123',
+  'address' => 'Australia, QLD, Sunnybank Hills, 11',
+  'x' => '-27.57987',
+  'y' => '153.03911',
+  'http' => '123123',
+  'price' => '123',
+  'city' => '27',
+  'school' => 'LaTrobe University(市中心)',
+  'live_date' => '2020-04-24',
+  'source' => '中介',
+  'type' => '整租',
+  'sex' => '男女不限',
+  'pet' => '接受',
+  'bill' => 
+  array (
+    '包电' => 'on',
+  ),
+  'lease_term' => '灵活',
+  'house_type' => '公寓',
+  'house_room' => '一室',
+  'toilet' => '0',
+  'home' => 
+  array (
+    '餐桌' => 'on',
+    '椅子' => 'on',
+  ),
+  'car' => '0',
+  'furniture' => 
+  array (
+    '停车位' => 'on',
+  ),
+  'sation' => 
+  array (
+    '地铁站' => 'on',
+  ),
+  'tags' => 
+  array (
+    '落地窗' => 'on',
+  ),
+  'real_name' => '123123',
+  'tel' => '123',
+  'wchat' => '123',
+  'email' => '123@qq.com',
+  'file' => '',
+  'images' => 
+  array (
+    0 => 'uploads/text/20200424\\a76a338da3c9f4f4e51a0f2b7c5ded80.png',
+  ),
+  'video' => '',
+  'content' => '132',
+)
+[ info ] [ SESSION ] INIT array (
+  'id' => '',
+  'var_session_id' => '',
+  'prefix' => 'think',
+  'type' => '',
+  'auto_start' => true,
+)
+[ info ] [ RUN ] app\xcx\controller\House->add[ D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\application\xcx\controller\House.php ]
+[ info ] [ DB ] INIT mysql
+[ info ] [ VIEW ] D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\thinkphp\tpl\dispatch_jump.tpl [ array (
+  0 => 'code',
+  1 => 'msg',
+  2 => 'data',
+  3 => 'url',
+  4 => 'wait',
+) ]
+[ info ] [ LOG ] INIT File
+[ sql ] [ DB ] CONNECT:[ UseTime:0.001988s ] mysql:host=127.0.0.1;port=3306;dbname=xcxnew;charset=utf8mb4
+[ sql ] [ SQL ] SHOW COLUMNS FROM `tk_cate` [ RunTime:0.016152s ]
+[ sql ] [ SQL ] SELECT `name` FROM `tk_cate` WHERE  `id` = 27 LIMIT 1 [ RunTime:0.001035s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `tk_houses` [ RunTime:0.019010s ]
+[ sql ] [ SQL ] SELECT * FROM `tk_houses` ORDER BY `id` DESC LIMIT 1 [ RunTime:0.001450s ]
+[ sql ] [ SQL ] INSERT INTO `tk_houses` (`title` , `address` , `x` , `y` , `http` , `price` , `city` , `school` , `live_date` , `source` , `type` , `sex` , `pet` , `bill` , `lease_term` , `house_type` , `house_room` , `toilet` , `home` , `car` , `furniture` , `sation` , `tags` , `real_name` , `tel` , `wchat` , `email` , `images` , `video` , `content` , `publish_date` , `cdate` , `mdate` , `status` , `dsn`) VALUES ('123123' , 'Australia, QLD, Sunnybank Hills, 11' , '-27.57987' , '153.03911' , '123123' , 123 , '墨尔本' , 'LaTrobe University(市中心)' , '2020-04-24' , '中介' , '整租' , '男女不限' , '接受' , '包电' , '灵活' , '公寓' , '一室' , '0' , '餐桌,椅子' , '0' , '停车位' , '地铁站' , '落地窗' , '123123' , '123' , '123' , '123@qq.com' , 'uploads/text/20200424\\a76a338da3c9f4f4e51a0f2b7c5ded80.png' , '' , '132' , '2020-04-24 16:10:52' , '2020-04-24 16:10:52' , '2020-04-24 16:10:52' , 1 , 'A000000247') [ RunTime:0.032592s ]
+---------------------------------------------------------------
+[ 2020-04-24T16:10:54+08:00 ] 127.0.0.1 GET www.huaxiang.com/xcx/house/add.html
+[运行时间：0.102824s] [吞吐率：9.73req/s] [内存消耗：2,286.45kb] [文件加载：52]
+[ info ] [ LANG ] D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\thinkphp\lang\zh-cn.php
+[ info ] [ ROUTE ] array (
+  'type' => 'module',
+  'module' => 
+  array (
+    0 => 'xcx',
+    1 => 'house',
+    2 => 'add',
+  ),
+)
+[ info ] [ HEADER ] array (
+  'cookie' => 'PHPSESSID=68uhe109do7kabq48p58pqht16',
+  'accept-language' => 'zh-CN,zh;q=0.9',
+  'accept-encoding' => 'gzip, deflate',
+  'referer' => 'http://www.huaxiang.com/xcx/house/add.html',
+  'accept' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.70 Safari/537.36',
+  'upgrade-insecure-requests' => '1',
+  'connection' => 'close',
+  'host' => 'www.huaxiang.com',
+)
+[ info ] [ PARAM ] array (
+  '/xcx/house/add_html' => '',
+)
+[ info ] [ SESSION ] INIT array (
+  'id' => '',
+  'var_session_id' => '',
+  'prefix' => 'think',
+  'type' => '',
+  'auto_start' => true,
+)
+[ info ] [ RUN ] app\xcx\controller\House->add[ D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\application\xcx\controller\House.php ]
+[ info ] [ DB ] INIT mysql
+[ info ] [ VIEW ] D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\public/../application/xcx\view\house\add.html [ array (
+  0 => 'city',
+  1 => 'tags',
+) ]
+[ info ] [ LOG ] INIT File
+[ sql ] [ DB ] CONNECT:[ UseTime:0.003570s ] mysql:host=127.0.0.1;port=3306;dbname=xcxnew;charset=utf8mb4
+[ sql ] [ SQL ] SHOW COLUMNS FROM `tk_cate` [ RunTime:0.022080s ]
+[ sql ] [ SQL ] SELECT * FROM `tk_cate` WHERE  `pid` = 0 [ RunTime:0.001194s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `xcx_tags` [ RunTime:0.017954s ]
+[ sql ] [ SQL ] SELECT `id`,`name` FROM `xcx_tags` WHERE  `type` = 1 [ RunTime:0.000782s ]
+---------------------------------------------------------------
+[ 2020-04-24T16:10:56+08:00 ] 127.0.0.1 GET www.huaxiang.com/xcx/house/index.html
+[运行时间：0.042661s] [吞吐率：23.44req/s] [内存消耗：1,623.84kb] [文件加载：45]
+[ info ] [ LANG ] D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\thinkphp\lang\zh-cn.php
+[ info ] [ ROUTE ] array (
+  'type' => 'module',
+  'module' => 
+  array (
+    0 => 'xcx',
+    1 => 'house',
+    2 => 'index',
+  ),
+)
+[ info ] [ HEADER ] array (
+  'cookie' => 'PHPSESSID=68uhe109do7kabq48p58pqht16',
+  'accept-language' => 'zh-CN,zh;q=0.9',
+  'accept-encoding' => 'gzip, deflate',
+  'referer' => 'http://www.huaxiang.com/xcx/index/index.html',
+  'accept' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.70 Safari/537.36',
+  'upgrade-insecure-requests' => '1',
+  'connection' => 'close',
+  'host' => 'www.huaxiang.com',
+)
+[ info ] [ PARAM ] array (
+  '/xcx/house/index_html' => '',
+)
+[ info ] [ SESSION ] INIT array (
+  'id' => '',
+  'var_session_id' => '',
+  'prefix' => 'think',
+  'type' => '',
+  'auto_start' => true,
+)
+[ info ] [ RUN ] app\xcx\controller\House->index[ D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\application\xcx\controller\House.php ]
+[ info ] [ VIEW ] D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\public/../application/xcx\view\house\index.html [ array (
+) ]
+[ info ] [ LOG ] INIT File
+---------------------------------------------------------------
+[ 2020-04-24T16:10:56+08:00 ] 127.0.0.1 GET www.huaxiang.com/xcx/house/houseData/?page=1&limit=20
+[运行时间：0.090569s] [吞吐率：11.04req/s] [内存消耗：2,286.50kb] [文件加载：52]
+[ info ] [ LANG ] D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\thinkphp\lang\zh-cn.php
+[ info ] [ ROUTE ] array (
+  'type' => 'module',
+  'module' => 
+  array (
+    0 => 'xcx',
+    1 => 'house',
+    2 => 'houseData',
+  ),
+)
+[ info ] [ HEADER ] array (
+  'cookie' => 'PHPSESSID=68uhe109do7kabq48p58pqht16',
+  'accept-language' => 'zh-CN,zh;q=0.9',
+  'accept-encoding' => 'gzip, deflate',
+  'referer' => 'http://www.huaxiang.com/xcx/house/index.html',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.70 Safari/537.36',
+  'x-requested-with' => 'XMLHttpRequest',
+  'accept' => 'application/json, text/javascript, */*; q=0.01',
+  'connection' => 'close',
+  'host' => 'www.huaxiang.com',
+)
+[ info ] [ PARAM ] array (
+  '/xcx/house/houseData/' => '',
+  'page' => '1',
+  'limit' => '20',
+)
+[ info ] [ SESSION ] INIT array (
+  'id' => '',
+  'var_session_id' => '',
+  'prefix' => 'think',
+  'type' => '',
+  'auto_start' => true,
+)
+[ info ] [ RUN ] app\xcx\controller\House->houseData[ D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\application\xcx\controller\House.php ]
+[ info ] [ DB ] INIT mysql
+[ info ] [ LOG ] INIT File
+[ sql ] [ DB ] CONNECT:[ UseTime:0.001678s ] mysql:host=127.0.0.1;port=3306;dbname=xcxnew;charset=utf8mb4
+[ sql ] [ SQL ] SHOW COLUMNS FROM `tk_houses` [ RunTime:0.018551s ]
+[ sql ] [ SQL ] SELECT COUNT(*) AS tp_count FROM `tk_houses` WHERE  (   1 = 1 ) LIMIT 1 [ RunTime:0.001012s ]
+[ sql ] [ SQL ] SELECT * FROM `tk_houses` WHERE  (   1 = 1 ) ORDER BY `top` DESC,`mdate` DESC LIMIT 0,20 [ RunTime:0.002642s ]
+---------------------------------------------------------------
+[ 2020-04-24T16:11:01+08:00 ] 127.0.0.1 GET www.huaxiang.com/xcx/house/edit.html?id=247
+[运行时间：0.136784s] [吞吐率：7.31req/s] [内存消耗：2,362.30kb] [文件加载：52]
+[ info ] [ LANG ] D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\thinkphp\lang\zh-cn.php
+[ info ] [ ROUTE ] array (
+  'type' => 'module',
+  'module' => 
+  array (
+    0 => 'xcx',
+    1 => 'house',
+    2 => 'edit',
+  ),
+)
+[ info ] [ HEADER ] array (
+  'cookie' => 'PHPSESSID=68uhe109do7kabq48p58pqht16',
+  'accept-language' => 'zh-CN,zh;q=0.9',
+  'accept-encoding' => 'gzip, deflate',
+  'referer' => 'http://www.huaxiang.com/xcx/house/index.html',
+  'accept' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.70 Safari/537.36',
+  'upgrade-insecure-requests' => '1',
+  'connection' => 'close',
+  'host' => 'www.huaxiang.com',
+)
+[ info ] [ PARAM ] array (
+  '/xcx/house/edit_html' => '',
+  'id' => '247',
+)
+[ info ] [ SESSION ] INIT array (
+  'id' => '',
+  'var_session_id' => '',
+  'prefix' => 'think',
+  'type' => '',
+  'auto_start' => true,
+)
+[ info ] [ RUN ] app\xcx\controller\House->edit[ D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\application\xcx\controller\House.php ]
+[ info ] [ DB ] INIT mysql
+[ info ] [ VIEW ] D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\public/../application/xcx\view\house\edit.html [ array (
+  0 => 'tags',
+  1 => 'all_bill',
+  2 => 'all_trans',
+  3 => 'all_set',
+  4 => 'all_four',
+  5 => 'city',
+  6 => 'school',
+  7 => 'house',
+) ]
+[ info ] [ LOG ] INIT File
+[ sql ] [ DB ] CONNECT:[ UseTime:0.001308s ] mysql:host=127.0.0.1;port=3306;dbname=xcxnew;charset=utf8mb4
+[ sql ] [ SQL ] SHOW COLUMNS FROM `tk_houses` [ RunTime:0.016615s ]
+[ sql ] [ SQL ] SELECT * FROM `tk_houses` WHERE  `id` = 247 LIMIT 1 [ RunTime:0.001389s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `xcx_tags` [ RunTime:0.014959s ]
+[ sql ] [ SQL ] SELECT `id`,`name` FROM `xcx_tags` WHERE  `type` = 1 [ RunTime:0.000705s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `tk_cate` [ RunTime:0.014768s ]
+[ sql ] [ SQL ] SELECT * FROM `tk_cate` WHERE  `pid` = 0 [ RunTime:0.000873s ]
+[ sql ] [ SQL ] SELECT `id` FROM `tk_cate` WHERE  `name` = '墨尔本'  AND `pid` = 0 LIMIT 1 [ RunTime:0.000963s ]
+[ sql ] [ SQL ] SELECT * FROM `tk_cate` WHERE  `pid` = 27  AND `type` = 2 ORDER BY `id` ASC [ RunTime:0.001030s ]
+---------------------------------------------------------------
+[ 2020-04-24T16:11:17+08:00 ] 127.0.0.1 POST www.huaxiang.com/xcx/house/getschool.html
+[运行时间：0.082392s] [吞吐率：12.14req/s] [内存消耗：2,192.66kb] [文件加载：51]
+[ info ] [ LANG ] D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\thinkphp\lang\zh-cn.php
+[ info ] [ ROUTE ] array (
+  'type' => 'module',
+  'module' => 
+  array (
+    0 => 'xcx',
+    1 => 'house',
+    2 => 'getschool',
+  ),
+)
+[ info ] [ HEADER ] array (
+  'cookie' => 'PHPSESSID=68uhe109do7kabq48p58pqht16',
+  'accept-language' => 'zh-CN,zh;q=0.9',
+  'accept-encoding' => 'gzip, deflate',
+  'referer' => 'http://www.huaxiang.com/xcx/house/edit.html?id=247',
+  'content-type' => 'application/x-www-form-urlencoded; charset=UTF-8',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.70 Safari/537.36',
+  'x-requested-with' => 'XMLHttpRequest',
+  'origin' => 'http://www.huaxiang.com',
+  'accept' => 'application/json, text/javascript, */*; q=0.01',
+  'content-length' => '5',
+  'connection' => 'close',
+  'host' => 'www.huaxiang.com',
+)
+[ info ] [ PARAM ] array (
+  '/xcx/house/getschool_html' => '',
+  'id' => '28',
+)
+[ info ] [ SESSION ] INIT array (
+  'id' => '',
+  'var_session_id' => '',
+  'prefix' => 'think',
+  'type' => '',
+  'auto_start' => true,
+)
+[ info ] [ RUN ] app\xcx\controller\House->getSchool[ D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\application\xcx\controller\House.php ]
+[ info ] [ DB ] INIT mysql
+[ info ] [ LOG ] INIT File
+[ sql ] [ DB ] CONNECT:[ UseTime:0.001726s ] mysql:host=127.0.0.1;port=3306;dbname=xcxnew;charset=utf8mb4
+[ sql ] [ SQL ] SHOW COLUMNS FROM `tk_cate` [ RunTime:0.016085s ]
+[ sql ] [ SQL ] SELECT * FROM `tk_cate` WHERE  `pid` = 28  AND `type` = 2 ORDER BY `id` ASC [ RunTime:0.001640s ]
+---------------------------------------------------------------
+[ 2020-04-24T16:11:22+08:00 ] 127.0.0.1 POST www.huaxiang.com/xcx/house/edit.html?id=247
+[运行时间：0.076221s] [吞吐率：13.12req/s] [内存消耗：1,588.38kb] [文件加载：48]
+[ info ] [ LANG ] D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\thinkphp\lang\zh-cn.php
+[ info ] [ ROUTE ] array (
+  'type' => 'module',
+  'module' => 
+  array (
+    0 => 'xcx',
+    1 => 'house',
+    2 => 'edit',
+  ),
+)
+[ info ] [ HEADER ] array (
+  'cookie' => 'PHPSESSID=68uhe109do7kabq48p58pqht16',
+  'accept-language' => 'zh-CN,zh;q=0.9',
+  'accept-encoding' => 'gzip, deflate',
+  'referer' => 'http://www.huaxiang.com/xcx/house/edit.html?id=247',
+  'accept' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.70 Safari/537.36',
+  'content-type' => 'application/x-www-form-urlencoded',
+  'upgrade-insecure-requests' => '1',
+  'origin' => 'http://www.huaxiang.com',
+  'cache-control' => 'max-age=0',
+  'content-length' => '755',
+  'connection' => 'close',
+  'host' => 'www.huaxiang.com',
+)
+[ info ] [ PARAM ] array (
+  '/xcx/house/edit_html' => '',
+  'id' => '247',
+  'title' => '123123',
+  'address' => 'Australia, QLD, Sunnybank Hills, 11',
+  'x' => '-27.57987',
+  'y' => '153.03911',
+  'http' => '123123',
+  'price' => '123',
+  'city' => '28',
+  'school' => '悉尼音乐学院',
+  'live_date' => '2020-04-24',
+  'source' => '中介',
+  'type' => '整租',
+  'sex' => '男女不限',
+  'pet' => '接受',
+  'bill' => 
+  array (
+    '包电' => 'on',
+  ),
+  'lease_term' => '灵活',
+  'house_type' => '公寓',
+  'house_room' => '一室',
+  'toilet' => '0',
+  'home' => 
+  array (
+    '餐桌' => 'on',
+    '椅子' => 'on',
+  ),
+  'car' => '0',
+  'sation' => 
+  array (
+    '地铁站' => 'on',
+  ),
+  'tags' => 
+  array (
+    '落地窗' => 'on',
+  ),
+  'real_name' => '123123',
+  'tel' => '123',
+  'wchat' => '123',
+  'email' => '123@qq.com',
+  'file' => '',
+  'images' => 
+  array (
+    0 => 'uploads/text/20200424\\a76a338da3c9f4f4e51a0f2b7c5ded80.png',
+  ),
+  'content' => '132',
+)
+[ info ] [ SESSION ] INIT array (
+  'id' => '',
+  'var_session_id' => '',
+  'prefix' => 'think',
+  'type' => '',
+  'auto_start' => true,
+)
+[ info ] [ RUN ] app\xcx\controller\House->edit[ D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\application\xcx\controller\House.php ]
+[ info ] [ LOG ] INIT File
+[ error ] [8]未定义数组索引: furniture[D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\application\xcx\controller\House.php:251]
+---------------------------------------------------------------
+[ 2020-04-24T16:11:28+08:00 ] 127.0.0.1 GET www.huaxiang.com/xcx/house/index.html
+[运行时间：0.041979s] [吞吐率：23.82req/s] [内存消耗：1,623.84kb] [文件加载：45]
+[ info ] [ LANG ] D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\thinkphp\lang\zh-cn.php
+[ info ] [ ROUTE ] array (
+  'type' => 'module',
+  'module' => 
+  array (
+    0 => 'xcx',
+    1 => 'house',
+    2 => 'index',
+  ),
+)
+[ info ] [ HEADER ] array (
+  'cookie' => 'PHPSESSID=68uhe109do7kabq48p58pqht16',
+  'accept-language' => 'zh-CN,zh;q=0.9',
+  'accept-encoding' => 'gzip, deflate',
+  'referer' => 'http://www.huaxiang.com/xcx/index/index.html',
+  'accept' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.70 Safari/537.36',
+  'upgrade-insecure-requests' => '1',
+  'connection' => 'close',
+  'host' => 'www.huaxiang.com',
+)
+[ info ] [ PARAM ] array (
+  '/xcx/house/index_html' => '',
+)
+[ info ] [ SESSION ] INIT array (
+  'id' => '',
+  'var_session_id' => '',
+  'prefix' => 'think',
+  'type' => '',
+  'auto_start' => true,
+)
+[ info ] [ RUN ] app\xcx\controller\House->index[ D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\application\xcx\controller\House.php ]
+[ info ] [ VIEW ] D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\public/../application/xcx\view\house\index.html [ array (
+) ]
+[ info ] [ LOG ] INIT File
+---------------------------------------------------------------
+[ 2020-04-24T16:11:28+08:00 ] 127.0.0.1 GET www.huaxiang.com/xcx/house/houseData/?page=1&limit=20
+[运行时间：0.098392s] [吞吐率：10.16req/s] [内存消耗：2,286.50kb] [文件加载：52]
+[ info ] [ LANG ] D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\thinkphp\lang\zh-cn.php
+[ info ] [ ROUTE ] array (
+  'type' => 'module',
+  'module' => 
+  array (
+    0 => 'xcx',
+    1 => 'house',
+    2 => 'houseData',
+  ),
+)
+[ info ] [ HEADER ] array (
+  'cookie' => 'PHPSESSID=68uhe109do7kabq48p58pqht16',
+  'accept-language' => 'zh-CN,zh;q=0.9',
+  'accept-encoding' => 'gzip, deflate',
+  'referer' => 'http://www.huaxiang.com/xcx/house/index.html',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.70 Safari/537.36',
+  'x-requested-with' => 'XMLHttpRequest',
+  'accept' => 'application/json, text/javascript, */*; q=0.01',
+  'connection' => 'close',
+  'host' => 'www.huaxiang.com',
+)
+[ info ] [ PARAM ] array (
+  '/xcx/house/houseData/' => '',
+  'page' => '1',
+  'limit' => '20',
+)
+[ info ] [ SESSION ] INIT array (
+  'id' => '',
+  'var_session_id' => '',
+  'prefix' => 'think',
+  'type' => '',
+  'auto_start' => true,
+)
+[ info ] [ RUN ] app\xcx\controller\House->houseData[ D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\application\xcx\controller\House.php ]
+[ info ] [ DB ] INIT mysql
+[ info ] [ LOG ] INIT File
+[ sql ] [ DB ] CONNECT:[ UseTime:0.001746s ] mysql:host=127.0.0.1;port=3306;dbname=xcxnew;charset=utf8mb4
+[ sql ] [ SQL ] SHOW COLUMNS FROM `tk_houses` [ RunTime:0.023665s ]
+[ sql ] [ SQL ] SELECT COUNT(*) AS tp_count FROM `tk_houses` WHERE  (   1 = 1 ) LIMIT 1 [ RunTime:0.001600s ]
+[ sql ] [ SQL ] SELECT * FROM `tk_houses` WHERE  (   1 = 1 ) ORDER BY `top` DESC,`mdate` DESC LIMIT 0,20 [ RunTime:0.002028s ]
+---------------------------------------------------------------
+[ 2020-04-24T16:11:31+08:00 ] 127.0.0.1 GET www.huaxiang.com/xcx/house/edit.html?id=247
+[运行时间：0.121093s] [吞吐率：8.26req/s] [内存消耗：2,362.30kb] [文件加载：52]
+[ info ] [ LANG ] D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\thinkphp\lang\zh-cn.php
+[ info ] [ ROUTE ] array (
+  'type' => 'module',
+  'module' => 
+  array (
+    0 => 'xcx',
+    1 => 'house',
+    2 => 'edit',
+  ),
+)
+[ info ] [ HEADER ] array (
+  'cookie' => 'PHPSESSID=68uhe109do7kabq48p58pqht16',
+  'accept-language' => 'zh-CN,zh;q=0.9',
+  'accept-encoding' => 'gzip, deflate',
+  'referer' => 'http://www.huaxiang.com/xcx/house/index.html',
+  'accept' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.70 Safari/537.36',
+  'upgrade-insecure-requests' => '1',
+  'connection' => 'close',
+  'host' => 'www.huaxiang.com',
+)
+[ info ] [ PARAM ] array (
+  '/xcx/house/edit_html' => '',
+  'id' => '247',
+)
+[ info ] [ SESSION ] INIT array (
+  'id' => '',
+  'var_session_id' => '',
+  'prefix' => 'think',
+  'type' => '',
+  'auto_start' => true,
+)
+[ info ] [ RUN ] app\xcx\controller\House->edit[ D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\application\xcx\controller\House.php ]
+[ info ] [ DB ] INIT mysql
+[ info ] [ VIEW ] D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\public/../application/xcx\view\house\edit.html [ array (
+  0 => 'tags',
+  1 => 'all_bill',
+  2 => 'all_trans',
+  3 => 'all_set',
+  4 => 'all_four',
+  5 => 'city',
+  6 => 'school',
+  7 => 'house',
+) ]
+[ info ] [ LOG ] INIT File
+[ sql ] [ DB ] CONNECT:[ UseTime:0.001080s ] mysql:host=127.0.0.1;port=3306;dbname=xcxnew;charset=utf8mb4
+[ sql ] [ SQL ] SHOW COLUMNS FROM `tk_houses` [ RunTime:0.016756s ]
+[ sql ] [ SQL ] SELECT * FROM `tk_houses` WHERE  `id` = 247 LIMIT 1 [ RunTime:0.001396s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `xcx_tags` [ RunTime:0.014374s ]
+[ sql ] [ SQL ] SELECT `id`,`name` FROM `xcx_tags` WHERE  `type` = 1 [ RunTime:0.000752s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `tk_cate` [ RunTime:0.018326s ]
+[ sql ] [ SQL ] SELECT * FROM `tk_cate` WHERE  `pid` = 0 [ RunTime:0.001863s ]
+[ sql ] [ SQL ] SELECT `id` FROM `tk_cate` WHERE  `name` = '墨尔本'  AND `pid` = 0 LIMIT 1 [ RunTime:0.000859s ]
+[ sql ] [ SQL ] SELECT * FROM `tk_cate` WHERE  `pid` = 27  AND `type` = 2 ORDER BY `id` ASC [ RunTime:0.001382s ]
+---------------------------------------------------------------
+[ 2020-04-24T16:11:39+08:00 ] 127.0.0.1 POST www.huaxiang.com/xcx/house/getschool.html
+[运行时间：0.083214s] [吞吐率：12.02req/s] [内存消耗：2,184.51kb] [文件加载：51]
+[ info ] [ LANG ] D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\thinkphp\lang\zh-cn.php
+[ info ] [ ROUTE ] array (
+  'type' => 'module',
+  'module' => 
+  array (
+    0 => 'xcx',
+    1 => 'house',
+    2 => 'getschool',
+  ),
+)
+[ info ] [ HEADER ] array (
+  'cookie' => 'PHPSESSID=68uhe109do7kabq48p58pqht16',
+  'accept-language' => 'zh-CN,zh;q=0.9',
+  'accept-encoding' => 'gzip, deflate',
+  'referer' => 'http://www.huaxiang.com/xcx/house/edit.html?id=247',
+  'content-type' => 'application/x-www-form-urlencoded; charset=UTF-8',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.70 Safari/537.36',
+  'x-requested-with' => 'XMLHttpRequest',
+  'origin' => 'http://www.huaxiang.com',
+  'accept' => 'application/json, text/javascript, */*; q=0.01',
+  'content-length' => '6',
+  'connection' => 'close',
+  'host' => 'www.huaxiang.com',
+)
+[ info ] [ PARAM ] array (
+  '/xcx/house/getschool_html' => '',
+  'id' => '274',
+)
+[ info ] [ SESSION ] INIT array (
+  'id' => '',
+  'var_session_id' => '',
+  'prefix' => 'think',
+  'type' => '',
+  'auto_start' => true,
+)
+[ info ] [ RUN ] app\xcx\controller\House->getSchool[ D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\application\xcx\controller\House.php ]
+[ info ] [ DB ] INIT mysql
+[ info ] [ LOG ] INIT File
+[ sql ] [ DB ] CONNECT:[ UseTime:0.001168s ] mysql:host=127.0.0.1;port=3306;dbname=xcxnew;charset=utf8mb4
+[ sql ] [ SQL ] SHOW COLUMNS FROM `tk_cate` [ RunTime:0.020322s ]
+[ sql ] [ SQL ] SELECT * FROM `tk_cate` WHERE  `pid` = 274  AND `type` = 2 ORDER BY `id` ASC [ RunTime:0.001408s ]
+---------------------------------------------------------------
+[ 2020-04-24T16:11:44+08:00 ] 127.0.0.1 POST www.huaxiang.com/xcx/house/edit.html?id=247
+[运行时间：0.131939s] [吞吐率：7.58req/s] [内存消耗：2,387.68kb] [文件加载：56]
+[ info ] [ LANG ] D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\thinkphp\lang\zh-cn.php
+[ info ] [ ROUTE ] array (
+  'type' => 'module',
+  'module' => 
+  array (
+    0 => 'xcx',
+    1 => 'house',
+    2 => 'edit',
+  ),
+)
+[ info ] [ HEADER ] array (
+  'cookie' => 'PHPSESSID=68uhe109do7kabq48p58pqht16',
+  'accept-language' => 'zh-CN,zh;q=0.9',
+  'accept-encoding' => 'gzip, deflate',
+  'referer' => 'http://www.huaxiang.com/xcx/house/edit.html?id=247',
+  'accept' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.70 Safari/537.36',
+  'content-type' => 'application/x-www-form-urlencoded',
+  'upgrade-insecure-requests' => '1',
+  'origin' => 'http://www.huaxiang.com',
+  'cache-control' => 'max-age=0',
+  'content-length' => '812',
+  'connection' => 'close',
+  'host' => 'www.huaxiang.com',
+)
+[ info ] [ PARAM ] array (
+  '/xcx/house/edit_html' => '',
+  'id' => '247',
+  'title' => '123123',
+  'address' => 'Australia, QLD, Sunnybank Hills, 11',
+  'x' => '-27.57987',
+  'y' => '153.03911',
+  'http' => '123123',
+  'price' => '123',
+  'city' => '274',
+  'school' => '塔大Sandy Bay',
+  'live_date' => '2020-04-24',
+  'source' => '中介',
+  'type' => '整租',
+  'sex' => '男女不限',
+  'pet' => '接受',
+  'bill' => 
+  array (
+    '包电' => 'on',
+  ),
+  'lease_term' => '灵活',
+  'house_type' => '公寓',
+  'house_room' => '一室',
+  'toilet' => '0',
+  'home' => 
+  array (
+    '餐桌' => 'on',
+    '椅子' => 'on',
+  ),
+  'car' => '0',
+  'furniture' => 
+  array (
+    '电影院' => 'on',
+    '花园' => 'on',
+  ),
+  'sation' => 
+  array (
+    '地铁站' => 'on',
+  ),
+  'tags' => 
+  array (
+    '落地窗' => 'on',
+  ),
+  'real_name' => '123123',
+  'tel' => '123',
+  'wchat' => '123',
+  'email' => '123@qq.com',
+  'file' => '',
+  'images' => 
+  array (
+    0 => 'uploads/text/20200424\\a76a338da3c9f4f4e51a0f2b7c5ded80.png',
+  ),
+  'content' => '132',
+)
+[ info ] [ SESSION ] INIT array (
+  'id' => '',
+  'var_session_id' => '',
+  'prefix' => 'think',
+  'type' => '',
+  'auto_start' => true,
+)
+[ info ] [ RUN ] app\xcx\controller\House->edit[ D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\application\xcx\controller\House.php ]
+[ info ] [ DB ] INIT mysql
+[ info ] [ CACHE ] INIT File
+[ info ] [ VIEW ] D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\thinkphp\tpl\dispatch_jump.tpl [ array (
+  0 => 'code',
+  1 => 'msg',
+  2 => 'data',
+  3 => 'url',
+  4 => 'wait',
+) ]
+[ info ] [ LOG ] INIT File
+[ sql ] [ DB ] CONNECT:[ UseTime:0.001019s ] mysql:host=127.0.0.1;port=3306;dbname=xcxnew;charset=utf8mb4
+[ sql ] [ SQL ] SHOW COLUMNS FROM `tk_cate` [ RunTime:0.017203s ]
+[ sql ] [ SQL ] SELECT `name` FROM `tk_cate` WHERE  `id` = 274 LIMIT 1 [ RunTime:0.000456s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `tk_houses` [ RunTime:0.015766s ]
+[ sql ] [ SQL ] UPDATE `tk_houses`  SET `title`='123123',`address`='Australia, QLD, Sunnybank Hills, 11',`x`='-27.57987',`y`='153.03911',`http`='123123',`price`=123,`city`='霍巴特',`school`='塔大Sandy Bay',`live_date`='2020-04-24',`source`='中介',`type`='整租',`sex`='男女不限',`pet`='接受',`bill`='包电',`lease_term`='灵活',`house_type`='公寓',`house_room`='一室',`toilet`='0',`home`='餐桌,椅子',`car`='0',`furniture`='电影院,花园',`sation`='地铁站',`tags`='落地窗',`real_name`='123123',`tel`='123',`wchat`='123',`email`='123@qq.com',`images`='uploads/text/20200424\\a76a338da3c9f4f4e51a0f2b7c5ded80.png',`content`='132',`publish_date`='2020-04-24 16:11:44',`mdate`='2020-04-24 16:11:44'  WHERE  `id` = 247 [ RunTime:0.001130s ]
+---------------------------------------------------------------
+[ 2020-04-24T16:11:45+08:00 ] 127.0.0.1 GET www.huaxiang.com/xcx/house/index.html
+[运行时间：0.041191s] [吞吐率：24.28req/s] [内存消耗：1,623.86kb] [文件加载：45]
+[ info ] [ LANG ] D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\thinkphp\lang\zh-cn.php
+[ info ] [ ROUTE ] array (
+  'type' => 'module',
+  'module' => 
+  array (
+    0 => 'xcx',
+    1 => 'house',
+    2 => 'index',
+  ),
+)
+[ info ] [ HEADER ] array (
+  'cookie' => 'PHPSESSID=68uhe109do7kabq48p58pqht16',
+  'accept-language' => 'zh-CN,zh;q=0.9',
+  'accept-encoding' => 'gzip, deflate',
+  'referer' => 'http://www.huaxiang.com/xcx/house/edit.html?id=247',
+  'accept' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.70 Safari/537.36',
+  'upgrade-insecure-requests' => '1',
+  'connection' => 'close',
+  'host' => 'www.huaxiang.com',
+)
+[ info ] [ PARAM ] array (
+  '/xcx/house/index_html' => '',
+)
+[ info ] [ SESSION ] INIT array (
+  'id' => '',
+  'var_session_id' => '',
+  'prefix' => 'think',
+  'type' => '',
+  'auto_start' => true,
+)
+[ info ] [ RUN ] app\xcx\controller\House->index[ D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\application\xcx\controller\House.php ]
+[ info ] [ VIEW ] D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\public/../application/xcx\view\house\index.html [ array (
+) ]
+[ info ] [ LOG ] INIT File
+---------------------------------------------------------------
+[ 2020-04-24T16:11:45+08:00 ] 127.0.0.1 GET www.huaxiang.com/xcx/house/houseData/?page=1&limit=20
+[运行时间：0.082876s] [吞吐率：12.07req/s] [内存消耗：2,286.45kb] [文件加载：52]
+[ info ] [ LANG ] D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\thinkphp\lang\zh-cn.php
+[ info ] [ ROUTE ] array (
+  'type' => 'module',
+  'module' => 
+  array (
+    0 => 'xcx',
+    1 => 'house',
+    2 => 'houseData',
+  ),
+)
+[ info ] [ HEADER ] array (
+  'cookie' => 'PHPSESSID=68uhe109do7kabq48p58pqht16',
+  'accept-language' => 'zh-CN,zh;q=0.9',
+  'accept-encoding' => 'gzip, deflate',
+  'referer' => 'http://www.huaxiang.com/xcx/house/index.html',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.70 Safari/537.36',
+  'x-requested-with' => 'XMLHttpRequest',
+  'accept' => 'application/json, text/javascript, */*; q=0.01',
+  'connection' => 'close',
+  'host' => 'www.huaxiang.com',
+)
+[ info ] [ PARAM ] array (
+  '/xcx/house/houseData/' => '',
+  'page' => '1',
+  'limit' => '20',
+)
+[ info ] [ SESSION ] INIT array (
+  'id' => '',
+  'var_session_id' => '',
+  'prefix' => 'think',
+  'type' => '',
+  'auto_start' => true,
+)
+[ info ] [ RUN ] app\xcx\controller\House->houseData[ D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\application\xcx\controller\House.php ]
+[ info ] [ DB ] INIT mysql
+[ info ] [ LOG ] INIT File
+[ sql ] [ DB ] CONNECT:[ UseTime:0.001468s ] mysql:host=127.0.0.1;port=3306;dbname=xcxnew;charset=utf8mb4
+[ sql ] [ SQL ] SHOW COLUMNS FROM `tk_houses` [ RunTime:0.015641s ]
+[ sql ] [ SQL ] SELECT COUNT(*) AS tp_count FROM `tk_houses` WHERE  (   1 = 1 ) LIMIT 1 [ RunTime:0.001025s ]
+[ sql ] [ SQL ] SELECT * FROM `tk_houses` WHERE  (   1 = 1 ) ORDER BY `top` DESC,`mdate` DESC LIMIT 0,20 [ RunTime:0.002053s ]
+---------------------------------------------------------------
+[ 2020-04-24T16:11:49+08:00 ] 127.0.0.1 GET www.huaxiang.com/xcx/house/edit.html?id=247
+[运行时间：0.112979s] [吞吐率：8.85req/s] [内存消耗：2,330.87kb] [文件加载：52]
+[ info ] [ LANG ] D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\thinkphp\lang\zh-cn.php
+[ info ] [ ROUTE ] array (
+  'type' => 'module',
+  'module' => 
+  array (
+    0 => 'xcx',
+    1 => 'house',
+    2 => 'edit',
+  ),
+)
+[ info ] [ HEADER ] array (
+  'cookie' => 'PHPSESSID=68uhe109do7kabq48p58pqht16',
+  'accept-language' => 'zh-CN,zh;q=0.9',
+  'accept-encoding' => 'gzip, deflate',
+  'referer' => 'http://www.huaxiang.com/xcx/house/index.html',
+  'accept' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.70 Safari/537.36',
+  'upgrade-insecure-requests' => '1',
+  'connection' => 'close',
+  'host' => 'www.huaxiang.com',
+)
+[ info ] [ PARAM ] array (
+  '/xcx/house/edit_html' => '',
+  'id' => '247',
+)
+[ info ] [ SESSION ] INIT array (
+  'id' => '',
+  'var_session_id' => '',
+  'prefix' => 'think',
+  'type' => '',
+  'auto_start' => true,
+)
+[ info ] [ RUN ] app\xcx\controller\House->edit[ D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\application\xcx\controller\House.php ]
+[ info ] [ DB ] INIT mysql
+[ info ] [ VIEW ] D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\public/../application/xcx\view\house\edit.html [ array (
+  0 => 'tags',
+  1 => 'all_bill',
+  2 => 'all_trans',
+  3 => 'all_set',
+  4 => 'all_four',
+  5 => 'city',
+  6 => 'school',
+  7 => 'house',
+) ]
+[ info ] [ LOG ] INIT File
+[ sql ] [ DB ] CONNECT:[ UseTime:0.001306s ] mysql:host=127.0.0.1;port=3306;dbname=xcxnew;charset=utf8mb4
+[ sql ] [ SQL ] SHOW COLUMNS FROM `tk_houses` [ RunTime:0.016824s ]
+[ sql ] [ SQL ] SELECT * FROM `tk_houses` WHERE  `id` = 247 LIMIT 1 [ RunTime:0.001467s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `xcx_tags` [ RunTime:0.014653s ]
+[ sql ] [ SQL ] SELECT `id`,`name` FROM `xcx_tags` WHERE  `type` = 1 [ RunTime:0.000935s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `tk_cate` [ RunTime:0.014075s ]
+[ sql ] [ SQL ] SELECT * FROM `tk_cate` WHERE  `pid` = 0 [ RunTime:0.000882s ]
+[ sql ] [ SQL ] SELECT `id` FROM `tk_cate` WHERE  `name` = '霍巴特'  AND `pid` = 0 LIMIT 1 [ RunTime:0.000808s ]
+[ sql ] [ SQL ] SELECT * FROM `tk_cate` WHERE  `pid` = 274  AND `type` = 2 ORDER BY `id` ASC [ RunTime:0.001000s ]
+---------------------------------------------------------------
+[ 2020-04-24T16:11:51+08:00 ] 127.0.0.1 GET www.huaxiang.com/xcx/house/index.html
+[运行时间：0.043209s] [吞吐率：23.14req/s] [内存消耗：1,623.84kb] [文件加载：45]
+[ info ] [ LANG ] D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\thinkphp\lang\zh-cn.php
+[ info ] [ ROUTE ] array (
+  'type' => 'module',
+  'module' => 
+  array (
+    0 => 'xcx',
+    1 => 'house',
+    2 => 'index',
+  ),
+)
+[ info ] [ HEADER ] array (
+  'cookie' => 'PHPSESSID=68uhe109do7kabq48p58pqht16',
+  'accept-language' => 'zh-CN,zh;q=0.9',
+  'accept-encoding' => 'gzip, deflate',
+  'referer' => 'http://www.huaxiang.com/xcx/index/index.html',
+  'accept' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.70 Safari/537.36',
+  'upgrade-insecure-requests' => '1',
+  'connection' => 'close',
+  'host' => 'www.huaxiang.com',
+)
+[ info ] [ PARAM ] array (
+  '/xcx/house/index_html' => '',
+)
+[ info ] [ SESSION ] INIT array (
+  'id' => '',
+  'var_session_id' => '',
+  'prefix' => 'think',
+  'type' => '',
+  'auto_start' => true,
+)
+[ info ] [ RUN ] app\xcx\controller\House->index[ D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\application\xcx\controller\House.php ]
+[ info ] [ VIEW ] D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\public/../application/xcx\view\house\index.html [ array (
+) ]
+[ info ] [ LOG ] INIT File
+---------------------------------------------------------------
+[ 2020-04-24T16:11:51+08:00 ] 127.0.0.1 GET www.huaxiang.com/xcx/house/houseData/?page=1&limit=20
+[运行时间：0.089437s] [吞吐率：11.18req/s] [内存消耗：2,286.45kb] [文件加载：52]
+[ info ] [ LANG ] D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\thinkphp\lang\zh-cn.php
+[ info ] [ ROUTE ] array (
+  'type' => 'module',
+  'module' => 
+  array (
+    0 => 'xcx',
+    1 => 'house',
+    2 => 'houseData',
+  ),
+)
+[ info ] [ HEADER ] array (
+  'cookie' => 'PHPSESSID=68uhe109do7kabq48p58pqht16',
+  'accept-language' => 'zh-CN,zh;q=0.9',
+  'accept-encoding' => 'gzip, deflate',
+  'referer' => 'http://www.huaxiang.com/xcx/house/index.html',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.70 Safari/537.36',
+  'x-requested-with' => 'XMLHttpRequest',
+  'accept' => 'application/json, text/javascript, */*; q=0.01',
+  'connection' => 'close',
+  'host' => 'www.huaxiang.com',
+)
+[ info ] [ PARAM ] array (
+  '/xcx/house/houseData/' => '',
+  'page' => '1',
+  'limit' => '20',
+)
+[ info ] [ SESSION ] INIT array (
+  'id' => '',
+  'var_session_id' => '',
+  'prefix' => 'think',
+  'type' => '',
+  'auto_start' => true,
+)
+[ info ] [ RUN ] app\xcx\controller\House->houseData[ D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\application\xcx\controller\House.php ]
+[ info ] [ DB ] INIT mysql
+[ info ] [ LOG ] INIT File
+[ sql ] [ DB ] CONNECT:[ UseTime:0.001656s ] mysql:host=127.0.0.1;port=3306;dbname=xcxnew;charset=utf8mb4
+[ sql ] [ SQL ] SHOW COLUMNS FROM `tk_houses` [ RunTime:0.018202s ]
+[ sql ] [ SQL ] SELECT COUNT(*) AS tp_count FROM `tk_houses` WHERE  (   1 = 1 ) LIMIT 1 [ RunTime:0.000408s ]
+[ sql ] [ SQL ] SELECT * FROM `tk_houses` WHERE  (   1 = 1 ) ORDER BY `top` DESC,`mdate` DESC LIMIT 0,20 [ RunTime:0.002372s ]
+---------------------------------------------------------------
+[ 2020-04-24T16:52:02+08:00 ] 127.0.0.1 GET www.huaxiang.com/xcx/house/index.html
+[运行时间：0.058853s] [吞吐率：16.99req/s] [内存消耗：1,624.59kb] [文件加载：45]
+[ info ] [ LANG ] D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\thinkphp\lang\zh-cn.php
+[ info ] [ ROUTE ] array (
+  'type' => 'module',
+  'module' => 
+  array (
+    0 => 'xcx',
+    1 => 'house',
+    2 => 'index',
+  ),
+)
+[ info ] [ HEADER ] array (
+  'cookie' => 'PHPSESSID=68uhe109do7kabq48p58pqht16',
+  'accept-language' => 'zh-CN,zh;q=0.9',
+  'accept-encoding' => 'gzip, deflate',
+  'referer' => 'http://www.huaxiang.com/xcx/index/index.html',
+  'accept' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.70 Safari/537.36',
+  'upgrade-insecure-requests' => '1',
+  'connection' => 'close',
+  'host' => 'www.huaxiang.com',
+)
+[ info ] [ PARAM ] array (
+  '/xcx/house/index_html' => '',
+)
+[ info ] [ SESSION ] INIT array (
+  'id' => '',
+  'var_session_id' => '',
+  'prefix' => 'think',
+  'type' => '',
+  'auto_start' => true,
+)
+[ info ] [ RUN ] app\xcx\controller\House->index[ D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\application\xcx\controller\House.php ]
+[ info ] [ VIEW ] D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\public/../application/xcx\view\house\index.html [ array (
+) ]
+[ info ] [ LOG ] INIT File
+---------------------------------------------------------------
+[ 2020-04-24T16:52:02+08:00 ] 127.0.0.1 GET www.huaxiang.com/xcx/house/index.html
+[运行时间：0.060564s] [吞吐率：16.51req/s] [内存消耗：1,623.84kb] [文件加载：45]
+[ info ] [ LANG ] D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\thinkphp\lang\zh-cn.php
+[ info ] [ ROUTE ] array (
+  'type' => 'module',
+  'module' => 
+  array (
+    0 => 'xcx',
+    1 => 'house',
+    2 => 'index',
+  ),
+)
+[ info ] [ HEADER ] array (
+  'cookie' => 'PHPSESSID=68uhe109do7kabq48p58pqht16',
+  'accept-language' => 'zh-CN,zh;q=0.9',
+  'accept-encoding' => 'gzip, deflate',
+  'referer' => 'http://www.huaxiang.com/xcx/index/index.html',
+  'accept' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.70 Safari/537.36',
+  'upgrade-insecure-requests' => '1',
+  'connection' => 'close',
+  'host' => 'www.huaxiang.com',
+)
+[ info ] [ PARAM ] array (
+  '/xcx/house/index_html' => '',
+)
+[ info ] [ SESSION ] INIT array (
+  'id' => '',
+  'var_session_id' => '',
+  'prefix' => 'think',
+  'type' => '',
+  'auto_start' => true,
+)
+[ info ] [ RUN ] app\xcx\controller\House->index[ D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\application\xcx\controller\House.php ]
+[ info ] [ VIEW ] D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\public/../application/xcx\view\house\index.html [ array (
+) ]
+[ info ] [ LOG ] INIT File
+---------------------------------------------------------------
+[ 2020-04-24T16:52:02+08:00 ] 127.0.0.1 GET www.huaxiang.com/xcx/house/houseData/?page=1&limit=20
+[运行时间：0.125698s] [吞吐率：7.96req/s] [内存消耗：2,286.45kb] [文件加载：52]
+[ info ] [ LANG ] D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\thinkphp\lang\zh-cn.php
+[ info ] [ ROUTE ] array (
+  'type' => 'module',
+  'module' => 
+  array (
+    0 => 'xcx',
+    1 => 'house',
+    2 => 'houseData',
+  ),
+)
+[ info ] [ HEADER ] array (
+  'cookie' => 'PHPSESSID=68uhe109do7kabq48p58pqht16',
+  'accept-language' => 'zh-CN,zh;q=0.9',
+  'accept-encoding' => 'gzip, deflate',
+  'referer' => 'http://www.huaxiang.com/xcx/house/index.html',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.70 Safari/537.36',
+  'x-requested-with' => 'XMLHttpRequest',
+  'accept' => 'application/json, text/javascript, */*; q=0.01',
+  'connection' => 'close',
+  'host' => 'www.huaxiang.com',
+)
+[ info ] [ PARAM ] array (
+  '/xcx/house/houseData/' => '',
+  'page' => '1',
+  'limit' => '20',
+)
+[ info ] [ SESSION ] INIT array (
+  'id' => '',
+  'var_session_id' => '',
+  'prefix' => 'think',
+  'type' => '',
+  'auto_start' => true,
+)
+[ info ] [ RUN ] app\xcx\controller\House->houseData[ D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\application\xcx\controller\House.php ]
+[ info ] [ DB ] INIT mysql
+[ info ] [ LOG ] INIT File
+[ sql ] [ DB ] CONNECT:[ UseTime:0.006961s ] mysql:host=127.0.0.1;port=3306;dbname=xcxnew;charset=utf8mb4
+[ sql ] [ SQL ] SHOW COLUMNS FROM `tk_houses` [ RunTime:0.039323s ]
+[ sql ] [ SQL ] SELECT COUNT(*) AS tp_count FROM `tk_houses` WHERE  (   1 = 1 ) LIMIT 1 [ RunTime:0.000954s ]
+[ sql ] [ SQL ] SELECT * FROM `tk_houses` WHERE  (   1 = 1 ) ORDER BY `top` DESC,`mdate` DESC LIMIT 0,20 [ RunTime:0.002769s ]
+---------------------------------------------------------------
+[ 2020-04-24T16:52:05+08:00 ] 127.0.0.1 GET www.huaxiang.com/xcx/house/edit.html?id=236
+[运行时间：0.201162s] [吞吐率：4.97req/s] [内存消耗：2,534.47kb] [文件加载：54]
+[ info ] [ LANG ] D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\thinkphp\lang\zh-cn.php
+[ info ] [ ROUTE ] array (
+  'type' => 'module',
+  'module' => 
+  array (
+    0 => 'xcx',
+    1 => 'house',
+    2 => 'edit',
+  ),
+)
+[ info ] [ HEADER ] array (
+  'cookie' => 'PHPSESSID=68uhe109do7kabq48p58pqht16',
+  'accept-language' => 'zh-CN,zh;q=0.9',
+  'accept-encoding' => 'gzip, deflate',
+  'referer' => 'http://www.huaxiang.com/xcx/house/index.html',
+  'accept' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.70 Safari/537.36',
+  'upgrade-insecure-requests' => '1',
+  'connection' => 'close',
+  'host' => 'www.huaxiang.com',
+)
+[ info ] [ PARAM ] array (
+  '/xcx/house/edit_html' => '',
+  'id' => '236',
+)
+[ info ] [ SESSION ] INIT array (
+  'id' => '',
+  'var_session_id' => '',
+  'prefix' => 'think',
+  'type' => '',
+  'auto_start' => true,
+)
+[ info ] [ RUN ] app\xcx\controller\House->edit[ D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\application\xcx\controller\House.php ]
+[ info ] [ DB ] INIT mysql
+[ info ] [ VIEW ] D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\public/../application/xcx\view\house\edit.html [ array (
+  0 => 'tags',
+  1 => 'all_bill',
+  2 => 'all_trans',
+  3 => 'all_set',
+  4 => 'all_four',
+  5 => 'city',
+  6 => 'school',
+  7 => 'house',
+) ]
+[ info ] [ LOG ] INIT File
+[ sql ] [ DB ] CONNECT:[ UseTime:0.001430s ] mysql:host=127.0.0.1;port=3306;dbname=xcxnew;charset=utf8mb4
+[ sql ] [ SQL ] SHOW COLUMNS FROM `tk_houses` [ RunTime:0.018261s ]
+[ sql ] [ SQL ] SELECT * FROM `tk_houses` WHERE  `id` = 236 LIMIT 1 [ RunTime:0.003027s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `xcx_tags` [ RunTime:0.030025s ]
+[ sql ] [ SQL ] SELECT `id`,`name` FROM `xcx_tags` WHERE  `type` = 1 [ RunTime:0.001527s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `tk_cate` [ RunTime:0.029237s ]
+[ sql ] [ SQL ] SELECT * FROM `tk_cate` WHERE  `pid` = 0 [ RunTime:0.005097s ]
+[ sql ] [ SQL ] SELECT `id` FROM `tk_cate` WHERE  `name` = '墨尔本'  AND `pid` = 0 LIMIT 1 [ RunTime:0.000856s ]
+[ sql ] [ SQL ] SELECT * FROM `tk_cate` WHERE  `pid` = 27  AND `type` = 2 ORDER BY `id` ASC [ RunTime:0.002796s ]
+---------------------------------------------------------------
+[ 2020-04-24T16:52:15+08:00 ] 127.0.0.1 GET www.huaxiang.com/xcx/house/index.html
+[运行时间：0.051151s] [吞吐率：19.55req/s] [内存消耗：1,623.84kb] [文件加载：45]
+[ info ] [ LANG ] D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\thinkphp\lang\zh-cn.php
+[ info ] [ ROUTE ] array (
+  'type' => 'module',
+  'module' => 
+  array (
+    0 => 'xcx',
+    1 => 'house',
+    2 => 'index',
+  ),
+)
+[ info ] [ HEADER ] array (
+  'cookie' => 'PHPSESSID=68uhe109do7kabq48p58pqht16',
+  'accept-language' => 'zh-CN,zh;q=0.9',
+  'accept-encoding' => 'gzip, deflate',
+  'referer' => 'http://www.huaxiang.com/xcx/index/index.html',
+  'accept' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.70 Safari/537.36',
+  'upgrade-insecure-requests' => '1',
+  'connection' => 'close',
+  'host' => 'www.huaxiang.com',
+)
+[ info ] [ PARAM ] array (
+  '/xcx/house/index_html' => '',
+)
+[ info ] [ SESSION ] INIT array (
+  'id' => '',
+  'var_session_id' => '',
+  'prefix' => 'think',
+  'type' => '',
+  'auto_start' => true,
+)
+[ info ] [ RUN ] app\xcx\controller\House->index[ D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\application\xcx\controller\House.php ]
+[ info ] [ VIEW ] D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\public/../application/xcx\view\house\index.html [ array (
+) ]
+[ info ] [ LOG ] INIT File
+---------------------------------------------------------------
+[ 2020-04-24T16:52:16+08:00 ] 127.0.0.1 GET www.huaxiang.com/xcx/house/houseData/?page=1&limit=20
+[运行时间：0.096636s] [吞吐率：10.35req/s] [内存消耗：2,286.45kb] [文件加载：52]
+[ info ] [ LANG ] D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\thinkphp\lang\zh-cn.php
+[ info ] [ ROUTE ] array (
+  'type' => 'module',
+  'module' => 
+  array (
+    0 => 'xcx',
+    1 => 'house',
+    2 => 'houseData',
+  ),
+)
+[ info ] [ HEADER ] array (
+  'cookie' => 'PHPSESSID=68uhe109do7kabq48p58pqht16',
+  'accept-language' => 'zh-CN,zh;q=0.9',
+  'accept-encoding' => 'gzip, deflate',
+  'referer' => 'http://www.huaxiang.com/xcx/house/index.html',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.70 Safari/537.36',
+  'x-requested-with' => 'XMLHttpRequest',
+  'accept' => 'application/json, text/javascript, */*; q=0.01',
+  'connection' => 'close',
+  'host' => 'www.huaxiang.com',
+)
+[ info ] [ PARAM ] array (
+  '/xcx/house/houseData/' => '',
+  'page' => '1',
+  'limit' => '20',
+)
+[ info ] [ SESSION ] INIT array (
+  'id' => '',
+  'var_session_id' => '',
+  'prefix' => 'think',
+  'type' => '',
+  'auto_start' => true,
+)
+[ info ] [ RUN ] app\xcx\controller\House->houseData[ D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\application\xcx\controller\House.php ]
+[ info ] [ DB ] INIT mysql
+[ info ] [ LOG ] INIT File
+[ sql ] [ DB ] CONNECT:[ UseTime:0.002828s ] mysql:host=127.0.0.1;port=3306;dbname=xcxnew;charset=utf8mb4
+[ sql ] [ SQL ] SHOW COLUMNS FROM `tk_houses` [ RunTime:0.018723s ]
+[ sql ] [ SQL ] SELECT COUNT(*) AS tp_count FROM `tk_houses` WHERE  (   1 = 1 ) LIMIT 1 [ RunTime:0.001101s ]
+[ sql ] [ SQL ] SELECT * FROM `tk_houses` WHERE  (   1 = 1 ) ORDER BY `top` DESC,`mdate` DESC LIMIT 0,20 [ RunTime:0.001987s ]
+---------------------------------------------------------------
+[ 2020-04-24T16:52:18+08:00 ] 127.0.0.1 GET www.huaxiang.com/xcx/house/edit.html?id=246
+[运行时间：0.128475s] [吞吐率：7.78req/s] [内存消耗：2,362.63kb] [文件加载：52]
+[ info ] [ LANG ] D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\thinkphp\lang\zh-cn.php
+[ info ] [ ROUTE ] array (
+  'type' => 'module',
+  'module' => 
+  array (
+    0 => 'xcx',
+    1 => 'house',
+    2 => 'edit',
+  ),
+)
+[ info ] [ HEADER ] array (
+  'cookie' => 'PHPSESSID=68uhe109do7kabq48p58pqht16',
+  'accept-language' => 'zh-CN,zh;q=0.9',
+  'accept-encoding' => 'gzip, deflate',
+  'referer' => 'http://www.huaxiang.com/xcx/house/index.html',
+  'accept' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.70 Safari/537.36',
+  'upgrade-insecure-requests' => '1',
+  'connection' => 'close',
+  'host' => 'www.huaxiang.com',
+)
+[ info ] [ PARAM ] array (
+  '/xcx/house/edit_html' => '',
+  'id' => '246',
+)
+[ info ] [ SESSION ] INIT array (
+  'id' => '',
+  'var_session_id' => '',
+  'prefix' => 'think',
+  'type' => '',
+  'auto_start' => true,
+)
+[ info ] [ RUN ] app\xcx\controller\House->edit[ D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\application\xcx\controller\House.php ]
+[ info ] [ DB ] INIT mysql
+[ info ] [ VIEW ] D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\public/../application/xcx\view\house\edit.html [ array (
+  0 => 'tags',
+  1 => 'all_bill',
+  2 => 'all_trans',
+  3 => 'all_set',
+  4 => 'all_four',
+  5 => 'city',
+  6 => 'school',
+  7 => 'house',
+) ]
+[ info ] [ LOG ] INIT File
+[ sql ] [ DB ] CONNECT:[ UseTime:0.001767s ] mysql:host=127.0.0.1;port=3306;dbname=xcxnew;charset=utf8mb4
+[ sql ] [ SQL ] SHOW COLUMNS FROM `tk_houses` [ RunTime:0.018704s ]
+[ sql ] [ SQL ] SELECT * FROM `tk_houses` WHERE  `id` = 246 LIMIT 1 [ RunTime:0.001589s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `xcx_tags` [ RunTime:0.015993s ]
+[ sql ] [ SQL ] SELECT `id`,`name` FROM `xcx_tags` WHERE  `type` = 1 [ RunTime:0.001234s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `tk_cate` [ RunTime:0.017360s ]
+[ sql ] [ SQL ] SELECT * FROM `tk_cate` WHERE  `pid` = 0 [ RunTime:0.001079s ]
+[ sql ] [ SQL ] SELECT `id` FROM `tk_cate` WHERE  `name` = '悉尼'  AND `pid` = 0 LIMIT 1 [ RunTime:0.000895s ]
+[ sql ] [ SQL ] SELECT * FROM `tk_cate` WHERE  `pid` = 28  AND `type` = 2 ORDER BY `id` ASC [ RunTime:0.001448s ]
+---------------------------------------------------------------
+[ 2020-04-24T16:52:19+08:00 ] 127.0.0.1 GET www.huaxiang.com/uploads/text/20200424/addf64b7ce362a3d61b069c08cf42807.png
+[运行时间：0.087823s] [吞吐率：11.39req/s] [内存消耗：1,251.17kb] [文件加载：39]
+[ info ] [ LANG ] D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\thinkphp\lang\zh-cn.php
+[ info ] [ ROUTE ] array (
+  'type' => 'module',
+  'module' => 
+  array (
+    0 => 'uploads',
+    1 => 'text',
+    2 => '20200424',
+  ),
+)
+[ info ] [ HEADER ] array (
+  'cookie' => 'PHPSESSID=68uhe109do7kabq48p58pqht16',
+  'accept-language' => 'zh-CN,zh;q=0.9',
+  'accept-encoding' => 'gzip, deflate',
+  'referer' => 'http://www.huaxiang.com/xcx/house/edit.html?id=246',
+  'accept' => 'image/webp,image/apng,image/*,*/*;q=0.8',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.70 Safari/537.36',
+  'connection' => 'close',
+  'host' => 'www.huaxiang.com',
+)
+[ info ] [ PARAM ] array (
+  '/uploads/text/20200424/addf64b7ce362a3d61b069c08cf42807_png' => '',
+)
+[ info ] [ LOG ] INIT File
+---------------------------------------------------------------
+[ 2020-04-24T16:52:51+08:00 ] 127.0.0.1 GET www.huaxiang.com/xcx/tags/mate.html
+[运行时间：0.072316s] [吞吐率：13.83req/s] [内存消耗：1,665.89kb] [文件加载：47]
+[ info ] [ LANG ] D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\thinkphp\lang\zh-cn.php
+[ info ] [ ROUTE ] array (
+  'type' => 'module',
+  'module' => 
+  array (
+    0 => 'xcx',
+    1 => 'tags',
+    2 => 'mate',
+  ),
+)
+[ info ] [ HEADER ] array (
+  'cookie' => 'PHPSESSID=68uhe109do7kabq48p58pqht16',
+  'accept-language' => 'zh-CN,zh;q=0.9',
+  'accept-encoding' => 'gzip, deflate',
+  'referer' => 'http://www.huaxiang.com/xcx/index/index.html',
+  'accept' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.70 Safari/537.36',
+  'upgrade-insecure-requests' => '1',
+  'connection' => 'close',
+  'host' => 'www.huaxiang.com',
+)
+[ info ] [ PARAM ] array (
+  '/xcx/tags/mate_html' => '',
+)
+[ info ] [ SESSION ] INIT array (
+  'id' => '',
+  'var_session_id' => '',
+  'prefix' => 'think',
+  'type' => '',
+  'auto_start' => true,
+)
+[ info ] [ RUN ] app\xcx\controller\Tags->mate[ D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\application\xcx\controller\Tags.php ]
+[ info ] [ VIEW ] D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\public/../application/xcx\view\tags\mate.html [ array (
+) ]
+[ info ] [ LOG ] INIT File
+---------------------------------------------------------------
+[ 2020-04-24T16:52:51+08:00 ] 127.0.0.1 GET www.huaxiang.com/xcx/tags/tagData/?page=1&limit=20&type=2
+[运行时间：0.092204s] [吞吐率：10.85req/s] [内存消耗：2,104.53kb] [文件加载：52]
+[ info ] [ LANG ] D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\thinkphp\lang\zh-cn.php
+[ info ] [ ROUTE ] array (
+  'type' => 'module',
+  'module' => 
+  array (
+    0 => 'xcx',
+    1 => 'tags',
+    2 => 'tagData',
+  ),
+)
+[ info ] [ HEADER ] array (
+  'cookie' => 'PHPSESSID=68uhe109do7kabq48p58pqht16',
+  'accept-language' => 'zh-CN,zh;q=0.9',
+  'accept-encoding' => 'gzip, deflate',
+  'referer' => 'http://www.huaxiang.com/xcx/tags/mate.html',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.70 Safari/537.36',
+  'x-requested-with' => 'XMLHttpRequest',
+  'accept' => 'application/json, text/javascript, */*; q=0.01',
+  'connection' => 'close',
+  'host' => 'www.huaxiang.com',
+)
+[ info ] [ PARAM ] array (
+  '/xcx/tags/tagData/' => '',
+  'page' => '1',
+  'limit' => '20',
+  'type' => '2',
+)
+[ info ] [ SESSION ] INIT array (
+  'id' => '',
+  'var_session_id' => '',
+  'prefix' => 'think',
+  'type' => '',
+  'auto_start' => true,
+)
+[ info ] [ RUN ] app\xcx\controller\Tags->tagData[ D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\application\xcx\controller\Tags.php ]
+[ info ] [ DB ] INIT mysql
+[ info ] [ LOG ] INIT File
+[ sql ] [ DB ] CONNECT:[ UseTime:0.001891s ] mysql:host=127.0.0.1;port=3306;dbname=xcxnew;charset=utf8mb4
+[ sql ] [ SQL ] SHOW COLUMNS FROM `xcx_tags` [ RunTime:0.019106s ]
+[ sql ] [ SQL ] SELECT COUNT(*) AS tp_count FROM `xcx_tags` WHERE  (   1 = 1 and type = '2' ) LIMIT 1 [ RunTime:0.000769s ]
+[ sql ] [ SQL ] SELECT * FROM `xcx_tags` WHERE  (   1 = 1 and type = '2' ) ORDER BY `id` DESC LIMIT 0,20 [ RunTime:0.000586s ]
+---------------------------------------------------------------
+[ 2020-04-24T16:52:52+08:00 ] 127.0.0.1 GET www.huaxiang.com/xcx/tags/house.html
+[运行时间：0.071818s] [吞吐率：13.92req/s] [内存消耗：1,665.82kb] [文件加载：47]
+[ info ] [ LANG ] D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\thinkphp\lang\zh-cn.php
+[ info ] [ ROUTE ] array (
+  'type' => 'module',
+  'module' => 
+  array (
+    0 => 'xcx',
+    1 => 'tags',
+    2 => 'house',
+  ),
+)
+[ info ] [ HEADER ] array (
+  'cookie' => 'PHPSESSID=68uhe109do7kabq48p58pqht16',
+  'accept-language' => 'zh-CN,zh;q=0.9',
+  'accept-encoding' => 'gzip, deflate',
+  'referer' => 'http://www.huaxiang.com/xcx/index/index.html',
+  'accept' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.70 Safari/537.36',
+  'upgrade-insecure-requests' => '1',
+  'connection' => 'close',
+  'host' => 'www.huaxiang.com',
+)
+[ info ] [ PARAM ] array (
+  '/xcx/tags/house_html' => '',
+)
+[ info ] [ SESSION ] INIT array (
+  'id' => '',
+  'var_session_id' => '',
+  'prefix' => 'think',
+  'type' => '',
+  'auto_start' => true,
+)
+[ info ] [ RUN ] app\xcx\controller\Tags->house[ D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\application\xcx\controller\Tags.php ]
+[ info ] [ VIEW ] D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\public/../application/xcx\view\tags\house.html [ array (
+) ]
+[ info ] [ LOG ] INIT File
+---------------------------------------------------------------
+[ 2020-04-24T16:52:52+08:00 ] 127.0.0.1 GET www.huaxiang.com/xcx/tags/tagData/?page=1&limit=20&type=1
+[运行时间：0.077847s] [吞吐率：12.85req/s] [内存消耗：2,104.64kb] [文件加载：52]
+[ info ] [ LANG ] D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\thinkphp\lang\zh-cn.php
+[ info ] [ ROUTE ] array (
+  'type' => 'module',
+  'module' => 
+  array (
+    0 => 'xcx',
+    1 => 'tags',
+    2 => 'tagData',
+  ),
+)
+[ info ] [ HEADER ] array (
+  'cookie' => 'PHPSESSID=68uhe109do7kabq48p58pqht16',
+  'accept-language' => 'zh-CN,zh;q=0.9',
+  'accept-encoding' => 'gzip, deflate',
+  'referer' => 'http://www.huaxiang.com/xcx/tags/house.html',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.70 Safari/537.36',
+  'x-requested-with' => 'XMLHttpRequest',
+  'accept' => 'application/json, text/javascript, */*; q=0.01',
+  'connection' => 'close',
+  'host' => 'www.huaxiang.com',
+)
+[ info ] [ PARAM ] array (
+  '/xcx/tags/tagData/' => '',
+  'page' => '1',
+  'limit' => '20',
+  'type' => '1',
+)
+[ info ] [ SESSION ] INIT array (
+  'id' => '',
+  'var_session_id' => '',
+  'prefix' => 'think',
+  'type' => '',
+  'auto_start' => true,
+)
+[ info ] [ RUN ] app\xcx\controller\Tags->tagData[ D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\application\xcx\controller\Tags.php ]
+[ info ] [ DB ] INIT mysql
+[ info ] [ LOG ] INIT File
+[ sql ] [ DB ] CONNECT:[ UseTime:0.001012s ] mysql:host=127.0.0.1;port=3306;dbname=xcxnew;charset=utf8mb4
+[ sql ] [ SQL ] SHOW COLUMNS FROM `xcx_tags` [ RunTime:0.016368s ]
+[ sql ] [ SQL ] SELECT COUNT(*) AS tp_count FROM `xcx_tags` WHERE  (   1 = 1 and type = '1' ) LIMIT 1 [ RunTime:0.000757s ]
+[ sql ] [ SQL ] SELECT * FROM `xcx_tags` WHERE  (   1 = 1 and type = '1' ) ORDER BY `id` DESC LIMIT 0,20 [ RunTime:0.000630s ]
+---------------------------------------------------------------
+[ 2020-04-24T16:53:42+08:00 ] 127.0.0.1 GET www.huaxiang.com/xcx/tags/house.html
+[运行时间：0.346892s] [吞吐率：2.88req/s] [内存消耗：1,545.86kb] [文件加载：45]
+[ info ] [ LANG ] D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\thinkphp\lang\zh-cn.php
+[ info ] [ ROUTE ] array (
+  'type' => 'module',
+  'module' => 
+  array (
+    0 => 'xcx',
+    1 => 'tags',
+    2 => 'house',
+  ),
+)
+[ info ] [ HEADER ] array (
+  'cookie' => 'PHPSESSID=68uhe109do7kabq48p58pqht16',
+  'accept-language' => 'zh-CN,zh;q=0.9',
+  'accept-encoding' => 'gzip, deflate',
+  'referer' => 'http://www.huaxiang.com/xcx/index/index.html',
+  'accept' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.70 Safari/537.36',
+  'upgrade-insecure-requests' => '1',
+  'connection' => 'close',
+  'host' => 'www.huaxiang.com',
+)
+[ info ] [ PARAM ] array (
+  '/xcx/tags/house_html' => '',
+)
+[ info ] [ SESSION ] INIT array (
+  'id' => '',
+  'var_session_id' => '',
+  'prefix' => 'think',
+  'type' => '',
+  'auto_start' => true,
+)
+[ info ] [ RUN ] app\xcx\controller\Tags->house[ D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\application\xcx\controller\Tags.php ]
+[ info ] [ VIEW ] D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\public/../application/xcx\view\tags\house.html [ array (
+) ]
+[ info ] [ LOG ] INIT File
+---------------------------------------------------------------
+[ 2020-04-24T16:53:42+08:00 ] 127.0.0.1 GET www.huaxiang.com/xcx/tags/tagData/?page=1&limit=20&type=1
+[运行时间：0.138857s] [吞吐率：7.20req/s] [内存消耗：2,104.64kb] [文件加载：52]
+[ info ] [ LANG ] D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\thinkphp\lang\zh-cn.php
+[ info ] [ ROUTE ] array (
+  'type' => 'module',
+  'module' => 
+  array (
+    0 => 'xcx',
+    1 => 'tags',
+    2 => 'tagData',
+  ),
+)
+[ info ] [ HEADER ] array (
+  'cookie' => 'PHPSESSID=68uhe109do7kabq48p58pqht16',
+  'accept-language' => 'zh-CN,zh;q=0.9',
+  'accept-encoding' => 'gzip, deflate',
+  'referer' => 'http://www.huaxiang.com/xcx/tags/house.html',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.70 Safari/537.36',
+  'x-requested-with' => 'XMLHttpRequest',
+  'accept' => 'application/json, text/javascript, */*; q=0.01',
+  'connection' => 'close',
+  'host' => 'www.huaxiang.com',
+)
+[ info ] [ PARAM ] array (
+  '/xcx/tags/tagData/' => '',
+  'page' => '1',
+  'limit' => '20',
+  'type' => '1',
+)
+[ info ] [ SESSION ] INIT array (
+  'id' => '',
+  'var_session_id' => '',
+  'prefix' => 'think',
+  'type' => '',
+  'auto_start' => true,
+)
+[ info ] [ RUN ] app\xcx\controller\Tags->tagData[ D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\application\xcx\controller\Tags.php ]
+[ info ] [ DB ] INIT mysql
+[ info ] [ LOG ] INIT File
+[ sql ] [ DB ] CONNECT:[ UseTime:0.002024s ] mysql:host=127.0.0.1;port=3306;dbname=xcxnew;charset=utf8mb4
+[ sql ] [ SQL ] SHOW COLUMNS FROM `xcx_tags` [ RunTime:0.015847s ]
+[ sql ] [ SQL ] SELECT COUNT(*) AS tp_count FROM `xcx_tags` WHERE  (   1 = 1 and type = '1' ) LIMIT 1 [ RunTime:0.000572s ]
+[ sql ] [ SQL ] SELECT * FROM `xcx_tags` WHERE  (   1 = 1 and type = '1' ) ORDER BY `id` DESC LIMIT 0,20 [ RunTime:0.000771s ]
+---------------------------------------------------------------
+[ 2020-04-24T16:53:43+08:00 ] 127.0.0.1 GET www.huaxiang.com/xcx/tags/add.html?type=1
+[运行时间：0.072350s] [吞吐率：13.82req/s] [内存消耗：1,664.14kb] [文件加载：47]
+[ info ] [ LANG ] D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\thinkphp\lang\zh-cn.php
+[ info ] [ ROUTE ] array (
+  'type' => 'module',
+  'module' => 
+  array (
+    0 => 'xcx',
+    1 => 'tags',
+    2 => 'add',
+  ),
+)
+[ info ] [ HEADER ] array (
+  'cookie' => 'PHPSESSID=68uhe109do7kabq48p58pqht16',
+  'accept-language' => 'zh-CN,zh;q=0.9',
+  'accept-encoding' => 'gzip, deflate',
+  'referer' => 'http://www.huaxiang.com/xcx/tags/house.html',
+  'accept' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.70 Safari/537.36',
+  'upgrade-insecure-requests' => '1',
+  'connection' => 'close',
+  'host' => 'www.huaxiang.com',
+)
+[ info ] [ PARAM ] array (
+  '/xcx/tags/add_html' => '',
+  'type' => '1',
+)
+[ info ] [ SESSION ] INIT array (
+  'id' => '',
+  'var_session_id' => '',
+  'prefix' => 'think',
+  'type' => '',
+  'auto_start' => true,
+)
+[ info ] [ RUN ] app\xcx\controller\Tags->add[ D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\application\xcx\controller\Tags.php ]
+[ info ] [ VIEW ] D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\public/../application/xcx\view\tags\add.html [ array (
+  0 => 'type',
+) ]
+[ info ] [ LOG ] INIT File
+---------------------------------------------------------------
+[ 2020-04-24T16:53:49+08:00 ] 127.0.0.1 POST www.huaxiang.com/xcx/tags/add.html?type=1
+[运行时间：0.106661s] [吞吐率：9.38req/s] [内存消耗：2,186.33kb] [文件加载：53]
+[ info ] [ LANG ] D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\thinkphp\lang\zh-cn.php
+[ info ] [ ROUTE ] array (
+  'type' => 'module',
+  'module' => 
+  array (
+    0 => 'xcx',
+    1 => 'tags',
+    2 => 'add',
+  ),
+)
+[ info ] [ HEADER ] array (
+  'cookie' => 'PHPSESSID=68uhe109do7kabq48p58pqht16',
+  'accept-language' => 'zh-CN,zh;q=0.9',
+  'accept-encoding' => 'gzip, deflate',
+  'referer' => 'http://www.huaxiang.com/xcx/tags/add.html?type=1',
+  'accept' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.70 Safari/537.36',
+  'content-type' => 'application/x-www-form-urlencoded',
+  'upgrade-insecure-requests' => '1',
+  'origin' => 'http://www.huaxiang.com',
+  'cache-control' => 'max-age=0',
+  'content-length' => '50',
+  'connection' => 'close',
+  'host' => 'www.huaxiang.com',
+)
+[ info ] [ PARAM ] array (
+  '/xcx/tags/add_html' => '',
+  'type' => '1',
+  'name' => '奥术大师发',
+)
+[ info ] [ SESSION ] INIT array (
+  'id' => '',
+  'var_session_id' => '',
+  'prefix' => 'think',
+  'type' => '',
+  'auto_start' => true,
+)
+[ info ] [ RUN ] app\xcx\controller\Tags->add[ D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\application\xcx\controller\Tags.php ]
+[ info ] [ DB ] INIT mysql
+[ info ] [ VIEW ] D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\thinkphp\tpl\dispatch_jump.tpl [ array (
+  0 => 'code',
+  1 => 'msg',
+  2 => 'data',
+  3 => 'url',
+  4 => 'wait',
+) ]
+[ info ] [ LOG ] INIT File
+[ sql ] [ DB ] CONNECT:[ UseTime:0.001089s ] mysql:host=127.0.0.1;port=3306;dbname=xcxnew;charset=utf8mb4
+[ sql ] [ SQL ] SHOW COLUMNS FROM `xcx_tags` [ RunTime:0.014340s ]
+[ sql ] [ SQL ] INSERT INTO `xcx_tags` (`name` , `type`) VALUES ('奥术大师发' , 1) [ RunTime:0.001049s ]
+---------------------------------------------------------------
+[ 2020-04-24T16:53:50+08:00 ] 127.0.0.1 GET www.huaxiang.com/xcx/tags/house.html
+[运行时间：0.040965s] [吞吐率：24.41req/s] [内存消耗：1,545.94kb] [文件加载：45]
+[ info ] [ LANG ] D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\thinkphp\lang\zh-cn.php
+[ info ] [ ROUTE ] array (
+  'type' => 'module',
+  'module' => 
+  array (
+    0 => 'xcx',
+    1 => 'tags',
+    2 => 'house',
+  ),
+)
+[ info ] [ HEADER ] array (
+  'cookie' => 'PHPSESSID=68uhe109do7kabq48p58pqht16',
+  'accept-language' => 'zh-CN,zh;q=0.9',
+  'accept-encoding' => 'gzip, deflate',
+  'referer' => 'http://www.huaxiang.com/xcx/tags/add.html?type=1',
+  'accept' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.70 Safari/537.36',
+  'upgrade-insecure-requests' => '1',
+  'connection' => 'close',
+  'host' => 'www.huaxiang.com',
+)
+[ info ] [ PARAM ] array (
+  '/xcx/tags/house_html' => '',
+)
+[ info ] [ SESSION ] INIT array (
+  'id' => '',
+  'var_session_id' => '',
+  'prefix' => 'think',
+  'type' => '',
+  'auto_start' => true,
+)
+[ info ] [ RUN ] app\xcx\controller\Tags->house[ D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\application\xcx\controller\Tags.php ]
+[ info ] [ VIEW ] D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\public/../application/xcx\view\tags\house.html [ array (
+) ]
+[ info ] [ LOG ] INIT File
+---------------------------------------------------------------
+[ 2020-04-24T16:53:51+08:00 ] 127.0.0.1 GET www.huaxiang.com/xcx/tags/tagData/?page=1&limit=20&type=1
+[运行时间：0.073439s] [吞吐率：13.62req/s] [内存消耗：2,104.79kb] [文件加载：52]
+[ info ] [ LANG ] D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\thinkphp\lang\zh-cn.php
+[ info ] [ ROUTE ] array (
+  'type' => 'module',
+  'module' => 
+  array (
+    0 => 'xcx',
+    1 => 'tags',
+    2 => 'tagData',
+  ),
+)
+[ info ] [ HEADER ] array (
+  'cookie' => 'PHPSESSID=68uhe109do7kabq48p58pqht16',
+  'accept-language' => 'zh-CN,zh;q=0.9',
+  'accept-encoding' => 'gzip, deflate',
+  'referer' => 'http://www.huaxiang.com/xcx/tags/house.html',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.70 Safari/537.36',
+  'x-requested-with' => 'XMLHttpRequest',
+  'accept' => 'application/json, text/javascript, */*; q=0.01',
+  'connection' => 'close',
+  'host' => 'www.huaxiang.com',
+)
+[ info ] [ PARAM ] array (
+  '/xcx/tags/tagData/' => '',
+  'page' => '1',
+  'limit' => '20',
+  'type' => '1',
+)
+[ info ] [ SESSION ] INIT array (
+  'id' => '',
+  'var_session_id' => '',
+  'prefix' => 'think',
+  'type' => '',
+  'auto_start' => true,
+)
+[ info ] [ RUN ] app\xcx\controller\Tags->tagData[ D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\application\xcx\controller\Tags.php ]
+[ info ] [ DB ] INIT mysql
+[ info ] [ LOG ] INIT File
+[ sql ] [ DB ] CONNECT:[ UseTime:0.001228s ] mysql:host=127.0.0.1;port=3306;dbname=xcxnew;charset=utf8mb4
+[ sql ] [ SQL ] SHOW COLUMNS FROM `xcx_tags` [ RunTime:0.013952s ]
+[ sql ] [ SQL ] SELECT COUNT(*) AS tp_count FROM `xcx_tags` WHERE  (   1 = 1 and type = '1' ) LIMIT 1 [ RunTime:0.000582s ]
+[ sql ] [ SQL ] SELECT * FROM `xcx_tags` WHERE  (   1 = 1 and type = '1' ) ORDER BY `id` DESC LIMIT 0,20 [ RunTime:0.000495s ]
+---------------------------------------------------------------
+[ 2020-04-24T16:54:20+08:00 ] 127.0.0.1 GET www.huaxiang.com/xcx/tags/house.html
+[运行时间：0.317133s] [吞吐率：3.15req/s] [内存消耗：1,545.86kb] [文件加载：45]
+[ info ] [ LANG ] D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\thinkphp\lang\zh-cn.php
+[ info ] [ ROUTE ] array (
+  'type' => 'module',
+  'module' => 
+  array (
+    0 => 'xcx',
+    1 => 'tags',
+    2 => 'house',
+  ),
+)
+[ info ] [ HEADER ] array (
+  'cookie' => 'PHPSESSID=68uhe109do7kabq48p58pqht16',
+  'accept-language' => 'zh-CN,zh;q=0.9',
+  'accept-encoding' => 'gzip, deflate',
+  'referer' => 'http://www.huaxiang.com/xcx/index/index.html',
+  'accept' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.70 Safari/537.36',
+  'upgrade-insecure-requests' => '1',
+  'connection' => 'close',
+  'host' => 'www.huaxiang.com',
+)
+[ info ] [ PARAM ] array (
+  '/xcx/tags/house_html' => '',
+)
+[ info ] [ SESSION ] INIT array (
+  'id' => '',
+  'var_session_id' => '',
+  'prefix' => 'think',
+  'type' => '',
+  'auto_start' => true,
+)
+[ info ] [ RUN ] app\xcx\controller\Tags->house[ D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\application\xcx\controller\Tags.php ]
+[ info ] [ VIEW ] D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\public/../application/xcx\view\tags\house.html [ array (
+) ]
+[ info ] [ LOG ] INIT File
+---------------------------------------------------------------
+[ 2020-04-24T16:54:21+08:00 ] 127.0.0.1 GET www.huaxiang.com/xcx/tags/tagData/?page=1&limit=20&type=1
+[运行时间：0.183175s] [吞吐率：5.46req/s] [内存消耗：2,104.79kb] [文件加载：52]
+[ info ] [ LANG ] D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\thinkphp\lang\zh-cn.php
+[ info ] [ ROUTE ] array (
+  'type' => 'module',
+  'module' => 
+  array (
+    0 => 'xcx',
+    1 => 'tags',
+    2 => 'tagData',
+  ),
+)
+[ info ] [ HEADER ] array (
+  'cookie' => 'PHPSESSID=68uhe109do7kabq48p58pqht16',
+  'accept-language' => 'zh-CN,zh;q=0.9',
+  'accept-encoding' => 'gzip, deflate',
+  'referer' => 'http://www.huaxiang.com/xcx/tags/house.html',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.70 Safari/537.36',
+  'x-requested-with' => 'XMLHttpRequest',
+  'accept' => 'application/json, text/javascript, */*; q=0.01',
+  'connection' => 'close',
+  'host' => 'www.huaxiang.com',
+)
+[ info ] [ PARAM ] array (
+  '/xcx/tags/tagData/' => '',
+  'page' => '1',
+  'limit' => '20',
+  'type' => '1',
+)
+[ info ] [ SESSION ] INIT array (
+  'id' => '',
+  'var_session_id' => '',
+  'prefix' => 'think',
+  'type' => '',
+  'auto_start' => true,
+)
+[ info ] [ RUN ] app\xcx\controller\Tags->tagData[ D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\application\xcx\controller\Tags.php ]
+[ info ] [ DB ] INIT mysql
+[ info ] [ LOG ] INIT File
+[ sql ] [ DB ] CONNECT:[ UseTime:0.001586s ] mysql:host=127.0.0.1;port=3306;dbname=xcxnew;charset=utf8mb4
+[ sql ] [ SQL ] SHOW COLUMNS FROM `xcx_tags` [ RunTime:0.019200s ]
+[ sql ] [ SQL ] SELECT COUNT(*) AS tp_count FROM `xcx_tags` WHERE  (   1 = 1 and type = '1' ) LIMIT 1 [ RunTime:0.000863s ]
+[ sql ] [ SQL ] SELECT * FROM `xcx_tags` WHERE  (   1 = 1 and type = '1' ) ORDER BY `id` DESC LIMIT 0,20 [ RunTime:0.000890s ]
+---------------------------------------------------------------
+[ 2020-04-24T16:54:21+08:00 ] 127.0.0.1 GET www.huaxiang.com/xcx/house/index.html
+[运行时间：0.063604s] [吞吐率：15.72req/s] [内存消耗：1,623.84kb] [文件加载：45]
+[ info ] [ LANG ] D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\thinkphp\lang\zh-cn.php
+[ info ] [ ROUTE ] array (
+  'type' => 'module',
+  'module' => 
+  array (
+    0 => 'xcx',
+    1 => 'house',
+    2 => 'index',
+  ),
+)
+[ info ] [ HEADER ] array (
+  'cookie' => 'PHPSESSID=68uhe109do7kabq48p58pqht16',
+  'accept-language' => 'zh-CN,zh;q=0.9',
+  'accept-encoding' => 'gzip, deflate',
+  'referer' => 'http://www.huaxiang.com/xcx/index/index.html',
+  'accept' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.70 Safari/537.36',
+  'upgrade-insecure-requests' => '1',
+  'connection' => 'close',
+  'host' => 'www.huaxiang.com',
+)
+[ info ] [ PARAM ] array (
+  '/xcx/house/index_html' => '',
+)
+[ info ] [ SESSION ] INIT array (
+  'id' => '',
+  'var_session_id' => '',
+  'prefix' => 'think',
+  'type' => '',
+  'auto_start' => true,
+)
+[ info ] [ RUN ] app\xcx\controller\House->index[ D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\application\xcx\controller\House.php ]
+[ info ] [ VIEW ] D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\public/../application/xcx\view\house\index.html [ array (
+) ]
+[ info ] [ LOG ] INIT File
+---------------------------------------------------------------
+[ 2020-04-24T16:54:21+08:00 ] 127.0.0.1 GET www.huaxiang.com/xcx/house/houseData/?page=1&limit=20
+[运行时间：0.095568s] [吞吐率：10.46req/s] [内存消耗：2,286.45kb] [文件加载：52]
+[ info ] [ LANG ] D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\thinkphp\lang\zh-cn.php
+[ info ] [ ROUTE ] array (
+  'type' => 'module',
+  'module' => 
+  array (
+    0 => 'xcx',
+    1 => 'house',
+    2 => 'houseData',
+  ),
+)
+[ info ] [ HEADER ] array (
+  'cookie' => 'PHPSESSID=68uhe109do7kabq48p58pqht16',
+  'accept-language' => 'zh-CN,zh;q=0.9',
+  'accept-encoding' => 'gzip, deflate',
+  'referer' => 'http://www.huaxiang.com/xcx/house/index.html',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.70 Safari/537.36',
+  'x-requested-with' => 'XMLHttpRequest',
+  'accept' => 'application/json, text/javascript, */*; q=0.01',
+  'connection' => 'close',
+  'host' => 'www.huaxiang.com',
+)
+[ info ] [ PARAM ] array (
+  '/xcx/house/houseData/' => '',
+  'page' => '1',
+  'limit' => '20',
+)
+[ info ] [ SESSION ] INIT array (
+  'id' => '',
+  'var_session_id' => '',
+  'prefix' => 'think',
+  'type' => '',
+  'auto_start' => true,
+)
+[ info ] [ RUN ] app\xcx\controller\House->houseData[ D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\application\xcx\controller\House.php ]
+[ info ] [ DB ] INIT mysql
+[ info ] [ LOG ] INIT File
+[ sql ] [ DB ] CONNECT:[ UseTime:0.001248s ] mysql:host=127.0.0.1;port=3306;dbname=xcxnew;charset=utf8mb4
+[ sql ] [ SQL ] SHOW COLUMNS FROM `tk_houses` [ RunTime:0.018279s ]
+[ sql ] [ SQL ] SELECT COUNT(*) AS tp_count FROM `tk_houses` WHERE  (   1 = 1 ) LIMIT 1 [ RunTime:0.000851s ]
+[ sql ] [ SQL ] SELECT * FROM `tk_houses` WHERE  (   1 = 1 ) ORDER BY `top` DESC,`mdate` DESC LIMIT 0,20 [ RunTime:0.002110s ]
+---------------------------------------------------------------
+[ 2020-04-24T16:54:23+08:00 ] 127.0.0.1 GET www.huaxiang.com/xcx/house/add.html
+[运行时间：0.143151s] [吞吐率：6.99req/s] [内存消耗：2,450.73kb] [文件加载：54]
+[ info ] [ LANG ] D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\thinkphp\lang\zh-cn.php
+[ info ] [ ROUTE ] array (
+  'type' => 'module',
+  'module' => 
+  array (
+    0 => 'xcx',
+    1 => 'house',
+    2 => 'add',
+  ),
+)
+[ info ] [ HEADER ] array (
+  'cookie' => 'PHPSESSID=68uhe109do7kabq48p58pqht16',
+  'accept-language' => 'zh-CN,zh;q=0.9',
+  'accept-encoding' => 'gzip, deflate',
+  'referer' => 'http://www.huaxiang.com/xcx/house/index.html',
+  'accept' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.70 Safari/537.36',
+  'upgrade-insecure-requests' => '1',
+  'connection' => 'close',
+  'host' => 'www.huaxiang.com',
+)
+[ info ] [ PARAM ] array (
+  '/xcx/house/add_html' => '',
+)
+[ info ] [ SESSION ] INIT array (
+  'id' => '',
+  'var_session_id' => '',
+  'prefix' => 'think',
+  'type' => '',
+  'auto_start' => true,
+)
+[ info ] [ RUN ] app\xcx\controller\House->add[ D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\application\xcx\controller\House.php ]
+[ info ] [ DB ] INIT mysql
+[ info ] [ VIEW ] D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\public/../application/xcx\view\house\add.html [ array (
+  0 => 'city',
+  1 => 'tags',
+) ]
+[ info ] [ LOG ] INIT File
+[ sql ] [ DB ] CONNECT:[ UseTime:0.001285s ] mysql:host=127.0.0.1;port=3306;dbname=xcxnew;charset=utf8mb4
+[ sql ] [ SQL ] SHOW COLUMNS FROM `tk_cate` [ RunTime:0.014812s ]
+[ sql ] [ SQL ] SELECT * FROM `tk_cate` WHERE  `pid` = 0 [ RunTime:0.000972s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `xcx_tags` [ RunTime:0.015550s ]
+[ sql ] [ SQL ] SELECT `id`,`name` FROM `xcx_tags` WHERE  `type` = 1 [ RunTime:0.000772s ]
+---------------------------------------------------------------
+[ 2020-04-24T16:54:59+08:00 ] 127.0.0.1 GET www.huaxiang.com/xcx/house/add.html
+[运行时间：0.108191s] [吞吐率：9.24req/s] [内存消耗：2,450.66kb] [文件加载：54]
+[ info ] [ LANG ] D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\thinkphp\lang\zh-cn.php
+[ info ] [ ROUTE ] array (
+  'type' => 'module',
+  'module' => 
+  array (
+    0 => 'xcx',
+    1 => 'house',
+    2 => 'add',
+  ),
+)
+[ info ] [ HEADER ] array (
+  'cookie' => 'PHPSESSID=68uhe109do7kabq48p58pqht16',
+  'accept-language' => 'zh-CN,zh;q=0.9',
+  'accept-encoding' => 'gzip, deflate',
+  'accept' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.70 Safari/537.36',
+  'upgrade-insecure-requests' => '1',
+  'cache-control' => 'max-age=0',
+  'connection' => 'close',
+  'host' => 'www.huaxiang.com',
+)
+[ info ] [ PARAM ] array (
+  '/xcx/house/add_html' => '',
+)
+[ info ] [ SESSION ] INIT array (
+  'id' => '',
+  'var_session_id' => '',
+  'prefix' => 'think',
+  'type' => '',
+  'auto_start' => true,
+)
+[ info ] [ RUN ] app\xcx\controller\House->add[ D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\application\xcx\controller\House.php ]
+[ info ] [ DB ] INIT mysql
+[ info ] [ VIEW ] D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\public/../application/xcx\view\house\add.html [ array (
+  0 => 'city',
+  1 => 'tags',
+) ]
+[ info ] [ LOG ] INIT File
+[ sql ] [ DB ] CONNECT:[ UseTime:0.002088s ] mysql:host=127.0.0.1;port=3306;dbname=xcxnew;charset=utf8mb4
+[ sql ] [ SQL ] SHOW COLUMNS FROM `tk_cate` [ RunTime:0.016594s ]
+[ sql ] [ SQL ] SELECT * FROM `tk_cate` WHERE  `pid` = 0 [ RunTime:0.001391s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `xcx_tags` [ RunTime:0.017340s ]
+[ sql ] [ SQL ] SELECT `id`,`name` FROM `xcx_tags` WHERE  `type` = 1 [ RunTime:0.000882s ]
+---------------------------------------------------------------
+[ 2020-04-24T16:56:03+08:00 ] 127.0.0.1 GET www.huaxiang.com/xcx/house/index.html
+[运行时间：0.044474s] [吞吐率：22.48req/s] [内存消耗：1,623.84kb] [文件加载：45]
+[ info ] [ LANG ] D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\thinkphp\lang\zh-cn.php
+[ info ] [ ROUTE ] array (
+  'type' => 'module',
+  'module' => 
+  array (
+    0 => 'xcx',
+    1 => 'house',
+    2 => 'index',
+  ),
+)
+[ info ] [ HEADER ] array (
+  'cookie' => 'PHPSESSID=68uhe109do7kabq48p58pqht16',
+  'accept-language' => 'zh-CN,zh;q=0.9',
+  'accept-encoding' => 'gzip, deflate',
+  'referer' => 'http://www.huaxiang.com/xcx/index/index.html',
+  'accept' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.70 Safari/537.36',
+  'upgrade-insecure-requests' => '1',
+  'connection' => 'close',
+  'host' => 'www.huaxiang.com',
+)
+[ info ] [ PARAM ] array (
+  '/xcx/house/index_html' => '',
+)
+[ info ] [ SESSION ] INIT array (
+  'id' => '',
+  'var_session_id' => '',
+  'prefix' => 'think',
+  'type' => '',
+  'auto_start' => true,
+)
+[ info ] [ RUN ] app\xcx\controller\House->index[ D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\application\xcx\controller\House.php ]
+[ info ] [ VIEW ] D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\public/../application/xcx\view\house\index.html [ array (
+) ]
+[ info ] [ LOG ] INIT File
+---------------------------------------------------------------
+[ 2020-04-24T16:56:03+08:00 ] 127.0.0.1 GET www.huaxiang.com/xcx/house/houseData/?page=1&limit=20
+[运行时间：0.086001s] [吞吐率：11.63req/s] [内存消耗：2,286.45kb] [文件加载：52]
+[ info ] [ LANG ] D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\thinkphp\lang\zh-cn.php
+[ info ] [ ROUTE ] array (
+  'type' => 'module',
+  'module' => 
+  array (
+    0 => 'xcx',
+    1 => 'house',
+    2 => 'houseData',
+  ),
+)
+[ info ] [ HEADER ] array (
+  'cookie' => 'PHPSESSID=68uhe109do7kabq48p58pqht16',
+  'accept-language' => 'zh-CN,zh;q=0.9',
+  'accept-encoding' => 'gzip, deflate',
+  'referer' => 'http://www.huaxiang.com/xcx/house/index.html',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.70 Safari/537.36',
+  'x-requested-with' => 'XMLHttpRequest',
+  'accept' => 'application/json, text/javascript, */*; q=0.01',
+  'connection' => 'close',
+  'host' => 'www.huaxiang.com',
+)
+[ info ] [ PARAM ] array (
+  '/xcx/house/houseData/' => '',
+  'page' => '1',
+  'limit' => '20',
+)
+[ info ] [ SESSION ] INIT array (
+  'id' => '',
+  'var_session_id' => '',
+  'prefix' => 'think',
+  'type' => '',
+  'auto_start' => true,
+)
+[ info ] [ RUN ] app\xcx\controller\House->houseData[ D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\application\xcx\controller\House.php ]
+[ info ] [ DB ] INIT mysql
+[ info ] [ LOG ] INIT File
+[ sql ] [ DB ] CONNECT:[ UseTime:0.001498s ] mysql:host=127.0.0.1;port=3306;dbname=xcxnew;charset=utf8mb4
+[ sql ] [ SQL ] SHOW COLUMNS FROM `tk_houses` [ RunTime:0.017209s ]
+[ sql ] [ SQL ] SELECT COUNT(*) AS tp_count FROM `tk_houses` WHERE  (   1 = 1 ) LIMIT 1 [ RunTime:0.000581s ]
+[ sql ] [ SQL ] SELECT * FROM `tk_houses` WHERE  (   1 = 1 ) ORDER BY `top` DESC,`mdate` DESC LIMIT 0,20 [ RunTime:0.001739s ]
+---------------------------------------------------------------
+[ 2020-04-24T16:56:06+08:00 ] 127.0.0.1 GET www.huaxiang.com/xcx/house/add.html
+[运行时间：0.112107s] [吞吐率：8.92req/s] [内存消耗：2,450.80kb] [文件加载：54]
+[ info ] [ LANG ] D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\thinkphp\lang\zh-cn.php
+[ info ] [ ROUTE ] array (
+  'type' => 'module',
+  'module' => 
+  array (
+    0 => 'xcx',
+    1 => 'house',
+    2 => 'add',
+  ),
+)
+[ info ] [ HEADER ] array (
+  'cookie' => 'PHPSESSID=68uhe109do7kabq48p58pqht16',
+  'accept-language' => 'zh-CN,zh;q=0.9',
+  'accept-encoding' => 'gzip, deflate',
+  'referer' => 'http://www.huaxiang.com/xcx/house/index.html',
+  'accept' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.70 Safari/537.36',
+  'upgrade-insecure-requests' => '1',
+  'connection' => 'close',
+  'host' => 'www.huaxiang.com',
+)
+[ info ] [ PARAM ] array (
+  '/xcx/house/add_html' => '',
+)
+[ info ] [ SESSION ] INIT array (
+  'id' => '',
+  'var_session_id' => '',
+  'prefix' => 'think',
+  'type' => '',
+  'auto_start' => true,
+)
+[ info ] [ RUN ] app\xcx\controller\House->add[ D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\application\xcx\controller\House.php ]
+[ info ] [ DB ] INIT mysql
+[ info ] [ VIEW ] D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\public/../application/xcx\view\house\add.html [ array (
+  0 => 'city',
+  1 => 'tags',
+) ]
+[ info ] [ LOG ] INIT File
+[ sql ] [ DB ] CONNECT:[ UseTime:0.001629s ] mysql:host=127.0.0.1;port=3306;dbname=xcxnew;charset=utf8mb4
+[ sql ] [ SQL ] SHOW COLUMNS FROM `tk_cate` [ RunTime:0.016674s ]
+[ sql ] [ SQL ] SELECT * FROM `tk_cate` WHERE  `pid` = 0 [ RunTime:0.001153s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `xcx_tags` [ RunTime:0.014429s ]
+[ sql ] [ SQL ] SELECT `id`,`name` FROM `xcx_tags` WHERE  `type` = 1 [ RunTime:0.000755s ]
+---------------------------------------------------------------
+[ 2020-04-24T16:56:57+08:00 ] 127.0.0.1 GET www.huaxiang.com/xcx/house/index.html
+[运行时间：0.067292s] [吞吐率：14.86req/s] [内存消耗：1,623.80kb] [文件加载：45]
+[ info ] [ LANG ] D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\thinkphp\lang\zh-cn.php
+[ info ] [ ROUTE ] array (
+  'type' => 'module',
+  'module' => 
+  array (
+    0 => 'xcx',
+    1 => 'house',
+    2 => 'index',
+  ),
+)
+[ info ] [ HEADER ] array (
+  'cookie' => 'PHPSESSID=68uhe109do7kabq48p58pqht16',
+  'accept-language' => 'zh-CN,zh;q=0.9',
+  'accept-encoding' => 'gzip, deflate',
+  'referer' => 'http://www.huaxiang.com/xcx/house/add.html',
+  'accept' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.70 Safari/537.36',
+  'upgrade-insecure-requests' => '1',
+  'connection' => 'close',
+  'host' => 'www.huaxiang.com',
+)
+[ info ] [ PARAM ] array (
+  '/xcx/house/index_html' => '',
+)
+[ info ] [ SESSION ] INIT array (
+  'id' => '',
+  'var_session_id' => '',
+  'prefix' => 'think',
+  'type' => '',
+  'auto_start' => true,
+)
+[ info ] [ RUN ] app\xcx\controller\House->index[ D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\application\xcx\controller\House.php ]
+[ info ] [ VIEW ] D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\public/../application/xcx\view\house\index.html [ array (
+) ]
+[ info ] [ LOG ] INIT File
+---------------------------------------------------------------
+[ 2020-04-24T16:56:58+08:00 ] 127.0.0.1 GET www.huaxiang.com/xcx/house/houseData/?page=1&limit=20
+[运行时间：0.100363s] [吞吐率：9.96req/s] [内存消耗：2,286.45kb] [文件加载：52]
+[ info ] [ LANG ] D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\thinkphp\lang\zh-cn.php
+[ info ] [ ROUTE ] array (
+  'type' => 'module',
+  'module' => 
+  array (
+    0 => 'xcx',
+    1 => 'house',
+    2 => 'houseData',
+  ),
+)
+[ info ] [ HEADER ] array (
+  'cookie' => 'PHPSESSID=68uhe109do7kabq48p58pqht16',
+  'accept-language' => 'zh-CN,zh;q=0.9',
+  'accept-encoding' => 'gzip, deflate',
+  'referer' => 'http://www.huaxiang.com/xcx/house/index.html',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.70 Safari/537.36',
+  'x-requested-with' => 'XMLHttpRequest',
+  'accept' => 'application/json, text/javascript, */*; q=0.01',
+  'connection' => 'close',
+  'host' => 'www.huaxiang.com',
+)
+[ info ] [ PARAM ] array (
+  '/xcx/house/houseData/' => '',
+  'page' => '1',
+  'limit' => '20',
+)
+[ info ] [ SESSION ] INIT array (
+  'id' => '',
+  'var_session_id' => '',
+  'prefix' => 'think',
+  'type' => '',
+  'auto_start' => true,
+)
+[ info ] [ RUN ] app\xcx\controller\House->houseData[ D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\application\xcx\controller\House.php ]
+[ info ] [ DB ] INIT mysql
+[ info ] [ LOG ] INIT File
+[ sql ] [ DB ] CONNECT:[ UseTime:0.001317s ] mysql:host=127.0.0.1;port=3306;dbname=xcxnew;charset=utf8mb4
+[ sql ] [ SQL ] SHOW COLUMNS FROM `tk_houses` [ RunTime:0.024072s ]
+[ sql ] [ SQL ] SELECT COUNT(*) AS tp_count FROM `tk_houses` WHERE  (   1 = 1 ) LIMIT 1 [ RunTime:0.000551s ]
+[ sql ] [ SQL ] SELECT * FROM `tk_houses` WHERE  (   1 = 1 ) ORDER BY `top` DESC,`mdate` DESC LIMIT 0,20 [ RunTime:0.004001s ]

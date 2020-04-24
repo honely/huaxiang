@@ -165,7 +165,7 @@
                     <label class="layui-form-label"><span style="color: red;">*</span>家具</label>
                     <div class="layui-input-block">
                         {volist name='all_four' id='vo'}
-                        <input type="checkbox" class="checkbox" disabled lay-skin="primary" name="furniture[{$vo.furn}]" title="{$vo.furn}"  {$vo.is_checked ? 'checked' : ''}>
+                        <input type="checkbox" class="checkbox" disabled lay-skin="primary" name="home[{$vo.furn}]" title="{$vo.furn}"  {$vo.is_checked ? 'checked' : ''}>
                         {/volist}
                     </div>
                 </div>
@@ -189,7 +189,7 @@
                     <label class="layui-form-label">设施</label>
                     <div class="layui-input-block">
                         {volist name='all_set' id='vo'}
-                        <input type="checkbox" class="checkbox" disabled lay-skin="primary" name="home[{$vo.set}]" title="{$vo.set}"  {$vo.is_checked ? 'checked' : ''}>
+                        <input type="checkbox" class="checkbox" disabled lay-skin="primary" name="furniture[{$vo.set}]" title="{$vo.set}"  {$vo.is_checked ? 'checked' : ''}>
                         {/volist}
                     </div>
                 </div>

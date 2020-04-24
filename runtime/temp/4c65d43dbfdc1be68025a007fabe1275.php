@@ -1,4 +1,26 @@
-{include file="index/header" /}
+<?php if (!defined('THINK_PATH')) exit(); /*a:3:{s:90:"D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\public/../application/xcx\view\house\edit.html";i:1587718317;s:82:"D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\application\xcx\view\index\header.html";i:1587691504;s:82:"D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\application\xcx\view\index\footer.html";i:1583744281;}*/ ?>
+<!DOCTYPE html>
+<html style="height: 100%">
+<head>
+    <meta charset="utf-8">
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <title>小宝租房后台管理系统</title>
+    <link rel="stylesheet" href="../../../layui/src/css/layui.css">
+    <script src="../../../static/jquery-1.10.2.min.js"></script>
+    <script src="../../../layui/src/layui.js"></script>
+	<style>
+		.layui-body{
+			left:0!important
+		}
+	</style>
+</head>
+<body class="layui-layout-body" style="height: 100%">
+
 <style>
     .one-pan{
         position: relative;
@@ -38,34 +60,34 @@
     <hr/>
     <div style="margin: 10px">
         <div style="padding: 15px;">
-            <form class="layui-form" action="<?=url('house/edit')?>?id={$house.id}" method="post">
+            <form class="layui-form" action="<?=url('house/edit')?>?id=<?php echo $house['id']; ?>" method="post">
                 <fieldset class="layui-elem-field layui-field-title" style="margin-top: 20px;">
                     <legend>基础信息</legend>
                 </fieldset>
                 <div class="layui-form-item">
                     <label class="layui-form-label"><span style="color: red;">*</span>房源名称</label>
                     <div class="layui-input-block">
-                        <input type="text" name="title" lay-verify="required|title" placeholder="请输入房源名称" maxlength="20"  autocomplete="off" value="{$house.title}" class="layui-input">
+                        <input type="text" name="title" lay-verify="required|title" placeholder="请输入房源名称" maxlength="20"  autocomplete="off" value="<?php echo $house['title']; ?>" class="layui-input">
                     </div>
                 </div>
                 <div class="layui-form-item">
                     <label class="layui-form-label"><span style="color: red;">*</span>地址</label>
                     <div class="layui-input-block" id="input">
-                        <input type="text" name="address" id="end" autocomplete="off" class="layui-input" placeholder="请注入地址" value="{$house.address}" >
-                        <input type="hidden" name="x" id="x" autocomplete="off" class="layui-input" value="{$house.x}" >
-                        <input type="hidden" name="y" id="y" autocomplete="off" class="layui-input" value="{$house.y}" >
+                        <input type="text" name="address" id="end" autocomplete="off" class="layui-input" placeholder="请注入地址" value="<?php echo $house['address']; ?>" >
+                        <input type="hidden" name="x" id="x" autocomplete="off" class="layui-input" value="<?php echo $house['x']; ?>" >
+                        <input type="hidden" name="y" id="y" autocomplete="off" class="layui-input" value="<?php echo $house['y']; ?>" >
                     </div>
                 </div>
                 <div class="layui-form-item">
                     <label class="layui-form-label"><span style="color: red;">*</span>房源链接</label>
                     <div class="layui-input-block">
-                        <input type="text" name="http" lay-verify="required|title" placeholder="请输入房源链接" autocomplete="off" value="{$house.http}" class="layui-input">
+                        <input type="text" name="http" lay-verify="required|title" placeholder="请输入房源链接" autocomplete="off" value="<?php echo $house['http']; ?>" class="layui-input">
                     </div>
                 </div>
                 <div class="layui-form-item">
                     <label class="layui-form-label"><span style="color: red;">*</span>租金</label>
                     <div class="layui-input-block">
-                        <input type="number" name="price" lay-verify="required|title" placeholder="请输入租金" autocomplete="off" value="{$house.price}" class="layui-input">
+                        <input type="text" name="price" lay-verify="required|title" placeholder="请输入租金" autocomplete="off" value="<?php echo $house['price']; ?>" class="layui-input">
                     </div>
                 </div>
 
@@ -74,17 +96,17 @@
                     <div class="layui-input-inline">
                         <select name="city" lay-verify="required" lay-filter="bu_p_id">
                             <option value="">请选择城市</option>
-                            {volist name='city' id='vo'}
-                            <option value="{$vo.id}" {if condition="$house.city eq $vo.name"}selected{/if}>{$vo.name}</option>
-                            {/volist}
+                            <?php if(is_array($city) || $city instanceof \think\Collection || $city instanceof \think\Paginator): $i = 0; $__LIST__ = $city;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$vo): $mod = ($i % 2 );++$i;?>
+                            <option value="<?php echo $vo['id']; ?>" <?php if($house['city'] == $vo['name']): ?>selected<?php endif; ?>><?php echo $vo['name']; ?></option>
+                            <?php endforeach; endif; else: echo "" ;endif; ?>
                         </select>
                     </div>
                     <div class="layui-input-inline">
                         <select name="school" lay-verify="required" id="school">
                             <option value="">请选择校区</option>
-                            {volist name='school' id='vo'}
-                            <option value="{$vo.name}" {if condition="$house.school eq $vo.name"}selected{/if}>{$vo.name}</option>
-                            {/volist}
+                            <?php if(is_array($school) || $school instanceof \think\Collection || $school instanceof \think\Paginator): $i = 0; $__LIST__ = $school;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$vo): $mod = ($i % 2 );++$i;?>
+                            <option value="<?php echo $vo['name']; ?>" <?php if($house['school'] == $vo['name']): ?>selected<?php endif; ?>><?php echo $vo['name']; ?></option>
+                            <?php endforeach; endif; else: echo "" ;endif; ?>
                         </select>
                     </div>
                 </div>
@@ -95,61 +117,61 @@
                     <label class="layui-form-label"><span style="color: red;">*</span>入住时间</label>
                     <div class="layui-input-inline">
 
-                        <input type="text" name="live_date" id="date" lay-verify="date" lay-verify="required" style="{if condition="$house.live_date neq 00-00-00"}none{else/}block{/if}" placeholder="请选择入住时间" value="{$house.live_date}" autocomplete="off" class="layui-input">
+                        <input type="text" name="live_date" id="date" lay-verify="date" lay-verify="required" style="<?php if($house['live_date'] != 00-00-00): ?>none<?php else: ?>block<?php endif; ?>" placeholder="请选择入住时间" value="<?php echo $house['live_date']; ?>" autocomplete="off" class="layui-input">
 
                     </div>
                     <div class="layui-input-inline">
-                        <input type="checkbox" lay-skin="switch" lay-filter="switchTest" lay-text="随时|限时" {if condition="$house.live_date eq 00-00-00"}checked{else/}{/if} >
+                        <input type="checkbox" lay-skin="switch" lay-filter="switchTest" lay-text="随时|限时" <?php if($house['live_date'] == 00-00-00): ?>checked<?php else: endif; ?> >
                     </div>
                 </div>
                 <div class="layui-form-item">
                     <label class="layui-form-label"><span style="color: red;">*</span>房屋来源</label>
                     <div class="layui-input-block">
-                        <input type="radio" name="source" value="中介" title="中介" {if condition="$house.source eq '中介'"}checked{/if}>
-                        <input type="radio" name="source" value="个人" title="个人" {if condition="$house.source eq '个人'"}checked{/if}>
-                        <input type="radio" name="source" value="学生公寓" title="学生公寓" {if condition="$house.source eq '学生公寓'"}checked{/if}>
+                        <input type="radio" name="source" value="中介" title="中介" <?php if($house['source'] == '中介'): ?>checked<?php endif; ?>>
+                        <input type="radio" name="source" value="个人" title="个人" <?php if($house['source'] == '个人'): ?>checked<?php endif; ?>>
+                        <input type="radio" name="source" value="学生公寓" title="学生公寓" <?php if($house['source'] == '学生公寓'): ?>checked<?php endif; ?>>
                     </div>
                 </div>
                 <div class="layui-form-item">
                     <label class="layui-form-label"><span style="color: red;">*</span>出租方式</label>
                     <div class="layui-input-block">
-                        <input type="radio" name="type" value="整租" title="整租" {if condition="$house.type eq '整租'"}checked{/if}>
-                        <input type="radio" name="type" value="单间" title="单间" {if condition="$house.type eq '单间'"}checked{/if}>
-                        <input type="radio" name="type" value="厅卧" title="厅卧" {if condition="$house.type eq '厅卧'"}checked{/if}>
+                        <input type="radio" name="type" value="整租" title="整租" <?php if($house['type'] == '整租'): ?>checked<?php endif; ?>>
+                        <input type="radio" name="type" value="单间" title="单间" <?php if($house['type'] == '单间'): ?>checked<?php endif; ?>>
+                        <input type="radio" name="type" value="厅卧" title="厅卧" <?php if($house['type'] == '厅卧'): ?>checked<?php endif; ?>>
                     </div>
                 </div>
                 <div class="layui-form-item">
                     <label class="layui-form-label"><span style="color: red;">*</span>性别限制</label>
                     <div class="layui-input-block">
-                        <input type="radio" name="sex" value="男女不限" title="男女不限" {if condition="$house.sex eq '男女不限'"}checked{/if}>
-                        <input type="radio" name="sex" value="限男性" title="限男性" {if condition="$house.sex eq '限男性'"}checked{/if}>
-                        <input type="radio" name="sex" value="限女性" title="限女性" {if condition="$house.sex eq '限女性'"}checked{/if}>
+                        <input type="radio" name="sex" value="男女不限" title="男女不限" <?php if($house['sex'] == '男女不限'): ?>checked<?php endif; ?>>
+                        <input type="radio" name="sex" value="限男性" title="限男性" <?php if($house['sex'] == '限男性'): ?>checked<?php endif; ?>>
+                        <input type="radio" name="sex" value="限女性" title="限女性" <?php if($house['sex'] == '限女性'): ?>checked<?php endif; ?>>
                     </div>
                 </div>
                 <div class="layui-form-item">
                     <label class="layui-form-label"><span style="color: red;">*</span>宠物</label>
                     <div class="layui-input-block">
-                        <input type="radio" name="pet" value="接受" title="接受" {if condition="$house.pet eq '接受'"}checked{/if}>
-                        <input type="radio" name="pet" value="不接受" title="不接受" {if condition="$house.pet eq '不接受'"}checked{/if}>
+                        <input type="radio" name="pet" value="接受" title="接受" <?php if($house['pet'] == '接受'): ?>checked<?php endif; ?>>
+                        <input type="radio" name="pet" value="不接受" title="不接受" <?php if($house['pet'] == '不接受'): ?>checked<?php endif; ?>>
                     </div>
                 </div>
                 <div class="layui-form-item" pane="">
                     <label class="layui-form-label">Bill相关</label>
                     <div class="layui-input-block">
-                        {volist name='all_bill' id='vo'}
-                        <input type="checkbox" class="checkbox" lay-skin="primary" name="bill[{$vo.bill}]" title="{$vo.bill}"  {$vo.is_checked ? 'checked' : ''}>
-                        {/volist}
+                        <?php if(is_array($all_bill) || $all_bill instanceof \think\Collection || $all_bill instanceof \think\Paginator): $i = 0; $__LIST__ = $all_bill;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$vo): $mod = ($i % 2 );++$i;?>
+                        <input type="checkbox" class="checkbox" lay-skin="primary" name="bill[<?php echo $vo['bill']; ?>]" title="<?php echo $vo['bill']; ?>"  <?php echo !empty($vo['is_checked'])?'checked' : ''; ?>>
+                        <?php endforeach; endif; else: echo "" ;endif; ?>
                     </div>
                 </div>
                 <div class="layui-form-item" pane="">
                     <label class="layui-form-label">租期</label>
                     <div class="layui-input-block">
-                        <input type="radio" name="lease_term" value="灵活" title="灵活" {if condition="$house.lease_term eq '灵活'"}checked{/if}>
-                        <input type="radio" name="lease_term" value="1周起租" title="1周起租" {if condition="$house.lease_term eq '1周起租'"}checked{/if}>
-                        <input type="radio" name="lease_term" value="1个月起租" title="1个月起租" {if condition="$house.lease_term eq '1个月起租'"}checked{/if}>
-                        <input type="radio" name="lease_term" value="3个月起租" title="3个月起租" {if condition="$house.lease_term eq '3个月起租'"}checked{/if}>
-                        <input type="radio" name="lease_term" value="6个月起租" title="6个月起租" {if condition="$house.lease_term eq '6个月起租'"}checked{/if}>
-                        <input type="radio" name="lease_term" value="12个月起租" title="12个月起租" {if condition="$house.lease_term eq '12个月起租'"}checked{/if}>
+                        <input type="radio" name="lease_term" value="灵活" title="灵活" <?php if($house['lease_term'] == '灵活'): ?>checked<?php endif; ?>>
+                        <input type="radio" name="lease_term" value="1周起租" title="1周起租" <?php if($house['lease_term'] == '1周起租'): ?>checked<?php endif; ?>>
+                        <input type="radio" name="lease_term" value="1个月起租" title="1个月起租" <?php if($house['lease_term'] == '1个月起租'): ?>checked<?php endif; ?>>
+                        <input type="radio" name="lease_term" value="3个月起租" title="3个月起租" <?php if($house['lease_term'] == '3个月起租'): ?>checked<?php endif; ?>>
+                        <input type="radio" name="lease_term" value="6个月起租" title="6个月起租" <?php if($house['lease_term'] == '6个月起租'): ?>checked<?php endif; ?>>
+                        <input type="radio" name="lease_term" value="12个月起租" title="12个月起租" <?php if($house['lease_term'] == '12个月起租'): ?>checked<?php endif; ?>>
                     </div>
                 </div>
                 <fieldset class="layui-elem-field layui-field-title" style="margin-top: 20px;">
@@ -158,86 +180,86 @@
                 <div class="layui-form-item">
                     <label class="layui-form-label"><span style="color: red;">*</span>房屋类型</label>
                     <div class="layui-input-block">
-                        <input type="radio" name="house_type" value="公寓" title="公寓" {if condition="$house.house_type eq '公寓'"}checked{/if}>
-                        <input type="radio" name="house_type" value="别墅" title="别墅" {if condition="$house.house_type eq '别墅'"}checked{/if}>
-                        <input type="radio" name="house_type" value="其他" title="其他" {if condition="$house.house_type eq '其他'"}checked{/if}>
+                        <input type="radio" name="house_type" value="公寓" title="公寓" <?php if($house['house_type'] == '公寓'): ?>checked<?php endif; ?>>
+                        <input type="radio" name="house_type" value="别墅" title="别墅" <?php if($house['house_type'] == '别墅'): ?>checked<?php endif; ?>>
+                        <input type="radio" name="house_type" value="其他" title="其他" <?php if($house['house_type'] == '其他'): ?>checked<?php endif; ?>>
                     </div>
                 </div>
 
                 <div class="layui-form-item">
                     <label class="layui-form-label"><span style="color: red;">*</span>户型</label>
                     <div class="layui-input-block">
-                        <input type="radio" name="house_room" value="一室" title="一室" {if condition="$house.house_room eq '一室'"}checked{/if}>
-                        <input type="radio" name="house_room" value="两室" title="两室" {if condition="$house.house_room eq '两室'"}checked{/if}>
-                        <input type="radio" name="house_room" value="三室" title="三室" {if condition="$house.house_room eq '三室'"}checked{/if}>
-                        <input type="radio" name="house_room" value="四室" title="四室" {if condition="$house.house_room eq '四室'"}checked{/if}>
-                        <input type="radio" name="house_room" value="四室以上" title="四室以上" {if condition="$house.house_room eq '四室以上'"}checked{/if}>
+                        <input type="radio" name="house_room" value="一室" title="一室" <?php if($house['house_room'] == '一室'): ?>checked<?php endif; ?>>
+                        <input type="radio" name="house_room" value="两室" title="两室" <?php if($house['house_room'] == '两室'): ?>checked<?php endif; ?>>
+                        <input type="radio" name="house_room" value="三室" title="三室" <?php if($house['house_room'] == '三室'): ?>checked<?php endif; ?>>
+                        <input type="radio" name="house_room" value="四室" title="四室" <?php if($house['house_room'] == '四室'): ?>checked<?php endif; ?>>
+                        <input type="radio" name="house_room" value="四室以上" title="四室以上" <?php if($house['house_room'] == '四室以上'): ?>checked<?php endif; ?>>
                     </div>
                 </div>
 
                 <div class="layui-form-item">
                     <label class="layui-form-label"><span style="color: red;">*</span>卫生间</label>
                     <div class="layui-input-block">
-                        <input type="radio" name="toilet" value="0" title="0" {if condition="$house.toilet eq '0'"}checked{/if}>
-                        <input type="radio" name="toilet" value="1" title="1" {if condition="$house.toilet eq '1'"}checked{/if}>
-                        <input type="radio" name="toilet" value="2" title="2" {if condition="$house.toilet eq '2'"}checked{/if}>
-                        <input type="radio" name="toilet" value="3" title="3" {if condition="$house.toilet eq '3'"}checked{/if}>
-                        <input type="radio" name="toilet" value="4" title="4" {if condition="$house.toilet eq '4'"}checked{/if}>
-                        <input type="radio" name="toilet" value="5" title="5" {if condition="$house.toilet eq '5'"}checked{/if}>
-                        <input type="radio" name="toilet" value="6" title="6" {if condition="$house.toilet eq '6'"}checked{/if}>
-                        <input type="radio" name="toilet" value="7" title="7" {if condition="$house.toilet eq '7'"}checked{/if}>
-                        <input type="radio" name="toilet" value="8" title="8" {if condition="$house.toilet eq '8'"}checked{/if}>
-                        <input type="radio" name="toilet" value="9" title="9" {if condition="$house.toilet eq '9'"}checked{/if}>
+                        <input type="radio" name="toilet" value="0" title="0" <?php if($house['toilet'] == '0'): ?>checked<?php endif; ?>>
+                        <input type="radio" name="toilet" value="1" title="1" <?php if($house['toilet'] == '1'): ?>checked<?php endif; ?>>
+                        <input type="radio" name="toilet" value="2" title="2" <?php if($house['toilet'] == '2'): ?>checked<?php endif; ?>>
+                        <input type="radio" name="toilet" value="3" title="3" <?php if($house['toilet'] == '3'): ?>checked<?php endif; ?>>
+                        <input type="radio" name="toilet" value="4" title="4" <?php if($house['toilet'] == '4'): ?>checked<?php endif; ?>>
+                        <input type="radio" name="toilet" value="5" title="5" <?php if($house['toilet'] == '5'): ?>checked<?php endif; ?>>
+                        <input type="radio" name="toilet" value="6" title="6" <?php if($house['toilet'] == '6'): ?>checked<?php endif; ?>>
+                        <input type="radio" name="toilet" value="7" title="7" <?php if($house['toilet'] == '7'): ?>checked<?php endif; ?>>
+                        <input type="radio" name="toilet" value="8" title="8" <?php if($house['toilet'] == '8'): ?>checked<?php endif; ?>>
+                        <input type="radio" name="toilet" value="9" title="9" <?php if($house['toilet'] == '9'): ?>checked<?php endif; ?>>
                     </div>
                 </div>
 
                 <div class="layui-form-item">
                     <label class="layui-form-label"><span style="color: red;">*</span>家具</label>
                     <div class="layui-input-block">
-                        {volist name='all_four' id='vo'}
-                        <input type="checkbox" class="checkbox" lay-skin="primary" name="home[{$vo.furn}]" title="{$vo.furn}"  {$vo.is_checked ? 'checked' : ''}>
-                        {/volist}
+                        <?php if(is_array($all_four) || $all_four instanceof \think\Collection || $all_four instanceof \think\Paginator): $i = 0; $__LIST__ = $all_four;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$vo): $mod = ($i % 2 );++$i;?>
+                        <input type="checkbox" class="checkbox" lay-skin="primary" name="home[<?php echo $vo['furn']; ?>]" title="<?php echo $vo['furn']; ?>"  <?php echo !empty($vo['is_checked'])?'checked' : ''; ?>>
+                        <?php endforeach; endif; else: echo "" ;endif; ?>
                     </div>
                 </div>
 
                 <div class="layui-form-item">
                     <label class="layui-form-label"><span style="color: red;">*</span>车位</label>
                     <div class="layui-input-block">
-                        <input type="radio" name="car" value="0" title="0" {if condition="$house.car eq '0'"}checked{/if}>
-                        <input type="radio" name="car" value="1" title="1" {if condition="$house.car eq '1'"}checked{/if}>
-                        <input type="radio" name="car" value="2" title="2" {if condition="$house.car eq '2'"}checked{/if}>
-                        <input type="radio" name="car" value="3" title="3" {if condition="$house.car eq '3'"}checked{/if}>
-                        <input type="radio" name="car" value="4" title="4" {if condition="$house.car eq '4'"}checked{/if}>
-                        <input type="radio" name="car" value="5" title="5" {if condition="$house.car eq '5'"}checked{/if}>
-                        <input type="radio" name="car" value="6" title="6" {if condition="$house.car eq '6'"}checked{/if}>
-                        <input type="radio" name="car" value="7" title="7" {if condition="$house.car eq '7'"}checked{/if}>
-                        <input type="radio" name="car" value="8" title="8" {if condition="$house.car eq '8'"}checked{/if}>
-                        <input type="radio" name="car" value="9" title="9" {if condition="$house.car eq '9'"}checked{/if}>
+                        <input type="radio" name="car" value="0" title="0" <?php if($house['car'] == '0'): ?>checked<?php endif; ?>>
+                        <input type="radio" name="car" value="1" title="1" <?php if($house['car'] == '1'): ?>checked<?php endif; ?>>
+                        <input type="radio" name="car" value="2" title="2" <?php if($house['car'] == '2'): ?>checked<?php endif; ?>>
+                        <input type="radio" name="car" value="3" title="3" <?php if($house['car'] == '3'): ?>checked<?php endif; ?>>
+                        <input type="radio" name="car" value="4" title="4" <?php if($house['car'] == '4'): ?>checked<?php endif; ?>>
+                        <input type="radio" name="car" value="5" title="5" <?php if($house['car'] == '5'): ?>checked<?php endif; ?>>
+                        <input type="radio" name="car" value="6" title="6" <?php if($house['car'] == '6'): ?>checked<?php endif; ?>>
+                        <input type="radio" name="car" value="7" title="7" <?php if($house['car'] == '7'): ?>checked<?php endif; ?>>
+                        <input type="radio" name="car" value="8" title="8" <?php if($house['car'] == '8'): ?>checked<?php endif; ?>>
+                        <input type="radio" name="car" value="9" title="9" <?php if($house['car'] == '9'): ?>checked<?php endif; ?>>
                     </div>
                 </div>
                 <div class="layui-form-item" pane="">
                     <label class="layui-form-label">设施</label>
                     <div class="layui-input-block">
-                        {volist name='all_set' id='vo'}
-                        <input type="checkbox" class="checkbox" lay-skin="primary" name="furniture[{$vo.set}]" title="{$vo.set}"  {$vo.is_checked ? 'checked' : ''}>
-                        {/volist}
+                        <?php if(is_array($all_set) || $all_set instanceof \think\Collection || $all_set instanceof \think\Paginator): $i = 0; $__LIST__ = $all_set;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$vo): $mod = ($i % 2 );++$i;?>
+                        <input type="checkbox" class="checkbox" lay-skin="primary" name="furniture[<?php echo $vo['set']; ?>]" title="<?php echo $vo['set']; ?>"  <?php echo !empty($vo['is_checked'])?'checked' : ''; ?>>
+                        <?php endforeach; endif; else: echo "" ;endif; ?>
                     </div>
                 </div>
 
                 <div class="layui-form-item" pane="">
                     <label class="layui-form-label">交通</label>
                     <div class="layui-input-block">
-                        {volist name='all_trans' id='vo'}
-                        <input type="checkbox" class="checkbox" lay-skin="primary" name="sation[{$vo.trans}]" title="{$vo.trans}"  {$vo.is_checked ? 'checked' : ''}>
-                        {/volist}
+                        <?php if(is_array($all_trans) || $all_trans instanceof \think\Collection || $all_trans instanceof \think\Paginator): $i = 0; $__LIST__ = $all_trans;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$vo): $mod = ($i % 2 );++$i;?>
+                        <input type="checkbox" class="checkbox" lay-skin="primary" name="sation[<?php echo $vo['trans']; ?>]" title="<?php echo $vo['trans']; ?>"  <?php echo !empty($vo['is_checked'])?'checked' : ''; ?>>
+                        <?php endforeach; endif; else: echo "" ;endif; ?>
                     </div>
                 </div>
                 <div class="layui-form-item" pane="">
                     <label class="layui-form-label">房源标签</label>
                     <div class="layui-input-block">
-                        {volist name='tags' id='vo'}
-                        <input type="checkbox" class="checkbox" lay-skin="primary" name="tags[{$vo.name}]" title="{$vo.name}" {$vo.is_checked ? 'checked' : ''}>
-                        {/volist}
+                        <?php if(is_array($tags) || $tags instanceof \think\Collection || $tags instanceof \think\Paginator): $i = 0; $__LIST__ = $tags;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$vo): $mod = ($i % 2 );++$i;?>
+                        <input type="checkbox" class="checkbox" lay-skin="primary" name="tags[<?php echo $vo['name']; ?>]" title="<?php echo $vo['name']; ?>" <?php echo !empty($vo['is_checked'])?'checked' : ''; ?>>
+                        <?php endforeach; endif; else: echo "" ;endif; ?>
                     </div>
                 </div>
                 <fieldset class="layui-elem-field layui-field-title" style="margin-top: 20px;">
@@ -246,25 +268,25 @@
                 <div class="layui-form-item">
                     <label class="layui-form-label"><span style="color: red;">*</span>姓名</label>
                     <div class="layui-input-block">
-                        <input type="text" name="real_name" lay-verify="required|title" placeholder="请输入姓名" value="{$house.real_name}" autocomplete="off" class="layui-input">
+                        <input type="text" name="real_name" lay-verify="required|title" placeholder="请输入姓名" value="<?php echo $house['real_name']; ?>" autocomplete="off" class="layui-input">
                     </div>
                 </div>
                 <div class="layui-form-item">
                     <label class="layui-form-label"><span style="color: red;">*</span>电话</label>
                     <div class="layui-input-block">
-                        <input type="text" name="tel" lay-verify="required" placeholder="请输入电话" value="{$house.tel}" autocomplete="off" class="layui-input">
+                        <input type="text" name="tel" lay-verify="required" placeholder="请输入电话" value="<?php echo $house['tel']; ?>" autocomplete="off" class="layui-input">
                     </div>
                 </div>
                 <div class="layui-form-item">
                     <label class="layui-form-label"><span style="color: red;">*</span>微信号</label>
                     <div class="layui-input-block">
-                        <input type="text" name="wchat" lay-verify="required|title" placeholder="请输入微信号" value="{$house.wchat}" autocomplete="off" class="layui-input">
+                        <input type="text" name="wchat" lay-verify="required|title" placeholder="请输入微信号" value="<?php echo $house['wchat']; ?>" autocomplete="off" class="layui-input">
                     </div>
                 </div>
                 <div class="layui-form-item">
                     <label class="layui-form-label"><span style="color: red;">*</span>邮箱</label>
                     <div class="layui-input-block">
-                        <input type="text" name="email" lay-verify="required|email" placeholder="请输入邮箱" value="{$house.email}" autocomplete="off" class="layui-input">
+                        <input type="text" name="email" lay-verify="required|email" placeholder="请输入邮箱" value="<?php echo $house['email']; ?>" autocomplete="off" class="layui-input">
                     </div>
                 </div>
                 <fieldset class="layui-elem-field layui-field-title" style="margin-top: 20px;">
@@ -277,19 +299,17 @@
                             <button type="button" class="layui-btn layui-btn pull-left" id="slide-pc">选择多图</button>
                             <div class="pic-more">
                                 <ul class="pic-more-upload-list" id="slide-pc-priview">
-                                    {if condition='$house.images neq null'}
-                                    {volist name='house.images1' id="item" key="k"}
+                                    <?php if($house['images'] != null): if(is_array($house['images1']) || $house['images1'] instanceof \think\Collection || $house['images1'] instanceof \think\Paginator): $k = 0; $__LIST__ = $house['images1'];if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$item): $mod = ($k % 2 );++$k;?>
                                     <li class="item_img">
                                         <div class="operate">
                                             <i class="close layui-icon"></i>
                                         </div>
-                                        <img src="__PUBLIC__/{$item}" class="img" >
-                                        <input type="hidden" name="images[]" value="{$item}" />
+                                        <img src="../../../<?php echo $item; ?>" class="img" >
+                                        <input type="hidden" name="images[]" value="<?php echo $item; ?>" />
                                     </li>
-                                    {/volist}
-                                    {else/}
+                                    <?php endforeach; endif; else: echo "" ;endif; else: ?>
                                     未上传
-                                    {/if}
+                                    <?php endif; ?>
                                 </ul>
                             </div>
                         </div>
@@ -299,17 +319,17 @@
                 <div class="layui-form-item one-pan">
                     <label class="layui-form-label">房源视频</label>
                     <ul class="pic-more-upload-list" id="slide-pc-priview1">
-                        {if condition='$house.video neq null'}
+                        <?php if($house['video'] != null): ?>
                         <li class="item_img">
                             <div class="operate">
                                 <i class="close layui-icon"></i>
                             </div>
-                            <video style="width:277px; height: 177px" class="item_img" controls="controls" autobuffer="autobuffer" id="videoss" loop="loop" src="__PUBLIC__/{$house.video}" class="img" ></video>
-                            <input type="hidden" name="video" id="video" value="{$house.video}" />
+                            <video style="width:277px; height: 177px" class="item_img" controls="controls" autobuffer="autobuffer" id="videoss" loop="loop" src="../../../<?php echo $house['video']; ?>" class="img" ></video>
+                            <input type="hidden" name="video" id="video" value="<?php echo $house['video']; ?>" />
                         </li>
-                        {else/}
+                        <?php else: ?>
                         未上传
-                        {/if}
+                        <?php endif; ?>
                     </ul>
                 </div>
                 <div class="layui-form-item layui-form-text">
@@ -321,7 +341,7 @@
                 <div class="layui-form-item layui-form-text">
                     <label class="layui-form-label">房源简介</label>
                     <div class="layui-input-block">
-                        <textarea placeholder="请输入房源简介" maxlength="500" name="content" class="layui-textarea">{$house.content}</textarea>
+                        <textarea placeholder="请输入房源简介" name="content" class="layui-textarea"><?php echo $house['content']; ?></textarea>
                     </div>
                 </div>
                 <div class="layui-form-item">
@@ -436,7 +456,7 @@
             //户型图片上传
             upload.render({
                 elem: '#uploadLogo'
-                ,url: '{:url("house/upload")}'
+                ,url: '<?php echo url("house/upload"); ?>'
                 ,size:10240 //限制文件大小，单位 KB
                 ,ext: 'mp4'
                 ,accept: 'video' //限制文件大小，单位 KB
@@ -452,7 +472,7 @@
                     $('#video').val(res.filepath);
                     $('#videoss').css('width','216px');
                     $('#videoss').css('height','150px');
-                    $('#videoss').attr('src',"__PUBLIC__/"+res.filepath);
+                    $('#videoss').attr('src',"../../../"+res.filepath);
                     layer.msg(res.msg, {icon: 1, time: 1000});
                 }
                 ,error: function(res){
@@ -461,14 +481,23 @@
             });
         });
     </script>
-    {include file="index/footer" /}
+    </div>
+<script>
+    //JavaScript代码区域
+    layui.use('element', function(){
+        var element = layui.element;
+
+    });
+</script>
+</body>
+</html>
     <script>
         layui.use('upload', function(){
             var $ = layui.jquery;
             var upload = layui.upload;
             upload.render({
                 elem: '#slide-pc',
-                url: '{:url("house/upload")}',
+                url: '<?php echo url("house/upload"); ?>',
                 size: 5120,
                 exts: 'jpg|png|jpeg',
                 multiple: true,
@@ -486,7 +515,7 @@
                     }
                     console.log(res);
                     $('#slide-pc-priview').append('' +
-                        '<li class="item_img"><div class="operate"><i  class="close layui-icon"></i></div><img src="__PUBLIC__/' + res.filepath + '" class="img" ><input type="hidden" name="images[]" value="' + res.filepath + '" /></li>');
+                        '<li class="item_img"><div class="operate"><i  class="close layui-icon"></i></div><img src="../../../' + res.filepath + '" class="img" ><input type="hidden" name="images[]" value="' + res.filepath + '" /></li>');
                 }
             });
         });
