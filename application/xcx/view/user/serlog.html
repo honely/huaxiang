@@ -1,0 +1,103 @@
+{include file="index/header" /}
+<style>
+    .layui-table-cell{
+        height:36px !important;
+        line-height:36px !important;
+        clear: both;
+    }
+    .layui-form-item {
+        margin-bottom: 0px !important;
+        clear: both;
+        *zoom: 1;
+    }
+</style>
+<div style="margin: 20px;">
+    <span class="layui-breadcrumb" lay-separator=">">
+        <a>客户管理</a>
+        <a><cite>搜索历史</cite></a>
+    </span>
+</div>
+<div class="layui-tab layui-tab-brief" lay-filter="docDemoTabBrief">
+    <div class="layui-tab-content" style="height: 100px;">
+        <div class="layui-tab-item layui-show">
+            <section class="panel panel-padding" style="padding-top: 10px;padding-left: 10px;">
+                <form class="layui-form layui-form-pane1">
+                    <div class="layui-form-item  demoTable">
+                        <div class="layui-inline">
+                            <div class="layui-input-inline">
+                                <input type="text" name="keywords" id="keywords"  placeholder="请输入搜索关键词" class="layui-input">
+                            </div>
+                        </div>
+                        <div class="layui-inline">
+                            <div class="layui-input-inline">
+                                <input type="text" name="user" id="user"  placeholder="请选择客户昵称" class="layui-input">
+                            </div>
+                        </div>
+                        <div class="layui-inline">
+                            <div class="layui-input-inline" >
+                                <span class="layui-btn layui-btn-sm " data-type="reload">查询</span>
+                                <a href="<?=url('user/serlog')?>" class="layui-btn layui-btn-warm layui-btn-sm ">刷新</a>
+                                <a class="layui-btn layui-btn-normal layui-btn-sm"  id="export">导出</a>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </section>
+            <section class="panel panel-padding">
+                <table lay-skin="line" class="layui-table" lay-filter="demo" lay-data="{height: 'full-200', cellMinWidth:60, url:'/xcx/user/logData/', limit:20,limits:[20,30,50] ,id: 'testReload',page:true}" >
+                    <thead>
+                    <tr>
+                        <th lay-data="{field:'sk_id'}">ID</th>
+                        <th lay-data="{field:'sk_keywords'}">关键词</th>
+                        <th lay-data="{field:'sk_type'}">搜索类型</th>
+                        <th lay-data="{field:'sk_userid'}">用户ID</th>
+                        <th lay-data="{field:'sk_username'}">用户昵称</th>
+                        <th lay-data="{field:'sk_addtime'}">搜索时间</th>
+                    </tr>
+                    </thead>
+                </table>
+            </section>
+        </div>
+    </div>
+</div>
+<script>
+    layui.use(['table','laydate','form','element'], function(){
+        var table = layui.table
+            ,form = layui.form
+            ,laydate = layui.laydate;
+        laydate.render({
+            elem: '#time'
+            ,range: true
+        });
+        var $ = layui.$, active = {
+            reload: function(){
+                var keywords = $('#keywords').val();
+                var user = $('#user').val();
+                table.reload('testReload', {
+                    url: '/xcx/user/logData/'
+                    ,page: {
+                        curr: 1 //重新从第 1 页开始
+                    }
+                    ,where: {
+                        keywords: keywords,
+                        user: user
+                    },
+                    success:function (data) {
+                        console.log(data);
+                    }
+                });
+            }
+
+        };
+        $('.demoTable .layui-btn').on('click', function(){
+            var type = $(this).data('type');
+            active[type] ? active[type].call(this) : '';
+        });
+    });
+    $('#export').click(function () {
+        var keywords = $('#keywords').val();
+        var user = $('#user').val();
+        window.location.href='<?=url("export/out")?>?keywords='+keywords+'&user='+user;
+    })
+</script>
+{include file="index/footer" /}

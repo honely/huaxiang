@@ -20,7 +20,7 @@ class Housem extends Model
     public function readData($where,$order,$limit,$page,$field){
         $result = Db::table('tk_houses')
             ->where($where)
-            ->limit($limit,$page)
+            ->limit(($page)*$limit,$limit)
             ->order($order)
             ->field($field)
             ->select();
@@ -90,6 +90,9 @@ class Housem extends Model
             ->find();
         $loop = new Loops();
         if($house){
+            if($house['live_date'] == '0100-01-01' || $house['live_date']== '0000-00-00'){
+                $house['live_date'] = '随时入住';
+            }
             $house['toilet'] = intval($house['toilet']);
             $house['car'] = intval($house['car']);
             $house['house_room'] = $this->numRoom($house['house_room']);
@@ -162,14 +165,14 @@ class Housem extends Model
     public function houseCount($where){
         $count = Db::table('tk_houses')
             ->where($where)
-            ->count('id');
+            ->count();
         return $count ? $count : 0 ;
     }
 
     public function userCount($where){
         $count = Db::table('tk_user')
             ->where($where)
-            ->count('id');
+            ->count();
         return $count ? $count : 0 ;
     }
 }

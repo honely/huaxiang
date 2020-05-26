@@ -117,88 +117,15 @@ class Index extends Controller
         $allUser = $houseM->userCount($whereAll);
         $todayStart = date('Y-m-d').' 00:00:00';
         $todayEnd = date('Y-m-d').' 23:59:59';
-        $whereToday = "cdate >= '".$todayStart."' and cdate <= '".$todayEnd."'";
-        $todayUser = $houseM->houseCount($whereToday);
-        $todayHouse = $houseM->userCount($whereToday);
+        $whereToday = "(cdate >= '".$todayStart."' and cdate <= '".$todayEnd."')";
+        $todayUser = $houseM->userCount($whereToday);
+        $todayHouse = $houseM->houseCount($whereToday);
+        //下线一个月之前发布的房源
+        $this->offLineHouse();
         $this->assign('allHouse',$allHouse);
         $this->assign('allUser',$allUser);
         $this->assign('todayHouse',$todayHouse);
         $this->assign('todayUser',$todayUser);
-        return $this->fetch();
-    }
-
-    public function search(){
-        $keywords = trim($this->request->param('keywords'));
-        $where = '1 = 1';
-        $where .=" and (
-            crm_refer like '%".$keywords."%' 
-            or crm_user_from like '%".$keywords."%'
-            or crm_remarks like '%".$keywords."%'
-            or crm_school like '%".$keywords."%'
-            or crm_phone like '%".$keywords."%'
-            or crm_wechat like '%".$keywords."%'
-            or crm_user_name like '%".$keywords."%'
-            or crm_user_bid like '%".$keywords."%'
-            or crm_need like '%".$keywords."%'
-        )";
-        $res = Db::table('crm_user')
-            ->where($where)
-            ->select();
-        $this->assign('res',$res);
-        $this->assign('keywords',$keywords);
-        return $this->fetch();
-    }
-
-
-    public function oasearch(){
-        $keywords = trim($this->request->param('keywords'));
-        $where1 = '1 = 1';
-        //crm_light
-        $where1 .=" and (
-            cl_order_id like '%".$keywords."%' 
-            or cl_pay_id like '%".$keywords."%'
-            or cl_user_ids like '%".$keywords."%'
-            or cl_refer_ids like '%".$keywords."%'
-            or cl_remarks like '%".$keywords."%'
-            or cl_cl_inter like '%".$keywords."%'
-            or cl_cl_house_address like '%".$keywords."%'
-            or cl_cl_remarks like '%".$keywords."%'
-            or cl_sl_remarks like '%".$keywords."%'
-        )";
-        $res1 = Db::table('crm_light')
-            ->where($where1)
-            ->select();
-        //crm_order
-        $where2 = '1 = 1';
-        $where2 .=" and (
-            order_id like '%".$keywords."%' 
-            or order_user_id like '%".$keywords."%'
-            or order_remarks like '%".$keywords."%'
-            or order_city like '%".$keywords."%'
-            or order_house_address like '%".$keywords."%'
-        )";
-        $res2 = Db::table('crm_order')
-            ->where($where2)
-            ->select();
-
-        //crm_clean
-        $where3 = '1 = 1';
-        $where3 .=" and (
-            cc_order_id like '%".$keywords."%' 
-            or cc_pay_id like '%".$keywords."%'
-            or cc_user_name like '%".$keywords."%'
-            or cc_remarks like '%".$keywords."%'
-        )";
-        $res3 = Db::table('crm_clean')
-            ->where($where3)
-            ->select();
-        $count = count($res1)+count($res2)+count($res3);
-        $this->assign('res1',$res1);
-//        dump($res2);exit;
-        $this->assign('res2',$res2);
-        $this->assign('res3',$res3);
-        $this->assign('count',$count);
-        $this->assign('keywords',$keywords);
         return $this->fetch();
     }
 
@@ -274,9 +201,58 @@ class Index extends Controller
         }
     }
 
-    public function asdf(){
-        $res = "select cc_order_id, count(*) as count from crm_clean group by  cc_order_id having count>1";
-        $ress = Db::query($res);
-        dump($ress);
+
+    public function getHouse(){
+        $today = date('Y-m-d');
+        $weekAgo = date("Y-m-d", strtotime("-30 days"));
+        $arr = $this->periodDate($weekAgo,$today);
+        $houseM = new Housem();
+        foreach ($arr as $k => $v){
+            $where = " cdate >= '".$v['date']." 00:00:00' and cdate <= '".$v['date']." 23:59:59'";
+            $arr[$k]['nums'] = $houseM->houseCount($where);
+            $arr[$k]['users'] = $houseM->userCount($where);
+        }
+        $sqldata_json=json_encode($arr);
+        echo  $sqldata_json;
+    }
+
+    public function getHousePie(){
+        $arr=[
+            '0' =>'墨尔本',
+            '1' =>'悉尼',
+            '2' =>'塔州',
+            '3' =>'布里斯班'
+        ];
+        $arrs[0]['name'] = '墨尔本';
+        $arrs[1]['name'] = '悉尼';
+        $arrs[2]['name'] = '塔州';
+        $arrs[3]['name'] = '布里斯班';
+        $houseM = new Housem();
+        foreach ($arrs as $k => $v){
+            $where = "city = '".$v['name']."'";
+            $arrs[$k]['value'] = $houseM->houseCount($where);
+        }
+        $sqldata_json=json_encode($arrs);
+        echo  $sqldata_json;
+    }
+
+    public function periodDate($start_time,$end_time){
+        $start_time = strtotime($start_time);
+        $end_time = strtotime($end_time);
+        $i=0;
+        while ($start_time<=$end_time){
+            $arr[$i]['date']=date('Y-m-d',$start_time);
+            $start_time = strtotime('+1 day',$start_time);
+            $i++;
+        }
+        return $arr;
+    }
+
+
+    public function offLineHouse(){
+        $aMonthAgo = date("Y-m-d H:i:s", strtotime("-1 month"));
+            Db::table('tk_houses')
+            ->where("cdate <= '".$aMonthAgo."'")
+            ->update(['status' => 2]);
     }
 }

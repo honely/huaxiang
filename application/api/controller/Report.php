@@ -24,7 +24,7 @@ class Report extends Controller
         if($add){
             $res['code'] = 1;
             $res['msg'] = '举报成功！';
-            $res['id'] = $type;
+            $res['id'] = $add;
             return json($res);
         }
         $res['code'] = 0;

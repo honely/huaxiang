@@ -95,4 +95,15 @@ class Help extends Controller
             return $this->fetch();
         }
     }
+
+    //删除banner图；
+    public function del(){
+        $ba_id=intval(trim($_GET['h_id']));
+        $delBan=Db::table('xcx_helpme')->where(['h_id'=>$ba_id])->delete();
+        if($delBan){
+            $this->success('删除成功！','index');
+        }else{
+            $this->error('删除失败！','index');
+        }
+    }
 }

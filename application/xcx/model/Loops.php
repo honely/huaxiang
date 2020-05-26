@@ -13,7 +13,7 @@ class Loops extends Model
     public function readData($where,$order,$limit,$page,$field){
         $result = Db::table('xcx_loop_msg')
             ->where($where)
-            ->limit($limit,$page)
+            ->limit(($page)*$limit,$limit)
             ->order($order)
             ->field($field)
             ->select();
@@ -35,6 +35,10 @@ class Loops extends Model
     public function getUserNick($uid){
         $user = Db::table('tk_user')->where(['id' => $uid])->field('nickname')->find();
         return $user ? $user['nickname'] : '外星人呀';
+    }
+
+    public function isTop($id){
+
     }
 
 

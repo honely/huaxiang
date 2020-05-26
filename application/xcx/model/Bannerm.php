@@ -68,7 +68,7 @@ class Bannerm extends Model
     public function readData($where,$order,$limit,$page,$field){
         $result = Db::table('xcx_banner')
             ->where($where)
-            ->limit($limit,$page)
+            ->limit(($page)*$limit,$limit)
             ->order($order)
             ->field($field)
             ->select();

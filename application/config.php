@@ -254,11 +254,11 @@ return [
         // 服务器地址
         'hostname'        => '47.244.140.129',
         // 数据库名
-        'database'        => 'wx_xiaobaozufang',
+        'database'        => 'wx_huaxiangxiaob',
         // 用户名
-        'username'        => 'wx_xiaobaozufang',
+        'username'        => 'wx_huaxiangxiaob',
         // 密码
-        'password'        => '3WEXifHdA3TxkHkh',
+        'password'        => 'wHDwKtpyNtS4PNJ8',
         // 端口
         'hostport'        => '3306',
         // 连接dsn

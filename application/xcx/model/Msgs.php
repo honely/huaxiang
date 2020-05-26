@@ -8,11 +8,10 @@ class Msgs extends Model
 {
     public function createTouch($uId,$ulId){
         //检查是否有已经创建的会话
+        date_default_timezone_set("Australia/Melbourne");
         $time = date('Y-m-d H:i:s');
         $isRepeat = Db::table('xcx_msg_person')
             ->where("(mp_u_id = ".$uId." and mp_ul_id = ".$ulId.") or (mp_ul_id = ".$uId." and mp_u_id = ".$ulId." )")
-//            ->where(['mp_u_id' => $uId,'mp_ul_id' => $ulId])
-//            ->whereOr(['mp_ul_id' => $uId,'mp_u_id' => $ulId])
             ->field('mp_id')
             ->find();
         if($isRepeat['mp_id']){

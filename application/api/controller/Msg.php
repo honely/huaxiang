@@ -137,6 +137,7 @@ class Msg extends Controller
         $data['xcx_msg_mp_id'] = $mpid;
         $data['xcx_msg_uid'] = $uId;
         $data['xcx_msg_content'] = $content;
+        date_default_timezone_set("Australia/Melbourne");
         $data['xcx_msg_add_time'] = date('Y-m-d H:i:s');
         $datas['mp_mod_time'] = date('Y-m-d H:i:s');
         $sendMsg = Db::table('xcx_msg_content')->insertGetId($data);
@@ -173,7 +174,7 @@ class Msg extends Controller
         $mpid = intval(trim($this->request->param('mpid')));
         $page = trim($this->request->param('page','0'));
         $limit = 20;
-        if(!$mpid){
+        if(!$mpid && $uid){
             $res['code'] = 0;
             $res['msg'] = '缺少参数';
             return json($res);

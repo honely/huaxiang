@@ -9,14 +9,16 @@ class Matem extends Model
     public function readData($where,$order,$limit,$page,$field){
         $result = Db::table('tk_roommates')
             ->where($where)
-            ->limit($limit,$page)
+            ->limit(($page)*$limit,$limit)
             ->order($order)
             ->field($field)
             ->select();
         if($result){
             $msg = new Loops();
             foreach ($result as $k => $v){
+                $result[$k]['live_date'] = $v['live_date']== '0000-00-00' ? '随时入住' : $v['live_date'];;
                 $result[$k]['avatar'] = $msg->getUserAvatar($v['user_id']);
+                $result[$k]['nickname'] = $msg->getUserNick($v['user_id']);
             }
         }
         return $result ? $result :  null;

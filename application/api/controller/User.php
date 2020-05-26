@@ -6,6 +6,7 @@ namespace app\api\controller;
 
 use think\Controller;
 use think\Db;
+use think\Log;
 
 class User extends Controller
 {
@@ -16,16 +17,16 @@ class User extends Controller
         header('Access-Control-Allow-Headers:x-requested-with, content-type');
         $data = $this->request->param();
         if (!@$data['nickname']) {
-            $this->sucess(0, '昵称不能为空');
+            $this->sucess(0, '昵称不能为空','1');
         }
         if (!@$data['openid']) {
-            $this->sucess('0', 'openid不能为空');
+            $this->sucess('0', 'openid不能为空','2');
         }
         if (!@$data['avaurl']) {
-            $this->sucess('0', '头像不能为空');
+            $this->sucess('0', '头像不能为空','3');
         }
-        if (!@$data['gender']) {
-            $this->sucess('0', '性别不能为空');
+        if (!isset($data['gender'])) {
+            $this->sucess('0', '性别不能为空','4');
         }
         switch ($data['gender']){
             case 1:
@@ -41,16 +42,23 @@ class User extends Controller
         $data['sex'] = $sex;
         unset($data['gender']);
         //登录
-        $user = Db::table('tk_user')->where('openid', $data['openid'])->find();
+        $user = Db::table('tk_user')
+            ->where('openid', $data['openid'])
+            ->field('id,openid,nickname,birth,sex,real_name,tel,avaurl')
+            ->find();
         if(!empty($user)) {
-            //if ($user['unionid'] == null){
-            //    $rest = model('User')->where('openid', $data['openid'])->setField('unionid',$data['unionid']);
-            //}
+            $bltoken = $this->saveBlToken($user['id']);
+            $return['user'] = $user;
+            $return['bltoken'] = $bltoken['data'];
+            $this->sucess('1', 'ok', $return);
         } else {
             //保存张哈
+            if(isset($data['/api/user/login'])){
+                unset($data['/api/user/login']);
+            }
             $res = $this->saveUserData($data);
             if ($res['code']) {
-                $this->sucess('0', '账号信息保存失败,请联系管理员');
+                $this->sucess('0', '账号信息保存失败,请联系管理员','222');
             }
             $user = $res['data'];
         }
@@ -58,12 +66,31 @@ class User extends Controller
         //bltoken 添加更新
         $bltoken = $this->saveBlToken($user['id']);
         if ($bltoken['code']) {
-            $this->sucess('0', '登录失败');
+            $this->sucess('0', '登录失败','111');
         }
         $return['user'] = $user;
         $return['bltoken'] = $bltoken['data'];
         $this->sucess('1', 'ok', $return);
-        //dd($bltoken);
+    }
+
+    public function checkOpenid(){
+        header("Access-Control-Allow-Origin:*");
+        header('Access-Control-Allow-Methods:POST');
+        header('Access-Control-Allow-Headers:x-requested-with, content-type');
+        $data = $this->request->param();
+        if (!@$data['openid']) {
+            $this->sucess(0, 'openid不能为空','');
+        }else{
+            $user = Db::table('tk_user')
+                ->where('openid', $data['openid'])
+                ->field('id,openid,nickname,birth,sex,real_name,tel,avaurl')
+                ->find();
+            if($user){
+                $this->sucess(1, '用户信息存在',$user);
+            }else{
+                $this->sucess(0, '没有此用户信息','');
+            }
+        }
     }
 
     public function saveBlToken($user_id){
@@ -112,6 +139,10 @@ class User extends Controller
                 return ['code' => -1, 'msg' => '添加数据失败'];
             }
             $data['id'] = $id;
+            $datas = Db::table('tk_user')
+                ->where(['id' => $id])
+                ->field('id,openid,nickname,birth,sex,real_name,tel,avaurl')
+                ->find();
         } else {
             $data['id'] = intval($data['id']);
             if ($data['id'] <= 0) {
@@ -121,8 +152,12 @@ class User extends Controller
             if ($result === false) {
                 return ['code' => -1, 'msg' => '修改数据失败'];
             }
+            $datas = Db::table('tk_user')
+                ->where(['id' => $data['id']])
+                ->field('id,openid,nickname,birth,sex,real_name,tel,avaurl')
+                ->find();
         }
-        return ['code' => 0, 'msg' => 'ok', 'data' => $data];
+        return ['code' => 0, 'msg' => 'ok', 'data' => $datas];
     }
 
 
@@ -352,38 +387,36 @@ class User extends Controller
 
 
     public function getShare() {
-        $id = input('param.id');
-        $type = input('param.type');
+        header("Access-Control-Allow-Origin:*");
+        header('Access-Control-Allow-Methods:POST');
+        header('Access-Control-Allow-Headers:x-requested-with, content-type');
+        $id = $this->request->param('id','1','intval');
+        $type = $this->request->param('type','1','intval');
         $access_token = $this->get_access_token();
         $url = "https://api.weixin.qq.com/wxa/getwxacodeunlimit?access_token=" . $access_token;
-        if(!$id || !$type){
-            $res['code'] =0;
-            $res['msg'] ='缺少参数';
-            return json($res);
-        }
-        if ($type == 1) {
+        //type = 1 找室友  type = 2 房源
+        if ($type == 2) {
             $data['scene'] = 'r' . $id;
             $data['path'] = 'pages/roommateDetail/roommateDetail';
-        }
-        else if ($type == 2){
+        }else{
             $data['scene'] = 'h' . $id;
             $data['path'] = 'pages/detail/detail';
         }
-
-        $data['width'] = '430';
+        $data['width'] = '180';
         $res = $this->http($url, json_encode($data),1);
-        if ($type == "roommate") {
+        if ($type == 2) {
             $path = 'uploads/qrcode/r' . $id . '.jpg';
         }else{
             $path = 'uploads/qrcode/h' . $id . '.jpg';
         }
         file_put_contents($path, $res);
-        $return['code'] = 1;
+
+        $return['status_code'] = 2000;
         $return['msg'] = 'ok';
         $return['data'] = config('appurl').'/' . $path;
         // dd($id);
         // echo '<img src="'.$path.'" />';exit;
-        return json($return);
+        echo json_encode($return);exit;
     }
 
 

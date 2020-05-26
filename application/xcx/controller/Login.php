@@ -30,6 +30,7 @@ class Login extends Controller{
                             session('adminId',$login['ad_id']);
                             session('ad_bid',$login['ad_bid']);
                             session('ad_role',$login['ad_role']);
+                            session('ad_wechat',$login['ad_wechat']);
                             session('expiretime',time() + 1800);
                             $this->success('登录成功！','index/index');
                         }else{

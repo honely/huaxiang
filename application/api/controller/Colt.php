@@ -83,7 +83,13 @@ class Colt extends Controller
         header('Access-Control-Allow-Methods:POST');
         header('Access-Control-Allow-Headers:x-requested-with, content-type');
         $clid = intval(trim($this->request->param('cl_id')));
+        $colt =  Db::table('xcx_collect')
+            ->where(['cl_id' => $clid])
+            ->field('cl_user_id')
+            ->find();
         $del = Db::table('xcx_collect')->where(['cl_id' => $clid])->delete();
+        //更新用户收藏量
+        Db::table('tk_user')->where(['id' => $colt['cl_user_id']])->setDec('count');
         if($del){
             $res['code'] = 1;
             $res['msg'] = '取消收藏成功！';
@@ -123,6 +129,14 @@ class Colt extends Controller
         $res['data'] = $collects;
         return json($res);
 
+    }
+
+    public function updateUserColl(){
+        $sql = "select cl_user_id, count(*) as count from xcx_collect group by  cl_user_id";
+        $ress = Db::query($sql);
+        foreach ($ress as $k => $v){
+            Db::table('tk_user')->where(['id' => $v['cl_user_id']])->update(['count' => $v['count']]);
+        }
     }
 
 }

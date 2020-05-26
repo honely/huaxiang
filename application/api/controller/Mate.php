@@ -110,8 +110,9 @@ class Mate extends Controller
         $keys = trim($this->request->param('keys'));
         if(isset($keys) && !empty($keys) && $keys){
             $where.=" and ( title like '%".$keys."%' or dsn like '%".$keys."%'  or school like '%".$keys."%' or city like '%".$keys."%')";
-            //写入一条关键词查询记录
-            $this->addQueryLog($uid,$keys,2);
+            if($uid){
+                $this->addQueryLog($uid,$keys,2);
+            }
         }
         //学校
         $school = trim($this->request->param('school'));
@@ -136,9 +137,10 @@ class Mate extends Controller
         //宠物
         //楼宇设施
         $order = 'mdate desc';
-        $field = 'id,title,ager,sex,school,habit,user_id,mdate';
+        $field = 'id,title,ager,sex,school,habit,user_id,mdate,live_date,price';
+        $page = trim($this->request->param('page','0','intval'));
         $mateM = new Matem();
-        $mate= $mateM->readData($where,$order,'12','0',$field);
+        $mate= $mateM->readData($where,$order,'12',$page,$field);
         $this->addQueryContent($uid,$where,2);
         if($mate){
             $res['code'] = 1;
@@ -159,7 +161,7 @@ class Mate extends Controller
         header('Access-Control-Allow-Headers:x-requested-with, content-type');
         $uid = intval(trim($this->request->param('uid')));
         $limit = trim($this->request->param('limit','10'));
-        $page = trim($this->request->param('page','0'));
+        $page = trim($this->request->param('page','0','intval'));
         if(!$uid){
             $res['code'] = 0;
             $res['msg'] = '缺少参数';
@@ -167,7 +169,7 @@ class Mate extends Controller
         }
         $where = "(status >=1 and user_id = '".$uid."')";
         $order = 'publish_date desc';
-        $field = 'id,title,area,images,price,status,user_id';
+        $field = 'id,title,area,images,price,school,ager,sex,status,habit,user_id,live_date,mdate,price';
         $housem = new Matem();
         $house = $housem->readData($where,$order,$limit,$page,$field);
         if($house){

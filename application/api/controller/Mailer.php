@@ -24,17 +24,15 @@ class Mailer extends  Controller
         $toemail = $mailer;//收件人
         $mail->isSMTP();// 使用SMTP服务
         $mail->CharSet = "utf8";// 编码格式为utf8，不设置编码的话，中文会出现乱码
-        $mail->Host = "smtp.163.com";// 发送方的SMTP服务器地址
+        $mail->Host = "mail.welho.me";// 发送方的SMTP服务器地址
         $mail->SMTPAuth = true;// 是否使用身份验证
-        $mail->Username = "17691074991@163.com";
-        $mail->Password = "welhome1234";
+        $mail->Username = "customerservices@welho.me";
+        $mail->Password = "hxxb0401!!";
         $mail->SMTPSecure = "ssl";// 使用ssl协议方式
-        $mail->Port = 465;// 163邮箱的ssl协议方式端口号是465/994
-
-        $mail->setFrom("17691074991@163.com","花香小宝");
+        $mail->Port = 465;
+        $mail->setFrom("customerservices@welho.me","花香小宝");
         $mail->addAddress($toemail,'Wang');
         $mail->addReplyTo($mailer,"Reply");
-
         $mail->Subject = "新举报提醒";// 邮件标题
         $mail->Body = "有一条新的".$type."信息,帖子id:".$id."，帖子内容:".$contents."，请尽快处理！";
         if(!$mail->send()){

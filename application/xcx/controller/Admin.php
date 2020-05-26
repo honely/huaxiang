@@ -6,6 +6,7 @@
  * Time: 10:03
  */
 namespace app\xcx\controller;
+use app\xcx\model\Loops;
 use think\Controller;
 use think\Db;
 use think\Request;
@@ -55,12 +56,11 @@ class Admin extends Controller{
             ->limit(($page-1)*$limit,$limit)
             ->order('ad_id desc')
             ->select();
+        $loop = new Loops();
         foreach($admin as $k => $v){
-
-            $admin[$k]['ad_sex'] = $v['ad_sex']== 1 ? '男' :'女';
-        }
-        foreach($admin as $k => $v){
-            $admin[$k]['ad_realname'] = $v['ad_realname']."    ( ".$v['ad_sex']." )";
+            $sex = $v['ad_sex']== 1 ? '男' :'女';
+            $admin[$k]['adWechat'] = $loop->getUserNick($v['ad_wechat']);
+            $admin[$k]['ad_realname'] = $v['ad_realname']."    ( ".$sex." )";
         }
         $res['code'] = 0;
         $res['msg'] = "";
@@ -68,8 +68,6 @@ class Admin extends Controller{
         $res['count'] = $count;
         return json($res);
     }
-
-
 
     public function admin(){
         $ad_role=intval(session('ad_role'));
@@ -151,9 +149,10 @@ class Admin extends Controller{
                 $this->error('此工号已注册！','add');
             }
             $data['ad_email'] = $_POST['ad_email'];
-            $data['ad_isable'] = $_POST['ad_isable'];
+            $data['ad_isable'] = 1;
             $data['ad_role'] = $_POST['ad_role'];
             $data['ad_createtime'] = time();
+            $data['ad_wechat'] = $_POST['ad_wechat'];
             $data['ad_admin'] = session('adminId');
             $data['ad_password'] = md5('123456');
             $add=Db::table('super_admin')->insert($data);
@@ -163,19 +162,17 @@ class Admin extends Controller{
                 $this->error('添加管理员失败','admin');
             }
         }else{
-            if($ad_role == 2){
-                $where = 'r_id = 3';
-            }else if($ad_role == 35){
-                $where = 'r_id = 32 or r_id = 33 or r_id = 39';
-            }else{
-                $where = '1 = 1';
-            }
+            $where = '1 = 1';
             $roleInfo=Db::table('super_role')
                 ->field('r_id,r_name')
                 ->where($where)
                 ->select();
+            $adminUser = Db::table('tk_user')
+                ->where(['role_id' => 1])
+                ->field('id,nickname,tel')
+                ->select();
+            $this->assign('user',$adminUser);
             $this->assign('role',$roleInfo);
-            $this->assign('ad_role',$ad_role);
             return $this->fetch();
         }
     }
@@ -188,6 +185,7 @@ class Admin extends Controller{
             $data['ad_sex'] = $_POST['ad_sex'];
             $data['ad_phone'] = $_POST['ad_phone'];
             $data['ad_bid'] = $_POST['ad_bid'];
+            $data['ad_wechat'] = $_POST['ad_wechat'];
             $isRepeat=Db::table('super_admin')
                 ->where('ad_id','neq',$ad_id)
                 ->where(['ad_bid' => $data['ad_bid']])
@@ -221,6 +219,11 @@ class Admin extends Controller{
                 ->field('r_id,r_name')
                 ->where($where)
                 ->select();
+            $adminUser = Db::table('tk_user')
+                ->where(['role_id' => 1])
+                ->field('id,nickname,tel')
+                ->select();
+            $this->assign('user',$adminUser);
             $this->assign('role',$roleInfo);
             $this->assign('admin',$adminInfo);
             return $this->fetch();

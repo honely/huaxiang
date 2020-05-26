@@ -58,6 +58,20 @@
                 </div>
             </div>
             <div class="layui-form-item">
+                <div class="layui-inline">
+                    <label class="layui-form-label">绑定微信号</label>
+                    <div class="layui-input-inline">
+                        <select name="ad_wechat" id="ad_wechat" lay-search="" style="width: 300px;">
+                            <option value="">输入微信昵称或手机号</option>
+                            {volist name="user" id='role'}
+                            <option value="{$role.id}" {if condition="$admin.ad_wechat eq $role.id"}selected{/if}>{$role.nickname}({$role.tel})</option>
+                            {/volist}
+                        </select>
+                    </div>
+
+                </div>
+            </div>
+            <div class="layui-form-item">
                 <div class="layui-input-block">
                     <button class="layui-btn" lay-submit lay-filter="saveInfo">修改</button>
                     <a class="layui-btn layui-btn-primary" href="<?=url('admin/admin')?>">返回</a>

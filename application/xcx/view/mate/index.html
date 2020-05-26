@@ -5,6 +5,11 @@
         line-height:36px !important;
         clear: both;
     }
+    .layui-form-item {
+        margin-bottom: 0px !important;
+        clear: both;
+        *zoom: 1;
+    }
 </style>
 <div style="margin: 20px;">
     <span class="layui-breadcrumb" lay-separator=">">
@@ -19,14 +24,74 @@
                 <form class="layui-form layui-form-pane1">
                     <div class="layui-form-item  demoTable">
                         <div class="layui-inline">
-                            <div class="layui-input-inline" style="width: 250px;">
+                            <div class="layui-input-inline">
                                 <input type="text" name="keywords" id="keywords"  placeholder="请输入房源标题或编号" class="layui-input">
+                            </div>
+<!--                            发布人-->
+                        </div>
+                        <div class="layui-inline">
+                            <div class="layui-input-inline" style="width: 80px;">
+                                <select name="city" id="city" lay-filter="bu_p_id">
+                                    <option value="">请选择城市</option>
+                                    {volist name="cityinfo" id='role'}
+                                    <option value="{$role.name}">{$role.name}</option>
+                                    {/volist}
+                                </select>
+                            </div>
+                        </div>
+                        <div class="layui-inline">
+                            <div class="layui-input-inline" style="width:80px;">
+                                <div class="layui-input-inline" style="width: 80px;">
+                                    <select name="area" id="bu_c_id">
+                                        <option value="">请选择学校</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="layui-inline">
+                            <div class="layui-input-inline" style="width:110px;">
+                                <select name="status" id="statu">
+                                    <option value="">请选择状态</option>
+                                    <option value="1">发布</option>
+                                    <option value="2">草稿</option>
+                                </select>
                             </div>
                         </div>
                         <div class="layui-inline">
                             <div class="layui-input-inline">
-                                <span class="layui-btn" data-type="reload">查询</span>
-                                <a href="<?=url('mate/index')?>" class="layui-btn layui-btn-warm">刷新</a>
+                                <input type="text" name="time" readonly class="layui-input" id="time" placeholder="请选择发布日期">
+                            </div>
+                        </div>
+                        <div class="layui-inline">
+                            <div class="layui-input-inline" >
+                                <span class="layui-btn layui-btn-sm " data-type="reload">查询</span>
+                                <a href="<?=url('mate/index')?>" class="layui-btn layui-btn-warm layui-btn-sm ">刷新</a>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </section>
+            <section class="panel panel-padding" style="padding-top: 10px;padding-left: 10px;">
+                <form class="layui-form layui-form-pane1">
+                    <div class="layui-form-item  demoTable">
+                        <div class="layui-inline">
+                            <div class="layui-input-inline" style="width: 300px;">
+                                <span class="layui-btn layui-btn-normal layui-btn-sm" >点击量</span>
+                                <input type="hidden" id="orderView" value="0">
+                                <span type="button" class="layui-btn layui-btn-xs layui-btn-primary" data-type="reload" id="viewZ">
+                                    <i class="layui-icon">&#xe619;</i>
+                                </span>
+                                <span type="button" class="layui-btn layui-btn-xs layui-btn-primary" data-type="reload" id="viewD">
+                                    <i class="layui-icon">&#xe61a;</i>
+                                </span>
+                                <span class="layui-btn layui-btn-normal layui-btn-sm">收藏量</span>
+                                <input type="hidden" id="orderColt" value="0">
+                                <span type="button" class="layui-btn layui-btn-xs layui-btn-primary" data-type="reload" id="collectZ">
+                                    <i class="layui-icon">&#xe619;</i>
+                                </span>
+                                <span type="button" class="layui-btn layui-btn-xs layui-btn-primary" data-type="reload" id="collectD">
+                                    <i class="layui-icon">&#xe61a;</i>
+                                </span>
                             </div>
                         </div>
                     </div>
@@ -39,14 +104,15 @@
                         <th lay-data="{field:'dsn' ,width:140}">帖子编号</th>
                         <th lay-data="{field:'title',width:150}">标题</th>
                         <th lay-data="{field:'city',width:100}">城市</th>
-                        <th lay-data="{field:'area',width:120}">区域</th>
+                        <th lay-data="{field:'school',width:120}">校区</th>
                         <th lay-data="{field:'collection',width:100}">收藏量</th>
                         <th lay-data="{field:'view',width:100}">点击量</th>
 
                         <th lay-data="{field:'cdate',width:180}">添加时间</th>
+                        <th lay-data="{field:'user_id',width:80}">发布人</th>
                         <th lay-data="{field:'statuss',width:80}">状态</th>
                         <th lay-data="{field:'top', templet: '#switchTop',unresize: true}">上下线</th>
-                        <th lay-data="{ width:250, toolbar: '#barDemo'}">操作</th>
+                        <th lay-data="{ width:230, toolbar: '#barDemo'}">操作</th>
                     </tr>
                     </thead>
                 </table>
@@ -87,13 +153,39 @@
                 }
             });
         });
+        form.on('select(bu_p_id)', function(data){
+            var city=data.value;
+            $.ajax({
+                type: 'POST',
+                url: "<?=url('mate/getschool')?>?city="+city,
+                data: {city:city},
+                dataType:  'json',
+                success: function(data){
+                    var code=data.data;
+                    console.log(code);
+                    $("#bu_c_id").html("<option value=''>请选择城市</option>");
+                    $.each(code, function(i, val) {
+                        var option1 = $("<option>").val(val.id).text(val.name);
+                        $("#bu_c_id").append(option1);
+                        form.render('select');
+                    });
+                    $("#bu_c_id").get(0).selectedIndex=0;
+                }
+            });
+        });
         laydate.render({
-            elem: '#live_time'
+            elem: '#time'
             ,range: true
         });
         var $ = layui.$, active = {
             reload: function(){
                 var keywords = $('#keywords').val();
+                var orderv = $('#orderView').val();
+                var orderc = $('#orderColt').val();
+                var city = $('#city').val();
+                var status = $('#statu').val();
+                var school = $('#school').val();
+                var time = $('#time').val();
                 //执行重载
                 table.reload('testReload', {
                     url: '/xcx/mate/indexData/'
@@ -101,7 +193,13 @@
                         curr: 1 //重新从第 1 页开始
                     }
                     ,where: {
-                        keywords: keywords
+                        keywords: keywords,
+                        orderv: orderv,
+                        orderc: orderc,
+                        city: city,
+                        school: school,
+                        status: status,
+                        time: time
                     },
                     success:function (data) {
                         console.log(data);
@@ -190,6 +288,21 @@
             });
         })
     }
-
+    $("#viewZ").click(function(){
+        $("#orderView").val(1);
+        $("#orderColt").val(0);
+    });
+    $("#viewD").click(function(){
+        $("#orderView").val(2);
+        $("#orderColt").val(0);
+    });
+    $("#collectZ").click(function(){
+        $("#orderColt").val(1);
+        $("#orderView").val(0);
+    });
+    $("#collectD").click(function(){
+        $("#orderColt").val(2);
+        $("#orderView").val(0);
+    });
 </script>
 {include file="index/footer" /}

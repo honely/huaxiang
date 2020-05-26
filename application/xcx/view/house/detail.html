@@ -36,7 +36,7 @@
                     </div>
                 </div>
                 <div class="layui-form-item">
-                    <label class="layui-form-label"><span style="color: red;">*</span>房源链接</label>
+                    <label class="layui-form-label">房源链接</label>
                     <div class="layui-input-block">
                         <input type="text" readonly value="{$house.http}" class="layui-input">
                     </div>
@@ -68,7 +68,7 @@
                 <div class="layui-form-item">
                     <label class="layui-form-label"><span style="color: red;">*</span>入住时间</label>
                     <div class="layui-input-inline">
-                        <input type="text" name="live_date" lay-verify="date" lay-verify="required" placeholder="请选择入住时间" value="{if condition='$house.live_date eq 0000-00-00'}随时{else/}{$house.live_date}{/if}" autocomplete="off" class="layui-input">
+                        <input type="text" name="live_date" lay-verify="date" lay-verify="required" placeholder="请选择入住时间" value="{if condition='$house.live_date_show eq 1'}随时{else/}{$house.live_date}{/if}" autocomplete="off" class="layui-input">
                     </div>
                     <div class="layui-form-mid layui-word-aux">时间为澳洲时间</div>
                 </div>
@@ -195,7 +195,7 @@
                 </div>
 
                 <div class="layui-form-item" pane="">
-                    <label class="layui-form-label">交通</label>
+                    <label class="layui-form-label">周边</label>
                     <div class="layui-input-block">
                         {volist name='all_trans' id='vo'}
                         <input type="checkbox" class="checkbox" lay-skin="primary" name="sation[{$vo.trans}]" title="{$vo.trans}" disabled  {$vo.is_checked ? 'checked' : ''}>
@@ -224,7 +224,7 @@
                     </div>
                 </div>
                 <div class="layui-form-item">
-                    <label class="layui-form-label"><span style="color: red;">*</span>邮箱</label>
+                    <label class="layui-form-label">邮箱</label>
                     <div class="layui-input-block">
                         <input type="text" readonly value="{$house.email}" autocomplete="off" class="layui-input">
                     </div>

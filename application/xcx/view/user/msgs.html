@@ -1,0 +1,96 @@
+{include file="index/header" /}
+<style>
+    .layui-table-cell{
+        height:60px !important;
+        line-height:60px !important;
+        clear: both;
+    }
+</style>
+<div style="margin: 20px;">
+    <span class="layui-breadcrumb" lay-separator=">">
+        <a>我的会话列表</a>
+    </span>
+</div>
+<div class="layui-tab layui-tab-brief" lay-filter="docDemoTabBrief">
+    <div class="layui-tab-content" style="height: 100px;">
+        <div class="layui-tab-item layui-show">
+            <section class="panel panel-padding">
+                <table lay-skin="line" class="layui-table" lay-filter="demo" lay-data="{height: 'full-200', cellMinWidth:60, url:'/xcx/user/msgData/', limit:20,limits:[20,30,50] ,id: 'testReload',page:true}" >
+                    <thead>
+                    <tr>
+                        <th lay-data="{field:'mp_id'}">会话id</th>
+                        <th lay-data="{field:'avaurl',templet: '#status'}">图像</th>
+                        <th lay-data="{field:'nickname'}">昵称</th>
+                        <th lay-data="{field:'mp_mod_time'}">时间</th>
+                        <th lay-data="{field:'count'}">未读</th>
+                        <th lay-data="{ toolbar: '#barDemo'}">操作</th>
+                    </tr>
+                    </thead>
+                </table>
+            </section>
+        </div>
+    </div>
+</div>
+<script type="text/html" id="status">
+    <img src="{{d.avaurl}}" alt="" style="width: 60px;height: 60px;">
+</script>
+<script type="text/html" id="barDemo">
+    <a class="layui-btn layui-btn-xs" lay-event="edit">沟通</a>
+    <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
+</script>
+<script>
+    layui.use(['table','laydate','form','element'], function(){
+        var table = layui.table
+            ,form = layui.form
+            ,element = layui.element
+            ,laydate = layui.laydate;
+        laydate.render({
+            elem: '#time'
+            ,range: true
+        });
+        table.on('tool(demo)', function(obj){
+            var data = obj.data;
+            var mp_id = data.mp_id;
+            if(obj.event === 'edit'){
+                window.location.href='<?=url("user/touchs")?>?mp_id='+ mp_id;
+            }else if(obj.event === 'del'){
+                layer.confirm('确定删除该聊天？删除后不可恢复！', {
+                    btn : [ '确定', '取消' ]//按钮
+                }, function() {
+                    $.ajax({
+                        'type':"get",
+                        'url':"<?=url('user/delmsg')?>",
+                        'data':{mpid:mp_id},
+                        'success':function (result) {
+                            if(result.code < 1){
+                                layer.msg(result.msg);
+                            }else {
+                                layer.msg(result.msg);
+                                layer.open({
+                                    title: '信息'
+                                    ,content: result.msg
+                                    ,yes: function(index){
+                                        layer.close(index);
+                                        window.location.href='<?=url("user/msgs")?>';
+                                    }
+                                    ,cancel:function (index) {
+                                        layer.close(index);
+                                        window.location.href='<?=url("user/msgs")?>';
+                                    }
+                                });
+                            }
+                        },
+                        'error':function () {
+                            console.log('error');
+                        }
+                    })
+                },function(){
+                    layer.msg('您已取消该操作！',{
+                        time: 2000
+                    });
+                });
+            }
+        });
+    });
+</script>
+{include file="index/footer" /}

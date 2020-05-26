@@ -3,6 +3,9 @@
     .red{
         color: red;
     }
+    .layui-card{
+        width: 100%;
+    }
 </style>
 <div class="layui-body" style="width: 97%;">
     <div class="layui-main" style="width: 97%;">
@@ -10,11 +13,11 @@
             <legend>网站首页</legend>
         </fieldset>
     </div>
-    <div style="padding: 20px; background-color: #F2F2F2;">
-        <div class="layui-row layui-col-space15">
-            <div class="layui-col-md3">
+    <div style="padding: 10px; background-color: #F2F2F2;">
+        <div class="layui-row layui-col-space15" style="width: 100% !important;">
+            <div class="layui-col-md3" style="width: 24% !important;">
                 <div class="layui-card">
-                    <a href="<?=url('order/order')?>?step=1">
+                    <a>
                         <div class="layui-card-header">房源总数</div>
                         <div class="layui-card-body">
                             <h2 class="red">{$allHouse}</h2>
@@ -22,9 +25,9 @@
                     </a>
                 </div>
             </div>
-            <div class="layui-col-md3">
+            <div class="layui-col-md3"  style="width: 24% !important;">
                 <div class="layui-card">
-                    <a href="<?=url('order/order')?>?step=3">
+                    <a>
                         <div class="layui-card-header">今日新增房源</div>
                         <div class="layui-card-body">
                             <h2 class="red">{$todayHouse}</h2>
@@ -32,9 +35,9 @@
                     </a>
                 </div>
             </div>
-            <div class="layui-col-md3">
+            <div class="layui-col-md3"  style="width: 24% !important;">
                 <div class="layui-card">
-                    <a href="<?=url('clean/export')?>">
+                    <a>
                         <div class="layui-card-header">用户总数</div>
                         <div class="layui-card-body">
                             <h2 class="red">{$allUser}</h2>
@@ -42,9 +45,9 @@
                     </a>
                 </div>
             </div>
-            <div class="layui-col-md3">
+            <div class="layui-col-md3"  style="width: 24% !important;">
                 <div class="layui-card">
-                    <a href="<?=url('house/wait')?>">
+                    <a>
                         <div class="layui-card-header">今日新增用户</div>
                         <div class="layui-card-body">
                             <h2 class="red">{$todayUser}</h2>
@@ -57,17 +60,18 @@
     <div style="padding: 20px; background-color: #F2F2F2;">
         <div class="layui-row layui-col-space15">
             <div class="layui-col-md6">
-                <div id="main" style="width: 600px;height:400px;"></div>
+                <div id="main1" style="width: 600px;height:400px;"></div>
             </div>
             <div class="layui-col-md6">
-                <div id="main2" style="width: 600px;height:400px;"></div>
+                <div id="main" style="width: 600px;height:400px;"></div>
             </div>
         </div>
     </div>
     <div style="padding: 20px; background-color: #F2F2F2;">
         <div class="layui-row layui-col-space15">
+
             <div class="layui-col-md6">
-                <div id="main1" style="width: 600px;height:400px;"></div>
+                <div id="main2" style="width: 600px;height:400px;"></div>
             </div>
         </div>
     </div>
@@ -78,6 +82,46 @@
     var myChart = echarts.init(document.getElementById('main'));
     var myChart1 = echarts.init(document.getElementById('main1'));
     var myChart2 = echarts.init(document.getElementById('main2'));
+    var arr1=[],arr2=[],arr3=[];
+    var names = [];
+    var brower = [];
+    function arrTest(){
+        $.ajax({
+            type:"post",
+            async:false,
+            url:"<?=url('index/getHouse')?>",
+            data:{},
+            dataType:"json",
+            success:function(result){
+                if (result) {
+                    for (var i = 0; i < result.length; i++) {
+                        arr1.push(result[i].date);
+                        arr2.push(result[i].nums);
+                        arr3.push(result[i].users);
+                    }
+                }
+            }
+        });$.ajax({
+            type:"post",
+            async:false,
+            url:"<?=url('index/getHousePie')?>",
+            data:{},
+            dataType:"json",
+            success:function(result){
+                if (result) {
+                    $.each(result, function(index, item) {
+                        names.push(item.name); //挨个取出类别并填入类别数组
+                        brower.push({
+                            name: item.name,
+                            value: item.value
+                        });
+                    });
+                }
+            }
+        });
+        return arr1,arr2,arr3,names,brower;
+    }
+    arrTest();
 
     // 指定图表的配置项和数据
     option = {
@@ -86,13 +130,13 @@
         },
         xAxis: {
             type: 'category',
-            data: ['2020-04-17', '2020-04-18', '2020-04-19', '2020-04-20', '2020-04-21', '2020-04-22', '2020-04-23']
+            data: arr1
         },
         yAxis: {
             type: 'value'
         },
         series: [{
-            data: [820, 932, 901, 934, 1290, 1330, 1320],
+            data: arr2,
             type: 'line'
         }]
     };
@@ -102,13 +146,13 @@
         },
         xAxis: {
             type: 'category',
-            data: ['2020-04-17', '2020-04-18', '2020-04-19', '2020-04-20', '2020-04-21', '2020-04-22', '2020-04-23']
+            data: arr1
         },
         yAxis: {
             type: 'value'
         },
         series: [{
-            data: [820, 932, 901, 934, 1290, 1330, 1320],
+            data: arr3,
             type: 'line',
             smooth: true
         }]
@@ -125,21 +169,15 @@
         legend: {
             orient: 'vertical',
             left: 'left',
-            data: ['墨尔本', '悉尼', '布利斯班', '霍巴特', '朗塞斯顿']
+            data: names
         },
         series: [
             {
-                name: '访问来源',
+                name: '房源占比',
                 type: 'pie',
                 radius: '55%',
                 center: ['50%', '60%'],
-                data: [
-                    {value: 335, name: '墨尔本'},
-                    {value: 310, name: '悉尼'},
-                    {value: 234, name: '布利斯班'},
-                    {value: 135, name: '霍巴特'},
-                    {value: 1548, name: '朗塞斯顿'}
-                ],
+                data: brower,
                 emphasis: {
                     itemStyle: {
                         shadowBlur: 10,

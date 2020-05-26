@@ -34,10 +34,14 @@
     <table lay-filter="demo" id="test123" lay-skin="nob"></table>
 </section>
 <script type="text/html" id="barDemo">
-    <a class="layui-btn layui-btn-xs" lay-event="edit"><i class="layui-icon">&#xe642;</i>详情</a>
-</script>
-<script type="text/html" id="switchTpl">
-    <input type="checkbox" name="sex" lay-skin="switch" value="{{d.b_id}}" lay-text="是|否" lay-filter="sexDemo" {{ d.b_status == 1 ? 'checked' : '' }}>
+    {{#  if(d.role_id == 1){ }}
+    <a class="layui-btn layui-btn-xs" lay-event="admin">一般用户</a>
+    {{#  }else{ }}
+    <a class="layui-btn layui-btn-xs" lay-event="admin">管理员</a>
+    {{#  } }}
+    <a class="layui-btn layui-btn-xs" lay-event="edit">详情</a>
+    <a class="layui-btn layui-btn-xs" lay-event="touch">沟通</a>
+
 </script>
 <script>
     layui.use(['table','laydate','form'], function(){
@@ -53,6 +57,7 @@
                 ,{field:'avaurl', title: '图像',templet:'<div><img style="width: 60px;height: 60px;" src="{{ d.avaurl}}"></div>'}
                 ,{field:'nickname',title: '昵称'}
                 ,{field:'count',title: '收藏量'}
+                ,{field:'roleId',title: '管理员'}
                 ,{field:'cdate', title: '注册时间'}
                 ,{align:'center',toolbar: '#barDemo',title:'操作' }
             ]]
@@ -65,8 +70,62 @@
         table.on('tool(demo)', function(obj){
             var data = obj.data;
             var id = data.id;
+            var role_id = data.role_id;
+            var weChat = {$wechat};
             if(obj.event === 'edit'){
                 window.location.href='<?=url("user/details")?>?id='+ id ;
+            }else if(obj.event === 'touch'){
+                if(weChat == 0){
+                    layer.msg('您暂无该操作权限！',{
+                        time: 2000
+                    });
+                }else{
+                    window.location.href='<?=url("user/touch")?>?id='+ id ;
+                }
+            }else if(obj.event === 'admin'){
+                if(weChat == 0){
+                    layer.msg('您暂无该操作权限！',{
+                        time: 2000
+                    });
+                }else{
+                    var msg = role_id == 1 ? '一般用户'  : '管理员' ;
+                    layer.confirm('确定将该用户改为'+msg+'？', {
+                        btn : [ '确定', '取消' ]//按钮
+                    }, function() {
+                        $.ajax({
+                            'type':"get",
+                            'url':"<?=url('user/admin')?>",
+                            'data':{id:id,role_id:role_id},
+                            'success':function (result) {
+                                if(result.code < 1){
+                                    layer.msg(result.msg);
+                                }else {
+                                    layer.msg(result.msg);
+                                    layer.open({
+                                        title: '信息'
+                                        ,content: result.msg
+                                        ,yes: function(index){
+                                            layer.close(index);
+                                            window.location.href='<?=url("user/index")?>';
+                                        }
+                                        ,cancel:function (index) {
+                                            layer.close(index);
+                                            window.location.href='<?=url("user/index")?>';
+                                        }
+                                    });
+                                }
+                            },
+                            'error':function () {
+                                console.log('error');
+                            }
+                        })
+                    },function(){
+                        layer.msg('您已取消该操作！',{
+                            time: 2000
+                        });
+                    });
+                }
+
             }
         });
         var $ = layui.$, active = {

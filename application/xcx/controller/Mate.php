@@ -4,6 +4,7 @@
 namespace app\xcx\controller;
 
 
+use app\xcx\model\Loops;
 use app\xcx\model\Matem;
 use think\Controller;
 use think\Db;
@@ -12,11 +13,10 @@ use think\Request;
 class Mate extends Controller
 {
 
-
     public function __construct(Request $request = null)
     {
         parent::__construct($request);
-        $adminName=session('adminId');
+        $adminName=session('adminName');
         if(empty($adminName)){
             $this->error('请先登录！','login/login');
         }
@@ -31,29 +31,66 @@ class Mate extends Controller
         }
     }
     public function index(){
+        $cityinfo = Db::table('tk_cate')->where(['pid' =>0])->select();
+        $this->assign('cityinfo',$cityinfo);
         return $this->fetch();
     }
 
     public function indexData(){
         $where =' 1 = 1';
         $keywords = trim($this->request->param('keywords'));
+        $status = trim($this->request->param('status'));
+        $school = trim($this->request->param('school'));
+        $city = trim($this->request->param('city'));
+        $orderc = trim($this->request->param('orderc'));
+        $orderv = trim($this->request->param('orderv'));
+        $time = trim($this->request->param('time'));
         if(isset($keywords) && !empty($keywords)){
             $where.=" and ( title like '%".$keywords."%' or dsn like '%".$keywords."%' )";
+        }
+        if(isset($city) && !empty($city) && $city){
+            $where.=" and city = '".$city."'";
+        }if(isset($status) && !empty($status) && $status){
+            $where.=" and status = ".$status;
+        }if(isset($school) && !empty($school) && $school){
+            $where.=" and school = ".$school;
+        }
+        if(isset($time) && !empty($time)){
+            $sdate=substr($time,'0','10')." 00:00:00";
+            $edate=substr($time,'-10')." 23:59:59";
+            $where.=" and ( cdate >= '".$sdate."' and cdate <= '".$edate."' ) ";
         }
         $count=Db::table('tk_roommates')
             ->where($where)
             ->count();
         $page= $this->request->param('page',1,'intval');
         $limit=$this->request->param('limit',10,'intval');
+        $order = 'cdate desc';
+        if(isset($orderv) && !empty($orderv) && $orderv){
+            if($orderv == 1){
+                $order ="view desc";
+            }else{
+                $order ="view asc";
+            }
+        }
+        if(isset($orderc) && !empty($orderc) && $orderc){
+            if($orderc == 1){
+                $order ="collection desc";
+            }else{
+                $order ="collection asc";
+            }
+        }
         $design=Db::table('tk_roommates')
             ->limit(($page-1)*$limit,$limit)
-            ->order('id desc')
+            ->order($order)
             ->where($where)
             ->select();
+        $loopd = new Loops();
         if($design){
-            //statuss
             foreach($design as $k => $v){
                 $design[$k]['statuss'] = $v['status'] == 1 ? '已发布' :'草稿箱';
+                $design[$k]['cdate'] = date('m-d H:i',strtotime($v['cdate']));
+                $design[$k]['user_id'] = $loopd->getUserNick($v['user_id']);
             }
         }
         $res['code'] = 0;
@@ -113,6 +150,23 @@ class Mate extends Controller
         $details = $matem->getMate($id,0);
         $this->assign('house',$details);
         return $this->fetch();
+    }
+
+
+    public function getschool(){
+        $city = $this->request->param('city');
+        $pid = Db::table('tk_cate')
+            ->where(['name' =>$city ])->find();
+        $where = "pid = ".$pid['id']." and type = 2";
+        $result = Db::table('tk_cate')
+            ->where($where)
+            ->field('id,name,pid')
+            ->select();
+        if($result){
+            return  json(['code' => '1','data' => $result]);
+        }else{
+            return  json(['code' => '0','data' => ['']]);
+        }
     }
 
 }

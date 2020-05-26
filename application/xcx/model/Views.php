@@ -33,7 +33,7 @@ class Views extends Model
         $result = Db::table('xcx_view_history')
             ->join('tk_houses','xcx_view_history.vh_house_id = tk_houses.id')
             ->where($where)
-            ->limit($limit,$page)
+            ->limit(($page)*$limit,$limit)
             ->order($order)
             ->field('xcx_view_history.*,tk_houses.title,tk_houses.price,tk_houses.images,tk_houses.tags,tk_houses.home')
             ->select();
@@ -44,7 +44,7 @@ class Views extends Model
         $result = Db::table('xcx_view_history')
             ->join('tk_roommates','xcx_view_history.vh_house_id = tk_roommates.id')
             ->where($where)
-            ->limit($limit,$page)
+            ->limit(($page)*$limit,$limit)
             ->order($order)
             ->field('xcx_view_history.*,tk_roommates.title,tk_roommates.price')
             ->select();

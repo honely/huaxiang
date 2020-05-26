@@ -12,7 +12,8 @@ class Index extends Controller
         header('Access-Control-Allow-Methods:POST');
         header('Access-Control-Allow-Headers:x-requested-with, content-type');
         $housem = new Housem();
-        $where = ['tj' => '是','status' =>1];
+        $city = trim($this->request->param('city','墨尔本'));
+        $where = ['tj' => '是','status' =>1,'city' => $city];
         $filed = 'id,title,type,house_room,area,images,price,furniture,home,school,address,tags';
         $house = $housem->readData($where,'mdate desc','12','0',$filed);
         if($house){
@@ -54,7 +55,11 @@ class Index extends Controller
         $res = json_decode($res, true);
         if ($res['status'] == 0) {
             if (@$res['result']['address_component']['nation'] =='澳大利亚') {
-                $row = @$res['result']['address_component']['ad_level_2'];
+                if(@$res['result']['address_component']['ad_level_1'] == '塔斯马尼亚'){
+                    $row = @$res['result']['address_component']['ad_level_1'];
+                }else{
+                    $row = @$res['result']['address_component']['ad_level_2'];
+                }
             } else {
                 $row = @$res['result']['address_component']['city'];
             }
@@ -78,6 +83,36 @@ class Index extends Controller
         $ress['msg'] = '获取失败！';
         $ress['data'] = $res;
         return json($ress);
+    }
+
+    public function getAdd(){
+        $x = trim($this->request->param('x','-37.909093'));
+        $y = trim($this->request->param('y','145.120366'));
+        if($x == ''){
+            $res['code'] = 0;
+            $res['msg'] = '纬度不能为空！';
+            return json($res);
+        }
+        if ($y == '') {
+            $res['code'] = 0;
+            $res['msg'] = '经度不能为空！';
+            return json($res);
+        }
+        $Url ="https://reverse.geocoder.ls.hereapi.com/6.2/reversegeocode.json?prox={$x}%2C{$y}%2C100&mode=retrieveAddresses&maxresults=1&gen=9&apiKey=WgZd-Ykul-3XNV5agUgW2vMohtzAlYEA64GIQvcrfaw";
+        $res = file_get_contents($Url);
+        $ress = json_decode($res, true);
+        $address = $ress['Response']['View'][0]['Result'][0]['Location']['Address']['Label'];
+        if ($address) {
+            $data['code'] = 1;
+            $data['msg'] = 'ok！';
+            $data['data'] = $address;
+            return json($data);
+        }else{
+            $ress['code'] = 0;
+            $ress['msg'] = '获取失败！';
+            $ress['data'] = null;
+            return json($ress);
+        }
     }
 
 }

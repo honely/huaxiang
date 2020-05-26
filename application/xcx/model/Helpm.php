@@ -7,6 +7,8 @@ class Helpm extends Model
 
 
     public function addHelp($data){
+        //查询是否有相同的数据写入
+        
         $addHouse = Db::table('xcx_helpme')->insertGetId($data);
         $mateInfo = Db::table('xcx_helpme')->where(['h_id' =>$addHouse])->field('h_uid')->find();
         $msg = new Loops();

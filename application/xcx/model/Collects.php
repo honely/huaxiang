@@ -22,6 +22,8 @@ class Collects extends Model
         }else{
             Db::table('tk_roommates')->where(['id' =>$hid])->setInc('collection');
         }
+        //更新用户收藏量
+        Db::table('tk_user')->where(['id' => $uid])->setInc('count');
         return $insert ? $insert : 0;
     }
 
@@ -29,7 +31,7 @@ class Collects extends Model
         $result = Db::table('xcx_collect')
             ->join('tk_houses','xcx_collect.cl_house_id = tk_houses.id')
             ->where($where)
-            ->limit($limit,$page)
+            ->limit(($page)*$limit,$limit)
             ->order($order)
             ->field('xcx_collect.*,tk_houses.title,tk_houses.price,tk_houses.images,tk_houses.tags,tk_houses.home')
             ->select();
@@ -47,7 +49,7 @@ class Collects extends Model
         $result = Db::table('xcx_collect')
             ->join('tk_roommates','xcx_collect.cl_house_id = tk_roommates.id')
             ->where($where)
-            ->limit($limit,$page)
+            ->limit(($page)*$limit,$limit)
             ->order($order)
             ->field('xcx_collect.*,tk_roommates.title,tk_roommates.price')
             ->select();
