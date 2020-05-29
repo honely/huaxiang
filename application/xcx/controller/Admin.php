@@ -60,6 +60,7 @@ class Admin extends Controller{
         foreach($admin as $k => $v){
             $sex = $v['ad_sex']== 1 ? '男' :'女';
             $admin[$k]['adWechat'] = $loop->getUserNick($v['ad_wechat']);
+            $admin[$k]['ad_createtime'] = date('Y-m-d H:i:s',$v['ad_createtime']);
             $admin[$k]['ad_realname'] = $v['ad_realname']."    ( ".$sex." )";
         }
         $res['code'] = 0;
@@ -67,6 +68,14 @@ class Admin extends Controller{
         $res['data'] = $admin;
         $res['count'] = $count;
         return json($res);
+    }
+
+    public function fenpei(){
+        $adId = intval(trim($this->request->param('ad_id')));
+        $adminWechat = Db::table('tk_user')->where(['role_id' => 1])->field('id,nickname,tel')->select();
+        $this->assign('sale',$adminWechat);
+        $this->assign('ad_id',$adId);
+        return $this->fetch();
     }
 
     public function admin(){
@@ -142,20 +151,29 @@ class Admin extends Controller{
             $data['ad_realname'] = $_POST['ad_realname'];
             $data['ad_sex'] = $_POST['ad_sex'];
             $data['ad_phone'] = $_POST['ad_phone'];
+            $data['ad_email'] = $_POST['ad_email'];
             $isRepeat=Db::table('super_admin')
-                ->where(['ad_bid' => $data['ad_bid']])
+                ->where(['ad_email' => $data['ad_email']])
                 ->find();
             if($isRepeat){
-                $this->error('此工号已注册！','add');
+                $this->error('此邮箱已注册！','add');
             }
-            $data['ad_email'] = $_POST['ad_email'];
             $data['ad_isable'] = 1;
             $data['ad_role'] = $_POST['ad_role'];
             $data['ad_createtime'] = time();
-            $data['ad_wechat'] = $_POST['ad_wechat'];
             $data['ad_admin'] = session('adminId');
-            $data['ad_password'] = md5('123456');
-            $add=Db::table('super_admin')->insert($data);
+            $data['ad_password'] = md5($_POST['ad_password']);
+            $data['ad_corp'] = $_POST['ad_corp'];
+            $data['ad_weixin'] = $_POST['ad_weixin'];
+            $data['ad_job'] = $_POST['ad_job'];
+            $data['ad_img'] = $_POST['ad_img'];
+            $data['ad_desc'] = $_POST['ad_desc'];
+            $add=Db::table('super_admin')->insertGetId($data);
+            //如果后台添加的这个手机号和前端用户绑定的手机号相同则自动绑定
+            $userPhone = Db::table('tk_user')->where(['tel' => $data['ad_phone']])->field('id,tel')->find();
+            if($userPhone){
+                Db::table('super_admin')->where(['ad_id' => $add])->update(['']);
+            }
             if($add){
                 $this->success('添加管理员成功','admin');
             }else{
@@ -185,7 +203,11 @@ class Admin extends Controller{
             $data['ad_sex'] = $_POST['ad_sex'];
             $data['ad_phone'] = $_POST['ad_phone'];
             $data['ad_bid'] = $_POST['ad_bid'];
-            $data['ad_wechat'] = $_POST['ad_wechat'];
+            $data['ad_corp'] = $_POST['ad_corp'];
+            $data['ad_weixin'] = $_POST['ad_weixin'];
+            $data['ad_job'] = $_POST['ad_job'];
+            $data['ad_img'] = $_POST['ad_img'];
+            $data['ad_desc'] = $_POST['ad_desc'];
             $isRepeat=Db::table('super_admin')
                 ->where('ad_id','neq',$ad_id)
                 ->where(['ad_bid' => $data['ad_bid']])
@@ -208,13 +230,7 @@ class Admin extends Controller{
                 ->field('super_admin.*,super_role.r_name')
                 ->where(['ad_id' => $ad_id])
                 ->find();
-            if($ad_role == 2){
-                $where = 'r_id = 3';
-            }else if($ad_role == 35){
-                $where = 'r_id = 32 or r_id = 33 or r_id = 39';
-            }else{
-                $where = '1 = 1';
-            }
+            $where = '1 = 1';
             $roleInfo=Db::table('super_role')
                 ->field('r_id,r_name')
                 ->where($where)
@@ -231,6 +247,29 @@ class Admin extends Controller{
     }
 
 
+
+    public function detail(){
+        $ad_id=intval($_GET['ad_id']);
+         $ad_role = intval(session('ad_role'));
+        $adminInfo=Db::table('super_admin')
+            ->join('super_role','super_role.r_id = super_admin.ad_role')
+            ->field('super_admin.*,super_role.r_name')
+            ->where(['ad_id' => $ad_id])
+            ->find();
+        $where = '1 = 1';
+        $roleInfo=Db::table('super_role')
+            ->field('r_id,r_name')
+            ->where($where)
+            ->select();
+        $adminUser = Db::table('tk_user')
+            ->where(['role_id' => 1])
+            ->field('id,nickname,tel')
+            ->select();
+        $this->assign('user',$adminUser);
+        $this->assign('role',$roleInfo);
+        $this->assign('admin',$adminInfo);
+        return $this->fetch();
+    }
 
     //检测电话号码
     public function checkPhone(){
@@ -299,6 +338,34 @@ class Admin extends Controller{
 
 
 
+//通用缩略图上传接口
+    public function upload()
+    {
+        if($this->request->isPost()){
+            $res['code']=1;
+            $res['msg'] = '上传成功！';
+            $file = $this->request->file('file');
+            $config = [
+                'size' => 1024*1024*10
+            ];
+            $size = $file->validate($config);
+            if($size){
+                $info = $file->move(ROOT_PATH . 'public' . DS . 'uploads/admin');
+                //halt( $info);
+                if($info){
+                    $res['name'] = $info->getFilename();
+                    $res['filepath'] = 'uploads/admin/'.$info->getSaveName();
+                }else{
+                    $res['code'] = 0;
+                    $res['msg'] = '上传失败！'.$file->getError();
+                }
+            }else{
+                $res['code'] = 0;
+                $res['msg'] = '文件大小不超过10M！';
+            }
+            return $res;
+        }
+    }
 
 
 
@@ -370,7 +437,7 @@ class Admin extends Controller{
 
 
 
-    public  function  addRole(){
+    public  function  addrole(){
         if($_POST){
         }else{
             //顶级菜单

@@ -20,8 +20,9 @@ class Login extends Controller{
                 if(empty($pwd)){
                     $this->error('请输入密码！','login');
                 }else{
+                    //改为邮箱登录2020年5月27日09:14:36
                     $login=Db::table('super_admin')
-                        ->where(['ad_bid' => $user,'ad_isable' => 1])
+                        ->where(['ad_email' => $user,'ad_isable' => 1])
                         ->find();
                     if($login){
                         $pwds=$login['ad_password'];

@@ -45,10 +45,10 @@
     <h2>小宝小程序后台</h2>
     <form class="layui-form" method="post" action="<?=url('login/login')?>">
         <div class="layui-form-item">
-            <input type="username" name="username" placeholder="请输入工号" required lay-verify="required" autocomplete="off" class="layui-input">
+            <input type="username" name="username" placeholder="请输入邮箱" lay-verify="required|email" autocomplete="off" class="layui-input">
         </div>
         <div class="layui-form-item">
-            <input type="password" name="password" placeholder="请输入密码" required lay-verify="required" autocomplete="off" class="layui-input">
+            <input type="password" name="password" placeholder="请输入密码" lay-verify="required" autocomplete="off" class="layui-input">
         </div>
         <div class="layui-form-item">
             <button style="padding: 0 102px;" class="layui-btn" lay-submit lay-filter="formDemo">立即登录</button>

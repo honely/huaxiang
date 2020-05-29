@@ -1,0 +1,75 @@
+{include file="index/header" /}
+<style>
+    .item_img{
+        width: 120px;
+        height: 105px;
+        float: left;
+        margin-top: 20px;
+    }
+</style>
+<div class="layui-body">
+    <div style="margin: 10px">
+        <div style="padding: 15px;">
+            <blockquote class="layui-elem-quote layui-text">
+                后台员工绑定前端用户后可以通过小程序端和用户交流<br>
+            </blockquote>
+            <form class="layui-form" id="myForm">
+                <div class="layui-form-item">
+                    <label class="layui-form-label">绑定用户</label>
+                    <div class="layui-input-inline">
+                        <select name="ad_wechat" id="ad_wechat" lay-search="">
+                            <option value="">输入或选择用户</option>
+                            {volist name='sale' id='vo'}
+                            <option value="{$vo.id}">{$vo.nickname}({$vo.tel})</option>
+                            {/volist}
+                        </select>
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <div class="layui-input-block">
+                        <span class="layui-btn" onclick="closeAlls()">提交</span>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<script>
+    function closeAlls(){
+        var crm_id = $('#crm_id').val();
+        var cl_cl_admin = $('#cl_cl_admin').val();
+        var deadline = $('#deadline').val();
+        if(cl_cl_admin == ''){
+            return layer.msg('请选择接单人！');
+        }
+        if(deadline ==''){
+            return layer.msg('请选择截至日期！');
+        }
+        $.ajax({
+            type: 'get',
+            url: "<?=url('order/fenPro')?>?&crm_id="+crm_id+ "&cl_cl_admin="+cl_cl_admin+ "&deadline="+deadline,
+            dataType:  'json',
+            success: function(data){
+                layer.msg(data.msg,{
+                    time: 2000
+                },function () {
+                    var index = parent.layer.getFrameIndex(window.name);
+                    parent.layer.close(index);
+                    parent.location.reload();
+                });
+            }
+        });
+    }
+    layui.use(['form', 'jquery','laydate','layer'], function(){
+        var form = layui.form
+            ,laydate = layui.laydate
+            ,layer = layui.layer
+            ,$ = layui.jquery;
+        laydate.render({
+            elem: '#deadline'
+            ,type: 'datetime'
+            ,trigger: 'click'
+        });
+    });
+</script>
+{include file="index/footer" /}

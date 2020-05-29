@@ -42,34 +42,35 @@
     <table lay-skin="line" class="layui-table" lay-filter="demo" lay-data="{height: 'full-120', cellMinWidth:80, url:'/xcx/admin/adminData/', limit:20,limits:[20,30,50] ,id: 'testReload',page:true}" >
             <thead>
             <tr>
-                <th lay-data="{field:'ad_bid', align:'left',  sort: true}">员工编号</th>
-                <th lay-data="{field:'r_name', align:'left'}">所属权限</th>
-                <th lay-data="{field:'ad_realname',  align:'left'}">员工姓名</th>
-                <th lay-data="{field:'ad_phone', align:'left'}">员工电话</th>
-                <th lay-data="{field:'ad_email', align:'left'}">员工邮箱</th>
-                <th lay-data="{field:'adWechat', align:'left'}">微信昵称</th>
+                <th lay-data="{field:'ad_id'}">平台ID</th>
+                <th lay-data="{field:'ad_realname'}">员工姓名</th>
+                <th lay-data="{field:'r_name'">角色</th>
+                <th lay-data="{field:'ad_email'}">员工邮箱</th>
+                <th lay-data="{field:'adWechat'}">关联微信</th>
+                <th lay-data="{field:'ad_phone'}">手机</th>
+                <th lay-data="{field:'ad_corp'}">公司</th>
                 {if condition='$ad_role eq 1'}
-                <th lay-data="{field:'ad_isable',width:120, align:'left' ,templet: '#switchTpl',sort:true, unresize: true}">是否在职</th>
+                <th lay-data="{field:'ad_isable',width:120,templet: '#switchTpl', unresize: true}">状态</th>
                 {/if}
-                <th lay-data="{align:'center',width:160, toolbar: '#barDemo'}">操作</th>
+                <th lay-data="{field:'ad_createtime'}">添加时间</th>
+                <th lay-data="{align:'center',width:320, toolbar: '#barDemo'}">操作</th>
             </tr>
             </thead>
         </table>
 </section>
 
 <script type="text/html" id="barDemo">
-    <a class="layui-btn layui-btn-xs" lay-event="edit"><i class="layui-icon">&#xe642;</i>编辑</a>
+    <a class="layui-btn layui-btn-xs" lay-event="details">详情</a>
+    <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
+    <a class="layui-btn layui-btn-xs" lay-event="connect">关联用户</a>
     {{#  if(d.ad_role == '1'){ }}
-    <a class="layui-btn layui-btn-disabled layui-btn-xs" lay-event="dels"><i class="layui-icon">&#xe640;</i>删除</a>
+    <a class="layui-btn layui-btn-disabled layui-btn-xs" lay-event="dels">删除</a>
     {{#  } else { }}
-    <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del"><i class="layui-icon">&#xe640;</i>删除</a>
+    <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
     {{#  } }}
 </script>
 <script type="text/html" id="switchTpl">
-    {{#  if(d.ad_role == '1'){ }}
-    {{#  } else { }}
     <input type="checkbox" name="sex" lay-skin="switch" value="{{d.ad_id}}" lay-text="在职|离职" lay-filter="sexDemo" {{ d.ad_isable == 1 ? 'checked' : '' }}>
-    {{#  } }}
 </script>
 <script>
     layui.use(['table','laydate','form'], function(){
@@ -77,9 +78,33 @@
             ,form = layui.form;
         table.on('tool(demo)', function(obj){
             var data = obj.data;
+            var ad_id = data.ad_id;
             if(obj.event === 'edit'){
-                var ad_id = data.ad_id;
                 window.location.href='<?=url("admin/edit")?>?ad_id='+ ad_id ;
+            }else if(obj.event === 'details'){
+                layer.open({
+                    type: 2,
+                    title: '查看详情',
+                    shadeClose: true,
+                    shade: false,
+                    maxmin: true,
+                    area: ['80%', '80%'],
+                    content: "<?=url('admin/detail')?>?ad_id="+ad_id
+                });
+            }else if(obj.event === 'connect'){
+                layer.open({
+                    type: 2,
+                    title: '绑定用户',
+                    shadeClose: true,
+                    shade: false,
+                    maxmin: true,
+                    area: ['80%', '80%'],
+                    content: "<?=url('admin/fenpei')?>?ad_id="+ad_id
+                });
+            }else if(obj.event === 'dels'){
+                layer.msg('超级管理员禁止删除！',{
+                    time: 2000
+                });
             }else if(obj.event === 'dels'){
                 layer.msg('超级管理员禁止删除！',{
                     time: 2000
