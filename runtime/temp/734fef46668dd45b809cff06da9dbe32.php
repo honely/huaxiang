@@ -1,4 +1,26 @@
-{include file="index/header" /}
+<?php if (!defined('THINK_PATH')) exit(); /*a:3:{s:91:"D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\public/../application/xcx\view\admin\admin.html";i:1591000666;s:82:"D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\application\xcx\view\index\header.html";i:1587691504;s:82:"D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\application\xcx\view\index\footer.html";i:1583744281;}*/ ?>
+<!DOCTYPE html>
+<html style="height: 100%">
+<head>
+    <meta charset="utf-8">
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <title>小宝租房后台管理系统</title>
+    <link rel="stylesheet" href="../../../layui/src/css/layui.css">
+    <script src="../../../static/jquery-1.10.2.min.js"></script>
+    <script src="../../../layui/src/layui.js"></script>
+	<style>
+		.layui-body{
+			left:0!important
+		}
+	</style>
+</head>
+<body class="layui-layout-body" style="height: 100%">
+
 <div style="margin: 20px;">
     <span class="layui-breadcrumb" lay-separator=">">
         <a>员工管理</a>
@@ -17,18 +39,18 @@
                     <input type="text" name="keywords" id="keywords"  placeholder="请输入姓名/工号" class="layui-input">
                 </div>
             </div>
-            {if condition='$ad_role eq 1'}
+            <?php if($ad_role == 1): ?>
                 <div class="layui-inline">
                     <div class="layui-input-inline">
                         <select name="ad_role" id="ad_role">
                             <option value="">请选择权限</option>
-                            {volist name="roleInfo" id='role'}
-                            <option value="{$role.r_id}">{$role.r_name}</option>
-                            {/volist}
+                            <?php if(is_array($roleInfo) || $roleInfo instanceof \think\Collection || $roleInfo instanceof \think\Paginator): $i = 0; $__LIST__ = $roleInfo;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$role): $mod = ($i % 2 );++$i;?>
+                            <option value="<?php echo $role['r_id']; ?>"><?php echo $role['r_name']; ?></option>
+                            <?php endforeach; endif; else: echo "" ;endif; ?>
                         </select>
                     </div>
                 </div>
-            {/if}
+            <?php endif; ?>
             <div class="layui-inline">
                 <div class="layui-input-inline">
                     <span class="layui-btn" data-type="reload">查询</span>
@@ -49,9 +71,9 @@
                 <th lay-data="{field:'adWechat'}">关联微信</th>
                 <th lay-data="{field:'ad_phone'}">手机</th>
                 <th lay-data="{field:'ad_corp'}">公司</th>
-                {if condition='$ad_role eq 1'}
+                <?php if($ad_role == 1): ?>
                 <th lay-data="{field:'ad_isable',width:120,templet: '#switchTpl', unresize: true}">状态</th>
-                {/if}
+                <?php endif; ?>
                 <th lay-data="{field:'ad_createtime'}">添加时间</th>
                 <th lay-data="{align:'center',width:320, toolbar: '#barDemo'}">操作</th>
             </tr>
@@ -237,4 +259,13 @@
         window.location.href='<?=url('admin/add')?>';
     }
 </script>
-{include file="index/footer" /}
+</div>
+<script>
+    //JavaScript代码区域
+    layui.use('element', function(){
+        var element = layui.element;
+
+    });
+</script>
+</body>
+</html>

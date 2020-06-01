@@ -1,4 +1,26 @@
-{include file="index/header" /}
+<?php if (!defined('THINK_PATH')) exit(); /*a:3:{s:89:"D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\public/../application/xcx\view\admin\add.html";i:1590996296;s:82:"D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\application\xcx\view\index\header.html";i:1587691504;s:82:"D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\application\xcx\view\index\footer.html";i:1583744281;}*/ ?>
+<!DOCTYPE html>
+<html style="height: 100%">
+<head>
+    <meta charset="utf-8">
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <title>小宝租房后台管理系统</title>
+    <link rel="stylesheet" href="../../../layui/src/css/layui.css">
+    <script src="../../../static/jquery-1.10.2.min.js"></script>
+    <script src="../../../layui/src/layui.js"></script>
+	<style>
+		.layui-body{
+			left:0!important
+		}
+	</style>
+</head>
+<body class="layui-layout-body" style="height: 100%">
+
 <style>
     .layui-upload-img {
         width: 92px;
@@ -30,9 +52,9 @@
             <div class="layui-form-item">
                 <label class="layui-form-label"><span style="color: red;">*</span>员工角色</label>
                 <div class="layui-input-block">
-                    {volist name="role" id="vo"}
-                    <input type="checkbox" name="ad_role[{$vo.r_id}]" lay-skin="primary" title="{$vo.r_name}">
-                    {/volist}
+                    <?php if(is_array($role) || $role instanceof \think\Collection || $role instanceof \think\Paginator): $i = 0; $__LIST__ = $role;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$vo): $mod = ($i % 2 );++$i;?>
+                    <input type="checkbox" name="ad_role[<?php echo $vo['r_id']; ?>]" lay-skin="primary" title="<?php echo $vo['r_name']; ?>">
+                    <?php endforeach; endif; else: echo "" ;endif; ?>
                 </div>
             </div>
             <div class="layui-form-item">
@@ -124,7 +146,7 @@
         //普通图片上传
         var uploadInst = upload.render({
             elem: '#test1'
-            ,url: '{:url("admin/upload")}' //改成您自己的上传接口
+            ,url: '<?php echo url("admin/upload"); ?>' //改成您自己的上传接口
             ,before: function(obj){
                 //预读本地文件示例，不支持ie8
                 obj.preview(function(index, file, result){
@@ -136,7 +158,7 @@
                 //如果上传失败
                 if(res.code > 0){
                     layer.msg(res.msg);
-                    $('#demo1').attr('src',"__PUBLIC__/"+res.filepath);
+                    $('#demo1').attr('src',"../../../"+res.filepath);
                     $('#ad_img').val(res.filepath);
                 }else{
                     return layer.msg(res.msg);
@@ -198,4 +220,13 @@
     }
 
 </script>
-{include file="index/footer" /}
+</div>
+<script>
+    //JavaScript代码区域
+    layui.use('element', function(){
+        var element = layui.element;
+
+    });
+</script>
+</body>
+</html>

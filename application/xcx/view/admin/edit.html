@@ -29,13 +29,10 @@
             </div>
             <div class="layui-form-item">
                 <label class="layui-form-label"><span style="color: red;">*</span>员工角色</label>
-                <div class="layui-input-inline">
-                    <select name="ad_role" id="roleaa" lay-verify="required">
-                        <option value="">请选择角色</option>
-                        {volist name="role" id="vo"}
-                        <option value="{$vo.r_id}" {if condition="$admin.ad_role eq $vo.r_id"}selected{/if}>{$vo.r_name}</option>
-                        {/volist}
-                    </select>
+                <div class="layui-input-block">
+                    {volist name='allrole' id='vo'}
+                    <input type="checkbox" class="checkbox" lay-skin="primary" name="ad_role[{$vo.ad_id}]" title="{$vo.ad_role}"  {$vo.is_checked ? 'checked' : ''}>
+                    {/volist}
                 </div>
             </div>
             <div class="layui-form-item">
@@ -53,7 +50,7 @@
             <div class="layui-upload">
                 <label class="layui-form-label">头像</label>
                 <div class="layui-input-inline">
-                    <img class="layui-upload-img" id="demo1" src="__PUBLIC__/{$admin.ad_img}">
+                    <img class="layui-upload-img" id="demo1" {if condition="$admin.ad_img neq null"}src="__PUBLIC__/{$admin.ad_img}"{/if} >
                     <p id="demoText"></p>
                 </div>
                 <input type="hidden" name="ad_img" id="ad_img">

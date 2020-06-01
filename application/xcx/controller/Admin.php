@@ -35,12 +35,12 @@ class Admin extends Controller{
         $where=' 1 = 1 ';
         $keywords = trim($this->request->param('keywords'));
         $ads_role=intval(session('ad_role'));
-        if($ads_role == 2){
-            $where .= ' and (ad_role = 2 or ad_role = 3)';
-        }
-        if($ads_role == 35){
-            $where .= ' and (ad_role = 32 or ad_role = 33 or ad_role = 39)';
-        }
+//        if($ads_role == 2){
+//            $where .= ' and (ad_role = 2 or ad_role = 3)';
+//        }
+//        if($ads_role == 35){
+//            $where .= ' and (ad_role = 32 or ad_role = 33 or ad_role = 39)';
+//        }
         if(isset($keywords) && !empty($keywords)){
             $where.=" and ( ad_realname like '%".$keywords."%' or ad_bid like '%".$keywords."%' )";
         }
@@ -51,7 +51,6 @@ class Admin extends Controller{
         $page= $this->request->param('page',1,'intval');
         $limit=$this->request->param('limit',10,'intval');
         $admin=Db::table('super_admin')
-            ->join('super_role','super_role.r_id = super_admin.ad_role')
             ->where($where)
             ->limit(($page-1)*$limit,$limit)
             ->order('ad_id desc')
@@ -60,6 +59,7 @@ class Admin extends Controller{
         foreach($admin as $k => $v){
             $sex = $v['ad_sex']== 1 ? '男' :'女';
             $admin[$k]['adWechat'] = $loop->getUserNick($v['ad_wechat']);
+            $admin[$k]['ad_roles'] = $this->getRoleName($v['ad_role']);
             $admin[$k]['ad_createtime'] = date('Y-m-d H:i:s',$v['ad_createtime']);
             $admin[$k]['ad_realname'] = $v['ad_realname']."    ( ".$sex." )";
         }
@@ -69,6 +69,25 @@ class Admin extends Controller{
         $res['count'] = $count;
         return json($res);
     }
+
+    public function getRoleName($roleIds){
+        $roleArr = explode(',',$roleIds);
+        $roleNames = '';
+        for ($i = 0;$i < count($roleArr);$i++){
+            $roleName = $this->getRole($roleArr[$i]);
+            $roleNames.= $roleName.',';
+        }
+        return rtrim($roleNames,',');
+    }
+
+    public function getRole($roleid){
+        $roleInfo = Db::table('super_role')
+            ->where(['r_id' => $roleid])
+            ->field('r_name')
+            ->find();
+        return $roleInfo['r_name'];
+    }
+
 
     public function fenpei(){
         $adId = intval(trim($this->request->param('ad_id')));
@@ -159,7 +178,14 @@ class Admin extends Controller{
                 $this->error('此邮箱已注册！','add');
             }
             $data['ad_isable'] = 1;
-            $data['ad_role'] = $_POST['ad_role'];
+            if(isset($_POST['ad_role']) && $_POST['ad_role']){
+                $bill = $_POST['ad_role'];
+                $bills = '';
+                foreach($bill as $key => $val){
+                    $bills .= $key.',';
+                }
+                $data['ad_role'] = rtrim($bills,',');
+            }
             $data['ad_createtime'] = time();
             $data['ad_admin'] = session('adminId');
             $data['ad_password'] = md5($_POST['ad_password']);
@@ -215,7 +241,14 @@ class Admin extends Controller{
             if($isRepeat){
                 $this->error('此工号已注册！','admin');
             }
-            $data['ad_role'] = $_POST['ad_role'];
+            if(isset($_POST['ad_role']) && $_POST['ad_role']){
+                $bill = $_POST['ad_role'];
+                $bills = '';
+                foreach($bill as $key => $val){
+                    $bills .= $key.',';
+                }
+                $data['ad_role'] = rtrim($bills,',');
+            }
             $data['ad_email'] = $_POST['ad_email'];
             $edit=Db::table('super_admin')->where(['ad_id' => $ad_id])->update($data);
             if($edit){
@@ -226,10 +259,42 @@ class Admin extends Controller{
         }else{
             $ad_role = intval(session('ad_role'));
             $adminInfo=Db::table('super_admin')
-                ->join('super_role','super_role.r_id = super_admin.ad_role')
-                ->field('super_admin.*,super_role.r_name')
                 ->where(['ad_id' => $ad_id])
                 ->find();
+            $allrole = [
+                [
+                    'ad_id' => '1',
+                    'ad_role' => '超级管理员',
+                    'is_checked' => false
+                ],
+                [
+                    'ad_id' => '43',
+                    'ad_role' => '企业负责人',
+                    'is_checked' => false
+                ],
+                [
+                    'ad_id' => '44',
+                    'ad_role' => '企业员工',
+                    'is_checked' => false
+                ],
+                [
+                    'ad_id' => '45',
+                    'ad_role' => '运营负责人',
+                    'is_checked' => false
+                ],
+                [
+                    'ad_id' => '46',
+                    'ad_role' => '客服',
+                    'is_checked' => false
+                ]
+            ];
+            $houseBill = explode(',',$adminInfo['ad_role']);
+            foreach ($allrole as $key => &$val) {
+                if(in_array($val['ad_id'], $houseBill)) {
+                    $val['is_checked'] = true;
+                }
+            }unset($val);
+            $houseInfo['sub'] = $houseBill;
             $where = '1 = 1';
             $roleInfo=Db::table('super_role')
                 ->field('r_id,r_name')
@@ -239,6 +304,7 @@ class Admin extends Controller{
                 ->where(['role_id' => 1])
                 ->field('id,nickname,tel')
                 ->select();
+            $this->assign('allrole',$allrole);
             $this->assign('user',$adminUser);
             $this->assign('role',$roleInfo);
             $this->assign('admin',$adminInfo);
@@ -252,10 +318,11 @@ class Admin extends Controller{
         $ad_id=intval($_GET['ad_id']);
          $ad_role = intval(session('ad_role'));
         $adminInfo=Db::table('super_admin')
-            ->join('super_role','super_role.r_id = super_admin.ad_role')
-            ->field('super_admin.*,super_role.r_name')
             ->where(['ad_id' => $ad_id])
             ->find();
+        if($adminInfo){
+            $adminInfo['ad_roles'] = $this->getRoleName($adminInfo['ad_role']);
+        }
         $where = '1 = 1';
         $roleInfo=Db::table('super_role')
             ->field('r_id,r_name')
@@ -488,7 +555,7 @@ class Admin extends Controller{
 
 
     //editRole
-    public function editRole(){
+    public function editrole(){
         $r_id=intval($_GET['r_id']);
         if($_POST){
         }else{
