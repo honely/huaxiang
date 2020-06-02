@@ -1,4 +1,4 @@
-<?php if (!defined('THINK_PATH')) exit(); /*a:3:{s:91:"D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\public/../application/xcx\view\house\index.html";i:1590047864;s:82:"D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\application\xcx\view\index\header.html";i:1587691504;s:82:"D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\application\xcx\view\index\footer.html";i:1583744281;}*/ ?>
+<?php if (!defined('THINK_PATH')) exit(); /*a:3:{s:91:"D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\public/../application/xcx\view\house\index.html";i:1591067898;s:82:"D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\application\xcx\view\index\header.html";i:1587691504;s:82:"D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\application\xcx\view\index\footer.html";i:1583744281;}*/ ?>
 <!DOCTYPE html>
 <html style="height: 100%">
 <head>
@@ -39,7 +39,9 @@
         <a><cite>房源列表</cite></a>
     </span>
     <div style="float:right;">
+        <?php if($addable == true): ?>
         <button class="layui-btn layui-btn-primary layui-btn-sm"  onclick="addArt()"><i class="layui-icon"></i>发布房源</button>
+        <?php endif; ?>
     </div>
 </div>
 <div class="layui-tab layui-tab-brief" lay-filter="docDemoTabBrief">
@@ -143,8 +145,11 @@
                         <th lay-data="{field:'area',width:120}">区域</th>
                         <th lay-data="{field:'collection',width:70}">收藏</th>
                         <th lay-data="{field:'view',width:70}">点击</th>
+                        <?php if($topable == true): ?>
                         <th lay-data="{field:'top', templet: '#top1',width:85}">置顶</th>
+                        <?php endif; if($tjable == true): ?>
                         <th lay-data="{field:'tj', templet: '#switchTj',width:85}">推荐</th>
+                        <?php endif; ?>
                         <th lay-data="{field:'statuss',width:70}">状态</th>
                         <th lay-data="{field:'status',templet: '#status',width:110}">上下线</th>
                         <th lay-data="{field:'cdate',width:105}">添加时间</th>
@@ -158,10 +163,13 @@
     </div>
 </div>
 <script type="text/html" id="barDemo">
-<!--    <a class="layui-btn layui-btn-xs" lay-event="tags">标签</a>-->
+<?php if($editable == true): ?>
     <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
+<?php endif; ?>
     <a class="layui-btn layui-btn-xs  layui-btn-warm" lay-event="alert">详情</a>
+<?php if($delable == true): ?>
     <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
+<?php endif; ?>
 </script>
 <script type="text/html" id="top1">
     <input type="checkbox" name="sex" lay-skin="switch" value="{{d.id}}" lay-text="是|否" lay-filter="topDemo" {{ d.top == '是' ? 'checked' : '' }}  {{ d.isTop == false ? 'disabled' : '' }}>

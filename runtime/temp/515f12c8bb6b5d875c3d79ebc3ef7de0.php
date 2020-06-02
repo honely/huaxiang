@@ -1,4 +1,26 @@
-{include file="index/header" /}
+<?php if (!defined('THINK_PATH')) exit(); /*a:3:{s:90:"D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\public/../application/xcx\view\user\index.html";i:1591087557;s:82:"D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\application\xcx\view\index\header.html";i:1587691504;s:82:"D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\application\xcx\view\index\footer.html";i:1583744281;}*/ ?>
+<!DOCTYPE html>
+<html style="height: 100%">
+<head>
+    <meta charset="utf-8">
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <title>小宝租房后台管理系统</title>
+    <link rel="stylesheet" href="../../../layui/src/css/layui.css">
+    <script src="../../../static/jquery-1.10.2.min.js"></script>
+    <script src="../../../layui/src/layui.js"></script>
+	<style>
+		.layui-body{
+			left:0!important
+		}
+	</style>
+</head>
+<body class="layui-layout-body" style="height: 100%">
+
 <style>
     .layui-table-cell{
         height:64px !important;
@@ -34,17 +56,17 @@
     <table lay-filter="demo" id="test123" lay-skin="nob"></table>
 </section>
 <script type="text/html" id="barDemo">
-    {if condition='$editable eq true'}
+    <?php if($editable == true): ?>
     {{#  if(d.role_id == 1){ }}
     <a class="layui-btn layui-btn-xs" lay-event="admin">一般用户</a>
     {{#  }else{ }}
     <a class="layui-btn layui-btn-xs" lay-event="admin">管理员</a>
     {{#  } }}
-    {/if}
+    <?php endif; ?>
     <a class="layui-btn layui-btn-xs" lay-event="edit">详情</a>
-    {if condition='$addable eq true'}
+    <?php if($addable == true): ?>
     <a class="layui-btn layui-btn-xs" lay-event="touch">沟通</a>
-    {/if}
+    <?php endif; ?>
 
 
 </script>
@@ -76,7 +98,7 @@
             var data = obj.data;
             var id = data.id;
             var role_id = data.role_id;
-            var weChat = {$wechat};
+            var weChat = <?php echo $wechat; ?>;
             if(obj.event === 'edit'){
                 window.location.href='<?=url("user/details")?>?id='+ id ;
             }else if(obj.event === 'touch'){
@@ -158,4 +180,13 @@
         });
     });
 </script>
-{include file="index/footer" /}
+</div>
+<script>
+    //JavaScript代码区域
+    layui.use('element', function(){
+        var element = layui.element;
+
+    });
+</script>
+</body>
+</html>

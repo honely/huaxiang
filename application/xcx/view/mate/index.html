@@ -27,7 +27,6 @@
                             <div class="layui-input-inline">
                                 <input type="text" name="keywords" id="keywords"  placeholder="请输入房源标题或编号" class="layui-input">
                             </div>
-<!--                            发布人-->
                         </div>
                         <div class="layui-inline">
                             <div class="layui-input-inline" style="width: 80px;">
@@ -107,11 +106,12 @@
                         <th lay-data="{field:'school',width:120}">校区</th>
                         <th lay-data="{field:'collection',width:100}">收藏量</th>
                         <th lay-data="{field:'view',width:100}">点击量</th>
-
                         <th lay-data="{field:'cdate',width:180}">添加时间</th>
                         <th lay-data="{field:'user_id',width:80}">发布人</th>
                         <th lay-data="{field:'statuss',width:80}">状态</th>
+                        {if condition='$onlineable eq true'}
                         <th lay-data="{field:'top', templet: '#switchTop',unresize: true}">上下线</th>
+                        {/if}
                         <th lay-data="{ width:230, toolbar: '#barDemo'}">操作</th>
                     </tr>
                     </thead>
@@ -125,7 +125,10 @@
 </script>
 <script type="text/html" id="barDemo">
     <a class="layui-btn layui-btn-xs  layui-btn-warm" lay-event="alert"><i class="layui-icon">&#xe637;</i>详情</a>
+    {if condition='$delable eq true'}
     <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del"><i class="layui-icon">&#xe640;</i>删除</a>
+    {/if}
+
 </script>
 <script>
     layui.use(['table','laydate','form','element'], function(){

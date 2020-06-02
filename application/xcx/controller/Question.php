@@ -1,5 +1,6 @@
 <?php
 namespace app\xcx\controller;
+use app\xcx\model\Rolem;
 use think\Controller;
 use think\Db;
 use think\Request;
@@ -26,11 +27,29 @@ class Question extends Controller
 
 
     public function rent1(){
+        $adminId = session('adminId');
+        $roleM = new Rolem();
+        $power_list = $roleM->getPowerListByAdminId($adminId);
+        $addable = in_array('268',$power_list,true);
+        $editable = in_array('269',$power_list,true);
+        $delable = in_array('270',$power_list,true);
+        $this->assign('addable',$addable);
+        $this->assign('editable',$editable);
+        $this->assign('delable',$delable);
         return $this->fetch();
     }
 
 
     public function loard1(){
+        $adminId = session('adminId');
+        $roleM = new Rolem();
+        $power_list = $roleM->getPowerListByAdminId($adminId);
+        $addable = in_array('271',$power_list,true);
+        $editable = in_array('272',$power_list,true);
+        $delable = in_array('273',$power_list,true);
+        $this->assign('addable',$addable);
+        $this->assign('editable',$editable);
+        $this->assign('delable',$delable);
         return $this->fetch();
     }
 

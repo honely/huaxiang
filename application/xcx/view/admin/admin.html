@@ -5,7 +5,9 @@
         <a><cite>员工列表</cite></a>
     </span>
     <div style="float:right;">
+        {if condition='$addable eq true'}
         <button class="layui-btn layui-btn-primary layui-btn-sm"  onclick="addAdmin()"><i class="layui-icon"></i>添加员工</button>
+        {/if}
     </div>
 </div>
 <hr/>
@@ -49,7 +51,7 @@
                 <th lay-data="{field:'adWechat'}">关联微信</th>
                 <th lay-data="{field:'ad_phone'}">手机</th>
                 <th lay-data="{field:'ad_corp'}">公司</th>
-                {if condition='$ad_role eq 1'}
+                {if condition='$offable eq true'}
                 <th lay-data="{field:'ad_isable',width:120,templet: '#switchTpl', unresize: true}">状态</th>
                 {/if}
                 <th lay-data="{field:'ad_createtime'}">添加时间</th>
@@ -61,13 +63,15 @@
 
 <script type="text/html" id="barDemo">
     <a class="layui-btn layui-btn-xs" lay-event="details">详情</a>
+    {if condition='$editable eq true'}
     <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
+    {/if}
+    {if condition='$connectable eq true'}
     <a class="layui-btn layui-btn-xs" lay-event="connect">关联用户</a>
-    {{#  if(d.ad_role == '1'){ }}
-    <a class="layui-btn layui-btn-disabled layui-btn-xs" lay-event="dels">删除</a>
-    {{#  } else { }}
+    {/if}
+    {if condition='$delable eq true'}
     <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
-    {{#  } }}
+    {/if}
 </script>
 <script type="text/html" id="switchTpl">
     <input type="checkbox" name="sex" lay-skin="switch" value="{{d.ad_id}}" lay-text="在职|离职" lay-filter="sexDemo" {{ d.ad_isable == 1 ? 'checked' : '' }}>

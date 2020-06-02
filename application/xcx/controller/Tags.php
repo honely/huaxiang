@@ -1,5 +1,6 @@
 <?php
 namespace app\xcx\controller;
+use app\xcx\model\Rolem;
 use think\Controller;
 use think\Db;
 use think\Request;
@@ -26,10 +27,28 @@ class Tags extends Controller
 
 
     public function house(){
+        $adminId = session('adminId');
+        $roleM = new Rolem();
+        $power_list = $roleM->getPowerListByAdminId($adminId);
+        $addable = in_array('262',$power_list,true);
+        $editable = in_array('263',$power_list,true);
+        $delable = in_array('264',$power_list,true);
+        $this->assign('addable',$addable);
+        $this->assign('editable',$editable);
+        $this->assign('delable',$delable);
         return $this->fetch();
     }
 
     public function mate(){
+        $adminId = session('adminId');
+        $roleM = new Rolem();
+        $power_list = $roleM->getPowerListByAdminId($adminId);
+        $addable = in_array('265',$power_list,true);
+        $editable = in_array('266',$power_list,true);
+        $delable = in_array('267',$power_list,true);
+        $this->assign('addable',$addable);
+        $this->assign('editable',$editable);
+        $this->assign('delable',$delable);
         return $this->fetch();
     }
 

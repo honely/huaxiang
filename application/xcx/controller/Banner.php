@@ -6,6 +6,7 @@
  * Time: 10:52
  */
 namespace app\xcx\controller;
+use app\xcx\model\Rolem;
 use think\Controller;
 use think\Db;
 use think\Request;
@@ -30,6 +31,15 @@ class Banner extends Controller{
     }
     //banner
     public function index(){
+        $adminId = session('adminId');
+        $roleM = new Rolem();
+        $power_list = $roleM->getPowerListByAdminId($adminId);
+        $addable = in_array('257',$power_list,true);
+        $editable = in_array('258',$power_list,true);
+        $delable = in_array('259',$power_list,true);
+        $this->assign('addable',$addable);
+        $this->assign('editable',$editable);
+        $this->assign('delable',$delable);
         return $this->fetch();
     }
 

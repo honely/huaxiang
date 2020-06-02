@@ -7,6 +7,7 @@
  */
 namespace app\xcx\controller;
 use app\xcx\model\Loops;
+use app\xcx\model\Rolem;
 use think\Controller;
 use think\Db;
 use think\Request;
@@ -99,6 +100,19 @@ class Admin extends Controller{
 
     public function admin(){
         $ad_role=intval(session('ad_role'));
+        $adminId = session('adminId');
+        $roleM = new Rolem();
+        $power_list = $roleM->getPowerListByAdminId($adminId);
+        $addable = in_array('247',$power_list,true);
+        $editable = in_array('249',$power_list,true);
+        $delable = in_array('251',$power_list,true);
+        $offable = in_array('248',$power_list,true);
+        $connectable = in_array('250',$power_list,true);
+        $this->assign('addable',$addable);
+        $this->assign('editable',$editable);
+        $this->assign('delable',$delable);
+        $this->assign('offable',$offable);
+        $this->assign('connectable',$connectable);
         if($_POST){
             $where = ' 1 = 1 ';
             $keywords=trim($this->request->param('keywords'));
@@ -484,6 +498,15 @@ class Admin extends Controller{
 
     //角色配置
     public function role(){
+        $adminId = session('adminId');
+        $roleM = new Rolem();
+        $power_list = $roleM->getPowerListByAdminId($adminId);
+        $addable = in_array('252',$power_list,true);
+        $editable = in_array('253',$power_list,true);
+        $delable = in_array('254',$power_list,true);
+        $this->assign('addable',$addable);
+        $this->assign('editable',$editable);
+        $this->assign('delable',$delable);
         $count=Db::table('super_role')
             ->count();
         $page= $this->request->param('page',1,'intval');

@@ -7,6 +7,7 @@
  */
 namespace app\xcx\controller;
 use app\xcx\model\Housem;
+use app\xcx\model\Rolem;
 use think\Controller;
 use think\Request;
 use think\Db;
@@ -52,11 +53,13 @@ class Index extends Controller
         $adminId = session('adminId');
         $userData = Db::table("super_admin")
                     ->alias('admin')
-                    ->join('super_role role',"admin.ad_role=role.r_id")
+                    //->join('super_role role',"admin.ad_role=role.r_id")
                     ->where(['admin.ad_id' => $adminId])
                     ->find();
         if($userData){
-            $power_list = explode(',',trim($userData['r_power'],','));
+            //多权限取交集
+            $roleM = new Rolem();
+            $power_list = $roleM->getPowerList($userData['ad_role']);
             if($power_list){
                 foreach ($power_list as $val){
                     $menu_list = Db::table("super_menu")
@@ -98,7 +101,6 @@ class Index extends Controller
         $this->assign('ad_role',$ad_role);
         return  $this->fetch();
     }
-
 
 
     //基本资料

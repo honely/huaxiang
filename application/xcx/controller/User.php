@@ -8,6 +8,7 @@
 namespace app\xcx\controller;
 use app\xcx\model\Loops;
 use app\xcx\model\Msgs;
+use app\xcx\model\Rolem;
 use think\Controller;
 use think\Db;
 use think\Loader;
@@ -69,6 +70,15 @@ class User extends Controller{
     public function index(){
         $weChat = session('ad_wechat');
         $weChat = $weChat== null ? 0: $weChat;
+        $adminId = session('adminId');
+        $roleM = new Rolem();
+        $power_list = $roleM->getPowerListByAdminId($adminId);
+        //会话
+        $addable = in_array('274',$power_list,true);
+        //角色
+        $editable = in_array('275',$power_list,true);
+        $this->assign('addable',$addable);
+        $this->assign('editable',$editable);
         $this->assign('wechat',$weChat);
         return $this->fetch();
     }
@@ -102,6 +112,11 @@ class User extends Controller{
     }
 
     public function serlog(){
+        $adminId = session('adminId');
+        $roleM = new Rolem();
+        $power_list = $roleM->getPowerListByAdminId($adminId);
+        $addable = in_array('256',$power_list,true);
+        $this->assign('addable',$addable);
         return $this->fetch();
     }
 
@@ -211,6 +226,13 @@ class User extends Controller{
     }
 
     public function msgs(){
+        $adminId = session('adminId');
+        $roleM = new Rolem();
+        $power_list = $roleM->getPowerListByAdminId($adminId);
+        $addable = in_array('277',$power_list,true);
+        $editable = in_array('278',$power_list,true);
+        $this->assign('editable',$editable);
+        $this->assign('addable',$addable);
         return $this->fetch();
     }
 

@@ -1,4 +1,4 @@
-<?php if (!defined('THINK_PATH')) exit(); /*a:3:{s:91:"D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\public/../application/xcx\view\admin\admin.html";i:1591000666;s:82:"D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\application\xcx\view\index\header.html";i:1587691504;s:82:"D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\application\xcx\view\index\footer.html";i:1583744281;}*/ ?>
+<?php if (!defined('THINK_PATH')) exit(); /*a:3:{s:91:"D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\public/../application/xcx\view\admin\admin.html";i:1591086769;s:82:"D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\application\xcx\view\index\header.html";i:1587691504;s:82:"D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\application\xcx\view\index\footer.html";i:1583744281;}*/ ?>
 <!DOCTYPE html>
 <html style="height: 100%">
 <head>
@@ -27,7 +27,9 @@
         <a><cite>员工列表</cite></a>
     </span>
     <div style="float:right;">
+        <?php if($addable == true): ?>
         <button class="layui-btn layui-btn-primary layui-btn-sm"  onclick="addAdmin()"><i class="layui-icon"></i>添加员工</button>
+        <?php endif; ?>
     </div>
 </div>
 <hr/>
@@ -71,7 +73,7 @@
                 <th lay-data="{field:'adWechat'}">关联微信</th>
                 <th lay-data="{field:'ad_phone'}">手机</th>
                 <th lay-data="{field:'ad_corp'}">公司</th>
-                <?php if($ad_role == 1): ?>
+                <?php if($offable == true): ?>
                 <th lay-data="{field:'ad_isable',width:120,templet: '#switchTpl', unresize: true}">状态</th>
                 <?php endif; ?>
                 <th lay-data="{field:'ad_createtime'}">添加时间</th>
@@ -83,13 +85,13 @@
 
 <script type="text/html" id="barDemo">
     <a class="layui-btn layui-btn-xs" lay-event="details">详情</a>
+    <?php if($editable == true): ?>
     <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
+    <?php endif; if($connectable == true): ?>
     <a class="layui-btn layui-btn-xs" lay-event="connect">关联用户</a>
-    {{#  if(d.ad_role == '1'){ }}
-    <a class="layui-btn layui-btn-disabled layui-btn-xs" lay-event="dels">删除</a>
-    {{#  } else { }}
+    <?php endif; if($delable == true): ?>
     <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
-    {{#  } }}
+    <?php endif; ?>
 </script>
 <script type="text/html" id="switchTpl">
     <input type="checkbox" name="sex" lay-skin="switch" value="{{d.ad_id}}" lay-text="在职|离职" lay-filter="sexDemo" {{ d.ad_isable == 1 ? 'checked' : '' }}>

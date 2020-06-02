@@ -1,4 +1,26 @@
-{include file="index/header" /}
+<?php if (!defined('THINK_PATH')) exit(); /*a:3:{s:94:"D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\public/../application/xcx\view\question\rent1.html";i:1591087176;s:82:"D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\application\xcx\view\index\header.html";i:1587691504;s:82:"D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\application\xcx\view\index\footer.html";i:1583744281;}*/ ?>
+<!DOCTYPE html>
+<html style="height: 100%">
+<head>
+    <meta charset="utf-8">
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <title>小宝租房后台管理系统</title>
+    <link rel="stylesheet" href="../../../layui/src/css/layui.css">
+    <script src="../../../static/jquery-1.10.2.min.js"></script>
+    <script src="../../../layui/src/layui.js"></script>
+	<style>
+		.layui-body{
+			left:0!important
+		}
+	</style>
+</head>
+<body class="layui-layout-body" style="height: 100%">
+
 <style>
     .layui-table-cell{
         height:36px !important;
@@ -12,9 +34,9 @@
             <a><cite>租房相关</cite></a>
         </span>
     <div style="float:right;">
-        {if condition='$addable eq true'}
+        <?php if($addable == true): ?>
         <button class="layui-btn layui-btn-primary layui-btn-sm"  onclick="addBanner()"><i class="layui-icon"></i>添加</button>
-        {/if}
+        <?php endif; ?>
     </div>
 </div>
 <hr/>
@@ -31,11 +53,10 @@
     </table>
 </section>
 <script type="text/html" id="barDemo">
-    {if condition='$editable eq true'}
-    <a class="layui-btn layui-btn-xs" lay-event="review">修改</a>{/if}
-    {if condition='$delable eq true'}
+    <?php if($editable == true): ?>
+    <a class="layui-btn layui-btn-xs" lay-event="review">修改</a><?php endif; if($delable == true): ?>
     <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
-    {/if}
+    <?php endif; ?>
 
 
 </script>
@@ -100,4 +121,13 @@
         });
     });
 </script>
-{include file="index/footer" /}
+</div>
+<script>
+    //JavaScript代码区域
+    layui.use('element', function(){
+        var element = layui.element;
+
+    });
+</script>
+</body>
+</html>

@@ -1,4 +1,4 @@
-<?php if (!defined('THINK_PATH')) exit(); /*a:3:{s:90:"D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\public/../application/xcx\view\admin\role.html";i:1583744281;s:82:"D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\application\xcx\view\index\header.html";i:1587691504;s:82:"D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\application\xcx\view\index\footer.html";i:1583744281;}*/ ?>
+<?php if (!defined('THINK_PATH')) exit(); /*a:3:{s:90:"D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\public/../application/xcx\view\admin\role.html";i:1591086944;s:82:"D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\application\xcx\view\index\header.html";i:1587691504;s:82:"D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\application\xcx\view\index\footer.html";i:1583744281;}*/ ?>
 <!DOCTYPE html>
 <html style="height: 100%">
 <head>
@@ -56,7 +56,9 @@
     <a><cite>角色列表</cite></a>
 </span>
     <div style="float:right;">
+        <?php if($addable == true): ?>
         <button class="layui-btn layui-btn-primary layui-btn-sm"  onclick="addAdmin()"><i class="layui-icon"></i>新增角色</button>
+        <?php endif; ?>
     </div>
 </div>
 <hr/>
@@ -79,8 +81,11 @@
                         <td><?php echo $na['r_name']; ?></td>
                         <td><?php echo $na['countNum']; ?></td>
                         <td style="text-align: right;padding-right: 30px;">
+                            <?php if($editable == true): ?>
                             <button class="layui-btn layui-btn-xs" onclick="editRole(<?php echo $na['r_id']; ?>)"><i class="layui-icon">&#xe642;</i>编辑</button>
+                            <?php endif; if($delable == true): ?>
                             <button class="layui-btn layui-btn-disabled layui-btn-xs" onclick="delRole(<?php echo $na['r_id']; ?>)"><i class="layui-icon">&#xe640;</i>删除</button>
+                            <?php endif; ?>
                         </td>
                     </tr>
                     <?php endforeach; endif; else: echo "" ;endif; ?>

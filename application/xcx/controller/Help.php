@@ -3,12 +3,20 @@
 namespace app\xcx\controller;
 
 
+use app\xcx\model\Rolem;
 use think\Controller;
 use think\Db;
 
 class Help extends Controller
 {
     public function index(){
+        $adminId = session('adminId');
+        $roleM = new Rolem();
+        $power_list = $roleM->getPowerListByAdminId($adminId);
+        $editable = in_array('260',$power_list,true);
+        $delable = in_array('261',$power_list,true);
+        $this->assign('editable',$editable);
+        $this->assign('delable',$delable);
         return $this->fetch();
     }
 

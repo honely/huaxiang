@@ -1,13 +1,35 @@
-{include file="index/header" /}
+<?php if (!defined('THINK_PATH')) exit(); /*a:3:{s:92:"D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\public/../application/xcx\view\banner\index.html";i:1591089882;s:82:"D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\application\xcx\view\index\header.html";i:1587691504;s:82:"D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\application\xcx\view\index\footer.html";i:1583744281;}*/ ?>
+<!DOCTYPE html>
+<html style="height: 100%">
+<head>
+    <meta charset="utf-8">
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <title>小宝租房后台管理系统</title>
+    <link rel="stylesheet" href="../../../layui/src/css/layui.css">
+    <script src="../../../static/jquery-1.10.2.min.js"></script>
+    <script src="../../../layui/src/layui.js"></script>
+	<style>
+		.layui-body{
+			left:0!important
+		}
+	</style>
+</head>
+<body class="layui-layout-body" style="height: 100%">
+
 <div style="margin: 20px;">
     <span class="layui-breadcrumb" lay-separator=">">
         <a>广告管理</a>
         <a><cite>banner</cite></a>
     </span>
     <div style="float:right;">
-        {if condition='$addable eq true'}
+        <?php if($addable == true): ?>
         <button class="layui-btn layui-btn-primary layui-btn-sm"  onclick="addBanner()"><i class="layui-icon"></i>添加banner</button>
-        {/if}
+        <?php endif; ?>
     </div>
 </div>
 <hr/>
@@ -32,12 +54,11 @@
     <table lay-filter="demo" id="test123" lay-skin="nob"></table>
 </section>
 <script type="text/html" id="barDemo">
-    {if condition='$editable eq true'}
+    <?php if($editable == true): ?>
     <a class="layui-btn layui-btn-xs" lay-event="edit"><i class="layui-icon">&#xe642;</i>编辑</a>
-    {/if}
-    {if condition='$delable eq true'}
+    <?php endif; if($delable == true): ?>
     <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del"><i class="layui-icon">&#xe640;</i>删除</a>
-    {/if}
+    <?php endif; ?>
 </script>
 <script type="text/html" id="switchTpl">
     <input type="checkbox" name="sex" lay-skin="switch" value="{{d.b_id}}" lay-text="是|否" lay-filter="sexDemo" {{ d.b_status == 1 ? 'checked' : '' }}>
@@ -54,7 +75,7 @@
             ,cols: [[
                 {field:'b_id', sort: true, title:'ID'}
                 ,{field:'b_title',title: '广告名称'}
-                ,{field:'b_cover', title: '广告封面',templet:'<div><img src="__PUBLIC__/{{ d.b_cover}}"></div>'}
+                ,{field:'b_cover', title: '广告封面',templet:'<div><img src="../../../{{ d.b_cover}}"></div>'}
                 ,{field:'b_order',title: '广告排序',edit:'text', sort: true}
                 ,{field:'b_class',title: '广告类型'}
                 ,{field:'b_add_time', title: '操作时间'}
@@ -181,4 +202,13 @@
         window.location.href='<?=url('banner/add')?>';
     }
 </script>
-{include file="index/footer" /}
+</div>
+<script>
+    //JavaScript代码区域
+    layui.use('element', function(){
+        var element = layui.element;
+
+    });
+</script>
+</body>
+</html>

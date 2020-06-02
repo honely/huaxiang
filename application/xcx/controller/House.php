@@ -9,6 +9,7 @@
 namespace app\xcx\controller;
 use app\admin\model\Commons;
 use app\xcx\model\Loops;
+use app\xcx\model\Rolem;
 use think\Controller;
 use think\Db;
 use think\Request;
@@ -36,11 +37,40 @@ class House extends Controller{
      *
      * */
     public function index(){
+        $adminId = session('adminId');
+        $roleM = new Rolem();
+        $power_list = $roleM->getPowerListByAdminId($adminId);
+        $addable = in_array('230',$power_list,true);
+        $editable = in_array('232',$power_list,true);
+        $delable = in_array('233',$power_list,true);
+        $topable = in_array('241',$power_list,true);
+        $tjable = in_array('240',$power_list,true);
+        $this->assign('addable',$addable);
+        $this->assign('editable',$editable);
+        $this->assign('delable',$delable);
+        $this->assign('topable',$topable);
+        $this->assign('tjable',$tjable);
         $cityinfo = Db::table('tk_cate')->where(['pid' =>0])->select();
         $this->assign('cityinfo',$cityinfo);
         return $this->fetch();
     }
+    public function getUserPowerId($roleIds){
+        $roleArr = explode(',',$roleIds);
+        $roleNames = '';
+        for ($i = 0;$i < count($roleArr);$i++){
+            $roleName = $this->getRole($roleArr[$i]);
+            $roleNames.= $roleName.',';
+        }
+        return rtrim($roleNames,',');
+    }
 
+    public function getRole($roleid){
+        $roleInfo = Db::table('super_role')
+            ->where(['r_id' => $roleid])
+            ->field('r_power')
+            ->find();
+        return $roleInfo['r_power'];
+    }
     public function houseData(){
         $where =' 1 = 1';
         $keywords = trim($this->request->param('keywords'));
@@ -1048,5 +1078,110 @@ class House extends Controller{
             }
         }
         return $res;
+    }
+
+    public function myhouse(){
+        $adminId = session('adminId');
+        $roleM = new Rolem();
+        $power_list = $roleM->getPowerListByAdminId($adminId);
+        $addable = in_array('242',$power_list,true);
+        $editable = in_array('243',$power_list,true);
+        $delable = in_array('244',$power_list,true);
+        $this->assign('addable',$addable);
+        $this->assign('editable',$editable);
+        $this->assign('delable',$delable);
+        $cityinfo = Db::table('tk_cate')->where(['pid' =>0])->select();
+        $this->assign('cityinfo',$cityinfo);
+        return $this->fetch();
+    }
+
+    public function myData(){
+        $userId = session('ad_wechat');
+        $where =' user_id = '.$userId;
+        $keywords = trim($this->request->param('keywords'));
+        $time = trim($this->request->param('time'));
+        $city = trim($this->request->param('city'));
+        $area = trim($this->request->param('area'));
+        $status = trim($this->request->param('status'));
+        $address = trim($this->request->param('address'));
+        $top = trim($this->request->param('top'));
+        $tj = trim($this->request->param('tj'));
+        if(isset($keywords) && !empty($keywords)){
+            $where.=" and ( title like '%".$keywords."%' or dsn like '%".$keywords."%' )";
+        }
+        if(isset($city) && !empty($city) && $city){
+            $where.=" and city = '".$city."'";
+        }
+        if(isset($area) && !empty($area) && $area){
+            $where.=" and area = '".$area."'";
+        }if(isset($top) && !empty($top) && $top){
+            if($top == '是'){
+                $where.=" and top = '".$top."'";
+            }
+        }if(isset($tj) && !empty($tj) && $tj){
+            if($tj == '是'){
+                $where.=" and tj = '".$tj."'";
+            }
+        }
+        if(isset($address) && !empty($address) && $address){
+            $where.=" and address like '%".$address."%'";
+        }
+        if(isset($status) && !empty($status) && $status){
+            $where.=" and status = ".$status;
+        }
+
+        if(isset($time) && !empty($time)){
+            $sdate=substr($time,'0','10')." 00:00:00";
+            $edate=substr($time,'-10')." 23:59:59";
+            $where.=" and ( cdate >= '".$sdate."' and cdate <= '".$edate."' ) ";
+        }
+        $count=Db::table('tk_houses')
+            ->where($where)
+            ->count();
+        $page= $this->request->param('page',1,'intval');
+        $limit=$this->request->param('limit',10,'intval');
+        $order = 'top desc,cdate desc';
+        $orderv = trim($this->request->param('orderv'));
+        $orderc = trim($this->request->param('orderc'));
+        if(isset($orderv) && !empty($orderv) && $orderv){
+            if($orderv == 1){
+                $order ="view desc";
+            }else{
+                $order ="view asc";
+            }
+        }
+        if(isset($orderc) && !empty($orderc) && $orderc){
+            if($orderc == 1){
+                $order ="collection desc";
+            }else{
+                $order ="collection asc";
+            }
+        }
+        $design=Db::table('tk_houses')
+            ->limit(($page-1)*$limit,$limit)
+            ->order($order)
+            ->where($where)
+            ->select();
+        $designs=Db::table('tk_houses')
+            ->limit(($page-1)*$limit,$limit)
+            ->order($order)
+            ->where($where)
+            ->fetchSql(true)
+            ->select();
+//        dump($design);
+        $loopd = new Loops();
+        foreach ($design as $k => $v){
+            $design[$k]['statuss'] = $this->houseStatus($v['status']);
+            $design[$k]['cdate'] = date('m-d H:i',strtotime($v['cdate']));
+            $design[$k]['user_id'] = $loopd->getUserNick($v['user_id']);
+            $design[$k]['isTop'] = $this->greaterTops($v['id']);
+            $design[$k]['isTj'] = $this->greaterTjs($v['id']);
+        }
+        $res['code'] = 0;
+        $res['msg'] = "";
+        $res['data'] = $design;
+        $res['count'] = $count;
+        $res['where'] = $designs;
+        return json($res);
     }
 }

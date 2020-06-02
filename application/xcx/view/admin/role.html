@@ -34,7 +34,9 @@
     <a><cite>角色列表</cite></a>
 </span>
     <div style="float:right;">
+        {if condition='$addable eq true'}
         <button class="layui-btn layui-btn-primary layui-btn-sm"  onclick="addAdmin()"><i class="layui-icon"></i>新增角色</button>
+        {/if}
     </div>
 </div>
 <hr/>
@@ -58,8 +60,12 @@
                         <td>{$na.r_name}</td>
                         <td>{$na.countNum}</td>
                         <td style="text-align: right;padding-right: 30px;">
+                            {if condition='$editable eq true'}
                             <button class="layui-btn layui-btn-xs" onclick="editRole({$na.r_id})"><i class="layui-icon">&#xe642;</i>编辑</button>
+                            {/if}
+                            {if condition='$delable eq true'}
                             <button class="layui-btn layui-btn-disabled layui-btn-xs" onclick="delRole({$na.r_id})"><i class="layui-icon">&#xe640;</i>删除</button>
+                            {/if}
                         </td>
                     </tr>
                     {/volist}

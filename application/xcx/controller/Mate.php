@@ -6,6 +6,7 @@ namespace app\xcx\controller;
 
 use app\xcx\model\Loops;
 use app\xcx\model\Matem;
+use app\xcx\model\Rolem;
 use think\Controller;
 use think\Db;
 use think\Request;
@@ -31,6 +32,13 @@ class Mate extends Controller
         }
     }
     public function index(){
+        $adminId = session('adminId');
+        $roleM = new Rolem();
+        $power_list = $roleM->getPowerListByAdminId($adminId);
+        $onlineable = in_array('245',$power_list,true);
+        $delable = in_array('246',$power_list,true);
+        $this->assign('onlineable',$onlineable);
+        $this->assign('delable',$delable);
         $cityinfo = Db::table('tk_cate')->where(['pid' =>0])->select();
         $this->assign('cityinfo',$cityinfo);
         return $this->fetch();

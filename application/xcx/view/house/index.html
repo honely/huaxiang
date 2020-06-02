@@ -17,7 +17,9 @@
         <a><cite>房源列表</cite></a>
     </span>
     <div style="float:right;">
+        {if condition='$addable eq true'}
         <button class="layui-btn layui-btn-primary layui-btn-sm"  onclick="addArt()"><i class="layui-icon"></i>发布房源</button>
+        {/if}
     </div>
 </div>
 <div class="layui-tab layui-tab-brief" lay-filter="docDemoTabBrief">
@@ -121,8 +123,12 @@
                         <th lay-data="{field:'area',width:120}">区域</th>
                         <th lay-data="{field:'collection',width:70}">收藏</th>
                         <th lay-data="{field:'view',width:70}">点击</th>
+                        {if condition='$topable eq true'}
                         <th lay-data="{field:'top', templet: '#top1',width:85}">置顶</th>
+                        {/if}
+                        {if condition='$tjable eq true'}
                         <th lay-data="{field:'tj', templet: '#switchTj',width:85}">推荐</th>
+                        {/if}
                         <th lay-data="{field:'statuss',width:70}">状态</th>
                         <th lay-data="{field:'status',templet: '#status',width:110}">上下线</th>
                         <th lay-data="{field:'cdate',width:105}">添加时间</th>
@@ -136,10 +142,13 @@
     </div>
 </div>
 <script type="text/html" id="barDemo">
-<!--    <a class="layui-btn layui-btn-xs" lay-event="tags">标签</a>-->
+{if condition='$editable eq true'}
     <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
+{/if}
     <a class="layui-btn layui-btn-xs  layui-btn-warm" lay-event="alert">详情</a>
+{if condition='$delable eq true'}
     <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
+{/if}
 </script>
 <script type="text/html" id="top1">
     <input type="checkbox" name="sex" lay-skin="switch" value="{{d.id}}" lay-text="是|否" lay-filter="topDemo" {{ d.top == '是' ? 'checked' : '' }}  {{ d.isTop == false ? 'disabled' : '' }}>

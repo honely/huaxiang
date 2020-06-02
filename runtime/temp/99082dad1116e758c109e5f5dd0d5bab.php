@@ -1,4 +1,4 @@
-<?php if (!defined('THINK_PATH')) exit(); /*a:3:{s:94:"D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\public/../application/xcx\view\admin\editrole.html";i:1591003787;s:82:"D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\application\xcx\view\index\header.html";i:1587691504;s:82:"D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\application\xcx\view\index\footer.html";i:1583744281;}*/ ?>
+<?php if (!defined('THINK_PATH')) exit(); /*a:3:{s:94:"D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\public/../application/xcx\view\admin\editrole.html";i:1591084404;s:82:"D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\application\xcx\view\index\header.html";i:1587691504;s:82:"D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\application\xcx\view\index\footer.html";i:1583744281;}*/ ?>
 <!DOCTYPE html>
 <html style="height: 100%">
 <head>
@@ -72,7 +72,7 @@
                             <div class="fr qx">
                                 <input type="checkbox" lay-filter="qunaxuan" class="checks"
                                    <?php if(is_array($m_ids) || $m_ids instanceof \think\Collection || $m_ids instanceof \think\Paginator): $i = 0; $__LIST__ = $m_ids;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$it): $mod = ($i % 2 );++$i;if($it == $child['m_id']): ?>checked<?php endif; endforeach; endif; else: echo "" ;endif; ?>
-                                   value="<?php echo $child['m_fid']; ?>,<?php echo $child['m_id']; ?>" name="" title="选则" lay-skin="primary">
+                                   value="<?php echo $child['m_fid']; ?>,<?php echo $child['m_id']; ?>" name="" title="选择" lay-skin="primary">
                             </div>
                         </div>
                         <?php endforeach; endif; else: echo "" ;endif; ?>
