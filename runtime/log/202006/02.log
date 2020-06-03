@@ -25105,3 +25105,704 @@
 [ sql ] [ SQL ] SELECT * FROM `super_admin` INNER JOIN `super_role` ON `super_admin`.`ad_role`=`super_role`.`r_id` WHERE  `ad_id` = 1 LIMIT 1 [ RunTime:0.000725s ]
 [ sql ] [ SQL ] SHOW COLUMNS FROM `super_setinfo` [ RunTime:0.015388s ]
 [ sql ] [ SQL ] SELECT `s_value` FROM `super_setinfo` WHERE  `s_key` = 'webname' [ RunTime:0.000611s ]
+---------------------------------------------------------------
+[ 2020-06-02T18:05:41+08:00 ] 127.0.0.1 GET www.huaxiang.com/xcx/house/myhouse.html
+[运行时间：0.681378s] [吞吐率：1.47req/s] [内存消耗：3,229.76kb] [文件加载：57]
+[ info ] [ LANG ] D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\thinkphp\lang\zh-cn.php
+[ info ] [ ROUTE ] array (
+  'type' => 'module',
+  'module' => 
+  array (
+    0 => 'xcx',
+    1 => 'house',
+    2 => 'myhouse',
+  ),
+)
+[ info ] [ HEADER ] array (
+  'host' => 'www.huaxiang.com',
+  'connection' => 'keep-alive',
+  'upgrade-insecure-requests' => '1',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.70 Safari/537.36',
+  'accept' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3',
+  'referer' => 'http://www.huaxiang.com/xcx/index/index.html',
+  'accept-encoding' => 'gzip, deflate',
+  'accept-language' => 'zh-CN,zh;q=0.9',
+  'cookie' => 'PHPSESSID=bq4rsg61mvn7nu03jct14o6cu7',
+)
+[ info ] [ PARAM ] array (
+  '/xcx/house/myhouse_html' => '',
+)
+[ info ] [ SESSION ] INIT array (
+  'id' => '',
+  'var_session_id' => '',
+  'prefix' => 'think',
+  'type' => '',
+  'auto_start' => true,
+)
+[ info ] [ RUN ] app\xcx\controller\House->myhouse[ D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\application\xcx\controller\House.php ]
+[ info ] [ DB ] INIT mysql
+[ info ] [ VIEW ] D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\public/../application/xcx\view\house\myhouse.html [ array (
+  0 => 'addable',
+  1 => 'editable',
+  2 => 'delable',
+  3 => 'cityinfo',
+) ]
+[ info ] [ LOG ] INIT File
+[ sql ] [ DB ] CONNECT:[ UseTime:0.038002s ] mysql:host=127.0.0.1;port=3306;dbname=xcxnew;charset=utf8mb4
+[ sql ] [ SQL ] SHOW COLUMNS FROM `super_admin` [ RunTime:0.032178s ]
+[ sql ] [ SQL ] SELECT * FROM `super_admin` `admin` WHERE  `admin`.`ad_id` = 1 LIMIT 1 [ RunTime:0.002164s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `super_role` [ RunTime:0.031447s ]
+[ sql ] [ SQL ] SELECT `r_power` FROM `super_role` WHERE  `r_id` = 1 LIMIT 1 [ RunTime:0.012986s ]
+[ sql ] [ SQL ] SELECT `r_power` FROM `super_role` WHERE  `r_id` = 43 LIMIT 1 [ RunTime:0.000985s ]
+[ sql ] [ SQL ] SELECT `r_power` FROM `super_role` WHERE  `r_id` = 44 LIMIT 1 [ RunTime:0.000906s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `tk_cate` [ RunTime:0.026715s ]
+[ sql ] [ SQL ] SELECT * FROM `tk_cate` WHERE  `pid` = 0 [ RunTime:0.010346s ]
+---------------------------------------------------------------
+[ 2020-06-02T18:05:42+08:00 ] 127.0.0.1 GET www.huaxiang.com/xcx/house/myData/?page=1&limit=20
+[运行时间：0.253918s] [吞吐率：3.94req/s] [内存消耗：3,240.55kb] [文件加载：57]
+[ info ] [ LANG ] D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\thinkphp\lang\zh-cn.php
+[ info ] [ ROUTE ] array (
+  'type' => 'module',
+  'module' => 
+  array (
+    0 => 'xcx',
+    1 => 'house',
+    2 => 'myData',
+  ),
+)
+[ info ] [ HEADER ] array (
+  'host' => 'www.huaxiang.com',
+  'connection' => 'keep-alive',
+  'accept' => 'application/json, text/javascript, */*; q=0.01',
+  'x-requested-with' => 'XMLHttpRequest',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.70 Safari/537.36',
+  'referer' => 'http://www.huaxiang.com/xcx/house/myhouse.html',
+  'accept-encoding' => 'gzip, deflate',
+  'accept-language' => 'zh-CN,zh;q=0.9',
+  'cookie' => 'PHPSESSID=bq4rsg61mvn7nu03jct14o6cu7',
+)
+[ info ] [ PARAM ] array (
+  '/xcx/house/myData/' => '',
+  'page' => '1',
+  'limit' => '20',
+)
+[ info ] [ SESSION ] INIT array (
+  'id' => '',
+  'var_session_id' => '',
+  'prefix' => 'think',
+  'type' => '',
+  'auto_start' => true,
+)
+[ info ] [ RUN ] app\xcx\controller\House->myData[ D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\application\xcx\controller\House.php ]
+[ info ] [ DB ] INIT mysql
+[ info ] [ LOG ] INIT File
+[ sql ] [ DB ] CONNECT:[ UseTime:0.001193s ] mysql:host=127.0.0.1;port=3306;dbname=xcxnew;charset=utf8mb4
+[ sql ] [ SQL ] SHOW COLUMNS FROM `tk_houses` [ RunTime:0.039972s ]
+[ sql ] [ SQL ] SELECT COUNT(*) AS tp_count FROM `tk_houses` WHERE  (   user_id = 1 ) LIMIT 1 [ RunTime:0.001133s ]
+[ sql ] [ SQL ] SELECT * FROM `tk_houses` WHERE  (   user_id = 1 ) ORDER BY `top` DESC,`cdate` DESC LIMIT 0,20 [ RunTime:0.001960s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `tk_user` [ RunTime:0.035826s ]
+[ sql ] [ SQL ] SELECT `nickname` FROM `tk_user` WHERE  `id` = 1 LIMIT 1 [ RunTime:0.010957s ]
+[ sql ] [ SQL ] SELECT `city`,`top` FROM `tk_houses` WHERE  `id` = 233 LIMIT 1 [ RunTime:0.001991s ]
+[ sql ] [ SQL ] SELECT COUNT(*) AS tp_count FROM `tk_houses` WHERE  `city` = '墨尔本'  AND `top` = '是' LIMIT 1 [ RunTime:0.000573s ]
+[ sql ] [ SQL ] SELECT `city`,`tj` FROM `tk_houses` WHERE  `id` = 233 LIMIT 1 [ RunTime:0.000487s ]
+[ sql ] [ SQL ] SELECT COUNT(*) AS tp_count FROM `tk_houses` WHERE  `city` = '墨尔本'  AND `tj` = '是' LIMIT 1 [ RunTime:0.000962s ]
+[ sql ] [ SQL ] SELECT `nickname` FROM `tk_user` WHERE  `id` = 1 LIMIT 1 [ RunTime:0.000413s ]
+[ sql ] [ SQL ] SELECT `city`,`top` FROM `tk_houses` WHERE  `id` = 250 LIMIT 1 [ RunTime:0.000435s ]
+[ sql ] [ SQL ] SELECT COUNT(*) AS tp_count FROM `tk_houses` WHERE  `city` = '悉尼'  AND `top` = '是' LIMIT 1 [ RunTime:0.000616s ]
+[ sql ] [ SQL ] SELECT `city`,`tj` FROM `tk_houses` WHERE  `id` = 250 LIMIT 1 [ RunTime:0.000413s ]
+[ sql ] [ SQL ] SELECT COUNT(*) AS tp_count FROM `tk_houses` WHERE  `city` = '悉尼'  AND `tj` = '是' LIMIT 1 [ RunTime:0.000562s ]
+[ sql ] [ SQL ] SELECT `nickname` FROM `tk_user` WHERE  `id` = 1 LIMIT 1 [ RunTime:0.000437s ]
+[ sql ] [ SQL ] SELECT `city`,`top` FROM `tk_houses` WHERE  `id` = 247 LIMIT 1 [ RunTime:0.000803s ]
+[ sql ] [ SQL ] SELECT COUNT(*) AS tp_count FROM `tk_houses` WHERE  `city` = '霍巴特'  AND `top` = '是' LIMIT 1 [ RunTime:0.000560s ]
+[ sql ] [ SQL ] SELECT `city`,`tj` FROM `tk_houses` WHERE  `id` = 247 LIMIT 1 [ RunTime:0.000396s ]
+[ sql ] [ SQL ] SELECT COUNT(*) AS tp_count FROM `tk_houses` WHERE  `city` = '霍巴特'  AND `tj` = '是' LIMIT 1 [ RunTime:0.000442s ]
+[ sql ] [ SQL ] SELECT `nickname` FROM `tk_user` WHERE  `id` = 1 LIMIT 1 [ RunTime:0.000547s ]
+[ sql ] [ SQL ] SELECT `city`,`top` FROM `tk_houses` WHERE  `id` = 246 LIMIT 1 [ RunTime:0.000646s ]
+[ sql ] [ SQL ] SELECT COUNT(*) AS tp_count FROM `tk_houses` WHERE  `city` = '悉尼'  AND `top` = '是' LIMIT 1 [ RunTime:0.000645s ]
+[ sql ] [ SQL ] SELECT `city`,`tj` FROM `tk_houses` WHERE  `id` = 246 LIMIT 1 [ RunTime:0.000712s ]
+[ sql ] [ SQL ] SELECT COUNT(*) AS tp_count FROM `tk_houses` WHERE  `city` = '悉尼'  AND `tj` = '是' LIMIT 1 [ RunTime:0.003335s ]
+---------------------------------------------------------------
+[ 2020-06-02T18:07:01+08:00 ] 127.0.0.1 GET www.huaxiang.com/xcx/house/myhouse.html
+[运行时间：0.550762s] [吞吐率：1.82req/s] [内存消耗：3,229.41kb] [文件加载：57]
+[ info ] [ LANG ] D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\thinkphp\lang\zh-cn.php
+[ info ] [ ROUTE ] array (
+  'type' => 'module',
+  'module' => 
+  array (
+    0 => 'xcx',
+    1 => 'house',
+    2 => 'myhouse',
+  ),
+)
+[ info ] [ HEADER ] array (
+  'host' => 'www.huaxiang.com',
+  'connection' => 'keep-alive',
+  'upgrade-insecure-requests' => '1',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.70 Safari/537.36',
+  'accept' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3',
+  'referer' => 'http://www.huaxiang.com/xcx/index/index.html',
+  'accept-encoding' => 'gzip, deflate',
+  'accept-language' => 'zh-CN,zh;q=0.9',
+  'cookie' => 'PHPSESSID=bq4rsg61mvn7nu03jct14o6cu7',
+)
+[ info ] [ PARAM ] array (
+  '/xcx/house/myhouse_html' => '',
+)
+[ info ] [ SESSION ] INIT array (
+  'id' => '',
+  'var_session_id' => '',
+  'prefix' => 'think',
+  'type' => '',
+  'auto_start' => true,
+)
+[ info ] [ RUN ] app\xcx\controller\House->myhouse[ D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\application\xcx\controller\House.php ]
+[ info ] [ DB ] INIT mysql
+[ info ] [ VIEW ] D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\public/../application/xcx\view\house\myhouse.html [ array (
+  0 => 'addable',
+  1 => 'editable',
+  2 => 'delable',
+  3 => 'cityinfo',
+) ]
+[ info ] [ LOG ] INIT File
+[ sql ] [ DB ] CONNECT:[ UseTime:0.001409s ] mysql:host=127.0.0.1;port=3306;dbname=xcxnew;charset=utf8mb4
+[ sql ] [ SQL ] SHOW COLUMNS FROM `super_admin` [ RunTime:0.025144s ]
+[ sql ] [ SQL ] SELECT * FROM `super_admin` `admin` WHERE  `admin`.`ad_id` = 1 LIMIT 1 [ RunTime:0.001145s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `super_role` [ RunTime:0.017589s ]
+[ sql ] [ SQL ] SELECT `r_power` FROM `super_role` WHERE  `r_id` = 1 LIMIT 1 [ RunTime:0.000692s ]
+[ sql ] [ SQL ] SELECT `r_power` FROM `super_role` WHERE  `r_id` = 43 LIMIT 1 [ RunTime:0.000398s ]
+[ sql ] [ SQL ] SELECT `r_power` FROM `super_role` WHERE  `r_id` = 44 LIMIT 1 [ RunTime:0.000407s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `tk_cate` [ RunTime:0.018072s ]
+[ sql ] [ SQL ] SELECT * FROM `tk_cate` WHERE  `pid` = 0 [ RunTime:0.002839s ]
+---------------------------------------------------------------
+[ 2020-06-02T18:07:01+08:00 ] 127.0.0.1 GET www.huaxiang.com/xcx/house/myData/?page=1&limit=20
+[运行时间：0.208193s] [吞吐率：4.80req/s] [内存消耗：3,240.93kb] [文件加载：57]
+[ info ] [ LANG ] D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\thinkphp\lang\zh-cn.php
+[ info ] [ ROUTE ] array (
+  'type' => 'module',
+  'module' => 
+  array (
+    0 => 'xcx',
+    1 => 'house',
+    2 => 'myData',
+  ),
+)
+[ info ] [ HEADER ] array (
+  'host' => 'www.huaxiang.com',
+  'connection' => 'keep-alive',
+  'accept' => 'application/json, text/javascript, */*; q=0.01',
+  'x-requested-with' => 'XMLHttpRequest',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.70 Safari/537.36',
+  'referer' => 'http://www.huaxiang.com/xcx/house/myhouse.html',
+  'accept-encoding' => 'gzip, deflate',
+  'accept-language' => 'zh-CN,zh;q=0.9',
+  'cookie' => 'PHPSESSID=bq4rsg61mvn7nu03jct14o6cu7',
+)
+[ info ] [ PARAM ] array (
+  '/xcx/house/myData/' => '',
+  'page' => '1',
+  'limit' => '20',
+)
+[ info ] [ SESSION ] INIT array (
+  'id' => '',
+  'var_session_id' => '',
+  'prefix' => 'think',
+  'type' => '',
+  'auto_start' => true,
+)
+[ info ] [ RUN ] app\xcx\controller\House->myData[ D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\application\xcx\controller\House.php ]
+[ info ] [ DB ] INIT mysql
+[ info ] [ LOG ] INIT File
+[ sql ] [ DB ] CONNECT:[ UseTime:0.001535s ] mysql:host=127.0.0.1;port=3306;dbname=xcxnew;charset=utf8mb4
+[ sql ] [ SQL ] SHOW COLUMNS FROM `tk_houses` [ RunTime:0.020538s ]
+[ sql ] [ SQL ] SELECT COUNT(*) AS tp_count FROM `tk_houses` WHERE  (   user_id = 1 ) LIMIT 1 [ RunTime:0.001141s ]
+[ sql ] [ SQL ] SELECT * FROM `tk_houses` WHERE  (   user_id = 1 ) ORDER BY `top` DESC,`cdate` DESC LIMIT 0,20 [ RunTime:0.002457s ]
+[ sql ] [ SQL ] SELECT * FROM `tk_houses` WHERE  (   user_id = 1 ) ORDER BY `top` DESC,`cdate` DESC LIMIT 0,20 [ RunTime:0.001995s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `tk_user` [ RunTime:0.015404s ]
+[ sql ] [ SQL ] SELECT `nickname` FROM `tk_user` WHERE  `id` = 1 LIMIT 1 [ RunTime:0.000643s ]
+[ sql ] [ SQL ] SELECT `city`,`top` FROM `tk_houses` WHERE  `id` = 233 LIMIT 1 [ RunTime:0.001063s ]
+[ sql ] [ SQL ] SELECT COUNT(*) AS tp_count FROM `tk_houses` WHERE  `city` = '墨尔本'  AND `top` = '是' LIMIT 1 [ RunTime:0.000749s ]
+[ sql ] [ SQL ] SELECT `city`,`tj` FROM `tk_houses` WHERE  `id` = 233 LIMIT 1 [ RunTime:0.000626s ]
+[ sql ] [ SQL ] SELECT COUNT(*) AS tp_count FROM `tk_houses` WHERE  `city` = '墨尔本'  AND `tj` = '是' LIMIT 1 [ RunTime:0.003445s ]
+[ sql ] [ SQL ] SELECT `nickname` FROM `tk_user` WHERE  `id` = 1 LIMIT 1 [ RunTime:0.000794s ]
+[ sql ] [ SQL ] SELECT `city`,`top` FROM `tk_houses` WHERE  `id` = 250 LIMIT 1 [ RunTime:0.000874s ]
+[ sql ] [ SQL ] SELECT COUNT(*) AS tp_count FROM `tk_houses` WHERE  `city` = '悉尼'  AND `top` = '是' LIMIT 1 [ RunTime:0.000841s ]
+[ sql ] [ SQL ] SELECT `city`,`tj` FROM `tk_houses` WHERE  `id` = 250 LIMIT 1 [ RunTime:0.000614s ]
+[ sql ] [ SQL ] SELECT COUNT(*) AS tp_count FROM `tk_houses` WHERE  `city` = '悉尼'  AND `tj` = '是' LIMIT 1 [ RunTime:0.000931s ]
+[ sql ] [ SQL ] SELECT `nickname` FROM `tk_user` WHERE  `id` = 1 LIMIT 1 [ RunTime:0.000503s ]
+[ sql ] [ SQL ] SELECT `city`,`top` FROM `tk_houses` WHERE  `id` = 247 LIMIT 1 [ RunTime:0.000578s ]
+[ sql ] [ SQL ] SELECT COUNT(*) AS tp_count FROM `tk_houses` WHERE  `city` = '霍巴特'  AND `top` = '是' LIMIT 1 [ RunTime:0.001012s ]
+[ sql ] [ SQL ] SELECT `city`,`tj` FROM `tk_houses` WHERE  `id` = 247 LIMIT 1 [ RunTime:0.000733s ]
+[ sql ] [ SQL ] SELECT COUNT(*) AS tp_count FROM `tk_houses` WHERE  `city` = '霍巴特'  AND `tj` = '是' LIMIT 1 [ RunTime:0.000816s ]
+[ sql ] [ SQL ] SELECT `nickname` FROM `tk_user` WHERE  `id` = 1 LIMIT 1 [ RunTime:0.000622s ]
+[ sql ] [ SQL ] SELECT `city`,`top` FROM `tk_houses` WHERE  `id` = 246 LIMIT 1 [ RunTime:0.000670s ]
+[ sql ] [ SQL ] SELECT COUNT(*) AS tp_count FROM `tk_houses` WHERE  `city` = '悉尼'  AND `top` = '是' LIMIT 1 [ RunTime:0.000555s ]
+[ sql ] [ SQL ] SELECT `city`,`tj` FROM `tk_houses` WHERE  `id` = 246 LIMIT 1 [ RunTime:0.000515s ]
+[ sql ] [ SQL ] SELECT COUNT(*) AS tp_count FROM `tk_houses` WHERE  `city` = '悉尼'  AND `tj` = '是' LIMIT 1 [ RunTime:0.001277s ]
+---------------------------------------------------------------
+[ 2020-06-02T18:07:03+08:00 ] 127.0.0.1 GET www.huaxiang.com/xcx/house/myhouse.html
+[运行时间：0.144016s] [吞吐率：6.94req/s] [内存消耗：3,229.41kb] [文件加载：57]
+[ info ] [ LANG ] D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\thinkphp\lang\zh-cn.php
+[ info ] [ ROUTE ] array (
+  'type' => 'module',
+  'module' => 
+  array (
+    0 => 'xcx',
+    1 => 'house',
+    2 => 'myhouse',
+  ),
+)
+[ info ] [ HEADER ] array (
+  'host' => 'www.huaxiang.com',
+  'connection' => 'keep-alive',
+  'upgrade-insecure-requests' => '1',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.70 Safari/537.36',
+  'accept' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3',
+  'referer' => 'http://www.huaxiang.com/xcx/index/index.html',
+  'accept-encoding' => 'gzip, deflate',
+  'accept-language' => 'zh-CN,zh;q=0.9',
+  'cookie' => 'PHPSESSID=bq4rsg61mvn7nu03jct14o6cu7',
+)
+[ info ] [ PARAM ] array (
+  '/xcx/house/myhouse_html' => '',
+)
+[ info ] [ SESSION ] INIT array (
+  'id' => '',
+  'var_session_id' => '',
+  'prefix' => 'think',
+  'type' => '',
+  'auto_start' => true,
+)
+[ info ] [ RUN ] app\xcx\controller\House->myhouse[ D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\application\xcx\controller\House.php ]
+[ info ] [ DB ] INIT mysql
+[ info ] [ VIEW ] D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\public/../application/xcx\view\house\myhouse.html [ array (
+  0 => 'addable',
+  1 => 'editable',
+  2 => 'delable',
+  3 => 'cityinfo',
+) ]
+[ info ] [ LOG ] INIT File
+[ sql ] [ DB ] CONNECT:[ UseTime:0.002574s ] mysql:host=127.0.0.1;port=3306;dbname=xcxnew;charset=utf8mb4
+[ sql ] [ SQL ] SHOW COLUMNS FROM `super_admin` [ RunTime:0.016618s ]
+[ sql ] [ SQL ] SELECT * FROM `super_admin` `admin` WHERE  `admin`.`ad_id` = 1 LIMIT 1 [ RunTime:0.001161s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `super_role` [ RunTime:0.015451s ]
+[ sql ] [ SQL ] SELECT `r_power` FROM `super_role` WHERE  `r_id` = 1 LIMIT 1 [ RunTime:0.000748s ]
+[ sql ] [ SQL ] SELECT `r_power` FROM `super_role` WHERE  `r_id` = 43 LIMIT 1 [ RunTime:0.000665s ]
+[ sql ] [ SQL ] SELECT `r_power` FROM `super_role` WHERE  `r_id` = 44 LIMIT 1 [ RunTime:0.000883s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `tk_cate` [ RunTime:0.017199s ]
+[ sql ] [ SQL ] SELECT * FROM `tk_cate` WHERE  `pid` = 0 [ RunTime:0.001144s ]
+---------------------------------------------------------------
+[ 2020-06-02T18:07:03+08:00 ] 127.0.0.1 GET www.huaxiang.com/xcx/house/myData/?page=1&limit=20
+[运行时间：0.187840s] [吞吐率：5.32req/s] [内存消耗：3,240.93kb] [文件加载：57]
+[ info ] [ LANG ] D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\thinkphp\lang\zh-cn.php
+[ info ] [ ROUTE ] array (
+  'type' => 'module',
+  'module' => 
+  array (
+    0 => 'xcx',
+    1 => 'house',
+    2 => 'myData',
+  ),
+)
+[ info ] [ HEADER ] array (
+  'host' => 'www.huaxiang.com',
+  'connection' => 'keep-alive',
+  'accept' => 'application/json, text/javascript, */*; q=0.01',
+  'x-requested-with' => 'XMLHttpRequest',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.70 Safari/537.36',
+  'referer' => 'http://www.huaxiang.com/xcx/house/myhouse.html',
+  'accept-encoding' => 'gzip, deflate',
+  'accept-language' => 'zh-CN,zh;q=0.9',
+  'cookie' => 'PHPSESSID=bq4rsg61mvn7nu03jct14o6cu7',
+)
+[ info ] [ PARAM ] array (
+  '/xcx/house/myData/' => '',
+  'page' => '1',
+  'limit' => '20',
+)
+[ info ] [ SESSION ] INIT array (
+  'id' => '',
+  'var_session_id' => '',
+  'prefix' => 'think',
+  'type' => '',
+  'auto_start' => true,
+)
+[ info ] [ RUN ] app\xcx\controller\House->myData[ D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\application\xcx\controller\House.php ]
+[ info ] [ DB ] INIT mysql
+[ info ] [ LOG ] INIT File
+[ sql ] [ DB ] CONNECT:[ UseTime:0.001355s ] mysql:host=127.0.0.1;port=3306;dbname=xcxnew;charset=utf8mb4
+[ sql ] [ SQL ] SHOW COLUMNS FROM `tk_houses` [ RunTime:0.020827s ]
+[ sql ] [ SQL ] SELECT COUNT(*) AS tp_count FROM `tk_houses` WHERE  (   user_id = 1 ) LIMIT 1 [ RunTime:0.000910s ]
+[ sql ] [ SQL ] SELECT * FROM `tk_houses` WHERE  (   user_id = 1 ) ORDER BY `top` DESC,`cdate` DESC LIMIT 0,20 [ RunTime:0.002048s ]
+[ sql ] [ SQL ] SELECT * FROM `tk_houses` WHERE  (   user_id = 1 ) ORDER BY `top` DESC,`cdate` DESC LIMIT 0,20 [ RunTime:0.001738s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `tk_user` [ RunTime:0.018641s ]
+[ sql ] [ SQL ] SELECT `nickname` FROM `tk_user` WHERE  `id` = 1 LIMIT 1 [ RunTime:0.000633s ]
+[ sql ] [ SQL ] SELECT `city`,`top` FROM `tk_houses` WHERE  `id` = 233 LIMIT 1 [ RunTime:0.000736s ]
+[ sql ] [ SQL ] SELECT COUNT(*) AS tp_count FROM `tk_houses` WHERE  `city` = '墨尔本'  AND `top` = '是' LIMIT 1 [ RunTime:0.000530s ]
+[ sql ] [ SQL ] SELECT `city`,`tj` FROM `tk_houses` WHERE  `id` = 233 LIMIT 1 [ RunTime:0.000608s ]
+[ sql ] [ SQL ] SELECT COUNT(*) AS tp_count FROM `tk_houses` WHERE  `city` = '墨尔本'  AND `tj` = '是' LIMIT 1 [ RunTime:0.000713s ]
+[ sql ] [ SQL ] SELECT `nickname` FROM `tk_user` WHERE  `id` = 1 LIMIT 1 [ RunTime:0.000496s ]
+[ sql ] [ SQL ] SELECT `city`,`top` FROM `tk_houses` WHERE  `id` = 250 LIMIT 1 [ RunTime:0.000473s ]
+[ sql ] [ SQL ] SELECT COUNT(*) AS tp_count FROM `tk_houses` WHERE  `city` = '悉尼'  AND `top` = '是' LIMIT 1 [ RunTime:0.000534s ]
+[ sql ] [ SQL ] SELECT `city`,`tj` FROM `tk_houses` WHERE  `id` = 250 LIMIT 1 [ RunTime:0.000667s ]
+[ sql ] [ SQL ] SELECT COUNT(*) AS tp_count FROM `tk_houses` WHERE  `city` = '悉尼'  AND `tj` = '是' LIMIT 1 [ RunTime:0.000581s ]
+[ sql ] [ SQL ] SELECT `nickname` FROM `tk_user` WHERE  `id` = 1 LIMIT 1 [ RunTime:0.000447s ]
+[ sql ] [ SQL ] SELECT `city`,`top` FROM `tk_houses` WHERE  `id` = 247 LIMIT 1 [ RunTime:0.000676s ]
+[ sql ] [ SQL ] SELECT COUNT(*) AS tp_count FROM `tk_houses` WHERE  `city` = '霍巴特'  AND `top` = '是' LIMIT 1 [ RunTime:0.000691s ]
+[ sql ] [ SQL ] SELECT `city`,`tj` FROM `tk_houses` WHERE  `id` = 247 LIMIT 1 [ RunTime:0.000646s ]
+[ sql ] [ SQL ] SELECT COUNT(*) AS tp_count FROM `tk_houses` WHERE  `city` = '霍巴特'  AND `tj` = '是' LIMIT 1 [ RunTime:0.001379s ]
+[ sql ] [ SQL ] SELECT `nickname` FROM `tk_user` WHERE  `id` = 1 LIMIT 1 [ RunTime:0.000825s ]
+[ sql ] [ SQL ] SELECT `city`,`top` FROM `tk_houses` WHERE  `id` = 246 LIMIT 1 [ RunTime:0.000991s ]
+[ sql ] [ SQL ] SELECT COUNT(*) AS tp_count FROM `tk_houses` WHERE  `city` = '悉尼'  AND `top` = '是' LIMIT 1 [ RunTime:0.000654s ]
+[ sql ] [ SQL ] SELECT `city`,`tj` FROM `tk_houses` WHERE  `id` = 246 LIMIT 1 [ RunTime:0.000618s ]
+[ sql ] [ SQL ] SELECT COUNT(*) AS tp_count FROM `tk_houses` WHERE  `city` = '悉尼'  AND `tj` = '是' LIMIT 1 [ RunTime:0.000414s ]
+---------------------------------------------------------------
+[ 2020-06-02T18:07:05+08:00 ] 127.0.0.1 GET www.huaxiang.com/xcx/house/myhouse.html
+[运行时间：0.139361s] [吞吐率：7.18req/s] [内存消耗：3,229.17kb] [文件加载：57]
+[ info ] [ LANG ] D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\thinkphp\lang\zh-cn.php
+[ info ] [ ROUTE ] array (
+  'type' => 'module',
+  'module' => 
+  array (
+    0 => 'xcx',
+    1 => 'house',
+    2 => 'myhouse',
+  ),
+)
+[ info ] [ HEADER ] array (
+  'host' => 'www.huaxiang.com',
+  'connection' => 'keep-alive',
+  'cache-control' => 'max-age=0',
+  'upgrade-insecure-requests' => '1',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.70 Safari/537.36',
+  'accept' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3',
+  'accept-encoding' => 'gzip, deflate',
+  'accept-language' => 'zh-CN,zh;q=0.9',
+  'cookie' => 'PHPSESSID=bq4rsg61mvn7nu03jct14o6cu7',
+)
+[ info ] [ PARAM ] array (
+  '/xcx/house/myhouse_html' => '',
+)
+[ info ] [ SESSION ] INIT array (
+  'id' => '',
+  'var_session_id' => '',
+  'prefix' => 'think',
+  'type' => '',
+  'auto_start' => true,
+)
+[ info ] [ RUN ] app\xcx\controller\House->myhouse[ D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\application\xcx\controller\House.php ]
+[ info ] [ DB ] INIT mysql
+[ info ] [ VIEW ] D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\public/../application/xcx\view\house\myhouse.html [ array (
+  0 => 'addable',
+  1 => 'editable',
+  2 => 'delable',
+  3 => 'cityinfo',
+) ]
+[ info ] [ LOG ] INIT File
+[ sql ] [ DB ] CONNECT:[ UseTime:0.001300s ] mysql:host=127.0.0.1;port=3306;dbname=xcxnew;charset=utf8mb4
+[ sql ] [ SQL ] SHOW COLUMNS FROM `super_admin` [ RunTime:0.015415s ]
+[ sql ] [ SQL ] SELECT * FROM `super_admin` `admin` WHERE  `admin`.`ad_id` = 1 LIMIT 1 [ RunTime:0.000895s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `super_role` [ RunTime:0.016526s ]
+[ sql ] [ SQL ] SELECT `r_power` FROM `super_role` WHERE  `r_id` = 1 LIMIT 1 [ RunTime:0.000919s ]
+[ sql ] [ SQL ] SELECT `r_power` FROM `super_role` WHERE  `r_id` = 43 LIMIT 1 [ RunTime:0.000578s ]
+[ sql ] [ SQL ] SELECT `r_power` FROM `super_role` WHERE  `r_id` = 44 LIMIT 1 [ RunTime:0.000717s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `tk_cate` [ RunTime:0.018210s ]
+[ sql ] [ SQL ] SELECT * FROM `tk_cate` WHERE  `pid` = 0 [ RunTime:0.001262s ]
+---------------------------------------------------------------
+[ 2020-06-02T18:07:05+08:00 ] 127.0.0.1 GET www.huaxiang.com/xcx/house/myData/?page=1&limit=20
+[运行时间：0.225761s] [吞吐率：4.43req/s] [内存消耗：3,240.93kb] [文件加载：57]
+[ info ] [ LANG ] D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\thinkphp\lang\zh-cn.php
+[ info ] [ ROUTE ] array (
+  'type' => 'module',
+  'module' => 
+  array (
+    0 => 'xcx',
+    1 => 'house',
+    2 => 'myData',
+  ),
+)
+[ info ] [ HEADER ] array (
+  'host' => 'www.huaxiang.com',
+  'connection' => 'keep-alive',
+  'accept' => 'application/json, text/javascript, */*; q=0.01',
+  'x-requested-with' => 'XMLHttpRequest',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.70 Safari/537.36',
+  'referer' => 'http://www.huaxiang.com/xcx/house/myhouse.html',
+  'accept-encoding' => 'gzip, deflate',
+  'accept-language' => 'zh-CN,zh;q=0.9',
+  'cookie' => 'PHPSESSID=bq4rsg61mvn7nu03jct14o6cu7',
+)
+[ info ] [ PARAM ] array (
+  '/xcx/house/myData/' => '',
+  'page' => '1',
+  'limit' => '20',
+)
+[ info ] [ SESSION ] INIT array (
+  'id' => '',
+  'var_session_id' => '',
+  'prefix' => 'think',
+  'type' => '',
+  'auto_start' => true,
+)
+[ info ] [ RUN ] app\xcx\controller\House->myData[ D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\application\xcx\controller\House.php ]
+[ info ] [ DB ] INIT mysql
+[ info ] [ LOG ] INIT File
+[ sql ] [ DB ] CONNECT:[ UseTime:0.006613s ] mysql:host=127.0.0.1;port=3306;dbname=xcxnew;charset=utf8mb4
+[ sql ] [ SQL ] SHOW COLUMNS FROM `tk_houses` [ RunTime:0.019630s ]
+[ sql ] [ SQL ] SELECT COUNT(*) AS tp_count FROM `tk_houses` WHERE  (   user_id = 1 ) LIMIT 1 [ RunTime:0.000786s ]
+[ sql ] [ SQL ] SELECT * FROM `tk_houses` WHERE  (   user_id = 1 ) ORDER BY `top` DESC,`cdate` DESC LIMIT 0,20 [ RunTime:0.001607s ]
+[ sql ] [ SQL ] SELECT * FROM `tk_houses` WHERE  (   user_id = 1 ) ORDER BY `top` DESC,`cdate` DESC LIMIT 0,20 [ RunTime:0.001789s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `tk_user` [ RunTime:0.019320s ]
+[ sql ] [ SQL ] SELECT `nickname` FROM `tk_user` WHERE  `id` = 1 LIMIT 1 [ RunTime:0.000647s ]
+[ sql ] [ SQL ] SELECT `city`,`top` FROM `tk_houses` WHERE  `id` = 233 LIMIT 1 [ RunTime:0.000869s ]
+[ sql ] [ SQL ] SELECT COUNT(*) AS tp_count FROM `tk_houses` WHERE  `city` = '墨尔本'  AND `top` = '是' LIMIT 1 [ RunTime:0.001057s ]
+[ sql ] [ SQL ] SELECT `city`,`tj` FROM `tk_houses` WHERE  `id` = 233 LIMIT 1 [ RunTime:0.000839s ]
+[ sql ] [ SQL ] SELECT COUNT(*) AS tp_count FROM `tk_houses` WHERE  `city` = '墨尔本'  AND `tj` = '是' LIMIT 1 [ RunTime:0.000871s ]
+[ sql ] [ SQL ] SELECT `nickname` FROM `tk_user` WHERE  `id` = 1 LIMIT 1 [ RunTime:0.000754s ]
+[ sql ] [ SQL ] SELECT `city`,`top` FROM `tk_houses` WHERE  `id` = 250 LIMIT 1 [ RunTime:0.000703s ]
+[ sql ] [ SQL ] SELECT COUNT(*) AS tp_count FROM `tk_houses` WHERE  `city` = '悉尼'  AND `top` = '是' LIMIT 1 [ RunTime:0.000574s ]
+[ sql ] [ SQL ] SELECT `city`,`tj` FROM `tk_houses` WHERE  `id` = 250 LIMIT 1 [ RunTime:0.000457s ]
+[ sql ] [ SQL ] SELECT COUNT(*) AS tp_count FROM `tk_houses` WHERE  `city` = '悉尼'  AND `tj` = '是' LIMIT 1 [ RunTime:0.000986s ]
+[ sql ] [ SQL ] SELECT `nickname` FROM `tk_user` WHERE  `id` = 1 LIMIT 1 [ RunTime:0.000771s ]
+[ sql ] [ SQL ] SELECT `city`,`top` FROM `tk_houses` WHERE  `id` = 247 LIMIT 1 [ RunTime:0.000624s ]
+[ sql ] [ SQL ] SELECT COUNT(*) AS tp_count FROM `tk_houses` WHERE  `city` = '霍巴特'  AND `top` = '是' LIMIT 1 [ RunTime:0.000793s ]
+[ sql ] [ SQL ] SELECT `city`,`tj` FROM `tk_houses` WHERE  `id` = 247 LIMIT 1 [ RunTime:0.000730s ]
+[ sql ] [ SQL ] SELECT COUNT(*) AS tp_count FROM `tk_houses` WHERE  `city` = '霍巴特'  AND `tj` = '是' LIMIT 1 [ RunTime:0.000883s ]
+[ sql ] [ SQL ] SELECT `nickname` FROM `tk_user` WHERE  `id` = 1 LIMIT 1 [ RunTime:0.000410s ]
+[ sql ] [ SQL ] SELECT `city`,`top` FROM `tk_houses` WHERE  `id` = 246 LIMIT 1 [ RunTime:0.000770s ]
+[ sql ] [ SQL ] SELECT COUNT(*) AS tp_count FROM `tk_houses` WHERE  `city` = '悉尼'  AND `top` = '是' LIMIT 1 [ RunTime:0.000704s ]
+[ sql ] [ SQL ] SELECT `city`,`tj` FROM `tk_houses` WHERE  `id` = 246 LIMIT 1 [ RunTime:0.000756s ]
+[ sql ] [ SQL ] SELECT COUNT(*) AS tp_count FROM `tk_houses` WHERE  `city` = '悉尼'  AND `tj` = '是' LIMIT 1 [ RunTime:0.000755s ]
+---------------------------------------------------------------
+[ 2020-06-02T18:07:21+08:00 ] 127.0.0.1 GET www.huaxiang.com/xcx/house/myhouse.html
+[运行时间：0.617187s] [吞吐率：1.62req/s] [内存消耗：3,229.41kb] [文件加载：57]
+[ info ] [ LANG ] D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\thinkphp\lang\zh-cn.php
+[ info ] [ ROUTE ] array (
+  'type' => 'module',
+  'module' => 
+  array (
+    0 => 'xcx',
+    1 => 'house',
+    2 => 'myhouse',
+  ),
+)
+[ info ] [ HEADER ] array (
+  'host' => 'www.huaxiang.com',
+  'connection' => 'keep-alive',
+  'upgrade-insecure-requests' => '1',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.70 Safari/537.36',
+  'accept' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3',
+  'referer' => 'http://www.huaxiang.com/xcx/house/myhouse.html',
+  'accept-encoding' => 'gzip, deflate',
+  'accept-language' => 'zh-CN,zh;q=0.9',
+  'cookie' => 'PHPSESSID=bq4rsg61mvn7nu03jct14o6cu7',
+)
+[ info ] [ PARAM ] array (
+  '/xcx/house/myhouse_html' => '',
+)
+[ info ] [ SESSION ] INIT array (
+  'id' => '',
+  'var_session_id' => '',
+  'prefix' => 'think',
+  'type' => '',
+  'auto_start' => true,
+)
+[ info ] [ RUN ] app\xcx\controller\House->myhouse[ D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\application\xcx\controller\House.php ]
+[ info ] [ DB ] INIT mysql
+[ info ] [ VIEW ] D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\public/../application/xcx\view\house\myhouse.html [ array (
+  0 => 'addable',
+  1 => 'editable',
+  2 => 'delable',
+  3 => 'cityinfo',
+) ]
+[ info ] [ LOG ] INIT File
+[ sql ] [ DB ] CONNECT:[ UseTime:0.001661s ] mysql:host=127.0.0.1;port=3306;dbname=xcxnew;charset=utf8mb4
+[ sql ] [ SQL ] SHOW COLUMNS FROM `super_admin` [ RunTime:0.020324s ]
+[ sql ] [ SQL ] SELECT * FROM `super_admin` `admin` WHERE  `admin`.`ad_id` = 1 LIMIT 1 [ RunTime:0.001191s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `super_role` [ RunTime:0.019281s ]
+[ sql ] [ SQL ] SELECT `r_power` FROM `super_role` WHERE  `r_id` = 1 LIMIT 1 [ RunTime:0.000883s ]
+[ sql ] [ SQL ] SELECT `r_power` FROM `super_role` WHERE  `r_id` = 43 LIMIT 1 [ RunTime:0.000874s ]
+[ sql ] [ SQL ] SELECT `r_power` FROM `super_role` WHERE  `r_id` = 44 LIMIT 1 [ RunTime:0.000632s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `tk_cate` [ RunTime:0.018684s ]
+[ sql ] [ SQL ] SELECT * FROM `tk_cate` WHERE  `pid` = 0 [ RunTime:0.001632s ]
+---------------------------------------------------------------
+[ 2020-06-02T18:07:22+08:00 ] 127.0.0.1 GET www.huaxiang.com/xcx/house/myData/?page=1&limit=20
+[运行时间：0.225474s] [吞吐率：4.44req/s] [内存消耗：3,240.93kb] [文件加载：57]
+[ info ] [ LANG ] D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\thinkphp\lang\zh-cn.php
+[ info ] [ ROUTE ] array (
+  'type' => 'module',
+  'module' => 
+  array (
+    0 => 'xcx',
+    1 => 'house',
+    2 => 'myData',
+  ),
+)
+[ info ] [ HEADER ] array (
+  'host' => 'www.huaxiang.com',
+  'connection' => 'keep-alive',
+  'accept' => 'application/json, text/javascript, */*; q=0.01',
+  'x-requested-with' => 'XMLHttpRequest',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.70 Safari/537.36',
+  'referer' => 'http://www.huaxiang.com/xcx/house/myhouse.html',
+  'accept-encoding' => 'gzip, deflate',
+  'accept-language' => 'zh-CN,zh;q=0.9',
+  'cookie' => 'PHPSESSID=bq4rsg61mvn7nu03jct14o6cu7',
+)
+[ info ] [ PARAM ] array (
+  '/xcx/house/myData/' => '',
+  'page' => '1',
+  'limit' => '20',
+)
+[ info ] [ SESSION ] INIT array (
+  'id' => '',
+  'var_session_id' => '',
+  'prefix' => 'think',
+  'type' => '',
+  'auto_start' => true,
+)
+[ info ] [ RUN ] app\xcx\controller\House->myData[ D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\application\xcx\controller\House.php ]
+[ info ] [ DB ] INIT mysql
+[ info ] [ LOG ] INIT File
+[ sql ] [ DB ] CONNECT:[ UseTime:0.001405s ] mysql:host=127.0.0.1;port=3306;dbname=xcxnew;charset=utf8mb4
+[ sql ] [ SQL ] SHOW COLUMNS FROM `tk_houses` [ RunTime:0.017568s ]
+[ sql ] [ SQL ] SELECT COUNT(*) AS tp_count FROM `tk_houses` WHERE  (   user_id = 1 ) LIMIT 1 [ RunTime:0.000965s ]
+[ sql ] [ SQL ] SELECT * FROM `tk_houses` WHERE  (   user_id = 1 ) ORDER BY `top` DESC,`cdate` DESC LIMIT 0,20 [ RunTime:0.002393s ]
+[ sql ] [ SQL ] SELECT * FROM `tk_houses` WHERE  (   user_id = 1 ) ORDER BY `top` DESC,`cdate` DESC LIMIT 0,20 [ RunTime:0.001402s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `tk_user` [ RunTime:0.020516s ]
+[ sql ] [ SQL ] SELECT `nickname` FROM `tk_user` WHERE  `id` = 1 LIMIT 1 [ RunTime:0.000792s ]
+[ sql ] [ SQL ] SELECT `city`,`top` FROM `tk_houses` WHERE  `id` = 233 LIMIT 1 [ RunTime:0.000505s ]
+[ sql ] [ SQL ] SELECT COUNT(*) AS tp_count FROM `tk_houses` WHERE  `city` = '墨尔本'  AND `top` = '是' LIMIT 1 [ RunTime:0.001084s ]
+[ sql ] [ SQL ] SELECT `city`,`tj` FROM `tk_houses` WHERE  `id` = 233 LIMIT 1 [ RunTime:0.000798s ]
+[ sql ] [ SQL ] SELECT COUNT(*) AS tp_count FROM `tk_houses` WHERE  `city` = '墨尔本'  AND `tj` = '是' LIMIT 1 [ RunTime:0.000507s ]
+[ sql ] [ SQL ] SELECT `nickname` FROM `tk_user` WHERE  `id` = 1 LIMIT 1 [ RunTime:0.000623s ]
+[ sql ] [ SQL ] SELECT `city`,`top` FROM `tk_houses` WHERE  `id` = 250 LIMIT 1 [ RunTime:0.000652s ]
+[ sql ] [ SQL ] SELECT COUNT(*) AS tp_count FROM `tk_houses` WHERE  `city` = '悉尼'  AND `top` = '是' LIMIT 1 [ RunTime:0.001250s ]
+[ sql ] [ SQL ] SELECT `city`,`tj` FROM `tk_houses` WHERE  `id` = 250 LIMIT 1 [ RunTime:0.000645s ]
+[ sql ] [ SQL ] SELECT COUNT(*) AS tp_count FROM `tk_houses` WHERE  `city` = '悉尼'  AND `tj` = '是' LIMIT 1 [ RunTime:0.000606s ]
+[ sql ] [ SQL ] SELECT `nickname` FROM `tk_user` WHERE  `id` = 1 LIMIT 1 [ RunTime:0.000545s ]
+[ sql ] [ SQL ] SELECT `city`,`top` FROM `tk_houses` WHERE  `id` = 247 LIMIT 1 [ RunTime:0.000517s ]
+[ sql ] [ SQL ] SELECT COUNT(*) AS tp_count FROM `tk_houses` WHERE  `city` = '霍巴特'  AND `top` = '是' LIMIT 1 [ RunTime:0.000773s ]
+[ sql ] [ SQL ] SELECT `city`,`tj` FROM `tk_houses` WHERE  `id` = 247 LIMIT 1 [ RunTime:0.000650s ]
+[ sql ] [ SQL ] SELECT COUNT(*) AS tp_count FROM `tk_houses` WHERE  `city` = '霍巴特'  AND `tj` = '是' LIMIT 1 [ RunTime:0.000714s ]
+[ sql ] [ SQL ] SELECT `nickname` FROM `tk_user` WHERE  `id` = 1 LIMIT 1 [ RunTime:0.000535s ]
+[ sql ] [ SQL ] SELECT `city`,`top` FROM `tk_houses` WHERE  `id` = 246 LIMIT 1 [ RunTime:0.000598s ]
+[ sql ] [ SQL ] SELECT COUNT(*) AS tp_count FROM `tk_houses` WHERE  `city` = '悉尼'  AND `top` = '是' LIMIT 1 [ RunTime:0.001091s ]
+[ sql ] [ SQL ] SELECT `city`,`tj` FROM `tk_houses` WHERE  `id` = 246 LIMIT 1 [ RunTime:0.000989s ]
+[ sql ] [ SQL ] SELECT COUNT(*) AS tp_count FROM `tk_houses` WHERE  `city` = '悉尼'  AND `tj` = '是' LIMIT 1 [ RunTime:0.000880s ]
+---------------------------------------------------------------
+[ 2020-06-02T18:07:25+08:00 ] 127.0.0.1 GET www.huaxiang.com/xcx/house/myhouse.html
+[运行时间：0.218144s] [吞吐率：4.58req/s] [内存消耗：3,229.41kb] [文件加载：57]
+[ info ] [ LANG ] D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\thinkphp\lang\zh-cn.php
+[ info ] [ ROUTE ] array (
+  'type' => 'module',
+  'module' => 
+  array (
+    0 => 'xcx',
+    1 => 'house',
+    2 => 'myhouse',
+  ),
+)
+[ info ] [ HEADER ] array (
+  'host' => 'www.huaxiang.com',
+  'connection' => 'keep-alive',
+  'upgrade-insecure-requests' => '1',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.70 Safari/537.36',
+  'accept' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3',
+  'referer' => 'http://www.huaxiang.com/xcx/house/myhouse.html',
+  'accept-encoding' => 'gzip, deflate',
+  'accept-language' => 'zh-CN,zh;q=0.9',
+  'cookie' => 'PHPSESSID=bq4rsg61mvn7nu03jct14o6cu7',
+)
+[ info ] [ PARAM ] array (
+  '/xcx/house/myhouse_html' => '',
+)
+[ info ] [ SESSION ] INIT array (
+  'id' => '',
+  'var_session_id' => '',
+  'prefix' => 'think',
+  'type' => '',
+  'auto_start' => true,
+)
+[ info ] [ RUN ] app\xcx\controller\House->myhouse[ D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\application\xcx\controller\House.php ]
+[ info ] [ DB ] INIT mysql
+[ info ] [ VIEW ] D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\public/../application/xcx\view\house\myhouse.html [ array (
+  0 => 'addable',
+  1 => 'editable',
+  2 => 'delable',
+  3 => 'cityinfo',
+) ]
+[ info ] [ LOG ] INIT File
+[ sql ] [ DB ] CONNECT:[ UseTime:0.001408s ] mysql:host=127.0.0.1;port=3306;dbname=xcxnew;charset=utf8mb4
+[ sql ] [ SQL ] SHOW COLUMNS FROM `super_admin` [ RunTime:0.019555s ]
+[ sql ] [ SQL ] SELECT * FROM `super_admin` `admin` WHERE  `admin`.`ad_id` = 1 LIMIT 1 [ RunTime:0.001206s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `super_role` [ RunTime:0.020823s ]
+[ sql ] [ SQL ] SELECT `r_power` FROM `super_role` WHERE  `r_id` = 1 LIMIT 1 [ RunTime:0.001002s ]
+[ sql ] [ SQL ] SELECT `r_power` FROM `super_role` WHERE  `r_id` = 43 LIMIT 1 [ RunTime:0.000586s ]
+[ sql ] [ SQL ] SELECT `r_power` FROM `super_role` WHERE  `r_id` = 44 LIMIT 1 [ RunTime:0.000886s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `tk_cate` [ RunTime:0.023062s ]
+[ sql ] [ SQL ] SELECT * FROM `tk_cate` WHERE  `pid` = 0 [ RunTime:0.001844s ]
+---------------------------------------------------------------
+[ 2020-06-02T18:07:26+08:00 ] 127.0.0.1 GET www.huaxiang.com/xcx/house/myData/?page=1&limit=20
+[运行时间：0.233009s] [吞吐率：4.29req/s] [内存消耗：3,240.93kb] [文件加载：57]
+[ info ] [ LANG ] D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\thinkphp\lang\zh-cn.php
+[ info ] [ ROUTE ] array (
+  'type' => 'module',
+  'module' => 
+  array (
+    0 => 'xcx',
+    1 => 'house',
+    2 => 'myData',
+  ),
+)
+[ info ] [ HEADER ] array (
+  'host' => 'www.huaxiang.com',
+  'connection' => 'keep-alive',
+  'accept' => 'application/json, text/javascript, */*; q=0.01',
+  'x-requested-with' => 'XMLHttpRequest',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.70 Safari/537.36',
+  'referer' => 'http://www.huaxiang.com/xcx/house/myhouse.html',
+  'accept-encoding' => 'gzip, deflate',
+  'accept-language' => 'zh-CN,zh;q=0.9',
+  'cookie' => 'PHPSESSID=bq4rsg61mvn7nu03jct14o6cu7',
+)
+[ info ] [ PARAM ] array (
+  '/xcx/house/myData/' => '',
+  'page' => '1',
+  'limit' => '20',
+)
+[ info ] [ SESSION ] INIT array (
+  'id' => '',
+  'var_session_id' => '',
+  'prefix' => 'think',
+  'type' => '',
+  'auto_start' => true,
+)
+[ info ] [ RUN ] app\xcx\controller\House->myData[ D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\application\xcx\controller\House.php ]
+[ info ] [ DB ] INIT mysql
+[ info ] [ LOG ] INIT File
+[ sql ] [ DB ] CONNECT:[ UseTime:0.001839s ] mysql:host=127.0.0.1;port=3306;dbname=xcxnew;charset=utf8mb4
+[ sql ] [ SQL ] SHOW COLUMNS FROM `tk_houses` [ RunTime:0.019043s ]
+[ sql ] [ SQL ] SELECT COUNT(*) AS tp_count FROM `tk_houses` WHERE  (   user_id = 1 ) LIMIT 1 [ RunTime:0.001651s ]
+[ sql ] [ SQL ] SELECT * FROM `tk_houses` WHERE  (   user_id = 1 ) ORDER BY `top` DESC,`cdate` DESC LIMIT 0,20 [ RunTime:0.001901s ]
+[ sql ] [ SQL ] SELECT * FROM `tk_houses` WHERE  (   user_id = 1 ) ORDER BY `top` DESC,`cdate` DESC LIMIT 0,20 [ RunTime:0.005040s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `tk_user` [ RunTime:0.022696s ]
+[ sql ] [ SQL ] SELECT `nickname` FROM `tk_user` WHERE  `id` = 1 LIMIT 1 [ RunTime:0.011618s ]
+[ sql ] [ SQL ] SELECT `city`,`top` FROM `tk_houses` WHERE  `id` = 233 LIMIT 1 [ RunTime:0.003428s ]
+[ sql ] [ SQL ] SELECT COUNT(*) AS tp_count FROM `tk_houses` WHERE  `city` = '墨尔本'  AND `top` = '是' LIMIT 1 [ RunTime:0.000925s ]
+[ sql ] [ SQL ] SELECT `city`,`tj` FROM `tk_houses` WHERE  `id` = 233 LIMIT 1 [ RunTime:0.000803s ]
+[ sql ] [ SQL ] SELECT COUNT(*) AS tp_count FROM `tk_houses` WHERE  `city` = '墨尔本'  AND `tj` = '是' LIMIT 1 [ RunTime:0.000797s ]
+[ sql ] [ SQL ] SELECT `nickname` FROM `tk_user` WHERE  `id` = 1 LIMIT 1 [ RunTime:0.000471s ]
+[ sql ] [ SQL ] SELECT `city`,`top` FROM `tk_houses` WHERE  `id` = 250 LIMIT 1 [ RunTime:0.000601s ]
+[ sql ] [ SQL ] SELECT COUNT(*) AS tp_count FROM `tk_houses` WHERE  `city` = '悉尼'  AND `top` = '是' LIMIT 1 [ RunTime:0.000896s ]
+[ sql ] [ SQL ] SELECT `city`,`tj` FROM `tk_houses` WHERE  `id` = 250 LIMIT 1 [ RunTime:0.000604s ]
+[ sql ] [ SQL ] SELECT COUNT(*) AS tp_count FROM `tk_houses` WHERE  `city` = '悉尼'  AND `tj` = '是' LIMIT 1 [ RunTime:0.000644s ]
+[ sql ] [ SQL ] SELECT `nickname` FROM `tk_user` WHERE  `id` = 1 LIMIT 1 [ RunTime:0.000821s ]
+[ sql ] [ SQL ] SELECT `city`,`top` FROM `tk_houses` WHERE  `id` = 247 LIMIT 1 [ RunTime:0.001160s ]
+[ sql ] [ SQL ] SELECT COUNT(*) AS tp_count FROM `tk_houses` WHERE  `city` = '霍巴特'  AND `top` = '是' LIMIT 1 [ RunTime:0.000854s ]
+[ sql ] [ SQL ] SELECT `city`,`tj` FROM `tk_houses` WHERE  `id` = 247 LIMIT 1 [ RunTime:0.000695s ]
+[ sql ] [ SQL ] SELECT COUNT(*) AS tp_count FROM `tk_houses` WHERE  `city` = '霍巴特'  AND `tj` = '是' LIMIT 1 [ RunTime:0.001748s ]
+[ sql ] [ SQL ] SELECT `nickname` FROM `tk_user` WHERE  `id` = 1 LIMIT 1 [ RunTime:0.000748s ]
+[ sql ] [ SQL ] SELECT `city`,`top` FROM `tk_houses` WHERE  `id` = 246 LIMIT 1 [ RunTime:0.000992s ]
+[ sql ] [ SQL ] SELECT COUNT(*) AS tp_count FROM `tk_houses` WHERE  `city` = '悉尼'  AND `top` = '是' LIMIT 1 [ RunTime:0.001536s ]
+[ sql ] [ SQL ] SELECT `city`,`tj` FROM `tk_houses` WHERE  `id` = 246 LIMIT 1 [ RunTime:0.000969s ]
+[ sql ] [ SQL ] SELECT COUNT(*) AS tp_count FROM `tk_houses` WHERE  `city` = '悉尼'  AND `tj` = '是' LIMIT 1 [ RunTime:0.000855s ]
