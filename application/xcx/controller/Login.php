@@ -55,6 +55,6 @@ class Login extends Controller{
     public function loginOut()
     {
         session(null);
-        $this->success('欢迎再来','login', 3);
+        $this->success('欢迎再来','https://huaxiangxiaobao.com/', 3);
     }
 }

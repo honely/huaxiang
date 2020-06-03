@@ -276,6 +276,7 @@ class Admin extends Controller{
         $mail->addAddress($toemail,'Wang');
         $mail->addReplyTo($mailer,"Reply");
         $mail->Subject = "恭喜您开通小宝租房经纪人平台账户！Congratulations, You have registered on Welhome Agent Platform!";// 邮件标题
+        $mail->IsHTML(true);
         $mail->Body = "您好，
         <br/>
 欢迎您使用小宝租房经纪人平台，您可以通过本平台进行“房源发布”，“房源管理”，“站内信”等功能，更多新功能即将上线，使用中有任何问题均可联系我方工程师！

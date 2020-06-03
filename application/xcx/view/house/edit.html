@@ -71,7 +71,7 @@
                 </div>
 
                 <div class="layui-form-item">
-                    <label class="layui-form-label"><span style="color: red;">*</span>基础信息</label>
+                    <label class="layui-form-label"><span style="color: red;">*</span>城市校区</label>
                     <div class="layui-input-inline">
                         <select name="city" lay-verify="required" lay-filter="bu_p_id">
                             <option value="">请选择城市</option>
@@ -100,14 +100,13 @@
 
                     </div>
                     <div class="layui-input-inline">
-                        <input type="checkbox" lay-skin="switch" lay-filter="switchTest" lay-text="随时|限时" {if condition="$house.live_date_show eq 1"}checked{else/}{/if} >
+                        <input type="checkbox" lay-skin="switch" lay-filter="switchTest" lay-text="随时|随时" {if condition="$house.live_date_show eq 1"}checked{else/}{/if} >
                     </div>
                 </div>
                 <div class="layui-form-item">
                     <label class="layui-form-label"><span style="color: red;">*</span>房屋来源</label>
                     <div class="layui-input-block">
                         <input type="radio" name="source" value="中介" title="中介" {if condition="$house.source eq '中介'"}checked{/if}>
-                        <input type="radio" name="source" value="个人房源" title="个人房源" {if condition="$house.source eq '个人房源'"}checked{/if}>
                         <input type="radio" name="source" value="学生公寓" title="学生公寓" {if condition="$house.source eq '学生公寓'"}checked{/if}>
                     </div>
                 </div>
@@ -145,12 +144,18 @@
                 <div class="layui-form-item" pane="">
                     <label class="layui-form-label">租期</label>
                     <div class="layui-input-block">
-                        <input type="radio" name="lease_term" value="灵活" title="灵活" {if condition="$house.lease_term eq '灵活'"}checked{/if}>
-                        <input type="radio" name="lease_term" value="1周起租" title="1周起租" {if condition="$house.lease_term eq '1周起租'"}checked{/if}>
-                        <input type="radio" name="lease_term" value="1个月起租" title="1个月起租" {if condition="$house.lease_term eq '1个月起租'"}checked{/if}>
-                        <input type="radio" name="lease_term" value="3个月起租" title="3个月起租" {if condition="$house.lease_term eq '3个月起租'"}checked{/if}>
-                        <input type="radio" name="lease_term" value="6个月起租" title="6个月起租" {if condition="$house.lease_term eq '6个月起租'"}checked{/if}>
+
                         <input type="radio" name="lease_term" value="12个月起租" title="12个月起租" {if condition="$house.lease_term eq '12个月起租'"}checked{/if}>
+
+                        <input type="radio" name="lease_term" value="6个月起租" title="6个月起租" {if condition="$house.lease_term eq '6个月起租'"}checked{/if}>
+
+                        <input type="radio" name="lease_term" value="3个月起租" title="3个月起租" {if condition="$house.lease_term eq '3个月起租'"}checked{/if}>
+
+                        <input type="radio" name="lease_term" value="1个月起租" title="1个月起租" {if condition="$house.lease_term eq '1个月起租'"}checked{/if}>
+
+
+                        <input type="radio" name="lease_term" value="1周起租" title="1周起租" {if condition="$house.lease_term eq '1周起租'"}checked{/if}>
+                        <input type="radio" name="lease_term" value="灵活" title="灵活" {if condition="$house.lease_term eq '灵活'"}checked{/if}>
                     </div>
                 </div>
                 <fieldset class="layui-elem-field layui-field-title" style="margin-top: 20px;">
@@ -208,7 +213,7 @@
                     </div>
                 </div>
                 <div class="layui-form-item" pane="">
-                    <label class="layui-form-label">设施</label>
+                    <label class="layui-form-label">楼宇设施</label>
                     <div class="layui-input-block">
                         {volist name='all_set' id='vo'}
                         <input type="checkbox" class="checkbox" lay-skin="primary" name="furniture[{$vo.set}]" title="{$vo.set}"  {$vo.is_checked ? 'checked' : ''}>
@@ -225,7 +230,7 @@
                     </div>
                 </div>
                 <div class="layui-form-item" pane="">
-                    <label class="layui-form-label">房源标签</label>
+                    <label class="layui-form-label">特色</label>
                     <div class="layui-input-block">
                         {volist name='tags' id='vo'}
                         <input type="checkbox" class="checkbox tags"  lay-verify="required|des_tanlent" lay-skin="primary" name="tags[{$vo.name}]" title="{$vo.name}" {$vo.is_checked ? 'checked' : ''}>

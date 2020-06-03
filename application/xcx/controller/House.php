@@ -961,6 +961,18 @@ class House extends Controller{
         $houseInfo['live_date_show'] =$show;
         $houseInfo['images1'] = explode(',',$houseInfo['images']);
         $city = Db::table('tk_cate')->where(['pid' => 0])->select();
+        $Tags= explode(',',$houseInfo['tags']);
+        $all_tags = Db::table('xcx_tags')
+            ->where(['type' => 1])
+            ->field('id,name')
+            ->select();
+        foreach ($all_tags as $key => &$val) {
+            $all_tags[$key]['is_checked'] = false;
+            if(in_array($val['name'], $Tags)) {
+                $val['is_checked'] = true;
+            }
+        }unset($val);
+        $this->assign('tags',$all_tags);
         $this->assign('all_bill',$all_bill);
         $this->assign('all_trans',$all_trans);
         $this->assign('all_set',$all_set);
