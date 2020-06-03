@@ -37,9 +37,11 @@ class Banner extends Controller{
         $addable = in_array('257',$power_list,true);
         $editable = in_array('258',$power_list,true);
         $delable = in_array('259',$power_list,true);
+        $offable = in_array('280',$power_list,true);
         $this->assign('addable',$addable);
         $this->assign('editable',$editable);
         $this->assign('delable',$delable);
+        $this->assign('offable',$offable);
         return $this->fetch();
     }
 

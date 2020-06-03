@@ -114,5 +114,23 @@ class Index extends Controller
             return json($ress);
         }
     }
-
+    public function active(){
+        header("Access-Control-Allow-Origin:*");
+        header('Access-Control-Allow-Methods:POST');
+        header('Access-Control-Allow-Headers:x-requested-with, content-type');
+        $email = $this->request->get('email');
+        $isExit = Db::table('super_admin')->where(['ad_email' => $email])->field('ad_isable')->find();
+        if(!$isExit){
+            $this->error('无此账户！','https://huaxiangxiaobao.com/');
+        }
+        if($isExit['ad_isable'] == 1){
+            $this->success('您已激活此账户！','https://huaxiangxiaobao.com/');
+        }
+        $active = Db::table('super_admin')->where(['ad_email' => $email])->update(['ad_isable'=>1]);
+        if($active){
+            $this->success('激活成功！页面跳转中，请稍后','https://huaxiangxiaobao.com/');
+        }else{
+            $this->error('激活失败！','https://huaxiangxiaobao.com/');
+        }
+    }
 }

@@ -8,8 +8,10 @@
 namespace app\xcx\controller;
 use app\xcx\model\Loops;
 use app\xcx\model\Rolem;
+use phpmailer\PHPMailer;
 use think\Controller;
 use think\Db;
+use think\Loader;
 use think\Request;
 
 class Admin extends Controller{
@@ -97,6 +99,22 @@ class Admin extends Controller{
         $this->assign('ad_id',$adId);
         return $this->fetch();
     }
+
+
+    public function fenPro(){
+        $ad_id = trim($this->request->param('ad_id','0','intval'));
+        $ad_wechat = trim($this->request->param('ad_wechat','0','intval'));
+        $update = Db::table('super_admin')
+            ->where(['ad_id' => $ad_id])
+            ->update(['ad_wechat' => $ad_wechat]);
+        if($update){
+            $this->success('绑定成功！');
+        }else{
+            $this->error('绑定失败!');
+        }
+    }
+
+
 
     public function admin(){
         $ad_role=intval(session('ad_role'));
@@ -191,7 +209,7 @@ class Admin extends Controller{
             if($isRepeat){
                 $this->error('此邮箱已注册！','add');
             }
-            $data['ad_isable'] = 1;
+            $data['ad_isable'] = 2;
             if(isset($_POST['ad_role']) && $_POST['ad_role']){
                 $bill = $_POST['ad_role'];
                 $bills = '';
@@ -212,9 +230,15 @@ class Admin extends Controller{
             //如果后台添加的这个手机号和前端用户绑定的手机号相同则自动绑定
             $userPhone = Db::table('tk_user')->where(['tel' => $data['ad_phone']])->field('id,tel')->find();
             if($userPhone){
-                Db::table('super_admin')->where(['ad_id' => $add])->update(['']);
+                Db::table('super_admin')->where(['ad_id' => $add])->update(['ad_wechat',$userPhone['tel']]);
             }
             if($add){
+                $adminInfo = Db::table('super_admin')
+                    ->where(['ad_id' => $add])
+                    ->field('ad_email')
+                    ->find();
+                $this->sendEmail($adminInfo['ad_email']);
+                //给平台用户发送一条账户邮箱激活链接
                 $this->success('添加管理员成功','admin');
             }else{
                 $this->error('添加管理员失败','admin');
@@ -232,6 +256,49 @@ class Admin extends Controller{
             $this->assign('user',$adminUser);
             $this->assign('role',$roleInfo);
             return $this->fetch();
+        }
+    }
+
+
+    public function sendEmail($mailer){
+        Loader::import('phpmailer.phpmailer');
+        $mail = new PHPMailer();
+        $toemail = $mailer;//收件人
+        $mail->isSMTP();// 使用SMTP服务
+        $mail->CharSet = "utf8";// 编码格式为utf8，不设置编码的话，中文会出现乱码
+        $mail->Host = "mail.welho.me";// 发送方的SMTP服务器地址
+        $mail->SMTPAuth = true;// 是否使用身份验证
+        $mail->Username = "customerservices@welho.me";
+        $mail->Password = "hxxb0401!!";
+        $mail->SMTPSecure = "ssl";// 使用ssl协议方式
+        $mail->Port = 465;
+        $mail->setFrom("customerservices@welho.me","花香小宝");
+        $mail->addAddress($toemail,'Wang');
+        $mail->addReplyTo($mailer,"Reply");
+        $mail->Subject = "恭喜您开通小宝租房经纪人平台账户！Congratulations, You have registered on Welhome Agent Platform!";// 邮件标题
+        $mail->Body = "您好，
+        <br/>
+欢迎您使用小宝租房经纪人平台，您可以通过本平台进行“房源发布”，“房源管理”，“站内信”等功能，更多新功能即将上线，使用中有任何问题均可联系我方工程师！
+ <br/>
+您的登录账号为：".$mailer."
+ <br/>
+默认密码：123456
+ <br/>
+请您点击以下链接激活账号：https://wx.huaxiangxiaobao.com/api/index/active?email=".$mailer."
+ <br/><br/><br/><br/><br/>
+<img style='width: 204px;height: 86px;' src='https://wx.huaxiangxiaobao.com/public/ueditor/php/upload/image/20200417/1587119666198174.png'>
+<br>
+<b>Welhome Pty Ltd
+<br>
+ABN: 11 628 249 687</b>
+<br>
+<b style='color:rgb(237,125,49);font-weight:bold;'>A</b> 10-12 Woorayl St, Carnegie, VIC, 3163
+<br>
+<b style='color:rgb(237,125,49);font-weight:bold;'>W</b> https://huaxiangxiaobao.com/";
+        if(!$mail->send()){
+            return json(['code'=>0,'msg'=>'发送失败！请联系管理员']);
+        }else{
+            return json(['code'=>1,'msg'=>'发送成功！']);
         }
     }
 

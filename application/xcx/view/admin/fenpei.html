@@ -27,6 +27,7 @@
                 </div>
                 <div class="layui-form-item">
                     <div class="layui-input-block">
+                        <input type="hidden" id="ad_id" value="{$ad_id}">
                         <span class="layui-btn" onclick="closeAlls()">提交</span>
                     </div>
                 </div>
@@ -36,18 +37,14 @@
 </div>
 <script>
     function closeAlls(){
-        var crm_id = $('#crm_id').val();
-        var cl_cl_admin = $('#cl_cl_admin').val();
-        var deadline = $('#deadline').val();
-        if(cl_cl_admin == ''){
-            return layer.msg('请选择接单人！');
-        }
-        if(deadline ==''){
-            return layer.msg('请选择截至日期！');
+        var ad_id = $('#ad_id').val();
+        var ad_wechat = $('#ad_wechat').val();
+        if(ad_wechat == ''){
+            return layer.msg('请选择用户！');
         }
         $.ajax({
             type: 'get',
-            url: "<?=url('order/fenPro')?>?&crm_id="+crm_id+ "&cl_cl_admin="+cl_cl_admin+ "&deadline="+deadline,
+            url: "<?=url('admin/fenPro')?>?&ad_id="+ad_id+ "&ad_wechat="+ad_wechat,
             dataType:  'json',
             success: function(data){
                 layer.msg(data.msg,{
@@ -65,11 +62,6 @@
             ,laydate = layui.laydate
             ,layer = layui.layer
             ,$ = layui.jquery;
-        laydate.render({
-            elem: '#deadline'
-            ,type: 'datetime'
-            ,trigger: 'click'
-        });
     });
 </script>
 {include file="index/footer" /}

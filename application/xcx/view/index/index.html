@@ -8,7 +8,7 @@
     <meta name="apple-mobile-web-app-status-bar-style" content="black">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="format-detection" content="telephone=no">
-    <title>{$siteName}后台管理系统</title>
+    <title>小宝经纪人平台</title>
     <link rel="stylesheet" href="__LAY__/css/layui.css">
     <script src="__PUBLIC__/static/jquery-1.10.2.min.js"></script>
     <script src="__LAY__/layui.js"></script>
@@ -23,7 +23,7 @@
 <body class="layui-layout-body">
 <div class="layui-layout layui-layout-admin">
     <div class="layui-header">
-        <div class="layui-logo">{$siteName}后台管理系统</div>
+        <div class="layui-logo">小宝经纪人平台</div>
         <ul class="layui-nav layui-layout-left">
             <div style="line-height: 60px;">
                 <span>欢迎您，{$admin.r_name}&nbsp;&nbsp;&nbsp;{$admin.ad_realname}</span>
@@ -31,7 +31,6 @@
         </ul>
         <ul class="layui-nav layui-layout-right">
             <li class="layui-nav-item"><a style="padding-left: 10px !important;" href="javascript:location.reload();" >后台主页</a></li>
-            <li class="layui-nav-item"><a style="padding-left: 10px !important;"  id="resetPwd">修改账户</a></li>
             <li class="layui-nav-item"><a style="padding-left: 10px !important;"  href="<?=url('login/loginOut')?>">退出登录</a></li>
         </ul>
     </div>
@@ -75,31 +74,6 @@
 			var $url = $(elem).eq(0).attr('data-url');
 			$("#option").attr('src',$url)
 		})
-
-        //修改密码；
-        $('#resetPwd').click(function () {
-            layer.open({
-                type: 2,
-                title: '修改密码',
-                shadeClose: true,
-                shade: false,
-                maxmin: true,
-                area: ['893px', '600px'],
-                content: "<?=url('index/resetpwd')?>"
-            });
-        });
-        //修改密码；
-        $('#adminDetails').click(function () {
-            layer.open({
-                type: 2,
-                title: '完善信息',
-                shadeClose: true,
-                shade: false,
-                maxmin: true,
-                area: ['893px', '600px'],
-                content: "<?=url('index/adminDetails')?>"
-            });
-        })
     });
     function toUser(e) {
         var $url = $(e).attr('data-url');

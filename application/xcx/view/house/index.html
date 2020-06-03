@@ -130,7 +130,9 @@
                         <th lay-data="{field:'tj', templet: '#switchTj',width:85}">推荐</th>
                         {/if}
                         <th lay-data="{field:'statuss',width:70}">状态</th>
+                        {if condition='$offable eq true'}
                         <th lay-data="{field:'status',templet: '#status',width:110}">上下线</th>
+                        {/if}
                         <th lay-data="{field:'cdate',width:105}">添加时间</th>
                         <th lay-data="{field:'user_id',width:80}">发布人</th>
                         <th lay-data="{ width:160, toolbar: '#barDemo'}">操作</th>

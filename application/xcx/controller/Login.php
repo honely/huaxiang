@@ -25,17 +25,21 @@ class Login extends Controller{
                         ->where(['ad_email' => $user,'ad_isable' => 1])
                         ->find();
                     if($login){
-                        $pwds=$login['ad_password'];
-                        if($pwd == $pwds){
-                            session('adminName',$login['ad_realname']);
-                            session('adminId',$login['ad_id']);
-                            session('ad_bid',$login['ad_bid']);
-                            session('ad_role',$login['ad_role']);
-                            session('ad_wechat',$login['ad_wechat']);
-                            session('expiretime',time() + 1800);
-                            $this->success('登录成功！','index/index');
+                        if(!$login['ad_wechat']){
+                            $this->error('您暂未绑定小程序用户，请联系管理员！','login');
                         }else{
-                            $this->error('账号或者密码错误！','login');
+                            $pwds=$login['ad_password'];
+                            if($pwd == $pwds){
+                                session('adminName',$login['ad_realname']);
+                                session('adminId',$login['ad_id']);
+                                session('ad_bid',$login['ad_bid']);
+                                session('ad_role',$login['ad_role']);
+                                session('ad_wechat',$login['ad_wechat']);
+                                session('expiretime',time() + 1800);
+                                $this->success('登录成功！','index/index');
+                            }else{
+                                $this->error('账号或者密码错误！','login');
+                            }
                         }
                     }else{
                         $this->error('没有此账户信息，或账号异常，请联系管理员！');

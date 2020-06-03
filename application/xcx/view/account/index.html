@@ -1,9 +1,16 @@
 {include file="index/header" /}
 <div class="layui-body">
-    <fieldset class="layui-elem-field layui-field-title" style="margin: 20px 30px 20px 20px;">
-        <legend>密码修改</legend>
-    </fieldset>
-    <form class="layui-form bform" id="reform" method="post" action="" enctype="multipart/form-data">
+    <div class="layui-tab layui-tab-brief" lay-filter="docDemoTabBrief">
+        <ul class="layui-tab-title">
+            <li class="layui-this">修改密码</li>
+            <li>
+                <a href='<?=url("account/bindemail")?>'>绑定邮箱</a>
+            </li>
+            <li>
+                <a href='<?=url("account/bindphone")?>'>绑定手机号</a>
+            </li>
+        </ul>
+    <form class="layui-form bform" style="margin-top: 20px;" id="reform" method="post" action="" enctype="multipart/form-data">
         <input type="hidden" class="layui-input" name="ad_id" value="{$admin_id}">
         <div class="layui-form-item">
             <label class="layui-form-label">原密码</label>
@@ -29,6 +36,7 @@
             </div>
         </div>
     </form>
+    </div>
 </div>
 <script>
     layui.use(['element','jquery','layer'], function(){

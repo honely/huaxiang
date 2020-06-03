@@ -45,11 +45,13 @@ class House extends Controller{
         $delable = in_array('233',$power_list,true);
         $topable = in_array('241',$power_list,true);
         $tjable = in_array('240',$power_list,true);
+        $offable = in_array('279',$power_list,true);
         $this->assign('addable',$addable);
         $this->assign('editable',$editable);
         $this->assign('delable',$delable);
         $this->assign('topable',$topable);
         $this->assign('tjable',$tjable);
+        $this->assign('offable',$offable);
         $cityinfo = Db::table('tk_cate')->where(['pid' =>0])->select();
         $this->assign('cityinfo',$cityinfo);
         return $this->fetch();
@@ -1166,9 +1168,7 @@ class House extends Controller{
             ->limit(($page-1)*$limit,$limit)
             ->order($order)
             ->where($where)
-            ->fetchSql(true)
             ->select();
-//        dump($design);
         $loopd = new Loops();
         foreach ($design as $k => $v){
             $design[$k]['statuss'] = $this->houseStatus($v['status']);

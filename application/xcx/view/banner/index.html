@@ -40,7 +40,11 @@
     {/if}
 </script>
 <script type="text/html" id="switchTpl">
+    {if condition='$offable eq true'}
     <input type="checkbox" name="sex" lay-skin="switch" value="{{d.b_id}}" lay-text="是|否" lay-filter="sexDemo" {{ d.b_status == 1 ? 'checked' : '' }}>
+    {else/}
+    {{ d.b_status == 1 ? '是' : '否' }}
+    {/if}
 </script>
 <script>
     layui.use(['table','laydate','form'], function(){
