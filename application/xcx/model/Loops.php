@@ -32,10 +32,38 @@ class Loops extends Model
         $user = Db::table('tk_user')->where(['id' => $uid])->field('avaurl')->find();
         return $user ? $user['avaurl'] : '';
     }
+
+
+    public function getUserAvatars($uid,$admin){
+        if($admin == 1){
+            $user = Db::table('tk_user')->where(['id' => $uid])->field('avaurl')->find();
+            $userName = $user ? $user['avaurl'] : '外星人呀';
+        }else if($admin == 2){
+            $user = Db::table('super_admin')->where(['ad_id' => $uid])->field('ad_img')->find();
+            $userName = $user ? $user['ad_img'] : '外星人呀';
+        }
+        return $userName;
+    }
+
+
     public function getUserNick($uid){
         $user = Db::table('tk_user')->where(['id' => $uid])->field('nickname')->find();
         return $user ? $user['nickname'] : '外星人呀';
     }
+
+
+    public function getUserNicks($uid,$admin){
+        if($admin == 1){
+            $user = Db::table('tk_user')->where(['id' => $uid])->field('nickname')->find();
+            $userName = $user ? $user['nickname'] : '外星人呀';
+        }else if($admin == 2){
+            $user = Db::table('super_admin')->where(['ad_id' => $uid])->field('ad_realname')->find();
+            $userName = $user ? $user['ad_realname'] : '外星人呀';
+        }
+        return $userName;
+    }
+
+
 
     public function isTop($id){
 

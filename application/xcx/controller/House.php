@@ -150,7 +150,7 @@ class House extends Controller{
         foreach ($design as $k => $v){
             $design[$k]['statuss'] = $this->houseStatus($v['status']);
             $design[$k]['cdate'] = date('m-d H:i',strtotime($v['cdate']));
-            $design[$k]['user_id'] = $loopd->getUserNick($v['user_id']);
+            $design[$k]['user_id'] = $loopd->getUserNicks($v['user_id'],$v['is_admin']);
             $design[$k]['isTop'] = $this->greaterTops($v['id']);
             $design[$k]['isTj'] = $this->greaterTjs($v['id']);
         }
@@ -180,6 +180,7 @@ class House extends Controller{
      * 房源添加
      * */
     public function add(){
+        $adminId = session('adminId');
         if($_POST){
             $data = $_POST;
             if(isset($_POST['http']) && $_POST['http']){
@@ -257,7 +258,8 @@ class House extends Controller{
             $data['city'] = $this->getCityName($_POST['city']);
             unset($data['file']);
             $data['dsn'] = $this->genHouseDsn();
-            $data['user_id'] = 41;
+            $data['user_id'] = $adminId;
+            $data['is_admin'] = 2;
             if(isset($data['address'])){
                 $data['area'] = trim(explode(',',$data['address'])[1]);
             }
@@ -268,6 +270,12 @@ class House extends Controller{
                 $this->error('添加失败！');
             }
         }else{
+            $adminId = session('adminId');
+            $adminInfo = Db::table('super_admin')
+                ->where(['ad_id' => $adminId])
+                ->field('ad_realname,ad_email,ad_weixin,ad_phone')
+                ->find();
+            $this->assign('admin',$adminInfo);
             $city = Db::table('tk_cate')->where(['pid' => 0])->select();
             $this->assign('city',$city);
             $all_tags = Db::table('xcx_tags')
@@ -364,6 +372,7 @@ class House extends Controller{
      * */
     public function edit(){
         $id = $this->request->param('id',22,'intval');
+        $type = $this->request->get('type');
         if($_POST){
             $data = $_POST;
             if(isset($_POST['http']) && $_POST['http']){
@@ -439,11 +448,12 @@ class House extends Controller{
             $data['publish_date'] = date('Y-m-d H:i:s');
             $data['mdate'] = date('Y-m-d H:i:s');
             unset($data['file']);
+            $url = $type == 1 ? 'index' : 'myhouse';
             $add=Db::table('tk_houses')->where(['id' => $id])->update($data);
             if($add){
-                $this->success('修改成功！','index');
+                $this->success('修改成功！',$url);
             }else{
-                $this->error('修改失败！','index');
+                $this->error('修改失败！',$url);
             }
         }else{
             $houseInfo = Db::table('tk_houses')->where(['id' => $id])->find();
@@ -632,6 +642,7 @@ class House extends Controller{
             $this->assign('all_set',$all_set);
             $this->assign('all_four',$allFours);
             $this->assign('city',$city);
+            $this->assign('type',$type);
             $this->assign('school',$shcool);
             $this->assign('house',$houseInfo);
             return $this->fetch();
@@ -1101,6 +1112,8 @@ class House extends Controller{
         $addable = in_array('242',$power_list,true);
         $editable = in_array('243',$power_list,true);
         $delable = in_array('244',$power_list,true);
+        $offable = in_array('281',$power_list,true);
+        $this->assign('offable',$offable);
         $this->assign('addable',$addable);
         $this->assign('editable',$editable);
         $this->assign('delable',$delable);
@@ -1111,7 +1124,8 @@ class House extends Controller{
 
     public function myData(){
         $userId = session('ad_wechat');
-        $where =' user_id = '.$userId;
+        $adminId = session('adminId');
+        $where =' ( user_id = '.$userId.' and is_admin = 1 ) or ( user_id = '.$adminId.' and is_admin = 2) ';
         $keywords = trim($this->request->param('keywords'));
         $time = trim($this->request->param('time'));
         $city = trim($this->request->param('city'));
@@ -1185,7 +1199,7 @@ class House extends Controller{
         foreach ($design as $k => $v){
             $design[$k]['statuss'] = $this->houseStatus($v['status']);
             $design[$k]['cdate'] = date('m-d H:i',strtotime($v['cdate']));
-            $design[$k]['user_id'] = $loopd->getUserNick($v['user_id']);
+            $design[$k]['user_id'] = $loopd->getUserNicks($v['user_id'],$v['is_admin']);
             $design[$k]['isTop'] = $this->greaterTops($v['id']);
             $design[$k]['isTj'] = $this->greaterTjs($v['id']);
         }

@@ -124,7 +124,7 @@ class Index extends Controller
             $this->error('无此账户！','https://huaxiangxiaobao.com/');
         }
         if($isExit['ad_isable'] == 1){
-            $this->success('您已激活此账户！','https://huaxiangxiaobao.com/');
+            $this->success('恭喜您已成功激活，请点击“Agent Login”登录系统','https://huaxiangxiaobao.com/');
         }
         $active = Db::table('super_admin')->where(['ad_email' => $email])->update(['ad_isable'=>1]);
         if($active){

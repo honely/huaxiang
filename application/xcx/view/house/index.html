@@ -318,7 +318,7 @@
             var data = obj.data;
             var id = data.id;
             if(obj.event === 'edit'){
-                window.location.href='<?=url("house/edit")?>?id='+id;
+                window.location.href='<?=url("house/edit")?>?id='+id+'&type=1';
             }else if(obj.event === 'alert'){
                 layer.open({
                     type: 2,

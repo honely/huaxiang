@@ -118,7 +118,9 @@
                         <th lay-data="{field:'collection',width:70}">收藏</th>
                         <th lay-data="{field:'view',width:70}">点击</th>
                         <th lay-data="{field:'statuss',width:70}">状态</th>
+                        {if condition='$offable eq true'}
                         <th lay-data="{field:'status',templet: '#status',width:110}">上下线</th>
+                        {/if}
                         <th lay-data="{field:'cdate',width:105}">添加时间</th>
                         <th lay-data="{field:'user_id',width:120}">发布人</th>
                         <th lay-data="{ width:200, toolbar: '#barDemo'}">操作</th>
@@ -240,7 +242,7 @@
             var data = obj.data;
             var id = data.id;
             if(obj.event === 'edit'){
-                window.location.href='<?=url("house/edit")?>?id='+id;
+                window.location.href='<?=url("house/edit")?>?id='+id+'&type=2';
             }else if(obj.event === 'alert'){
                 layer.open({
                     type: 2,
@@ -271,11 +273,11 @@
                                     ,content: result.msg
                                     ,yes: function(index){
                                         layer.close(index);
-                                        window.location.href='<?=url("house/index")?>';
+                                        window.location.href='<?=url("house/myhouse")?>';
                                     }
                                     ,cancel:function (index) {
                                         layer.close(index);
-                                        window.location.href='<?=url("house/index")?>';
+                                        window.location.href='<?=url("house/myhouse")?>';
                                     }
                                 });
                             }
