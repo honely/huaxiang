@@ -1125,7 +1125,11 @@ class House extends Controller{
     public function myData(){
         $userId = session('ad_wechat');
         $adminId = session('adminId');
-        $where =' ( user_id = '.$userId.' and is_admin = 1 ) or ( user_id = '.$adminId.' and is_admin = 2) ';
+        if($userId){
+            $where =' ( user_id = '.$userId.' and is_admin = 1 ) or ( user_id = '.$adminId.' and is_admin = 2) ';
+        }else{
+            $where =' user_id = '.$adminId.' and is_admin = 2 ';
+        }
         $keywords = trim($this->request->param('keywords'));
         $time = trim($this->request->param('time'));
         $city = trim($this->request->param('city'));

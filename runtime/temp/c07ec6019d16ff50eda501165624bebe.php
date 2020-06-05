@@ -1,4 +1,26 @@
-{include file="index/header" /}
+<?php if (!defined('THINK_PATH')) exit(); /*a:3:{s:93:"D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\public/../application/xcx\view\account\index.html";i:1591347449;s:82:"D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\application\xcx\view\index\header.html";i:1591172124;s:82:"D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\application\xcx\view\index\footer.html";i:1583744281;}*/ ?>
+<!DOCTYPE html>
+<html style="height: 100%">
+<head>
+    <meta charset="utf-8">
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <title>小宝经纪人平台</title>
+    <link rel="stylesheet" href="../../../layui/src/css/layui.css">
+    <script src="../../../static/jquery-1.10.2.min.js"></script>
+    <script src="../../../layui/src/layui.js"></script>
+	<style>
+		.layui-body{
+			left:0!important
+		}
+	</style>
+</head>
+<body class="layui-layout-body" style="height: 100%">
+
 <div class="layui-body">
     <div class="layui-tab layui-tab-brief" lay-filter="docDemoTabBrief">
         <div style="margin: 20px;">
@@ -8,7 +30,7 @@
         </span>
         </div>
     <form class="layui-form bform" style="margin-top: 20px;" id="reform" method="post" action="" enctype="multipart/form-data">
-        <input type="hidden" class="layui-input" name="ad_id" value="{$admin_id}">
+        <input type="hidden" class="layui-input" name="ad_id" value="<?php echo $admin_id; ?>">
         <div class="layui-form-item">
             <label class="layui-form-label">原密码</label>
             <div class="layui-input-inline">
@@ -71,4 +93,13 @@
         })
     }
 </script>
-{include file="index/footer" /}
+</div>
+<script>
+    //JavaScript代码区域
+    layui.use('element', function(){
+        var element = layui.element;
+
+    });
+</script>
+</body>
+</html>

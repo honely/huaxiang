@@ -1,4 +1,26 @@
-{include file="index/header" /}
+<?php if (!defined('THINK_PATH')) exit(); /*a:3:{s:89:"D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\public/../application/xcx\view\house\add.html";i:1591343126;s:82:"D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\application\xcx\view\index\header.html";i:1591172124;s:82:"D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\application\xcx\view\index\footer.html";i:1583744281;}*/ ?>
+<!DOCTYPE html>
+<html style="height: 100%">
+<head>
+    <meta charset="utf-8">
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <title>小宝经纪人平台</title>
+    <link rel="stylesheet" href="../../../layui/src/css/layui.css">
+    <script src="../../../static/jquery-1.10.2.min.js"></script>
+    <script src="../../../layui/src/layui.js"></script>
+	<style>
+		.layui-body{
+			left:0!important
+		}
+	</style>
+</head>
+<body class="layui-layout-body" style="height: 100%">
+
 <style>
     .one-pan{
         position: relative;
@@ -20,18 +42,13 @@
     #slide-pc-priview li .toright{ position: absolute;top: 40px; right: 1px;cursor:pointer;}
     #slide-pc-priview li .close{position: absolute;top: 5px; right: 5px;cursor:pointer;}
     #slide-pc-priview li:hover .operate{ display: block;}
-    .item_img img{ width:277px; height: 177px}
 </style>
 <div class="layui-body">
     <div style="margin: 20px;">
     <span class="layui-breadcrumb" lay-separator=">">
        <a>房源管理</a>
-        {if condition='$type eq 1'}
-         <a href="<?=url('house/index')?>">房源列表</a>
-        {else/}
-         <a href="<?=url('house/myhouse')?>">我的房源</a>
-        {/if}
-        <a><cite>修改房源</cite></a>
+        <a href="<?=url('house/index')?>">房源列表</a>
+        <a><cite>发布房源</cite></a>
     </span>
         <div style="float:right;">
             <a href="javascript:history.go(-1);" class="layui-btn layui-btn-primary layui-btn-sm">
@@ -42,54 +59,49 @@
     <hr/>
     <div style="margin: 10px">
         <div style="padding: 15px;">
-            <form class="layui-form" action="<?=url('house/edit')?>?id={$house.id}&type={$type}" method="post">
+            <form class="layui-form" action="<?=url('house/add')?>" method="post">
                 <fieldset class="layui-elem-field layui-field-title" style="margin-top: 20px;">
                     <legend>基础信息</legend>
                 </fieldset>
                 <div class="layui-form-item">
                     <label class="layui-form-label"><span style="color: red;">*</span>房源名称</label>
                     <div class="layui-input-block">
-                        <input type="text" name="title" lay-verify="required|title" placeholder="请输入房源名称" maxlength="50"  autocomplete="off" value="{$house.title}" class="layui-input">
-                        <input type="hidden" value="{$house.id}" id="id" class="layui-input">
+                        <input type="text" name="title" lay-verify="required|title" placeholder="请输入房源名称" maxlength="50" autocomplete="off" class="layui-input">
                     </div>
                 </div>
                 <div class="layui-form-item">
                     <label class="layui-form-label"><span style="color: red;">*</span>地址</label>
                     <div class="layui-input-block" id="input">
-                        <input type="text" name="address" id="end" autocomplete="off" class="layui-input" placeholder="请注入地址" value="{$house.address}" >
-                        <input type="hidden" name="x" id="x" autocomplete="off" class="layui-input" value="{$house.x}" >
-                        <input type="hidden" name="y" id="y" autocomplete="off" class="layui-input" value="{$house.y}" >
+                        <input type="text" name="address" id="end" autocomplete="off" class="layui-input" placeholder="目的地">
+                        <input type="hidden" name="x" id="x" autocomplete="off" class="layui-input" >
+                        <input type="hidden" name="y" id="y" autocomplete="off" class="layui-input" >
                     </div>
                 </div>
                 <div class="layui-form-item">
                     <label class="layui-form-label">房源链接</label>
                     <div class="layui-input-block">
-                        <input type="text" name="http"  placeholder="请输入房源链接" autocomplete="off" value="{$house.http}" class="layui-input" id="orderHouse" onblur="checkHouseUrl()">
+                        <input type="text" name="http"  placeholder="请输入房源链接" id="orderHouse" autocomplete="off" class="layui-input" onblur="checkHouseUrl()">
                     </div>
                 </div>
                 <div class="layui-form-item">
                     <label class="layui-form-label"><span style="color: red;">*</span>租金</label>
                     <div class="layui-input-block">
-                        <input type="number" name="price" lay-verify="required|title" placeholder="请输入租金" autocomplete="off" value="{$house.price}" class="layui-input">
+                        <input type="number" name="price" lay-verify="required|title" placeholder="请输入租金" autocomplete="off" class="layui-input">
                     </div>
                 </div>
-
                 <div class="layui-form-item">
                     <label class="layui-form-label"><span style="color: red;">*</span>城市校区</label>
                     <div class="layui-input-inline">
                         <select name="city" lay-verify="required" lay-filter="bu_p_id">
                             <option value="">请选择城市</option>
-                            {volist name='city' id='vo'}
-                            <option value="{$vo.id}" {if condition="$house.city eq $vo.name"}selected{/if}>{$vo.name}</option>
-                            {/volist}
+                            <?php if(is_array($city) || $city instanceof \think\Collection || $city instanceof \think\Paginator): $i = 0; $__LIST__ = $city;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$vo): $mod = ($i % 2 );++$i;?>
+                            <option value="<?php echo $vo['id']; ?>"><?php echo $vo['name']; ?></option>
+                            <?php endforeach; endif; else: echo "" ;endif; ?>
                         </select>
                     </div>
                     <div class="layui-input-inline">
                         <select name="school" lay-verify="required" id="school">
                             <option value="">请选择校区</option>
-                            {volist name='school' id='vo'}
-                            <option value="{$vo.name}" {if condition="$house.school eq $vo.name"}selected{/if}>{$vo.name}</option>
-                            {/volist}
                         </select>
                     </div>
                 </div>
@@ -99,67 +111,60 @@
                 <div class="layui-form-item">
                     <label class="layui-form-label"><span style="color: red;">*</span>入住时间</label>
                     <div class="layui-input-inline">
-
-                        <input type="text" name="live_date" id="date" lay-verify="date" lay-verify="required" style="display:{if condition="$house.live_date_show eq 1"}none{else/}block{/if}" placeholder="请选择入住时间" value="{$house.live_date}" autocomplete="off" class="layui-input">
-
+                        <input type="text" name="live_date" id="date" lay-verify="date" lay-verify="required" placeholder="请选择入住时间" autocomplete="off" class="layui-input">
                     </div>
                     <div class="layui-input-inline">
-                        <input type="checkbox" lay-skin="switch" lay-filter="switchTest" lay-text="随时|随时" {if condition="$house.live_date_show eq 1"}checked{else/}{/if} >
+                        <input type="checkbox" lay-skin="switch" lay-filter="switchTest" lay-text="随时|随时">
                     </div>
                 </div>
                 <div class="layui-form-item">
                     <label class="layui-form-label"><span style="color: red;">*</span>房屋来源</label>
                     <div class="layui-input-block">
-                        <input type="radio" name="source" value="中介" title="中介" {if condition="$house.source eq '中介'"}checked{/if}>
-                        <input type="radio" name="source" value="学生公寓" title="学生公寓" {if condition="$house.source eq '学生公寓'"}checked{/if}>
+                        <input type="radio" name="source" value="中介" title="中介" checked>
+                        <input type="radio" name="source" value="学生公寓" title="学生公寓">
                     </div>
                 </div>
                 <div class="layui-form-item">
                     <label class="layui-form-label"><span style="color: red;">*</span>出租方式</label>
                     <div class="layui-input-block">
-                        <input type="radio" name="type" value="整租" title="整租" {if condition="$house.type eq '整租'"}checked{/if}>
-                        <input type="radio" name="type" value="单间" title="单间" {if condition="$house.type eq '单间'"}checked{/if}>
-                        <input type="radio" name="type" value="厅卧" title="厅卧" {if condition="$house.type eq '厅卧'"}checked{/if}>
+                        <input type="radio" name="type" value="整租" title="整租" checked>
+                        <input type="radio" name="type" value="单间" title="单间">
+                        <input type="radio" name="type" value="厅卧" title="厅卧">
                     </div>
                 </div>
                 <div class="layui-form-item">
                     <label class="layui-form-label"><span style="color: red;">*</span>性别限制</label>
                     <div class="layui-input-block">
-                        <input type="radio" name="sex" value="男女不限" title="男女不限" {if condition="$house.sex eq '男女不限'"}checked{/if}>
-                        <input type="radio" name="sex" value="限男性" title="限男性" {if condition="$house.sex eq '限男性'"}checked{/if}>
-                        <input type="radio" name="sex" value="限女性" title="限女性" {if condition="$house.sex eq '限女性'"}checked{/if}>
+                        <input type="radio" name="sex" value="男女不限" title="男女不限" checked>
+                        <input type="radio" name="sex" value="限男性" title="限男性">
+                        <input type="radio" name="sex" value="限女性" title="限女性">
                     </div>
                 </div>
                 <div class="layui-form-item">
                     <label class="layui-form-label"><span style="color: red;">*</span>宠物</label>
                     <div class="layui-input-block">
-                        <input type="radio" name="pet" value="接受" title="接受" {if condition="$house.pet eq '接受'"}checked{/if}>
-                        <input type="radio" name="pet" value="不接受" title="不接受" {if condition="$house.pet eq '不接受'"}checked{/if}>
+                        <input type="radio" name="pet" value="接受" title="接受" checked>
+                        <input type="radio" name="pet" value="不接受" title="不接受">
                     </div>
                 </div>
                 <div class="layui-form-item" pane="">
                     <label class="layui-form-label">Bill相关</label>
                     <div class="layui-input-block">
-                        {volist name='all_bill' id='vo'}
-                        <input type="checkbox" class="checkbox" lay-skin="primary" name="bill[{$vo.bill}]" title="{$vo.bill}"  {$vo.is_checked ? 'checked' : ''}>
-                        {/volist}
+                        <input type="checkbox" name="bill[包水]" lay-skin="primary" title="包水">
+                        <input type="checkbox" name="bill[包电]" lay-skin="primary" title="包电">
+                        <input type="checkbox" name="bill[包气]" lay-skin="primary" title="包气">
+                        <input type="checkbox" name="bill[包网]" lay-skin="primary" title="包网">
                     </div>
                 </div>
                 <div class="layui-form-item" pane="">
                     <label class="layui-form-label">租期</label>
                     <div class="layui-input-block">
-
-                        <input type="radio" name="lease_term" value="12个月起租" title="12个月起租" {if condition="$house.lease_term eq '12个月起租'"}checked{/if}>
-
-                        <input type="radio" name="lease_term" value="6个月起租" title="6个月起租" {if condition="$house.lease_term eq '6个月起租'"}checked{/if}>
-
-                        <input type="radio" name="lease_term" value="3个月起租" title="3个月起租" {if condition="$house.lease_term eq '3个月起租'"}checked{/if}>
-
-                        <input type="radio" name="lease_term" value="1个月起租" title="1个月起租" {if condition="$house.lease_term eq '1个月起租'"}checked{/if}>
-
-
-                        <input type="radio" name="lease_term" value="1周起租" title="1周起租" {if condition="$house.lease_term eq '1周起租'"}checked{/if}>
-                        <input type="radio" name="lease_term" value="灵活" title="灵活" {if condition="$house.lease_term eq '灵活'"}checked{/if}>
+                        <input type="radio" name="lease_term" value="12个月起租" title="12个月起租" checked>
+                        <input type="radio" name="lease_term" value="6个月起租" title="6个月起租">
+                        <input type="radio" name="lease_term" value="3个月起租" title="3个月起租">
+                        <input type="radio" name="lease_term" value="1个月起租" title="1个月起租">
+                        <input type="radio" name="lease_term" value="1周起租" title="1周起租">
+                        <input type="radio" name="lease_term" value="灵活" title="灵活">
                     </div>
                 </div>
                 <fieldset class="layui-elem-field layui-field-title" style="margin-top: 20px;">
@@ -168,77 +173,96 @@
                 <div class="layui-form-item">
                     <label class="layui-form-label"><span style="color: red;">*</span>户型</label>
                     <div class="layui-input-block">
-                        <input type="radio" name="house_room" value="一室" title="一室" {if condition="$house.house_room eq '一室'"}checked{/if}>
-                        <input type="radio" name="house_room" value="两室" title="两室" {if condition="$house.house_room eq '两室'"}checked{/if}>
-                        <input type="radio" name="house_room" value="三室" title="三室" {if condition="$house.house_room eq '三室'"}checked{/if}>
-                        <input type="radio" name="house_room" value="四室" title="四室" {if condition="$house.house_room eq '四室'"}checked{/if}>
-                        <input type="radio" name="house_room" value="四室以上" title="四室以上" {if condition="$house.house_room eq '四室以上'"}checked{/if}>
+                        <input type="radio" name="house_room" value="一室" title="一室" checked>
+                        <input type="radio" name="house_room" value="两室" title="两室">
+                        <input type="radio" name="house_room" value="三室" title="三室">
+                        <input type="radio" name="house_room" value="四室" title="四室">
+                        <input type="radio" name="house_room" value="四室以上" title="四室以上">
                     </div>
                 </div>
 
                 <div class="layui-form-item">
                     <label class="layui-form-label"><span style="color: red;">*</span>卫生间</label>
                     <div class="layui-input-block">
-                        <input type="radio" name="toilet" value="0" title="0" {if condition="$house.toilet eq '0'"}checked{/if}>
-                        <input type="radio" name="toilet" value="1" title="1" {if condition="$house.toilet eq '1'"}checked{/if}>
-                        <input type="radio" name="toilet" value="2" title="2" {if condition="$house.toilet eq '2'"}checked{/if}>
-                        <input type="radio" name="toilet" value="3" title="3" {if condition="$house.toilet eq '3'"}checked{/if}>
-                        <input type="radio" name="toilet" value="4" title="4" {if condition="$house.toilet eq '4'"}checked{/if}>
-                        <input type="radio" name="toilet" value="5" title="5" {if condition="$house.toilet eq '5'"}checked{/if}>
-                        <input type="radio" name="toilet" value="6" title="6" {if condition="$house.toilet eq '6'"}checked{/if}>
-                        <input type="radio" name="toilet" value="7" title="7" {if condition="$house.toilet eq '7'"}checked{/if}>
-                        <input type="radio" name="toilet" value="8" title="8" {if condition="$house.toilet eq '8'"}checked{/if}>
-                        <input type="radio" name="toilet" value="9" title="9" {if condition="$house.toilet eq '9'"}checked{/if}>
+                        <input type="radio" name="toilet" value="0" title="0" checked>
+                        <input type="radio" name="toilet" value="1" title="1">
+                        <input type="radio" name="toilet" value="2" title="2">
+                        <input type="radio" name="toilet" value="3" title="3">
+                        <input type="radio" name="toilet" value="4" title="4">
+                        <input type="radio" name="toilet" value="5" title="5">
+                        <input type="radio" name="toilet" value="6" title="6">
+                        <input type="radio" name="toilet" value="7" title="7">
+                        <input type="radio" name="toilet" value="8" title="8">
+                        <input type="radio" name="toilet" value="9" title="9">
                     </div>
                 </div>
 
                 <div class="layui-form-item">
                     <label class="layui-form-label"><span style="color: red;">*</span>家具</label>
                     <div class="layui-input-block">
-                        {volist name='all_four' id='vo'}
-                        <input type="checkbox" class="checkbox" lay-skin="primary" name="home[{$vo.furn}]" title="{$vo.furn}"  {$vo.is_checked ? 'checked' : ''}>
-                        {/volist}
+                        <input type="checkbox" name="home[床]" lay-skin="primary" title="床">
+                        <input type="checkbox" name="home[沙发]" lay-skin="primary" title="沙发">
+                        <input type="checkbox" name="home[餐桌]" lay-skin="primary" title="餐桌">
+                        <input type="checkbox" name="home[椅子]" lay-skin="primary" title="椅子">
+                        <input type="checkbox" name="home[WIFI]" lay-skin="primary" title="WIFI">
+                        <input type="checkbox" name="home[空调]" lay-skin="primary" title="空调">
+                        <input type="checkbox" name="home[洗衣机]" lay-skin="primary" title="洗衣机">
+                        <input type="checkbox" name="home[冰箱]" lay-skin="primary" title="冰箱">
+                        <input type="checkbox" name="home[微波炉]" lay-skin="primary" title="微波炉">
+                        <input type="checkbox" name="home[暖气]" lay-skin="primary" title="暖气">
+                        <input type="checkbox" name="home[电烤箱]" lay-skin="primary" title="电烤箱">
+                        <input type="checkbox" name="home[洗碗机]" lay-skin="primary" title="洗碗机">
                     </div>
                 </div>
 
                 <div class="layui-form-item">
                     <label class="layui-form-label"><span style="color: red;">*</span>车位</label>
                     <div class="layui-input-block">
-                        <input type="radio" name="car" value="0" title="0" {if condition="$house.car eq '0'"}checked{/if}>
-                        <input type="radio" name="car" value="1" title="1" {if condition="$house.car eq '1'"}checked{/if}>
-                        <input type="radio" name="car" value="2" title="2" {if condition="$house.car eq '2'"}checked{/if}>
-                        <input type="radio" name="car" value="3" title="3" {if condition="$house.car eq '3'"}checked{/if}>
-                        <input type="radio" name="car" value="4" title="4" {if condition="$house.car eq '4'"}checked{/if}>
-                        <input type="radio" name="car" value="5" title="5" {if condition="$house.car eq '5'"}checked{/if}>
-                        <input type="radio" name="car" value="6" title="6" {if condition="$house.car eq '6'"}checked{/if}>
-                        <input type="radio" name="car" value="7" title="7" {if condition="$house.car eq '7'"}checked{/if}>
-                        <input type="radio" name="car" value="8" title="8" {if condition="$house.car eq '8'"}checked{/if}>
-                        <input type="radio" name="car" value="9" title="9" {if condition="$house.car eq '9'"}checked{/if}>
+                        <input type="radio" name="car" value="0" title="0" checked>
+                        <input type="radio" name="car" value="1" title="1">
+                        <input type="radio" name="car" value="2" title="2">
+                        <input type="radio" name="car" value="3" title="3">
+                        <input type="radio" name="car" value="4" title="4">
+                        <input type="radio" name="car" value="5" title="5">
+                        <input type="radio" name="car" value="6" title="6">
+                        <input type="radio" name="car" value="7" title="7">
+                        <input type="radio" name="car" value="8" title="8">
+                        <input type="radio" name="car" value="9" title="9">
                     </div>
                 </div>
                 <div class="layui-form-item" pane="">
                     <label class="layui-form-label">楼宇设施</label>
                     <div class="layui-input-block">
-                        {volist name='all_set' id='vo'}
-                        <input type="checkbox" class="checkbox" lay-skin="primary" name="furniture[{$vo.set}]" title="{$vo.set}"  {$vo.is_checked ? 'checked' : ''}>
-                        {/volist}
+                        <input type="checkbox" name="furniture[游泳池]" lay-skin="primary" title="游泳池">
+                        <input type="checkbox" name="furniture[健身房]" lay-skin="primary" title="健身房">
+                        <input type="checkbox" name="furniture[停车位]" lay-skin="primary" title="停车位">
+                        <input type="checkbox" name="furniture[电影院]" lay-skin="primary" title="电影院">
+                        <input type="checkbox" name="furniture[花园]" lay-skin="primary" title="花园">
+                        <input type="checkbox" name="furniture[门禁]" lay-skin="primary" title="门禁">
+                        <input type="checkbox" name="furniture[前台]" lay-skin="primary" title="前台">
+                        <input type="checkbox" name="furniture[桑拿]" lay-skin="primary" title="桑拿">
                     </div>
                 </div>
 
                 <div class="layui-form-item" pane="">
                     <label class="layui-form-label">周边</label>
                     <div class="layui-input-block">
-                        {volist name='all_trans' id='vo'}
-                        <input type="checkbox" class="checkbox" lay-skin="primary" name="sation[{$vo.trans}]" title="{$vo.trans}"  {$vo.is_checked ? 'checked' : ''}>
-                        {/volist}
+                        <input type="checkbox" name="sation[巴士站]" lay-skin="primary" title="巴士站">
+                        <input type="checkbox" name="sation[火车站]" lay-skin="primary" title="火车站">
+                        <input type="checkbox" name="sation[电车站]" lay-skin="primary" title="电车站">
+                        <input type="checkbox" name="sation[餐馆]" lay-skin="primary" title="餐馆">
+                        <input type="checkbox" name="sation[公园]" lay-skin="primary" title="公园">
+                        <input type="checkbox" name="sation[警察局]" lay-skin="primary" title="警察局">
+                        <input type="checkbox" name="sation[医院]" lay-skin="primary" title="医院">
+                        <input type="checkbox" name="sation[超市]" lay-skin="primary" title="超市">
                     </div>
                 </div>
                 <div class="layui-form-item" pane="">
                     <label class="layui-form-label">特色</label>
                     <div class="layui-input-block">
-                        {volist name='tags' id='vo'}
-                        <input type="checkbox" class="checkbox tags"  lay-verify="required|des_tanlent" lay-skin="primary" name="tags[{$vo.name}]" title="{$vo.name}" {$vo.is_checked ? 'checked' : ''}>
-                        {/volist}
+                        <?php if(is_array($tags) || $tags instanceof \think\Collection || $tags instanceof \think\Paginator): $i = 0; $__LIST__ = $tags;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$vo): $mod = ($i % 2 );++$i;?>
+                        <input type="checkbox" class="checkbox tags" lay-verify="required|des_tanlent"  lay-skin="primary" name="tags[<?php echo $vo['name']; ?>]" title="<?php echo $vo['name']; ?>">
+                        <?php endforeach; endif; else: echo "" ;endif; ?>
                     </div>
                 </div>
                 <fieldset class="layui-elem-field layui-field-title" style="margin-top: 20px;">
@@ -247,25 +271,25 @@
                 <div class="layui-form-item">
                     <label class="layui-form-label"><span style="color: red;">*</span>姓名</label>
                     <div class="layui-input-block">
-                        <input type="text" name="real_name" lay-verify="required|title" placeholder="请输入姓名" value="{$house.real_name}" autocomplete="off" class="layui-input">
+                        <input type="text" name="real_name" lay-verify="required|title" placeholder="请输入姓名" autocomplete="off" value="<?php echo $admin['ad_realname']; ?>" class="layui-input">
                     </div>
                 </div>
                 <div class="layui-form-item">
                     <label class="layui-form-label"><span style="color: red;">*</span>电话</label>
                     <div class="layui-input-block">
-                        <input type="text" name="tel" lay-verify="required" placeholder="请输入电话" value="{$house.tel}" autocomplete="off" class="layui-input">
+                        <input type="text" name="tel" lay-verify="required" placeholder="请输入电话" autocomplete="off" value="<?php echo $admin['ad_phone']; ?>" class="layui-input">
                     </div>
                 </div>
                 <div class="layui-form-item">
                     <label class="layui-form-label">微信号</label>
                     <div class="layui-input-block">
-                        <input type="text" name="wchat" placeholder="请输入微信号" value="{$house.wchat}" autocomplete="off" class="layui-input">
+                        <input type="text" name="wchat" placeholder="请输入微信号" autocomplete="off" value="<?php echo $admin['ad_weixin']; ?>" class="layui-input">
                     </div>
                 </div>
                 <div class="layui-form-item">
                     <label class="layui-form-label">邮箱</label>
                     <div class="layui-input-block">
-                        <input type="text" name="email" lay-verify="emails" placeholder="请输入邮箱" value="{$house.email}" autocomplete="off" class="layui-input">
+                        <input type="text" name="email" placeholder="请输入邮箱" autocomplete="off" value="<?php echo $admin['ad_email']; ?>" class="layui-input">
                     </div>
                 </div>
                 <fieldset class="layui-elem-field layui-field-title" style="margin-top: 20px;">
@@ -278,19 +302,6 @@
                             <button type="button" class="layui-btn layui-btn pull-left" id="slide-pc">选择多图</button>
                             <div class="pic-more">
                                 <ul class="pic-more-upload-list" id="slide-pc-priview">
-                                    {if condition='$house.images neq null'}
-                                    {volist name='house.images1' id="item" key="k"}
-                                    <li class="item_img">
-                                        <div class="operate">
-                                            <i class="close layui-icon"></i>
-                                        </div>
-                                        <img src="__PUBLIC__/{$item}" class="img" >
-                                        <input type="hidden" name="images[]" value="{$item}" class="img_url" lay-verify="required|imgRegCaseType" />
-                                    </li>
-                                    {/volist}
-                                    {else/}
-                                    未上传
-                                    {/if}
                                 </ul>
                             </div>
                         </div>
@@ -299,30 +310,23 @@
                 </div>
                 <div class="layui-form-item one-pan">
                     <label class="layui-form-label">房源视频</label>
-                    <ul class="pic-more-upload-list" id="slide-pc-priview1">
-                        {if condition='$house.video neq null'}
-                        <li class="item_img">
-                            <div class="operate">
-                                <i class="close layui-icon"></i>
-                            </div>
-                            <video style="width:277px; height: 177px" class="item_img" controls="controls" autobuffer="autobuffer" id="videoss" loop="loop" src="__PUBLIC__/{$house.video}" class="img" ></video>
-                            <input type="hidden" name="video" id="video" value="{$house.video}" />
-                        </li>
-                        {else/}
-                        未上传
-                        {/if}
-                    </ul>
-                </div>
-                <div class="layui-form-item layui-form-text">
-                    <label class="layui-form-label"></label>
-                    <div class="layui-input-block">
-                        <span class="layui-btn" id="uploadLogo">更新视频</span>
+                    <div class="layui-upload-drag" id="uploadLogo">
+                        <video id="logoPre" src="">
+                            <input type="hidden" name="video" id="video" value=""/>
+                        </video>
+                        <div id="display">
+                            <i class="layui-icon"></i>
+                            <p>请点击此处选择视频</p>
+                        </div>
                     </div>
+                    <div class="layui-btn" id="upload-video" >上传视频</div>
+                    <br/>
+                    <div class="layui-form-mid layui-word-aux">视频仅限一个视频，大小控制在10M以内。</div>
                 </div>
                 <div class="layui-form-item layui-form-text">
                     <label class="layui-form-label">房源简介</label>
                     <div class="layui-input-block">
-                        <textarea placeholder="请输入房源简介" maxlength="500" name="content" class="layui-textarea">{$house.content}</textarea>
+                        <textarea placeholder="请输入房源简介" maxlength="500" name="content" class="layui-textarea"></textarea>
                     </div>
                 </div>
                 <div class="layui-form-item">
@@ -342,15 +346,15 @@
             , version: false,
             debug: false,
         });
-        layui.use(['form', 'jquery','upload','laydate','autocomplete'], function(){
+        layui.use(['form', 'jquery','upload','laydate', 'autocomplete'], function(){
             var form = layui.form
                 ,upload = layui.upload
                 , laydate = layui.laydate
-                ,autocomplete = layui.autocomplete
-                ,$ = layui.jquery;
+                ,$ = layui.jquery,
+                autocomplete = layui.autocomplete;
+
             autocomplete.render({
                 elem: $('#end'),
-                cache: true,
                 response: {code: 'code', data: 'suggestions'},
                 template_val: '{{d.label}}',
                 template_txt: '{{d.label}}',
@@ -374,7 +378,6 @@
             laydate.render({
                 elem: '#date'
             });
-            //监听指定开关
             //监听指定开关
             form.on('switch(switchTest)', function(data){
                 if(this.checked){
@@ -414,9 +417,6 @@
                 }
             });
             form.on('select(bu_p_id)', function(data){
-                console.log(data.elem); //得到select原始DOM对象
-                console.log(data.value); //得到被选中的值
-                console.log(data.date); //得到美化后的DOM对象
                 var id=data.value;
                 $.ajax({
                     type: 'POST',
@@ -432,30 +432,50 @@
                             $("#school").append(option1);
                             form.render('select');
                         });
-                        $("#school").get(0).selectedIndex=0;
+                        // $("#school").get(0).selectedIndex=0;
                     }
                 });
             });
-            //户型图片上传
+            //视频上传
             upload.render({
                 elem: '#uploadLogo'
-                ,url: '{:url("house/upload")}'
+                ,auto:false
+                ,url: '<?php echo url("house/upload"); ?>'
                 ,size:10240 //限制文件大小，单位 KB
+                ,acceptMime: 'video/mp4'
                 ,ext: 'mp4'
                 ,accept: 'video' //限制文件大小，单位 KB
+                ,bindAction: '#upload-video'
+                ,choose:function(obj){
+                    obj.preview(function(index, file, result){
+                        let url = URL.createObjectURL(file);
+                        $('#logoPre').attr('src', url);
+                        let timer = setTimeout(function(){
+                            layer.close(layer.index);
+                            let video_time = document.getElementById("logoPre").duration;
+                            console.log(video_time);
+                            if(video_time > 45){
+                                layer.msg('上传视频不能超过45秒', {icon: 2})
+                            }
+                            clearTimeout(timer);
+                        },1000);
+                    });
+                }
                 ,before: function(input){
                     loading = layer.load(2, {
                         shade: [0.2,'#000']
                     });
                 }
                 ,done: function(res){
+                    $('#logoPre').removeAttr('src');
                     $('#video').val('');
-                    console.log(res);
                     layer.close(loading);
                     $('#video').val(res.filepath);
-                    $('#videoss').css('width','216px');
-                    $('#videoss').css('height','150px');
-                    $('#videoss').attr('src',"__PUBLIC__/"+res.filepath);
+                    $('#uploadLogo').removeClass('layui-upload-drag');
+                    $('#logoPre').css('width','216px');
+                    $('#logoPre').css('height','150px');
+                    $('#logoPre').attr('src',"../../../"+res.filepath);
+                    $('#display').hide();
                     layer.msg(res.msg, {icon: 1, time: 1000});
                 }
                 ,error: function(res){
@@ -464,37 +484,46 @@
             });
         });
     </script>
-    {include file="index/footer" /}
+    </div>
+<script>
+    //JavaScript代码区域
+    layui.use('element', function(){
+        var element = layui.element;
+
+    });
+</script>
+</body>
+</html>
     <script>
         function checkHouseUrl(){
             var order_id = $('#orderHouse').val();
-            var id = $('#id').val();
-            if(order_id != '') {
+            if(order_id != ''){
                 $.ajax({
-                    type: "post",
-                    url: "<?=url('house/checkHouseUrl')?>",
+                    type:"post",
+                    url:"<?=url('house/checkHouseUrl')?>",
                     dataType: 'json',
-                    data: {'order_id': order_id, 'id': id},
-                    success: function (data) {
+                    data:{'order_id':order_id,'id':0},
+                    success:function (data) {
                         console.log(data);
-                        if (data.code > 1) {
+                        if(data.code >1){
                             layer.alert(data.msg, {icon: 2});
-                        } else if (data.code <= 1) {
+                        }else if(data.code <= 1){
                             layer.alert(data.msg, {icon: 1, time: 1000});
                         }
                     },
-                    error: function (error) {
+                    error:function (error) {
                         console.log(error);
                     }
                 })
             }
+
         }
         layui.use('upload', function(){
             var $ = layui.jquery;
             var upload = layui.upload;
             upload.render({
                 elem: '#slide-pc',
-                url: '{:url("house/upload")}',
+                url: '<?php echo url("house/upload"); ?>',
                 size: 1024*1024*10,
                 exts: 'jpg|png|jpeg|gif|bmp|JPG',
                 multiple: true,
@@ -511,8 +540,13 @@
                         return layer.msg(res.message);
                     }
                     console.log(res);
-                    $('#slide-pc-priview').append('' +
-                        '<li class="item_img"><div class="operate"><i  class="close layui-icon"></i></div><img src="__PUBLIC__/' + res.filepath + '" class="img" ><input type="hidden" name="images[]" lay-verify="required|imgRegCaseType"  class="img_url"  value="' + res.filepath + '" /></li>');
+                    if(res.code ==1){
+                        $('#slide-pc-priview').append('' +
+                            '<li class="item_img"><div class="operate"><i  class="close layui-icon"></i></div><img src="../../../' + res.filepath + '" class="img" ><input type="hidden" name="images[]" value="' + res.filepath + '" lay-verify="required|imgRegCaseType"  class="img_url" /></li>');
+                    }else{
+                        return layer.msg(res.msg);
+                    }
+
                 }
             });
         });

@@ -1,4 +1,26 @@
-{include file="index/header" /}
+<?php if (!defined('THINK_PATH')) exit(); /*a:3:{s:96:"D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\public/../application/xcx\view\account\personal.html";i:1591350419;s:82:"D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\application\xcx\view\index\header.html";i:1591172124;s:82:"D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\application\xcx\view\index\footer.html";i:1583744281;}*/ ?>
+<!DOCTYPE html>
+<html style="height: 100%">
+<head>
+    <meta charset="utf-8">
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <title>小宝经纪人平台</title>
+    <link rel="stylesheet" href="../../../layui/src/css/layui.css">
+    <script src="../../../static/jquery-1.10.2.min.js"></script>
+    <script src="../../../layui/src/layui.js"></script>
+	<style>
+		.layui-body{
+			left:0!important
+		}
+	</style>
+</head>
+<body class="layui-layout-body" style="height: 100%">
+
 <style>
     .layui-upload-img {
         width: 92px;
@@ -18,25 +40,25 @@
         </div>
     </div>
     <div style="padding: 15px;">
-        <form class="layui-form layui-form-pane1" action="<?=url('admin/edit')?>?ad_id={$admin.ad_id}" method="post">
+        <form class="layui-form layui-form-pane1" action="<?=url('admin/edit')?>?ad_id=<?php echo $admin['ad_id']; ?>" method="post">
             <div class="layui-form-item">
                 <label class="layui-form-label"><span style="color: red;">*</span>员工姓名</label>
                 <div class="layui-input-block">
-                    <input type="text" readonly value="{$admin.ad_realname}" class="layui-input">
+                    <input type="text" readonly value="<?php echo $admin['ad_realname']; ?>" class="layui-input">
                 </div>
             </div>
             <div class="layui-form-item">
                 <label class="layui-form-label"><span style="color: red;">*</span>员工角色</label>
                 <div class="layui-input-block">
-                    {volist name='allrole' id='vo'}
-                    <input type="checkbox" class="checkbox" lay-skin="primary" name="ad_role[{$vo.ad_id}]" title="{$vo.ad_role}" disabled  {$vo.is_checked ? 'checked' : ''}>
-                    {/volist}
+                    <?php if(is_array($allrole) || $allrole instanceof \think\Collection || $allrole instanceof \think\Paginator): $i = 0; $__LIST__ = $allrole;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$vo): $mod = ($i % 2 );++$i;?>
+                    <input type="checkbox" class="checkbox" lay-skin="primary" name="ad_role[<?php echo $vo['ad_id']; ?>]" title="<?php echo $vo['ad_role']; ?>" disabled  <?php echo !empty($vo['is_checked'])?'checked' : ''; ?>>
+                    <?php endforeach; endif; else: echo "" ;endif; ?>
                 </div>
             </div>
             <div class="layui-form-item">
                 <label class="layui-form-label"><span style="color: red;">*</span>电子邮箱</label>
                 <div class="layui-input-inline">
-                    <input type="text" value="{$admin.ad_email}" readonly class="layui-input">
+                    <input type="text" value="<?php echo $admin['ad_email']; ?>" readonly class="layui-input">
                 </div>
                 <div class="layui-input-inline">
                     <span class="layui-btn layui-btn-sm layui-btn-normal" id="changeEmail" data-href="<?=url('account/email')?>">更换邮箱</span>
@@ -45,7 +67,7 @@
             <div class="layui-form-item">
                 <label class="layui-form-label"><span style="color: red;">*</span>手机号码</label>
                 <div class="layui-input-inline">
-                    <input type="text" name="ad_phone" value="{$admin.ad_phone}" readonly  class="layui-input">
+                    <input type="text" name="ad_phone" value="<?php echo $admin['ad_phone']; ?>" readonly  class="layui-input">
                 </div>
                 <div class="layui-input-inline">
                     <span class="layui-btn layui-btn-sm layui-btn-normal" id="changePhone" data-href="<?=url('account/phone')?>">更换手机号</span>
@@ -54,45 +76,45 @@
             <div class="layui-upload">
                 <label class="layui-form-label">头像</label>
                 <div class="layui-input-inline">
-                    <img class="layui-upload-img" id="demo1" {if condition="$admin.ad_img neq null"}src="__PUBLIC__/{$admin.ad_img}"{/if} >
+                    <img class="layui-upload-img" id="demo1" <?php if($admin['ad_img'] != null): ?>src="../../../<?php echo $admin['ad_img']; ?>"<?php endif; ?> >
                     <p id="demoText"></p>
                 </div>
             </div>
             <div class="layui-form-item" pane>
                 <label class="layui-form-label"><span style="color: red;">*</span>性别</label>
                 <div class="layui-input-block">
-                    <input type="radio" disabled name="ad_sex" value="1" title="男" {if condition="$admin.ad_sex eq 1" }checked{/if}>
-                    <input type="radio" disabled name="ad_sex" value="2" title="女" {if condition="$admin.ad_sex eq 2" }checked{/if}>
+                    <input type="radio" disabled name="ad_sex" value="1" title="男" <?php if($admin['ad_sex'] == 1): ?>checked<?php endif; ?>>
+                    <input type="radio" disabled name="ad_sex" value="2" title="女" <?php if($admin['ad_sex'] == 2): ?>checked<?php endif; ?>>
                 </div>
             </div>
             <div class="layui-form-item">
                 <label class="layui-form-label">公司</label>
                 <div class="layui-input-block">
-                    <input type="text" readonly class="layui-input" value="{$admin.ad_corp}" >
+                    <input type="text" readonly class="layui-input" value="<?php echo $admin['ad_corp']; ?>" >
                 </div>
             </div>
             <div class="layui-form-item">
                 <label class="layui-form-label">职位</label>
                 <div class="layui-input-block">
-                    <input type="text" readonly class="layui-input" value="{$admin.ad_job}" >
+                    <input type="text" readonly class="layui-input" value="<?php echo $admin['ad_job']; ?>" >
                 </div>
             </div>
             <div class="layui-form-item">
                 <label class="layui-form-label">工号</label>
                 <div class="layui-input-block">
-                    <input type="text" readonly value="{$admin.ad_bid}" class="layui-input">
+                    <input type="text" readonly value="<?php echo $admin['ad_bid']; ?>" class="layui-input">
                 </div>
             </div>
             <div class="layui-form-item">
                 <label class="layui-form-label">微信号码</label>
                 <div class="layui-input-block">
-                    <input type="text" value="{$admin.ad_weixin}" readonly class="layui-input">
+                    <input type="text" value="<?php echo $admin['ad_weixin']; ?>" readonly class="layui-input">
                 </div>
             </div>
             <div class="layui-form-item layui-form-text">
                 <label class="layui-form-label">个人简介</label>
                 <div class="layui-input-block">
-                    <textarea readonly class="layui-textarea">{$admin.ad_desc}</textarea>
+                    <textarea readonly class="layui-textarea"><?php echo $admin['ad_desc']; ?></textarea>
                 </div>
             </div>
         </form>
@@ -138,4 +160,13 @@
         });
     });
 </script>
-{include file="index/footer" /}
+</div>
+<script>
+    //JavaScript代码区域
+    layui.use('element', function(){
+        var element = layui.element;
+
+    });
+</script>
+</body>
+</html>

@@ -4,8 +4,10 @@
 namespace app\xcx\controller;
 
 
+use phpmailer\PHPMailer;
 use think\Controller;
 use think\Db;
+use think\Loader;
 use think\Request;
 
 class Account extends Controller
@@ -173,11 +175,129 @@ class Account extends Controller
     }
 
 
-    public function bindemail(){
+    public function email(){
         return $this->fetch();
 
     }
-    public function bindphone(){
+
+    /***
+     * 发送短信验证码
+     * @return \think\response\Json
+     */
+    public function sendMsg(){
+        header("Access-Control-Allow-Origin:*");
+        header('Access-Control-Allow-Methods:POST');
+        header('Access-Control-Allow-Headers:x-requested-with, content-type');
+        $phone = trim($this->request->param('phone'));
+        //判断手机号是否正确
+        //判断是否为澳洲手机号
+        Loader::import('aliyunSdk/api_demo/SmsDemo',EXTEND_PATH);
+        $sems = new \SmsDemo();
+        $code = mt_rand(999, 9999);
+        $sem1=$sems->sendSms1($phone,$code);
+        $array=$this->object2array($sem1);
+        $data['code'] = $code;
+        $data['phone'] = $phone;
+        if($array['Code'] == 'OK'){
+            return  json(['code' => '1','msg' => '短信发送成功！','data' =>$code]);
+        }else{
+            return  json(['code' => '0','msg' => '短信发送失败！']);
+        }
+    }
+
+    //把对象转换成数组的方法；
+    public function object2array($object) {
+        if (is_object($object)) {
+            foreach ($object as $key => $value) {
+                $array[$key] = $value;
+            }
+        }
+        else {
+            $array = $object;
+        }
+        return $array;
+    }
+
+    public function changePhone(){
+        $ad_id =session('adminId');
+        $ad_phone = trim($this->request->param('ad_phone'));
+        $code = trim($this->request->param('code'));
+        $ucode = trim($this->request->param('ucode'));
+        if($code != $ucode){
+            $this->error('验证码错误!');
+        }
+        $update = Db::table('super_admin')
+            ->where(['ad_id' => $ad_id])
+            ->update(['ad_phone' => $ad_phone]);
+        if($update){
+            $this->success('绑定成功！');
+        }else{
+            $this->error('绑定失败!');
+        }
+    }
+
+    public function changemail(){
+        $ad_id =session('adminId');
+        $ad_phone = trim($this->request->param('ad_email'));
+        $code = trim($this->request->param('code'));
+        $ucode = trim($this->request->param('ucode'));
+        if($code != $ucode){
+            $this->error('验证码错误!');
+        }
+        $update = Db::table('super_admin')
+            ->where(['ad_id' => $ad_id])
+            ->update(['ad_email' => $ad_phone]);
+        if($update){
+            $this->success('绑定成功！');
+        }else{
+            $this->error('绑定失败!');
+        }
+    }
+
+
+    public function mailto(){
+        header("Access-Control-Allow-Origin:*");
+        header('Access-Control-Allow-Methods:POST');
+        header('Access-Control-Allow-Headers:x-requested-with, content-type');
+        Loader::import('phpmailer.phpmailer');//加载extend中的自定义类
+        $mailer = trim($this->request->param('email'));
+        $mail = new PHPMailer();
+        $toemail = $mailer;//收件人
+        $mail->isSMTP();// 使用SMTP服务
+        $mail->CharSet = "utf8";// 编码格式为utf8，不设置编码的话，中文会出现乱码
+        $mail->Host = "mail.welho.me";// 发送方的SMTP服务器地址
+        $mail->SMTPAuth = true;// 是否使用身份验证
+        $mail->Username = "customerservices@welho.me";
+        $mail->Password = "hxxb0401!!";
+        $mail->SMTPSecure = "ssl";// 使用ssl协议方式
+        $mail->Port = 465;
+        $mail->setFrom("customerservices@welho.me","花香小宝");
+        $mail->addAddress($toemail,'Wang');
+        $mail->addReplyTo($mailer,"Reply");
+        $mail->Subject = "【EMAIL VERIFICATION】WELHOME AGENT PLATFORM//【邮箱验证】小宝经纪人平台";// 邮件标题
+        $code = mt_rand(999, 9999);
+        $mail->isHTML(true);
+        $mail->Body = "Dear Agent,
+
+You're update your email address on the Welhome Agent Platform.
+
+Verification code:".$code."
+
+Expire in 3 mins
+
+
+
+This is an automatic email, please do not reply. ".$code."，请尽快处理！";
+        $data['mail'] = $mailer;
+        $data['code'] = $code;
+        if(!$mail->send()){
+            return json(['code'=>0,'msg'=>'发送失败！请联系管理员']);
+        }else{
+            return json(['code'=>1,'msg'=>'发送成功！','data' => $data]);
+        }
+    }
+
+    public function phone(){
         return $this->fetch();
 
     }

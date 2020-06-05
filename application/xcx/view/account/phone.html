@@ -1,0 +1,122 @@
+{include file="index/header" /}
+<style>
+    .layui-upload-img {
+        width: 92px;
+        height: 92px;
+    }
+</style>
+<div class="layui-body">
+    <div style="padding: 15px;">
+        <form class="layui-form layui-form-pane1">
+            <div class="layui-form-item">
+                <label class="layui-form-label"><span style="color: red;">*</span>新手机号</label>
+                <div class="layui-input-inline">
+                    <input type="text" name="ad_phone" lay-verify="required|title" placeholder="请输入手机号" autocomplete="off" id="ad_phone" class="layui-input">
+                </div>
+                <div class="layui-input-inline">
+                    <span class="layui-btn layui-btn-sm layui-btn-normal" id="dyMobileButton" >发送验证码</span>
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label"><span style="color: red;">*</span>验证码</label>
+                <div class="layui-input-inline">
+                    <input type="text" name="ucode" id="ucode" lay-verify="required|title" placeholder="请输入验证码" autocomplete="off" value="" class="layui-input">
+                    <input type="text" name="code" id="code" class="layui-input">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <div class="layui-input-block">
+                    <span class="layui-btn" lay-submit onclick="closeAlls()">修改</span>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+<script>
+    layui.use(['form','jquery','upload'], function(){
+        var form = layui.form
+            ,$ = layui.jquery,
+            upload = layui.upload;
+        //自定义验证规则
+        form.verify({
+            title: function(value){
+                if(value.length < 2){
+                    return '至少得2个字符啊';
+                }
+            }
+        });
+
+    });
+    function closeAlls(){
+        var ad_phone = $('#ad_phone').val();
+        var code = $('#code').val();
+        var ucode = $('#ucode').val();
+        if(code == ''){
+            return layer.msg('验证码不为空！');
+        }
+        $.ajax({
+            type: 'get',
+            url: "<?=url('account/changePhone')?>?ad_phone="+ad_phone+ "&code="+code+ "&ucode="+ucode,
+            dataType:  'json',
+            success: function(data){
+                layer.msg(data.msg,{
+                    time: 2000
+                },function () {
+                    var index = parent.layer.getFrameIndex(window.name);
+                    parent.layer.close(index);
+                    parent.location.reload();
+                });
+            }
+        });
+    }
+</script>
+<script>
+    let vercode	 = 0;
+    let time = 60;
+    let flag = true;   //设置点击标记，防止60内再次点击生效
+
+    //发送验证码
+    $('#dyMobileButton').click(function(){
+        $(this).attr("disabled",true);
+        var phone = $('#ad_phone').val();
+        if(flag){
+            let timer = setInterval(function () {
+
+                if(time == 60 && flag){
+                    flag = false;
+
+                    $.ajax({
+                        type : 'get',
+                        async : false,
+                        url : "<?=url('account/sendMsg')?>?phone="+phone,
+                        dataType:"json",
+                        success : function(data) {
+                            if(data.code > 0){
+                                console.log(data);
+                                layer.msg(data.msg);
+                                $('#code').val(data.data);
+                                $("#dyMobileButton").html("已发送");
+                            }else {
+                                layer.msg(data.msg);
+                                flag = true;
+                                time = 60;
+                                clearInterval(timer);
+                            }
+                        }
+                    });
+                }else if(time == 0){
+                    $("#dyMobileButton").removeAttr("disabled");
+                    $("#dyMobileButton").html("免费获取验证码");
+                    clearInterval(timer);
+                    time = 60;
+                    flag = true;
+                }else {
+                    $("#dyMobileButton").html(time + " s 重新发送");
+                    time--;
+                }
+            },1000);
+        }
+
+    });
+</script>
+{include file="index/footer" /}
