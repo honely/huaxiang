@@ -4,6 +4,7 @@
 namespace app\xcx\controller;
 
 
+use app\xcx\model\Msgs;
 use phpmailer\PHPMailer;
 use think\Controller;
 use think\Db;
@@ -190,18 +191,33 @@ class Account extends Controller
         header('Access-Control-Allow-Headers:x-requested-with, content-type');
         $phone = trim($this->request->param('phone'));
         //判断手机号是否正确
+        $phoneTrim = trim($phone,'+');
+        $frist = substr($phoneTrim,0,1);
+        $headTwo = substr($phoneTrim, 0, 2);
+        //判断手机号是否正确
         //判断是否为澳洲手机号
-        Loader::import('aliyunSdk/api_demo/SmsDemo',EXTEND_PATH);
-        $sems = new \SmsDemo();
         $code = mt_rand(999, 9999);
-        $sem1=$sems->sendSms1($phone,$code);
-        $array=$this->object2array($sem1);
-        $data['code'] = $code;
-        $data['phone'] = $phone;
-        if($array['Code'] == 'OK'){
-            return  json(['code' => '1','msg' => '短信发送成功！','data' =>$code]);
+        //$pattern = '/^1[3456789]{1}\d{9}$/';
+        if($frist == 1 || $headTwo == '86'){
+            Loader::import('aliyunSdk/api_demo/SmsDemo',EXTEND_PATH);
+            $sems = new \SmsDemo();
+            $sem1=$sems->sendSms1($phone,$code);
+            $array=$this->object2array($sem1);
+            $data['code'] = $code;
+            $data['phone'] = $phone;
+            if($array['Code'] == 'OK'){
+                return  json(['code' => '1','msg' => '短信发送成功！','data' =>$code]);
+            }else{
+                return  json(['code' => '0','msg' => '短信发送失败！']);
+            }
         }else{
-            return  json(['code' => '0','msg' => '短信发送失败！']);
+            $msg = new Msgs();
+             $res = $msg->sendAus($code,$phone);
+            if($res == 200){
+                return  json(['code' => '1','msg' => '短信发送成功！','data' =>$code]);
+            }else{
+                return json(['code'=>0,'msg'=>'发送失败！请联系管理员']);
+            }
         }
     }
 
@@ -232,7 +248,7 @@ class Account extends Controller
         if($update){
             $this->success('绑定成功！');
         }else{
-            $this->error('绑定失败!');
+            $this->error('绑定失败！');
         }
     }
 
@@ -278,14 +294,19 @@ class Account extends Controller
         $code = mt_rand(999, 9999);
         $mail->isHTML(true);
         $mail->Body = "Dear Agent,
-
+<br/>
+<br/>
 You're update your email address on the Welhome Agent Platform.
 
+<br/>
+<br/>
 Verification code:".$code."
-
+<br/>
+<br/>
 Expire in 3 mins
 
-
+<br/>
+<br/>
 
 This is an automatic email, please do not reply. ".$code."，请尽快处理！";
         $data['mail'] = $mailer;

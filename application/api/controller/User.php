@@ -524,4 +524,34 @@ class User extends Controller
         $res['msg'] = '无此用户！';
         return json($res);
     }
+
+
+    public function changePhone(){
+        header("Access-Control-Allow-Origin:*");
+        header('Access-Control-Allow-Methods:POST');
+        header('Access-Control-Allow-Headers:x-requested-with, content-type');
+        $id = $this->request->param('id');
+        $phone = $this->request->param('phone');
+        $code = $this->request->param('code');
+        $ucode = $this->request->param('ucode');
+        if (!@$id) {
+            $res['code'] = 1;
+            $res['msg'] = '用户id为空！';
+            return json($res);
+        }
+        if($code != $ucode){
+            $this->error('验证码错误!');
+        }
+        $update = Db::table('tk_user')
+            ->where(['id' => $id])
+            ->update(['tel' => $phone]);
+        if($update){
+            $res['code'] = 1;
+            $res['msg'] = '读取成功！';
+            return json($res);
+        }
+        $res['code'] = 0;
+        $res['msg'] = '无此用户！';
+        return json($res);
+    }
 }

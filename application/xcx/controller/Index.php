@@ -124,6 +124,8 @@ class Index extends Controller
         $todayHouse = $houseM->houseCount($whereToday);
         //下线一个月之前发布的房源
         $this->offLineHouse();
+        //更新房源的点击和收藏量（虚拟数据）
+        $this->updateHouseClickAndCollect();
         $this->assign('allHouse',$allHouse);
         $this->assign('allUser',$allUser);
         $this->assign('todayHouse',$todayHouse);
@@ -251,10 +253,71 @@ class Index extends Controller
     }
 
 
+    /***
+     * 下线一个月之前的房源
+     * @throws \think\Exception
+     * @throws \think\exception\PDOException
+     */
     public function offLineHouse(){
         $aMonthAgo = date("Y-m-d H:i:s", strtotime("-1 month"));
             Db::table('tk_houses')
             ->where("cdate <= '".$aMonthAgo."'")
             ->update(['status' => 2]);
+    }
+
+
+    /**
+     *
+     *
+     * 下一次随机执行
+     */
+    public function updateHouseClickAndCollect(){
+        //查询下次的更新时间是否为今天或者早于今天
+        $isUpdate = Db::table('super_house_views')
+            ->order('id desc')
+            ->field('nutime')
+            ->find();
+        $today = date('Y-m-d');
+        if($isUpdate['nutime'] <= $today){
+            //查询所有当前在线的房源
+            $allOnLineHouse = Db::table('tk_houses')
+                ->where(['status' => 1,'source' => '中介'])
+                ->field('id,collection,view')
+                ->select();
+            if($allOnLineHouse){
+                foreach ($allOnLineHouse as $k => $v){
+                    $this->updateClickAndCollViaId($v['id'],$v['view'],$v['collection']);
+                }
+                //更新下次更新虚拟数据的时间
+                $today = date('Y-m-d');
+                $nuDay = mt_rand(2,3);
+                $nextUpdate = date("Y-m-d",strtotime("+".$nuDay." days",strtotime($today)));
+                Db::table('super_house_views')
+                    ->insert(['utime' => date('Y-m-d H:i:s'),'nutime' => $nextUpdate]);
+            }
+        }
+    }
+
+
+    /***
+     * 更新点击量和收藏量
+     * @param $id
+     * @param $view
+     * @param $collect
+     * @throws \think\Exception
+     * @throws \think\exception\PDOException
+     */
+    public function updateClickAndCollViaId($id,$view,$collect){
+        $code = mt_rand(0, 50);
+        $n = mt_rand(2,8);
+        $days = date('w');
+        //点击量=当前点击量+[n(n为自然数, 0<n<50）+4*Day(1,2,3,4,5,6,7)]
+        //点击量=当前点击量+[n(n为自然数, 0<n<50）+2*Day(1,2,3,4,5,6,7)]
+        $views = $view+$code+2*$days;
+        //收藏量=点击量/(10*n), n取2-8
+        $collects = $views/($n*10);
+        Db::table('tk_houses')
+            ->where(['id' => $id])
+            ->update(['collection' =>$collects,'view'=> $views]);
     }
 }

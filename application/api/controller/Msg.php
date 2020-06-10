@@ -4,6 +4,7 @@ use app\xcx\model\Loops;
 use app\xcx\model\Msgs;
 use think\Controller;
 use think\Db;
+use think\Loader;
 
 class Msg extends Controller
 {
@@ -19,6 +20,7 @@ class Msg extends Controller
         header('Access-Control-Allow-Headers:x-requested-with, content-type');
         $uId = intval(trim($this->request->param('uid')));
         $ulId = intval(trim($this->request->param('ulid')));
+        $hId = intval(trim($this->request->param('hid','0')));
         if(!$uId || !$ulId){
             $res['code'] = 0;
             $res['msg'] = '缺少参数';
@@ -280,4 +282,58 @@ class Msg extends Controller
         $res['msg'] = '删除失败！';
         return json($res);
     }
+
+
+    public function sendSms(){
+        header("Access-Control-Allow-Origin:*");
+        header('Access-Control-Allow-Methods:POST');
+        header('Access-Control-Allow-Headers:x-requested-with, content-type');
+        $phone = trim($this->request->param('phone'));
+        if($phone == ''){
+            return  json(['code' => '0','msg' => '手机号不能为空！']);
+        }
+        $phoneTrim = trim($phone,'+');
+        $frist = substr($phoneTrim,0,1);
+        $headTwo = substr($phoneTrim, 0, 2);
+        //判断手机号是否正确
+        //判断是否为澳洲手机号
+        $code = mt_rand(999, 9999);
+        //$pattern = '/^1[3456789]{1}\d{9}$/';
+        if($frist == 1 || $headTwo == '86'){
+            Loader::import('aliyunSdk/api_demo/SmsDemo',EXTEND_PATH);
+            $sems = new \SmsDemo();
+            $sem1=$sems->sendSms1($phone,$code);
+            $array=$this->object2array($sem1);
+            $data['code'] = $code;
+            $data['phone'] = $phone;
+            if($array['Code'] == 'OK'){
+                return  json(['code' => '1','msg' => '国内短信发送成功！','data' =>$code]);
+            }else{
+                return  json(['code' => '0','msg' => '短信发送失败！']);
+            }
+        }else{
+            $msg = new Msgs();
+            $res = $msg->sendAus($code,$phone);
+            if($res == 200){
+                return  json(['code' => '1','msg' => '澳洲短信发送成功！','data' =>$code]);
+            }else{
+                return json(['code'=>0,'msg'=>'发送失败！请联系管理员']);
+            }
+        }
+    }
+
+
+    //把对象转换成数组的方法；
+    public function object2array($object) {
+        if (is_object($object)) {
+            foreach ($object as $key => $value) {
+                $array[$key] = $value;
+            }
+        }
+        else {
+            $array = $object;
+        }
+        return $array;
+    }
+
 }

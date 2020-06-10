@@ -21,7 +21,7 @@
                 <label class="layui-form-label"><span style="color: red;">*</span>验证码</label>
                 <div class="layui-input-inline">
                     <input type="text" name="ucode" id="ucode" lay-verify="required|title" placeholder="请输入验证码" autocomplete="off" value="" class="layui-input">
-                    <input type="text" name="code" id="code" class="layui-input">
+                    <input type="hidden" name="code" id="code" class="layui-input">
                 </div>
             </div>
             <div class="layui-form-item">
@@ -55,8 +55,9 @@
             return layer.msg('验证码不为空！');
         }
         $.ajax({
-            type: 'get',
-            url: "<?=url('account/changePhone')?>?ad_phone="+ad_phone+ "&code="+code+ "&ucode="+ucode,
+            type: 'post',
+            url: "<?=url('account/changePhone')?>",
+            data:{ad_phone:ad_phone,code:code,ucode:ucode},
             dataType:  'json',
             success: function(data){
                 layer.msg(data.msg,{
@@ -88,7 +89,8 @@
                     $.ajax({
                         type : 'get',
                         async : false,
-                        url : "<?=url('account/sendMsg')?>?phone="+phone,
+                        url : "<?=url('account/sendMsg')?>",
+                        data:{phone:phone},
                         dataType:"json",
                         success : function(data) {
                             if(data.code > 0){

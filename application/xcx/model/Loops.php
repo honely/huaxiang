@@ -40,7 +40,7 @@ class Loops extends Model
             $userName = $user ? $user['avaurl'] : '外星人呀';
         }else if($admin == 2){
             $user = Db::table('super_admin')->where(['ad_id' => $uid])->field('ad_img')->find();
-            $userName = $user ? 'https://wx.huaxiangxiaobao.com/'.$user['ad_img'] : 'https://wx.huaxiangxiaobao.com/static/logo.png';
+            $userName = $user['ad_img'] ? 'https://wx.huaxiangxiaobao.com/'.$user['ad_img'] : 'https://wx.huaxiangxiaobao.com/static/logo.png';
         }
         return $userName;
     }

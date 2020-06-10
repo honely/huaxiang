@@ -128,7 +128,7 @@ class Index extends Controller
         }
         $active = Db::table('super_admin')->where(['ad_email' => $email])->update(['ad_isable'=>1]);
         if($active){
-            $this->success('激活成功！页面跳转中，请稍后','https://huaxiangxiaobao.com/');
+            $this->success('恭喜您已成功激活，请点击“Agent Login”登录系统','https://huaxiangxiaobao.com/');
         }else{
             $this->error('激活失败！','https://huaxiangxiaobao.com/');
         }

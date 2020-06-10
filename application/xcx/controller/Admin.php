@@ -239,7 +239,7 @@ class Admin extends Controller{
                     ->find();
                 $this->sendEmail($adminInfo['ad_email']);
                 //给平台用户发送一条账户邮箱激活链接
-                $this->success('添加管理员成功','admin');
+                $this->success('添加成功，请查收账户激活邮件','admin');
             }else{
                 $this->error('添加管理员失败','admin');
             }
