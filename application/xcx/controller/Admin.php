@@ -201,7 +201,7 @@ class Admin extends Controller{
             $data['ad_bid'] = $_POST['ad_bid'];
             $data['ad_realname'] = $_POST['ad_realname'];
             $data['ad_sex'] = $_POST['ad_sex'];
-            $data['ad_phone'] = $_POST['ad_phone'];
+            $data['ad_phone'] = str_replace(' ', '', $data['ad_phone']);
             $data['ad_email'] = $_POST['ad_email'];
             $isRepeat=Db::table('super_admin')
                 ->where(['ad_email' => $data['ad_email']])
@@ -309,7 +309,7 @@ ABN: 11 628 249 687</b>
         if($_POST){
             $data['ad_realname'] = $_POST['ad_realname'];
             $data['ad_sex'] = $_POST['ad_sex'];
-            $data['ad_phone'] = $_POST['ad_phone'];
+            $data['ad_phone'] = str_replace(' ', '', $data['ad_phone']);
             $data['ad_bid'] = $_POST['ad_bid'];
             $data['ad_corp'] = $_POST['ad_corp'];
             $data['ad_weixin'] = $_POST['ad_weixin'];
