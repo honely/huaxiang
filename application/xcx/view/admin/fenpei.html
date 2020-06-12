@@ -1,10 +1,16 @@
 {include file="index/header" /}
 <style>
-    .item_img{
-        width: 120px;
-        height: 105px;
+    .layui-upload-img {
+        width: 92px;
+        height: 92px;
+        margin: 0 10px 10px 0;
         float: left;
-        margin-top: 20px;
+    }
+    .user-info {
+        height: 130px;
+        width: 130px;
+        display: block;
+        float: left;
     }
 </style>
 <div class="layui-body">
@@ -17,17 +23,20 @@
                 <div class="layui-form-item">
                     <label class="layui-form-label">绑定用户</label>
                     <div class="layui-input-inline">
-                        <select name="ad_wechat" id="ad_wechat" lay-search="">
-                            <option value="">输入或选择用户</option>
-                            {volist name='sale' id='vo'}
-                            <option value="{$vo.id}">{$vo.nickname}({$vo.tel})</option>
-                            {/volist}
-                        </select>
+                        <input type="text" name="ad_realname" id="phone" placeholder="请输入手机号" autocomplete="off" class="layui-input">
+                    </div>
+                    <div class="layui-input-inline">
+                        <span class="layui-btn layui-btn-sm layui-btn-normal" id="querys">发起搜索</span>
+                    </div>
+                </div>
+                <div class="layui-upload">
+                    <div class="layui-upload-list" id="userContent" style="height: 140px;">
                     </div>
                 </div>
                 <div class="layui-form-item">
                     <div class="layui-input-block">
                         <input type="hidden" id="ad_id" value="{$ad_id}">
+                        <input type="hidden" id="ad_wechat" value="">
                         <span class="layui-btn" onclick="closeAlls()">提交</span>
                     </div>
                 </div>
@@ -62,6 +71,52 @@
             ,laydate = layui.laydate
             ,layer = layui.layer
             ,$ = layui.jquery;
+    });
+</script>
+<script>
+    layui.use(['form', 'jquery','laydate','layer'], function(){
+        var form = layui.form
+            ,laydate = layui.laydate
+            ,layer = layui.layer
+            ,$ = layui.jquery;
+        form.on('radio(delete)', function (data) {
+            console.log(data.value);
+           var id= data.value;
+           $('#ad_wechat').val(id);
+
+        });
+    $('#querys').click(function(){
+        $("#userContent").empty();
+        var phone = $('#phone').val();
+        if (phone.length < 4) {
+            return layer.msg('请至少输入4位数 的电话号码！');
+        }
+        $.ajax({
+            type : 'post',
+            async : false,
+            url : "<?=url('admin/searchuser')?>",
+            data:{phone:phone},
+            dataType:"json",
+            success : function(data) {
+                if(data.code > 0){
+                    console.log(data);
+                    var  code = data.data;
+                    layer.msg('为您查询到总共'+code.length+'条记录。');
+                    var html ='';
+                    for (var i = 0; i <code.length; i++) {
+                        html += '<div class="user-info">\n' +
+                            '                            <img class="layui-upload-img" src='+code[i].avaurl+' alt="">\n' +
+                            '                            <input type="radio" lay-skin="primary" lay-filter="delete" value='+code[i].id+' name="tel" title='+code[i].phone+'>\n' +
+                            '                        </div>'
+                    }
+                    $("#userContent").append(html);
+                    form.render();
+                }else {
+                     layer.msg('暂无查询结果，请更换手机号尝试！');
+                }
+            }
+        });
+    });
     });
 </script>
 {include file="index/footer" /}

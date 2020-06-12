@@ -18,7 +18,9 @@ class Msg extends Controller
         header("Access-Control-Allow-Origin:*");
         header('Access-Control-Allow-Methods:POST');
         header('Access-Control-Allow-Headers:x-requested-with, content-type');
+        //发起者id
         $uId = intval(trim($this->request->param('uid')));
+        //接受者id
         $ulId = intval(trim($this->request->param('ulid')));
         $hId = intval(trim($this->request->param('hid','0')));
         if(!$uId || !$ulId){
@@ -27,7 +29,7 @@ class Msg extends Controller
             return json($res);
         }
         $msgm = new Msgs();
-        $createTouch = $msgm->createTouch($uId,$ulId);
+        $createTouch = $msgm->createTouch($uId,$ulId,$hId);
         if($createTouch){
             $res['code'] = 1;
             $res['msg'] = '创建成功！';
@@ -292,14 +294,16 @@ class Msg extends Controller
         if($phone == ''){
             return  json(['code' => '0','msg' => '手机号不能为空！']);
         }
-        $phoneTrim = trim($phone,'+');
-        $frist = substr($phoneTrim,0,1);
-        $headTwo = substr($phoneTrim, 0, 2);
         //判断手机号是否正确
         //判断是否为澳洲手机号
         $code = mt_rand(999, 9999);
-        //$pattern = '/^1[3456789]{1}\d{9}$/';
-        if($frist == 1 || $headTwo == '86'){
+        $myreg = "/^(\+?0?86\-?)?1[345789]\d{9}$/";
+        $au = "/^(\+?61|0)4\d{8}$/";
+        //匹配国内手机号成功返回1 失败返回0
+        $res = preg_match($myreg,$phone);
+        //匹配澳洲手机号，成功返回1 失败返回0
+        $resAu = preg_match($au,$phone);
+        if($res){
             Loader::import('aliyunSdk/api_demo/SmsDemo',EXTEND_PATH);
             $sems = new \SmsDemo();
             $sem1=$sems->sendSms1($phone,$code);
@@ -311,7 +315,8 @@ class Msg extends Controller
             }else{
                 return  json(['code' => '0','msg' => '短信发送失败！']);
             }
-        }else{
+        }
+        if($resAu){
             $msg = new Msgs();
             $res = $msg->sendAus($code,$phone);
             if($res == 200){
@@ -335,5 +340,57 @@ class Msg extends Controller
         }
         return $array;
     }
+
+    public function sendNot(){
+        $id = trim($this->request->param('id'));
+        if(!$id){
+            return json(['code'=>0,'msg'=>'ID不为空']);
+        }
+        $userInfo = Db::connect('db2')->table('tk_user')
+            ->where(['id' =>$id])
+            ->field('tel,nickname')
+            ->find();
+        if(!$userInfo){
+            return json(['code'=>0,'msg'=>'无此用户']);
+        }
+        if(!$userInfo['tel']){
+            return json(['code'=>0,'msg'=>'该用户暂未绑定手机号，消息无法发送']);
+        }
+        $phone = $userInfo['tel'];
+        $myreg = "/^(\+?0?86\-?)?1[345789]\d{9}$/";
+        $au = "/^(\+?61|0)4\d{8}$/";
+        //匹配国内手机号成功返回1 失败返回0
+        $res = preg_match($myreg,$phone);
+        //匹配澳洲手机号，成功返回1 失败返回0
+        $resAu = preg_match($au,$phone);
+        $name = json_decode($this->removeEmoji($userInfo['nickname']));
+        if($res){
+            Loader::import('aliyunSdk/api_demo/SmsDemo',EXTEND_PATH);
+            $sems = new \SmsDemo();
+            $sem1=$sems->sendNotice($phone,$name);
+            $array=$this->object2array($sem1);
+            if($array['Code'] == 'OK'){
+                return  json(['code' => '1','msg' => '国内短信发送123123']);
+            }else{
+                return  json(['code' => '0','msg' => '短信发送失败！','data' => $sem1]);
+            }
+        }
+        if($resAu){
+            $msg = new Msgs();
+            $res = $msg->sendNotice($name,$phone);
+            if($res == 200){
+                return  json(['code' => '1','msg' => '短信提醒发送成功！']);
+            }else{
+                return json(['code'=>0,'msg'=>'发送失败！请联系管理员']);
+            }
+        }
+
+    }
+
+    public function removeEmoji($message) {
+        $message = json_encode($message);
+        return preg_replace("#(\\\ud[0-9a-f]{3})#i", "", $message);
+    }
+
 
 }

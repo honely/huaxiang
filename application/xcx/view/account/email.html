@@ -11,10 +11,10 @@
             <div class="layui-form-item">
                 <label class="layui-form-label"><span style="color: red;">*</span>新邮箱</label>
                 <div class="layui-input-inline">
-                    <input type="text" name="ad_email" id="ad_email" lay-verify="required|title" placeholder="请输入邮箱" autocomplete="off" value="" class="layui-input">
+                    <input type="text" name="ad_email" id="ad_email" lay-verify="required|email" placeholder="请输入邮箱" autocomplete="off" value="" class="layui-input">
                 </div>
                 <div class="layui-input-inline">
-                    <span class="layui-btn layui-btn-sm layui-btn-normal" id="dyMobileButton" >发送验证码</span>
+                    <span class="layui-btn layui-btn-sm layui-btn-normal" id="dyMobileButton">发送验证码</span>
                 </div>
             </div>
             <div class="layui-form-item">
@@ -79,6 +79,10 @@
     $('#dyMobileButton').click(function(){
         $(this).attr("disabled",true);
         var ad_email = $('#ad_email').val();
+        var emailPat =  /^([a-zA-Z\d])(\w|\-)+@[a-zA-Z\d]+\.[a-zA-Z]{2,4}$/;
+        if (!emailPat.test(ad_email)) {
+            return layer.msg('邮箱格式不正确');
+        }
         if(flag){
             let timer = setInterval(function () {
 

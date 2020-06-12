@@ -80,45 +80,49 @@
     $('#dyMobileButton').click(function(){
         $(this).attr("disabled",true);
         var phone = $('#ad_phone').val();
-        if(flag){
-            let timer = setInterval(function () {
+        var myreg=/^(\+?0?86\-?)?1[345789]\d{9}$/;
+        var au=/^(\+?61|0)4\d{8}$/;
+        if (myreg.test(phone) || au.test(phone)){
+            if(flag){
+                let timer = setInterval(function () {
 
-                if(time == 60 && flag){
-                    flag = false;
+                    if(time == 60 && flag){
+                        flag = false;
 
-                    $.ajax({
-                        type : 'get',
-                        async : false,
-                        url : "<?=url('account/sendMsg')?>",
-                        data:{phone:phone},
-                        dataType:"json",
-                        success : function(data) {
-                            if(data.code > 0){
-                                console.log(data);
-                                layer.msg(data.msg);
-                                $('#code').val(data.data);
-                                $("#dyMobileButton").html("已发送");
-                            }else {
-                                layer.msg(data.msg);
-                                flag = true;
-                                time = 60;
-                                clearInterval(timer);
+                        $.ajax({
+                            type : 'get',
+                            async : false,
+                            url : "<?=url('account/sendMsg')?>",
+                            data:{phone:phone},
+                            dataType:"json",
+                            success : function(data) {
+                                if(data.code > 0){
+                                    console.log(data);
+                                    layer.msg(data.msg);
+                                    $('#code').val(data.data);
+                                    $("#dyMobileButton").html("已发送");
+                                }else {
+                                    layer.msg(data.msg);
+                                    flag = true;
+                                    time = 60;
+                                    clearInterval(timer);
+                                }
                             }
-                        }
-                    });
-                }else if(time == 0){
-                    $("#dyMobileButton").removeAttr("disabled");
-                    $("#dyMobileButton").html("免费获取验证码");
-                    clearInterval(timer);
-                    time = 60;
-                    flag = true;
-                }else {
-                    $("#dyMobileButton").html(time + " s 重新发送");
-                    time--;
-                }
-            },1000);
+                        });
+                    }else if(time == 0){
+                        $("#dyMobileButton").removeAttr("disabled");
+                        $("#dyMobileButton").html("免费获取验证码");
+                        clearInterval(timer);
+                        time = 60;
+                        flag = true;
+                    }else {
+                        $("#dyMobileButton").html(time + " s 重新发送");
+                        time--;
+                    }
+                },1000);
+            }
         }
-
+        return layer.msg('手机号格式错误！');
     });
 </script>
 {include file="index/footer" /}

@@ -33,6 +33,16 @@ class Loops extends Model
         return $user ? $user['avaurl'] : '';
     }
 
+    public function getAdminAvatar($adminId){
+        $user = Db::table('super_admin')->where(['ad_id' => $adminId])->field('ad_img')->find();
+        return $user['ad_img'] ? 'https://wx.huaxiangxiaobao.com/'.$user['ad_img'] : 'https://wx.huaxiangxiaobao.com/static/logo.png';
+    }
+
+    public function getAdminNick($adminId){
+        $user = Db::table('super_admin')->where(['ad_id' => $adminId])->field('ad_realname')->find();
+        return $user ? $user['ad_realname'] : '外星人';
+    }
+
 
     public function getUserAvatars($uid,$admin){
         if($admin == 1){
@@ -61,12 +71,6 @@ class Loops extends Model
             $userName = $user ? $user['ad_realname'] : '外星人呀';
         }
         return $userName;
-    }
-
-
-
-    public function isTop($id){
-
     }
 
 

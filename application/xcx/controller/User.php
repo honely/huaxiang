@@ -192,16 +192,28 @@ class User extends Controller{
         return $this->fetch('touch');
     }
 
+
+    /***
+     * 后端管理员与前端用户发起沟通
+     * @return mixed
+     * @throws \think\Exception
+     * @throws \think\db\exception\DataNotFoundException
+     * @throws \think\db\exception\ModelNotFoundException
+     * @throws \think\exception\DbException
+     * @throws \think\exception\PDOException
+     */
     public function touch(){
+        //发起目标为前端用户
         $ulId = trim($this->request->param('id',0,'intval'));
-        $uId = session('ad_wechat');
+        //发起者为后端管理员
+        $adminId = session('adminId');
         $msgm = new Msgs();
-        $mpid = $msgm->createTouch($uId,$ulId);
+        $mpid = $msgm->adminCreateTouch($adminId,$ulId);
         $loop = new Loops();
         $avatar = $loop->getUserAvatar($ulId);
         $nickname = $loop->getUserNick($ulId);
-        $uavatar = $loop->getUserAvatar($uId);
-        $unickname = $loop->getUserNick($uId);
+        $uavatar = $loop->getAdminAvatar($adminId);
+        $unickname = $loop->getAdminNick($adminId);
         $msg = '我和'.$nickname.'的聊天';
         //更新已读状态
         Db::table('xcx_msg_content')
@@ -212,9 +224,9 @@ class User extends Controller{
             ->order('xcx_msg_add_time')
             ->select();
         foreach ($msgList  as $k => $v){
-            $msgList[$k]['postit'] = $uId == $v['xcx_msg_uid'] ? 'message-r': 'message-l';
-            $msgList[$k]['uavatar'] = $uId == $v['xcx_msg_uid'] ? $uavatar: $avatar;
-            $msgList[$k]['nickname'] = $uId == $v['xcx_msg_uid'] ? $unickname : $nickname;
+            $msgList[$k]['postit'] = $adminId == $v['xcx_msg_uid'] ? 'message-r': 'message-l';
+            $msgList[$k]['uavatar'] = $adminId == $v['xcx_msg_uid'] ? $uavatar: $avatar;
+            $msgList[$k]['nickname'] = $adminId == $v['xcx_msg_uid'] ? $unickname : $nickname;
         }
         $this->assign('msgList',$msgList);
         $this->assign('mpid',$mpid);

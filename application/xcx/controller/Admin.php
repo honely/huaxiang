@@ -839,4 +839,21 @@ ABN: 11 628 249 687</b>
         }
     }
 
+
+    public function searchuser(){
+        $phone = trim($this->request->param('phone'));
+        $del=Db::table('tk_user')
+            ->where(" tel like '%".$phone."%'")
+            ->field('id,nickname,avaurl,tel')
+            ->select();
+        foreach ($del as $key => $v){
+            $del[$key]['phone'] = substr_replace($v['tel'], '****', 3, 4);;
+        }
+        if($del){
+            $this->success('读取成功！','',$del);
+        }else{
+            $this->error('删除失败！');
+        }
+    }
+
 }

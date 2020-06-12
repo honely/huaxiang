@@ -212,7 +212,7 @@ class Account extends Controller
             }
         }else{
             $msg = new Msgs();
-             $res = $msg->sendAus($code,$phone);
+            $res = $msg->sendAus($code,$phone);
             if($res == 200){
                 return  json(['code' => '1','msg' => '短信发送成功！','data' =>$code]);
             }else{

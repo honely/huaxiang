@@ -478,6 +478,8 @@ class User extends Controller
         header('Access-Control-Allow-Methods:POST');
         header('Access-Control-Allow-Headers:x-requested-with, content-type');
         $data = $this->request->param();
+        unset($data['/api/user/saveUser']);
+        unset($data['/api/user/saveuser']);
         if (!@$data['id']) {
             $res['code'] = 1;
             $res['msg'] = '用户id为空！';
@@ -486,6 +488,10 @@ class User extends Controller
         $id = $data['id'];
         $data['mdate'] = date('Y-m-d H:i:s');
         unset($data['id']);
+        //去除手机号写入时候的空格
+        if(isset($data['tel'])){
+            $data['tel'] = str_replace(' ', '', $data['tel']);
+        }
         $update = Db::table('tk_user')
             ->where(['id' => $id])
             ->update($data);
@@ -535,23 +541,49 @@ class User extends Controller
         $code = $this->request->param('code');
         $ucode = $this->request->param('ucode');
         if (!@$id) {
-            $res['code'] = 1;
+            $res['code'] = 0;
             $res['msg'] = '用户id为空！';
             return json($res);
         }
+        if (!@$phone) {
+            $res['code'] = 0;
+            $res['msg'] = '手机号为空！';
+            return json($res);
+        }
+        if (!@$code || !@$ucode) {
+            $res['code'] = 0;
+            $res['msg'] = '验证码为空！';
+            return json($res);
+        }
+        $user = Db::table('tk_user')
+            ->where(['id' => $id])
+            ->field('tel')
+            ->find();
+        if(!$user){
+            $res['code'] = 0;
+            $res['msg'] = '无此用户！';
+            return json($res);
+        }
         if($code != $ucode){
-            $this->error('验证码错误!');
+            $res['code'] = 0;
+            $res['msg'] = '验证码错误！';
+            return json($res);
+        }
+        if($user['tel'] == $phone){
+            $res['code'] = 0;
+            $res['msg'] = '与此前手机号重复！';
+            return json($res);
         }
         $update = Db::table('tk_user')
             ->where(['id' => $id])
             ->update(['tel' => $phone]);
         if($update){
             $res['code'] = 1;
-            $res['msg'] = '读取成功！';
+            $res['msg'] = '绑定成功！';
             return json($res);
         }
         $res['code'] = 0;
-        $res['msg'] = '无此用户！';
+        $res['msg'] = '绑定失败！';
         return json($res);
     }
 }

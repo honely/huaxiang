@@ -136,4 +136,44 @@ class SmsDemo
 
         return $acsResponse;
     }
+
+
+    /***
+     * 发送站内信未读提醒
+     * 2020年6月12日10:43:29
+     * @param $phone
+     * @param $name
+     * @return mixed|SimpleXMLElement
+     */
+    public static function sendNotice($phone,$name) {
+
+        // 初始化SendSmsRequest实例用于设置发送短信的参数
+        $request = new SendSmsRequest();
+
+        //可选-启用https协议
+        //$request->setProtocol("https");
+
+        // 必填，设置短信接收号码
+        $request->setPhoneNumbers($phone);
+
+        // 必填，设置签名名称，应严格按"签名名称"填写，请参考: https://dysms.console.aliyun.com/dysms.htm#/develop/sign
+        $request->setSignName("花香小宝");
+
+        // 必填，设置模板CODE，应严格按"模板CODE"填写, 请参考: https://dysms.console.aliyun.com/dysms.htm#/develop/template
+        $request->setTemplateCode("SMS_192940066");
+
+        // 可选，设置模板参数, 假如模板中存在变量需要替换则为必填项
+        $request->setTemplateParam(json_encode(array("name"=>$name), JSON_UNESCAPED_UNICODE));
+
+        // 可选，设置流水号
+        $request->setOutId("12346");
+
+        // 选填，上行短信扩展码（扩展码字段控制在7位或以下，无特殊需求用户请忽略此字段）
+        $request->setSmsUpExtendCode("123456");
+
+        // 发起访问请求
+        $acsResponse = static::getAcsClient()->getAcsResponse($request);
+
+        return $acsResponse;
+    }
 }

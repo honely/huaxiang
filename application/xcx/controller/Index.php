@@ -320,4 +320,18 @@ class Index extends Controller
             ->where(['id' => $id])
             ->update(['collection' =>$collects,'view'=> $views]);
     }
+
+    public function updatePhone(){
+        //去除所有手机号的空格
+        $allUsers = Db::table('tk_user')->field('id,tel')->select();
+        foreach ($allUsers  as $k => $v){
+            $this->trimPhone($v['id'],$v['tel']);
+        }
+        dump($allUsers);
+    }
+
+    public function trimPhone($id,$tel){
+        $tel = str_replace(' ', '',$tel);
+        Db::table('tk_user')->where(['id' => $id])->update(['tel' => $tel]);
+    }
 }
