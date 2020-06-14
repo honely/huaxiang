@@ -1,0 +1,410 @@
+---------------------------------------------------------------
+[ 2020-06-14T12:05:29+08:00 ] 127.0.0.1 GET www.huaxiang.com/xcx/login/login.html
+[运行时间：0.658084s] [吞吐率：1.52req/s] [内存消耗：1,991.09kb] [文件加载：50]
+[ info ] [ LANG ] D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\thinkphp\lang\zh-cn.php
+[ info ] [ ROUTE ] array (
+  'type' => 'module',
+  'module' => 
+  array (
+    0 => 'xcx',
+    1 => 'login',
+    2 => 'login',
+  ),
+)
+[ info ] [ HEADER ] array (
+  'host' => 'www.huaxiang.com',
+  'connection' => 'keep-alive',
+  'upgrade-insecure-requests' => '1',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.70 Safari/537.36',
+  'accept' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3',
+  'accept-encoding' => 'gzip, deflate',
+  'accept-language' => 'zh-CN,zh;q=0.9',
+)
+[ info ] [ PARAM ] array (
+  '/xcx/login/login_html' => '',
+)
+[ info ] [ RUN ] app\xcx\controller\Login->login[ D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\application\xcx\controller\Login.php ]
+[ info ] [ VIEW ] D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\public/../application/xcx\view\login\login.html [ array (
+) ]
+[ info ] [ LOG ] INIT File
+---------------------------------------------------------------
+[ 2020-06-14T12:05:41+08:00 ] 127.0.0.1 POST www.huaxiang.com/xcx/login/login.html
+[运行时间：0.534933s] [吞吐率：1.87req/s] [内存消耗：2,814.36kb] [文件加载：58]
+[ info ] [ LANG ] D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\thinkphp\lang\zh-cn.php
+[ info ] [ ROUTE ] array (
+  'type' => 'module',
+  'module' => 
+  array (
+    0 => 'xcx',
+    1 => 'login',
+    2 => 'login',
+  ),
+)
+[ info ] [ HEADER ] array (
+  'host' => 'www.huaxiang.com',
+  'connection' => 'keep-alive',
+  'content-length' => '44',
+  'cache-control' => 'max-age=0',
+  'origin' => 'http://www.huaxiang.com',
+  'upgrade-insecure-requests' => '1',
+  'content-type' => 'application/x-www-form-urlencoded',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.70 Safari/537.36',
+  'accept' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3',
+  'referer' => 'http://www.huaxiang.com/xcx/login/login.html',
+  'accept-encoding' => 'gzip, deflate',
+  'accept-language' => 'zh-CN,zh;q=0.9',
+)
+[ info ] [ PARAM ] array (
+  '/xcx/login/login_html' => '',
+  'username' => '1549089944@qq.com',
+  'password' => '123123',
+)
+[ info ] [ RUN ] app\xcx\controller\Login->login[ D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\application\xcx\controller\Login.php ]
+[ info ] [ DB ] INIT mysql
+[ info ] [ SESSION ] INIT array (
+  'id' => '',
+  'var_session_id' => '',
+  'prefix' => 'think',
+  'type' => '',
+  'auto_start' => true,
+)
+[ info ] [ VIEW ] D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\thinkphp\tpl\dispatch_jump.tpl [ array (
+  0 => 'code',
+  1 => 'msg',
+  2 => 'data',
+  3 => 'url',
+  4 => 'wait',
+) ]
+[ info ] [ LOG ] INIT File
+[ sql ] [ DB ] CONNECT:[ UseTime:0.118940s ] mysql:host=127.0.0.1;port=3306;dbname=xcxnew;charset=utf8mb4
+[ sql ] [ SQL ] SHOW COLUMNS FROM `super_admin` [ RunTime:0.164086s ]
+[ sql ] [ SQL ] SELECT * FROM `super_admin` WHERE  `ad_email` = '1549089944@qq.com'  AND `ad_isable` = 1 LIMIT 1 [ RunTime:0.013407s ]
+---------------------------------------------------------------
+[ 2020-06-14T12:05:43+08:00 ] 127.0.0.1 GET www.huaxiang.com/xcx/index/index.html
+[运行时间：0.377325s] [吞吐率：2.65req/s] [内存消耗：3,483.89kb] [文件加载：59]
+[ info ] [ LANG ] D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\thinkphp\lang\zh-cn.php
+[ info ] [ ROUTE ] array (
+  'type' => 'module',
+  'module' => 
+  array (
+    0 => 'xcx',
+    1 => 'index',
+    2 => 'index',
+  ),
+)
+[ info ] [ HEADER ] array (
+  'host' => 'www.huaxiang.com',
+  'connection' => 'keep-alive',
+  'upgrade-insecure-requests' => '1',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.70 Safari/537.36',
+  'accept' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3',
+  'referer' => 'http://www.huaxiang.com/xcx/login/login.html',
+  'accept-encoding' => 'gzip, deflate',
+  'accept-language' => 'zh-CN,zh;q=0.9',
+  'cookie' => 'PHPSESSID=e447444uc2fcoe07vn1bbp7oh1',
+)
+[ info ] [ PARAM ] array (
+  '/xcx/index/index_html' => '',
+)
+[ info ] [ SESSION ] INIT array (
+  'id' => '',
+  'var_session_id' => '',
+  'prefix' => 'think',
+  'type' => '',
+  'auto_start' => true,
+)
+[ info ] [ RUN ] app\xcx\controller\Index->index[ D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\application\xcx\controller\Index.php ]
+[ info ] [ DB ] INIT mysql
+[ info ] [ VIEW ] D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\public/../application/xcx\view\index\index.html [ array (
+  0 => 'admin',
+  1 => 'menuList',
+  2 => 'siteName',
+  3 => 'ad_role',
+) ]
+[ info ] [ LOG ] INIT File
+[ sql ] [ DB ] CONNECT:[ UseTime:0.001217s ] mysql:host=127.0.0.1;port=3306;dbname=xcxnew;charset=utf8mb4
+[ sql ] [ SQL ] SHOW COLUMNS FROM `super_admin` [ RunTime:0.014922s ]
+[ sql ] [ SQL ] SELECT * FROM `super_admin` `admin` WHERE  `admin`.`ad_id` = 1 LIMIT 1 [ RunTime:0.023364s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `super_role` [ RunTime:0.057910s ]
+[ sql ] [ SQL ] SELECT `r_power` FROM `super_role` WHERE  `r_id` = 1 LIMIT 1 [ RunTime:0.008193s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `super_menu` [ RunTime:0.027537s ]
+[ sql ] [ SQL ] SELECT * FROM `super_menu` WHERE  `m_id` = 10 LIMIT 1 [ RunTime:0.008268s ]
+[ sql ] [ SQL ] SELECT * FROM `super_menu` WHERE  `m_id` = 11 LIMIT 1 [ RunTime:0.000520s ]
+[ sql ] [ SQL ] SELECT * FROM `super_menu` WHERE  `m_id` = 87 LIMIT 1 [ RunTime:0.000427s ]
+[ sql ] [ SQL ] SELECT * FROM `super_menu` WHERE  `m_id` = 1 LIMIT 1 [ RunTime:0.000496s ]
+[ sql ] [ SQL ] SELECT * FROM `super_menu` WHERE  `m_id` = 2 LIMIT 1 [ RunTime:0.000517s ]
+[ sql ] [ SQL ] SELECT * FROM `super_menu` WHERE  `m_id` = 247 LIMIT 1 [ RunTime:0.000471s ]
+[ sql ] [ SQL ] SELECT * FROM `super_menu` WHERE  `m_id` = 248 LIMIT 1 [ RunTime:0.000437s ]
+[ sql ] [ SQL ] SELECT * FROM `super_menu` WHERE  `m_id` = 249 LIMIT 1 [ RunTime:0.000698s ]
+[ sql ] [ SQL ] SELECT * FROM `super_menu` WHERE  `m_id` = 250 LIMIT 1 [ RunTime:0.000741s ]
+[ sql ] [ SQL ] SELECT * FROM `super_menu` WHERE  `m_id` = 251 LIMIT 1 [ RunTime:0.000618s ]
+[ sql ] [ SQL ] SELECT * FROM `super_menu` WHERE  `m_id` = 4 LIMIT 1 [ RunTime:0.000491s ]
+[ sql ] [ SQL ] SELECT * FROM `super_menu` WHERE  `m_id` = 252 LIMIT 1 [ RunTime:0.000436s ]
+[ sql ] [ SQL ] SELECT * FROM `super_menu` WHERE  `m_id` = 253 LIMIT 1 [ RunTime:0.000498s ]
+[ sql ] [ SQL ] SELECT * FROM `super_menu` WHERE  `m_id` = 254 LIMIT 1 [ RunTime:0.000509s ]
+[ sql ] [ SQL ] SELECT * FROM `super_menu` WHERE  `m_id` = 214 LIMIT 1 [ RunTime:0.000494s ]
+[ sql ] [ SQL ] SELECT * FROM `super_menu` WHERE  `m_id` = 215 LIMIT 1 [ RunTime:0.000476s ]
+[ sql ] [ SQL ] SELECT * FROM `super_menu` WHERE  `m_id` = 268 LIMIT 1 [ RunTime:0.000588s ]
+[ sql ] [ SQL ] SELECT * FROM `super_menu` WHERE  `m_id` = 269 LIMIT 1 [ RunTime:0.000430s ]
+[ sql ] [ SQL ] SELECT * FROM `super_menu` WHERE  `m_id` = 270 LIMIT 1 [ RunTime:0.000707s ]
+[ sql ] [ SQL ] SELECT * FROM `super_menu` WHERE  `m_id` = 216 LIMIT 1 [ RunTime:0.000717s ]
+[ sql ] [ SQL ] SELECT * FROM `super_menu` WHERE  `m_id` = 271 LIMIT 1 [ RunTime:0.000894s ]
+[ sql ] [ SQL ] SELECT * FROM `super_menu` WHERE  `m_id` = 272 LIMIT 1 [ RunTime:0.000880s ]
+[ sql ] [ SQL ] SELECT * FROM `super_menu` WHERE  `m_id` = 273 LIMIT 1 [ RunTime:0.000888s ]
+[ sql ] [ SQL ] SELECT * FROM `super_menu` WHERE  `m_id` = 217 LIMIT 1 [ RunTime:0.000835s ]
+[ sql ] [ SQL ] SELECT * FROM `super_menu` WHERE  `m_id` = 218 LIMIT 1 [ RunTime:0.000918s ]
+[ sql ] [ SQL ] SELECT * FROM `super_menu` WHERE  `m_id` = 201 LIMIT 1 [ RunTime:0.000724s ]
+[ sql ] [ SQL ] SELECT * FROM `super_menu` WHERE  `m_id` = 210 LIMIT 1 [ RunTime:0.000810s ]
+[ sql ] [ SQL ] SELECT * FROM `super_menu` WHERE  `m_id` = 274 LIMIT 1 [ RunTime:0.001004s ]
+[ sql ] [ SQL ] SELECT * FROM `super_menu` WHERE  `m_id` = 275 LIMIT 1 [ RunTime:0.000689s ]
+[ sql ] [ SQL ] SELECT * FROM `super_menu` WHERE  `m_id` = 222 LIMIT 1 [ RunTime:0.000755s ]
+[ sql ] [ SQL ] SELECT * FROM `super_menu` WHERE  `m_id` = 256 LIMIT 1 [ RunTime:0.000947s ]
+[ sql ] [ SQL ] SELECT * FROM `super_menu` WHERE  `m_id` = 223 LIMIT 1 [ RunTime:0.000449s ]
+[ sql ] [ SQL ] SELECT * FROM `super_menu` WHERE  `m_id` = 277 LIMIT 1 [ RunTime:0.000569s ]
+[ sql ] [ SQL ] SELECT * FROM `super_menu` WHERE  `m_id` = 278 LIMIT 1 [ RunTime:0.000841s ]
+[ sql ] [ SQL ] SELECT * FROM `super_menu` WHERE  `m_id` = 202 LIMIT 1 [ RunTime:0.001001s ]
+[ sql ] [ SQL ] SELECT * FROM `super_menu` WHERE  `m_id` = 209 LIMIT 1 [ RunTime:0.000529s ]
+[ sql ] [ SQL ] SELECT * FROM `super_menu` WHERE  `m_id` = 279 LIMIT 1 [ RunTime:0.000823s ]
+[ sql ] [ SQL ] SELECT * FROM `super_menu` WHERE  `m_id` = 240 LIMIT 1 [ RunTime:0.000815s ]
+[ sql ] [ SQL ] SELECT * FROM `super_menu` WHERE  `m_id` = 230 LIMIT 1 [ RunTime:0.000478s ]
+[ sql ] [ SQL ] SELECT * FROM `super_menu` WHERE  `m_id` = 232 LIMIT 1 [ RunTime:0.000536s ]
+[ sql ] [ SQL ] SELECT * FROM `super_menu` WHERE  `m_id` = 233 LIMIT 1 [ RunTime:0.000411s ]
+[ sql ] [ SQL ] SELECT * FROM `super_menu` WHERE  `m_id` = 241 LIMIT 1 [ RunTime:0.000641s ]
+[ sql ] [ SQL ] SELECT * FROM `super_menu` WHERE  `m_id` = 229 LIMIT 1 [ RunTime:0.000552s ]
+[ sql ] [ SQL ] SELECT * FROM `super_menu` WHERE  `m_id` = 242 LIMIT 1 [ RunTime:0.000461s ]
+[ sql ] [ SQL ] SELECT * FROM `super_menu` WHERE  `m_id` = 243 LIMIT 1 [ RunTime:0.000445s ]
+[ sql ] [ SQL ] SELECT * FROM `super_menu` WHERE  `m_id` = 244 LIMIT 1 [ RunTime:0.000443s ]
+[ sql ] [ SQL ] SELECT * FROM `super_menu` WHERE  `m_id` = 203 LIMIT 1 [ RunTime:0.000441s ]
+[ sql ] [ SQL ] SELECT * FROM `super_menu` WHERE  `m_id` = 208 LIMIT 1 [ RunTime:0.000569s ]
+[ sql ] [ SQL ] SELECT * FROM `super_menu` WHERE  `m_id` = 245 LIMIT 1 [ RunTime:0.001112s ]
+[ sql ] [ SQL ] SELECT * FROM `super_menu` WHERE  `m_id` = 246 LIMIT 1 [ RunTime:0.000628s ]
+[ sql ] [ SQL ] SELECT * FROM `super_menu` WHERE  `m_id` = 204 LIMIT 1 [ RunTime:0.000443s ]
+[ sql ] [ SQL ] SELECT * FROM `super_menu` WHERE  `m_id` = 207 LIMIT 1 [ RunTime:0.000408s ]
+[ sql ] [ SQL ] SELECT * FROM `super_menu` WHERE  `m_id` = 257 LIMIT 1 [ RunTime:0.000418s ]
+[ sql ] [ SQL ] SELECT * FROM `super_menu` WHERE  `m_id` = 258 LIMIT 1 [ RunTime:0.000392s ]
+[ sql ] [ SQL ] SELECT * FROM `super_menu` WHERE  `m_id` = 259 LIMIT 1 [ RunTime:0.000453s ]
+[ sql ] [ SQL ] SELECT * FROM `super_menu` WHERE  `m_id` = 219 LIMIT 1 [ RunTime:0.000468s ]
+[ sql ] [ SQL ] SELECT * FROM `super_menu` WHERE  `m_id` = 220 LIMIT 1 [ RunTime:0.000673s ]
+[ sql ] [ SQL ] SELECT * FROM `super_menu` WHERE  `m_id` = 221 LIMIT 1 [ RunTime:0.000603s ]
+[ sql ] [ SQL ] SELECT * FROM `super_menu` WHERE  `m_id` = 225 LIMIT 1 [ RunTime:0.000551s ]
+[ sql ] [ SQL ] SELECT * FROM `super_menu` WHERE  `m_id` = 226 LIMIT 1 [ RunTime:0.000409s ]
+[ sql ] [ SQL ] SELECT * FROM `super_menu` WHERE  `m_id` = 227 LIMIT 1 [ RunTime:0.000398s ]
+[ sql ] [ SQL ] SELECT * FROM `super_menu` WHERE  `m_id` = 228 LIMIT 1 [ RunTime:0.000389s ]
+[ sql ] [ SQL ] SELECT * FROM `super_menu` WHERE  `m_id` = 234 LIMIT 1 [ RunTime:0.000443s ]
+[ sql ] [ SQL ] SELECT * FROM `super_menu` WHERE  `m_id` = 235 LIMIT 1 [ RunTime:0.000453s ]
+[ sql ] [ SQL ] SELECT * FROM `super_menu` WHERE  `m_id` = 237 LIMIT 1 [ RunTime:0.000387s ]
+[ sql ] [ SQL ] SELECT * FROM `super_menu` WHERE  `m_id` = 238 LIMIT 1 [ RunTime:0.000393s ]
+[ sql ] [ SQL ] SELECT * FROM `super_menu` WHERE  `m_id` = 239 LIMIT 1 [ RunTime:0.000388s ]
+[ sql ] [ SQL ] SELECT * FROM `super_menu` WHERE  `m_id` = 236 LIMIT 1 [ RunTime:0.000897s ]
+[ sql ] [ SQL ] SELECT * FROM `super_admin` INNER JOIN `super_role` ON `super_admin`.`ad_role`=`super_role`.`r_id` WHERE  `ad_id` = 1 LIMIT 1 [ RunTime:0.010856s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `super_setinfo` [ RunTime:0.028021s ]
+[ sql ] [ SQL ] SELECT `s_value` FROM `super_setinfo` WHERE  `s_key` = 'webname' [ RunTime:0.000634s ]
+---------------------------------------------------------------
+[ 2020-06-14T12:05:44+08:00 ] 127.0.0.1 GET www.huaxiang.com/xcx/index/welcome.html
+[运行时间：0.493234s] [吞吐率：2.03req/s] [内存消耗：3,366.08kb] [文件加载：63]
+[ info ] [ LANG ] D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\thinkphp\lang\zh-cn.php
+[ info ] [ ROUTE ] array (
+  'type' => 'module',
+  'module' => 
+  array (
+    0 => 'xcx',
+    1 => 'index',
+    2 => 'welcome',
+  ),
+)
+[ info ] [ HEADER ] array (
+  'host' => 'www.huaxiang.com',
+  'connection' => 'keep-alive',
+  'upgrade-insecure-requests' => '1',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.70 Safari/537.36',
+  'accept' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3',
+  'referer' => 'http://www.huaxiang.com/xcx/index/index.html',
+  'accept-encoding' => 'gzip, deflate',
+  'accept-language' => 'zh-CN,zh;q=0.9',
+  'cookie' => 'PHPSESSID=e447444uc2fcoe07vn1bbp7oh1',
+)
+[ info ] [ PARAM ] array (
+  '/xcx/index/welcome_html' => '',
+)
+[ info ] [ SESSION ] INIT array (
+  'id' => '',
+  'var_session_id' => '',
+  'prefix' => 'think',
+  'type' => '',
+  'auto_start' => true,
+)
+[ info ] [ RUN ] app\xcx\controller\Index->welcome[ D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\application\xcx\controller\Index.php ]
+[ info ] [ DB ] INIT mysql
+[ info ] [ CACHE ] INIT File
+[ info ] [ VIEW ] D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\public/../application/xcx\view\index\welcome.html [ array (
+  0 => 'allHouse',
+  1 => 'allUser',
+  2 => 'todayHouse',
+  3 => 'todayUser',
+) ]
+[ info ] [ LOG ] INIT File
+[ sql ] [ DB ] CONNECT:[ UseTime:0.002960s ] mysql:host=127.0.0.1;port=3306;dbname=xcxnew;charset=utf8mb4
+[ sql ] [ SQL ] SHOW COLUMNS FROM `tk_houses` [ RunTime:0.065060s ]
+[ sql ] [ SQL ] SELECT COUNT(*) AS tp_count FROM `tk_houses` WHERE  (  1 = 1 ) LIMIT 1 [ RunTime:0.016709s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `tk_user` [ RunTime:0.059211s ]
+[ sql ] [ SQL ] SELECT COUNT(*) AS tp_count FROM `tk_user` WHERE  (  1 = 1 ) LIMIT 1 [ RunTime:0.000504s ]
+[ sql ] [ SQL ] SELECT COUNT(*) AS tp_count FROM `tk_user` WHERE  (  (cdate >= '2020-06-14 00:00:00' and cdate <= '2020-06-14 23:59:59') ) LIMIT 1 [ RunTime:0.005830s ]
+[ sql ] [ SQL ] SELECT COUNT(*) AS tp_count FROM `tk_houses` WHERE  (  (cdate >= '2020-06-14 00:00:00' and cdate <= '2020-06-14 23:59:59') ) LIMIT 1 [ RunTime:0.011607s ]
+[ sql ] [ SQL ] UPDATE `tk_houses`  SET `status`=2  WHERE  (  cdate <= '2020-05-14 12:05:44' ) [ RunTime:0.001902s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `super_house_views` [ RunTime:0.048313s ]
+[ sql ] [ SQL ] SELECT `nutime` FROM `super_house_views` ORDER BY `id` DESC LIMIT 1 [ RunTime:0.000971s ]
+[ sql ] [ SQL ] SELECT `id`,`collection`,`view` FROM `tk_houses` WHERE  `status` = 1  AND `source` = '中介' [ RunTime:0.000633s ]
+[ sql ] [ SQL ] UPDATE `tk_houses`  SET `collection`=2.9,`view`=145  WHERE  `id` = 251 [ RunTime:0.015173s ]
+[ sql ] [ SQL ] UPDATE `tk_houses`  SET `collection`=3.55,`view`=213  WHERE  `id` = 252 [ RunTime:0.000543s ]
+[ sql ] [ SQL ] UPDATE `tk_houses`  SET `collection`=5.625,`view`=225  WHERE  `id` = 253 [ RunTime:0.000514s ]
+[ sql ] [ SQL ] UPDATE `tk_houses`  SET `collection`=6.375,`view`=255  WHERE  `id` = 254 [ RunTime:0.000839s ]
+[ sql ] [ SQL ] INSERT INTO `super_house_views` (`utime` , `nutime`) VALUES ('2020-06-14 12:05:44' , '2020-06-17') [ RunTime:0.012094s ]
+---------------------------------------------------------------
+[ 2020-06-14T12:05:44+08:00 ] 127.0.0.1 POST www.huaxiang.com/xcx/index/gethouse.html
+[运行时间：0.194865s] [吞吐率：5.13req/s] [内存消耗：3,234.74kb] [文件加载：56]
+[ info ] [ LANG ] D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\thinkphp\lang\zh-cn.php
+[ info ] [ ROUTE ] array (
+  'type' => 'module',
+  'module' => 
+  array (
+    0 => 'xcx',
+    1 => 'index',
+    2 => 'gethouse',
+  ),
+)
+[ info ] [ HEADER ] array (
+  'host' => 'www.huaxiang.com',
+  'connection' => 'keep-alive',
+  'content-length' => '0',
+  'accept' => 'application/json, text/javascript, */*; q=0.01',
+  'origin' => 'http://www.huaxiang.com',
+  'x-requested-with' => 'XMLHttpRequest',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.70 Safari/537.36',
+  'referer' => 'http://www.huaxiang.com/xcx/index/welcome.html',
+  'accept-encoding' => 'gzip, deflate',
+  'accept-language' => 'zh-CN,zh;q=0.9',
+  'cookie' => 'PHPSESSID=e447444uc2fcoe07vn1bbp7oh1',
+)
+[ info ] [ PARAM ] array (
+  '/xcx/index/gethouse_html' => '',
+)
+[ info ] [ SESSION ] INIT array (
+  'id' => '',
+  'var_session_id' => '',
+  'prefix' => 'think',
+  'type' => '',
+  'auto_start' => true,
+)
+[ info ] [ RUN ] app\xcx\controller\Index->getHouse[ D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\application\xcx\controller\Index.php ]
+[ info ] [ DB ] INIT mysql
+[ info ] [ LOG ] INIT File
+[ sql ] [ DB ] CONNECT:[ UseTime:0.001131s ] mysql:host=127.0.0.1;port=3306;dbname=xcxnew;charset=utf8mb4
+[ sql ] [ SQL ] SHOW COLUMNS FROM `tk_houses` [ RunTime:0.014780s ]
+[ sql ] [ SQL ] SELECT COUNT(*) AS tp_count FROM `tk_houses` WHERE  (   cdate >= '2020-05-15 00:00:00' and cdate <= '2020-05-15 23:59:59' ) LIMIT 1 [ RunTime:0.000902s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `tk_user` [ RunTime:0.018093s ]
+[ sql ] [ SQL ] SELECT COUNT(*) AS tp_count FROM `tk_user` WHERE  (   cdate >= '2020-05-15 00:00:00' and cdate <= '2020-05-15 23:59:59' ) LIMIT 1 [ RunTime:0.001020s ]
+[ sql ] [ SQL ] SELECT COUNT(*) AS tp_count FROM `tk_houses` WHERE  (   cdate >= '2020-05-16 00:00:00' and cdate <= '2020-05-16 23:59:59' ) LIMIT 1 [ RunTime:0.000641s ]
+[ sql ] [ SQL ] SELECT COUNT(*) AS tp_count FROM `tk_user` WHERE  (   cdate >= '2020-05-16 00:00:00' and cdate <= '2020-05-16 23:59:59' ) LIMIT 1 [ RunTime:0.000575s ]
+[ sql ] [ SQL ] SELECT COUNT(*) AS tp_count FROM `tk_houses` WHERE  (   cdate >= '2020-05-17 00:00:00' and cdate <= '2020-05-17 23:59:59' ) LIMIT 1 [ RunTime:0.000655s ]
+[ sql ] [ SQL ] SELECT COUNT(*) AS tp_count FROM `tk_user` WHERE  (   cdate >= '2020-05-17 00:00:00' and cdate <= '2020-05-17 23:59:59' ) LIMIT 1 [ RunTime:0.000530s ]
+[ sql ] [ SQL ] SELECT COUNT(*) AS tp_count FROM `tk_houses` WHERE  (   cdate >= '2020-05-18 00:00:00' and cdate <= '2020-05-18 23:59:59' ) LIMIT 1 [ RunTime:0.000454s ]
+[ sql ] [ SQL ] SELECT COUNT(*) AS tp_count FROM `tk_user` WHERE  (   cdate >= '2020-05-18 00:00:00' and cdate <= '2020-05-18 23:59:59' ) LIMIT 1 [ RunTime:0.000370s ]
+[ sql ] [ SQL ] SELECT COUNT(*) AS tp_count FROM `tk_houses` WHERE  (   cdate >= '2020-05-19 00:00:00' and cdate <= '2020-05-19 23:59:59' ) LIMIT 1 [ RunTime:0.000683s ]
+[ sql ] [ SQL ] SELECT COUNT(*) AS tp_count FROM `tk_user` WHERE  (   cdate >= '2020-05-19 00:00:00' and cdate <= '2020-05-19 23:59:59' ) LIMIT 1 [ RunTime:0.000543s ]
+[ sql ] [ SQL ] SELECT COUNT(*) AS tp_count FROM `tk_houses` WHERE  (   cdate >= '2020-05-20 00:00:00' and cdate <= '2020-05-20 23:59:59' ) LIMIT 1 [ RunTime:0.000570s ]
+[ sql ] [ SQL ] SELECT COUNT(*) AS tp_count FROM `tk_user` WHERE  (   cdate >= '2020-05-20 00:00:00' and cdate <= '2020-05-20 23:59:59' ) LIMIT 1 [ RunTime:0.000607s ]
+[ sql ] [ SQL ] SELECT COUNT(*) AS tp_count FROM `tk_houses` WHERE  (   cdate >= '2020-05-21 00:00:00' and cdate <= '2020-05-21 23:59:59' ) LIMIT 1 [ RunTime:0.000659s ]
+[ sql ] [ SQL ] SELECT COUNT(*) AS tp_count FROM `tk_user` WHERE  (   cdate >= '2020-05-21 00:00:00' and cdate <= '2020-05-21 23:59:59' ) LIMIT 1 [ RunTime:0.000755s ]
+[ sql ] [ SQL ] SELECT COUNT(*) AS tp_count FROM `tk_houses` WHERE  (   cdate >= '2020-05-22 00:00:00' and cdate <= '2020-05-22 23:59:59' ) LIMIT 1 [ RunTime:0.000507s ]
+[ sql ] [ SQL ] SELECT COUNT(*) AS tp_count FROM `tk_user` WHERE  (   cdate >= '2020-05-22 00:00:00' and cdate <= '2020-05-22 23:59:59' ) LIMIT 1 [ RunTime:0.000350s ]
+[ sql ] [ SQL ] SELECT COUNT(*) AS tp_count FROM `tk_houses` WHERE  (   cdate >= '2020-05-23 00:00:00' and cdate <= '2020-05-23 23:59:59' ) LIMIT 1 [ RunTime:0.000378s ]
+[ sql ] [ SQL ] SELECT COUNT(*) AS tp_count FROM `tk_user` WHERE  (   cdate >= '2020-05-23 00:00:00' and cdate <= '2020-05-23 23:59:59' ) LIMIT 1 [ RunTime:0.000525s ]
+[ sql ] [ SQL ] SELECT COUNT(*) AS tp_count FROM `tk_houses` WHERE  (   cdate >= '2020-05-24 00:00:00' and cdate <= '2020-05-24 23:59:59' ) LIMIT 1 [ RunTime:0.000573s ]
+[ sql ] [ SQL ] SELECT COUNT(*) AS tp_count FROM `tk_user` WHERE  (   cdate >= '2020-05-24 00:00:00' and cdate <= '2020-05-24 23:59:59' ) LIMIT 1 [ RunTime:0.000380s ]
+[ sql ] [ SQL ] SELECT COUNT(*) AS tp_count FROM `tk_houses` WHERE  (   cdate >= '2020-05-25 00:00:00' and cdate <= '2020-05-25 23:59:59' ) LIMIT 1 [ RunTime:0.000524s ]
+[ sql ] [ SQL ] SELECT COUNT(*) AS tp_count FROM `tk_user` WHERE  (   cdate >= '2020-05-25 00:00:00' and cdate <= '2020-05-25 23:59:59' ) LIMIT 1 [ RunTime:0.000540s ]
+[ sql ] [ SQL ] SELECT COUNT(*) AS tp_count FROM `tk_houses` WHERE  (   cdate >= '2020-05-26 00:00:00' and cdate <= '2020-05-26 23:59:59' ) LIMIT 1 [ RunTime:0.000439s ]
+[ sql ] [ SQL ] SELECT COUNT(*) AS tp_count FROM `tk_user` WHERE  (   cdate >= '2020-05-26 00:00:00' and cdate <= '2020-05-26 23:59:59' ) LIMIT 1 [ RunTime:0.000390s ]
+[ sql ] [ SQL ] SELECT COUNT(*) AS tp_count FROM `tk_houses` WHERE  (   cdate >= '2020-05-27 00:00:00' and cdate <= '2020-05-27 23:59:59' ) LIMIT 1 [ RunTime:0.000414s ]
+[ sql ] [ SQL ] SELECT COUNT(*) AS tp_count FROM `tk_user` WHERE  (   cdate >= '2020-05-27 00:00:00' and cdate <= '2020-05-27 23:59:59' ) LIMIT 1 [ RunTime:0.000674s ]
+[ sql ] [ SQL ] SELECT COUNT(*) AS tp_count FROM `tk_houses` WHERE  (   cdate >= '2020-05-28 00:00:00' and cdate <= '2020-05-28 23:59:59' ) LIMIT 1 [ RunTime:0.000649s ]
+[ sql ] [ SQL ] SELECT COUNT(*) AS tp_count FROM `tk_user` WHERE  (   cdate >= '2020-05-28 00:00:00' and cdate <= '2020-05-28 23:59:59' ) LIMIT 1 [ RunTime:0.000386s ]
+[ sql ] [ SQL ] SELECT COUNT(*) AS tp_count FROM `tk_houses` WHERE  (   cdate >= '2020-05-29 00:00:00' and cdate <= '2020-05-29 23:59:59' ) LIMIT 1 [ RunTime:0.000503s ]
+[ sql ] [ SQL ] SELECT COUNT(*) AS tp_count FROM `tk_user` WHERE  (   cdate >= '2020-05-29 00:00:00' and cdate <= '2020-05-29 23:59:59' ) LIMIT 1 [ RunTime:0.000558s ]
+[ sql ] [ SQL ] SELECT COUNT(*) AS tp_count FROM `tk_houses` WHERE  (   cdate >= '2020-05-30 00:00:00' and cdate <= '2020-05-30 23:59:59' ) LIMIT 1 [ RunTime:0.000656s ]
+[ sql ] [ SQL ] SELECT COUNT(*) AS tp_count FROM `tk_user` WHERE  (   cdate >= '2020-05-30 00:00:00' and cdate <= '2020-05-30 23:59:59' ) LIMIT 1 [ RunTime:0.000435s ]
+[ sql ] [ SQL ] SELECT COUNT(*) AS tp_count FROM `tk_houses` WHERE  (   cdate >= '2020-05-31 00:00:00' and cdate <= '2020-05-31 23:59:59' ) LIMIT 1 [ RunTime:0.000736s ]
+[ sql ] [ SQL ] SELECT COUNT(*) AS tp_count FROM `tk_user` WHERE  (   cdate >= '2020-05-31 00:00:00' and cdate <= '2020-05-31 23:59:59' ) LIMIT 1 [ RunTime:0.000404s ]
+[ sql ] [ SQL ] SELECT COUNT(*) AS tp_count FROM `tk_houses` WHERE  (   cdate >= '2020-06-01 00:00:00' and cdate <= '2020-06-01 23:59:59' ) LIMIT 1 [ RunTime:0.000418s ]
+[ sql ] [ SQL ] SELECT COUNT(*) AS tp_count FROM `tk_user` WHERE  (   cdate >= '2020-06-01 00:00:00' and cdate <= '2020-06-01 23:59:59' ) LIMIT 1 [ RunTime:0.000494s ]
+[ sql ] [ SQL ] SELECT COUNT(*) AS tp_count FROM `tk_houses` WHERE  (   cdate >= '2020-06-02 00:00:00' and cdate <= '2020-06-02 23:59:59' ) LIMIT 1 [ RunTime:0.000683s ]
+[ sql ] [ SQL ] SELECT COUNT(*) AS tp_count FROM `tk_user` WHERE  (   cdate >= '2020-06-02 00:00:00' and cdate <= '2020-06-02 23:59:59' ) LIMIT 1 [ RunTime:0.000581s ]
+[ sql ] [ SQL ] SELECT COUNT(*) AS tp_count FROM `tk_houses` WHERE  (   cdate >= '2020-06-03 00:00:00' and cdate <= '2020-06-03 23:59:59' ) LIMIT 1 [ RunTime:0.000476s ]
+[ sql ] [ SQL ] SELECT COUNT(*) AS tp_count FROM `tk_user` WHERE  (   cdate >= '2020-06-03 00:00:00' and cdate <= '2020-06-03 23:59:59' ) LIMIT 1 [ RunTime:0.000540s ]
+[ sql ] [ SQL ] SELECT COUNT(*) AS tp_count FROM `tk_houses` WHERE  (   cdate >= '2020-06-04 00:00:00' and cdate <= '2020-06-04 23:59:59' ) LIMIT 1 [ RunTime:0.000510s ]
+[ sql ] [ SQL ] SELECT COUNT(*) AS tp_count FROM `tk_user` WHERE  (   cdate >= '2020-06-04 00:00:00' and cdate <= '2020-06-04 23:59:59' ) LIMIT 1 [ RunTime:0.000402s ]
+[ sql ] [ SQL ] SELECT COUNT(*) AS tp_count FROM `tk_houses` WHERE  (   cdate >= '2020-06-05 00:00:00' and cdate <= '2020-06-05 23:59:59' ) LIMIT 1 [ RunTime:0.000408s ]
+[ sql ] [ SQL ] SELECT COUNT(*) AS tp_count FROM `tk_user` WHERE  (   cdate >= '2020-06-05 00:00:00' and cdate <= '2020-06-05 23:59:59' ) LIMIT 1 [ RunTime:0.000530s ]
+[ sql ] [ SQL ] SELECT COUNT(*) AS tp_count FROM `tk_houses` WHERE  (   cdate >= '2020-06-06 00:00:00' and cdate <= '2020-06-06 23:59:59' ) LIMIT 1 [ RunTime:0.000573s ]
+[ sql ] [ SQL ] SELECT COUNT(*) AS tp_count FROM `tk_user` WHERE  (   cdate >= '2020-06-06 00:00:00' and cdate <= '2020-06-06 23:59:59' ) LIMIT 1 [ RunTime:0.000441s ]
+[ sql ] [ SQL ] SELECT COUNT(*) AS tp_count FROM `tk_houses` WHERE  (   cdate >= '2020-06-07 00:00:00' and cdate <= '2020-06-07 23:59:59' ) LIMIT 1 [ RunTime:0.000671s ]
+[ sql ] [ SQL ] SELECT COUNT(*) AS tp_count FROM `tk_user` WHERE  (   cdate >= '2020-06-07 00:00:00' and cdate <= '2020-06-07 23:59:59' ) LIMIT 1 [ RunTime:0.000994s ]
+[ sql ] [ SQL ] SELECT COUNT(*) AS tp_count FROM `tk_houses` WHERE  (   cdate >= '2020-06-08 00:00:00' and cdate <= '2020-06-08 23:59:59' ) LIMIT 1 [ RunTime:0.000731s ]
+[ sql ] [ SQL ] SELECT COUNT(*) AS tp_count FROM `tk_user` WHERE  (   cdate >= '2020-06-08 00:00:00' and cdate <= '2020-06-08 23:59:59' ) LIMIT 1 [ RunTime:0.000704s ]
+[ sql ] [ SQL ] SELECT COUNT(*) AS tp_count FROM `tk_houses` WHERE  (   cdate >= '2020-06-09 00:00:00' and cdate <= '2020-06-09 23:59:59' ) LIMIT 1 [ RunTime:0.000488s ]
+[ sql ] [ SQL ] SELECT COUNT(*) AS tp_count FROM `tk_user` WHERE  (   cdate >= '2020-06-09 00:00:00' and cdate <= '2020-06-09 23:59:59' ) LIMIT 1 [ RunTime:0.000446s ]
+[ sql ] [ SQL ] SELECT COUNT(*) AS tp_count FROM `tk_houses` WHERE  (   cdate >= '2020-06-10 00:00:00' and cdate <= '2020-06-10 23:59:59' ) LIMIT 1 [ RunTime:0.000584s ]
+[ sql ] [ SQL ] SELECT COUNT(*) AS tp_count FROM `tk_user` WHERE  (   cdate >= '2020-06-10 00:00:00' and cdate <= '2020-06-10 23:59:59' ) LIMIT 1 [ RunTime:0.000629s ]
+[ sql ] [ SQL ] SELECT COUNT(*) AS tp_count FROM `tk_houses` WHERE  (   cdate >= '2020-06-11 00:00:00' and cdate <= '2020-06-11 23:59:59' ) LIMIT 1 [ RunTime:0.000550s ]
+[ sql ] [ SQL ] SELECT COUNT(*) AS tp_count FROM `tk_user` WHERE  (   cdate >= '2020-06-11 00:00:00' and cdate <= '2020-06-11 23:59:59' ) LIMIT 1 [ RunTime:0.000395s ]
+[ sql ] [ SQL ] SELECT COUNT(*) AS tp_count FROM `tk_houses` WHERE  (   cdate >= '2020-06-12 00:00:00' and cdate <= '2020-06-12 23:59:59' ) LIMIT 1 [ RunTime:0.000446s ]
+[ sql ] [ SQL ] SELECT COUNT(*) AS tp_count FROM `tk_user` WHERE  (   cdate >= '2020-06-12 00:00:00' and cdate <= '2020-06-12 23:59:59' ) LIMIT 1 [ RunTime:0.000532s ]
+[ sql ] [ SQL ] SELECT COUNT(*) AS tp_count FROM `tk_houses` WHERE  (   cdate >= '2020-06-13 00:00:00' and cdate <= '2020-06-13 23:59:59' ) LIMIT 1 [ RunTime:0.000515s ]
+[ sql ] [ SQL ] SELECT COUNT(*) AS tp_count FROM `tk_user` WHERE  (   cdate >= '2020-06-13 00:00:00' and cdate <= '2020-06-13 23:59:59' ) LIMIT 1 [ RunTime:0.000451s ]
+[ sql ] [ SQL ] SELECT COUNT(*) AS tp_count FROM `tk_houses` WHERE  (   cdate >= '2020-06-14 00:00:00' and cdate <= '2020-06-14 23:59:59' ) LIMIT 1 [ RunTime:0.000575s ]
+[ sql ] [ SQL ] SELECT COUNT(*) AS tp_count FROM `tk_user` WHERE  (   cdate >= '2020-06-14 00:00:00' and cdate <= '2020-06-14 23:59:59' ) LIMIT 1 [ RunTime:0.000436s ]
+---------------------------------------------------------------
+[ 2020-06-14T12:05:44+08:00 ] 127.0.0.1 POST www.huaxiang.com/xcx/index/gethousepie.html
+[运行时间：0.096142s] [吞吐率：10.40req/s] [内存消耗：3,022.72kb] [文件加载：56]
+[ info ] [ LANG ] D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\thinkphp\lang\zh-cn.php
+[ info ] [ ROUTE ] array (
+  'type' => 'module',
+  'module' => 
+  array (
+    0 => 'xcx',
+    1 => 'index',
+    2 => 'gethousepie',
+  ),
+)
+[ info ] [ HEADER ] array (
+  'host' => 'www.huaxiang.com',
+  'connection' => 'keep-alive',
+  'content-length' => '0',
+  'accept' => 'application/json, text/javascript, */*; q=0.01',
+  'origin' => 'http://www.huaxiang.com',
+  'x-requested-with' => 'XMLHttpRequest',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.70 Safari/537.36',
+  'referer' => 'http://www.huaxiang.com/xcx/index/welcome.html',
+  'accept-encoding' => 'gzip, deflate',
+  'accept-language' => 'zh-CN,zh;q=0.9',
+  'cookie' => 'PHPSESSID=e447444uc2fcoe07vn1bbp7oh1',
+)
+[ info ] [ PARAM ] array (
+  '/xcx/index/gethousepie_html' => '',
+)
+[ info ] [ SESSION ] INIT array (
+  'id' => '',
+  'var_session_id' => '',
+  'prefix' => 'think',
+  'type' => '',
+  'auto_start' => true,
+)
+[ info ] [ RUN ] app\xcx\controller\Index->getHousePie[ D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\application\xcx\controller\Index.php ]
+[ info ] [ DB ] INIT mysql
+[ info ] [ LOG ] INIT File
+[ sql ] [ DB ] CONNECT:[ UseTime:0.001245s ] mysql:host=127.0.0.1;port=3306;dbname=xcxnew;charset=utf8mb4
+[ sql ] [ SQL ] SHOW COLUMNS FROM `tk_houses` [ RunTime:0.015395s ]
+[ sql ] [ SQL ] SELECT COUNT(*) AS tp_count FROM `tk_houses` WHERE  (  city = '墨尔本' ) LIMIT 1 [ RunTime:0.000707s ]
+[ sql ] [ SQL ] SELECT COUNT(*) AS tp_count FROM `tk_houses` WHERE  (  city = '悉尼' ) LIMIT 1 [ RunTime:0.000504s ]
+[ sql ] [ SQL ] SELECT COUNT(*) AS tp_count FROM `tk_houses` WHERE  (  city = '塔州' ) LIMIT 1 [ RunTime:0.001264s ]
+[ sql ] [ SQL ] SELECT COUNT(*) AS tp_count FROM `tk_houses` WHERE  (  city = '布里斯班' ) LIMIT 1 [ RunTime:0.001589s ]
