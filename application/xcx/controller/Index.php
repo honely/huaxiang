@@ -7,6 +7,7 @@
  */
 namespace app\xcx\controller;
 use app\xcx\model\Housem;
+use app\xcx\model\Loops;
 use app\xcx\model\Rolem;
 use think\Controller;
 use think\Request;
@@ -94,12 +95,39 @@ class Index extends Controller
             ->join('super_role','super_admin.ad_role = super_role.r_id')
             ->where(['ad_id' => $adminId])
             ->find();
+        $roleM = new Rolem();
+        $power_list = $roleM->getPowerListByAdminId($adminId);
+        $onlineable = in_array('223',$power_list,true);
+        $this->assign('onlineable',$onlineable);
         $this->assign('admin',$adminInfo);
         $this->assign('menuList',$parentData);
         $siteName=Db::table('super_setinfo')->where(['s_key' => 'webname'])->column('s_value');
         $this->assign('siteName',$siteName[0]);
         $this->assign('ad_role',$ad_role);
+        //获取当前未读消息数
+        $unread = $this->getUnreadMsg($adminId);
+        $this->assign('unread',$unread);
         return  $this->fetch();
+    }
+
+    public function getUnreadMsg($adminid){
+        //如果这个后台用户已经绑定小程序用户的话，包含小程序用户的未读消息
+        $adWechat = session('ad_wechat');
+        $where = "(mp_u_id = ".$adminid." and mp_utype = 2 and mp_isable = 1) or (mp_ul_id = ".$adminid." and mp_ultype = 2 and  mp_isable = 1)";
+        if($adWechat){
+            $where .= " or (mp_u_id = ".$adWechat." and mp_utype = 1 and mp_isable = 1) or (mp_ul_id = ".$adWechat." and mp_ultype = 1 and  mp_isable = 1)";
+        }
+        $list = Db::table('xcx_msg_person')
+            ->where($where)->field('mp_id')
+            ->select();
+        $count = 0;
+        if($list){
+            $msg = new Loops();
+            foreach ($list as $k => $v){
+                $count  += $msg->getUnread($v['mp_id'],$adminid);
+            }
+        }
+        return $count;
     }
 
 

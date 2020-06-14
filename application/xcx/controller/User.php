@@ -163,14 +163,14 @@ class User extends Controller{
 
     public function touchs(){
         $mpid = trim($this->request->param('mp_id',0,'intval'));
-        $uId = session('ad_wechat');
+        $uId = session('adminId');
         $mpinfo = Db::table('xcx_msg_person')->where(['mp_id' => $mpid])->find();
         $ulId = $mpinfo['mp_u_id'] == $uId ? $mpinfo['mp_ul_id'] : $mpinfo['mp_u_id'];
         $loop = new Loops();
         $avatar = $loop->getUserAvatar($ulId);
         $nickname = $loop->getUserNick($ulId);
-        $uavatar = $loop->getUserAvatar($uId);
-        $unickname = $loop->getUserNick($uId);
+        $uavatar = $loop->getAdminAvatar($uId);
+        $unickname = $loop->getAdminNick($uId);
         Db::table('xcx_msg_content')
             ->where(['xcx_msg_mp_id' => $mpid,'xcx_msg_isable' =>1])
             ->update(['xcx_msg_isread' => 1]);
@@ -249,35 +249,40 @@ class User extends Controller{
     }
 
     public function msgData(){
-        $where ="1 = 1";
         $page= $this->request->param('page',1,'intval');
         $limit=$this->request->param('limit',20,'intval');
-        $uId = session('ad_wechat');
+        $adminid = session('adminId');
+        $adWechat = session('ad_wechat');
+        $where = "(mp_u_id = ".$adminid." and mp_utype = 2 and mp_isable = 1) or (mp_ul_id = ".$adminid." and mp_ultype = 2 and  mp_isable = 1)";
+        if($adWechat){
+            $where .= " or (mp_u_id = ".$adWechat." and mp_utype = 1 and mp_isable = 1) or (mp_ul_id = ".$adWechat." and mp_ultype = 1 and  mp_isable = 1)";
+        }
         $list = Db::table('xcx_msg_person')
-            ->where("(mp_u_id = ".$uId." and mp_isable = 1) or (mp_ul_id = ".$uId." and  mp_isable = 1)")
+            ->where($where)
             ->limit(($page-1)*$limit,$limit)
             ->order('mp_mod_time desc')
             ->select();
         $count=Db::table('xcx_msg_person')
-            ->where("(mp_u_id = ".$uId." and mp_isable = 1) or (mp_ul_id = ".$uId." and  mp_isable = 1)")
+            ->where($where)
             ->count();
         if($list){
             $msg = new Loops();
             foreach ($list as $k => $v){
-                if($list[$k]['mp_u_id'] == $uId){
+                if($list[$k]['mp_u_id'] == $adminid){
                     $list[$k]['nickname'] = $msg->getUserNick($v['mp_ul_id']);
                     $list[$k]['avaurl'] = $msg->getUserAvatar($v['mp_ul_id']);
                 }else{
                     $list[$k]['nickname'] = $msg->getUserNick($v['mp_u_id']);
                     $list[$k]['avaurl'] = $msg->getUserAvatar($v['mp_u_id']);
                 }
-                $list[$k]['count'] = $msg->getUnread($v['mp_id'],$uId);
+                $list[$k]['count'] = $msg->getUnread($v['mp_id'],$adminid);
             }
         }
         $res['code'] = 0;
         $res['msg'] = "";
         $res['data'] = $list;
         $res['count'] = $count;
+        $res['where'] = $where;
         return json($res);
     }
 
@@ -300,7 +305,7 @@ class User extends Controller{
     public function sendmsg(){
         $mpid = trim($this->request->param('mpid','1','intval'));
         $content = trim($this->request->param('content'));
-        $uId = session('ad_wechat');
+        $uId = session('adminId');
         $data['xcx_msg_mp_id'] = $mpid;
         $data['xcx_msg_uid'] = $uId;
         $data['xcx_msg_content'] = $content;

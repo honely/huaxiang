@@ -56,7 +56,7 @@ class Msgs extends Model
                     $houseTitle = $adminInfo['title'];
                     $msg['xcx_msg_mp_id'] = $insert;
                     $msg['xcx_msg_uid'] = $uId;
-                    $msg['xcx_msg_content'] = '对方通过标题为：【'.$houseTitle.'】的房源向你发起会话。';
+                    $msg['xcx_msg_content'] = '你好，我想咨询这个房源：（'.$houseTitle.')。';
                     $msg['xcx_msg_add_time'] = $time;
                     Db::table('xcx_msg_content')->insertGetId($msg);
                     return $insert ? $insert : 0;

@@ -201,7 +201,7 @@ class Admin extends Controller{
             $data['ad_bid'] = $_POST['ad_bid'];
             $data['ad_realname'] = $_POST['ad_realname'];
             $data['ad_sex'] = $_POST['ad_sex'];
-            $data['ad_phone'] = str_replace(' ', '', $data['ad_phone']);
+            $data['ad_phone'] = str_replace(' ', '', $_POST['ad_phone']);
             $data['ad_email'] = $_POST['ad_email'];
             $isRepeat=Db::table('super_admin')
                 ->where(['ad_email' => $data['ad_email']])
@@ -230,7 +230,7 @@ class Admin extends Controller{
             //如果后台添加的这个手机号和前端用户绑定的手机号相同则自动绑定
             $userPhone = Db::table('tk_user')->where(['tel' => $data['ad_phone']])->field('id,tel')->find();
             if($userPhone){
-                Db::table('super_admin')->where(['ad_id' => $add])->update(['ad_wechat',$userPhone['tel']]);
+                Db::table('super_admin')->where(['ad_id' => $add])->update(['ad_wechat'=>$userPhone['tel']]);
             }
             if($add){
                 $adminInfo = Db::table('super_admin')
@@ -309,7 +309,7 @@ ABN: 11 628 249 687</b>
         if($_POST){
             $data['ad_realname'] = $_POST['ad_realname'];
             $data['ad_sex'] = $_POST['ad_sex'];
-            $data['ad_phone'] = str_replace(' ', '', $data['ad_phone']);
+            $data['ad_phone'] = str_replace(' ', '', $_POST['ad_phone']);
             $data['ad_bid'] = $_POST['ad_bid'];
             $data['ad_corp'] = $_POST['ad_corp'];
             $data['ad_weixin'] = $_POST['ad_weixin'];

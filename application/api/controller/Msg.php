@@ -5,6 +5,7 @@ use app\xcx\model\Msgs;
 use think\Controller;
 use think\Db;
 use think\Loader;
+use think\Log;
 
 class Msg extends Controller
 {
@@ -22,7 +23,8 @@ class Msg extends Controller
         $uId = intval(trim($this->request->param('uid')));
         //接受者id
         $ulId = intval(trim($this->request->param('ulid')));
-        $hId = intval(trim($this->request->param('hid','0')));
+        $hId = intval(trim($this->request->param('hid')));
+        Log::write('发起会话请求参数：uid='.$uId.',$ulId='.$ulId.',$hId='.$hId,'info');
         if(!$uId || !$ulId){
             $res['code'] = 0;
             $res['msg'] = '缺少参数';
@@ -61,18 +63,29 @@ class Msg extends Controller
             return json($res);
         }
         $list = Db::table('xcx_msg_person')
-            ->where("(mp_u_id = ".$uId." and mp_isable = 1) or (mp_ul_id = ".$uId." and  mp_isable = 1)")
+            ->where("(mp_u_id = ".$uId." and mp_utype = 1 and mp_isable = 1) or (mp_ul_id = ".$uId." and mp_ultype = 1 and  mp_isable = 1)")
             ->order('mp_mod_time desc')
             ->select();
         if($list){
             $msg = new Loops();
             foreach ($list as $k => $v){
+                //如果消息的发起人 == 当前用户
                 if($list[$k]['mp_u_id'] == $uId){
-                    $list[$k]['nickname'] = $msg->getUserNick($v['mp_ul_id']);
-                    $list[$k]['avaurl'] = $msg->getUserAvatar($v['mp_ul_id']);
+                    if($list[$k]['mp_ultype'] == 2){
+                        $list[$k]['nickname'] = $msg->getAdminNick($v['mp_ul_id']);
+                        $list[$k]['avaurl'] = $msg->getAdminAvatar($v['mp_ul_id']);
+                    }else{
+                        $list[$k]['nickname'] = $msg->getUserNick($v['mp_ul_id']);
+                        $list[$k]['avaurl'] = $msg->getUserAvatar($v['mp_ul_id']);
+                    }
                 }else{
-                    $list[$k]['nickname'] = $msg->getUserNick($v['mp_u_id']);
-                    $list[$k]['avaurl'] = $msg->getUserAvatar($v['mp_u_id']);
+                    if($list[$k]['mp_utype'] == 2){
+                        $list[$k]['nickname'] = $msg->getAdminNick($v['mp_u_id']);
+                        $list[$k]['avaurl'] = $msg->getAdminAvatar($v['mp_u_id']);
+                    }else{
+                        $list[$k]['nickname'] = $msg->getUserNick($v['mp_ul_id']);
+                        $list[$k]['avaurl'] = $msg->getUserAvatar($v['mp_ul_id']);
+                    }
                 }
                 $list[$k]['count'] = $msg->getUnread($v['mp_id'],$uId);
             }
@@ -193,9 +206,10 @@ class Msg extends Controller
             ->limit($limit,$page)
             ->select();
         if($msgList){
+//            $list[$k]['mp_ultype'] == 2 || $list[$k]['mp_utype'] == 2
             $mpids= Db::table('xcx_msg_person')
                 ->where(['mp_id' =>$mpid])
-                ->field('mp_u_id,mp_ul_id')
+                ->field('mp_u_id,mp_ul_id,mp_ultype,mp_utype')
                 ->find();
             if($mpids['mp_u_id'] == $uid){
                 $otherid = $mpids['mp_ul_id'];
@@ -203,10 +217,15 @@ class Msg extends Controller
                 $otherid = $mpids['mp_u_id'];
             }
             $msg = new Loops();
+            if($mpids['mp_ultype'] == 2 || $mpids['mp_utype'] == 2){
+                $user['unickname'] = $msg->getAdminNick($otherid);
+                $user['uavaurl'] = $msg->getAdminAvatar($otherid);
+            }else{
+                $user['unickname'] = $msg->getUserNick($otherid);
+                $user['uavaurl'] = $msg->getUserAvatar($otherid);
+            }
             $user['inickname'] =$msg->getUserNick($uid);
-            $user['unickname'] = $msg->getUserNick($otherid);
             $user['iavaurl'] = $msg->getUserAvatar($uid);
-            $user['uavaurl'] = $msg->getUserAvatar($otherid);
             $res['code'] = 1;
             $res['msg'] = '读取成功！';
             $res['data'] = $msgList;

@@ -98,7 +98,6 @@ class Account extends Controller
         if($_POST){
             $data['ad_realname'] = $_POST['ad_realname'];
             $data['ad_sex'] = $_POST['ad_sex'];
-            $data['ad_phone'] = $_POST['ad_phone'];
             $data['ad_bid'] = $_POST['ad_bid'];
             $data['ad_corp'] = $_POST['ad_corp'];
             $data['ad_weixin'] = $_POST['ad_weixin'];
@@ -113,7 +112,6 @@ class Account extends Controller
                 }
                 $data['ad_role'] = rtrim($bills,',');
             }
-            $data['ad_email'] = $_POST['ad_email'];
             $edit=Db::table('super_admin')->where(['ad_id' => $ad_id])->update($data);
             if($edit){
                 $this->success('修改成功！','personal');

@@ -29,6 +29,11 @@
                 <span>欢迎您，{$admin.r_name}&nbsp;&nbsp;&nbsp;{$admin.ad_realname}</span>
             </div>
         </ul>
+<!--        {if condition='$onlineable eq true'}-->
+<!--            <ul class="layui-nav layui-layout-left" style="margin-left: 280px;">-->
+<!--                <li class="layui-nav-item"><a style="padding-left: 10px !important;"  href="<?=url('user/msgs')?>" >站内信</a></li>-->
+<!--            </ul>-->
+<!--        {/if}-->
         <ul class="layui-nav layui-layout-right">
             <li class="layui-nav-item"><a style="padding-left: 10px !important;" href="javascript:location.reload();" >后台主页</a></li>
             <li class="layui-nav-item"><a style="padding-left: 10px !important;"  href="<?=url('login/loginOut')?>">退出登录</a></li>
@@ -44,9 +49,19 @@
                     <a href="javascript:;">{$menu.m_name}</a>
                     {if isset($menu.child) && $menu.child neq null}
                     {volist name="menu['child']" id="child"}
+                    {if condition='$child.m_id eq 223'}
+                    <dl class="layui-nav-child">
+                        <dd><a href='javascript:' data-url="/xcx/{$child['m_control']}/{$child['m_action']}.html">{$child.m_name}
+                            {if condition='$unread neq 0'}
+                            <span class="layui-badge">{if condition='$unread gt 99'}99+{else/}{$unread}{/if}</span>
+                            {/if}
+                        </a></dd>
+                    </dl>
+                    {else/}
                     <dl class="layui-nav-child">
                         <dd><a href='javascript:' data-url="/xcx/{$child['m_control']}/{$child['m_action']}.html">{$child.m_name}</a></dd>
                     </dl>
+                    {/if}
                     {/volist}
                     {/if}
                 </li>
