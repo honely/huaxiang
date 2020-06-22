@@ -8,6 +8,13 @@
         left:300px;
         top:0;
     }
+    .logoPre{
+        width: 216px;
+        height: 150px;
+    }.logoPreimg{
+         width: 216px;
+         height: 150px;
+     }
     .layui-upload-img { width: 90px; height: 90px; margin: 0; }
     .pic-more { width:100%; left; margin: 10px 0px 0px 0px;}
     .pic-more li { width:300px; float: left; margin-right: 5px;margin-top: 10px;}
@@ -245,6 +252,24 @@
                 <fieldset class="layui-elem-field layui-field-title" style="margin-top: 20px;">
                     <legend>图片和视频</legend>
                 </fieldset>
+                <div class="layui-form-item one-pan">
+                    <label class="layui-form-label"><span style="color: red;">*</span>房源封面图</label>
+
+                    <div {if condition="$house.thumnail eq null"}class="layui-upload-drag"{/if} id="uploadImg" style="display:inline-block;" >
+                    <image id="logoPreimg"
+                           {if condition="$house.thumnail eq null"}
+                           {else/}
+                    src="__PUBLIC__/{$house.thumnail}"
+                    class="logoPreimg"
+                    {/if}
+                    >
+                    <input type="hidden" lay-verify="imgReg" name="thumnail" id="thumnail" value="{$house.thumnail}"/>
+                    </image>
+                </div>
+                <div class="one">
+                    <div class="layui-form-mid layui-word-aux" style="margin-left: 39px; ">图片要求，最大5MB，支持JPG/JEPG/PNG格式</div>
+                </div>
+        </div>
                 <div class="layui-form-item" id="pics">
                     <div class="layui-form-label">房源图片</div>
                     <div class="layui-input-block" style="width: 70%;">
@@ -265,7 +290,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="layui-form-mid layui-word-aux">请上传1-8张图片，默认第一个为封面图。</div>
+                    <div class="layui-form-mid layui-word-aux">请上传0-8张其他详情图。</div>
                 </div>
                 <div class="layui-form-item one-pan">
                     <label class="layui-form-label">房源视频</label>

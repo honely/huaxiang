@@ -5,8 +5,12 @@
     }
     .one{
         position: absolute;
-        left:300px;
+        left:380px;
         top:0;
+    }
+    .logoPreimg{
+        width: 216px;
+        height: 150px;
     }
     .layui-upload-img { width: 90px; height: 90px; margin: 0; }
     .pic-more { width:100%; left; margin: 10px 0px 0px 0px;}
@@ -50,9 +54,9 @@
                 <div class="layui-form-item">
                     <label class="layui-form-label"><span style="color: red;">*</span>地址</label>
                     <div class="layui-input-block" id="input">
-                        <input type="text" name="address" id="end" autocomplete="off" class="layui-input" placeholder="目的地">
-                        <input type="hidden" name="x" id="x" autocomplete="off" class="layui-input" >
-                        <input type="hidden" name="y" id="y" autocomplete="off" class="layui-input" >
+                        <input type="text" name="address" id="end" autocomplete="off" class="layui-input" lay-verify="required|addresss"  placeholder="目的地">
+                        <input type="hidden" name="x" id="x" lay-verify="addres" autocomplete="off" class="layui-input" >
+                        <input type="hidden" name="y" id="y" lay-verify="addres" autocomplete="off" class="layui-input" >
                     </div>
                 </div>
                 <div class="layui-form-item">
@@ -273,8 +277,25 @@
                 <fieldset class="layui-elem-field layui-field-title" style="margin-top: 20px;">
                     <legend>图片和视频</legend>
                 </fieldset>
+                <div class="layui-form-item one-pan">
+                    <label class="layui-form-label"><span style="color: red;">*</span>房源封面图</label>
+                    <div class="layui-upload-drag" style="display:inline-block;">
+                        <image id="logoPreimg" class="logoPreimg">
+                            <input type="hidden" lay-verify="imgReg" name="thumnail" id="thumnail" value=""/>
+                        </image>
+                        <div id="displayImg">
+<!--                            <i class="layui-icon"></i>-->
+<!--                            <p>请点击此处上传封面图片</p>-->
+                        </div>
+
+                    </div>
+                    <button type="button" style="margin-left: 20px;" class="layui-btn layui-btn pull-left" id="uploadImg">选择图片</button>
+                    <div class="one">
+                        <div class="layui-form-mid layui-word-aux" style="margin-left: 39px; ">图片要求，最大5MB，支持JPG/JEPG/PNG格式</div>
+                    </div>
+                </div>
                 <div class="layui-form-item" id="pics">
-                    <div class="layui-form-label">房源图片</div>
+                    <div class="layui-form-label">其他详情图</div>
                     <div class="layui-input-block" style="width: 70%;">
                         <div class="layui-upload">
                             <button type="button" class="layui-btn layui-btn pull-left" id="slide-pc">选择多图</button>
@@ -284,7 +305,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="layui-form-mid layui-word-aux">请上传1-8张图片，默认第一个为封面图。</div>
+                    <div class="layui-form-mid layui-word-aux">请上传0-8张其他详情图。</div>
                 </div>
                 <div class="layui-form-item one-pan">
                     <label class="layui-form-label">房源视频</label>
@@ -371,6 +392,20 @@
                     if(value.length < 2){
                         return '标题至少得2个字符啊';
                     }
+                },addres: function(value){
+                    if(!value){
+                        return '请输入正确的地址信息,并在推荐地址里选择！';
+                    }
+                },addresss: function(value){
+                   var values = value.split(',');
+                    if(values.length < 3){
+                        return '请输入正确的地址信息！';
+                    }
+                }
+                ,imgReg:function (value) {
+                    if(value.length <= 0){
+                        return '请上传封面图片';
+                    }
                 }
                 ,imgRegCaseType:function () {
                     var len = $(".img_url").length;
@@ -414,6 +449,27 @@
                     }
                 });
             });
+            //封面图上传
+            upload.render({
+                elem: '#uploadImg'
+                ,url: '{:url("house/upload")}'
+                ,exts: 'jpg|png|jpeg|gif|bmp|JPG'
+                ,size: '30000'
+                ,done: function(res){
+                    layer.close(layer.msg());//关闭上传提示窗口
+                    if(res.status == 0) {
+                        return layer.msg(res.message);
+                    }
+                    $('#uploadImg').removeClass('layui-upload-drag');
+                    $('#logoPreimg').css('width','216px');
+                    $('#logoPreimg').css('height','150px');
+                    $('#logoPreimg').attr('src',"__PUBLIC__/"+res.filepath);
+                    $('#displayImg').hide();
+                    console.log(res);
+                    $('#thumnail').val('' +res.filepath + '');
+                }
+            });
+
             //视频上传
             upload.render({
                 elem: '#uploadLogo'

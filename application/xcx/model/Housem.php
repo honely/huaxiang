@@ -18,8 +18,10 @@ class Housem extends Model
      * Created by Dangmengmeng At 2020/1/22 15:05
      */
     public function readData($where,$order,$limit,$page,$field){
+        $field = $field.',thumnail';
         $result = Db::table('tk_houses')
             ->where($where)
+            ->where(['is_del' => 1])
             ->limit(($page)*$limit,$limit)
             ->order($order)
             ->field($field)
@@ -30,7 +32,7 @@ class Housem extends Model
 //                if(isset($add)){
 //                    $result[$k]['area'] = explode(',',$add)[1];
 //                }
-                $result[$k]['images'] = $this->formatImg($v['images']);
+                $result[$k]['images'] = $v['thumnail'] ? $v['thumnail'] : $this->formatImg($v['images']);
             }
         }
         return $result ? $result :  null;
@@ -74,7 +76,7 @@ class Housem extends Model
 
     public function getHouse($id,$uid){
         $house = Db::table('tk_houses')
-            ->where(['id' => $id])
+            ->where(['id' => $id,'is_del' => 1])
             ->find();
         if (empty($house)) {
             $res['code'] = 0;
@@ -94,13 +96,15 @@ class Housem extends Model
             if($house['live_date'] == '0100-01-01' || $house['live_date']== '0000-00-00'){
                 $house['live_date'] = '随时入住';
             }
+            if($house['thumnail']){
+                $house['images'] = $house['thumnail'].','.$house['images'];
+            }
             $house['toilet'] = intval($house['toilet']);
             $house['car'] = intval($house['car']);
             $house['house_room'] = $this->numRoom($house['house_room']);
             $house['real_name'] = $loop->getUserNicks($house['user_id'],$house['is_admin']);
             $house['avatar'] = $loop->getUserAvatars($house['user_id'],$house['is_admin']);
         }
-
         //写入一条浏览记录
         $view = new Views();
         $view->addView($uid,$id,1);

@@ -74,8 +74,9 @@ class House extends Controller{
         return $roleInfo['r_power'];
     }
     public function houseData(){
-        $where =' 1 = 1';
+        $where ='is_del = 1';
         $keywords = trim($this->request->param('keywords'));
+        $keytype = trim($this->request->param('keytype'));
         $time = trim($this->request->param('time'));
         $city = trim($this->request->param('city'));
         $area = trim($this->request->param('area'));
@@ -83,8 +84,30 @@ class House extends Controller{
         $address = trim($this->request->param('address'));
         $top = trim($this->request->param('top'));
         $tj = trim($this->request->param('tj'));
-        if(isset($keywords) && !empty($keywords)){
-            $where.=" and ( title like '%".$keywords."%' or dsn like '%".$keywords."%' )";
+        if($keytype == 1){
+            if(isset($keywords) && !empty($keywords)){
+                $where.=" and title like '%".$keywords."%' ";
+            }
+        }
+        if($keytype == 2){
+            if(isset($keywords) && !empty($keywords)){
+                $where.=" and dsn like '%".$keywords."%' ";
+            }
+        }
+        if($keytype == 3){
+            if(isset($keywords) && !empty($keywords)){
+                $where.=" and address like '%".$keywords."%' ";
+            }
+        }
+        if($keytype == 4){
+            if(isset($keywords) && !empty($keywords)){
+                $where.=" and user_id like '%".$keywords."%' ";
+            }
+        }
+        if($keytype == 5){
+            if(isset($keywords) && !empty($keywords)){
+                $where.=" and content like '%".$keywords."%' ";
+            }
         }
         if(isset($city) && !empty($city) && $city){
             $where.=" and city = '".$city."'";
@@ -118,20 +141,30 @@ class House extends Controller{
         $page= $this->request->param('page',1,'intval');
         $limit=$this->request->param('limit',10,'intval');
         $order = 'top desc,cdate desc';
-        $orderv = trim($this->request->param('orderv'));
-        $orderc = trim($this->request->param('orderc'));
-        if(isset($orderv) && !empty($orderv) && $orderv){
-            if($orderv == 1){
-                $order ="view desc";
-            }else{
-                $order ="view asc";
-            }
-        }
-        if(isset($orderc) && !empty($orderc) && $orderc){
-            if($orderc == 1){
-                $order ="collection desc";
-            }else{
-                $order ="collection asc";
+        $orders = trim($this->request->param('order'));
+        if(isset($orders) && !empty($orders) && $orders){
+            switch ($orders)
+            {
+                case 1:
+                    $order ="view desc";
+                    break;
+                case 2:
+                    $order ="view asc";
+                    break;
+                case 3:
+                    $order ="collection desc";
+                    break;
+                case 4:
+                    $order ="collection asc";
+                    break;
+                case 5:
+                    $order ="cdate desc";
+                    break;
+                case 6:
+                    $order ="cdate asc";
+                    break;
+                default:
+                    $order = 'top desc,cdate desc';
             }
         }
         $design=Db::table('tk_houses')
@@ -319,7 +352,7 @@ class House extends Controller{
             ->find();
         $city = Db::table('tk_cate')
             ->where(['pid' => $cid['id'],'type' => 2])
-            ->order(['id' => 'asc'])
+            ->order('oseq asc')
             ->select();
         return $city;
     }
@@ -328,7 +361,7 @@ class House extends Controller{
         $id = $this->request->param('id',0,'intval');
         $city = Db::table('tk_cate')
             ->where(['pid' => $id,'type' => 2])
-            ->order(['id' => 'asc'])
+            ->order('oseq asc')
             ->select();
         if($city){
             return  json(['code' => '1','data' => $city]);
@@ -447,6 +480,7 @@ class House extends Controller{
             $data['city'] = $this->getCityName($_POST['city']);
             $data['publish_date'] = date('Y-m-d H:i:s');
             $data['mdate'] = date('Y-m-d H:i:s');
+            $data['cdate'] = date('Y-m-d H:i:s');
             unset($data['file']);
             $url = $type == 1 ? 'index' : 'myhouse';
             $add=Db::table('tk_houses')->where(['id' => $id])->update($data);
@@ -727,14 +761,17 @@ class House extends Controller{
     public function onstatus(){
         $ba_id = intval(trim($_GET['id']));
         $change = intval(trim($_GET['change']));
+        $date = date('Y-m-d H:i:s');
         if($ba_id && isset($change)){
             //如果选中状态是true,后台数据将要改为手机 显示
             if($change){
                 $msg = '上线';
                 $data['status'] = 1;
+                $data['cdate'] = $date;
             }else{
                 $msg = '下线';
                 $data['status'] = 2;
+                $data['cdate'] = $date;
             }
             $changeStatus = Db::table('tk_houses')->where(['id' => $ba_id])->update($data);
             if($changeStatus){
@@ -998,12 +1035,24 @@ class House extends Controller{
         $id = $this->request->param('id',22,'intval');
         $del = Db::table('tk_houses')
             ->where(['id' => $id])
-            ->delete();
+            ->update(['is_del' => 2]);
         if($del){
             $this->success('删除成功！','index');
         }else{
             $this->error('删除失败！','index');
         }
+    }
+
+    public function delBatch(){
+        $ids = ltrim($this->request->param('ids'),',');
+        $idArr = explode(',',$ids);
+        foreach($idArr as $key => $value)
+        {
+            Db::table('tk_houses')
+                ->where(['id' => $value])
+                ->update(['is_del' => 2]);
+        }
+        $this->success('删除成功！','index');
     }
 
     //通用缩略图上传接口
@@ -1126,21 +1175,18 @@ class House extends Controller{
         $userId = session('ad_wechat');
         $adminId = session('adminId');
         if($userId){
-            $where =' ( user_id = '.$userId.' and is_admin = 1 ) or ( user_id = '.$adminId.' and is_admin = 2) ';
+            $where ='is_del = 1 and  (( user_id = '.$userId.' and is_admin = 1 ) or ( user_id = '.$adminId.' and is_admin = 2))';
         }else{
-            $where =' user_id = '.$adminId.' and is_admin = 2 ';
+            $where ='is_del = 1 and  user_id = '.$adminId.' and is_admin = 2 ';
         }
         $keywords = trim($this->request->param('keywords'));
         $time = trim($this->request->param('time'));
+        $keytype = trim($this->request->param('keytype'));
         $city = trim($this->request->param('city'));
         $area = trim($this->request->param('area'));
         $status = trim($this->request->param('status'));
-        $address = trim($this->request->param('address'));
         $top = trim($this->request->param('top'));
         $tj = trim($this->request->param('tj'));
-        if(isset($keywords) && !empty($keywords)){
-            $where.=" and ( title like '%".$keywords."%' or dsn like '%".$keywords."%' )";
-        }
         if(isset($city) && !empty($city) && $city){
             $where.=" and city = '".$city."'";
         }
@@ -1155,8 +1201,25 @@ class House extends Controller{
                 $where.=" and tj = '".$tj."'";
             }
         }
-        if(isset($address) && !empty($address) && $address){
-            $where.=" and address like '%".$address."%'";
+        if($keytype == 1){
+            if(isset($keywords) && !empty($keywords)){
+                $where.=" and title like '%".$keywords."%' ";
+            }
+        }
+        if($keytype == 2){
+            if(isset($keywords) && !empty($keywords)){
+                $where.=" and dsn like '%".$keywords."%' ";
+            }
+        }
+        if($keytype == 3){
+            if(isset($keywords) && !empty($keywords)){
+                $where.=" and address like '%".$keywords."%' ";
+            }
+        }
+        if($keytype == 5){
+            if(isset($keywords) && !empty($keywords)){
+                $where.=" and content like '%".$keywords."%' ";
+            }
         }
         if(isset($status) && !empty($status) && $status){
             $where.=" and status = ".$status;
@@ -1173,20 +1236,30 @@ class House extends Controller{
         $page= $this->request->param('page',1,'intval');
         $limit=$this->request->param('limit',10,'intval');
         $order = 'top desc,cdate desc';
-        $orderv = trim($this->request->param('orderv'));
-        $orderc = trim($this->request->param('orderc'));
-        if(isset($orderv) && !empty($orderv) && $orderv){
-            if($orderv == 1){
-                $order ="view desc";
-            }else{
-                $order ="view asc";
-            }
-        }
-        if(isset($orderc) && !empty($orderc) && $orderc){
-            if($orderc == 1){
-                $order ="collection desc";
-            }else{
-                $order ="collection asc";
+        $orders = trim($this->request->param('order'));
+        if(isset($orders) && !empty($orders) && $orders){
+            switch ($orders)
+            {
+                case 1:
+                    $order ="view desc";
+                    break;
+                case 2:
+                    $order ="view asc";
+                    break;
+                case 3:
+                    $order ="collection desc";
+                    break;
+                case 4:
+                    $order ="collection asc";
+                    break;
+                case 5:
+                    $order ="cdate desc";
+                    break;
+                case 6:
+                    $order ="cdate asc";
+                    break;
+                default:
+                    $order = 'top desc,cdate desc';
             }
         }
         $design=Db::table('tk_houses')
@@ -1211,7 +1284,7 @@ class House extends Controller{
         $res['msg'] = "";
         $res['data'] = $design;
         $res['count'] = $count;
-        $res['where'] = $designs;
+        $res['where'] = $where;
         return json($res);
     }
 }

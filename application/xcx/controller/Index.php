@@ -97,7 +97,7 @@ class Index extends Controller
             ->find();
         $roleM = new Rolem();
         $power_list = $roleM->getPowerListByAdminId($adminId);
-        $onlineable = in_array('223',$power_list,true);
+        $onlineable = in_array('284',$power_list,true);
         $this->assign('onlineable',$onlineable);
         $this->assign('admin',$adminInfo);
         $this->assign('menuList',$parentData);
@@ -106,6 +106,7 @@ class Index extends Controller
         $this->assign('ad_role',$ad_role);
         //获取当前未读消息数
         $unread = $this->getUnreadMsg($adminId);
+        $unread = $unread > 100 ? '99+' : $unread;
         $this->assign('unread',$unread);
         return  $this->fetch();
     }
@@ -337,13 +338,13 @@ class Index extends Controller
      */
     public function updateClickAndCollViaId($id,$view,$collect){
         $code = mt_rand(0, 50);
-        $n = mt_rand(2,8);
+        $n = mt_rand(5,10);
         $days = date('w');
         //点击量=当前点击量+[n(n为自然数, 0<n<50）+4*Day(1,2,3,4,5,6,7)]
         //点击量=当前点击量+[n(n为自然数, 0<n<50）+2*Day(1,2,3,4,5,6,7)]
         $views = $view+$code+2*$days;
-        //收藏量=点击量/(10*n), n取2-8
-        $collects = $views/($n*10);
+        //当前收藏量+点击量/(20*n), n取5-10【更新时间】：2020年6月16日18:37:28
+        $collects = $collect+$views/($n*20);
         Db::table('tk_houses')
             ->where(['id' => $id])
             ->update(['collection' =>$collects,'view'=> $views]);

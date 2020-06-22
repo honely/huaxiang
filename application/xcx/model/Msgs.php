@@ -56,6 +56,46 @@ class Msgs extends Model
                     $houseTitle = $adminInfo['title'];
                     $msg['xcx_msg_mp_id'] = $insert;
                     $msg['xcx_msg_uid'] = $uId;
+                    $msg['xcx_msg_ul_id'] = $ulId;
+                    $msg['xcx_msg_u_type'] = 1;
+                    $msg['xcx_msg_ul_type'] = 2;
+                    $msg['xcx_msg_isread'] = 2;
+                    $msg['xcx_msg_content'] = '你好，我想咨询这个房源：（'.$houseTitle.')。';
+                    $msg['xcx_msg_add_time'] = $time;
+                    Db::table('xcx_msg_content')->insertGetId($msg);
+                    return $insert ? $insert : 0;
+                }
+            }
+            if($adminInfo['is_admin'] == 1){
+                //前端对前端发送消息 检测是否重复
+                //发起者为小程序用户  mp_utype = 1
+                //接受者为后端平台用户  mp_ultype = 1
+                $ulId = $adminInfo['user_id'];
+                $isRepeat = Db::table('xcx_msg_person')
+                    ->where("(mp_u_id = ".$uId." and mp_utype = 1 and mp_ul_id = ".$ulId." and mp_ultype = 1 ) or (mp_ul_id = ".$uId." and mp_ultype = 1 and mp_u_id = ".$ulId." and mp_utype = 1 )")
+                    ->field('mp_id')
+                    ->find();
+                if($isRepeat['mp_id']){
+                    //更新会话时间
+                    Db::table('xcx_msg_person')->where(['mp_id' => $isRepeat['mp_id']])->update(['mp_mod_time' => $time]);
+                    return $isRepeat['mp_id'];
+                }else{
+                    //写入一条创建会话的记录
+                    $data['mp_u_id'] = $uId;
+                    $data['mp_ul_id'] = $ulId;
+                    $data['mp_add_time'] = $time;
+                    $data['mp_mod_time'] = $time;
+                    $data['mp_ultype'] = 1;
+                    $data['mp_utype'] = 1;
+                    $insert = Db::table('xcx_msg_person')->insertGetId($data);
+                    //默认发送一条通过房源发送消息的消息内容
+                    $houseTitle = $adminInfo['title'];
+                    $msg['xcx_msg_mp_id'] = $insert;
+                    $msg['xcx_msg_uid'] = $uId;
+                    $msg['xcx_msg_ul_id'] = $ulId;
+                    $msg['xcx_msg_u_type'] = 1;
+                    $msg['xcx_msg_ul_type'] = 1;
+                    $msg['xcx_msg_isread'] = 2;
                     $msg['xcx_msg_content'] = '你好，我想咨询这个房源：（'.$houseTitle.')。';
                     $msg['xcx_msg_add_time'] = $time;
                     Db::table('xcx_msg_content')->insertGetId($msg);

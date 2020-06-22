@@ -28,9 +28,19 @@
             <section class="panel panel-padding" style="padding-top: 0px;padding-left: 10px;">
                 <form class="layui-form layui-form-pane1">
                     <div class="layui-form-item  demoTable">
-                        <div class="layui-inline">
-                            <div class="layui-input-inline">
-                                <input type="text" name="keywords" id="keywords"  placeholder="请输入房源标题或编号" class="layui-input">
+                        <div class="layui-inline" >
+                            <label class="layui-form-label" style="padding: 9px 14px;width: 42px;">关键字</label>
+                            <div class="layui-input-inline" style="width: 80px;">
+                                <select name="keytype" id="keytype" style="border-right: white;">
+                                    <option value="1">标题</option>
+                                    <option value="2">ID</option>
+                                    <option value="3">地址</option>
+                                    <option value="4">发布人</option>
+                                    <option value="5">详情</option>
+                                </select>
+                            </div>
+                            <div class="layui-input-inline" style="width:160px;">
+                                <input type="text" name="keywords" id="keywords"  placeholder="请输入" class="layui-input">
                             </div>
 <!--                            状态，发布人，城市，地址关键词，置顶，推荐，发布时间（选择时间段）-->
                         </div>
@@ -63,7 +73,20 @@
                             </div>
                         </div>
                         <div class="layui-inline">
-                            <div class="layui-input-inline">
+                            <div class="layui-input-inline" style="width:130px;">
+                                <select name="order" id="order">
+                                    <option value="">排序方式</option>
+                                    <option value="1">点击量从多到少</option>
+                                    <option value="2">点击量从少到多</option>
+                                    <option value="3">收藏量从多到少</option>
+                                    <option value="4">收藏量从少到多</option>
+                                    <option value="5">发布时间从近到远</option>
+                                    <option value="6">发布时间从远到近</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="layui-inline">
+                            <div class="layui-input-inline" style="width:110px;">
                                 <input type="text" name="address" id="address"  placeholder="地址关键词" class="layui-input">
                             </div>
                         </div>
@@ -74,7 +97,7 @@
                             </div>
                         </div>
                         <div class="layui-inline">
-                            <div class="layui-input-inline">
+                            <div class="layui-input-inline" style="width:120px;">
                                 <input type="text" name="time" readonly class="layui-input" id="time" placeholder="请选择发布日期">
                             </div>
                         </div>
@@ -82,32 +105,7 @@
                             <div class="layui-input-inline" >
                                 <span class="layui-btn layui-btn-sm " data-type="reload">查询</span>
                                 <a href="<?=url('house/index')?>" class="layui-btn layui-btn-warm layui-btn-sm ">刷新</a>
-                            </div>
-                        </div>
-                    </div>
-                </form>
-            </section>
-            <section class="panel panel-padding" style="padding-top: 0px;padding-left: 10px;">
-                <form class="layui-form layui-form-pane1">
-                    <div class="layui-form-item  demoTable">
-                        <div class="layui-inline">
-                            <div class="layui-input-inline" style="width: 300px;">
-                                <span class="layui-btn layui-btn-normal layui-btn-sm" >点击量</span>
-                                <input type="hidden" id="orderView" value="0">
-                                <span type="button" class="layui-btn layui-btn-xs layui-btn-primary" data-type="reload" id="viewZ">
-                                    <i class="layui-icon">&#xe619;</i>
-                                </span>
-                                <span type="button" class="layui-btn layui-btn-xs layui-btn-primary" data-type="reload" id="viewD">
-                                    <i class="layui-icon">&#xe61a;</i>
-                                </span>
-                                <span class="layui-btn layui-btn-normal layui-btn-sm">收藏量</span>
-                                <input type="hidden" id="orderColt" value="0">
-                                <span type="button" class="layui-btn layui-btn-xs layui-btn-primary" data-type="reload" id="collectZ">
-                                    <i class="layui-icon">&#xe619;</i>
-                                </span>
-                                <span type="button" class="layui-btn layui-btn-xs layui-btn-primary" data-type="reload" id="collectD">
-                                    <i class="layui-icon">&#xe61a;</i>
-                                </span>
+                                <span class="layui-btn layui-btn-sm layui-btn-danger" data-type="getCheckData">删除</span>
                             </div>
                         </div>
                     </div>
@@ -117,6 +115,7 @@
                 <table lay-skin="line" class="layui-table" lay-filter="demo" lay-data="{height: 'full-200', cellMinWidth:60, url:'/xcx/house/houseData/', limit:20,limits:[20,30,50] ,id: 'testReload',page:true}" >
                     <thead>
                     <tr>
+                        <th lay-data="{type:'checkbox', width:48}">id</th>
                         <th lay-data="{field:'dsn' ,width:110}">房源编号</th>
                         <th lay-data="{field:'title',width:230}">标题</th>
                         <th lay-data="{field:'city',width:80}">城市</th>
@@ -135,7 +134,7 @@
                         {/if}
                         <th lay-data="{field:'cdate',width:105}">添加时间</th>
                         <th lay-data="{field:'user_id',width:80}">发布人</th>
-                        <th lay-data="{ width:160, toolbar: '#barDemo'}">操作</th>
+                        <th lay-data="{ width:116, toolbar: '#barDemo'}">操作</th>
                     </tr>
                     </thead>
                 </table>
@@ -148,9 +147,6 @@
     <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
 {/if}
     <a class="layui-btn layui-btn-xs  layui-btn-warm" lay-event="alert">详情</a>
-{if condition='$delable eq true'}
-    <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
-{/if}
 </script>
 <script type="text/html" id="top1">
     <input type="checkbox" name="sex" lay-skin="switch" value="{{d.id}}" lay-text="是|否" lay-filter="topDemo" {{ d.top == '是' ? 'checked' : '' }}  {{ d.isTop == false ? 'disabled' : '' }}>
@@ -273,12 +269,11 @@
             });
         });
 
-
         var $ = layui.$, active = {
             reload: function(){
                 var keywords = $('#keywords').val();
-                var orderv = $('#orderView').val();
-                var orderc = $('#orderColt').val();
+                var keytype = $('#keytype').val();
+                var order = $('#order').val();
                 var city = $('#city').val();
                 var status = $('#statu').val();
                 var area = $('#bu_c_id').val();
@@ -293,8 +288,8 @@
                     }
                     ,where: {
                         keywords: keywords,
-                        orderv: orderv,
-                        orderc: orderc,
+                        keytype: keytype,
+                        order: order,
                         city: city,
                         area: area,
                         status: status,
@@ -307,8 +302,43 @@
                         console.log(data);
                     }
                 });
+            },
+            getCheckData: function(){ //获取选中数据
+                var ids = '';
+                var checkStatus = table.checkStatus('testReload')
+                    ,data = checkStatus.data;
+                if(data.length <= 0){
+                    layer.msg('请至少选择一条记录！');
+                }else{
+                    layer.confirm('确定批量删除房源记录？删除后不可恢复！', {
+                        btn : [ '确定', '取消' ]//按钮
+                    }, function() {
+                        for(var i=0;i<data.length;i++){
+                            ids+=','+checkStatus.data[i].id;
+                        }
+                        $.ajax({
+                            type: 'POST',
+                            url: "<?=url('house/delBatch')?>?ids="+ids,
+                            data: {ids:ids},
+                            dataType:  'json',
+                            success: function(data){
+                                if(data.code == '1'){
+                                    layer.alert('批量删除成功！', {
+                                        icon: 1,
+                                        skin: 'layer-ext-moon',
+                                        time: 2000,
+                                        end: function(){
+                                            window.location.href='<?=url("house/index")?>';
+                                        }
+                                    });
+                                }
+                            }
+                        });
+                    },function(){
+                        layer.msg('您已取消该操作！');
+                    });
+                }
             }
-
         };
         $('.demoTable .layui-btn').on('click', function(){
             var type = $(this).data('type');
@@ -375,21 +405,5 @@
     }    function addArt1() {
         window.location.href='<?=url("house/add1")?>';
     }
-    $("#viewZ").click(function(){
-        $("#orderView").val(1);
-        $("#orderColt").val(0);
-    });
-    $("#viewD").click(function(){
-        $("#orderView").val(2);
-        $("#orderColt").val(0);
-    });
-    $("#collectZ").click(function(){
-        $("#orderColt").val(1);
-        $("#orderView").val(0);
-    });
-    $("#collectD").click(function(){
-        $("#orderColt").val(2);
-        $("#orderView").val(0);
-    });
 </script>
 {include file="index/footer" /}

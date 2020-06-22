@@ -38,13 +38,13 @@
             <div class="layui-form-item">
                 <label class="layui-form-label"><span style="color: red;">*</span>电子邮箱</label>
                 <div class="layui-input-block">
-                    <input type="text" name="ad_email" id="ad_email" value="{$admin.ad_email}"  onblur="checkEmail()" placeholder="请输入电子邮箱" autocomplete="off" class="layui-input">
+                    <input type="text" name="ad_email" id="ad_email" value="{$admin.ad_email}"  onblur="checkEmail()" lay-verify="required|email"  placeholder="请输入电子邮箱" autocomplete="off" class="layui-input">
                 </div>
             </div>
             <div class="layui-form-item">
                 <label class="layui-form-label"><span style="color: red;">*</span>手机号码</label>
                 <div class="layui-input-block">
-                    <input type="text" name="ad_phone" value="{$admin.ad_phone}" id="ad_phone" placeholder="请输入手机号码" autocomplete="off" class="layui-input">
+                    <input type="text" name="ad_phone" value="{$admin.ad_phone}" id="ad_phone" placeholder="请输入手机号码" lay-verify="required|phones"  autocomplete="off" class="layui-input">
                 </div>
             </div>
             <div class="layui-upload">
@@ -112,6 +112,13 @@
             title: function(value){
                 if(value.length < 2){
                     return '至少得2个字符啊';
+                }
+            },
+            phones: function(value){
+                var myreg = /^(\+?0?86\-?)?1[345789]\d{9}$/;
+                var au = /^(\+?61|0)4\d{8}$/;
+                if(!myreg.test(value) && !au.test(value)){
+                    return '请输入正确的手机号';
                 }
             }
         });

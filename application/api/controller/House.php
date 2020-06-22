@@ -499,11 +499,14 @@ class House extends Controller
 
 
     public function addQueryLog($uid,$key,$type){
+        $date = date('Y-m-d H:i:s');
         $data['sk_keywords'] = $key;
         $data['sk_userid'] = $uid;
         $data['sk_type'] = $type;
-        $data['sk_addtime'] = date('Y-m-d H:i:s');
+        $data['sk_addtime'] = $date;
         $resault = Db::table('xcx_search_keywords')->insertGetId($data);
+        //跟新一下最后登录
+        Db::table('tk_user')->where(['id' => $uid])->update(['mdate' => $date]);
         return $resault;
     }
 
