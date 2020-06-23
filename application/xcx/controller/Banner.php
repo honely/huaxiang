@@ -51,7 +51,7 @@ class Banner extends Controller{
             ->where($where)
             ->count();
         $page= $this->request->param('page',1,'intval');
-        $limit=$this->request->param('limit',10,'intval');
+        $limit=$this->request->param('limit',50,'intval');
         $example=Db::table('xcx_banner')->where($where)
             ->limit(($page-1)*$limit,$limit)
             ->order('b_order desc,b_update_time desc')
@@ -288,7 +288,7 @@ class Banner extends Controller{
             ->where($where)
             ->count();
         $page= $this->request->param('page',1,'intval');
-        $limit=$this->request->param('limit',10,'intval');
+        $limit=$this->request->param('limit',50,'intval');
         $example=Db::table('super_case')
             ->join('super_province','super_province.p_id = super_case.case_p_id')
             ->join('super_city','super_city.c_id = super_case.case_c_id')

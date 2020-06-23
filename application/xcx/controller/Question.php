@@ -74,7 +74,7 @@ class Question extends Controller
             ->where($where)
             ->count();
         $page= $this->request->param('page',1,'intval');
-        $limit=$this->request->param('limit',10,'intval');
+        $limit=$this->request->param('limit',50,'intval');
         $design=Db::table('tk_questions')
             ->limit(($page-1)*$limit,$limit)
             ->order('id desc')

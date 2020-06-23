@@ -94,7 +94,7 @@ class User extends Controller{
             ->where($where)
             ->count();
         $page= $this->request->param('page',1,'intval');
-        $limit=$this->request->param('limit',10,'intval');
+        $limit=$this->request->param('limit',50,'intval');
         $example=Db::table('tk_user')->where($where)
             ->limit(($page-1)*$limit,$limit)
             ->order('cdate desc')
@@ -139,7 +139,7 @@ class User extends Controller{
             ->field('xcx_search_keywords.*,tk_user.nickname')
             ->count();
         $page= $this->request->param('page',1,'intval');
-        $limit=$this->request->param('limit',10,'intval');
+        $limit=$this->request->param('limit',50,'intval');
         $example=Db::table('xcx_search_keywords')
             ->join('tk_user','tk_user.id = xcx_search_keywords.sk_userid')
             ->where($where)
@@ -336,7 +336,7 @@ class User extends Controller{
 
     public function msgData(){
         $page= $this->request->param('page',1,'intval');
-        $limit=$this->request->param('limit',20,'intval');
+        $limit=$this->request->param('limit',50,'intval');
         $adminid = session('adminId');
         $adWechat = session('ad_wechat');
         $where = "(mp_u_id = ".$adminid." and mp_utype = 2 and mp_isable = 1) or (mp_ul_id = ".$adminid." and mp_ultype = 2 and  mp_isable = 1)";
@@ -481,7 +481,7 @@ class User extends Controller{
 
     public function newui(){
         $page= $this->request->param('page',1,'intval');
-        $limit=$this->request->param('limit',20,'intval');
+        $limit=$this->request->param('limit',50,'intval');
         $adminid = session('adminId');
         $adWechat = session('ad_wechat');
         $where = "(mp_u_id = ".$adminid." and mp_utype = 2 and mp_isable = 1) or (mp_ul_id = ".$adminid." and mp_ultype = 2 and  mp_isable = 1)";

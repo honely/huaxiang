@@ -52,7 +52,7 @@ class Admin extends Controller{
             ->where($where)
             ->count();
         $page= $this->request->param('page',1,'intval');
-        $limit=$this->request->param('limit',10,'intval');
+        $limit=$this->request->param('limit',50,'intval');
         $admin=Db::table('super_admin')
             ->where($where)
             ->limit(($page-1)*$limit,$limit)
@@ -578,7 +578,7 @@ ABN: 11 628 249 687</b>
         $count=Db::table('super_role')
             ->count();
         $page= $this->request->param('page',1,'intval');
-        $limit=$this->request->param('limit',10,'intval');
+        $limit=$this->request->param('limit',50,'intval');
         $role=Db::table('super_role')
             ->limit(($page-1)*$limit,$limit)
             ->order('r_id desc')
@@ -732,7 +732,7 @@ ABN: 11 628 249 687</b>
             ->where($where)
             ->count();
         $page= $this->request->param('page',1,'intval');
-        $limit=$this->request->param('limit',20,'intval');
+        $limit=$this->request->param('limit',50,'intval');
         $menuList=Db::table('super_menu')
             ->where($where)
 //            ->fetchSql(true)

@@ -26,7 +26,7 @@ class Help extends Controller
             ->where($where)
             ->count();
         $page= $this->request->param('page',1,'intval');
-        $limit=$this->request->param('limit',10,'intval');
+        $limit=$this->request->param('limit',50,'intval');
         $example=Db::table('xcx_helpme')->where($where)
             ->limit(($page-1)*$limit,$limit)
             ->order('h_addtime desc')

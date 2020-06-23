@@ -72,7 +72,7 @@ class Mate extends Controller
             ->where($where)
             ->count();
         $page= $this->request->param('page',1,'intval');
-        $limit=$this->request->param('limit',10,'intval');
+        $limit=$this->request->param('limit',50,'intval');
         $order = 'cdate desc';
         if(isset($orderv) && !empty($orderv) && $orderv){
             if($orderv == 1){

@@ -29,6 +29,8 @@ class Msgs extends Model
         if($hId){
             //查询房源的发送人
             $adminInfo = $this->getHouseAddAdminIdViaHouseId($hId);
+            $houseTitle = $adminInfo['title'];
+            $houseDSN = $adminInfo['dsn'];
             //表明这一条房源记录为后端发送  前端客户和后端平台用户沟通
             if($adminInfo['is_admin'] == 2){
                 //前端对后端发送消息 检测是否重复
@@ -53,14 +55,13 @@ class Msgs extends Model
                     $data['mp_utype'] = 1;
                     $insert = Db::table('xcx_msg_person')->insertGetId($data);
                     //默认发送一条通过房源发送消息的消息内容
-                    $houseTitle = $adminInfo['title'];
                     $msg['xcx_msg_mp_id'] = $insert;
                     $msg['xcx_msg_uid'] = $uId;
                     $msg['xcx_msg_ul_id'] = $ulId;
                     $msg['xcx_msg_u_type'] = 1;
                     $msg['xcx_msg_ul_type'] = 2;
                     $msg['xcx_msg_isread'] = 2;
-                    $msg['xcx_msg_content'] = '你好，我想咨询这个房源：（'.$houseTitle.')。';
+                    $msg['xcx_msg_content'] = '你好，我想咨询这个房源：（'.$houseTitle.'),房源编号：【'.$houseDSN.'】。';
                     $msg['xcx_msg_add_time'] = $time;
                     Db::table('xcx_msg_content')->insertGetId($msg);
                     return $insert ? $insert : 0;
@@ -88,15 +89,13 @@ class Msgs extends Model
                     $data['mp_ultype'] = 1;
                     $data['mp_utype'] = 1;
                     $insert = Db::table('xcx_msg_person')->insertGetId($data);
-                    //默认发送一条通过房源发送消息的消息内容
-                    $houseTitle = $adminInfo['title'];
                     $msg['xcx_msg_mp_id'] = $insert;
                     $msg['xcx_msg_uid'] = $uId;
                     $msg['xcx_msg_ul_id'] = $ulId;
                     $msg['xcx_msg_u_type'] = 1;
                     $msg['xcx_msg_ul_type'] = 1;
                     $msg['xcx_msg_isread'] = 2;
-                    $msg['xcx_msg_content'] = '你好，我想咨询这个房源：（'.$houseTitle.')。';
+                    $msg['xcx_msg_content'] = '你好，我想咨询这个房源：（'.$houseTitle.'),房源编号：【'.$houseDSN.'】。';
                     $msg['xcx_msg_add_time'] = $time;
                     Db::table('xcx_msg_content')->insertGetId($msg);
                     return $insert ? $insert : 0;
@@ -127,7 +126,7 @@ class Msgs extends Model
     public function getHouseAddAdminIdViaHouseId($hid){
         $houseInfo = Db::table('tk_houses')
             ->where(['id' => $hid])
-            ->field('is_admin,user_id,title')
+            ->field('is_admin,user_id,title,dsn')
             ->find();
         return $houseInfo ? $houseInfo : null;
     }

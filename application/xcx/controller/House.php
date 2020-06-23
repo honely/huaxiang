@@ -139,7 +139,7 @@ class House extends Controller{
             ->where($where)
             ->count();
         $page= $this->request->param('page',1,'intval');
-        $limit=$this->request->param('limit',10,'intval');
+        $limit=$this->request->param('limit',50,'intval');
         $order = 'top desc,cdate desc';
         $orders = trim($this->request->param('order'));
         if(isset($orders) && !empty($orders) && $orders){
@@ -1234,7 +1234,7 @@ class House extends Controller{
             ->where($where)
             ->count();
         $page= $this->request->param('page',1,'intval');
-        $limit=$this->request->param('limit',10,'intval');
+        $limit=$this->request->param('limit',50,'intval');
         $order = 'top desc,cdate desc';
         $orders = trim($this->request->param('order'));
         if(isset($orders) && !empty($orders) && $orders){
@@ -1263,11 +1263,6 @@ class House extends Controller{
             }
         }
         $design=Db::table('tk_houses')
-            ->limit(($page-1)*$limit,$limit)
-            ->order($order)
-            ->where($where)
-            ->select();
-        $designs=Db::table('tk_houses')
             ->limit(($page-1)*$limit,$limit)
             ->order($order)
             ->where($where)

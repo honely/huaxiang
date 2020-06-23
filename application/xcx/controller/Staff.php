@@ -47,7 +47,7 @@ class Staff extends Controller{
             ->where($where)
             ->count();
         $page= $this->request->param('page',1,'intval');
-        $limit=$this->request->param('limit',10,'intval');
+        $limit=$this->request->param('limit',50,'intval');
         $admin=Db::table('super_user')
             ->where($where)
             ->limit(($page-1)*$limit,$limit)
