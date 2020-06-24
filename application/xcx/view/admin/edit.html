@@ -53,7 +53,7 @@
                     <img class="layui-upload-img" id="demo1" {if condition="$admin.ad_img neq null"}src="__PUBLIC__/{$admin.ad_img}"{/if} >
                     <p id="demoText"></p>
                 </div>
-                <input type="hidden" name="ad_img" id="ad_img">
+                <input type="hidden" name="ad_img" id="ad_img" value="{$admin.ad_img}">
                 <span class="layui-btn" id="test1">上传图片</span>
             </div>
             <div class="layui-form-item" pane>

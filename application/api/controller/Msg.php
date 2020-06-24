@@ -366,9 +366,16 @@ class Msg extends Controller
             return json($res);
         }
         //更新已读状态
+        $bindId = $isbend['ad_id'];
+        //更新已读状态
+        if($isbend){
+            $readWhere = '( xcx_msg_uid != '.$uid.' and xcx_msg_u_type = 1 ) or ( xcx_msg_uid != '.$bindId.' and  xcx_msg_u_type = 2 )';
+        }else{
+            $readWhere = 'xcx_msg_u_type = 1 and  xcx_msg_uid != '.$uid;
+        }
         Db::table('xcx_msg_content')
             ->where(['xcx_msg_mp_id' => $mpid, 'xcx_msg_isable' => 1])
-            ->where('xcx_msg_uid != '.$uid)
+            ->where($readWhere)
             ->update(['xcx_msg_isread' => 1]);
         $msgList = Db::table('xcx_msg_content')
             ->where(['xcx_msg_mp_id' => $mpid, 'xcx_msg_isable' => 1])
@@ -383,7 +390,6 @@ class Msg extends Controller
                 ->field('mp_u_id,mp_ul_id,mp_ultype,mp_utype')
                 ->find();
             if($isbend){
-                $bindId = $isbend['ad_id'];
                 foreach($msgList as $k => $v){
                     if($v['xcx_msg_uid'] == $bindId){
                         $msgList[$k]['xcx_msg_uid'] = $bindId;

@@ -37,13 +37,10 @@ class Admin extends Controller{
     public function adminData(){
         $where=' 1 = 1 ';
         $keywords = trim($this->request->param('keywords'));
-        $ads_role=intval(session('ad_role'));
-//        if($ads_role == 2){
-//            $where .= ' and (ad_role = 2 or ad_role = 3)';
-//        }
-//        if($ads_role == 35){
-//            $where .= ' and (ad_role = 32 or ad_role = 33 or ad_role = 39)';
-//        }
+        $ad_role = trim($this->request->param('ad_role'));
+        if(isset($ad_role) && !empty($ad_role)){
+            $where.=" and  ad_role = ".$ad_role." ";
+        }
         if(isset($keywords) && !empty($keywords)){
             $where.=" and ( ad_realname like '%".$keywords."%' or ad_bid like '%".$keywords."%' )";
         }
@@ -70,6 +67,7 @@ class Admin extends Controller{
         $res['msg'] = "";
         $res['data'] = $admin;
         $res['count'] = $count;
+        $res['where'] = $where;
         return json($res);
     }
 
@@ -275,17 +273,18 @@ class Admin extends Controller{
         $mail->setFrom("customerservices@welho.me","花香小宝");
         $mail->addAddress($toemail,'Wang');
         $mail->addReplyTo($mailer,"Reply");
-        $mail->Subject = "恭喜您开通小宝租房经纪人平台账户！Congratulations, You have registered on Welhome Agent Platform!";// 邮件标题
+        $mail->Subject = "[Welhome]Congratulations, You have registered on Welhome Agent Platform!";// 邮件标题
         $mail->IsHTML(true);
-        $mail->Body = "您好，
-        <br/>
-欢迎您使用小宝租房经纪人平台，您可以通过本平台进行“房源发布”，“房源管理”，“站内信”等功能，更多新功能即将上线，使用中有任何问题均可联系我方工程师！
- <br/>
-您的登录账号为：".$mailer."
- <br/>
-默认密码：123456
- <br/>
-请您点击以下链接激活账号：https://wx.huaxiangxiaobao.com/api/index/active?email=".$mailer."
+        $mail->Body = "Welhome Aboard! You're the most valuable client to us.
+        <br/><br/>
+Welhome Agent Platform (WAP) is an professional property leasing platform dedicated design for Realestate Agents. It's totally free!
+ <br/><br/>
+ You can 'Add listing', 'Manage Listing' and 'Chat' . If you find any problem or suggestion, please feel free to contact us!<br/>
+<b>Your Account:</b>".$mailer."
+ <br/><br/>
+<b>Default Password:</b> 123456
+ <br/><br/>
+Please follow the activation link: <a href='https://wx.huaxiangxiaobao.com/api/index/active?email=".$mailer."'>https://wx.huaxiangxiaobao.com/api/index/active?email=".$mailer."</a>
  <br/><br/><br/><br/><br/>
 <img style='width: 204px;height: 86px;' src='https://wx.huaxiangxiaobao.com/public/ueditor/php/upload/image/20200417/1587119666198174.png'>
 <br>
@@ -316,12 +315,13 @@ ABN: 11 628 249 687</b>
             $data['ad_job'] = $_POST['ad_job'];
             $data['ad_img'] = $_POST['ad_img'];
             $data['ad_desc'] = $_POST['ad_desc'];
+            $data['ad_email'] = $_POST['ad_email'];
             $isRepeat=Db::table('super_admin')
                 ->where('ad_id','neq',$ad_id)
-                ->where(['ad_bid' => $data['ad_bid']])
+                ->where(['ad_email' => $data['ad_email']])
                 ->find();
             if($isRepeat){
-                $this->error('此工号已注册！','admin');
+                $this->error('此邮箱已注册！','admin');
             }
             if(isset($_POST['ad_role']) && $_POST['ad_role']){
                 $bill = $_POST['ad_role'];
@@ -331,7 +331,6 @@ ABN: 11 628 249 687</b>
                 }
                 $data['ad_role'] = rtrim($bills,',');
             }
-            $data['ad_email'] = $_POST['ad_email'];
             $edit=Db::table('super_admin')->where(['ad_id' => $ad_id])->update($data);
             if($edit){
                 $this->success('修改管理员成功！','admin');

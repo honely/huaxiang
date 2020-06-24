@@ -572,8 +572,15 @@ class User extends Controller{
         //不管有没有绑定前端用户 我的头像都是admin_id
         $avatar = $loop->getAdminAvatar($uId);
         $nickname = $loop->getAdminNick($uId);
+        //更新已读状态
+        if($isUser){
+            $readWhere = '( xcx_msg_uid != '.$isUser.' and xcx_msg_u_type = 1 ) or ( xcx_msg_uid != '.$uId.' and  xcx_msg_u_type = 2 )';
+        }else{
+            $readWhere = 'xcx_msg_u_type = 1 and  xcx_msg_uid != '.$uId;
+        }
         Db::table('xcx_msg_content')
-            ->where(['xcx_msg_mp_id' => $mpid,'xcx_msg_isable' =>1])
+            ->where(['xcx_msg_mp_id' => $mpid, 'xcx_msg_isable' => 1])
+            ->where($readWhere)
             ->update(['xcx_msg_isread' => 1]);
         $msgList = Db::table('xcx_msg_content')
             ->where(['xcx_msg_mp_id' => $mpid,'xcx_msg_isable' =>1])

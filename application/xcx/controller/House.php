@@ -101,7 +101,37 @@ class House extends Controller{
         }
         if($keytype == 4){
             if(isset($keywords) && !empty($keywords)){
-                $where.=" and user_id like '%".$keywords."%' ";
+                $users = Db::table('tk_user')
+                    ->where("nickname like '%".$keywords."%'")
+                    ->column('id');
+                $userStr = '';
+                if($users){
+                    foreach ($users as $k => $v){
+                        $userStr.= ",'".$v."'";
+                    }
+                }
+                $userIdsStr = trim($userStr,',');
+                $admin = Db::table('super_admin')
+                    ->where("ad_realname like '%".$keywords."%'")
+                    ->column('ad_id');
+                $adminStr = '';
+                if($admin){
+                    foreach ($admin as $k => $v){
+                        $adminStr.= ",'".$v."'";
+                    }
+                }
+                $adminIdsStr = trim($adminStr,',');
+                if($userIdsStr && $adminIdsStr){
+                    $where .=' and  (( user_id  in ('.$userIdsStr.') and is_admin = 1 ) or  ( user_id  in('.$adminIdsStr.') and is_admin = 2 ))';
+                }else{
+                    if($userIdsStr){
+                        $where .=' and  ( user_id  in ('.$userIdsStr.') and is_admin = 1 ) ';
+                    }
+                    if($adminIdsStr){
+                        $where .=' and  ( user_id  in('.$adminIdsStr.') and is_admin = 2 ) ';
+                    }
+                }
+
             }
         }
         if($keytype == 5){
@@ -135,9 +165,6 @@ class House extends Controller{
             $edate=substr($time,'-10')." 23:59:59";
             $where.=" and ( cdate >= '".$sdate."' and cdate <= '".$edate."' ) ";
         }
-        $count=Db::table('tk_houses')
-            ->where($where)
-            ->count();
         $page= $this->request->param('page',1,'intval');
         $limit=$this->request->param('limit',50,'intval');
         $order = 'top desc,cdate desc';
@@ -167,18 +194,14 @@ class House extends Controller{
                     $order = 'top desc,cdate desc';
             }
         }
+        $count=Db::table('tk_houses')
+            ->where($where)
+            ->count();
         $design=Db::table('tk_houses')
             ->limit(($page-1)*$limit,$limit)
             ->order($order)
             ->where($where)
             ->select();
-        $designs=Db::table('tk_houses')
-            ->limit(($page-1)*$limit,$limit)
-            ->order($order)
-            ->where($where)
-            ->fetchSql(true)
-            ->select();
-//        dump($design);
         $loopd = new Loops();
         foreach ($design as $k => $v){
             $design[$k]['statuss'] = $this->houseStatus($v['status']);
@@ -191,7 +214,6 @@ class House extends Controller{
         $res['msg'] = "";
         $res['data'] = $design;
         $res['count'] = $count;
-        $res['where'] = $designs;
         return json($res);
     }
 
