@@ -149,6 +149,7 @@
                 <div class="layui-form-item">
                     <label class="layui-form-label"><span style="color: red;">*</span>户型</label>
                     <div class="layui-input-block">
+                        <input type="radio" name="house_room" value="Studio" disabled title="Studio" {if condition="$house.house_room eq 'Studio'"}checked{/if}>
                         <input type="radio" name="house_room" value="一室" disabled title="一室" {if condition="$house.house_room eq '一室'"}checked{/if}>
                         <input type="radio" name="house_room" value="两室" disabled title="两室" {if condition="$house.house_room eq '两室'"}checked{/if}>
                         <input type="radio" name="house_room" value="三室" disabled title="三室" {if condition="$house.house_room eq '三室'"}checked{/if}>

@@ -74,12 +74,28 @@ class Loops extends Model
     }
 
 
+
     public function getUnread($mpId,$uid){
+        //更新已读状态
+        $isbend = $this->isBindAdmin($uid);
+        $bindId = $isbend['ad_id'];
+        //更新已读状态
+        if($isbend){
+            $readWhere = '( xcx_msg_uid != '.$uid.' and xcx_msg_u_type = 1 ) or ( xcx_msg_uid != '.$bindId.' and  xcx_msg_u_type = 2 )';
+        }else{
+            $readWhere = 'xcx_msg_u_type = 1 and  xcx_msg_uid != '.$uid;
+        }
         $unRead = Db::table('xcx_msg_content')
             ->where(['xcx_msg_mp_id' => $mpId,'xcx_msg_isread' => 2,'xcx_msg_isable' =>1])
-            ->where('xcx_msg_uid != '.$uid)
+            ->where($readWhere)
             ->count('xcx_msg_id');
         return $unRead ? $unRead : 0;
     }
+
+    public function isBindAdmin($uid){
+        $isBind = Db::table('super_admin')->where(['ad_wechat' => $uid])->field('ad_id')->find();
+        return $isBind ? $isBind : null;
+    }
+
 
 }

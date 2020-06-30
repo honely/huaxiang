@@ -31,9 +31,9 @@ class Index extends Controller
             }
         }
     }
-	
-	
-	
+
+
+
     public function header(){
         $menuList=Db::table('super_menu')
             ->where(['m_fid' => '0', 'm_type' => '1'])
@@ -53,10 +53,10 @@ class Index extends Controller
         $ad_role=session('ad_role');
         $adminId = session('adminId');
         $userData = Db::table("super_admin")
-                    ->alias('admin')
-                    //->join('super_role role',"admin.ad_role=role.r_id")
-                    ->where(['admin.ad_id' => $adminId])
-                    ->find();
+            ->alias('admin')
+            //->join('super_role role',"admin.ad_role=role.r_id")
+            ->where(['admin.ad_id' => $adminId])
+            ->find();
         if($userData){
             //多权限取交集
             $roleM = new Rolem();
@@ -64,8 +64,8 @@ class Index extends Controller
             if($power_list){
                 foreach ($power_list as $val){
                     $menu_list = Db::table("super_menu")
-                                 ->where(['m_id' =>$val])
-                                 ->find();
+                        ->where(['m_id' =>$val])
+                        ->find();
                     $powerData[] = $menu_list;
                 }
             }
@@ -111,6 +111,7 @@ class Index extends Controller
         return  $this->fetch();
     }
 
+
     public function getUnreadMsg($adminid){
         //如果这个后台用户已经绑定小程序用户的话，包含小程序用户的未读消息
         $adWechat = session('ad_wechat');
@@ -123,12 +124,35 @@ class Index extends Controller
             ->select();
         $count = 0;
         if($list){
-            $msg = new Loops();
             foreach ($list as $k => $v){
-                $count  += $msg->getUnread($v['mp_id'],$adminid);
+                $count  += $this->getUnread($v['mp_id'],$adminid);
             }
         }
         return $count;
+    }
+
+
+    public function getUnread($mpid,$adminid){
+        $isbend = $this->isBinduser($adminid);
+        //更新已读状态
+        if($isbend){
+            $readWhere = '( xcx_msg_uid != '.$isbend.' and xcx_msg_u_type = 1 ) or ( xcx_msg_uid != '.$adminid.' and  xcx_msg_u_type = 2 )';
+        }else{
+            $readWhere = 'xcx_msg_uid != '.$adminid.' and  xcx_msg_u_type = 2 ';
+        }
+        $unRead = Db::table('xcx_msg_content')
+            ->where(['xcx_msg_mp_id' => $mpid,'xcx_msg_isread' => 2,'xcx_msg_isable' =>1])
+            ->where($readWhere)
+            ->count('xcx_msg_id');
+        return $unRead ? $unRead : 0;
+    }
+
+    public function isBinduser($adminid){
+        $adminInfo = Db::table('super_admin')
+            ->where(['ad_id' => $adminid])
+            ->field('ad_wechat')
+            ->find();
+        return $adminInfo ? $adminInfo['ad_wechat'] :0;
     }
 
 
@@ -289,7 +313,7 @@ class Index extends Controller
      */
     public function offLineHouse(){
         $aMonthAgo = date("Y-m-d H:i:s", strtotime("-1 month"));
-            Db::table('tk_houses')
+        Db::table('tk_houses')
             ->where("cdate <= '".$aMonthAgo."'")
             ->update(['status' => 2]);
     }
@@ -304,13 +328,13 @@ class Index extends Controller
         //查询下次的更新时间是否为今天或者早于今天
         $isUpdate = Db::table('super_house_views')
             ->order('id desc')
-            ->field('nutime')
+            ->field('utime')
             ->find();
         $today = date('Y-m-d');
-        if($isUpdate['nutime'] <= $today){
+        if($isUpdate['utime'] != $today){
             //查询所有当前在线的房源
             $allOnLineHouse = Db::table('tk_houses')
-                ->where(['status' => 1,'source' => '中介'])
+                ->where(['status' => 1])
                 ->field('id,collection,view')
                 ->select();
             if($allOnLineHouse){
@@ -318,11 +342,11 @@ class Index extends Controller
                     $this->updateClickAndCollViaId($v['id'],$v['view'],$v['collection']);
                 }
                 //更新下次更新虚拟数据的时间
-                $today = date('Y-m-d');
-                $nuDay = mt_rand(2,3);
-                $nextUpdate = date("Y-m-d",strtotime("+".$nuDay." days",strtotime($today)));
+//                $today = date('Y-m-d');
+//                $nuDay = mt_rand(2,3);
+//                $nextUpdate = date("Y-m-d",strtotime("+".$nuDay." days",strtotime($today)));
                 Db::table('super_house_views')
-                    ->insert(['utime' => date('Y-m-d H:i:s'),'nutime' => $nextUpdate]);
+                    ->insert(['utime' => date('Y-m-d')]);
             }
         }
     }
@@ -337,14 +361,12 @@ class Index extends Controller
      * @throws \think\exception\PDOException
      */
     public function updateClickAndCollViaId($id,$view,$collect){
-        $code = mt_rand(0, 50);
-        $n = mt_rand(5,10);
-        $days = date('w');
-        //点击量=当前点击量+[n(n为自然数, 0<n<50）+4*Day(1,2,3,4,5,6,7)]
-        //点击量=当前点击量+[n(n为自然数, 0<n<50）+2*Day(1,2,3,4,5,6,7)]
-        $views = $view+$code+2*$days;
-        //当前收藏量+点击量/(20*n), n取5-10【更新时间】：2020年6月16日18:37:28
-        $collects = $collect+$views/($n*20);
+        $n = mt_rand(1,5);
+        //点击量=当前点击量+取整[当前点击量/(10*n)], n取1-5
+        //收藏量=当前收藏量+取整[当前点击量/(100*n)], n取1-5
+        //每天运行1次，针对所有状态为上线的房源
+        $views = $view+ceil($view/($n*10));
+        $collects = $collect+ceil($view/($n*100));
         Db::table('tk_houses')
             ->where(['id' => $id])
             ->update(['collection' =>$collects,'view'=> $views]);

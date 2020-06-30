@@ -157,6 +157,7 @@ class House extends Controller{
             $where.=" and address like '%".$address."%'";
         }
         if(isset($status) && !empty($status) && $status){
+            $status = $status == 3 ? 0:$status;
             $where.=" and status = ".$status;
         }
 
@@ -236,6 +237,8 @@ class House extends Controller{
      * */
     public function add(){
         $adminId = session('adminId');
+        $status = trim($this->request->param('status',0));
+        $typess = trim($this->request->param('typess',0));
         if($_POST){
             $data = $_POST;
             if(isset($_POST['http']) && $_POST['http']){
@@ -309,8 +312,8 @@ class House extends Controller{
             $data['publish_date'] = date('Y-m-d H:i:s');
             $data['cdate'] = date('Y-m-d H:i:s');
             $data['mdate'] = date('Y-m-d H:i:s');
-            $data['status'] = 1;
-            $data['city'] = $this->getCityName($_POST['city']);
+            $data['status'] = $status ==0 ? 1 : 0;
+            $data['city'] = $_POST['city'];
             unset($data['file']);
             $data['dsn'] = $this->genHouseDsn();
             $data['user_id'] = $adminId;
@@ -319,10 +322,11 @@ class House extends Controller{
                 $data['area'] = trim(explode(',',$data['address'])[1]);
             }
             $add=Db::table('tk_houses')->insert($data);
+            $url =   $typess==1 ? 'myhouse' : 'index';
             if($add){
-                $this->success('添加成功！');
+                $this->success('添加成功！',$url);
             }else{
-                $this->error('添加失败！');
+                $this->error('添加失败！',$url);
             }
         }else{
             $adminId = session('adminId');
@@ -338,6 +342,7 @@ class House extends Controller{
                 ->field('id,name')
                 ->select();
             $this->assign('tags',$all_tags);
+            $this->assign('typess',$typess);
             return $this->fetch();
         }
 
@@ -412,13 +417,13 @@ class House extends Controller{
         switch ($status)
         {
             case 1:
-                $type = '发布';
+                $type = '上线';
                 break;
             case 2:
                 $type = '下线';
                 break;
             default:
-                $type = '---';
+                $type = '草稿';
         }
         return $type;
     }
@@ -428,6 +433,7 @@ class House extends Controller{
     public function edit(){
         $id = $this->request->param('id',22,'intval');
         $type = $this->request->get('type');
+        $status = trim($this->request->param('status',0));
         if($_POST){
             $data = $_POST;
             if(isset($_POST['http']) && $_POST['http']){
@@ -499,10 +505,10 @@ class House extends Controller{
             }else{
                 $data['images'] ='';
             }
-            $data['city'] = $this->getCityName($_POST['city']);
             $data['publish_date'] = date('Y-m-d H:i:s');
             $data['mdate'] = date('Y-m-d H:i:s');
             $data['cdate'] = date('Y-m-d H:i:s');
+            $data['status'] = $status ==0 ? 1 : 0;
             unset($data['file']);
             $url = $type == 1 ? 'index' : 'myhouse';
             $add=Db::table('tk_houses')->where(['id' => $id])->update($data);
@@ -1106,6 +1112,35 @@ class House extends Controller{
         }
     }
 
+    //通用缩略图上传接口
+    public function upload1()
+    {
+        if($this->request->isPost()){
+            $res['code']=1;
+            $res['msg'] = '上传成功！';
+            $file = $this->request->file('file');
+            $config = [
+                'size' => 1024*1024*10
+            ];
+            $size = $file->validate($config);
+            $checksize = $file->checkSize(1024*1.5);
+            if($size){
+                $info = $file->move(ROOT_PATH . 'public' . DS . 'uploads/text');
+                //halt( $info);
+                if($info){
+                    $res['name'] = $info->getFilename();
+                    $res['filepath'] = 'uploads/text/'.$info->getSaveName();
+                }else{
+                    $res['code'] = 0;
+                    $res['msg'] = '上传失败！'.$file->getError();
+                }
+            }else{
+                $res['code'] = 0;
+                $res['msg'] = '文件大小不超过10M！';
+            }
+            return $res;
+        }
+    }
 
     public function tags(){
         $id = $this->request->param('id',22,'intval');
@@ -1244,6 +1279,7 @@ class House extends Controller{
             }
         }
         if(isset($status) && !empty($status) && $status){
+            $status = $status == 3 ? 0:$status;
             $where.=" and status = ".$status;
         }
 
@@ -1303,5 +1339,28 @@ class House extends Controller{
         $res['count'] = $count;
         $res['where'] = $where;
         return json($res);
+    }
+
+
+    public function getSchoolss(){
+        $city = $this->request->param('city');
+        $cityId = Db::table('tk_cate')
+            ->where(['name' => $city,'pid' => 0])
+            ->field('id')
+            ->find();
+        if($cityId){
+            $where = "pid = ".$cityId['id']." and type = 2";
+            $result = Db::table('tk_cate')
+                ->where($where)
+                ->field('id,name,pid,oseq')
+                ->order('oseq asc')
+                ->select();
+            if($result){
+                return  json(['code' => '1','data' => $result]);
+            }else{
+                return  json(['code' => '0','data' => ['']]);
+            }
+        }
+        return  json(['code' => '0','data' => ['']]);
     }
 }

@@ -49,8 +49,9 @@
                             <div class="layui-input-inline" style="width:110px;">
                                 <select name="status" id="statu">
                                     <option value="">请选择状态</option>
-                                    <option value="1">发布</option>
-                                    <option value="2">草稿</option>
+                                    <option value="1">上线</option>
+                                    <option value="2">下线</option>
+                                    <option value="3">草稿</option>
                                 </select>
                             </div>
                         </div>
@@ -158,13 +159,13 @@
     <a class="layui-btn layui-btn-xs  layui-btn-warm" lay-event="alert">详情</a>
 </script>
 <script type="text/html" id="top1">
-    <input type="checkbox" name="sex" lay-skin="switch" value="{{d.id}}" lay-text="是|否" lay-filter="topDemo" {{ d.top == '是' ? 'checked' : '' }}  {{ d.isTop == false ? 'disabled' : '' }}>
+    <input type="checkbox" name="sex" lay-skin="switch" value="{{d.id}}" lay-text="是|否" lay-filter="topDemo" {{ d.top == '是' ? 'checked' : '' }}  {{ d.isTop == false ? 'disabled' : '' }}  {{ d.status == 0 ? 'disabled' : '' }}>
 </script>
 <script type="text/html" id="status">
-    <input type="checkbox" name="sex" lay-skin="switch" value="{{d.id}}" lay-text="上线|草稿" lay-filter="statusDemo" {{ d.status == 1 ? 'checked' : '' }} >
+    <input type="checkbox" name="sex" lay-skin="switch" value="{{d.id}}" lay-text="下线|上线" lay-filter="statusDemo" {{ d.status == 1 ? 'checked' : '' }}  {{ d.status == 0 ? 'disabled' : '' }}>
 </script>
 <script type="text/html" id="switchTj">
-    <input type="checkbox" name="sex" lay-skin="switch" value="{{d.id}}" lay-text="是|否" lay-filter="sexDemo" {{ d.tj == '是' ? 'checked' : '' }} {{ d.isTj == false ? 'disabled' : '' }}>
+    <input type="checkbox" name="sex" lay-skin="switch" value="{{d.id}}" lay-text="是|否" lay-filter="sexDemo" {{ d.tj == '是' ? 'checked' : '' }} {{ d.isTj == false ? 'disabled' : '' }}  {{ d.status == 0 ? 'disabled' : '' }}>
 </script>
 <script>
     layui.use(['table','laydate','form','element'], function(){
@@ -444,7 +445,7 @@
         });
     });
     function addArt() {
-        window.location.href='<?=url("house/add")?>';
+        window.location.href='<?=url("house/add")?>?typess=2';
     }    function addArt1() {
         window.location.href='<?=url("house/add1")?>';
     }

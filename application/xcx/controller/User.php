@@ -261,21 +261,29 @@ class User extends Controller{
     }
 
 
-    public function getUnread($mpId,$adminid){
-        $isBendUser = $this->isBendUser($adminid);
-        $unRead=0;
-        if($isBendUser){
-            $unRead += Db::table('xcx_msg_content')
-                ->where(['xcx_msg_mp_id' => $mpId,'xcx_msg_isread' => 2,'xcx_msg_isable' =>1])
-                ->where('xcx_msg_uid != '.$isBendUser)
-                ->count('xcx_msg_id');
+    public function getUnread($mpid,$adminid){
+        $isbend = $this->isBindusers($adminid);
+        //更新已读状态
+        if($isbend){
+            $readWhere = '( xcx_msg_uid != '.$isbend.' and xcx_msg_u_type = 1 ) or ( xcx_msg_uid != '.$adminid.' and  xcx_msg_u_type = 2 )';
+        }else{
+            $readWhere = 'xcx_msg_uid != '.$adminid.' and  xcx_msg_u_type = 2 ';
         }
         $unRead = Db::table('xcx_msg_content')
-            ->where(['xcx_msg_mp_id' => $mpId,'xcx_msg_isread' => 2,'xcx_msg_isable' =>1])
-            ->where('xcx_msg_uid != '.$adminid)
+            ->where(['xcx_msg_mp_id' => $mpid,'xcx_msg_isread' => 2,'xcx_msg_isable' =>1])
+            ->where($readWhere)
             ->count('xcx_msg_id');
         return $unRead ? $unRead : 0;
     }
+
+    public function isBindusers($adminid){
+        $adminInfo = Db::table('super_admin')
+            ->where(['ad_id' => $adminid])
+            ->field('ad_wechat')
+            ->find();
+        return $adminInfo ? $adminInfo['ad_wechat'] :0;
+    }
+
 
     /***
      * 后端管理员与前端用户发起沟通
@@ -437,6 +445,7 @@ class User extends Controller{
         date_default_timezone_set("Australia/Melbourne");
         $data['xcx_msg_add_time'] = date('Y-m-d H:i:s');
         $datas['mp_mod_time'] = date('Y-m-d H:i:s');
+        dump($data);
         $sendMsg = Db::table('xcx_msg_content')->insertGetId($data);
         //更新会话修改时间
         Db::table('xcx_msg_person')->where(['mp_id' => $mpid])->update($datas);

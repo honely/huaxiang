@@ -41,7 +41,7 @@
     <hr/>
     <div style="margin: 10px">
         <div style="padding: 15px;">
-            <form class="layui-form" action="<?=url('house/add')?>" method="post">
+            <form class="layui-form" id="myForm" action="<?=url('house/add')?>?typess={$typess}" method="post">
                 <fieldset class="layui-elem-field layui-field-title" style="margin-top: 20px;">
                     <legend>基础信息</legend>
                 </fieldset>
@@ -74,12 +74,7 @@
                 <div class="layui-form-item">
                     <label class="layui-form-label"><span style="color: red;">*</span>城市校区</label>
                     <div class="layui-input-inline">
-                        <select name="city" lay-verify="required" lay-filter="bu_p_id">
-                            <option value="">请选择城市</option>
-                            {volist name='city' id='vo'}
-                            <option value="{$vo.id}">{$vo.name}</option>
-                            {/volist}
-                        </select>
+                        <input type="text" name="city" id="city" lay-verify="required|title" value="墨尔本" readonly class="layui-input">
                     </div>
                     <div class="layui-input-inline">
                         <select name="school" lay-verify="required" id="school">
@@ -155,6 +150,7 @@
                 <div class="layui-form-item">
                     <label class="layui-form-label"><span style="color: red;">*</span>户型</label>
                     <div class="layui-input-block">
+                        <input type="radio" name="house_room" value="Studio" title="Studio">
                         <input type="radio" name="house_room" value="一室" title="一室" checked>
                         <input type="radio" name="house_room" value="两室" title="两室">
                         <input type="radio" name="house_room" value="三室" title="三室">
@@ -284,8 +280,8 @@
                             <input type="hidden" lay-verify="imgReg" name="thumnail" id="thumnail" value=""/>
                         </image>
                         <div id="displayImg">
-<!--                            <i class="layui-icon"></i>-->
-<!--                            <p>请点击此处上传封面图片</p>-->
+                            <!--                            <i class="layui-icon"></i>-->
+                            <!--                            <p>请点击此处上传封面图片</p>-->
                         </div>
 
                     </div>
@@ -331,13 +327,33 @@
                 <div class="layui-form-item">
                     <div class="layui-input-block">
                         <button class="layui-btn" lay-submit>发布</button>
-                        <a class="layui-btn layui-btn-primary" href="javascript:history.go(-1);">返回</a>
+                        <span class="layui-btn layui-btn-normal" id="save" >保存</span>
+
                     </div>
                 </div>
             </form>
 
         </div>
     </div>
+    <script>
+        //保存不更新状态
+        $('#save').click(function () {
+            $.ajax({
+                type: 'POST',
+                url: "<?=url('house/add')?>?status=1&typess={$typess}",
+                data:$('#myForm').serialize(),
+                dataType:  'json',
+                success: function(data){
+                    if(data.code == 1){
+                        layer.msg(data.msg);
+                        window.location.href=data.url;
+                    }else{
+                        layer.msg(data.msg);
+                    }
+                }
+            });
+        });
+    </script>
     <script>
         layui.link('/layui/src/autocomplete/autocomplete.css');
         layui.config({
@@ -364,14 +380,51 @@
             });
             let APP_ID_HERE = "QuHxU6ypXzp37Dci84o8";
             let APP_CODE_HERE = "TDu_enlm0QIblRnIl33buw";
+            let city_code = [{ code: "Melbourne", name: "墨尔本" }, { code: "Sydney", name: "悉尼" },{ code: "Tasmania", name: "塔州" }, { code: "Brisbane", name:"布里斯班"}];
             function locationAD(query) {
                 $.getJSON("https://geocoder.api.here.com/6.2/geocode.json?gen=9&searchtext=" + query + "&app_id=" + APP_ID_HERE + "&app_code=" + APP_CODE_HERE, function (data) {
                     console.log(data);
                     var lati = data["Response"]["View"][0]["Result"][0]["Location"]["DisplayPosition"]["Latitude"];
                     var longi = data["Response"]["View"][0]["Result"][0]["Location"]["DisplayPosition"]["Longitude"];
+                    var city = data["Response"]["View"][0]["Result"][0]["Location"]["Address"]["City"];
                     $('#x').val(lati);
                     $('#y').val(longi);
+                    if(city == "Hobart" || city == "Launcestion"){
+                        city = "Tasmania";
+                    }
+                    let cityName='';
+                    let flag =false;
+                    city_code.forEach((item,index,array)=>{
+                        //执行代码
+                        if(item.code == city){
+                            flag = true;
+                            cityName = item.name;
+                            $('#city').val(cityName);
+                        }
+                    });
+                    if(!flag){
+                        $('#end').val('');
+                        $('#end').focus();
+                       return  layer.msg('我们尚未开展除墨尔本，悉尼，塔州，布里斯班四个地区外的业务，请重新填写地址');
+                    }
+                    $.ajax({
+                        type: 'POST',
+                        url: "<?=url('house/getSchoolss')?>",
+                        data: {city:cityName},
+                        dataType:  'json',
+                        success: function(data){
+                            console.log(data);
+                            var code=data.data;
+                            $("#school").html("<option value=''>请选择校区</option>");
+                            $.each(code, function(i, val) {
+                                var option1 = $("<option>").val(val.name).text(val.name);
+                                $("#school").append(option1);
+                                form.render('select');
+                            });
+                        }
+                    });
                 });
+
             }
             //日期
             laydate.render({
@@ -397,7 +450,7 @@
                         return '请输入正确的地址信息,并在推荐地址里选择！';
                     }
                 },addresss: function(value){
-                   var values = value.split(',');
+                    var values = value.split(',');
                     if(values.length < 3){
                         return '请输入正确的地址信息！';
                     }
