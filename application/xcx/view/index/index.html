@@ -36,9 +36,7 @@
             <ul class="layui-nav layui-layout-left" style="margin-left: 280px;">
                 <li class="layui-nav-item">
                     <a href='javascript:' onclick="toUser(this)" style="padding-left: 10px !important;"  data-url="/xcx/user/newui.html">站内信</a>
-                    {if condition='$unread neq 0'}
-                    <span style="margin-left: 63px;" id="unread" class="layui-badge">{$unread}</span>
-                    {/if}
+                    <span style="margin-left: 63px;display: none" id="unread" class="layui-badge">{$unread}</span>
                 </li>
             </ul>
         {/if}
@@ -96,6 +94,27 @@
         var $url = $(e).attr('data-url');
         $("#option").attr('src',$url)
     }
+    function hello(){
+        $.ajax({
+            type:"post",
+            async:false,
+            url:"<?=url('index/unread')?>",
+            dataType:"json",
+            success:function(result){
+               if (result) {
+                    $('#unread').show();
+                    $('#unread').html(result);
+                }else{
+                    $('#unread').hide();
+                }
+            }
+        });
+    }
+    //重复执行某个方法
+    var t1 = window.setInterval(hello,1000);
+    var t2 = window.setInterval("hello()",10000);
+    //去掉定时器的方法
+    window.clearInterval(t1);
 </script>
 </body>
 </html>

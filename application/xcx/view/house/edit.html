@@ -78,17 +78,11 @@
                     </div>
                 </div>
                 <div class="layui-form-item">
-                    <label class="layui-form-label"><span style="color: red;">*</span>租金</label>
-                    <div class="layui-input-block">
-                        <input type="number" name="price" lay-verify="required|title" placeholder="请输入租金" autocomplete="off" value="{$house.price}" class="layui-input">
-                    </div>
-                </div>
-
-                <div class="layui-form-item">
-                    <label class="layui-form-label"><span style="color: red;">*</span>城市校区</label>
+                    <label class="layui-form-label"><span style="color: red;">*</span>城市</label>
                     <div class="layui-input-inline">
-                        <input type="text" name="city" id="city" lay-verify="required|title" value="{$house.city}" readonly class="layui-input">
+                        <input type="text" name="city" id="city" lay-verify="required|title" value="墨尔本" readonly class="layui-input">
                     </div>
+                    <label class="layui-form-label"><span style="color: red;">*</span>校区</label>
                     <div class="layui-input-inline">
                         <select name="school" lay-verify="required" id="school">
                             <option value="">请选择校区</option>
@@ -96,6 +90,15 @@
                             <option value="{$vo.name}" {if condition="$house.school eq $vo.name"}selected{/if}>{$vo.name}</option>
                             {/volist}
                         </select>
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label"><span style="color: red;">*</span>租金</label>
+                    <div class="layui-input-inline">
+                        <input type="number" name="price" lay-verify="required" placeholder="请输入租金" style="display:{if condition="$house.price eq 0"}none{else/}block{/if}" id="price" value="{$house.price}" autocomplete="off" class="layui-input">
+                    </div>
+                    <div class="layui-input-inline">
+                        <input type="checkbox" lay-skin="switch" lay-filter="switchRent" lay-text="可议|可议" {if condition="$house.price eq 0"}checked{else/}{/if}>
                     </div>
                 </div>
                 <fieldset class="layui-elem-field layui-field-title" style="margin-top: 20px;">
@@ -171,6 +174,14 @@
                     <legend>房屋相关</legend>
                 </fieldset>
                 <div class="layui-form-item">
+                    <label class="layui-form-label"><span style="color: red;">*</span>房屋类型</label>
+                    <div class="layui-input-block">
+                        <input type="radio" name="house_type" value="公寓" title="公寓" {if condition="$house.house_type eq '公寓'"}checked{/if}>
+                        <input type="radio" name="house_type" value="House" title="House"  {if condition="$house.house_type eq 'House'"}checked{/if}>
+                        <input type="radio" name="house_type" value="Townhouse" title="Townhouse"  {if condition="$house.house_type eq 'Townhouse'"}checked{/if}>
+                    </div>
+                </div>
+                <div class="layui-form-item">
                     <label class="layui-form-label"><span style="color: red;">*</span>户型</label>
                     <div class="layui-input-block">
                         <input type="radio" name="house_room" value="Studio" title="Studio" {if condition="$house.house_room eq 'Studio'"}checked{/if}>
@@ -199,15 +210,6 @@
                 </div>
 
                 <div class="layui-form-item">
-                    <label class="layui-form-label"><span style="color: red;">*</span>家具</label>
-                    <div class="layui-input-block">
-                        {volist name='all_four' id='vo'}
-                        <input type="checkbox" class="checkbox" lay-skin="primary" name="home[{$vo.furn}]" title="{$vo.furn}"  {$vo.is_checked ? 'checked' : ''}>
-                        {/volist}
-                    </div>
-                </div>
-
-                <div class="layui-form-item">
                     <label class="layui-form-label"><span style="color: red;">*</span>车位</label>
                     <div class="layui-input-block">
                         <input type="radio" name="car" value="0" title="0" {if condition="$house.car eq '0'"}checked{/if}>
@@ -222,6 +224,15 @@
                         <input type="radio" name="car" value="9" title="9" {if condition="$house.car eq '9'"}checked{/if}>
                     </div>
                 </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label"><span style="color: red;">*</span>家具</label>
+                    <div class="layui-input-block">
+                        {volist name='all_four' id='vo'}
+                        <input type="checkbox" class="checkbox" lay-skin="primary" name="home[{$vo.furn}]" title="{$vo.furn}"  {$vo.is_checked ? 'checked' : ''}>
+                        {/volist}
+                    </div>
+                </div>
+
                 <div class="layui-form-item" pane="">
                     <label class="layui-form-label">楼宇设施</label>
                     <div class="layui-input-block">
@@ -245,6 +256,14 @@
                         {volist name='tags' id='vo'}
                         <input type="checkbox" class="checkbox tags"  lay-verify="required|des_tanlent" lay-skin="primary" name="tags[{$vo.name}]" title="{$vo.name}" {$vo.is_checked ? 'checked' : ''}>
                         {/volist}
+                    </div>
+                </div>
+                <fieldset class="layui-elem-field layui-field-title" style="margin-top: 20px;">
+                    <legend>房源简介</legend>
+                </fieldset>
+                <div class="layui-form-item layui-form-text">
+                    <div class="layui-input-block">
+                        <textarea placeholder="请输入房源简介" style="height: 400px;" maxlength="1000" name="content" class="layui-textarea">{$house.content}</textarea>
                     </div>
                 </div>
                 <fieldset class="layui-elem-field layui-field-title" style="margin-top: 20px;">
@@ -275,168 +294,252 @@
                     </div>
                 </div>
                 <fieldset class="layui-elem-field layui-field-title" style="margin-top: 20px;">
-                    <legend>图片和视频</legend>
+                    <legend>图片</legend>
                 </fieldset>
-                <div class="layui-form-item one-pan">
-                    <label class="layui-form-label"><span style="color: red;">*</span>房源封面图</label>
+                <div style="width: 100%;">
+                    <div class="left" style="width: 30%;float:left;border-right: rgba(53, 153, 153) dashed 1px;display: block">
 
-                    <div {if condition="$house.thumnail eq null"}class="layui-upload-drag"{/if} style="display:inline-block;" >
-                    <image id="logoPreimg"
-                           {if condition="$house.thumnail eq null"}
-                           {else/}
-                    src="__PUBLIC__/{$house.thumnail}"
-                    class="logoPreimg"
-                    {/if}
-                    >
-                    <input type="hidden" lay-verify="imgReg" name="thumnail" id="thumnail" value="{$house.thumnail}"/>
-                    </image>
-                </div>
-                <button type="button" style="margin-left: 20px;" class="layui-btn layui-btn pull-left" id="uploadImg">更新图片</button>
-                <div class="one">
-                    <div class="layui-form-mid layui-word-aux" style="margin-left: 39px; ">图片要求，最大5MB，支持JPG/JEPG/PNG格式</div>
-                </div>
-        </div>
-        <div class="layui-form-item" id="pics">
-            <div class="layui-form-label">房源图片</div>
-            <div class="layui-input-block" style="width: 70%;">
-                <div class="layui-upload">
-                    <button type="button" class="layui-btn layui-btn pull-left" id="slide-pc">选择多图</button>
-                    <div class="pic-more">
-                        <ul class="pic-more-upload-list" id="slide-pc-priview">
-                            {if condition='$house.images neq null'}
-                            {volist name='house.images1' id="item" key="k"}
-                            <li class="item_img">
-                                <div class="operate">
-                                    <i class="close layui-icon"></i>
+                        <div class="layui-form-mid layui-word-aux" style="margin-left: 40px;">图片要求，最大5MB，支持JPG/JEPG/PNG格式</div>
+                        <div class="layui-form-item one-pan" style="margin-left: 40px;">
+                            <div class="layui-upload-drag" style="display:inline-block;padding: 0px;border: 0px;">
+                                <image id="logoPreimg" class="logoPreimg" style="width: 91%;height: 251px;" {if condition="$house.thumnail eq null"}
+                                       {else/}
+                                src="__PUBLIC__/{$house.thumnail}"
+                                class="logoPreimg"
+                                {/if}>
+
+                                    <input type="hidden" lay-verify="imgReg" name="thumnail" id="thumnail" value="{$house.thumnail}"/>
+                                </image>
+                                <div id="displayImg">
                                 </div>
-                                <img src="__PUBLIC__/{$item}" class="img" >
-                                <input type="hidden" name="images[]" value="{$item}" class="img_url" lay-verify="required|imgRegCaseType" />
-                            </li>
-                            {/volist}
-                            {else/}
-                            未上传
-                            {/if}
-                        </ul>
+                            </div>
+                        </div>
+                        <div class="layui-form-item" id="pics">
+                            <div class="layui-input-inline" style="width: 70%;margin-left: 50px;">
+                                <div class="layui-upload">
+                                    <span style="color: red;padding: 8px;">*</span><button type="button" class="layui-btn layui-btn pull-left layui-btn-sm" id="uploadImg">请选择封面图片</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="right" style="width: 68%;float:left;display: block;height: 370px;">
+                        <div class="layui-form-mid layui-word-aux" style="margin-left: 40px;">请上传0-8张其他详情图。</div>
+                        <div class="layui-form-item">
+                            <div class="layui-input-inline" style="width: 100%;margin-left: 50px;">
+                                <div class="pic-more" style="height: 266px">
+                                    <ul class="pic-more-upload-list" id="slide-pc-priview" style="width: 100%">
+                                        {if condition='$house.images neq null'}
+                                        {volist name='house.images1' id="item" key="k"}
+                                        <li class="item_img" style="width: 24%;float: left;"><div class="operate"><i  class="close layui-icon"></i></div><img src="__PUBLIC__/{$item}" class="img" style="width: 100%;height: 112px;" ><input type="hidden" name="images[]" value="{$item}" lay-verify="required|imgRegCaseType"  class="img_url" /></li>
+                                        {/volist}
+                                        {else/}
+                                        未上传
+                                        {/if}
+                                    </ul>
+                                </div>
+                                <div class="layui-upload">
+                                    <button type="button" class="layui-btn layui-btn pull-left layui-btn-sm" id="slide-pc">请选择其他图片</button>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div class="layui-form-mid layui-word-aux">请上传0-8张其他详情图。</div>
-        </div>
-        <div class="layui-form-item one-pan">
-            <label class="layui-form-label">房源视频</label>
-            <ul class="pic-more-upload-list" id="slide-pc-priview1">
-                {if condition='$house.video neq null'}
-                <li class="item_img">
-                    <div class="operate">
-                        <i class="close layui-icon"></i>
+                <fieldset class="layui-elem-field layui-field-title" style="margin-top: 20px;">
+                    <legend>视频</legend>
+                </fieldset>
+                <div class="layui-form-mid layui-word-aux" style="margin-left: 40px;">视频仅限一个视频，大小控制在10M以内。</div>
+                <div class="layui-form-item one-pan" style="margin-left: 40px;">
+                    <div class="layui-upload-drag" id="uploadLogo" style="padding: 0px;display: inline-block;">
+                        {if condition='$house.video neq null'}
+                        <video id="logoPre" controls="controls" autobuffer="autobuffer" style="width: 335px;height: 215px;" autoplay="autoplay" loop="loop" src="__PUBLIC__/{$house.video}">
+                            <input type="hidden" name="video" id="video" value="{$house.video}"/>
+                        </video>
+                        <div id="display" style="display: none">
+                            <i class="layui-icon"></i>
+                            <p>请点击此处选择视频</p>
+                        </div>
+                        {else/}
+                        未上传
+                        {/if}
                     </div>
-                    <video style="width:277px; height: 177px" class="item_img" controls="controls" autobuffer="autobuffer" id="videoss" loop="loop" src="__PUBLIC__/{$house.video}" class="img" ></video>
-                    <input type="hidden" name="video" id="video" value="{$house.video}" />
-                </li>
-                {else/}
-                未上传
-                {/if}
-            </ul>
-        </div>
-        <div class="layui-form-item layui-form-text">
-            <label class="layui-form-label"></label>
-            <div class="layui-input-block">
-                <span class="layui-btn" id="uploadLogo">更新视频</span>
-            </div>
-        </div>
-        <div class="layui-form-item layui-form-text">
-            <label class="layui-form-label">房源简介</label>
-            <div class="layui-input-block">
-                <textarea placeholder="请输入房源简介" style="height: 400px;" maxlength="1000" name="content" class="layui-textarea">{$house.content}</textarea>
-            </div>
-        </div>
-        <div class="layui-form-item">
-            <div class="layui-input-block">
-                <button class="layui-btn" lay-submit>发布</button>
-                <span class="layui-btn layui-btn-normal" id="saveinfo" >保存</span>
-            </div>
-        </div>
-        </form>
+                    <div class="layui-btn layui-btn-sm" id="upload-video" style="margin-left: 20px;" >上传视频</div>
+                    <br/>
+                </div>
+                <div class="layui-form-item">
+                    <div class="layui-input-inline" style="width: 230px;margin-left: 40px;">
+                        <button class="layui-btn" lay-submit>发布</button>
+                        <span class="layui-btn layui-btn-primary" id="saveinfo" >保存</span>
+                        <a class="layui-btn layui-btn-primary" href="javascript:history.go(-1);">返回</a>
 
+                    </div>
+                </div>
+            </form>
+
+        </div>
     </div>
-</div>
-<script>
-    //保存不更新状态
-    $('#saveinfo').click(function () {
-        $.ajax({
-            type: 'POST',
-            url: "<?=url('house/edit')?>?status=1&id={$house.id}&type={$type}",
-            data:$('#myForm').serialize(),
-            dataType:  'json',
-            success: function(data){
-                if(data.code == 1){
-                    console.log(data);
-                    layer.msg(data.msg);
-                    window.location.href=data.url;
-                }else{
-                    layer.msg(data.msg);
-                }
-            }
-        });
-    });
-</script>
-<script>
-    layui.link('/layui/src/autocomplete/autocomplete.css');
-    layui.config({
-        base: '/layui/src/autocomplete/'
-        , version: false,
-        debug: false,
-    });
-    layui.use(['form', 'jquery','upload','laydate','autocomplete'], function(){
-        var form = layui.form
-            ,upload = layui.upload
-            , laydate = layui.laydate
-            ,autocomplete = layui.autocomplete
-            ,$ = layui.jquery;
-        autocomplete.render({
-            elem: $('#end'),
-            cache: true,
-            response: {code: 'code', data: 'suggestions'},
-            template_val: '{{d.label}}',
-            template_txt: '{{d.label}}',
-            onselect: function (resp) {
-                var address = resp.label;
-                locationAD(address);
-            }
-        });
-        let APP_ID_HERE = "QuHxU6ypXzp37Dci84o8";
-        let APP_CODE_HERE = "TDu_enlm0QIblRnIl33buw";
-        let city_code = [{ code: "Melbourne", name: "墨尔本" }, { code: "Sydney", name: "悉尼" },{ code: "Tasmania", name: "塔州" }, { code: "Brisbane", name:"布里斯班"}];
-        function locationAD(query) {
-            $.getJSON("https://geocoder.api.here.com/6.2/geocode.json?gen=9&searchtext=" + query + "&app_id=" + APP_ID_HERE + "&app_code=" + APP_CODE_HERE, function (data) {
-                console.log(data);
-                var lati = data["Response"]["View"][0]["Result"][0]["Location"]["DisplayPosition"]["Latitude"];
-                var longi = data["Response"]["View"][0]["Result"][0]["Location"]["DisplayPosition"]["Longitude"];
-                var city = data["Response"]["View"][0]["Result"][0]["Location"]["Address"]["City"];
-                $('#x').val(lati);
-                $('#y').val(longi);
-                if(city == "Hobart" || city == "Launcestion"){
-                    city = "Tasmania";
-                }
-                let cityName='';
-                let flag =false;
-                city_code.forEach((item,index,array)=>{
-                    //执行代码
-                    if(item.code == city){
-                        flag = true;
-                        cityName = item.name;
-                        $('#city').val(cityName);
+    <script>
+        //保存不更新状态
+        $('#saveinfo').click(function () {
+            $.ajax({
+                type: 'POST',
+                url: "<?=url('house/edit')?>?status=1&id={$house.id}&type={$type}",
+                data:$('#myForm').serialize(),
+                dataType:  'json',
+                success: function(data){
+                    if(data.code == 1){
+                        console.log(data);
+                        layer.msg(data.msg);
+                        window.location.href=data.url;
+                    }else{
+                        layer.msg(data.msg);
                     }
-                });
-                if(!flag){
-                    $('#end').val('');
-                    $('#end').focus();
-                    return  layer.msg('我们尚未开展除墨尔本，悉尼，塔州，布里斯班四个地区外的业务，请重新填写地址');
                 }
+            });
+        });
+    </script>
+    <script>
+        layui.link('/layui/src/autocomplete/autocomplete.css');
+        layui.config({
+            base: '/layui/src/autocomplete/'
+            , version: false,
+            debug: false,
+        });
+        layui.use(['form', 'jquery','upload','laydate', 'autocomplete'], function(){
+            var form = layui.form
+                ,upload = layui.upload
+                , laydate = layui.laydate
+                ,$ = layui.jquery,
+                autocomplete = layui.autocomplete;
+
+            autocomplete.render({
+                elem: $('#end'),
+                response: {code: 'code', data: 'suggestions'},
+                template_val: '{{d.label}}',
+                template_txt: '{{d.label}}',
+                onselect: function (resp) {
+                    var address = resp.label;
+                    locationAD(address);
+                }
+            });
+            let APP_ID_HERE = "QuHxU6ypXzp37Dci84o8";
+            let APP_CODE_HERE = "TDu_enlm0QIblRnIl33buw";
+            let city_code = [{ code: "Melbourne", name: "墨尔本" }, { code: "Sydney", name: "悉尼" },{ code: "Tasmania", name: "塔州" }, { code: "Brisbane", name:"布里斯班"}];
+            function locationAD(query) {
+                $.getJSON("https://geocoder.api.here.com/6.2/geocode.json?gen=9&searchtext=" + query + "&app_id=" + APP_ID_HERE + "&app_code=" + APP_CODE_HERE, function (data) {
+                    console.log(data);
+                    var lati = data["Response"]["View"][0]["Result"][0]["Location"]["DisplayPosition"]["Latitude"];
+                    var longi = data["Response"]["View"][0]["Result"][0]["Location"]["DisplayPosition"]["Longitude"];
+                    var city = data["Response"]["View"][0]["Result"][0]["Location"]["Address"]["City"];
+                    $('#x').val(lati);
+                    $('#y').val(longi);
+                    if(city == "Hobart" || city == "Launcestion"){
+                        city = "Tasmania";
+                    }
+                    let cityName='';
+                    let flag =false;
+                    city_code.forEach((item,index,array)=>{
+                        //执行代码
+                        if(item.code == city){
+                            flag = true;
+                            cityName = item.name;
+                            $('#city').val(cityName);
+                        }
+                    });
+                    if(!flag){
+                        $('#end').val('');
+                        $('#end').focus();
+                        return  layer.msg('我们尚未开展除墨尔本，悉尼，塔州，布里斯班四个地区外的业务，请重新填写地址');
+                    }
+                    $.ajax({
+                        type: 'POST',
+                        url: "<?=url('house/getSchoolss')?>",
+                        data: {city:cityName},
+                        dataType:  'json',
+                        success: function(data){
+                            console.log(data);
+                            var code=data.data;
+                            $("#school").html("<option value=''>请选择校区</option>");
+                            $.each(code, function(i, val) {
+                                var option1 = $("<option>").val(val.name).text(val.name);
+                                $("#school").append(option1);
+                                form.render('select');
+                            });
+                        }
+                    });
+                });
+
+            }
+            //日期
+            laydate.render({
+                elem: '#date'
+            });
+            //随时入住
+            form.on('switch(switchTest)', function(data){
+                if(this.checked){
+                    $('#date').val('0000-00-00');
+                    $('#date').hide();
+                }else{
+                    $('#date').show();
+                }
+            });
+            //租金可议
+            form.on('switch(switchRent)', function(data){
+                if(this.checked){
+                    $('#price').val('0');
+                    $('#price').hide();
+                }else{
+                    $('#price').show();
+                }
+            });
+            //自定义验证规则
+            form.verify({
+                title: function(value){
+                    if(value.length < 2){
+                        return '标题至少得2个字符啊';
+                    }
+                },addres: function(value){
+                    if(!value){
+                        return '请输入正确的地址信息,并在推荐地址里选择！';
+                    }
+                },addresss: function(value){
+                    var values = value.split(',');
+                    if(values.length < 3){
+                        return '请输入正确的地址信息！';
+                    }
+                }
+                ,imgReg:function (value) {
+                    if(value.length <= 0){
+                        return '请上传封面图片';
+                    }
+                }
+                ,imgRegCaseType:function () {
+                    var len = $(".img_url").length;
+                    if (len > 8) {
+                        return "房源图片不超过8个？";
+                    }
+                }
+                ,urlTest:function(value){
+                    if(value.length >0 ){
+                        var Expression=/http(s)?:\/\/([\w-]+\.)+[\w-]+(\/[\w- .\/?%&=]*)?/;
+                        if(Expression.test(value)){
+                        }else{
+                            return "请输入正确的链接！";
+                        }
+                    }
+                }
+                ,des_tanlent:function () {
+                    var len = $(".tags:checked").length;
+                    if (len > 6) {
+                        return "房源标签选择数不超过6个？";
+                    }
+                }
+            });
+            form.on('select(bu_p_id)', function(data){
+                var id=data.value;
                 $.ajax({
                     type: 'POST',
-                    url: "<?=url('house/getSchoolss')?>",
-                    data: {city:cityName},
+                    url: "<?=url('house/getSchool')?>",
+                    data: {id:id},
                     dataType:  'json',
                     success: function(data){
                         console.log(data);
@@ -447,193 +550,144 @@
                             $("#school").append(option1);
                             form.render('select');
                         });
+                        // $("#school").get(0).selectedIndex=0;
                     }
                 });
+            });
+            //封面图上传
+            upload.render({
+                elem: '#uploadImg'
+                ,url: '{:url("house/upload")}'
+                ,exts: 'jpg|png|jpeg|gif|bmp|JPG'
+                ,size: '30000'
+                ,done: function(res){
+                    layer.close(layer.msg());//关闭上传提示窗口
+                    if(res.status == 0) {
+                        return layer.msg(res.message);
+                    }
+                    $('#uploadImg').removeClass('layui-upload-drag');
+                    $('#logoPreimg').css('width','91%');
+                    $('#logoPreimg').css('height','251px');
+                    $('#logoPreimg').attr('src',"__PUBLIC__/"+res.filepath);
+                    $('#displayImg').hide();
+                    console.log(res);
+                    $('#thumnail').val('' +res.filepath + '');
+                }
             });
 
-        }
-        //日期
-        laydate.render({
-            elem: '#date'
-        });
-        //监听指定开关
-        //监听指定开关
-        form.on('switch(switchTest)', function(data){
-            if(this.checked){
-                $('#date').val('0000-00-00');
-                $('#date').hide();
-            }else{
-                $('#date').show();
-            }
-        });
-        //自定义验证规则
-        form.verify({
-            title: function(value){
-                if(value.length < 2){
-                    return '标题至少得2个字符啊';
-                }
-            }
-            ,imgReg:function (value) {
-                if(value.length <= 0){
-                    return '请上传封面图片';
-                }
-            }
-            ,imgRegCaseType:function () {
-                var len = $(".img_url").length;
-                if (len > 8) {
-                    return "房源图片不超过8个？";
-                }
-            },addres: function(value){
-                if(!value){
-                    return '请输入正确的地址信息,并在推荐地址里选择！';
-                }
-            },addresss: function(value){
-                var values = value.split(',');
-                if(values.length < 3){
-                    return '请输入正确的地址信息！';
-                }
-            }
-            ,urlTest:function(value){
-                if(value.length >0 ){
-                    var Expression=/http(s)?:\/\/([\w-]+\.)+[\w-]+(\/[\w- .\/?%&=]*)?/;
-                    if(Expression.test(value)){
-                    }else{
-                        return "请输入正确的链接！";
-                    }
-                }
-            }
-            ,des_tanlent:function () {
-                var len = $(".tags:checked").length;
-                if (len > 6) {
-                    return "房源标签选择数不超过6个？";
-                }
-            }
-        });
-        form.on('select(bu_p_id)', function(data){
-            console.log(data.elem); //得到select原始DOM对象
-            console.log(data.value); //得到被选中的值
-            console.log(data.date); //得到美化后的DOM对象
-            var id=data.value;
-            $.ajax({
-                type: 'POST',
-                url: "<?=url('house/getSchool')?>",
-                data: {id:id},
-                dataType:  'json',
-                success: function(data){
-                    console.log(data);
-                    var code=data.data;
-                    $("#school").html("<option value=''>请选择校区</option>");
-                    $.each(code, function(i, val) {
-                        var option1 = $("<option>").val(val.name).text(val.name);
-                        $("#school").append(option1);
-                        form.render('select');
+            //视频上传
+            upload.render({
+                elem: '#uploadLogo'
+                ,auto:false
+                ,url: '{:url("house/upload")}'
+                ,size:10240 //限制文件大小，单位 KB
+                ,acceptMime: 'video/mp4'
+                ,ext: 'mp4'
+                ,accept: 'video' //限制文件大小，单位 KB
+                ,bindAction: '#upload-video'
+                ,choose:function(obj){
+                    obj.preview(function(index, file, result){
+                        let url = URL.createObjectURL(file);
+                        $('#logoPre').show();
+                        $('#display').hide();
+                        $('#uploadLogo').removeClass('layui-upload-drag');
+                        $('#logoPre').css('width','335px');
+                        $('#logoPre').css('height','251px');
+                        $('#logoPre').attr('src', url);
+                        let timer = setTimeout(function(){
+                            layer.close(layer.index);
+                            let video_time = document.getElementById("logoPre").duration;
+                            console.log(video_time);
+                            if(video_time > 45){
+                                layer.msg('上传视频不能超过45秒', {icon: 2})
+                            }
+                            clearTimeout(timer);
+                        },1000);
                     });
-                    $("#school").get(0).selectedIndex=0;
+                }
+                ,before: function(input){
+                    loading = layer.load(2, {
+                        shade: [0.2,'#000']
+                    });
+                }
+                ,done: function(res){
+                    $('#logoPre').removeAttr('src');
+                    $('#video').val('');
+                    layer.close(loading);
+                    $('#video').val(res.filepath);
+                    $('#uploadLogo').removeClass('layui-upload-drag');
+                    $('#logoPre').css('width','335px');
+                    $('#logoPre').css('height','251px');
+                    $('#logoPre').attr('src',"__PUBLIC__/"+res.filepath);
+                    $('#display').hide();
+                    layer.msg(res.msg, {icon: 1, time: 1000});
+                }
+                ,error: function(res){
+                    layer.msg(res.msg, {icon: 2, time: 1000});
                 }
             });
         });
-        //封面图上传
-        upload.render({
-            elem: '#uploadImg'
-            ,url: '{:url("house/upload")}'
-            ,exts: 'jpg|png|jpeg|gif|bmp|JPG'
-            ,size: '30000'
-            ,done: function(res){
-                layer.close(layer.msg());//关闭上传提示窗口
-                if(res.status == 0) {
-                    return layer.msg(res.message);
-                }
-                $('#uploadImg').removeClass('layui-upload-drag');
-                $('#logoPreimg').css('width','216px');
-                $('#logoPreimg').css('height','150px');
-                $('#logoPreimg').attr('src',"__PUBLIC__/"+res.filepath);
-                $('#displayImg').hide();
-                console.log(res);
-                $('#thumnail').val('' +res.filepath + '');
-            }
-        });
-        //户型图片上传
-        upload.render({
-            elem: '#uploadLogo'
-            ,url: '{:url("house/upload")}'
-            ,size:10240 //限制文件大小，单位 KB
-            ,ext: 'mp4'
-            ,accept: 'video' //限制文件大小，单位 KB
-            ,before: function(input){
-                loading = layer.load(2, {
-                    shade: [0.2,'#000']
-                });
-            }
-            ,done: function(res){
-                $('#video').val('');
-                console.log(res);
-                layer.close(loading);
-                $('#video').val(res.filepath);
-                $('#videoss').css('width','216px');
-                $('#videoss').css('height','150px');
-                $('#videoss').attr('src',"__PUBLIC__/"+res.filepath);
-                layer.msg(res.msg, {icon: 1, time: 1000});
-            }
-            ,error: function(res){
-                layer.msg(res.msg, {icon: 2, time: 1000});
-            }
-        });
-    });
-</script>
-{include file="index/footer" /}
-<script>
-    function checkHouseUrl(){
-        var order_id = $('#orderHouse').val();
-        var id = $('#id').val();
-        if(order_id != '') {
-            $.ajax({
-                type: "post",
-                url: "<?=url('house/checkHouseUrl')?>",
-                dataType: 'json',
-                data: {'order_id': order_id, 'id': id},
-                success: function (data) {
-                    console.log(data);
-                    if (data.code > 1) {
-                        layer.alert(data.msg, {icon: 2});
-                    } else if (data.code <= 1) {
-                        layer.alert(data.msg, {icon: 1, time: 1000});
+    </script>
+    {include file="index/footer" /}
+    <script>
+        function checkHouseUrl(){
+            var order_id = $('#orderHouse').val();
+            if(order_id != ''){
+                $.ajax({
+                    type:"post",
+                    url:"<?=url('house/checkHouseUrl')?>",
+                    dataType: 'json',
+                    data:{'order_id':order_id,'id':0},
+                    success:function (data) {
+                        console.log(data);
+                        if(data.code >1){
+                            layer.alert(data.msg, {icon: 2});
+                        }else if(data.code <= 1){
+                            layer.alert(data.msg, {icon: 1, time: 1000});
+                        }
+                    },
+                    error:function (error) {
+                        console.log(error);
                     }
-                },
-                error: function (error) {
-                    console.log(error);
-                }
-            })
-        }
-    }
-    layui.use('upload', function(){
-        var $ = layui.jquery;
-        var upload = layui.upload;
-        upload.render({
-            elem: '#slide-pc',
-            url: '{:url("house/upload")}',
-            size: 1024*1024*10,
-            exts: 'jpg|png|jpeg|gif|bmp|JPG',
-            multiple: true,
-            before: function(obj) {
-                layer.msg('图片上传中...', {
-                    icon: 16,
-                    shade: 0.01,
-                    time: 0
                 })
-            },
-            done: function(res) {
-                layer.close(layer.msg());//关闭上传提示窗口
-                if(res.status == 0) {
-                    return layer.msg(res.message);
-                }
-                console.log(res);
-                $('#slide-pc-priview').append('' +
-                    '<li class="item_img"><div class="operate"><i  class="close layui-icon"></i></div><img src="__PUBLIC__/' + res.filepath + '" class="img" ><input type="hidden" name="images[]" lay-verify="required|imgRegCaseType"  class="img_url"  value="' + res.filepath + '" /></li>');
             }
+
+        }
+        layui.use('upload', function(){
+            var $ = layui.jquery;
+            var upload = layui.upload;
+            upload.render({
+                elem: '#slide-pc',
+                url: '{:url("house/upload")}',
+                size: 1024*1024*10,
+                exts: 'jpg|png|jpeg|gif|bmp|JPG',
+                multiple: true,
+                before: function(obj) {
+                    layer.msg('图片上传中...', {
+                        icon: 16,
+                        shade: 0.01,
+                        time: 0
+                    })
+                },
+                done: function(res) {
+                    layer.close(layer.msg());//关闭上传提示窗口
+                    if(res.status == 0) {
+                        return layer.msg(res.message);
+                    }
+                    console.log(res);
+                    if(res.code ==1){
+                        $('#slide-pc-priview').append('' +
+                            '<li class="item_img" style="width: 24%;float: left;"><div class="operate"><i  class="close layui-icon"></i></div><img src="__PUBLIC__/' + res.filepath + '" class="img" style="width: 100%;height: 112px;" ><input type="hidden" name="images[]" value="' + res.filepath + '" lay-verify="required|imgRegCaseType"  class="img_url" /></li>');
+
+                    }else{
+                        return layer.msg(res.msg);
+                    }
+
+                }
+            });
         });
-    });
-    //点击多图上传的X,删除当前的图片
-    $("body").on("click",".close",function(){
-        $(this).closest("li").remove();
-    });
-</script>
+        //点击多图上传的X,删除当前的图片
+        $("body").on("click",".close",function(){
+            $(this).closest("li").remove();
+        });
+    </script>

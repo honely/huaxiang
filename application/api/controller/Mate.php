@@ -169,7 +169,7 @@ class Mate extends Controller
         }
         $where = "(status >=1 and user_id = '".$uid."')";
         $order = 'publish_date desc';
-        $field = 'id,title,area,images,price,school,ager,sex,status,habit,user_id,live_date,mdate,price';
+          $field = 'id,title,area,images,price,school,ager,sex,status,habit,user_id,live_date,mdate,price';
         $housem = new Matem();
         $house = $housem->readData($where,$order,$limit,$page,$field);
         if($house){

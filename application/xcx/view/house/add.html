@@ -9,8 +9,10 @@
         top:0;
     }
     .logoPreimg{
-        width: 216px;
-        height: 150px;
+        height: 251px;width: 91%;padding: 8px;
+    }
+    .inner-class{
+        display:inline-block;padding: 0px;border: 0px;width: 100%;
     }
     .layui-upload-img { width: 90px; height: 90px; margin: 0; }
     .pic-more { width:100%; left; margin: 10px 0px 0px 0px;}
@@ -24,6 +26,9 @@
     #slide-pc-priview li .toright{ position: absolute;top: 40px; right: 1px;cursor:pointer;}
     #slide-pc-priview li .close{position: absolute;top: 5px; right: 5px;cursor:pointer;}
     #slide-pc-priview li:hover .operate{ display: block;}
+    .right{
+        width: 68%;float:left;display: block;height: 400px;
+    }
 </style>
 <div class="layui-body">
     <div style="margin: 20px;">
@@ -52,7 +57,7 @@
                     </div>
                 </div>
                 <div class="layui-form-item">
-                    <label class="layui-form-label"><span style="color: red;">*</span>地址</label>
+                    <label class="layui-form-label"><span style="color: red;">*</span>房屋地址</label>
                     <div class="layui-input-block" id="input">
                         <input type="text" name="address" id="end" autocomplete="off" class="layui-input" lay-verify="required|addresss"  placeholder="目的地">
                         <input type="hidden" name="x" id="x" lay-verify="addres" autocomplete="off" class="layui-input" >
@@ -66,20 +71,24 @@
                     </div>
                 </div>
                 <div class="layui-form-item">
-                    <label class="layui-form-label"><span style="color: red;">*</span>租金</label>
-                    <div class="layui-input-block">
-                        <input type="number" name="price" lay-verify="required|title" placeholder="请输入租金" autocomplete="off" class="layui-input">
-                    </div>
-                </div>
-                <div class="layui-form-item">
-                    <label class="layui-form-label"><span style="color: red;">*</span>城市校区</label>
+                    <label class="layui-form-label"><span style="color: red;">*</span>城市</label>
                     <div class="layui-input-inline">
                         <input type="text" name="city" id="city" lay-verify="required|title" value="墨尔本" readonly class="layui-input">
                     </div>
+                    <label class="layui-form-label"><span style="color: red;">*</span>校区</label>
                     <div class="layui-input-inline">
                         <select name="school" lay-verify="required" id="school">
                             <option value="">请选择校区</option>
                         </select>
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label"><span style="color: red;">*</span>租金</label>
+                    <div class="layui-input-inline">
+                        <input type="number" name="price" lay-verify="required" placeholder="请输入租金" id="price" autocomplete="off" class="layui-input">
+                    </div>
+                    <div class="layui-input-inline">
+                        <input type="checkbox" lay-skin="switch" lay-filter="switchRent" lay-text="可议|可议">
                     </div>
                 </div>
                 <fieldset class="layui-elem-field layui-field-title" style="margin-top: 20px;">
@@ -148,6 +157,14 @@
                     <legend>房屋相关</legend>
                 </fieldset>
                 <div class="layui-form-item">
+                    <label class="layui-form-label"><span style="color: red;">*</span>房屋类型</label>
+                    <div class="layui-input-block">
+                        <input type="radio" name="house_type" value="公寓" title="公寓" checked>
+                        <input type="radio" name="house_type" value="House" title="House">
+                        <input type="radio" name="house_type" value="Townhouse" title="Townhouse">
+                    </div>
+                </div>
+                <div class="layui-form-item">
                     <label class="layui-form-label"><span style="color: red;">*</span>户型</label>
                     <div class="layui-input-block">
                         <input type="radio" name="house_room" value="Studio" title="Studio">
@@ -174,7 +191,21 @@
                         <input type="radio" name="toilet" value="9" title="9">
                     </div>
                 </div>
-
+                <div class="layui-form-item">
+                    <label class="layui-form-label"><span style="color: red;">*</span>车位</label>
+                    <div class="layui-input-block">
+                        <input type="radio" name="car" value="0" title="0" checked>
+                        <input type="radio" name="car" value="1" title="1">
+                        <input type="radio" name="car" value="2" title="2">
+                        <input type="radio" name="car" value="3" title="3">
+                        <input type="radio" name="car" value="4" title="4">
+                        <input type="radio" name="car" value="5" title="5">
+                        <input type="radio" name="car" value="6" title="6">
+                        <input type="radio" name="car" value="7" title="7">
+                        <input type="radio" name="car" value="8" title="8">
+                        <input type="radio" name="car" value="9" title="9">
+                    </div>
+                </div>
                 <div class="layui-form-item">
                     <label class="layui-form-label"><span style="color: red;">*</span>家具</label>
                     <div class="layui-input-block">
@@ -193,21 +224,6 @@
                     </div>
                 </div>
 
-                <div class="layui-form-item">
-                    <label class="layui-form-label"><span style="color: red;">*</span>车位</label>
-                    <div class="layui-input-block">
-                        <input type="radio" name="car" value="0" title="0" checked>
-                        <input type="radio" name="car" value="1" title="1">
-                        <input type="radio" name="car" value="2" title="2">
-                        <input type="radio" name="car" value="3" title="3">
-                        <input type="radio" name="car" value="4" title="4">
-                        <input type="radio" name="car" value="5" title="5">
-                        <input type="radio" name="car" value="6" title="6">
-                        <input type="radio" name="car" value="7" title="7">
-                        <input type="radio" name="car" value="8" title="8">
-                        <input type="radio" name="car" value="9" title="9">
-                    </div>
-                </div>
                 <div class="layui-form-item" pane="">
                     <label class="layui-form-label">楼宇设施</label>
                     <div class="layui-input-block">
@@ -244,6 +260,14 @@
                     </div>
                 </div>
                 <fieldset class="layui-elem-field layui-field-title" style="margin-top: 20px;">
+                    <legend>房源简介</legend>
+                </fieldset>
+                <div class="layui-form-item layui-form-text">
+                    <div class="layui-input-block">
+                        <textarea placeholder="请输入房源简介" style="height: 400px;" maxlength="1000" name="content" class="layui-textarea"></textarea>
+                    </div>
+                </div>
+                <fieldset class="layui-elem-field layui-field-title" style="margin-top: 20px;">
                     <legend>联系方式</legend>
                 </fieldset>
                 <div class="layui-form-item">
@@ -271,42 +295,51 @@
                     </div>
                 </div>
                 <fieldset class="layui-elem-field layui-field-title" style="margin-top: 20px;">
-                    <legend>图片和视频</legend>
+                    <legend>图片</legend>
                 </fieldset>
-                <div class="layui-form-item one-pan">
-                    <label class="layui-form-label"><span style="color: red;">*</span>房源封面图</label>
-                    <div class="layui-upload-drag" style="display:inline-block;">
-                        <image id="logoPreimg" class="logoPreimg">
-                            <input type="hidden" lay-verify="imgReg" name="thumnail" id="thumnail" value=""/>
-                        </image>
-                        <div id="displayImg">
-                            <!--                            <i class="layui-icon"></i>-->
-                            <!--                            <p>请点击此处上传封面图片</p>-->
-                        </div>
+                <div style="width: 100%;">
+                    <div class="left" style="width: 30%;float:left;border-right: rgba(53, 153, 153) dashed 1px;display: block">
 
-                    </div>
-                    <button type="button" style="margin-left: 20px;" class="layui-btn layui-btn pull-left" id="uploadImg">选择图片</button>
-                    <div class="one">
-                        <div class="layui-form-mid layui-word-aux" style="margin-left: 39px; ">图片要求，最大5MB，支持JPG/JEPG/PNG格式</div>
-                    </div>
-                </div>
-                <div class="layui-form-item" id="pics">
-                    <div class="layui-form-label">其他详情图</div>
-                    <div class="layui-input-block" style="width: 70%;">
-                        <div class="layui-upload">
-                            <button type="button" class="layui-btn layui-btn pull-left" id="slide-pc">选择多图</button>
-                            <div class="pic-more">
-                                <ul class="pic-more-upload-list" id="slide-pc-priview">
-                                </ul>
+                        <div class="layui-form-mid layui-word-aux" style="margin-left: 40px;">图片要求，最大5MB，支持JPG/JEPG/PNG格式</div>
+                        <div class="layui-form-item one-pan" style="margin-left: 40px;">
+                            <div class="layui-upload-drag inner-class">
+                                <image id="logoPreimg" class="logoPreimg">
+                                    <input type="hidden" lay-verify="imgReg" name="thumnail" id="thumnail" value=""/>
+                                </image>
+                                <div id="displayImg">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="layui-form-item" id="pics">
+                            <div class="layui-input-inline" style="width: 70%;margin-left: 50px;">
+                                <div class="layui-upload">
+                                    <span style="color: red;padding: 8px;">*</span><button type="button" class="layui-btn layui-btn pull-left layui-btn-sm" id="uploadImg">请选择封面图片</button>
+                                </div>
                             </div>
                         </div>
                     </div>
-                    <div class="layui-form-mid layui-word-aux">请上传0-8张其他详情图。</div>
+                    <div class="right">
+                        <div class="layui-form-mid layui-word-aux" style="margin-left: 40px;">请上传0-8张其他详情图。</div>
+                        <div class="layui-form-item">
+                            <div class="layui-input-inline" style="width: 100%;margin-left: 50px;">
+                                <div class="pic-more" style="height: 266px">
+                                    <ul class="pic-more-upload-list" id="slide-pc-priview" style="width: 100%">
+                                    </ul>
+                                </div>
+                                <div class="layui-upload">
+                                    <button type="button" class="layui-btn layui-btn pull-left layui-btn-sm" id="slide-pc">请选择其他图片</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                <div class="layui-form-item one-pan">
-                    <label class="layui-form-label">房源视频</label>
-                    <div class="layui-upload-drag" id="uploadLogo">
-                        <video id="logoPre" src="">
+                <fieldset class="layui-elem-field layui-field-title" style="margin-top: 20px;">
+                    <legend>视频</legend>
+                </fieldset>
+                <div class="layui-form-mid layui-word-aux" style="margin-left: 40px;">视频仅限一个视频，大小控制在10M以内。</div>
+                <div class="layui-form-item one-pan" style="margin-left: 40px;">
+                    <div class="layui-upload-drag" id="uploadLogo" style="padding: 50px;">
+                        <video id="logoPre" style="display: none" controls="controls" autobuffer="autobuffer"  autoplay="autoplay" loop="loop" src="">
                             <input type="hidden" name="video" id="video" value=""/>
                         </video>
                         <div id="display">
@@ -314,20 +347,14 @@
                             <p>请点击此处选择视频</p>
                         </div>
                     </div>
-                    <div class="layui-btn" id="upload-video" >上传视频</div>
+                    <div class="layui-btn layui-btn-sm" id="upload-video" style="margin-left: 20px;" >上传视频</div>
                     <br/>
-                    <div class="layui-form-mid layui-word-aux">视频仅限一个视频，大小控制在10M以内。</div>
-                </div>
-                <div class="layui-form-item layui-form-text">
-                    <label class="layui-form-label">房源简介</label>
-                    <div class="layui-input-block">
-                        <textarea placeholder="请输入房源简介" style="height: 400px;" maxlength="1000" name="content" class="layui-textarea"></textarea>
-                    </div>
                 </div>
                 <div class="layui-form-item">
-                    <div class="layui-input-block">
+                    <div class="layui-input-inline" style="width: 230px;margin-left: 40px;">
                         <button class="layui-btn" lay-submit>发布</button>
-                        <span class="layui-btn layui-btn-normal" id="save" >保存</span>
+                        <span class="layui-btn layui-btn-primary" id="save" >保存</span>
+                        <a class="layui-btn layui-btn-primary" href="javascript:history.go(-1);">返回</a>
 
                     </div>
                 </div>
@@ -405,7 +432,7 @@
                     if(!flag){
                         $('#end').val('');
                         $('#end').focus();
-                       return  layer.msg('我们尚未开展除墨尔本，悉尼，塔州，布里斯班四个地区外的业务，请重新填写地址');
+                        return  layer.msg('我们尚未开展除墨尔本，悉尼，塔州，布里斯班四个地区外的业务，请重新填写地址');
                     }
                     $.ajax({
                         type: 'POST',
@@ -430,13 +457,22 @@
             laydate.render({
                 elem: '#date'
             });
-            //监听指定开关
+            //随时入住
             form.on('switch(switchTest)', function(data){
                 if(this.checked){
                     $('#date').val('0000-00-00');
                     $('#date').hide();
                 }else{
                     $('#date').show();
+                }
+            });
+            //租金可议
+            form.on('switch(switchRent)', function(data){
+                if(this.checked){
+                    $('#price').val('0');
+                    $('#price').hide();
+                }else{
+                    $('#price').show();
                 }
             });
             //自定义验证规则
@@ -514,8 +550,8 @@
                         return layer.msg(res.message);
                     }
                     $('#uploadImg').removeClass('layui-upload-drag');
-                    $('#logoPreimg').css('width','216px');
-                    $('#logoPreimg').css('height','150px');
+                    $('#logoPreimg').css('width','91%');
+                    $('#logoPreimg').css('height','251px');
                     $('#logoPreimg').attr('src',"__PUBLIC__/"+res.filepath);
                     $('#displayImg').hide();
                     console.log(res);
@@ -536,6 +572,11 @@
                 ,choose:function(obj){
                     obj.preview(function(index, file, result){
                         let url = URL.createObjectURL(file);
+                        $('#logoPre').show();
+                        $('#display').hide();
+                        $('#uploadLogo').removeClass('layui-upload-drag');
+                        $('#logoPre').css('width','335px');
+                        $('#logoPre').css('height','251px');
                         $('#logoPre').attr('src', url);
                         let timer = setTimeout(function(){
                             layer.close(layer.index);
@@ -559,8 +600,8 @@
                     layer.close(loading);
                     $('#video').val(res.filepath);
                     $('#uploadLogo').removeClass('layui-upload-drag');
-                    $('#logoPre').css('width','216px');
-                    $('#logoPre').css('height','150px');
+                    $('#logoPre').css('width','335px');
+                    $('#logoPre').css('height','251px');
                     $('#logoPre').attr('src',"__PUBLIC__/"+res.filepath);
                     $('#display').hide();
                     layer.msg(res.msg, {icon: 1, time: 1000});
@@ -620,7 +661,8 @@
                     console.log(res);
                     if(res.code ==1){
                         $('#slide-pc-priview').append('' +
-                            '<li class="item_img"><div class="operate"><i  class="close layui-icon"></i></div><img src="__PUBLIC__/' + res.filepath + '" class="img" ><input type="hidden" name="images[]" value="' + res.filepath + '" lay-verify="required|imgRegCaseType"  class="img_url" /></li>');
+                            '<li class="item_img" style="width: 24%;float: left;"><div class="operate"><i  class="close layui-icon"></i></div><img src="__PUBLIC__/' + res.filepath + '" class="img" style="width: 100%;height: 112px;" ><input type="hidden" name="images[]" value="' + res.filepath + '" lay-verify="required|imgRegCaseType"  class="img_url" /></li>');
+
                     }else{
                         return layer.msg(res.msg);
                     }

@@ -130,8 +130,9 @@ class Colt extends Controller
         return json($res);
 
     }
-
-    public function updateUserColl(){
+  
+  
+   public function updateUserColl(){
         $sql = "select cl_user_id, count(*) as count from xcx_collect group by  cl_user_id";
         $ress = Db::query($sql);
         foreach ($ress as $k => $v){

@@ -128,7 +128,7 @@
                         {/if}
                         <th lay-data="{field:'cdate',width:105}">添加时间</th>
                         <th lay-data="{field:'user_id',width:120}">发布人</th>
-                        <th lay-data="{ width:116, toolbar: '#barDemo'}">操作</th>
+                        <th lay-data="{ width:160, toolbar: '#barDemo'}">操作</th>
                     </tr>
                     </thead>
                 </table>
@@ -141,9 +141,9 @@
     <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
     {/if}
     <a class="layui-btn layui-btn-xs  layui-btn-warm" lay-event="alert">详情</a>
-    <!--    {if condition='$delable eq true'}-->
-    <!--    <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>-->
-    <!--    {/if}-->
+    {{#  if(d.status == 1){ }}
+    <a class="layui-btn layui-btn-normal layui-btn-xs" lay-event="userTop">置顶</a>
+    {{#  } }}
 </script>
 <script type="text/html" id="status">
     <input type="checkbox" name="sex" lay-skin="switch" value="{{d.id}}" lay-text="下线|上线" lay-filter="statusDemo" {{ d.status == 1 ? 'checked' : '' }} {{ d.status == 0 ? 'disabled' : '' }} >
@@ -314,6 +314,35 @@
                 });
             }else if(obj.event === 'tags'){
                 window.location.href='<?=url("house/tags")?>?id='+id;
+            }else if(obj.event === 'userTop'){
+                $.ajax({
+                    'type':"get",
+                    'url':"<?=url('house/usertop')?>",
+                    'data':{id:id},
+                    'success':function (result) {
+                        console.log(result);
+                        if(result.code < 1){
+                            layer.msg(result.msg);
+                        }else {
+                            layer.msg(result.msg);
+                            layer.open({
+                                title: '信息'
+                                ,content: result.msg
+                                ,yes: function(index){
+                                    layer.close(index);
+                                    window.location.href='<?=url("house/myhouse")?>';
+                                }
+                                ,cancel:function (index) {
+                                    layer.close(index);
+                                    window.location.href='<?=url("house/myhouse")?>';
+                                }
+                            });
+                        }
+                    },
+                    'error':function () {
+                        console.log('error');
+                    }
+                })
             } else if(obj.event === 'del'){
                 layer.confirm('确定删除该房源？删除后不可恢复！', {
                     btn : [ '确定', '取消' ]//按钮

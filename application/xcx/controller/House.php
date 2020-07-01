@@ -1363,4 +1363,46 @@ class House extends Controller{
         }
         return  json(['code' => '0','data' => ['']]);
     }
+  
+    public function usertop(){
+        $adminId = session('adminId');
+        $hid = $this->request->param('id',22,'intval');
+        $date = date('Y-m-d');
+        $isTopable = $this->topCount($adminId,$date);
+        if(!$isTopable){
+            $this->success('您今日的置顶次数已用光！');
+        }
+        //写入一条置顶记录；
+        $log['tp_hid'] = $hid;
+        $log['tp_uid'] = 0;
+        $log['tp_aid'] = $adminId;
+        $log['tp_date'] = $date;
+        $log['tp_top_time'] = date('Y-m-d H:i:s');
+        $insert = Db::table('xcx_house_top')->insertGetId($log);
+        //更新房源发布时间
+        $updateHouseCtime = Db::table('tk_houses')
+            ->where(['id' => $hid])
+            ->update(['cdate' => date('Y-m-d H:i:s')]);
+        $count = $isTopable-1;
+        $msg = '置顶成功！您今日还剩'.$count.'次置顶机会！';
+        if($insert && $updateHouseCtime){
+            $this->success($msg);
+        }
+        $this->error('置顶失败！');
+    }
+
+
+    public function topCount($uId,$date){
+        $topInfo = Db::table('xcx_house_top')
+            ->where(['tp_aid' => $uId,'tp_date' =>$date])
+            ->count('tp_id');
+        $count = 10-$topInfo;
+        return $count;
+    }
+
+  
+  
+  
+  
+  
 }

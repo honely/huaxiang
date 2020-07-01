@@ -258,7 +258,7 @@ class Admin extends Controller{
     }
 
 
-    public function sendEmail($mailer){
+  public function sendEmail($mailer){
         Loader::import('phpmailer.phpmailer');
         $mail = new PHPMailer();
         $toemail = $mailer;//收件人
@@ -279,7 +279,7 @@ class Admin extends Controller{
         <br/><br/>
 Welhome Agent Platform (WAP) is an professional property leasing platform dedicated design for Realestate Agents. It's totally free!
  <br/><br/>
- You can 'Add listing', 'Manage Listing' and 'Chat' . If you find any problem or suggestion, please feel free to contact us!<br/>
+ You can 'Add listing', 'Manage Listing' and 'Chat' . If you find any problem or suggestion, please feel free to contact us!<br/><br/>
 <b>Your Account:</b>".$mailer."
  <br/><br/>
 <b>Default Password:</b> 123456
@@ -301,7 +301,6 @@ ABN: 11 628 249 687</b>
             return json(['code'=>1,'msg'=>'发送成功！']);
         }
     }
-
     //修改管理员
     public function edit(){
         $ad_id=intval($_GET['ad_id']);

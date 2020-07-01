@@ -23,7 +23,7 @@ class Cate extends Controller
         $where = $cId == 0 ? 'pid = 0' : "pid = ".$cId." and type = 2";
         $result = Db::table('tk_cate')
             ->where($where)
-            ->field('id,name,pid,oseq')
+           ->field('id,name,pid,oseq')
             ->order('oseq asc')
             ->select();
         if($result){

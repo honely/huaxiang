@@ -133,5 +133,5 @@ class Index extends Controller
             $this->error('激活失败！','https://huaxiangxiaobao.com/');
         }
     }
-
+   
 }

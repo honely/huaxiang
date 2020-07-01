@@ -261,13 +261,14 @@ class User extends Controller{
     }
 
 
-    public function getUnread($mpid,$adminid){
-        $isbend = $this->isBindusers($adminid);
+    public function getUnread($mpid,$adminid){ 
+      
+       $isbend = $this->isBindusers($adminid);
         //更新已读状态
         if($isbend){
             $readWhere = '( xcx_msg_uid != '.$isbend.' and xcx_msg_u_type = 1 ) or ( xcx_msg_uid != '.$adminid.' and  xcx_msg_u_type = 2 )';
         }else{
-            $readWhere = 'xcx_msg_uid != '.$adminid.' and  xcx_msg_u_type = 2 ';
+            $readWhere = 'xcx_msg_ul_id = '.$adminid.' and  xcx_msg_ul_type = 2 ';
         }
         $unRead = Db::table('xcx_msg_content')
             ->where(['xcx_msg_mp_id' => $mpid,'xcx_msg_isread' => 2,'xcx_msg_isable' =>1])
@@ -275,6 +276,8 @@ class User extends Controller{
             ->count('xcx_msg_id');
         return $unRead ? $unRead : 0;
     }
+
+  
 
     public function isBindusers($adminid){
         $adminInfo = Db::table('super_admin')
@@ -445,7 +448,6 @@ class User extends Controller{
         date_default_timezone_set("Australia/Melbourne");
         $data['xcx_msg_add_time'] = date('Y-m-d H:i:s');
         $datas['mp_mod_time'] = date('Y-m-d H:i:s');
-        dump($data);
         $sendMsg = Db::table('xcx_msg_content')->insertGetId($data);
         //更新会话修改时间
         Db::table('xcx_msg_person')->where(['mp_id' => $mpid])->update($datas);
@@ -456,7 +458,7 @@ class User extends Controller{
         //是否绑定前端用户
         $isUser = $this->isBendUser($uId);
         if($isUser){
-            if($ulInfo['mp_u_id'] == $isUser){
+            if($ulInfo['mp_u_id'] == $uId && $ulInfo['mp_utype'] == 2 && $ulInfo['mp_ultype'] ==1 ){
                 $res['ul_id'] = $ulInfo['mp_ul_id'];
                 $res['ul_type'] = $ulInfo['mp_ultype'];
             }else{
@@ -502,11 +504,9 @@ class User extends Controller{
             ->limit(($page-1)*$limit,$limit)
             ->order('mp_mod_time desc')
             ->select();
-        $count=Db::table('xcx_msg_person')
-            ->where($where)
-            ->count();
         $msg = new Loops();
         if($list){
+          //dump($list);
             foreach ($list as $k => $v){
                 if($list[$k]['mp_u_id'] == $adminid &&  $list[$k]['mp_ultype'] == 1){
                     $list[$k]['nickname'] = $msg->getUserNick($v['mp_ul_id']);
@@ -582,7 +582,7 @@ class User extends Controller{
         $avatar = $loop->getAdminAvatar($uId);
         $nickname = $loop->getAdminNick($uId);
         //更新已读状态
-        if($isUser){
+       if($isUser){
             $readWhere = '( xcx_msg_uid != '.$isUser.' and xcx_msg_u_type = 1 ) or ( xcx_msg_uid != '.$uId.' and  xcx_msg_u_type = 2 )';
         }else{
             $readWhere = 'xcx_msg_u_type = 1 and  xcx_msg_uid != '.$uId;

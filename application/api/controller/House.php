@@ -4,7 +4,6 @@ use app\xcx\model\Housem;
 use think\Controller;
 use think\Db;
 use think\Image;
-
 class House extends Controller
 {
 
@@ -33,7 +32,7 @@ class House extends Controller
         $keys = trim($this->request->param('keys'));
         if(isset($keys) && !empty($keys) && $keys){
             $where.=" and ( title like '%".$keys."%' or dsn like '%".$keys."%'  or school like '%".$keys."%' or city like '%".$keys."%')";
-            //写入一条关键词查询记录
+          //写入一条关键词查询记录
             if($uid){
                 $this->addQueryLog($uid,$keys,1);
             }
@@ -115,13 +114,13 @@ class House extends Controller
         if(isset($order)){
             switch ($order)
             {
-                //时间倒序
+               //时间倒序
                 case 1:
-                    $orders = 'mdate desc';
+                    $orders = 'cdate desc';
                     break;
                 //时间顺序
                 case 2:
-                    $orders = 'mdate asc';
+                    $orders = 'cdate asc';
                     break;
                 //价格倒序
                 case 3:
@@ -132,7 +131,7 @@ class House extends Controller
                     $orders = 'price asc';
                     break;
                 default:
-                    $orders = 'top desc,mdate desc';
+                    $orders = 'top desc,cdate desc';
             }
         }
         $order = $orders;
@@ -272,7 +271,7 @@ class House extends Controller
      * @return \think\response\Json
      * Dangmengmeng 2019年12月5日09:42:24
      */
-    public function upload123(){
+ 	public function upload(){
         header("Access-Control-Allow-Origin:*");
         header('Access-Control-Allow-Methods:POST');
         header('Access-Control-Allow-Headers:x-requested-with, content-type');
@@ -282,7 +281,7 @@ class House extends Controller
             $file = $this->request->file('file');
             $config = [
                 'size' => 1024*1024*10,
-                'ext' => 'jpg,gif,png,bmp,jpeg,JPG'
+                 'ext' => 'jpg,gif,png,bmp,jpeg,JPG'
             ];
             $size = $file->validate($config);
             if($size){
@@ -291,10 +290,10 @@ class House extends Controller
                     $path = 'uploads/house/'.$path_date.'/'.$info->getSaveName();
                     return json(array('code'=>1,'path'=>$path,'msg'=> '图片上传成功！'));
                 }else{
-                    if($file->getError() == '上传文件大小不符！'){
+                   if($file->getError() == '上传文件大小不符！'){
                         return json(array('code'=>0,'path'=>'','msg'=> '文件大小超过10MB，请压缩后重新上传'));
                     }elseif ($file->getError() == '上传文件后缀不允许'){
-                        return json(array('code'=>0,'path'=>'','msg'=> '请检查文件后缀后上传！'));
+                        return json(array('code'=>0,'path'=>'','msg'=> '系统仅支持jpg/bmp/gif/jpeg/png格式图片!'));
                     }else{
                         return json(array('code'=>0,'path'=>'','msg'=> '图片上传失败,请联系管理员！<br/>错误信息：'.$file->getError()));
                     }
@@ -305,58 +304,30 @@ class House extends Controller
         }else{
             return json(array('code'=>0,'path'=>'','msg'=> '没有接收到文件,请重试！'));
         }
-    }
-
-//    public function uploads(){
-//        header("Access-Control-Allow-Origin:*");
-//        header('Access-Control-Allow-Methods:POST');
-//        header("content-type:multipart/form-data");
-//        header('Access-Control-Allow-Headers:x-requested-with, content-type');
-//        $config = [
-//            'size' => 10000000,
-//            'ext' => 'jpg,gif,png,bmp,jpeg,JPG'
-//        ];
-//        $file = $this->request->file('files');
-//        $upload_path = str_replace('\\', '/', ROOT_PATH . 'public/report');
-//        $save_path = '/report/';
-//        $info = $file->validate($config)->move($upload_path);
-//        $image = Image::open(ROOT_PATH . 'public/' . $save_path . $info->getSaveName());
-//        $image->save(ROOT_PATH . 'public/' . $save_path . $info->getSaveName(),$type = null, 85);
-//        return $info->getSaveName();
-//    }
-//
-
-        public function upload(){
-            $file = $this->request->file('files');
-            $filePath = 'house';
-            $width = 500;
-            $height = 500;
-            $config = [
-                'size' => 1024*10,
-                'ext' => 'jpg,gif,png,bmp,jpeg,JPG'
-            ];
-            if($file){
-                $filePaths = ROOT_PATH . 'public' . DS . 'uploads' . DS .$filePath;
-                if(!file_exists($filePaths)){
-                    mkdir($filePaths,0777,true);
-                }
-                $info = $file->validate($config)->move($filePaths);
-                if($info){
-                    $imgpath = $filePaths . '/' . $info->getSaveName();
-                    $image = Image::open($imgpath);
-                    $image->thumb($width, $height)->save($imgpath);
-                    $imgpath = '/uploads/'.$filePath.'/'.$info->getSaveName();
-                    return json(['code' => 1, 'path' => $imgpath, 'msg' => '上传成功']);
-                }else{
-                    // 上传失败获取错误信息
-                    return json(['code' => 0, 'path' => '', 'msg' => '入库错误！']);
-                }
-            }
-            return json(['code' => 0, 'path' => '', 'msg' => '文件接收失败！']);
         }
 
-
-
+ public function delImg(){
+        header("Access-Control-Allow-Origin:*");
+        header('Access-Control-Allow-Methods:POST');
+        header('Access-Control-Allow-Headers:x-requested-with, content-type');
+        $img = trim($this->request->param('img'));
+         $path_date=date("Ym",time());
+   $path_time = date("Ymd",time());
+        $file = 'uploads/house/'.$path_date.'/'.$path_time.'/'.$img;
+        if(file_exists($file)){
+            if (!unlink($file)){
+                $res['code'] = 0;
+                $res['msg'] = '文件删除失败！';
+            }else{
+                $res['code'] = 1;
+                $res['msg'] = '删除成功！';
+            }
+        }else{
+            $res['code'] = 0;
+            $res['msg'] = '文件不存在！';
+        }
+        return json($res);
+    }
     /***
      * 我发布的房源
      * title 时间  封面图 id  状态
@@ -499,37 +470,11 @@ class House extends Controller
 
 
     public function addQueryLog($uid,$key,$type){
-        $date = date('Y-m-d H:i:s');
         $data['sk_keywords'] = $key;
         $data['sk_userid'] = $uid;
         $data['sk_type'] = $type;
-        $data['sk_addtime'] = $date;
+        $data['sk_addtime'] = date('Y-m-d H:i:s');
         $resault = Db::table('xcx_search_keywords')->insertGetId($data);
-        //跟新一下最后登录
-        Db::table('tk_user')->where(['id' => $uid])->update(['mdate' => $date]);
         return $resault;
-    }
-
-    public function delImg(){
-        header("Access-Control-Allow-Origin:*");
-        header('Access-Control-Allow-Methods:POST');
-        header('Access-Control-Allow-Headers:x-requested-with, content-type');
-        $img = trim($this->request->param('img'));
-        $path_date=date("Ym",time());
-        $path_time=date("Ymd",time());
-        $file = 'uploads/house/'.$path_date.'/'.$path_time.'/'.$img;
-        if(file_exists($file)){
-            if (!unlink($file)){
-                $res['code'] = 0;
-                $res['msg'] = '文件删除失败！';
-            }else{
-                $res['code'] = 1;
-                $res['msg'] = '删除成功！';
-            }
-        }else{
-            $res['code'] = 0;
-            $res['msg'] = '文件不存在！';
-        }
-        return json($res);
     }
 }

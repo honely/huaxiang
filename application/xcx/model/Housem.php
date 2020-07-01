@@ -18,10 +18,10 @@ class Housem extends Model
      * Created by Dangmengmeng At 2020/1/22 15:05
      */
     public function readData($where,$order,$limit,$page,$field){
-        $field = $field.',thumnail';
+       $field = $field.',thumnail';
         $result = Db::table('tk_houses')
             ->where($where)
-            ->where(['is_del' => 1])
+          ->where(['is_del' => 1])
             ->limit(($page)*$limit,$limit)
             ->order($order)
             ->field($field)
@@ -32,7 +32,7 @@ class Housem extends Model
 //                if(isset($add)){
 //                    $result[$k]['area'] = explode(',',$add)[1];
 //                }
-                $result[$k]['images'] = $v['thumnail'] ? $v['thumnail'] : $this->formatImg($v['images']);
+               $result[$k]['images'] = $v['thumnail'] ? $v['thumnail'] : $this->formatImg($v['images']);
             }
         }
         return $result ? $result :  null;
@@ -76,7 +76,7 @@ class Housem extends Model
 
     public function getHouse($id,$uid){
         $house = Db::table('tk_houses')
-            ->where(['id' => $id,'is_del' => 1])
+            ->where(['id' => $id])
             ->find();
         if (empty($house)) {
             $res['code'] = 0;

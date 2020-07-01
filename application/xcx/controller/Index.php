@@ -112,6 +112,25 @@ class Index extends Controller
     }
 
 
+    public function unread(){
+        $adminid = session('adminId');
+             //如果这个后台用户已经绑定小程序用户的话，包含小程序用户的未读消息
+        $adWechat = session('ad_wechat');
+        $where = "(mp_u_id = ".$adminid." and mp_utype = 2 and mp_isable = 1) or (mp_ul_id = ".$adminid." and mp_ultype = 2 and  mp_isable = 1)";
+        if($adWechat){
+            $where .= " or (mp_u_id = ".$adWechat." and mp_utype = 1 and mp_isable = 1) or (mp_ul_id = ".$adWechat." and mp_ultype = 1 and  mp_isable = 1)";
+        }
+        $list = Db::table('xcx_msg_person')
+            ->where($where)->field('mp_id')
+            ->select();
+        $count = 0;
+        if($list){
+            foreach ($list as $k => $v){
+                $count  += $this->getUnread($v['mp_id'],$adminid);
+            }
+        }
+        return $count;
+    }
     public function getUnreadMsg($adminid){
         //如果这个后台用户已经绑定小程序用户的话，包含小程序用户的未读消息
         $adWechat = session('ad_wechat');
@@ -138,7 +157,7 @@ class Index extends Controller
         if($isbend){
             $readWhere = '( xcx_msg_uid != '.$isbend.' and xcx_msg_u_type = 1 ) or ( xcx_msg_uid != '.$adminid.' and  xcx_msg_u_type = 2 )';
         }else{
-            $readWhere = 'xcx_msg_uid != '.$adminid.' and  xcx_msg_u_type = 2 ';
+            $readWhere = 'xcx_msg_ul_id = '.$adminid.' and  xcx_msg_ul_type = 2 ';
         }
         $unRead = Db::table('xcx_msg_content')
             ->where(['xcx_msg_mp_id' => $mpid,'xcx_msg_isread' => 2,'xcx_msg_isable' =>1])

@@ -49,12 +49,6 @@
                     </div>
                 </div>
                 <div class="layui-form-item">
-                    <label class="layui-form-label"><span style="color: red;">*</span>租金</label>
-                    <div class="layui-input-block">
-                        <input type="text" readonly value="{$house.price}" class="layui-input">
-                    </div>
-                </div>
-                <div class="layui-form-item">
                     <label class="layui-form-label"><span style="color: red;">*</span>地址</label>
                     <div class="layui-input-block">
                         <input type="text" readonly value="{$house.address}" autocomplete="on" class="layui-input">
@@ -67,6 +61,12 @@
                     </div>
                     <div class="layui-input-inline">
                         <input type="text" readonly value="{$house.school}" class="layui-input">
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label"><span style="color: red;">*</span>租金q</label>
+                    <div class="layui-input-inline">
+                        <input type="text" name="price" readonly value="{$house.price}" autocomplete="off" class="layui-input">
                     </div>
                 </div>
                 <fieldset class="layui-elem-field layui-field-title" style="margin-top: 20px;">
@@ -140,9 +140,9 @@
                 <div class="layui-form-item">
                     <label class="layui-form-label"><span style="color: red;">*</span>房屋类型</label>
                     <div class="layui-input-block">
-                        <input type="radio" name="house_type" disabled value="公寓" title="公寓" {if condition="$house.house_type eq '公寓'"}checked{/if}>
-                        <input type="radio" name="house_type" disabled value="别墅" title="别墅" {if condition="$house.house_type eq '别墅'"}checked{/if}>
-                        <input type="radio" name="house_type" disabled value="其他" title="其他" {if condition="$house.house_type eq '其他'"}checked{/if}>
+                        <input type="radio" disabled name="house_type" value="公寓" title="公寓" {if condition="$house.house_type eq '公寓'"}checked{/if}>
+                        <input type="radio" disabled name="house_type" value="House" title="House"  {if condition="$house.house_type eq 'House'"}checked{/if}>
+                        <input type="radio" disabled name="house_type" value="Townhouse" title="Townhouse"  {if condition="$house.house_type eq 'Townhouse'"}checked{/if}>
                     </div>
                 </div>
 
@@ -174,14 +174,7 @@
                     </div>
                 </div>
 
-                <div class="layui-form-item">
-                    <label class="layui-form-label"><span style="color: red;">*</span>家具</label>
-                    <div class="layui-input-block">
-                        {volist name='all_four' id='vo'}
-                        <input type="checkbox" class="checkbox" disabled lay-skin="primary" name="home[{$vo.furn}]" title="{$vo.furn}"  {$vo.is_checked ? 'checked' : ''}>
-                        {/volist}
-                    </div>
-                </div>
+
 
                 <div class="layui-form-item">
                     <label class="layui-form-label"><span style="color: red;">*</span>车位</label>
@@ -196,6 +189,14 @@
                         <input type="radio" name="car" disabled value="7" title="7" {if condition="$house.car eq '7'"}checked{/if}>
                         <input type="radio" name="car" disabled value="8" title="8" {if condition="$house.car eq '8'"}checked{/if}>
                         <input type="radio" name="car" disabled value="9" title="9" {if condition="$house.car eq '9'"}checked{/if}>
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label"><span style="color: red;">*</span>家具</label>
+                    <div class="layui-input-block">
+                        {volist name='all_four' id='vo'}
+                        <input type="checkbox" class="checkbox" disabled lay-skin="primary" name="home[{$vo.furn}]" title="{$vo.furn}"  {$vo.is_checked ? 'checked' : ''}>
+                        {/volist}
                     </div>
                 </div>
                 <div class="layui-form-item" pane="">
@@ -221,6 +222,14 @@
                         {volist name='tags' id='vo'}
                         <input type="checkbox" class="checkbox tags"  lay-verify="required|des_tanlent" lay-skin="primary" name="tags[{$vo.name}]" disabled title="{$vo.name}" {$vo.is_checked ? 'checked' : ''}>
                         {/volist}
+                    </div>
+                </div>
+                <fieldset class="layui-elem-field layui-field-title" style="margin-top: 20px;">
+                    <legend>房源简介</legend>
+                </fieldset>
+                <div class="layui-form-item layui-form-text">
+                    <div class="layui-input-block">
+                        <textarea readonly class="layui-textarea" style="height: 400px;">{$house.content}</textarea>
                     </div>
                 </div>
                 <fieldset class="layui-elem-field layui-field-title" style="margin-top: 20px;">
@@ -251,71 +260,77 @@
                     </div>
                 </div>
                 <fieldset class="layui-elem-field layui-field-title" style="margin-top: 20px;">
-                    <legend>图片和视频</legend>
+                    <legend>图片</legend>
                 </fieldset>
-                <div class="layui-form-item one-pan">
-                    <label class="layui-form-label"><span style="color: red;">*</span>房源封面图</label>
+                <div style="width: 100%;">
+                    <div class="left" style="width: 30%;float:left;border-right: rgba(53, 153, 153) dashed 1px;display: block">
 
-                    <div {if condition="$house.thumnail eq null"}class="layui-upload-drag"{/if} id="uploadImg" style="display:inline-block;" >
-                    <image id="logoPreimg"
-                           {if condition="$house.thumnail eq null"}
-                           {else/}
-                    src="__PUBLIC__/{$house.thumnail}"
-                    class="logoPreimg"
-                    {/if}
-                    >
-                    <input type="hidden" lay-verify="imgReg" name="thumnail" id="thumnail" value="{$house.thumnail}"/>
-                    </image>
-                </div>
-                <div class="one">
-                    <div class="layui-form-mid layui-word-aux" style="margin-left: 39px; ">图片要求，最大5MB，支持JPG/JEPG/PNG格式</div>
-                </div>
-        </div>
-                <div class="layui-form-item" id="pics">
-                    <div class="layui-form-label">房源图片</div>
-                    <div class="layui-input-block" style="width: 70%;">
-                        <div class="layui-upload">
-                            <div class="pic-more">
-                                <ul class="pic-more-upload-list" id="slide-pc-priview">
-                                    {if condition='$house.images neq null'}
-                                    {volist name='house.images1' id="item" key="k"}
-                                    <li class="item_img">
-                                        <img src="__PUBLIC__/{$item}" class="img" >
-                                        <input type="hidden" name="images[]" value="{$item}" />
-                                    </li>
-                                    {/volist}
-                                    {else/}
-                                    未上传
-                                    {/if}
-                                </ul>
+                        <div class="layui-form-mid layui-word-aux" style="margin-left: 40px;">图片要求，最大5MB，支持JPG/JEPG/PNG格式</div>
+                        <div class="layui-form-item one-pan" style="margin-left: 40px;">
+                            <div class="layui-upload-drag" style="display:inline-block;padding: 0px;border: 0px;">
+                                <image id="logoPreimg" class="logoPreimg" style="width: 91%;height: 237px;" {if condition="$house.thumnail eq null"}
+                                       {else/}
+                                src="__PUBLIC__/{$house.thumnail}"
+                                class="logoPreimg"
+                                {/if}>
+
+                                <input type="hidden" lay-verify="imgReg" name="thumnail" id="thumnail" value="{$house.thumnail}"/>
+                                </image>
+                                <div id="displayImg">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="layui-form-item" id="pics">
+                            <div class="layui-input-inline" style="width: 70%;margin-left: 50px;">
+                                <div class="layui-upload">
+                                </div>
                             </div>
                         </div>
                     </div>
-                    <div class="layui-form-mid layui-word-aux">请上传0-8张其他详情图。</div>
+                    <div class="right" style="width: 68%;float:left;display: block;height: 370px;">
+                        <div class="layui-form-mid layui-word-aux" style="margin-left: 40px;">请上传0-8张其他详情图。</div>
+                        <div class="layui-form-item">
+                            <div class="layui-input-inline" style="width: 100%;margin-left: 50px;">
+                                <div class="pic-more" style="height: 266px">
+                                    <ul class="pic-more-upload-list" id="slide-pc-priview" style="width: 100%">
+                                        {if condition='$house.images neq null'}
+                                        {volist name='house.images1' id="item" key="k"}
+                                        <li class="item_img" style="width: 24%;float: left;"><div class="operate"><i  class="close layui-icon"></i></div><img src="__PUBLIC__/{$item}" class="img" style="width: 100%;height: 112px;" ><input type="hidden" name="images[]" value="{$item}" lay-verify="required|imgRegCaseType"  class="img_url" /></li>
+                                        {/volist}
+                                        {else/}
+                                        未上传
+                                        {/if}
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                <div class="layui-form-item one-pan">
-                    <label class="layui-form-label">房源视频</label>
-                    <ul class="pic-more-upload-list" id="slide-pc-priview1">
+                <fieldset class="layui-elem-field layui-field-title" style="margin-top: 20px;">
+                    <legend>视频</legend>
+                </fieldset>
+                <div class="layui-form-mid layui-word-aux" style="margin-left: 40px;">视频仅限一个视频，大小控制在10M以内。</div>
+                <div class="layui-form-item one-pan" style="margin-left: 40px;">
+                    <div class="layui-upload-drag" id="uploadLogo" style="padding: 0px;display: inline-block;">
                         {if condition='$house.video neq null'}
-                        <li class="item_img">
-                            <video style="width:277px; height: 177px" class="item_img" controls="controls" autobuffer="autobuffer" id="videoss" loop="loop" src="__PUBLIC__/{$house.video}" class="img" ></video>
-                            <input type="hidden" name="video" id="video" value="{$house.video}" />
-                        </li>
+                        <video id="logoPre" controls="controls" autobuffer="autobuffer" style="width: 335px;height: 215px;" autoplay="autoplay" loop="loop" src="__PUBLIC__/{$house.video}">
+                            <input type="hidden" name="video" id="video" value="{$house.video}"/>
+                        </video>
+                        <div id="display" style="display: none">
+                            <i class="layui-icon"></i>
+                            <p>请点击此处选择视频</p>
+                        </div>
                         {else/}
                         未上传
                         {/if}
-                    </ul>
-                </div>
-                <div class="layui-form-item layui-form-text">
-                    <label class="layui-form-label">房源简介</label>
-                    <div class="layui-input-block">
-                        <textarea readonly class="layui-textarea" style="height: 400px;">{$house.content}</textarea>
                     </div>
+                    <br/>
                 </div>
+
             </form>
 
-        </div>
     </div>
+</div>
 </div>
 <script>
     layui.use(['form', 'jquery','upload','laydate','layedit'], function(){

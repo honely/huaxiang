@@ -54,14 +54,13 @@ class Msgs extends Model
                     $data['mp_ultype'] = 2;
                     $data['mp_utype'] = 1;
                     $insert = Db::table('xcx_msg_person')->insertGetId($data);
-                    //默认发送一条通过房源发送消息的消息内容
                     $msg['xcx_msg_mp_id'] = $insert;
                     $msg['xcx_msg_uid'] = $uId;
                     $msg['xcx_msg_ul_id'] = $ulId;
                     $msg['xcx_msg_u_type'] = 1;
                     $msg['xcx_msg_ul_type'] = 2;
                     $msg['xcx_msg_isread'] = 2;
-                    $msg['xcx_msg_content'] = '你好，我想咨询这个房源：（'.$houseTitle.'),房源编号：【'.$houseDSN.'】。';
+                      $msg['xcx_msg_content'] = '你好，我想咨询这个房源：（'.$houseTitle.'),房源编号：【'.$houseDSN.'】。';
                     $msg['xcx_msg_add_time'] = $time;
                     Db::table('xcx_msg_content')->insertGetId($msg);
                     return $insert ? $insert : 0;
