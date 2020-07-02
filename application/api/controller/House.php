@@ -32,10 +32,20 @@ class House extends Controller
         $keys = trim($this->request->param('keys'));
         if(isset($keys) && !empty($keys) && $keys){
             $where.=" and ( title like '%".$keys."%' or dsn like '%".$keys."%'  or school like '%".$keys."%' or city like '%".$keys."%')";
-          //写入一条关键词查询记录
+            //写入一条关键词查询记录
             if($uid){
                 $this->addQueryLog($uid,$keys,1);
             }
+        }
+        //房屋类型
+        $house_type = trim($this->request->param('house_type'));
+        if(isset($house_type) && !empty($house_type) && $house_type){
+            $where.=" and house_type = '".$house_type."'";
+        }
+        //租期
+        $lease_term = trim($this->request->param('lease_term'));
+        if(isset($lease_term) && !empty($lease_term) && $lease_term){
+            $where.=" and lease_term = '".$lease_term."'";
         }
         //学校
         $school = trim($this->request->param('school'));
@@ -47,11 +57,26 @@ class House extends Controller
         //租房价格最大值 最小值
         $maxprice = trim($this->request->param('maxprice'));
         if(isset($maxprice) && !empty($maxprice) && $maxprice){
-            $where.=" and price <= ".$maxprice;
+            $where.=" and ( price <= ".$maxprice." ";
         }
         $mimprice = trim($this->request->param('minprice'));
         if(isset($mimprice) && !empty($mimprice) && $mimprice){
-            $where.=" and price >= ".$mimprice;
+            $where.=" and price >= ".$mimprice."  or price = 0 )";
+        }
+
+        //入住时间最大值 最小值 mintime  结束    maxtime  左边加5天
+        $mintime = trim($this->request->param('mintime'));
+        $maxtime = trim($this->request->param('maxtime'));
+        if((isset($mintime) && !empty($mintime) && $mintime) && !$maxtime){
+            $mintime = date( 'Y-m-d', strtotime($mintime.' -5 days'));
+            $where.=" and (live_date >= '".$mintime."' or ( live_date = '0100-01-01' or live_date = '0000-00-00' ))";
+        }
+
+        if((isset($maxtime) && !empty($maxtime) && $maxtime) && !$mintime){
+            $where.=" and (live_date  <= '".$maxtime."' or ( live_date = '0100-01-01' or live_date = '0000-00-00' ))";
+        }
+        if($mintime && $maxtime){
+            $where.= " and (live_date >= '".$mintime."' and (live_date  <= '".$maxtime."')  or ( live_date = '0100-01-01' or live_date = '0000-00-00' ))";
         }
         //户型
         $house_room = trim($this->request->param('house_room'));
@@ -114,7 +139,7 @@ class House extends Controller
         if(isset($order)){
             switch ($order)
             {
-               //时间倒序
+                //时间倒序
                 case 1:
                     $orders = 'cdate desc';
                     break;
@@ -135,9 +160,11 @@ class House extends Controller
             }
         }
         $order = $orders;
-        $field = 'id,type,title,house_room,area,images,price,toilet,furniture,home,school,address,tj,top,mdate,tags,area';
+        $field = 'id,type,title,house_room,area,images,price,toilet,furniture,home,school,address,tj,top,mdate,tags,area,live_date';
         $housem = new Housem();
         $house = $housem->readData($where,$order,$limit,$page,$field);
+        //更新上次登录时间
+        Db::table('tk_user')->where(['id' => $uid])->update(['mdate' =>date('Y-m-d H:i:s')]);
         if($house){
             foreach ($house as $k => $v){
                 $house[$k]['tj'] = $v['tj'] == '是' ? '推荐房源'  : '';
@@ -153,8 +180,6 @@ class House extends Controller
         $res['data'] = $house;
         return json($res);
     }
-
-
 
 
     public function addHouse(){
@@ -271,7 +296,7 @@ class House extends Controller
      * @return \think\response\Json
      * Dangmengmeng 2019年12月5日09:42:24
      */
- 	public function upload(){
+    public function upload(){
         header("Access-Control-Allow-Origin:*");
         header('Access-Control-Allow-Methods:POST');
         header('Access-Control-Allow-Headers:x-requested-with, content-type');
@@ -281,7 +306,7 @@ class House extends Controller
             $file = $this->request->file('file');
             $config = [
                 'size' => 1024*1024*10,
-                 'ext' => 'jpg,gif,png,bmp,jpeg,JPG'
+                'ext' => 'jpg,gif,png,bmp,jpeg,JPG'
             ];
             $size = $file->validate($config);
             if($size){
@@ -290,7 +315,7 @@ class House extends Controller
                     $path = 'uploads/house/'.$path_date.'/'.$info->getSaveName();
                     return json(array('code'=>1,'path'=>$path,'msg'=> '图片上传成功！'));
                 }else{
-                   if($file->getError() == '上传文件大小不符！'){
+                    if($file->getError() == '上传文件大小不符！'){
                         return json(array('code'=>0,'path'=>'','msg'=> '文件大小超过10MB，请压缩后重新上传'));
                     }elseif ($file->getError() == '上传文件后缀不允许'){
                         return json(array('code'=>0,'path'=>'','msg'=> '系统仅支持jpg/bmp/gif/jpeg/png格式图片!'));
@@ -304,15 +329,15 @@ class House extends Controller
         }else{
             return json(array('code'=>0,'path'=>'','msg'=> '没有接收到文件,请重试！'));
         }
-        }
+    }
 
- public function delImg(){
+    public function delImg(){
         header("Access-Control-Allow-Origin:*");
         header('Access-Control-Allow-Methods:POST');
         header('Access-Control-Allow-Headers:x-requested-with, content-type');
         $img = trim($this->request->param('img'));
-         $path_date=date("Ym",time());
-   $path_time = date("Ymd",time());
+        $path_date=date("Ym",time());
+        $path_time = date("Ymd",time());
         $file = 'uploads/house/'.$path_date.'/'.$path_time.'/'.$img;
         if(file_exists($file)){
             if (!unlink($file)){
@@ -475,6 +500,8 @@ class House extends Controller
         $data['sk_type'] = $type;
         $data['sk_addtime'] = date('Y-m-d H:i:s');
         $resault = Db::table('xcx_search_keywords')->insertGetId($data);
+        //更新上次登录时间
+        Db::table('tk_user')->where(['id' => $uid])->update(['mdate' =>date('Y-m-d H:i:s')]);
         return $resault;
     }
 }

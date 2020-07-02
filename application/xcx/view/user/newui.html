@@ -248,11 +248,11 @@
                 '                            </cite>\n' +
                 '                        </div>\n' +
                 '                        <div class="layim-chat-text">\n' +
-                '                            '+content+'。\n' +
+                '                            '+content+'\n' +
                 '                        </div>\n' +
                 '                    </li>';
             $('#msglist').append(html);
-            $('#content').val('')
+            $('#content').val('');
             $.ajax({
                 type: 'POST',
                 url: "<?=url('user/sendmsg')?>",
@@ -287,11 +287,11 @@
             '                            </cite>\n' +
             '                        </div>\n' +
             '                        <div class="layim-chat-text">\n' +
-            '                            '+content+'。\n' +
+            '                            '+content+'\n' +
             '                        </div>\n' +
             '                    </li>';
         $('#msglist').append(html);
-        $('#content').val('')
+        $('#content').val('');
         $.ajax({
             type: 'POST',
             url: "<?=url('user/sendmsg')?>",

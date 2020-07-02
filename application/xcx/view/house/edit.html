@@ -349,17 +349,23 @@
                 </fieldset>
                 <div class="layui-form-mid layui-word-aux" style="margin-left: 40px;">视频仅限一个视频，大小控制在10M以内。</div>
                 <div class="layui-form-item one-pan" style="margin-left: 40px;">
-                    <div class="layui-upload-drag" id="uploadLogo" style="padding: 0px;display: inline-block;">
+                    <div class="layui-upload-drag" id="uploadLogo" style="padding: 50px;display: inline-block;">
                         {if condition='$house.video neq null'}
-                        <video id="logoPre" controls="controls" autobuffer="autobuffer" style="width: 335px;height: 215px;" autoplay="autoplay" loop="loop" src="__PUBLIC__/{$house.video}">
-                            <input type="hidden" name="video" id="video" value="{$house.video}"/>
+                        <video id="logoPre" controls="controls" autobuffer="autobuffer" style="width: 335px;height: 215px;" autoplay="autoplay" loop="loop" src="{if condition='$house.video neq null'}__PUBLIC__/{$house.video}{else/}{/if}">
+                            <input type="hidden" name="video" id="video" value="{if condition='$house.video neq null'}{$house.video}{else/}{/if}"/>
                         </video>
                         <div id="display" style="display: none">
                             <i class="layui-icon"></i>
                             <p>请点击此处选择视频</p>
                         </div>
                         {else/}
-                        未上传
+                        <video id="logoPre" style="display: none" controls="controls" autobuffer="autobuffer"  autoplay="autoplay" loop="loop" src="">
+                            <input type="hidden" name="video" id="video" value=""/>
+                        </video>
+                        <div id="display">
+                            <i class="layui-icon"></i>
+                            <p>请点击此处选择视频</p>
+                        </div>
                         {/if}
                     </div>
                     <div class="layui-btn layui-btn-sm" id="upload-video" style="margin-left: 20px;" >上传视频</div>

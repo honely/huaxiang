@@ -95,6 +95,8 @@ class User extends Controller
 
     public function saveBlToken($user_id){
         $bltoken = Db::table('tk_bltoken')->where(['user_id' => $user_id])->find();
+        //更新上次登录时间
+        Db::table('tk_user')->where(['id' => $user_id])->update(['mdate' =>date('Y-m-d H:i:s')]);
         $data['user_id'] = $user_id;
         $data['blToken'] = md5(date('Y-m-d H:i:s'). $user_id);
         $data['overtime'] = time() + 60 * 60 * 24*30*12;
@@ -283,11 +285,11 @@ class User extends Controller
     public function decryptDatas($encryptedData, $iv,$sessionKey)
     {
 
-       $OK = 0;
+        $OK = 0;
         $IllegalAesKey = -41001;
         $IllegalIv = -41002;
-       $IllegalBuffer = -41003;
-       $appid = config('wx.appid');
+        $IllegalBuffer = -41003;
+        $appid = config('wx.appid');
 
         if (strlen($sessionKey) != 24) {
             return $IllegalAesKey;
