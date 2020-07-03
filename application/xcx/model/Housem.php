@@ -126,25 +126,8 @@ class Housem extends Model
 
 
     public function numRoom($room){
-        switch ($room){
-//        一室，两室，三室，三室以上
-            case '一室':
-                $room = '1';
-                break;
-            case '两室':
-                $room = '2';
-                break;
-            case '三室':
-                $room = '3';
-                break;
-            case '四室':
-                $room = '4';
-                break;
-            case '四室以上':
-                $room = '5';
-                break;
-            default:
-                $room ='';
+        if($room == 'Studio'){
+            $room = 0;
         }
         return $room;
     }

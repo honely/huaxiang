@@ -1,0 +1,468 @@
+---------------------------------------------------------------
+[ 2020-07-03T19:25:59+08:00 ] 127.0.0.1 POST www.huaxiang.com/xcx/index/unread.html
+[运行时间：0.158163s] [吞吐率：6.32req/s] [内存消耗：2,706.01kb] [文件加载：55]
+[ info ] [ LANG ] D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\thinkphp\lang\zh-cn.php
+[ info ] [ ROUTE ] array (
+  'type' => 'module',
+  'module' => 
+  array (
+    0 => 'xcx',
+    1 => 'index',
+    2 => 'unread',
+  ),
+)
+[ info ] [ HEADER ] array (
+  'host' => 'www.huaxiang.com',
+  'connection' => 'keep-alive',
+  'content-length' => '0',
+  'accept' => 'application/json, text/javascript, */*; q=0.01',
+  'origin' => 'http://www.huaxiang.com',
+  'x-requested-with' => 'XMLHttpRequest',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.70 Safari/537.36',
+  'referer' => 'http://www.huaxiang.com/xcx/index/index.html',
+  'accept-encoding' => 'gzip, deflate',
+  'accept-language' => 'zh-CN,zh;q=0.9',
+  'cookie' => 'PHPSESSID=rbq5ai55bsspoj5cd00h6m0803',
+)
+[ info ] [ PARAM ] array (
+  '/xcx/index/unread_html' => '',
+)
+[ info ] [ SESSION ] INIT array (
+  'id' => '',
+  'var_session_id' => '',
+  'prefix' => 'think',
+  'type' => '',
+  'auto_start' => true,
+)
+[ info ] [ RUN ] app\xcx\controller\Index->unread[ D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\application\xcx\controller\Index.php ]
+[ info ] [ DB ] INIT mysql
+[ info ] [ LOG ] INIT File
+[ sql ] [ DB ] CONNECT:[ UseTime:0.001485s ] mysql:host=127.0.0.1;port=3306;dbname=xcxnew;charset=utf8mb4
+[ sql ] [ SQL ] SHOW COLUMNS FROM `xcx_msg_person` [ RunTime:0.017681s ]
+[ sql ] [ SQL ] SELECT `mp_id` FROM `xcx_msg_person` WHERE  (  (mp_u_id = 1 and mp_utype = 2 and mp_isable = 1) or (mp_ul_id = 1 and mp_ultype = 2 and  mp_isable = 1) or (mp_u_id = 1 and mp_utype = 1 and mp_isable = 1) or (mp_ul_id = 1 and mp_ultype = 1 and  mp_isable = 1) ) [ RunTime:0.000629s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `super_admin` [ RunTime:0.015706s ]
+[ sql ] [ SQL ] SELECT `ad_wechat` FROM `super_admin` WHERE  `ad_id` = 1 LIMIT 1 [ RunTime:0.000966s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `xcx_msg_content` [ RunTime:0.016627s ]
+[ sql ] [ SQL ] SELECT COUNT(xcx_msg_id) AS tp_count FROM `xcx_msg_content` WHERE  `xcx_msg_mp_id` = 17  AND `xcx_msg_isread` = 2  AND `xcx_msg_isable` = 1  AND (  ( xcx_msg_uid != 1 and xcx_msg_u_type = 1 ) or ( xcx_msg_uid != 1 and  xcx_msg_u_type = 2 ) ) LIMIT 1 [ RunTime:0.000749s ]
+[ sql ] [ SQL ] SELECT `ad_wechat` FROM `super_admin` WHERE  `ad_id` = 1 LIMIT 1 [ RunTime:0.000809s ]
+[ sql ] [ SQL ] SELECT COUNT(xcx_msg_id) AS tp_count FROM `xcx_msg_content` WHERE  `xcx_msg_mp_id` = 18  AND `xcx_msg_isread` = 2  AND `xcx_msg_isable` = 1  AND (  ( xcx_msg_uid != 1 and xcx_msg_u_type = 1 ) or ( xcx_msg_uid != 1 and  xcx_msg_u_type = 2 ) ) LIMIT 1 [ RunTime:0.000604s ]
+[ sql ] [ SQL ] SELECT `ad_wechat` FROM `super_admin` WHERE  `ad_id` = 1 LIMIT 1 [ RunTime:0.000604s ]
+[ sql ] [ SQL ] SELECT COUNT(xcx_msg_id) AS tp_count FROM `xcx_msg_content` WHERE  `xcx_msg_mp_id` = 19  AND `xcx_msg_isread` = 2  AND `xcx_msg_isable` = 1  AND (  ( xcx_msg_uid != 1 and xcx_msg_u_type = 1 ) or ( xcx_msg_uid != 1 and  xcx_msg_u_type = 2 ) ) LIMIT 1 [ RunTime:0.000541s ]
+[ sql ] [ SQL ] SELECT `ad_wechat` FROM `super_admin` WHERE  `ad_id` = 1 LIMIT 1 [ RunTime:0.000484s ]
+[ sql ] [ SQL ] SELECT COUNT(xcx_msg_id) AS tp_count FROM `xcx_msg_content` WHERE  `xcx_msg_mp_id` = 20  AND `xcx_msg_isread` = 2  AND `xcx_msg_isable` = 1  AND (  ( xcx_msg_uid != 1 and xcx_msg_u_type = 1 ) or ( xcx_msg_uid != 1 and  xcx_msg_u_type = 2 ) ) LIMIT 1 [ RunTime:0.000553s ]
+---------------------------------------------------------------
+[ 2020-07-03T19:26:17+08:00 ] 127.0.0.1 POST www.huaxiang.com/xcx/index/unread.html
+[运行时间：0.114156s] [吞吐率：8.76req/s] [内存消耗：2,705.99kb] [文件加载：55]
+[ info ] [ LANG ] D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\thinkphp\lang\zh-cn.php
+[ info ] [ ROUTE ] array (
+  'type' => 'module',
+  'module' => 
+  array (
+    0 => 'xcx',
+    1 => 'index',
+    2 => 'unread',
+  ),
+)
+[ info ] [ HEADER ] array (
+  'host' => 'www.huaxiang.com',
+  'connection' => 'keep-alive',
+  'content-length' => '0',
+  'accept' => 'application/json, text/javascript, */*; q=0.01',
+  'origin' => 'http://www.huaxiang.com',
+  'x-requested-with' => 'XMLHttpRequest',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.70 Safari/537.36',
+  'referer' => 'http://www.huaxiang.com/xcx/index/index.html',
+  'accept-encoding' => 'gzip, deflate',
+  'accept-language' => 'zh-CN,zh;q=0.9',
+  'cookie' => 'PHPSESSID=rbq5ai55bsspoj5cd00h6m0803',
+)
+[ info ] [ PARAM ] array (
+  '/xcx/index/unread_html' => '',
+)
+[ info ] [ SESSION ] INIT array (
+  'id' => '',
+  'var_session_id' => '',
+  'prefix' => 'think',
+  'type' => '',
+  'auto_start' => true,
+)
+[ info ] [ RUN ] app\xcx\controller\Index->unread[ D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\application\xcx\controller\Index.php ]
+[ info ] [ DB ] INIT mysql
+[ info ] [ LOG ] INIT File
+[ sql ] [ DB ] CONNECT:[ UseTime:0.001170s ] mysql:host=127.0.0.1;port=3306;dbname=xcxnew;charset=utf8mb4
+[ sql ] [ SQL ] SHOW COLUMNS FROM `xcx_msg_person` [ RunTime:0.015712s ]
+[ sql ] [ SQL ] SELECT `mp_id` FROM `xcx_msg_person` WHERE  (  (mp_u_id = 1 and mp_utype = 2 and mp_isable = 1) or (mp_ul_id = 1 and mp_ultype = 2 and  mp_isable = 1) or (mp_u_id = 1 and mp_utype = 1 and mp_isable = 1) or (mp_ul_id = 1 and mp_ultype = 1 and  mp_isable = 1) ) [ RunTime:0.000645s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `super_admin` [ RunTime:0.014915s ]
+[ sql ] [ SQL ] SELECT `ad_wechat` FROM `super_admin` WHERE  `ad_id` = 1 LIMIT 1 [ RunTime:0.000619s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `xcx_msg_content` [ RunTime:0.013665s ]
+[ sql ] [ SQL ] SELECT COUNT(xcx_msg_id) AS tp_count FROM `xcx_msg_content` WHERE  `xcx_msg_mp_id` = 17  AND `xcx_msg_isread` = 2  AND `xcx_msg_isable` = 1  AND (  ( xcx_msg_uid != 1 and xcx_msg_u_type = 1 ) or ( xcx_msg_uid != 1 and  xcx_msg_u_type = 2 ) ) LIMIT 1 [ RunTime:0.000565s ]
+[ sql ] [ SQL ] SELECT `ad_wechat` FROM `super_admin` WHERE  `ad_id` = 1 LIMIT 1 [ RunTime:0.000446s ]
+[ sql ] [ SQL ] SELECT COUNT(xcx_msg_id) AS tp_count FROM `xcx_msg_content` WHERE  `xcx_msg_mp_id` = 18  AND `xcx_msg_isread` = 2  AND `xcx_msg_isable` = 1  AND (  ( xcx_msg_uid != 1 and xcx_msg_u_type = 1 ) or ( xcx_msg_uid != 1 and  xcx_msg_u_type = 2 ) ) LIMIT 1 [ RunTime:0.000830s ]
+[ sql ] [ SQL ] SELECT `ad_wechat` FROM `super_admin` WHERE  `ad_id` = 1 LIMIT 1 [ RunTime:0.000533s ]
+[ sql ] [ SQL ] SELECT COUNT(xcx_msg_id) AS tp_count FROM `xcx_msg_content` WHERE  `xcx_msg_mp_id` = 19  AND `xcx_msg_isread` = 2  AND `xcx_msg_isable` = 1  AND (  ( xcx_msg_uid != 1 and xcx_msg_u_type = 1 ) or ( xcx_msg_uid != 1 and  xcx_msg_u_type = 2 ) ) LIMIT 1 [ RunTime:0.000499s ]
+[ sql ] [ SQL ] SELECT `ad_wechat` FROM `super_admin` WHERE  `ad_id` = 1 LIMIT 1 [ RunTime:0.000427s ]
+[ sql ] [ SQL ] SELECT COUNT(xcx_msg_id) AS tp_count FROM `xcx_msg_content` WHERE  `xcx_msg_mp_id` = 20  AND `xcx_msg_isread` = 2  AND `xcx_msg_isable` = 1  AND (  ( xcx_msg_uid != 1 and xcx_msg_u_type = 1 ) or ( xcx_msg_uid != 1 and  xcx_msg_u_type = 2 ) ) LIMIT 1 [ RunTime:0.000481s ]
+---------------------------------------------------------------
+[ 2020-07-03T19:26:30+08:00 ] 127.0.0.1 POST www.huaxiang.com/xcx/index/unread.html
+[运行时间：0.118155s] [吞吐率：8.46req/s] [内存消耗：2,705.99kb] [文件加载：55]
+[ info ] [ LANG ] D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\thinkphp\lang\zh-cn.php
+[ info ] [ ROUTE ] array (
+  'type' => 'module',
+  'module' => 
+  array (
+    0 => 'xcx',
+    1 => 'index',
+    2 => 'unread',
+  ),
+)
+[ info ] [ HEADER ] array (
+  'host' => 'www.huaxiang.com',
+  'connection' => 'keep-alive',
+  'content-length' => '0',
+  'accept' => 'application/json, text/javascript, */*; q=0.01',
+  'origin' => 'http://www.huaxiang.com',
+  'x-requested-with' => 'XMLHttpRequest',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.70 Safari/537.36',
+  'referer' => 'http://www.huaxiang.com/xcx/index/index.html',
+  'accept-encoding' => 'gzip, deflate',
+  'accept-language' => 'zh-CN,zh;q=0.9',
+  'cookie' => 'PHPSESSID=rbq5ai55bsspoj5cd00h6m0803',
+)
+[ info ] [ PARAM ] array (
+  '/xcx/index/unread_html' => '',
+)
+[ info ] [ SESSION ] INIT array (
+  'id' => '',
+  'var_session_id' => '',
+  'prefix' => 'think',
+  'type' => '',
+  'auto_start' => true,
+)
+[ info ] [ RUN ] app\xcx\controller\Index->unread[ D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\application\xcx\controller\Index.php ]
+[ info ] [ DB ] INIT mysql
+[ info ] [ LOG ] INIT File
+[ sql ] [ DB ] CONNECT:[ UseTime:0.001214s ] mysql:host=127.0.0.1;port=3306;dbname=xcxnew;charset=utf8mb4
+[ sql ] [ SQL ] SHOW COLUMNS FROM `xcx_msg_person` [ RunTime:0.016150s ]
+[ sql ] [ SQL ] SELECT `mp_id` FROM `xcx_msg_person` WHERE  (  (mp_u_id = 1 and mp_utype = 2 and mp_isable = 1) or (mp_ul_id = 1 and mp_ultype = 2 and  mp_isable = 1) or (mp_u_id = 1 and mp_utype = 1 and mp_isable = 1) or (mp_ul_id = 1 and mp_ultype = 1 and  mp_isable = 1) ) [ RunTime:0.000539s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `super_admin` [ RunTime:0.015852s ]
+[ sql ] [ SQL ] SELECT `ad_wechat` FROM `super_admin` WHERE  `ad_id` = 1 LIMIT 1 [ RunTime:0.000611s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `xcx_msg_content` [ RunTime:0.014800s ]
+[ sql ] [ SQL ] SELECT COUNT(xcx_msg_id) AS tp_count FROM `xcx_msg_content` WHERE  `xcx_msg_mp_id` = 17  AND `xcx_msg_isread` = 2  AND `xcx_msg_isable` = 1  AND (  ( xcx_msg_uid != 1 and xcx_msg_u_type = 1 ) or ( xcx_msg_uid != 1 and  xcx_msg_u_type = 2 ) ) LIMIT 1 [ RunTime:0.000638s ]
+[ sql ] [ SQL ] SELECT `ad_wechat` FROM `super_admin` WHERE  `ad_id` = 1 LIMIT 1 [ RunTime:0.000497s ]
+[ sql ] [ SQL ] SELECT COUNT(xcx_msg_id) AS tp_count FROM `xcx_msg_content` WHERE  `xcx_msg_mp_id` = 18  AND `xcx_msg_isread` = 2  AND `xcx_msg_isable` = 1  AND (  ( xcx_msg_uid != 1 and xcx_msg_u_type = 1 ) or ( xcx_msg_uid != 1 and  xcx_msg_u_type = 2 ) ) LIMIT 1 [ RunTime:0.000644s ]
+[ sql ] [ SQL ] SELECT `ad_wechat` FROM `super_admin` WHERE  `ad_id` = 1 LIMIT 1 [ RunTime:0.000452s ]
+[ sql ] [ SQL ] SELECT COUNT(xcx_msg_id) AS tp_count FROM `xcx_msg_content` WHERE  `xcx_msg_mp_id` = 19  AND `xcx_msg_isread` = 2  AND `xcx_msg_isable` = 1  AND (  ( xcx_msg_uid != 1 and xcx_msg_u_type = 1 ) or ( xcx_msg_uid != 1 and  xcx_msg_u_type = 2 ) ) LIMIT 1 [ RunTime:0.000467s ]
+[ sql ] [ SQL ] SELECT `ad_wechat` FROM `super_admin` WHERE  `ad_id` = 1 LIMIT 1 [ RunTime:0.000416s ]
+[ sql ] [ SQL ] SELECT COUNT(xcx_msg_id) AS tp_count FROM `xcx_msg_content` WHERE  `xcx_msg_mp_id` = 20  AND `xcx_msg_isread` = 2  AND `xcx_msg_isable` = 1  AND (  ( xcx_msg_uid != 1 and xcx_msg_u_type = 1 ) or ( xcx_msg_uid != 1 and  xcx_msg_u_type = 2 ) ) LIMIT 1 [ RunTime:0.000457s ]
+---------------------------------------------------------------
+[ 2020-07-03T19:26:43+08:00 ] 127.0.0.1 POST www.huaxiang.com/xcx/index/unread.html
+[运行时间：0.114860s] [吞吐率：8.71req/s] [内存消耗：2,705.99kb] [文件加载：55]
+[ info ] [ LANG ] D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\thinkphp\lang\zh-cn.php
+[ info ] [ ROUTE ] array (
+  'type' => 'module',
+  'module' => 
+  array (
+    0 => 'xcx',
+    1 => 'index',
+    2 => 'unread',
+  ),
+)
+[ info ] [ HEADER ] array (
+  'host' => 'www.huaxiang.com',
+  'connection' => 'keep-alive',
+  'content-length' => '0',
+  'accept' => 'application/json, text/javascript, */*; q=0.01',
+  'origin' => 'http://www.huaxiang.com',
+  'x-requested-with' => 'XMLHttpRequest',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.70 Safari/537.36',
+  'referer' => 'http://www.huaxiang.com/xcx/index/index.html',
+  'accept-encoding' => 'gzip, deflate',
+  'accept-language' => 'zh-CN,zh;q=0.9',
+  'cookie' => 'PHPSESSID=rbq5ai55bsspoj5cd00h6m0803',
+)
+[ info ] [ PARAM ] array (
+  '/xcx/index/unread_html' => '',
+)
+[ info ] [ SESSION ] INIT array (
+  'id' => '',
+  'var_session_id' => '',
+  'prefix' => 'think',
+  'type' => '',
+  'auto_start' => true,
+)
+[ info ] [ RUN ] app\xcx\controller\Index->unread[ D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\application\xcx\controller\Index.php ]
+[ info ] [ DB ] INIT mysql
+[ info ] [ LOG ] INIT File
+[ sql ] [ DB ] CONNECT:[ UseTime:0.001193s ] mysql:host=127.0.0.1;port=3306;dbname=xcxnew;charset=utf8mb4
+[ sql ] [ SQL ] SHOW COLUMNS FROM `xcx_msg_person` [ RunTime:0.015656s ]
+[ sql ] [ SQL ] SELECT `mp_id` FROM `xcx_msg_person` WHERE  (  (mp_u_id = 1 and mp_utype = 2 and mp_isable = 1) or (mp_ul_id = 1 and mp_ultype = 2 and  mp_isable = 1) or (mp_u_id = 1 and mp_utype = 1 and mp_isable = 1) or (mp_ul_id = 1 and mp_ultype = 1 and  mp_isable = 1) ) [ RunTime:0.000678s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `super_admin` [ RunTime:0.014686s ]
+[ sql ] [ SQL ] SELECT `ad_wechat` FROM `super_admin` WHERE  `ad_id` = 1 LIMIT 1 [ RunTime:0.000740s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `xcx_msg_content` [ RunTime:0.015738s ]
+[ sql ] [ SQL ] SELECT COUNT(xcx_msg_id) AS tp_count FROM `xcx_msg_content` WHERE  `xcx_msg_mp_id` = 17  AND `xcx_msg_isread` = 2  AND `xcx_msg_isable` = 1  AND (  ( xcx_msg_uid != 1 and xcx_msg_u_type = 1 ) or ( xcx_msg_uid != 1 and  xcx_msg_u_type = 2 ) ) LIMIT 1 [ RunTime:0.000533s ]
+[ sql ] [ SQL ] SELECT `ad_wechat` FROM `super_admin` WHERE  `ad_id` = 1 LIMIT 1 [ RunTime:0.000625s ]
+[ sql ] [ SQL ] SELECT COUNT(xcx_msg_id) AS tp_count FROM `xcx_msg_content` WHERE  `xcx_msg_mp_id` = 18  AND `xcx_msg_isread` = 2  AND `xcx_msg_isable` = 1  AND (  ( xcx_msg_uid != 1 and xcx_msg_u_type = 1 ) or ( xcx_msg_uid != 1 and  xcx_msg_u_type = 2 ) ) LIMIT 1 [ RunTime:0.000516s ]
+[ sql ] [ SQL ] SELECT `ad_wechat` FROM `super_admin` WHERE  `ad_id` = 1 LIMIT 1 [ RunTime:0.000429s ]
+[ sql ] [ SQL ] SELECT COUNT(xcx_msg_id) AS tp_count FROM `xcx_msg_content` WHERE  `xcx_msg_mp_id` = 19  AND `xcx_msg_isread` = 2  AND `xcx_msg_isable` = 1  AND (  ( xcx_msg_uid != 1 and xcx_msg_u_type = 1 ) or ( xcx_msg_uid != 1 and  xcx_msg_u_type = 2 ) ) LIMIT 1 [ RunTime:0.000468s ]
+[ sql ] [ SQL ] SELECT `ad_wechat` FROM `super_admin` WHERE  `ad_id` = 1 LIMIT 1 [ RunTime:0.000411s ]
+[ sql ] [ SQL ] SELECT COUNT(xcx_msg_id) AS tp_count FROM `xcx_msg_content` WHERE  `xcx_msg_mp_id` = 20  AND `xcx_msg_isread` = 2  AND `xcx_msg_isable` = 1  AND (  ( xcx_msg_uid != 1 and xcx_msg_u_type = 1 ) or ( xcx_msg_uid != 1 and  xcx_msg_u_type = 2 ) ) LIMIT 1 [ RunTime:0.000467s ]
+---------------------------------------------------------------
+[ 2020-07-03T19:26:56+08:00 ] 127.0.0.1 POST www.huaxiang.com/xcx/index/unread.html
+[运行时间：0.121202s] [吞吐率：8.25req/s] [内存消耗：2,705.99kb] [文件加载：55]
+[ info ] [ LANG ] D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\thinkphp\lang\zh-cn.php
+[ info ] [ ROUTE ] array (
+  'type' => 'module',
+  'module' => 
+  array (
+    0 => 'xcx',
+    1 => 'index',
+    2 => 'unread',
+  ),
+)
+[ info ] [ HEADER ] array (
+  'host' => 'www.huaxiang.com',
+  'connection' => 'keep-alive',
+  'content-length' => '0',
+  'accept' => 'application/json, text/javascript, */*; q=0.01',
+  'origin' => 'http://www.huaxiang.com',
+  'x-requested-with' => 'XMLHttpRequest',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.70 Safari/537.36',
+  'referer' => 'http://www.huaxiang.com/xcx/index/index.html',
+  'accept-encoding' => 'gzip, deflate',
+  'accept-language' => 'zh-CN,zh;q=0.9',
+  'cookie' => 'PHPSESSID=rbq5ai55bsspoj5cd00h6m0803',
+)
+[ info ] [ PARAM ] array (
+  '/xcx/index/unread_html' => '',
+)
+[ info ] [ SESSION ] INIT array (
+  'id' => '',
+  'var_session_id' => '',
+  'prefix' => 'think',
+  'type' => '',
+  'auto_start' => true,
+)
+[ info ] [ RUN ] app\xcx\controller\Index->unread[ D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\application\xcx\controller\Index.php ]
+[ info ] [ DB ] INIT mysql
+[ info ] [ LOG ] INIT File
+[ sql ] [ DB ] CONNECT:[ UseTime:0.001263s ] mysql:host=127.0.0.1;port=3306;dbname=xcxnew;charset=utf8mb4
+[ sql ] [ SQL ] SHOW COLUMNS FROM `xcx_msg_person` [ RunTime:0.016336s ]
+[ sql ] [ SQL ] SELECT `mp_id` FROM `xcx_msg_person` WHERE  (  (mp_u_id = 1 and mp_utype = 2 and mp_isable = 1) or (mp_ul_id = 1 and mp_ultype = 2 and  mp_isable = 1) or (mp_u_id = 1 and mp_utype = 1 and mp_isable = 1) or (mp_ul_id = 1 and mp_ultype = 1 and  mp_isable = 1) ) [ RunTime:0.000729s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `super_admin` [ RunTime:0.015604s ]
+[ sql ] [ SQL ] SELECT `ad_wechat` FROM `super_admin` WHERE  `ad_id` = 1 LIMIT 1 [ RunTime:0.000680s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `xcx_msg_content` [ RunTime:0.016517s ]
+[ sql ] [ SQL ] SELECT COUNT(xcx_msg_id) AS tp_count FROM `xcx_msg_content` WHERE  `xcx_msg_mp_id` = 17  AND `xcx_msg_isread` = 2  AND `xcx_msg_isable` = 1  AND (  ( xcx_msg_uid != 1 and xcx_msg_u_type = 1 ) or ( xcx_msg_uid != 1 and  xcx_msg_u_type = 2 ) ) LIMIT 1 [ RunTime:0.000692s ]
+[ sql ] [ SQL ] SELECT `ad_wechat` FROM `super_admin` WHERE  `ad_id` = 1 LIMIT 1 [ RunTime:0.000563s ]
+[ sql ] [ SQL ] SELECT COUNT(xcx_msg_id) AS tp_count FROM `xcx_msg_content` WHERE  `xcx_msg_mp_id` = 18  AND `xcx_msg_isread` = 2  AND `xcx_msg_isable` = 1  AND (  ( xcx_msg_uid != 1 and xcx_msg_u_type = 1 ) or ( xcx_msg_uid != 1 and  xcx_msg_u_type = 2 ) ) LIMIT 1 [ RunTime:0.000556s ]
+[ sql ] [ SQL ] SELECT `ad_wechat` FROM `super_admin` WHERE  `ad_id` = 1 LIMIT 1 [ RunTime:0.000552s ]
+[ sql ] [ SQL ] SELECT COUNT(xcx_msg_id) AS tp_count FROM `xcx_msg_content` WHERE  `xcx_msg_mp_id` = 19  AND `xcx_msg_isread` = 2  AND `xcx_msg_isable` = 1  AND (  ( xcx_msg_uid != 1 and xcx_msg_u_type = 1 ) or ( xcx_msg_uid != 1 and  xcx_msg_u_type = 2 ) ) LIMIT 1 [ RunTime:0.001274s ]
+[ sql ] [ SQL ] SELECT `ad_wechat` FROM `super_admin` WHERE  `ad_id` = 1 LIMIT 1 [ RunTime:0.000875s ]
+[ sql ] [ SQL ] SELECT COUNT(xcx_msg_id) AS tp_count FROM `xcx_msg_content` WHERE  `xcx_msg_mp_id` = 20  AND `xcx_msg_isread` = 2  AND `xcx_msg_isable` = 1  AND (  ( xcx_msg_uid != 1 and xcx_msg_u_type = 1 ) or ( xcx_msg_uid != 1 and  xcx_msg_u_type = 2 ) ) LIMIT 1 [ RunTime:0.000808s ]
+---------------------------------------------------------------
+[ 2020-07-03T19:27:10+08:00 ] 127.0.0.1 POST www.huaxiang.com/xcx/index/unread.html
+[运行时间：0.114690s] [吞吐率：8.72req/s] [内存消耗：2,705.99kb] [文件加载：55]
+[ info ] [ LANG ] D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\thinkphp\lang\zh-cn.php
+[ info ] [ ROUTE ] array (
+  'type' => 'module',
+  'module' => 
+  array (
+    0 => 'xcx',
+    1 => 'index',
+    2 => 'unread',
+  ),
+)
+[ info ] [ HEADER ] array (
+  'host' => 'www.huaxiang.com',
+  'connection' => 'keep-alive',
+  'content-length' => '0',
+  'accept' => 'application/json, text/javascript, */*; q=0.01',
+  'origin' => 'http://www.huaxiang.com',
+  'x-requested-with' => 'XMLHttpRequest',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.70 Safari/537.36',
+  'referer' => 'http://www.huaxiang.com/xcx/index/index.html',
+  'accept-encoding' => 'gzip, deflate',
+  'accept-language' => 'zh-CN,zh;q=0.9',
+  'cookie' => 'PHPSESSID=rbq5ai55bsspoj5cd00h6m0803',
+)
+[ info ] [ PARAM ] array (
+  '/xcx/index/unread_html' => '',
+)
+[ info ] [ SESSION ] INIT array (
+  'id' => '',
+  'var_session_id' => '',
+  'prefix' => 'think',
+  'type' => '',
+  'auto_start' => true,
+)
+[ info ] [ RUN ] app\xcx\controller\Index->unread[ D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\application\xcx\controller\Index.php ]
+[ info ] [ DB ] INIT mysql
+[ info ] [ LOG ] INIT File
+[ sql ] [ DB ] CONNECT:[ UseTime:0.001169s ] mysql:host=127.0.0.1;port=3306;dbname=xcxnew;charset=utf8mb4
+[ sql ] [ SQL ] SHOW COLUMNS FROM `xcx_msg_person` [ RunTime:0.017227s ]
+[ sql ] [ SQL ] SELECT `mp_id` FROM `xcx_msg_person` WHERE  (  (mp_u_id = 1 and mp_utype = 2 and mp_isable = 1) or (mp_ul_id = 1 and mp_ultype = 2 and  mp_isable = 1) or (mp_u_id = 1 and mp_utype = 1 and mp_isable = 1) or (mp_ul_id = 1 and mp_ultype = 1 and  mp_isable = 1) ) [ RunTime:0.000759s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `super_admin` [ RunTime:0.014520s ]
+[ sql ] [ SQL ] SELECT `ad_wechat` FROM `super_admin` WHERE  `ad_id` = 1 LIMIT 1 [ RunTime:0.000652s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `xcx_msg_content` [ RunTime:0.013558s ]
+[ sql ] [ SQL ] SELECT COUNT(xcx_msg_id) AS tp_count FROM `xcx_msg_content` WHERE  `xcx_msg_mp_id` = 17  AND `xcx_msg_isread` = 2  AND `xcx_msg_isable` = 1  AND (  ( xcx_msg_uid != 1 and xcx_msg_u_type = 1 ) or ( xcx_msg_uid != 1 and  xcx_msg_u_type = 2 ) ) LIMIT 1 [ RunTime:0.000548s ]
+[ sql ] [ SQL ] SELECT `ad_wechat` FROM `super_admin` WHERE  `ad_id` = 1 LIMIT 1 [ RunTime:0.000715s ]
+[ sql ] [ SQL ] SELECT COUNT(xcx_msg_id) AS tp_count FROM `xcx_msg_content` WHERE  `xcx_msg_mp_id` = 18  AND `xcx_msg_isread` = 2  AND `xcx_msg_isable` = 1  AND (  ( xcx_msg_uid != 1 and xcx_msg_u_type = 1 ) or ( xcx_msg_uid != 1 and  xcx_msg_u_type = 2 ) ) LIMIT 1 [ RunTime:0.000798s ]
+[ sql ] [ SQL ] SELECT `ad_wechat` FROM `super_admin` WHERE  `ad_id` = 1 LIMIT 1 [ RunTime:0.000492s ]
+[ sql ] [ SQL ] SELECT COUNT(xcx_msg_id) AS tp_count FROM `xcx_msg_content` WHERE  `xcx_msg_mp_id` = 19  AND `xcx_msg_isread` = 2  AND `xcx_msg_isable` = 1  AND (  ( xcx_msg_uid != 1 and xcx_msg_u_type = 1 ) or ( xcx_msg_uid != 1 and  xcx_msg_u_type = 2 ) ) LIMIT 1 [ RunTime:0.000491s ]
+[ sql ] [ SQL ] SELECT `ad_wechat` FROM `super_admin` WHERE  `ad_id` = 1 LIMIT 1 [ RunTime:0.000735s ]
+[ sql ] [ SQL ] SELECT COUNT(xcx_msg_id) AS tp_count FROM `xcx_msg_content` WHERE  `xcx_msg_mp_id` = 20  AND `xcx_msg_isread` = 2  AND `xcx_msg_isable` = 1  AND (  ( xcx_msg_uid != 1 and xcx_msg_u_type = 1 ) or ( xcx_msg_uid != 1 and  xcx_msg_u_type = 2 ) ) LIMIT 1 [ RunTime:0.000672s ]
+---------------------------------------------------------------
+[ 2020-07-03T19:27:23+08:00 ] 127.0.0.1 POST www.huaxiang.com/xcx/index/unread.html
+[运行时间：0.118574s] [吞吐率：8.43req/s] [内存消耗：2,705.99kb] [文件加载：55]
+[ info ] [ LANG ] D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\thinkphp\lang\zh-cn.php
+[ info ] [ ROUTE ] array (
+  'type' => 'module',
+  'module' => 
+  array (
+    0 => 'xcx',
+    1 => 'index',
+    2 => 'unread',
+  ),
+)
+[ info ] [ HEADER ] array (
+  'host' => 'www.huaxiang.com',
+  'connection' => 'keep-alive',
+  'content-length' => '0',
+  'accept' => 'application/json, text/javascript, */*; q=0.01',
+  'origin' => 'http://www.huaxiang.com',
+  'x-requested-with' => 'XMLHttpRequest',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.70 Safari/537.36',
+  'referer' => 'http://www.huaxiang.com/xcx/index/index.html',
+  'accept-encoding' => 'gzip, deflate',
+  'accept-language' => 'zh-CN,zh;q=0.9',
+  'cookie' => 'PHPSESSID=rbq5ai55bsspoj5cd00h6m0803',
+)
+[ info ] [ PARAM ] array (
+  '/xcx/index/unread_html' => '',
+)
+[ info ] [ SESSION ] INIT array (
+  'id' => '',
+  'var_session_id' => '',
+  'prefix' => 'think',
+  'type' => '',
+  'auto_start' => true,
+)
+[ info ] [ RUN ] app\xcx\controller\Index->unread[ D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\application\xcx\controller\Index.php ]
+[ info ] [ DB ] INIT mysql
+[ info ] [ LOG ] INIT File
+[ sql ] [ DB ] CONNECT:[ UseTime:0.001206s ] mysql:host=127.0.0.1;port=3306;dbname=xcxnew;charset=utf8mb4
+[ sql ] [ SQL ] SHOW COLUMNS FROM `xcx_msg_person` [ RunTime:0.015346s ]
+[ sql ] [ SQL ] SELECT `mp_id` FROM `xcx_msg_person` WHERE  (  (mp_u_id = 1 and mp_utype = 2 and mp_isable = 1) or (mp_ul_id = 1 and mp_ultype = 2 and  mp_isable = 1) or (mp_u_id = 1 and mp_utype = 1 and mp_isable = 1) or (mp_ul_id = 1 and mp_ultype = 1 and  mp_isable = 1) ) [ RunTime:0.000608s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `super_admin` [ RunTime:0.014742s ]
+[ sql ] [ SQL ] SELECT `ad_wechat` FROM `super_admin` WHERE  `ad_id` = 1 LIMIT 1 [ RunTime:0.000582s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `xcx_msg_content` [ RunTime:0.014670s ]
+[ sql ] [ SQL ] SELECT COUNT(xcx_msg_id) AS tp_count FROM `xcx_msg_content` WHERE  `xcx_msg_mp_id` = 17  AND `xcx_msg_isread` = 2  AND `xcx_msg_isable` = 1  AND (  ( xcx_msg_uid != 1 and xcx_msg_u_type = 1 ) or ( xcx_msg_uid != 1 and  xcx_msg_u_type = 2 ) ) LIMIT 1 [ RunTime:0.000675s ]
+[ sql ] [ SQL ] SELECT `ad_wechat` FROM `super_admin` WHERE  `ad_id` = 1 LIMIT 1 [ RunTime:0.000513s ]
+[ sql ] [ SQL ] SELECT COUNT(xcx_msg_id) AS tp_count FROM `xcx_msg_content` WHERE  `xcx_msg_mp_id` = 18  AND `xcx_msg_isread` = 2  AND `xcx_msg_isable` = 1  AND (  ( xcx_msg_uid != 1 and xcx_msg_u_type = 1 ) or ( xcx_msg_uid != 1 and  xcx_msg_u_type = 2 ) ) LIMIT 1 [ RunTime:0.000477s ]
+[ sql ] [ SQL ] SELECT `ad_wechat` FROM `super_admin` WHERE  `ad_id` = 1 LIMIT 1 [ RunTime:0.000420s ]
+[ sql ] [ SQL ] SELECT COUNT(xcx_msg_id) AS tp_count FROM `xcx_msg_content` WHERE  `xcx_msg_mp_id` = 19  AND `xcx_msg_isread` = 2  AND `xcx_msg_isable` = 1  AND (  ( xcx_msg_uid != 1 and xcx_msg_u_type = 1 ) or ( xcx_msg_uid != 1 and  xcx_msg_u_type = 2 ) ) LIMIT 1 [ RunTime:0.000635s ]
+[ sql ] [ SQL ] SELECT `ad_wechat` FROM `super_admin` WHERE  `ad_id` = 1 LIMIT 1 [ RunTime:0.000716s ]
+[ sql ] [ SQL ] SELECT COUNT(xcx_msg_id) AS tp_count FROM `xcx_msg_content` WHERE  `xcx_msg_mp_id` = 20  AND `xcx_msg_isread` = 2  AND `xcx_msg_isable` = 1  AND (  ( xcx_msg_uid != 1 and xcx_msg_u_type = 1 ) or ( xcx_msg_uid != 1 and  xcx_msg_u_type = 2 ) ) LIMIT 1 [ RunTime:0.000594s ]
+---------------------------------------------------------------
+[ 2020-07-03T19:27:37+08:00 ] 127.0.0.1 POST www.huaxiang.com/xcx/index/unread.html
+[运行时间：0.122574s] [吞吐率：8.16req/s] [内存消耗：2,705.99kb] [文件加载：55]
+[ info ] [ LANG ] D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\thinkphp\lang\zh-cn.php
+[ info ] [ ROUTE ] array (
+  'type' => 'module',
+  'module' => 
+  array (
+    0 => 'xcx',
+    1 => 'index',
+    2 => 'unread',
+  ),
+)
+[ info ] [ HEADER ] array (
+  'host' => 'www.huaxiang.com',
+  'connection' => 'keep-alive',
+  'content-length' => '0',
+  'accept' => 'application/json, text/javascript, */*; q=0.01',
+  'origin' => 'http://www.huaxiang.com',
+  'x-requested-with' => 'XMLHttpRequest',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.70 Safari/537.36',
+  'referer' => 'http://www.huaxiang.com/xcx/index/index.html',
+  'accept-encoding' => 'gzip, deflate',
+  'accept-language' => 'zh-CN,zh;q=0.9',
+  'cookie' => 'PHPSESSID=rbq5ai55bsspoj5cd00h6m0803',
+)
+[ info ] [ PARAM ] array (
+  '/xcx/index/unread_html' => '',
+)
+[ info ] [ SESSION ] INIT array (
+  'id' => '',
+  'var_session_id' => '',
+  'prefix' => 'think',
+  'type' => '',
+  'auto_start' => true,
+)
+[ info ] [ RUN ] app\xcx\controller\Index->unread[ D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\application\xcx\controller\Index.php ]
+[ info ] [ DB ] INIT mysql
+[ info ] [ LOG ] INIT File
+[ sql ] [ DB ] CONNECT:[ UseTime:0.001214s ] mysql:host=127.0.0.1;port=3306;dbname=xcxnew;charset=utf8mb4
+[ sql ] [ SQL ] SHOW COLUMNS FROM `xcx_msg_person` [ RunTime:0.016003s ]
+[ sql ] [ SQL ] SELECT `mp_id` FROM `xcx_msg_person` WHERE  (  (mp_u_id = 1 and mp_utype = 2 and mp_isable = 1) or (mp_ul_id = 1 and mp_ultype = 2 and  mp_isable = 1) or (mp_u_id = 1 and mp_utype = 1 and mp_isable = 1) or (mp_ul_id = 1 and mp_ultype = 1 and  mp_isable = 1) ) [ RunTime:0.000635s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `super_admin` [ RunTime:0.015336s ]
+[ sql ] [ SQL ] SELECT `ad_wechat` FROM `super_admin` WHERE  `ad_id` = 1 LIMIT 1 [ RunTime:0.000611s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `xcx_msg_content` [ RunTime:0.015949s ]
+[ sql ] [ SQL ] SELECT COUNT(xcx_msg_id) AS tp_count FROM `xcx_msg_content` WHERE  `xcx_msg_mp_id` = 17  AND `xcx_msg_isread` = 2  AND `xcx_msg_isable` = 1  AND (  ( xcx_msg_uid != 1 and xcx_msg_u_type = 1 ) or ( xcx_msg_uid != 1 and  xcx_msg_u_type = 2 ) ) LIMIT 1 [ RunTime:0.000823s ]
+[ sql ] [ SQL ] SELECT `ad_wechat` FROM `super_admin` WHERE  `ad_id` = 1 LIMIT 1 [ RunTime:0.000470s ]
+[ sql ] [ SQL ] SELECT COUNT(xcx_msg_id) AS tp_count FROM `xcx_msg_content` WHERE  `xcx_msg_mp_id` = 18  AND `xcx_msg_isread` = 2  AND `xcx_msg_isable` = 1  AND (  ( xcx_msg_uid != 1 and xcx_msg_u_type = 1 ) or ( xcx_msg_uid != 1 and  xcx_msg_u_type = 2 ) ) LIMIT 1 [ RunTime:0.000478s ]
+[ sql ] [ SQL ] SELECT `ad_wechat` FROM `super_admin` WHERE  `ad_id` = 1 LIMIT 1 [ RunTime:0.001036s ]
+[ sql ] [ SQL ] SELECT COUNT(xcx_msg_id) AS tp_count FROM `xcx_msg_content` WHERE  `xcx_msg_mp_id` = 19  AND `xcx_msg_isread` = 2  AND `xcx_msg_isable` = 1  AND (  ( xcx_msg_uid != 1 and xcx_msg_u_type = 1 ) or ( xcx_msg_uid != 1 and  xcx_msg_u_type = 2 ) ) LIMIT 1 [ RunTime:0.000653s ]
+[ sql ] [ SQL ] SELECT `ad_wechat` FROM `super_admin` WHERE  `ad_id` = 1 LIMIT 1 [ RunTime:0.000459s ]
+[ sql ] [ SQL ] SELECT COUNT(xcx_msg_id) AS tp_count FROM `xcx_msg_content` WHERE  `xcx_msg_mp_id` = 20  AND `xcx_msg_isread` = 2  AND `xcx_msg_isable` = 1  AND (  ( xcx_msg_uid != 1 and xcx_msg_u_type = 1 ) or ( xcx_msg_uid != 1 and  xcx_msg_u_type = 2 ) ) LIMIT 1 [ RunTime:0.000496s ]
+---------------------------------------------------------------
+[ 2020-07-03T19:27:51+08:00 ] 127.0.0.1 POST www.huaxiang.com/xcx/index/unread.html
+[运行时间：0.150038s] [吞吐率：6.66req/s] [内存消耗：2,705.99kb] [文件加载：55]
+[ info ] [ LANG ] D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\thinkphp\lang\zh-cn.php
+[ info ] [ ROUTE ] array (
+  'type' => 'module',
+  'module' => 
+  array (
+    0 => 'xcx',
+    1 => 'index',
+    2 => 'unread',
+  ),
+)
+[ info ] [ HEADER ] array (
+  'host' => 'www.huaxiang.com',
+  'connection' => 'keep-alive',
+  'content-length' => '0',
+  'accept' => 'application/json, text/javascript, */*; q=0.01',
+  'origin' => 'http://www.huaxiang.com',
+  'x-requested-with' => 'XMLHttpRequest',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.70 Safari/537.36',
+  'referer' => 'http://www.huaxiang.com/xcx/index/index.html',
+  'accept-encoding' => 'gzip, deflate',
+  'accept-language' => 'zh-CN,zh;q=0.9',
+  'cookie' => 'PHPSESSID=rbq5ai55bsspoj5cd00h6m0803',
+)
+[ info ] [ PARAM ] array (
+  '/xcx/index/unread_html' => '',
+)
+[ info ] [ SESSION ] INIT array (
+  'id' => '',
+  'var_session_id' => '',
+  'prefix' => 'think',
+  'type' => '',
+  'auto_start' => true,
+)
+[ info ] [ RUN ] app\xcx\controller\Index->unread[ D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\application\xcx\controller\Index.php ]
+[ info ] [ DB ] INIT mysql
+[ info ] [ LOG ] INIT File
+[ sql ] [ DB ] CONNECT:[ UseTime:0.001234s ] mysql:host=127.0.0.1;port=3306;dbname=xcxnew;charset=utf8mb4
+[ sql ] [ SQL ] SHOW COLUMNS FROM `xcx_msg_person` [ RunTime:0.023826s ]
+[ sql ] [ SQL ] SELECT `mp_id` FROM `xcx_msg_person` WHERE  (  (mp_u_id = 1 and mp_utype = 2 and mp_isable = 1) or (mp_ul_id = 1 and mp_ultype = 2 and  mp_isable = 1) or (mp_u_id = 1 and mp_utype = 1 and mp_isable = 1) or (mp_ul_id = 1 and mp_ultype = 1 and  mp_isable = 1) ) [ RunTime:0.001498s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `super_admin` [ RunTime:0.025362s ]
+[ sql ] [ SQL ] SELECT `ad_wechat` FROM `super_admin` WHERE  `ad_id` = 1 LIMIT 1 [ RunTime:0.001263s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `xcx_msg_content` [ RunTime:0.016484s ]
+[ sql ] [ SQL ] SELECT COUNT(xcx_msg_id) AS tp_count FROM `xcx_msg_content` WHERE  `xcx_msg_mp_id` = 17  AND `xcx_msg_isread` = 2  AND `xcx_msg_isable` = 1  AND (  ( xcx_msg_uid != 1 and xcx_msg_u_type = 1 ) or ( xcx_msg_uid != 1 and  xcx_msg_u_type = 2 ) ) LIMIT 1 [ RunTime:0.000919s ]
+[ sql ] [ SQL ] SELECT `ad_wechat` FROM `super_admin` WHERE  `ad_id` = 1 LIMIT 1 [ RunTime:0.000491s ]
+[ sql ] [ SQL ] SELECT COUNT(xcx_msg_id) AS tp_count FROM `xcx_msg_content` WHERE  `xcx_msg_mp_id` = 18  AND `xcx_msg_isread` = 2  AND `xcx_msg_isable` = 1  AND (  ( xcx_msg_uid != 1 and xcx_msg_u_type = 1 ) or ( xcx_msg_uid != 1 and  xcx_msg_u_type = 2 ) ) LIMIT 1 [ RunTime:0.000598s ]
+[ sql ] [ SQL ] SELECT `ad_wechat` FROM `super_admin` WHERE  `ad_id` = 1 LIMIT 1 [ RunTime:0.000421s ]
+[ sql ] [ SQL ] SELECT COUNT(xcx_msg_id) AS tp_count FROM `xcx_msg_content` WHERE  `xcx_msg_mp_id` = 19  AND `xcx_msg_isread` = 2  AND `xcx_msg_isable` = 1  AND (  ( xcx_msg_uid != 1 and xcx_msg_u_type = 1 ) or ( xcx_msg_uid != 1 and  xcx_msg_u_type = 2 ) ) LIMIT 1 [ RunTime:0.000510s ]
+[ sql ] [ SQL ] SELECT `ad_wechat` FROM `super_admin` WHERE  `ad_id` = 1 LIMIT 1 [ RunTime:0.000455s ]
+[ sql ] [ SQL ] SELECT COUNT(xcx_msg_id) AS tp_count FROM `xcx_msg_content` WHERE  `xcx_msg_mp_id` = 20  AND `xcx_msg_isread` = 2  AND `xcx_msg_isable` = 1  AND (  ( xcx_msg_uid != 1 and xcx_msg_u_type = 1 ) or ( xcx_msg_uid != 1 and  xcx_msg_u_type = 2 ) ) LIMIT 1 [ RunTime:0.000532s ]

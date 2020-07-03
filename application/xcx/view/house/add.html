@@ -29,6 +29,16 @@
     .right{
         width: 68%;float:left;display: block;height: 400px;
     }
+    .layui-form-onswitch i {
+        left: 58px;
+        background-color: #fff;
+    }
+    .layui-form-switch {
+        width: 70px;
+    }
+    .layui-form-switch em {
+        width: 50px;
+    }
 </style>
 <div class="layui-body">
     <div style="margin: 20px;">
@@ -59,7 +69,8 @@
                 <div class="layui-form-item">
                     <label class="layui-form-label"><span style="color: red;">*</span>房屋地址</label>
                     <div class="layui-input-block" id="input">
-                        <input type="text" name="address" id="end" autocomplete="off" class="layui-input" lay-verify="required|addresss"  placeholder="目的地">
+                        <input type="text" id="end" autocomplete="off" class="layui-input" placeholder="请输入房屋地址">
+                        <input type="text" name="address" id="address" style="display: none" readonly class="layui-input" lay-verify="required|addresss"  placeholder="目的地取值">
                         <input type="hidden" name="x" id="x" lay-verify="addres" autocomplete="off" class="layui-input" >
                         <input type="hidden" name="y" id="y" lay-verify="addres" autocomplete="off" class="layui-input" >
                     </div>
@@ -83,12 +94,12 @@
                     </div>
                 </div>
                 <div class="layui-form-item">
-                    <label class="layui-form-label"><span style="color: red;">*</span>租金</label>
+                    <label class="layui-form-label"><span style="color: red;">*</span>每周租金</label>
                     <div class="layui-input-inline">
-                        <input type="number" name="price" lay-verify="required" placeholder="请输入租金" id="price" autocomplete="off" class="layui-input">
+                        <input type="number" min="0" name="price" lay-verify="required|prices" placeholder="请输入租金" id="price" autocomplete="off" class="layui-input">
                     </div>
                     <div class="layui-input-inline">
-                        <input type="checkbox" lay-skin="switch" lay-filter="switchRent" lay-text="可议|可议">
+                        <input type="checkbox" lay-skin="switch" lay-filter="switchRent" lay-text="租金可议|租金可议">
                     </div>
                 </div>
                 <fieldset class="layui-elem-field layui-field-title" style="margin-top: 20px;">
@@ -100,7 +111,7 @@
                         <input type="text" name="live_date" id="date" lay-verify="date" lay-verify="required" placeholder="请选择入住时间" autocomplete="off" class="layui-input">
                     </div>
                     <div class="layui-input-inline">
-                        <input type="checkbox" lay-skin="switch" lay-filter="switchTest" lay-text="随时|随时">
+                        <input type="checkbox" lay-skin="switch" lay-filter="switchTest" lay-text="随时入住|随时入住">
                     </div>
                 </div>
                 <div class="layui-form-item">
@@ -114,14 +125,13 @@
                     <label class="layui-form-label"><span style="color: red;">*</span>出租方式</label>
                     <div class="layui-input-block">
                         <input type="radio" name="type" value="整租" title="整租" checked>
-                        <input type="radio" name="type" value="单间" title="单间">
-                        <input type="radio" name="type" value="厅卧" title="厅卧">
+                        <input type="radio" name="type" value="合租" title="合租">
                     </div>
                 </div>
                 <div class="layui-form-item">
                     <label class="layui-form-label"><span style="color: red;">*</span>性别限制</label>
                     <div class="layui-input-block">
-                        <input type="radio" name="sex" value="男女不限" title="男女不限" checked>
+                        <input type="radio" name="sex" value="不限" title="不限" checked>
                         <input type="radio" name="sex" value="限男性" title="限男性">
                         <input type="radio" name="sex" value="限女性" title="限女性">
                     </div>
@@ -129,7 +139,8 @@
                 <div class="layui-form-item">
                     <label class="layui-form-label"><span style="color: red;">*</span>宠物</label>
                     <div class="layui-input-block">
-                        <input type="radio" name="pet" value="接受" title="接受" checked>
+                        <input type="radio" name="pet" value="不限" title="不限" checked>
+                        <input type="radio" name="pet" value="接受" title="接受">
                         <input type="radio" name="pet" value="不接受" title="不接受">
                     </div>
                 </div>
@@ -145,12 +156,10 @@
                 <div class="layui-form-item" pane="">
                     <label class="layui-form-label">租期</label>
                     <div class="layui-input-block">
-                        <input type="radio" name="lease_term" value="12个月起租" title="12个月起租" checked>
-                        <input type="radio" name="lease_term" value="6个月起租" title="6个月起租">
-                        <input type="radio" name="lease_term" value="3个月起租" title="3个月起租">
-                        <input type="radio" name="lease_term" value="1个月起租" title="1个月起租">
-                        <input type="radio" name="lease_term" value="1周起租" title="1周起租">
-                        <input type="radio" name="lease_term" value="灵活" title="灵活">
+                        <input type="radio" name="lease_term" value="12+" title="12+" checked>
+                        <input type="radio" name="lease_term" value="6-12" title="6-12">
+                        <input type="radio" name="lease_term" value="3-6" title="3-6">
+                        <input type="radio" name="lease_term" value="0-3" title="0-3">
                     </div>
                 </div>
                 <fieldset class="layui-elem-field layui-field-title" style="margin-top: 20px;">
@@ -160,19 +169,24 @@
                     <label class="layui-form-label"><span style="color: red;">*</span>房屋类型</label>
                     <div class="layui-input-block">
                         <input type="radio" name="house_type" value="公寓" title="公寓" checked>
-                        <input type="radio" name="house_type" value="House" title="House">
-                        <input type="radio" name="house_type" value="Townhouse" title="Townhouse">
+                        <input type="radio" name="house_type" value="别墅" title="别墅">
+                        <input type="radio" name="house_type" value="联排别墅" title="联排别墅">
                     </div>
                 </div>
                 <div class="layui-form-item">
                     <label class="layui-form-label"><span style="color: red;">*</span>户型</label>
                     <div class="layui-input-block">
                         <input type="radio" name="house_room" value="Studio" title="Studio">
-                        <input type="radio" name="house_room" value="一室" title="一室" checked>
-                        <input type="radio" name="house_room" value="两室" title="两室">
-                        <input type="radio" name="house_room" value="三室" title="三室">
-                        <input type="radio" name="house_room" value="四室" title="四室">
-                        <input type="radio" name="house_room" value="四室以上" title="四室以上">
+                        <input type="radio" name="house_room" value="1" title="1" checked>
+                        <input type="radio" name="house_room" value="2" title="2">
+                        <input type="radio" name="house_room" value="3" title="3">
+                        <input type="radio" name="house_room" value="4" title="4">
+                        <input type="radio" name="house_room" value="5" title="5">
+                        <input type="radio" name="house_room" value="6" title="6">
+                        <input type="radio" name="house_room" value="7" title="7">
+                        <input type="radio" name="house_room" value="8" title="8">
+                        <input type="radio" name="house_room" value="9" title="9">
+
                     </div>
                 </div>
 
@@ -225,7 +239,7 @@
                 </div>
 
                 <div class="layui-form-item" pane="">
-                    <label class="layui-form-label">楼宇设施</label>
+                    <label class="layui-form-label">基本设施</label>
                     <div class="layui-input-block">
                         <input type="checkbox" name="furniture[游泳池]" lay-skin="primary" title="游泳池">
                         <input type="checkbox" name="furniture[健身房]" lay-skin="primary" title="健身房">
@@ -402,6 +416,9 @@
                 template_txt: '{{d.label}}',
                 onselect: function (resp) {
                     var address = resp.label;
+                    $('#address').val(address);
+                    $('#end').hide();
+                    $('#address').show();
                     locationAD(address);
                 }
             });
@@ -431,6 +448,9 @@
                     });
                     if(!flag){
                         $('#end').val('');
+                        $('#end').show();
+                        $('#address').val('');
+                        $('#address').hide();
                         $('#end').focus();
                         return  layer.msg('我们尚未开展除墨尔本，悉尼，塔州，布里斯班四个地区外的业务，请重新填写地址');
                     }
@@ -469,7 +489,7 @@
             //租金可议
             form.on('switch(switchRent)', function(data){
                 if(this.checked){
-                    $('#price').val('0');
+                    $('#price').val('-1');
                     $('#price').hide();
                 }else{
                     $('#price').show();
@@ -484,6 +504,10 @@
                 },addres: function(value){
                     if(!value){
                         return '请输入正确的地址信息,并在推荐地址里选择！';
+                    }
+                },prices: function(value){
+                    if(value <-1){
+                        return '价格不能小于零！';
                     }
                 },addresss: function(value){
                     var values = value.split(',');

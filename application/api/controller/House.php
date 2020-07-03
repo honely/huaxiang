@@ -24,7 +24,7 @@ class House extends Controller
         $city = trim($this->request->param('city','墨尔本'));
         //区域里面  热门  学校  所有区
         //热门区域
-        $where = "status = 1 and city = '".$city."'";
+        $where = "status = 1 and is_del = 1 and city = '".$city."'";
         $area = trim($this->request->param('area'));
         if(isset($area) && !empty($area) && $area){
             $where.=" and area = '".$area."'";
@@ -78,37 +78,47 @@ class House extends Controller
         if($mintime && $maxtime){
             $where.= " and (live_date >= '".$mintime."' and (live_date  <= '".$maxtime."')  or ( live_date = '0100-01-01' or live_date = '0000-00-00' ))";
         }
-        //户型
+        //户型  卧室
         $house_room = trim($this->request->param('house_room'));
         if(isset($house_room) && !empty($house_room) && $house_room){
-            if($house_room == '四室及以上'){
-                $where.=" and (house_room = '四室' or house_room = '四室以上')";
+            if($house_room == '4+'){
+                $where.=" and house_room > 4 ";
             }else{
                 $where.=" and house_room = '".$house_room."'";
             }
         }
         //更多 房源特色，出租方式，性别，宠物，楼宇设施
-        //出租方式
+
         //性别
         $sex = trim($this->request->param('sex'));
-        if(isset($sex) && !empty($sex) && $sex && $sex != '不限'){
-            $where.=" and sex = '限".$sex."'";
+        if(isset($sex) && !empty($sex) && $sex){
+            $where.=" and ( sex = '限".$sex."' or sex = '不限' ) ";
         }
+        //出租方式
         $type = trim($this->request->param('type'));
         if(isset($type) && !empty($type) && $type){
             $where.=" and type = '".$type."'";
         }
         $pet = trim($this->request->param('pet'));
         if(isset($pet) && !empty($pet) && $pet){
-            $where.=" and pet = '".$pet."'";
+            $where.=" and ( pet = '".$pet."' or pet = '不限' )";
         }
-        //toilet
+        //卫生间
         $toilet = intval(trim($this->request->param('toilet')));
         if(isset($toilet) && !empty($toilet) && $toilet){
-            if($toilet >= 4){
-                $where.=" and toilet >= ".$toilet;
+            if($toilet == '3+'){
+                $where.=" and toilet > 3";
             }else{
                 $where.=" and toilet = ".$toilet;
+            }
+        }
+        //车位
+        $car = intval(trim($this->request->param('toilet')));
+        if(isset($car) && !empty($car) && $car){
+            if($car == '3+'){
+                $where.=" and car > 3";
+            }else{
+                $where.=" and car = ".$car;
             }
         }
         //房源特色
@@ -369,7 +379,7 @@ class House extends Controller
         }
         $limit = trim($this->request->param('limit','10'));
         $page = trim($this->request->param('page','0'));
-        $where = "(status >=1 and user_id = '".$uid."')";
+        $where = "(is_del =1 and user_id = '".$uid."')";
         $order = 'mdate desc';
         $field = 'id,user_id,title,type,house_room,area,images,price,status,home';
         $housem = new Housem();
@@ -503,5 +513,34 @@ class House extends Controller
         //更新上次登录时间
         Db::table('tk_user')->where(['id' => $uid])->update(['mdate' =>date('Y-m-d H:i:s')]);
         return $resault;
+    }
+
+
+    public function del(){
+        $id = trim($this->request->param('id'));
+        if (!@$id) {
+            $res['code'] = 0;
+            $res['msg'] = 'id不能为空！';
+            return json($res);
+        }
+        $one = Db::table('tk_houses')
+            ->where(['id' => $id])->field('id')->find();
+        if(!$one){
+            $res['code'] = 0;
+            $res['msg'] = '此房源不存在！';
+            return json($res);
+        }
+        $del = Db::table('tk_houses')
+            ->where(['id' => $id])
+            ->update(['is_del' => 2]);
+        if($del){
+            $res['code'] = 1;
+            $res['msg'] = '删除成功！';
+            return json($res);
+        }else{
+            $res['code'] = 0;
+            $res['msg'] = '删除失败！';
+            return json($res);
+        }
     }
 }
