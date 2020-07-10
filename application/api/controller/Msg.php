@@ -21,7 +21,7 @@ class Msg extends Controller
         $message = Db::table('xcx_msg_content')->field('xcx_msg_mp_id, xcx_msg_add_time, xcx_msg_uid,xcx_msg_content,xcx_msg_ul_id')
             ->where(['xcx_msg_isread' => 2, 'xcx_msg_isable' => 1])
             ->group('xcx_msg_mp_id')->order('xcx_msg_id asc')->select();
-        //dump($message);
+        dump($message);
         if (!$message) {
             return 1;
         }
@@ -41,39 +41,73 @@ class Msg extends Controller
                 ->where('mp_id', '=', $val['xcx_msg_mp_id'])
                 ->where('mp_isable = 1')
                 ->find();
-            //dump($users);
+            dump($users);
             if (!$users) {
                 continue;
             }
-            //dump($users);
             //会话发起者 等于 消息发送者 发送未读提醒给 消息接受者
             if ($users['mp_u_id'] == $val['xcx_msg_uid']) {
                 //如果消息接受者类型为后端用户
                 if($users['mp_ultype'] == 2){
-                    //  dump('会话发起者等于消息发送者发送未读提醒给消息接受者,消息接受者类型为后端用户adminid='.$users['mp_ul_id']);
-                    $this->sendNotAdminMsg($users['mp_ul_id']);
+                    dump('会话发起者等于消息发送者发送未读提醒给消息接受者,消息接受者类型为后端用户adminid='.$users['mp_ul_id']);
+                    //  $this->sendNotAdminMsg($users['mp_ul_id']);
                 }else{
                     //消息接受者为前端用户
-                    // dump('会话发起者等于消息发送者发送未读提醒给消息接受者,消息接受者为前端用户userid='.$users['mp_ul_id']);
-                    $this->sendNotMsg($users['mp_ul_id']);
+                    dump('会话发起者等于消息发送者发送未读提醒给消息接受者,消息接受者为前端用户userid='.$users['mp_ul_id']);
+                    //  $this->sendNotMsg($users['mp_ul_id']);
                 }
             }else{
                 //会话的接受者 等于 消息发送者  发送未读提醒给 消息发起者
                 //如果消息发起者为后端用户
                 if($users['mp_utype'] == 2){
-                    //  dump('会话的接受者 等于 消息发送者  发送未读提醒给 消息发起者,消息发起者为后端用户adminid='.$users['mp_u_id']);
-                    $this->sendNotAdminMsg($users['mp_u_id']);
+                    dump('会话的接受者 等于 消息发送者  发送未读提醒给 消息发起者,消息发起者为后端用户adminid='.$users['mp_u_id']);
+                    //  $this->sendNotAdminMsg($users['mp_u_id']);
                 }else if($users['mp_ultype'] == 2){
-                    //  dump('会话的接受者 bu等于 消息发送者  发送未读提醒给 消息发起者,消息发起者为后端用户adminid='.$users['mp_ul_id']);
-                    $this->sendNotAdminMsg($users['mp_ul_id']);
+                    dump('会话的接受者 bu等于 消息发送者  发送未读提醒给 消息发起者,消息发起者为后端用户adminid='.$users['mp_ul_id']);
+                    //  $this->sendNotAdminMsg($users['mp_ul_id']);
                 }else{
-                    //    dump('会话的接受者 等于 消息发送者  发送未读提醒给 消息发起者,消息发起者为q前端用户userid='.$users['mp_u_id']);
-                    $this->sendNotMsg($users['mp_u_id']);
+                    dump('会话的接受者 等于 消息发送者  发送未读提醒给 消息发起者,消息发起者为q前端用户userid='.$users['mp_u_id']);
+                    //   $this->sendNotMsg($users['mp_u_id']);
                 }
 
             }
         }
         return 2;
+    }
+
+    public function checkMsgs(){
+        $message = Db::table('xcx_msg_content')
+            ->where(['xcx_msg_isread' => 2, 'xcx_msg_isable' => 1])
+            ->group('xcx_msg_mp_id')->order('xcx_msg_id asc')->select();
+
+        if (!$message) {
+            return 1;
+        }
+        //设置时区问题
+        date_default_timezone_set("Australia/Melbourne");
+        $time = time();
+        //dump($message);
+        foreach ($message as $key => $val) {
+            $msgFidIsdel = $this->msgIsDel($val['xcx_msg_mp_id']);
+            $diff_num = $time - strtotime($val['xcx_msg_add_time']);
+            if ($diff_num <= 300) {
+                continue;
+            }
+            if($msgFidIsdel == 1){
+                if($val['xcx_msg_ul_type'] == 1){
+                    //  dump('前端用户userid='.$val['xcx_msg_ul_id']);
+                    $this->sendNotMsg($val['xcx_msg_ul_id']);
+                }else{
+                    // dump('后端用户adminid='.$val['xcx_msg_ul_id']);
+                    $this->sendNotAdminMsg($val['xcx_msg_ul_id']);
+                }
+            }
+        }
+        return 2;
+    }
+    public function msgIsDel($mpid){
+        $msg = Db::table('xcx_msg_person')->where(['mp_id' => $mpid])->field('mp_isable')->find();
+        return $msg['mp_isable'];
     }
 
     //前端用户发送消息

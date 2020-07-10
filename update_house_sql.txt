@@ -5,12 +5,13 @@ update tk_houses set house_room = 2 where house_room ='两室';
 update tk_houses set house_room = 3 where house_room ='三室';
 update tk_houses set house_room = 4 where house_room ='四室';
 update tk_houses set house_room = '4+' where house_room ='四室以上';
-update tk_houses set house_type = '别墅' where house_room ='House';
-update tk_houses set house_type = '联排别墅' where house_room ='Townhouse';
+update tk_houses set house_type = '别墅' where house_type ='House';
+update tk_houses set house_type = '联排别墅' where house_type ='Townhouse';
 update tk_houses set sex = '不限' where sex ='男女不限';
 
 update tk_houses set lease_term = '0-3' where lease_term ='1周起租' or lease_term = '1个月起租';
 update tk_houses set lease_term = '3-6' where lease_term ='3个月起租';
 update tk_houses set lease_term = '6-12' where lease_term ='6个月起租';
 update tk_houses set lease_term = '12+' where lease_term ='12个月起租';
+update tk_houses set lease_term = '12' where lease_term ='12+';
 select * FROM tk_houses where dsn = 'A000000246'

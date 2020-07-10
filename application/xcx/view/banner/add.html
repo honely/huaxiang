@@ -45,11 +45,19 @@
                                 </div>
                             </div>
                             <div class="layui-form-item" pane>
-                                <label class="layui-form-label">广告位置</label>
+                                <label class="layui-form-label"><span style="color: red;">*</span>广告位置</label>
                                 <div class="layui-input-block">
                                     <input type="radio" name="b_class" value="1" title="首页轮播" checked>
                                     <input type="radio" name="b_class" value="2" title="详情页广告">
                                     <input type="radio" name="b_class" value="3" title="列表广告">
+                                </div>
+                            </div>
+                            <div class="layui-form-item" pane>
+                                <label class="layui-form-label"><span style="color: red;">*</span>跳转到</label>
+                                <div class="layui-input-block">
+                                    <input type="radio" name="b_type" lay-filter="b_type" value="1" title="内部固定富文本" checked>
+                                    <input type="radio" name="b_type" lay-filter="b_type" value="2" title="外部链接">
+                                    <input type="radio" name="b_type" lay-filter="b_type" value="3" title="其他小程序">
                                 </div>
                             </div>
                             <div class="layui-form-item">
@@ -81,10 +89,23 @@
                                     <div class="layui-form-mid layui-word-aux" style="margin-left: 39px; ">图片要求，最大800KB，支持JPG/JEPG/PNG格式</div>
                                 </div>
                             </div>
-                            <div class="layui-form-item">
-                                <label class="layui-form-label">跳转链接</label>
+                            <div class="layui-form-item" id="b_url" style="display: none">
+                                <label class="layui-form-label"><span style="color: red;">*</span>跳转链接</label>
                                 <div class="layui-input-block">
-                                    <input type="text" name="b_url"  placeholder="请输入banner图片跳转链接" autocomplete="off" class="layui-input">
+                                    <input type="text" name="b_url" id="urls" placeholder="请输入banner图片跳转链接。" autocomplete="off" class="layui-input">
+                                </div>
+                                <div class="layui-form-mid layui-word-aux" style="color:red !important;">1.链接域名需是在ICP通过备案的域名。2.域名需要在小程序后台配置业务域名后才能正确跳转。</div>
+                            </div>
+                            <div class="layui-form-item" id="b_appid" style="display: none">
+                                <label class="layui-form-label"><span style="color: red;">*</span>Appid</label>
+                                <div class="layui-input-block">
+                                    <input type="text" name="b_appid" id="appid" placeholder="请输入要打开的小程序 appId。" autocomplete="off" class="layui-input">
+                                </div>
+                            </div>
+                            <div class="layui-form-item" id="b_path" style="display: none">
+                                <label class="layui-form-label">页面路径</label>
+                                <div class="layui-input-block">
+                                    <input type="text" name="b_path" id="path" placeholder="请输入小程序页面路径,如果为空则打开首页。" autocomplete="off" class="layui-input">
                                 </div>
                             </div>
                             <div class="layui-form-item" pane>
@@ -94,7 +115,7 @@
                                     <input type="radio" name="b_status" value="2" title="否">
                                 </div>
                             </div>
-                            <div class="layui-form-item">
+                            <div class="layui-form-item" id="b_content">
                                 <label class="layui-form-label"><span style="color: red;">*</span>广告内容</label>
                                 <div class="layui-input-block">
                                     <script id="container" name="b_content"  style="width:1024px;height:500px;" type="text/plain">请输入广告内容</script>
@@ -118,6 +139,32 @@
         var form = layui.form
             ,upload = layui.upload
             ,$ = layui.jquery;
+        form.on('radio(b_type)', function(data){
+            var type = data.value;
+            if(type == 1){
+                console.log(1);
+                $('#b_content').show();
+                $('#b_appid').hide();
+                $('#b_path').hide();
+                $('#b_url').hide();
+                $('#urls').removeAttr('lay-verify');
+                $('#appid').removeAttr('lay-verify');
+            }else if(type == 2){
+                $('#b_content').hide();
+                $('#b_appid').hide();
+                $('#b_path').hide();
+                $('#b_url').show();
+                $('#appid').removeAttr('lay-verify');
+                $('#urls').attr('lay-verify','required|url');
+            }else if(type == 3){
+                $('#b_content').hide();
+                $('#b_url').hide();
+                $('#b_appid').show();
+                $('#b_path').show();
+                $('#urls').removeAttr('lay-verify');
+                $('#appid').attr('lay-verify','required');
+            }
+        });
         //自定义验证规则
         form.verify({
             title: function(value){

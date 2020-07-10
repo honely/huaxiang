@@ -46,7 +46,7 @@ class Banner extends Controller{
     }
 
     public function baData(){
-        $where ='b_status = 1 ';
+        $where ='1 = 1 ';
         $count=Db::table('xcx_banner')
             ->where($where)
             ->count();
@@ -153,6 +153,9 @@ class Banner extends Controller{
             $data['b_class']=$_POST['b_class'];
             $data['b_content']=$_POST['b_content'];
             $data['b_url']=$_POST['b_url'];
+            $data['b_type']=$_POST['b_type'];
+            $data['b_appid']=$_POST['b_appid'];
+            $data['b_path']=$_POST['b_path'];
             $data['b_add_time']= date('Y-m-d H:i:s');
             $data['b_update_time']= date('Y-m-d H:i:s');
             $data['b_order']=$_POST['b_order'];
@@ -177,6 +180,9 @@ class Banner extends Controller{
             $data['b_cover']=$_POST['b_cover'];
             $data['b_url']=$_POST['b_url'];
             $data['b_class']=$_POST['b_class'];
+            $data['b_type']=$_POST['b_type'];
+            $data['b_appid']=$_POST['b_appid'];
+            $data['b_path']=$_POST['b_path'];
             $data['b_content']=$_POST['b_content'];
             $data['b_add_time']= date('Y-m-d H:i:s');
             $data['b_update_time']= date('Y-m-d H:i:s');

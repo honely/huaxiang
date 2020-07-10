@@ -348,6 +348,25 @@ class House extends Controller{
 
     }
 
+
+    public function add1(){
+        $adminId = session('adminId');
+        $adminInfo = Db::table('super_admin')
+            ->where(['ad_id' => $adminId])
+            ->field('ad_realname,ad_email,ad_weixin,ad_phone')
+            ->find();
+        $this->assign('admin',$adminInfo);
+        $city = Db::table('tk_cate')->where(['pid' => 0])->select();
+        $this->assign('city',$city);
+        $all_tags = Db::table('xcx_tags')
+            ->where(['type' => 1])
+            ->field('id,name')
+            ->select();
+        $this->assign('tags',$all_tags);
+        $this->assign('typess',1);
+        return $this->fetch();
+    }
+
     public function getCityName($id){
         $city = Db::table('tk_cate')->where(['id' =>$id])->field('name')->find();
         return $city ? $city['name'] : '未知城市';
@@ -1113,6 +1132,35 @@ class House extends Controller{
     }
 
     //通用缩略图上传接口
+    public function upload2()
+    {
+        if($this->request->isPost()){
+            $res['code']=1;
+            $res['msg'] = '上传成功！';
+            $file = $this->request->file('file');
+            $config = [
+                'size' => 1024*1024*10
+            ];
+            $size = $file->validate($config);
+            if($size){
+                $info = $file->move(ROOT_PATH . 'public' . DS . 'uploads/ceshi');
+                //halt( $info);
+                if($info){
+                    $res['name'] = $info->getFilename();
+                    $res['filepath'] = 'uploads/ceshi/'.$info->getSaveName();
+                }else{
+                    $res['code'] = 0;
+                    $res['msg'] = '上传失败！'.$file->getError();
+                }
+            }else{
+                $res['code'] = 0;
+                $res['msg'] = '文件大小不超过10M！';
+            }
+            return $res;
+        }
+    }
+
+    //通用缩略图上传接口
     public function upload1()
     {
         if($this->request->isPost()){
@@ -1403,6 +1451,12 @@ class House extends Controller{
   
   
   
-  
-  
+  public function uppic(){
+        return $this->fetch();
+  }
+
+    public function uppic1(){
+        return $this->fetch();
+    }
+
 }

@@ -73,6 +73,9 @@
             <div class="layui-col-md6">
                 <div id="main2" style="width: 600px;height:400px;"></div>
             </div>
+            <div class="layui-col-md6">
+                <div id="main3" style="width: 600px;height:400px;"></div>
+            </div>
         </div>
     </div>
 </div>
@@ -82,9 +85,12 @@
     var myChart = echarts.init(document.getElementById('main'));
     var myChart1 = echarts.init(document.getElementById('main1'));
     var myChart2 = echarts.init(document.getElementById('main2'));
+    var myChart3 = echarts.init(document.getElementById('main3'));
     var arr1=[],arr2=[],arr3=[];
     var names = [];
+    var statusname = [];
     var brower = [];
+    var numbs = [];
     function arrTest(){
         $.ajax({
             type:"post",
@@ -101,7 +107,8 @@
                     }
                 }
             }
-        });$.ajax({
+        });
+        $.ajax({
             type:"post",
             async:false,
             url:"<?=url('index/getHousePie')?>",
@@ -119,7 +126,26 @@
                 }
             }
         });
-        return arr1,arr2,arr3,names,brower;
+        $.ajax({
+            type:"post",
+            async:false,
+            url:"<?=url('index/getHousePieStatus')?>",
+            data:{},
+            dataType:"json",
+            success:function(result){
+                console.log(result);
+                if (result) {
+                    $.each(result, function(index, item) {
+                        statusname.push(item.name); //挨个取出类别并填入类别数组
+                        numbs.push({
+                            name: item.name,
+                            value: item.value
+                        });
+                    });
+                }
+            }
+        });
+        return arr1,arr2,arr3,names,brower,statusname,numbs;
     }
     arrTest();
 
@@ -157,6 +183,7 @@
             smooth: true
         }]
     };
+    //房源城市分布图
     option2 = {
         title: {
             text: '房源分布图',
@@ -189,11 +216,43 @@
         ]
     };
 
-
+    //房源状态分布图
+    option3 = {
+        title: {
+            text: '房源状态分布图',
+            left: 'center'
+        },
+        tooltip: {
+            trigger: 'item',
+            formatter: '{a} <br/>{b} : {c} ({d}%)'
+        },
+        legend: {
+            orient: 'vertical',
+            left: 'left',
+            data: statusname
+        },
+        series: [
+            {
+                name: '状态占比',
+                type: 'pie',
+                radius: '55%',
+                center: ['50%', '60%'],
+                data: numbs,
+                emphasis: {
+                    itemStyle: {
+                        shadowBlur: 10,
+                        shadowOffsetX: 0,
+                        shadowColor: 'rgba(0, 0, 0, 0.5)'
+                    }
+                }
+            }
+        ]
+    };
     // 使用刚指定的配置项和数据显示图表。
     myChart.setOption(option);
     myChart1.setOption(option1);
     myChart2.setOption(option2);
+    myChart3.setOption(option3);
 </script>
 <script>
     layui.use(['element','jquery','layer'], function(){

@@ -5,6 +5,7 @@ namespace app\xcx\controller;
 
 
 use think\console\command\make\Controller;
+use think\Db;
 
 class Text extends Controller
 {
@@ -23,4 +24,9 @@ class Text extends Controller
         }
     }
 
+    
+    public function getMsgByDay(){
+        $msgsCont = Db::table('xcx_msg_content')->select();
+        dump($msgsCont);
+    }
 }

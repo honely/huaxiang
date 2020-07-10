@@ -4,6 +4,7 @@ use app\xcx\model\Housem;
 use think\Controller;
 use think\Db;
 use think\Image;
+use think\Log;
 class House extends Controller
 {
 
@@ -43,9 +44,15 @@ class House extends Controller
             $where.=" and house_type = '".$house_type."'";
         }
         //租期
-        $lease_term = trim($this->request->param('lease_term'));
+        $lease_term = $this->request->param('lease_term');
+        Log::write('获取房源参数lease_term：'.$lease_term,'info');
         if(isset($lease_term) && !empty($lease_term) && $lease_term){
-            $where.=" and lease_term = '".$lease_term."'";
+            if($lease_term == '12+'){
+                $where.=" and lease_term = '12'";
+            }else{
+                $where.=" and lease_term = '".$lease_term."'";
+            }
+
         }
         //学校
         $school = trim($this->request->param('school'));
@@ -55,13 +62,18 @@ class House extends Controller
 
         //所有有房源的区
         //租房价格最大值 最小值
-        $maxprice = trim($this->request->param('maxprice'));
+        //租房价格最大值 最小值
+        $maxprice = trim($this->request->param('maxprice','5000'));
+        Log::write('租房价格最大值：'.$maxprice,'info');
+        $mimprice = trim($this->request->param('minprice','0'));
+        Log::write('租房价格最小值：'.$mimprice,'info');
+        $maxprice = $maxprice ? $maxprice : '5000';
+        $mimprice = $mimprice ? $mimprice : '0';
         if(isset($maxprice) && !empty($maxprice) && $maxprice){
             $where.=" and ( price <= ".$maxprice." ";
         }
-        $mimprice = trim($this->request->param('minprice'));
-        if(isset($mimprice) && !empty($mimprice) && $mimprice){
-            $where.=" and price >= ".$mimprice."  or price = 0 )";
+        if(isset($mimprice)){
+            $where.=" and price >= ".$mimprice."  or price = -1 )";
         }
 
         //入住时间最大值 最小值 mintime  结束    maxtime  左边加5天
@@ -69,20 +81,24 @@ class House extends Controller
         $maxtime = trim($this->request->param('maxtime'));
         if((isset($mintime) && !empty($mintime) && $mintime) && !$maxtime){
             $mintime = date( 'Y-m-d', strtotime($mintime.' -5 days'));
+            Log::write('入住时间最小值：'.$mintime,'info');
             $where.=" and (live_date >= '".$mintime."' or ( live_date = '0100-01-01' or live_date = '0000-00-00' ))";
         }
 
         if((isset($maxtime) && !empty($maxtime) && $maxtime) && !$mintime){
+            Log::write('入住时间最大值：'.$maxtime,'info');
             $where.=" and (live_date  <= '".$maxtime."' or ( live_date = '0100-01-01' or live_date = '0000-00-00' ))";
         }
         if($mintime && $maxtime){
-            $where.= " and (live_date >= '".$mintime."' and (live_date  <= '".$maxtime."')  or ( live_date = '0100-01-01' or live_date = '0000-00-00' ))";
+            Log::write('入住时间最小值：'.$mintime.'入住时间最大值'.$maxtime,'info');
+            $where.= " and ((live_date >= '".$mintime."' and live_date  <= '".$maxtime."')  or ( live_date = '0100-01-01' or live_date = '0000-00-00' ))";
         }
         //户型  卧室
-        $house_room = trim($this->request->param('house_room'));
+        $house_room = $this->request->param('house_room');
+        Log::write('卧室house_room：'.$house_room,'info');
         if(isset($house_room) && !empty($house_room) && $house_room){
             if($house_room == '4+'){
-                $where.=" and house_room > 4 ";
+                $where.=" and house_room > 4";
             }else{
                 $where.=" and house_room = '".$house_room."'";
             }
@@ -104,7 +120,7 @@ class House extends Controller
             $where.=" and ( pet = '".$pet."' or pet = '不限' )";
         }
         //卫生间
-        $toilet = intval(trim($this->request->param('toilet')));
+        $toilet = $this->request->param('toilet');
         if(isset($toilet) && !empty($toilet) && $toilet){
             if($toilet == '3+'){
                 $where.=" and toilet > 3";
@@ -113,7 +129,8 @@ class House extends Controller
             }
         }
         //车位
-        $car = intval(trim($this->request->param('toilet')));
+        $car = $this->request->param('car');
+        Log::write('车位car：'.$car,'info');
         if(isset($car) && !empty($car) && $car){
             if($car == '3+'){
                 $where.=" and car > 3";
@@ -144,6 +161,7 @@ class House extends Controller
         //楼宇设施
         $limit = trim($this->request->param('limit','10'));
         $page = trim($this->request->param('page','0'));
+        Log::write('前端用户：'.$uid.'进行了翻页，当前页码'.$page,'info');
         $order = trim($this->request->param('order','0'));
         $orders = '';
         if(isset($order)){
@@ -170,7 +188,7 @@ class House extends Controller
             }
         }
         $order = $orders;
-        $field = 'id,type,title,house_room,area,images,price,toilet,furniture,home,school,address,tj,top,mdate,tags,area,live_date';
+        $field = 'id,type,title,house_room,area,images,price,toilet,furniture,home,school,address,tj,top,mdate,tags,area,live_date,car';
         $housem = new Housem();
         $house = $housem->readData($where,$order,$limit,$page,$field);
         //更新上次登录时间
@@ -183,11 +201,13 @@ class House extends Controller
             $res['code'] = 1;
             $res['msg'] = '读取成功！';
             $res['data'] = $house;
+            $res['where'] = $where;
             return json($res);
         }
         $res['code'] = 1;
         $res['msg'] = '数据为空！';
         $res['data'] = $house;
+        $res['where'] = $where;
         return json($res);
     }
 
@@ -379,9 +399,13 @@ class House extends Controller
         }
         $limit = trim($this->request->param('limit','10'));
         $page = trim($this->request->param('page','0'));
-        $where = "(is_del =1 and user_id = '".$uid."')";
+        $where = "(is_del =1 and user_id = ".$uid." and is_admin = 1 )";
+        $isBindAdmin = $this->isBindAdmin($uid);
+        if($isBindAdmin){
+            $where.=" or (is_del =1 and user_id = ".$isBindAdmin['ad_id']." and is_admin = 2)";
+        }
         $order = 'mdate desc';
-        $field = 'id,user_id,title,type,house_room,area,images,price,status,home';
+        $field = 'id,user_id,title,type,house_room,area,images,price,status,home,address';
         $housem = new Housem();
         $house = $housem->readData($where,$order,$limit,$page,$field);
         if($house){
@@ -394,6 +418,11 @@ class House extends Controller
         $res['msg'] = '数据为空！';
         $res['data'] = $house;
         return json($res);
+    }
+
+    public function isBindAdmin($uid){
+        $isBind = Db::table('super_admin')->where(['ad_wechat' => $uid])->field('ad_id')->find();
+        return $isBind ? $isBind : null;
     }
 
 

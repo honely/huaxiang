@@ -114,7 +114,7 @@ class Index extends Controller
 
     public function unread(){
         $adminid = session('adminId');
-             //如果这个后台用户已经绑定小程序用户的话，包含小程序用户的未读消息
+        //如果这个后台用户已经绑定小程序用户的话，包含小程序用户的未读消息
         $adWechat = session('ad_wechat');
         $where = "(mp_u_id = ".$adminid." and mp_utype = 2 and mp_isable = 1) or (mp_ul_id = ".$adminid." and mp_ultype = 2 and  mp_isable = 1)";
         if($adWechat){
@@ -192,12 +192,13 @@ class Index extends Controller
         $todayStart = date('Y-m-d').' 00:00:00';
         $todayEnd = date('Y-m-d').' 23:59:59';
         $whereToday = "(cdate >= '".$todayStart."' and cdate <= '".$todayEnd."')";
+        $where = "(publish_date >= '".$todayStart."' and publish_date <= '".$todayEnd."')";
         $todayUser = $houseM->userCount($whereToday);
-        $todayHouse = $houseM->houseCount($whereToday);
+        $todayHouse = $houseM->houseCount($where);
         //下线一个月之前发布的房源
         $this->offLineHouse();
         //更新房源的点击和收藏量（虚拟数据）
-        $this->updateHouseClickAndCollect();
+        //$this->updateHouseClickAndCollect();
         $this->assign('allHouse',$allHouse);
         $this->assign('allUser',$allUser);
         $this->assign('todayHouse',$todayHouse);
@@ -284,8 +285,9 @@ class Index extends Controller
         $arr = $this->periodDate($weekAgo,$today);
         $houseM = new Housem();
         foreach ($arr as $k => $v){
+            $wherehouse = " publish_date >= '".$v['date']." 00:00:00' and publish_date <= '".$v['date']." 23:59:59' and is_del = 1";
             $where = " cdate >= '".$v['date']." 00:00:00' and cdate <= '".$v['date']." 23:59:59'";
-            $arr[$k]['nums'] = $houseM->houseCount($where);
+            $arr[$k]['nums'] = $houseM->houseCount($wherehouse);
             $arr[$k]['users'] = $houseM->userCount($where);
         }
         $sqldata_json=json_encode($arr);
@@ -305,8 +307,27 @@ class Index extends Controller
         $arrs[3]['name'] = '布里斯班';
         $houseM = new Housem();
         foreach ($arrs as $k => $v){
-            $where = "city = '".$v['name']."'";
+            $where = "is_del = 1 and city = '".$v['name']."'";
             $arrs[$k]['value'] = $houseM->houseCount($where);
+        }
+        $sqldata_json=json_encode($arrs);
+        echo  $sqldata_json;
+    }
+
+
+    public function getHousePieStatus(){
+        $arrs[0]['name'] = '草稿';
+        $arrs[1]['name'] = '发布';
+        $arrs[2]['name'] = '下线';
+        $arrs[3]['name'] = '删除';
+        $houseM = new Housem();
+        foreach ($arrs as $k => $v){
+            $where = "is_del = 1 and status = '".$k."'";
+            $arrs[$k]['value'] = $houseM->houseCount($where);
+            if($k == 3){
+                $delWhere = 'is_del = 2';
+                $arrs[$k]['value'] = $houseM->houseCount($delWhere);
+            }
         }
         $sqldata_json=json_encode($arrs);
         echo  $sqldata_json;
@@ -403,5 +424,13 @@ class Index extends Controller
     public function trimPhone($id,$tel){
         $tel = str_replace(' ', '',$tel);
         Db::table('tk_user')->where(['id' => $id])->update(['tel' => $tel]);
+    }
+
+    public function updateHousePublishTime(){
+        $houses = Db::table('tk_houses')->field('id,cdate,mdate,publish_date')->select();
+        foreach ($houses as $k => $v){
+            Db::table('tk_houses')->where(['id' => $v['id']])->update(['publish_date' => $v['mdate']]);
+        }
+        dump($houses);
     }
 }

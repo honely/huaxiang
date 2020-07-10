@@ -82,6 +82,7 @@
                         <input type="hidden" name="x" id="x" lay-verify="addres"  autocomplete="off" class="layui-input" value="{$house.x}" >
                         <input type="hidden" name="y" id="y" lay-verify="addres"  autocomplete="off" class="layui-input" value="{$house.y}" >
                     </div>
+                    <div class="layui-form-mid layui-word-aux" style="margin-left: 110px;color: red !important;">必须从下拉框中选择对应地址，否则无法显示地理位置</div>
                 </div>
                 <div class="layui-form-item">
                     <label class="layui-form-label">房源链接</label>
@@ -92,7 +93,7 @@
                 <div class="layui-form-item">
                     <label class="layui-form-label"><span style="color: red;">*</span>城市</label>
                     <div class="layui-input-inline">
-                        <input type="text" name="city" id="city" lay-verify="required|title" value="墨尔本" readonly class="layui-input">
+                        <input type="text" name="city" id="city" lay-verify="required|title" value="{$house.city}" readonly class="layui-input">
                     </div>
                     <label class="layui-form-label"><span style="color: red;">*</span>校区</label>
                     <div class="layui-input-inline">
@@ -138,8 +139,7 @@
                     <label class="layui-form-label"><span style="color: red;">*</span>出租方式</label>
                     <div class="layui-input-block">
                         <input type="radio" name="type" value="整租" title="整租" {if condition="$house.type eq '整租'"}checked{/if}>
-                        <input type="radio" name="type" value="单间" title="单间" {if condition="$house.type eq '单间'"}checked{/if}>
-                        <input type="radio" name="type" value="厅卧" title="厅卧" {if condition="$house.type eq '厅卧'"}checked{/if}>
+                        <input type="radio" name="type" value="合租" title="合租" {if condition="$house.type eq '合租'"}checked{/if}>
                     </div>
                 </div>
                 <div class="layui-form-item">
@@ -361,7 +361,8 @@
                 </fieldset>
                 <div class="layui-form-mid layui-word-aux" style="margin-left: 40px;">视频仅限一个视频，大小控制在10M以内。</div>
                 <div class="layui-form-item one-pan" style="margin-left: 40px;">
-                    <div class="layui-upload-drag" id="uploadLogo" style="padding: 50px;display: inline-block;">
+                    <div class="operates" id="operates" style="display: {if condition='$house.video neq null'}block{else/}none{/if}"><i class="closes layui-icon"></i></div>
+                    <div class="layui-upload-drag" id="uploadLogo" style="padding: {if condition='$house.video neq null'}0{else/}50{/if}px;display: inline-block;">
                         {if condition='$house.video neq null'}
                         <video id="logoPre" controls="controls" autobuffer="autobuffer" style="width: 335px;height: 215px;" autoplay="autoplay" loop="loop" src="{if condition='$house.video neq null'}__PUBLIC__/{$house.video}{else/}{/if}">
                             <input type="hidden" name="video" id="video" value="{if condition='$house.video neq null'}{$house.video}{else/}{/if}"/>
@@ -618,6 +619,7 @@
                     obj.preview(function(index, file, result){
                         let url = URL.createObjectURL(file);
                         $('#logoPre').show();
+                        $('#operates').show();
                         $('#display').hide();
                         $('#uploadLogo').removeClass('layui-upload-drag');
                         $('#logoPre').css('width','335px');
@@ -640,6 +642,7 @@
                     });
                 }
                 ,done: function(res){
+                    $('#operates').show();
                     $('#logoPre').removeAttr('src');
                     $('#video').val('');
                     layer.close(loading);
@@ -718,5 +721,10 @@
         //点击多图上传的X,删除当前的图片
         $("body").on("click",".close",function(){
             $(this).closest("li").remove();
+        });
+        //点击多图上传的X,删除当前的图片
+        $("body").on("click",".closes",function(){
+            $("#logoPre").removeAttr('src');
+            $("#video").val('');
         });
     </script>
