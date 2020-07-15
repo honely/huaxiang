@@ -27,8 +27,12 @@ class House extends Controller
         //热门区域
         $where = "status = 1 and is_del = 1 and city = '".$city."'";
         $area = trim($this->request->param('area'));
+        $hot = trim($this->request->param('hot'));
         if(isset($area) && !empty($area) && $area){
             $where.=" and area = '".$area."'";
+        }
+        if(isset($hot) && !empty($hot) && $hot){
+            $where.=" and area = '".$hot."'";
         }
         $keys = trim($this->request->param('keys'));
         if(isset($keys) && !empty($keys) && $keys){
@@ -58,6 +62,12 @@ class House extends Controller
         $school = trim($this->request->param('school'));
         if(isset($school) && !empty($school) && $school){
             $where.=" and school = '".$school."'";
+        }
+
+        //是否包含家具
+        $isFur = trim($this->request->param('is_fur'));
+        if(isset($isFur) && !empty($isFur) && $isFur){
+            $where.=" and is_fur = '".$isFur."'";
         }
 
         //所有有房源的区
@@ -423,8 +433,11 @@ class House extends Controller
         return json($res);
     }
 
- public function isBindAdmin($uid){
-        $isBind = Db::table('super_admin')->where(['ad_wechat' => $uid])->field('ad_id')->find();
+    public function isBindAdmin($uid){
+        $isBind = Db::table('super_admin')
+            ->where(['ad_wechat' => $uid])
+            ->field('ad_id')
+            ->find();
         return $isBind ? $isBind : null;
     }
   
@@ -456,9 +469,14 @@ class House extends Controller
         header("Access-Control-Allow-Origin:*");
         header('Access-Control-Allow-Methods:POST');
         header('Access-Control-Allow-Headers:x-requested-with, content-type');
-        $uid = trim($this->request->param('uid'));
+        $uid = trim($this->request->param('uid','0'));
         $limit = trim($this->request->param('limit','10'));
         $page = trim($this->request->param('page','0'));
+        if($uid == 0){
+            $res['code'] = 1;
+            $res['msg'] = '数据为空！';
+            return json($res);
+        }
         $where = "(user_id = '".$uid."')";
         $order = 'publish_date desc';
         $field = 'id,type,title,house_room,area,images,price,status,home';
@@ -508,20 +526,29 @@ class House extends Controller
         return json($res);
     }
 
+
+    /***
+     * 参数uid = 0  非必选
+     * @return \think\response\Json
+     * @throws \think\db\exception\DataNotFoundException
+     * @throws \think\db\exception\ModelNotFoundException
+     * @throws \think\exception\DbException
+     */
     public function myQuery(){
         header("Access-Control-Allow-Origin:*");
         header('Access-Control-Allow-Methods:POST');
         header('Access-Control-Allow-Headers:x-requested-with, content-type');
-        $uid = trim($this->request->param('uid'));
-        if (!@$uid) {
-            $res['code'] = 0;
-            $res['msg'] = '用户id不能为空！';
+        $uid = trim($this->request->param('uid',0));
+        if ($uid == 0) {
+            $res['code'] = 1;
+            $res['msg'] = '数据为空！';
             return json($res);
         }
         $list = Db::table('xcx_search_keywords')
             ->where(['sk_userid' => $uid,'sk_type' => 1])
             ->limit(10)
             ->field('sk_keywords')
+            ->order('sk_id desc')
             ->select();
         if($list){
             $res['code'] = 1;
@@ -575,8 +602,16 @@ class House extends Controller
             return json($res);
         }
     }
-    
-    
+
+
+    /***
+     * 房源详情简易版
+     * 2020年7月15日11:16:16
+     * @return \think\response\Json
+     * @throws \think\db\exception\DataNotFoundException
+     * @throws \think\db\exception\ModelNotFoundException
+     * @throws \think\exception\DbException
+     */
     public function myDetail(){
         header("Access-Control-Allow-Origin:*");
         header('Access-Control-Allow-Methods:POST');
@@ -616,6 +651,24 @@ class House extends Controller
         return json($res);
     }
 
-    
+    public function hotSech(){
+        header("Access-Control-Allow-Origin:*");
+        header('Access-Control-Allow-Methods:POST');
+        header('Access-Control-Allow-Headers:x-requested-with, content-type');
+        $hotSer = Db::table('tk_cate')
+            ->where(['hot' => '是'])
+            ->limit(10)
+            ->field('id,name')
+            ->select();
+        if($hotSer){
+            $res['code'] = 1;
+            $res['msg'] = '读取成功！';
+            $res['data'] = $hotSer;
+            return json($res);
+        }
+        $res['code'] = 1;
+        $res['msg'] = '数据为空！';
+        return json($res);
+    }
     
 }

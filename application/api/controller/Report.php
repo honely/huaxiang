@@ -13,7 +13,7 @@ class Report extends Controller
         header("Access-Control-Allow-Origin:*");
         header('Access-Control-Allow-Methods:POST');
         header('Access-Control-Allow-Headers:x-requested-with, content-type');
-        $uId = intval(trim($this->request->param('uid')));
+        $uId = intval(trim($this->request->param('uid',0)));
         $mid = intval(trim($this->request->param('mid')));
         $content = trim($this->request->param('content'));
         $userName = trim($this->request->param('uname'));

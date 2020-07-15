@@ -21,7 +21,7 @@ class Msg extends Controller
         $message = Db::table('xcx_msg_content')->field('xcx_msg_mp_id, xcx_msg_add_time, xcx_msg_uid,xcx_msg_content,xcx_msg_ul_id')
             ->where(['xcx_msg_isread' => 2, 'xcx_msg_isable' => 1])
             ->group('xcx_msg_mp_id')->order('xcx_msg_id asc')->select();
-    dump($message);
+       dump($message);
         if (!$message) {
             return 1;
         }

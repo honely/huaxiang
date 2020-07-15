@@ -46,6 +46,13 @@ class Housem extends Model
             $data['area'] = trim(explode(',',$add)[1]);
         }
         $data['is_admin'] = 1;
+        //是否绑定手机号
+        if(isset($data['is_save']) && $data['is_save'] == 1){
+            Db::table('tk_user')
+                ->where(['id' => $data['user_id']])
+                ->update(['is_bind' => $data['tel']]);
+        }
+        unset($data['is_save']);
         $addHouse = Db::table('tk_houses')->insertGetId($data);
         $mateInfo = Db::table('tk_houses')->where(['id' =>$addHouse])->field('user_id')->find();
         $msg = new Loops();
@@ -61,8 +68,15 @@ class Housem extends Model
             $add = $data['address'];
             $data['area'] = trim(explode(',',$add)[1]);
         }
+        //是否绑定手机号
+        if(isset($data['is_save']) && $data['is_save'] == 1){
+            Db::table('tk_user')
+                ->where(['id' => $data['user_id']])
+                ->update(['is_bind' => $data['tel']]);
+        }
+        unset($data['is_save']);
         unset($data['id']);
-      unset($data['user_id']);
+        unset($data['user_id']);
         $update = Db::table('tk_houses')
             ->where(['id' => $id])
             ->update($data);

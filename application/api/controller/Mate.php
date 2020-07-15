@@ -65,7 +65,7 @@ class Mate extends Controller
         header('Access-Control-Allow-Methods:POST');
         header('Access-Control-Allow-Headers:x-requested-with, content-type');
         $id = trim($this->request->param('id'));
-        $uid = trim($this->request->param('uid'));
+        $uid = trim($this->request->param('uid',0));
         if(!$id){
             $res['code'] = 2;
             $res['msg'] = '缺少参数！';
@@ -98,7 +98,7 @@ class Mate extends Controller
         header('Access-Control-Allow-Methods:POST');
         header('Access-Control-Allow-Headers:x-requested-with, content-type');
         //城市
-        $uid = trim($this->request->param('uid'));
+        $uid = trim($this->request->param('uid',0));
         $city = trim($this->request->param('city','墨尔本'));
         //区域里面  热门  学校  所有区
         //热门区域
@@ -159,9 +159,14 @@ class Mate extends Controller
         header("Access-Control-Allow-Origin:*");
         header('Access-Control-Allow-Methods:POST');
         header('Access-Control-Allow-Headers:x-requested-with, content-type');
-        $uid = intval(trim($this->request->param('uid')));
+        $uid = intval(trim($this->request->param('uid',0)));
         $limit = trim($this->request->param('limit','10'));
         $page = trim($this->request->param('page','0','intval'));
+        if($uid == 0){
+            $res['code'] = 1;
+            $res['msg'] = '数据为空！';
+            return json($res);
+        }
         if(!$uid){
             $res['code'] = 0;
             $res['msg'] = '缺少参数';

@@ -109,6 +109,13 @@
                         <input type="radio" name="pet" disabled value="不接受" title="不接受" {if condition="$house.pet eq '不接受'"}checked{/if}>
                     </div>
                 </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label"><span style="color: red;">*</span>是否包含家具</label>
+                    <div class="layui-input-block">
+                        <input type="radio" name="is_fur" disabled  value="是" title="是" {if condition="$house.is_fur eq '是'"}checked{/if}>
+                        <input type="radio" name="is_fur" disabled  value="否" title="否" {if condition="$house.is_fur eq '否'"}checked{/if}>
+                    </div>
+                </div>
                 <div class="layui-form-item" pane="">
                     <label class="layui-form-label">Bill相关</label>
                     <div class="layui-input-block">

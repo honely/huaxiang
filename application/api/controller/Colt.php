@@ -25,8 +25,13 @@ class Colt extends Controller
         header("Access-Control-Allow-Origin:*");
         header('Access-Control-Allow-Methods:POST');
         header('Access-Control-Allow-Headers:x-requested-with, content-type');
-        $uId = intval(trim($this->request->param('uid')));
+        $uId = intval(trim($this->request->param('uid','0')));
         $hid = intval(trim($this->request->param('hid')));
+        if($uId == 0){
+            $res['code'] = 0;
+            $res['msg'] = '您暂未登录无法收藏！';
+            return json($res);
+        }
         if(!$uId || !$hid){
             $res['code'] = 0;
             $res['msg'] = '缺少参数！';
@@ -59,6 +64,11 @@ class Colt extends Controller
         header('Access-Control-Allow-Headers:x-requested-with, content-type');
         $uId = intval(trim($this->request->param('uid')));
         $mid = intval(trim($this->request->param('mid')));
+        if($uId == 0){
+            $res['code'] = 0;
+            $res['msg'] = '您暂未登录无法收藏！';
+            return json($res);
+        }
         if(!$uId || !$mid){
             $res['code'] = 0;
             $res['msg'] = '缺少参数！';
@@ -104,10 +114,15 @@ class Colt extends Controller
         header("Access-Control-Allow-Origin:*");
         header('Access-Control-Allow-Methods:POST');
         header('Access-Control-Allow-Headers:x-requested-with, content-type');
-        $uId = intval(trim($this->request->param('uid',1)));
+        $uId = intval(trim($this->request->param('uid',0)));
         $type = intval(trim($this->request->param('type',1)));
         $page = intval(trim($this->request->param('page',0)));
         $limit = intval(trim($this->request->param('limit',10)));
+        if($uId == 0){
+            $res['code'] = 1;
+            $res['msg'] = '数据为空！';
+            return json($res);
+        }
         $where = 'cl_user_id = '.$uId.' and cl_type = '.$type;
         $order = 'cl_addtime desc';
         $field = 'cl_id,cl_house_id';

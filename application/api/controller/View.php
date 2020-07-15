@@ -20,7 +20,7 @@ class View extends Controller
         header("Access-Control-Allow-Origin:*");
         header('Access-Control-Allow-Methods:POST');
         header('Access-Control-Allow-Headers:x-requested-with, content-type');
-        $uId = intval(trim($this->request->param('uid')));
+        $uId = intval(trim($this->request->param('uid',0)));
         $hid = intval(trim($this->request->param('hid')));
         $col = new Views();
         $add = $col->addView($uId,$hid,1);
@@ -49,7 +49,7 @@ class View extends Controller
         header("Access-Control-Allow-Origin:*");
         header('Access-Control-Allow-Methods:POST');
         header('Access-Control-Allow-Headers:x-requested-with, content-type');
-        $uId = intval(trim($this->request->param('uid')));
+        $uId = intval(trim($this->request->param('uid',0)));
         $mid = intval(trim($this->request->param('mid')));
         $col = new Views();
         $add = $col->addView($uId,$mid,2);
