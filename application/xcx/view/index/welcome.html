@@ -73,7 +73,7 @@
             <div class="layui-col-md6">
                 <div id="main2" style="width: 600px;height:400px;"></div>
             </div>
-            <div class="layui-col-md6">
+           <div class="layui-col-md6">
                 <div id="main3" style="width: 600px;height:400px;"></div>
             </div>
         </div>
@@ -82,7 +82,7 @@
 <script src="__PUBLIC__/echarts/echarts.min.js"></script>
 <script type="text/javascript">
     // 基于准备好的dom，初始化echarts实例
-    var myChart = echarts.init(document.getElementById('main'));
+   var myChart = echarts.init(document.getElementById('main'));
     var myChart1 = echarts.init(document.getElementById('main1'));
     var myChart2 = echarts.init(document.getElementById('main2'));
     var myChart3 = echarts.init(document.getElementById('main3'));
@@ -107,8 +107,7 @@
                     }
                 }
             }
-        });
-        $.ajax({
+        });$.ajax({
             type:"post",
             async:false,
             url:"<?=url('index/getHousePie')?>",
@@ -183,7 +182,6 @@
             smooth: true
         }]
     };
-    //房源城市分布图
     option2 = {
         title: {
             text: '房源分布图',
@@ -215,8 +213,7 @@
             }
         ]
     };
-
-    //房源状态分布图
+ //房源状态分布图
     option3 = {
         title: {
             text: '房源状态分布图',
@@ -248,11 +245,12 @@
             }
         ]
     };
+
     // 使用刚指定的配置项和数据显示图表。
     myChart.setOption(option);
     myChart1.setOption(option1);
     myChart2.setOption(option2);
-    myChart3.setOption(option3);
+   myChart3.setOption(option3);
 </script>
 <script>
     layui.use(['element','jquery','layer'], function(){

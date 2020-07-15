@@ -3,7 +3,6 @@ namespace app\xcx\model;
 use think\Db;
 use think\Model;
 use think\Log;
-
 class Housem extends Model
 {
 
@@ -22,20 +21,11 @@ class Housem extends Model
        $field = $field.',thumnail';
         $result = Db::table('tk_houses')
             ->where($where)
-            ->where(['is_del' => 1])
+          ->where(['is_del' => 1])
             ->limit(($page)*$limit,$limit)
             ->order($order)
             ->field($field)
             ->select();
-        $log = Db::table('tk_houses')
-            ->where($where)
-            ->where(['is_del' => 1])
-            ->limit(($page)*$limit,$limit)
-            ->order($order)
-            ->field($field)
-            ->fetchSql(true)
-            ->select();
-        Log::write('房源列表读取Sql：'.$log,'info');
         if($result){
             foreach ($result as $k => $v){
 //                $add = $v['address'];
@@ -72,7 +62,7 @@ class Housem extends Model
             $data['area'] = trim(explode(',',$add)[1]);
         }
         unset($data['id']);
-        unset($data['user_id']);
+      unset($data['user_id']);
         $update = Db::table('tk_houses')
             ->where(['id' => $id])
             ->update($data);
@@ -137,7 +127,7 @@ class Housem extends Model
 
 
     public function numRoom($room){
-        if($room == 'Studio'){
+   if($room == 'Studio'){
             $room = 0;
         }
         return $room;

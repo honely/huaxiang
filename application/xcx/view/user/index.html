@@ -34,18 +34,18 @@
     <table lay-filter="demo" id="test123" lay-skin="nob"></table>
 </section>
 <script type="text/html" id="barDemo">
-    {if condition='$editable eq true'}
+   {if condition='$addable eq true'}
+    <a class="layui-btn layui-btn-xs" lay-event="touch">沟通</a>
+    {/if}
+    <a class="layui-btn layui-btn-xs" lay-event="edit">详情</a>
+  
+   {if condition='$editable eq true'}
     {{#  if(d.role_id == 1){ }}
     <a class="layui-btn layui-btn-xs" lay-event="admin">一般用户</a>
     {{#  }else{ }}
     <a class="layui-btn layui-btn-xs" lay-event="admin">管理员</a>
     {{#  } }}
     {/if}
-    <a class="layui-btn layui-btn-xs" lay-event="edit">详情</a>
-    {if condition='$addable eq true'}
-    <a class="layui-btn layui-btn-xs" lay-event="touch">沟通</a>
-    {/if}
-
 
 </script>
 <script>

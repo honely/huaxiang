@@ -9,30 +9,30 @@ use think\Log;
 
 class Msg extends Controller
 {
-    /**
+  /**
      * 发送验证码
      * @return bool
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\ModelNotFoundException
      * @throws \think\exception\DbException
      */
-    public function checkMsg()
+   public function checkMsg()
     {
         $message = Db::table('xcx_msg_content')->field('xcx_msg_mp_id, xcx_msg_add_time, xcx_msg_uid,xcx_msg_content,xcx_msg_ul_id')
             ->where(['xcx_msg_isread' => 2, 'xcx_msg_isable' => 1])
             ->group('xcx_msg_mp_id')->order('xcx_msg_id asc')->select();
-        dump($message);
+    dump($message);
         if (!$message) {
             return 1;
         }
-        //设置时区问题
-        date_default_timezone_set("Australia/Melbourne");
+       //设置时区问题
+       date_default_timezone_set("Australia/Melbourne");
         $time = time();
-
-        $date = date('Y-m-d H:i:s',time());
+    
+     	$date = date('Y-m-d H:i:s',time());
         foreach ($message as $key => $val) {
             $diff_num = $time - strtotime($val['xcx_msg_add_time']);
-            //dump($val['xcx_msg_add_time'].'-'.$date);
+          //dump($val['xcx_msg_add_time'].'-'.$date);
             if ($diff_num <= 300) {
                 continue;
             }
@@ -41,7 +41,7 @@ class Msg extends Controller
                 ->where('mp_id', '=', $val['xcx_msg_mp_id'])
                 ->where('mp_isable = 1')
                 ->find();
-            dump($users);
+          dump($users);
             if (!$users) {
                 continue;
             }
@@ -49,33 +49,33 @@ class Msg extends Controller
             if ($users['mp_u_id'] == $val['xcx_msg_uid']) {
                 //如果消息接受者类型为后端用户
                 if($users['mp_ultype'] == 2){
-                    dump('会话发起者等于消息发送者发送未读提醒给消息接受者,消息接受者类型为后端用户adminid='.$users['mp_ul_id']);
-                    //  $this->sendNotAdminMsg($users['mp_ul_id']);
+                dump('会话发起者等于消息发送者发送未读提醒给消息接受者,消息接受者类型为后端用户adminid='.$users['mp_ul_id']);
+                      //  $this->sendNotAdminMsg($users['mp_ul_id']);
                 }else{
                     //消息接受者为前端用户
-                    dump('会话发起者等于消息发送者发送未读提醒给消息接受者,消息接受者为前端用户userid='.$users['mp_ul_id']);
-                    //  $this->sendNotMsg($users['mp_ul_id']);
+                 dump('会话发起者等于消息发送者发送未读提醒给消息接受者,消息接受者为前端用户userid='.$users['mp_ul_id']);
+                     //  $this->sendNotMsg($users['mp_ul_id']);
                 }
             }else{
                 //会话的接受者 等于 消息发送者  发送未读提醒给 消息发起者
                 //如果消息发起者为后端用户
                 if($users['mp_utype'] == 2){
-                    dump('会话的接受者 等于 消息发送者  发送未读提醒给 消息发起者,消息发起者为后端用户adminid='.$users['mp_u_id']);
-                    //  $this->sendNotAdminMsg($users['mp_u_id']);
+                   dump('会话的接受者 等于 消息发送者  发送未读提醒给 消息发起者,消息发起者为后端用户adminid='.$users['mp_u_id']);
+                   //  $this->sendNotAdminMsg($users['mp_u_id']);
                 }else if($users['mp_ultype'] == 2){
-                    dump('会话的接受者 bu等于 消息发送者  发送未读提醒给 消息发起者,消息发起者为后端用户adminid='.$users['mp_ul_id']);
-                    //  $this->sendNotAdminMsg($users['mp_ul_id']);
-                }else{
-                    dump('会话的接受者 等于 消息发送者  发送未读提醒给 消息发起者,消息发起者为q前端用户userid='.$users['mp_u_id']);
-                    //   $this->sendNotMsg($users['mp_u_id']);
+                   dump('会话的接受者 bu等于 消息发送者  发送未读提醒给 消息发起者,消息发起者为后端用户adminid='.$users['mp_ul_id']);
+              //  $this->sendNotAdminMsg($users['mp_ul_id']);
+              }else{
+                     dump('会话的接受者 等于 消息发送者  发送未读提醒给 消息发起者,消息发起者为q前端用户userid='.$users['mp_u_id']);
+                //   $this->sendNotMsg($users['mp_u_id']);
                 }
 
             }
         }
         return 2;
     }
-
-    public function checkMsgs(){
+  
+  public function checkMsgs(){
         $message = Db::table('xcx_msg_content')
             ->where(['xcx_msg_isread' => 2, 'xcx_msg_isable' => 1])
             ->group('xcx_msg_mp_id')->order('xcx_msg_id asc')->select();
@@ -86,32 +86,31 @@ class Msg extends Controller
         //设置时区问题
         date_default_timezone_set("Australia/Melbourne");
         $time = time();
-        //dump($message);
         foreach ($message as $key => $val) {
-            $msgFidIsdel = $this->msgIsDel($val['xcx_msg_mp_id']);
+          $msgFidIsdel = $this->msgIsDel($val['xcx_msg_mp_id']);
             $diff_num = $time - strtotime($val['xcx_msg_add_time']);
             if ($diff_num <= 300) {
                 continue;
             }
-            if($msgFidIsdel == 1){
-                if($val['xcx_msg_ul_type'] == 1){
-                    //  dump('前端用户userid='.$val['xcx_msg_ul_id']);
-                    $this->sendNotMsg($val['xcx_msg_ul_id']);
-                }else{
-                    // dump('后端用户adminid='.$val['xcx_msg_ul_id']);
-                    $this->sendNotAdminMsg($val['xcx_msg_ul_id']);
-                }
+          if($msgFidIsdel == 1){
+            if($val['xcx_msg_ul_type'] == 1){
+                //dump('前端用户userid='.$val['xcx_msg_ul_id']);
+                $this->sendNotMsg($val['xcx_msg_ul_id']);
+            }else{
+                //dump('后端用户adminid='.$val['xcx_msg_ul_id']);
+                $this->sendNotAdminMsg($val['xcx_msg_ul_id']);
             }
+          }
         }
         return 2;
     }
-    public function msgIsDel($mpid){
+   public function msgIsDel($mpid){
         $msg = Db::table('xcx_msg_person')->where(['mp_id' => $mpid])->field('mp_isable')->find();
         return $msg['mp_isable'];
     }
-
-    //前端用户发送消息
-    private function sendNotMsg($uid) {
+  
+  //前端用户发送消息
+  private function sendNotMsg($uid) {
         $curl = curl_init();
         curl_setopt($curl, CURLOPT_URL, 'https://www.huaxiangxiaobao.com/api/msg/sendNot?id=' . $uid);
         curl_setopt($curl, CURLOPT_HEADER, 1);
@@ -120,8 +119,8 @@ class Msg extends Controller
         curl_close($curl);
     }
 
-
-    //后台用户发送消息
+  
+  //后台用户发送消息
     public function sendNotAdminMsg($uid){
         $curl = curl_init();
         curl_setopt($curl, CURLOPT_URL, 'https://www.huaxiangxiaobao.com/api/msg/sendNotAdmin?id=' . $uid);
@@ -172,7 +171,7 @@ class Msg extends Controller
      * @throws \think\db\exception\ModelNotFoundException
      * @throws \think\exception\DbException
      */
-    public function getMsgList()
+   public function getMsgList()
     {
         header("Access-Control-Allow-Origin:*");
         header('Access-Control-Allow-Methods:POST');
@@ -243,12 +242,12 @@ class Msg extends Controller
                         if($v['mp_utype'] == 1 && $v['mp_ultype'] == 2){
                             $list[$k]['nickname'] = $msg->getAdminNick($v['mp_ul_id']);
                             $list[$k]['avaurl'] = $msg->getAdminAvatar($v['mp_ul_id']);
-                            $list[$k]['count'] = $this->getUnread2($v['mp_id'],$uId);
+                             $list[$k]['count'] = $this->getUnread2($v['mp_id'],$uId);
                         }
                         if($v['mp_utype'] == 1 && $v['mp_ultype'] == 1){
                             $list[$k]['nickname'] = $msg->getUserNick($v['mp_ul_id']);
                             $list[$k]['avaurl'] = $msg->getUserAvatar($v['mp_ul_id']);
-                            $list[$k]['count'] = $this->getUnread2($v['mp_id'],$uId);
+                             $list[$k]['count'] = $this->getUnread2($v['mp_id'],$uId);
                         }
                     }
                     //消息接收人是我自己
@@ -276,7 +275,7 @@ class Msg extends Controller
         $res['data'] = null;
         return json($res);
     }
-    public function getUnread1($mpId,$uid){
+  	 public function getUnread1($mpId,$uid){
         $readWhere = 'xcx_msg_ul_id = '.$uid;
         $unRead = Db::table('xcx_msg_content')
             ->where(['xcx_msg_mp_id' => $mpId,'xcx_msg_isread' => 2,'xcx_msg_isable' =>1])
@@ -284,7 +283,7 @@ class Msg extends Controller
             ->count('xcx_msg_id');
         return $unRead ? $unRead : 0;
     }
-    public function getUnread2($mpId,$uid){
+   public function getUnread2($mpId,$uid){
         $readWhere = 'xcx_msg_uid != '.$uid;
         $unRead = Db::table('xcx_msg_content')
             ->where(['xcx_msg_mp_id' => $mpId,'xcx_msg_isread' => 2,'xcx_msg_isable' =>1])
@@ -292,7 +291,7 @@ class Msg extends Controller
             ->count('xcx_msg_id');
         return $unRead ? $unRead : 0;
     }
-    /***
+  /***
      * 当前小程序用户是否绑定后端用户
      * @param $uid
      * @return bool
@@ -304,7 +303,7 @@ class Msg extends Controller
         $isBind = Db::table('super_admin')->where(['ad_wechat' => $uid])->field('ad_id')->find();
         return $isBind ? $isBind : null;
     }
-    public function unRead2(){
+public function unRead2(){
         header("Access-Control-Allow-Origin:*");
         header('Access-Control-Allow-Methods:POST');
         header('Access-Control-Allow-Headers:x-requested-with, content-type');
@@ -408,7 +407,7 @@ class Msg extends Controller
 
 
 
-    /***
+      /***
      * 3.发送消息
      * @return \think\response\Json
      */
@@ -460,7 +459,7 @@ class Msg extends Controller
         return json($res);
     }
 
-    public function getUlidAndType($mpid,$uId){
+ public function getUlidAndType($mpid,$uId){
         $ulInfo = Db::table('xcx_msg_person')->where(['mp_id' => $mpid])->find();
         if($ulInfo['mp_u_id'] == $uId){
             $res['ul_id'] = $ulInfo['mp_ul_id'];
@@ -481,7 +480,7 @@ class Msg extends Controller
      * @throws \think\exception\DbException
      * @throws \think\exception\PDOException
      */
-    public function getMsg()
+   public function getMsg()
     {
         header("Access-Control-Allow-Origin:*");
         header('Access-Control-Allow-Methods:POST');
@@ -492,7 +491,7 @@ class Msg extends Controller
         $isbend = $this->isBindAdmin($uid);
         //获取消息的发送方
         $ulInfo = $this->getUlInfo($mpid,$uid);
-        //dump($ulInfo);
+     //dump($ulInfo);
         $page = trim($this->request->param('page', '0'));
         $limit = 100;
         if (!$mpid && $uid) {
@@ -501,14 +500,14 @@ class Msg extends Controller
             return json($res);
         }
         //更新已读状态
-
-        //更新已读状态
+     
+     //更新已读状态
         $bindId = $isbend['ad_id'];
-        //更新已读状态
+       //更新已读状态
         if($isbend){
             $readWhere = '( xcx_msg_uid != '.$uid.' and xcx_msg_u_type = 1 ) or ( xcx_msg_uid != '.$bindId.' and  xcx_msg_u_type = 2 )';
         }else{
-            $readWhere = '( xcx_msg_u_type = 1 and  xcx_msg_uid != '.$uid.' ) or ( xcx_msg_ul_type = 1 and  xcx_msg_ul_id != '.$uid.') ';
+           $readWhere = '( xcx_msg_u_type = 1 and  xcx_msg_uid != '.$uid.' ) or ( xcx_msg_ul_type = 1 and  xcx_msg_ul_id != '.$uid.') ';
         }
         Db::table('xcx_msg_content')
             ->where(['xcx_msg_mp_id' => $mpid, 'xcx_msg_isable' => 1])
@@ -519,7 +518,7 @@ class Msg extends Controller
             ->order('xcx_msg_add_time')
             ->limit($limit, $page)
             ->select();
-        // dump($msgList);
+    // dump($msgList);
         if ($msgList) {
 //            $list[$k]['mp_ultype'] == 2 || $list[$k]['mp_utype'] == 2
             $mpids = Db::table('xcx_msg_person')
@@ -532,12 +531,12 @@ class Msg extends Controller
                     if($v['xcx_msg_uid'] == $bindId){
                         $msgList[$k]['xcx_msg_uid'] = $uid;
                     }
-                    if($v['xcx_msg_uid'] == $uid){
+                   if($v['xcx_msg_uid'] == $uid){
                         $msgList[$k]['xcx_msg_uid'] = $uid;
                     }
-                }
+                } 
             }else{
-                foreach($msgList as $k => $v){
+             foreach($msgList as $k => $v){
                     if($v['xcx_msg_ul_id'] == $uid){
                         Db::table('xcx_msg_content')
                             ->where(['xcx_msg_mp_id' => $mpid, 'xcx_msg_isable' => 1,'xcx_msg_ul_id' => $uid])
@@ -553,10 +552,10 @@ class Msg extends Controller
             $user['iavaurl'] = $msg->getUserAvatar($uid);
             $res['code'] = 1;
             $res['msg'] = '读取成功！';
-            //dump($user);
+          //dump($user);
             $res['data'] = $msgList;
             $res['user'] = $user;
-            //dump($res);
+          //dump($res);
             return json($res);
         }
         $res['code'] = 1;
@@ -567,11 +566,11 @@ class Msg extends Controller
     }
 
 
-    public function getUlInfo($mpid,$uId){
+ public function getUlInfo($mpid,$uId){
         //查询当前小程序用户是否绑定admin用户
         $isbend = $this->isBindAdmin($uId);
         $ulInfo = Db::table('xcx_msg_person')->where(['mp_id' => $mpid])->find();
-        //dump($ulInfo);
+   //dump($ulInfo);
         $msg = new Loops();
         if($isbend){
             $adminId = $isbend['ad_id'];
@@ -601,7 +600,7 @@ class Msg extends Controller
                 $user['uid']  = $ulInfo['mp_ul_id'];
             }
             if($ulInfo['mp_u_id'] == $uId && $ulInfo['mp_utype'] == 1 && $ulInfo['mp_ultype'] == 1){
-                $user['unickname'] = $msg->getUserNick($ulInfo['mp_ul_id']);
+               $user['unickname'] = $msg->getUserNick($ulInfo['mp_ul_id']);
                 $user['uavaurl'] = $msg->getUserAvatar($ulInfo['mp_ul_id']);
                 $user['uid']  = $ulInfo['mp_ul_id'];
             }

@@ -87,7 +87,7 @@ class Bannerm extends Model
             $res['data'] = null;
             return $res;
         }
-        if ($house['b_status'] != 1) {
+       if ($house['b_status'] != 1) {
             $res['code'] = 0;
             $res['msg'] = '此广告已下架。';
             $res['data'] = null;

@@ -114,7 +114,7 @@ class Index extends Controller
 
     public function unread(){
         $adminid = session('adminId');
-        //如果这个后台用户已经绑定小程序用户的话，包含小程序用户的未读消息
+             //如果这个后台用户已经绑定小程序用户的话，包含小程序用户的未读消息
         $adWechat = session('ad_wechat');
         $where = "(mp_u_id = ".$adminid." and mp_utype = 2 and mp_isable = 1) or (mp_ul_id = ".$adminid." and mp_ultype = 2 and  mp_isable = 1)";
         if($adWechat){
@@ -198,7 +198,8 @@ class Index extends Controller
         //下线一个月之前发布的房源
         $this->offLineHouse();
         //更新房源的点击和收藏量（虚拟数据）
-        //$this->updateHouseClickAndCollect();
+        //2020年7月10日11:34:54佳文做市场推广，咱们是按照浏览量给用户红包
+        // $this->updateHouseClickAndCollect();
         $this->assign('allHouse',$allHouse);
         $this->assign('allUser',$allUser);
         $this->assign('todayHouse',$todayHouse);
@@ -279,7 +280,7 @@ class Index extends Controller
     }
 
 
-    public function getHouse(){
+public function getHouse(){
         $today = date('Y-m-d');
         $weekAgo = date("Y-m-d", strtotime("-30 days"));
         $arr = $this->periodDate($weekAgo,$today);
@@ -313,13 +314,13 @@ class Index extends Controller
         $sqldata_json=json_encode($arrs);
         echo  $sqldata_json;
     }
-
-
-    public function getHousePieStatus(){
+  
+  
+      public function getHousePieStatus(){
         $arrs[0]['name'] = '草稿';
         $arrs[1]['name'] = '发布';
         $arrs[2]['name'] = '下线';
-        $arrs[3]['name'] = '删除';
+        $arrs[3]['name'] = '已删除';
         $houseM = new Housem();
         foreach ($arrs as $k => $v){
             $where = "is_del = 1 and status = '".$k."'";
@@ -425,7 +426,7 @@ class Index extends Controller
         $tel = str_replace(' ', '',$tel);
         Db::table('tk_user')->where(['id' => $id])->update(['tel' => $tel]);
     }
-
+  
     public function updateHousePublishTime(){
         $houses = Db::table('tk_houses')->field('id,cdate,mdate,publish_date')->select();
         foreach ($houses as $k => $v){
