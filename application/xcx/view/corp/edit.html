@@ -1,0 +1,147 @@
+{include file="index/header" /}
+<style>
+    .logoPre{
+        width: 216px;
+        height: 150px;
+    }
+    .casePre{
+        display:none;
+    }
+</style>
+<div class="layui-body">
+    <div style="margin: 20px;">
+    <span class="layui-breadcrumb" lay-separator=">">
+        <a>公司管理</a>
+        <a href="<?=url('corp/index')?>">公司列表</a>
+        <a><cite>添加公司</cite></a>
+    </span>
+        <div style="float:right;">
+            <a href="<?=url('corp/index')?>" class="layui-btn layui-btn-primary layui-btn-sm">
+                <i class="layui-icon layui-icon-return"></i>
+                返回列表</a>
+        </div>
+    </div>
+    <hr/>
+    <div class="layui-tab">
+        <div class="layui-tab-content">
+            <!--基本信息-->
+            <div class="layui-tab-item layui-show">
+                <div style="margin: 10px">
+                    <div style="padding: 15px;">
+                        <form class="layui-form" action="<?=url('corp/edit')?>?cp_id={$corp.cp_id}" method="post">
+                            <div class="layui-form-item">
+                                <label class="layui-form-label"><span style="color: red;">*</span>公司名称</label>
+                                <div class="layui-input-block">
+                                    <input type="text" name="cp_name" lay-verify="required|title" placeholder="请输入公司名称" value="{$corp.cp_name}" autocomplete="off" class="layui-input">
+                                </div>
+                            </div>
+                            <div class="layui-form-item">
+                                <label class="layui-form-label"><span style="color: red;">*</span>ABN</label>
+                                <div class="layui-input-block">
+                                    <input type="text" name="cp_identity" lay-verify="required|title" placeholder="请输入ABN" value="{$corp.cp_identity}"  autocomplete="off" class="layui-input">
+                                </div>
+                            </div>
+                            <div class="layui-form-item">
+                                <label class="layui-form-label"><span style="color: red;">*</span>公司地址</label>
+                                <div class="layui-input-block">
+                                    <input type="text" name="cp_address" lay-verify="required|title" placeholder="请输入公司地址" value="{$corp.cp_address}"  autocomplete="off" class="layui-input">
+                                </div>
+                            </div>
+                            <div class="layui-form-item one-pan">
+                                <label class="layui-form-label"><span style="color: red;">*</span>公司logo</label>
+                                <div {if condition="$corp.cp_logo eq null"}class="layui-upload-drag"{/if} id="uploadLogo" style="display:inline-block;" >
+                                <image id="logoPre"
+                                       {if condition="$corp.cp_logo eq null"}
+                                       {else/}
+                                src="__PUBLIC__/{$corp.cp_logo}"
+                                class="logoPre"
+                                {/if}
+                                >
+                                <input type="hidden" lay-verify="imgReg" name="cp_logo" id="cp_logo" value="{$corp.cp_logo}"/>
+                                </image>
+                            </div>
+                            <div class="one">
+                                <div class="layui-form-mid layui-word-aux" style="margin-left: 39px; ">图片要求，最大800KB，支持JPG/JEPG/PNG格式</div>
+                            </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <label class="layui-form-label"><span style="color: red;">*</span>邮箱</label>
+                        <div class="layui-input-block">
+                            <input type="text" name="cp_email" lay-verify="required|title" placeholder="请输入公司邮箱" value="{$corp.cp_email}"  autocomplete="off" class="layui-input">
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <label class="layui-form-label"><span style="color: red;">*</span>电话</label>
+                        <div class="layui-input-block">
+                            <input type="text" name="cp_tel" lay-verify="required|title" placeholder="请输入电话" value="{$corp.cp_tel}"  autocomplete="off" class="layui-input">
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <label class="layui-form-label"><span style="color: red;">*</span>微信</label>
+                        <div class="layui-input-block">
+                            <input type="text" name="cp_weixin" lay-verify="required|title" placeholder="请输入微信" value="{$corp.cp_weixin}"  autocomplete="off" class="layui-input">
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <label class="layui-form-label"><span style="color: red;">*</span>工作时间</label>
+                        <div class="layui-input-block">
+                            <input type="text" name="cp_opentime" lay-verify="required|title" placeholder="请输入工作时间" value="{$corp.cp_opentime}"  autocomplete="off" class="layui-input">
+                        </div>
+                    </div>
+                    <div class="layui-form-item layui-form-text">
+                        <label class="layui-form-label">公司简介</label>
+                        <div class="layui-input-block">
+                            <textarea placeholder="请输入公司简介" maxlength="500" name="cp_desc" class="layui-textarea">{$corp.cp_desc}</textarea>
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <div class="layui-input-block">
+                            <button class="layui-btn" lay-submit lay-filter="saveInfo">添加</button>
+                            <a class="layui-btn layui-btn-primary" href="<?=url('corp/index')?>">返回</a>
+                        </div>
+                    </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+<script>
+    layui.use(['form', 'jquery','upload'], function(){
+        var form = layui.form
+            ,upload = layui.upload
+            ,$ = layui.jquery;
+        form.verify({
+            title: function(value){
+                if(value.length < 2){
+                    return '至少得2个字符啊';
+                }
+            }
+            ,imgReg:function (value) {
+                if(value.length <= 0){
+                    return '请上传图片';
+                }
+            }
+        });
+        upload.render({
+            elem: '#uploadLogo'
+            ,url: '{:url("xcx/corp/upload")}'
+            ,exts: 'PNG|JPG'
+            ,size: '30000'
+            ,done: function(res){
+                layer.close(layer.msg());//关闭上传提示窗口
+                if(res.status == 0) {
+                    return layer.msg(res.message);
+                }
+                $('#uploadLogo').removeClass('layui-upload-drag');
+                $('#logoPre').css('width','216px');
+                $('#logoPre').css('height','150px');
+                $('#logoPre').attr('src',"__PUBLIC__/"+res.path);
+                console.log(res);
+                $('#cp_logo').val('' +res.path + '');
+            }
+        });
+    });
+</script>
+{include file="index/footer" /}

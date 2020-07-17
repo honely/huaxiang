@@ -655,9 +655,9 @@ class House extends Controller
         header("Access-Control-Allow-Origin:*");
         header('Access-Control-Allow-Methods:POST');
         header('Access-Control-Allow-Headers:x-requested-with, content-type');
+        $pid = trim($this->request->param('pid',27));
         $hotSer = Db::table('tk_cate')
-            ->where(['hot' => '是'])
-            ->limit(10)
+            ->where(['hot' => '是','pid' => $pid])
             ->field('id,name')
             ->select();
         if($hotSer){

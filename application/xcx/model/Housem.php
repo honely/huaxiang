@@ -50,7 +50,7 @@ class Housem extends Model
         if(isset($data['is_save']) && $data['is_save'] == 1){
             Db::table('tk_user')
                 ->where(['id' => $data['user_id']])
-                ->update(['is_bind' => $data['tel']]);
+                ->update(['tel' => $data['tel']]);
         }
         unset($data['is_save']);
         $addHouse = Db::table('tk_houses')->insertGetId($data);
@@ -72,7 +72,7 @@ class Housem extends Model
         if(isset($data['is_save']) && $data['is_save'] == 1){
             Db::table('tk_user')
                 ->where(['id' => $data['user_id']])
-                ->update(['is_bind' => $data['tel']]);
+                ->update(['tel' => $data['tel']]);
         }
         unset($data['is_save']);
         unset($data['id']);
