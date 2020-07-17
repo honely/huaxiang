@@ -2,6 +2,7 @@
 namespace app\api\controller;
 use app\xcx\model\Loops;
 use app\xcx\model\Msgs;
+use app\xcx\model\Subscp;
 use think\Controller;
 use think\Db;
 use think\Loader;
@@ -79,7 +80,6 @@ class Msg extends Controller
         $message = Db::table('xcx_msg_content')
             ->where(['xcx_msg_isread' => 2, 'xcx_msg_isable' => 1])
             ->group('xcx_msg_mp_id')->order('xcx_msg_id asc')->select();
-
         if (!$message) {
             return 1;
         }
@@ -95,15 +95,135 @@ class Msg extends Controller
           if($msgFidIsdel == 1){
             if($val['xcx_msg_ul_type'] == 1){
                 //dump('前端用户userid='.$val['xcx_msg_ul_id']);
+                //消息接受者为前端用户的话，发送订阅消息提醒
+                $sendId = $val['xcx_msg_uid'];
+                $sendType = $val['xcx_msg_u_type'];
+                $sendTime = $val['xcx_msg_add_time'];
+                $msgId = $val['xcx_msg_id'];
+                $revid = $val['xcx_msg_ul_id'];
+                $this->sendSubscp($sendId,$sendType,$sendTime,$msgId,$revid);
+                //发送短信
                 $this->sendNotMsg($val['xcx_msg_ul_id']);
             }else{
                 //dump('后端用户adminid='.$val['xcx_msg_ul_id']);
+                //发送短信
                 $this->sendNotAdminMsg($val['xcx_msg_ul_id']);
             }
           }
         }
         return 2;
     }
+
+    /***
+     * @param $sendId string 发送者id 用来查找发送人昵称
+     * @param $sendType  string 发送者类型
+     * @param $sendTime string 消息的发送时间
+     * @param $msgId string 消息id
+     * @param $revid string 消息接受者id 只有小程序用户才能接收订阅消息
+     * @throws \think\Exception
+     * @throws \think\db\exception\DataNotFoundException
+     * @throws \think\db\exception\ModelNotFoundException
+     * @throws \think\exception\DbException
+     * @throws \think\exception\PDOException3
+     */
+    public function sendSubscp($sendId,$sendType,$sendTime,$msgId,$revid){
+        //当天是否已经给该用户推送过订阅消息
+        $isSendToday = $this->isSendToday($revid);
+        if(!$isSendToday){
+            //订阅消息预发送
+            $data['ss_msg_id'] = $msgId;
+            $data['ss_status'] = 1;
+            $data['ss_user_id'] = $revid;
+            $data['ss_send_time'] = date('Y-m-d H:i:s');
+            $data['ss_send_date'] = date('Y-m-d');
+            $data['ss_remarks'] = '1.订阅消息预发送；';
+            $logId = Db::table('xcx_sub_msg')->insertGetId($data);
+            $receive = $this->getRevStatus($revid);
+            if(!$receive){
+                //无此用户信息
+                Db::table('xcx_sub_msg')
+                    ->where(['ss_id' => $logId])
+                    ->update([
+                        'ss_status' => 3,
+                        'ss_remarks' => $data['ss_remarks'].'2.发送失败：无此用户信息；',
+                    ]);
+
+            }
+            if($receive['able_sub'] != 1){
+                //用户拒绝接收消息
+                Db::table('xcx_sub_msg')
+                    ->where(['ss_id' => $logId])
+                    ->update([
+                        'ss_status' => 3,
+                        'ss_remarks' => $data['ss_remarks'].'2.发送失败：用户未授权订阅消息；',
+                    ]);
+            }
+            $uOpen = $receive['openid'];
+            $sender = $this->getSenderNick($sendId,$sendType);
+            $send = new Subscp();
+            $sendSub = $send->sendMessage($sender,$uOpen,$sendTime);
+            $res = json_decode($sendSub, true);
+            if($res['errcode'] == 0){
+                //发送成功
+                Db::table('xcx_sub_msg')
+                    ->where(['ss_id' => $logId])
+                    ->update([
+                        'ss_status' => 2,
+                        'ss_remarks' => $data['ss_remarks'].'2.发送成功：已发送订阅消息到用户手机。',
+                    ]);
+            }else{
+                //发送失败
+                Db::table('xcx_sub_msg')
+                    ->where(['ss_id' => $logId])
+                    ->update([
+                        'ss_status' => 3,
+                        'ss_remarks' => $data['ss_remarks'].'2.发送失败：微信服务端未发送成功。',
+                    ]);
+            }
+        }
+    }
+
+    public function isSendToday($revid){
+        $date = date('Y-m-d');
+        $isSend = Db::table('xcx_sub_msg')
+            ->where(['ss_user_id' => $revid,'ss_send_date' => $date,'ss_status' =>2])
+            ->field('ss_id')
+            ->find();
+        return $isSend ? true : false;
+    }
+
+    /***
+     * @param $revid string 消息接收者id
+     * @return array|bool|false|\PDOStatement|string|\think\Model
+     * @throws \think\db\exception\DataNotFoundException
+     * @throws \think\db\exception\ModelNotFoundException
+     * @throws \think\exception\DbException
+     */
+    public function getRevStatus($revid){
+        $sender = Db::table('tk_user')
+            ->where(['id' => $revid])
+            ->field('able_sub,openid')
+            ->find();
+        return $sender ? $sender :false;
+
+    }
+
+    public function getSenderNick($sendId,$sendType){
+        if($sendType == 1){
+            $sender = Db::table('tk_user')
+                ->where(['id' => $sendId])
+                ->field('nickname')
+                ->find();
+            return $sender ? $sender['nickname'] : '小程序未知用户';
+        }else{
+            $sender = Db::table('super_admin')
+                ->where(['ad_id' => $sendId])
+                ->field('ad_realname')
+                ->find();
+            return $sender ? $sender['ad_realname'] : '小程序未知用户';
+        }
+    }
+
    public function msgIsDel($mpid){
         $msg = Db::table('xcx_msg_person')->where(['mp_id' => $mpid])->field('mp_isable')->find();
         return $msg['mp_isable'];

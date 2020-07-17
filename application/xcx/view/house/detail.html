@@ -301,7 +301,7 @@
                                     <ul class="pic-more-upload-list" id="slide-pc-priview" style="width: 100%">
                                         {if condition='$house.images neq null'}
                                         {volist name='house.images1' id="item" key="k"}
-                                        <li class="item_img" style="width: 24%;float: left;"><div class="operate"><i  class="close layui-icon"></i></div><img src="__PUBLIC__/{$item}" class="img" style="width: 100%;height: 112px;" ><input type="hidden" name="images[]" value="{$item}" lay-verify="required|imgRegCaseType"  class="img_url" /></li>
+                                        <li class="item_img" style="width: 24%;float: left;"><img src="__PUBLIC__/{$item}" class="img" style="width: 100%;height: 112px;" ><input type="hidden" name="images[]" value="{$item}" lay-verify="required|imgRegCaseType"  class="img_url" /></li>
                                         {/volist}
                                         {else/}
                                         未上传
