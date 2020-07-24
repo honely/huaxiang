@@ -5,11 +5,6 @@
         <a>{$url}</a>
         <a><cite>修改</cite></a>
     </span>
-        <div style="float:right;">
-            <a href="javascript:history.back(-1)" class="layui-btn layui-btn-primary layui-btn-sm">
-                <i class="layui-icon layui-icon-return"></i>
-                返回列表</a>
-        </div>
     </div>
     <hr/>
     <div class="layui-tab">
@@ -27,6 +22,19 @@
                                 </div>
                             </div>
                             <div class="layui-form-item">
+                                <label class="layui-form-label"><span style="color: red;">*</span>英文名称</label>
+                                <div class="layui-input-block">
+                                    <input type="text" name="ename"  id='ename' lay-verify="required|title" placeholder="请输入英文" value="{$content.ename}" autocomplete="off" class="layui-input">
+                                </div>
+                            </div>
+                            <div class="layui-form-item">
+                                <label class="layui-form-label"><span style="color: red;">*</span>排序</label>
+                                <div class="layui-input-inline">
+                                    <input type="number"  id='torder'  name="torder" lay-verify="required" placeholder="0" min="0" max="100" value="{$content.torder}"  autocomplete="off" class="layui-input">
+                                </div>
+                                <div class="layui-form-mid layui-word-aux">数字越小越靠前！</div>
+                            </div>
+                            <div class="layui-form-item">
                                 <div class="layui-input-block">
                                     <span class="layui-btn" onclick="closeAlls()">提交</span>
                                 </div>
@@ -42,11 +50,16 @@
     function closeAlls(){
         var id = $('#id').val();
         var name = $('#name').val();
+        var ename = $('#ename').val();
+        var torder = $('#torder').val();
         var type = $('#type').val();
+        if(!name || !ename){
+            return layer.msg('必填项不能为空！');
+        }
         $.ajax({
             type: 'post',
             url: "<?=url('tags/edit')?>",
-            data:{'id':id,'name':name,'type':type},
+            data:{'id':id,'name':name,'type':type,'ename':ename,'torder':torder},
             dataType:  'json',
             success: function(data){
                 layer.msg(data.msg,{

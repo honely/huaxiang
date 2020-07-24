@@ -69,7 +69,7 @@ class Tags extends Controller
         $limit=$this->request->param('limit',50,'intval');
         $design=Db::table('xcx_tags')
             ->limit(($page-1)*$limit,$limit)
-            ->order('id desc')
+            ->order('torder asc,id desc')
             ->where($where)
             ->select();
         $res['code'] = 0;

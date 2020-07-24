@@ -7,6 +7,7 @@
  */
 namespace app\xcx\controller;
 use app\xcx\model\Housem;
+use app\xcx\model\Languages;
 use app\xcx\model\Loops;
 use app\xcx\model\Rolem;
 use think\Controller;
@@ -108,6 +109,9 @@ class Index extends Controller
         $unread = $this->getUnreadMsg($adminId);
         $unread = $unread > 100 ? '99+' : $unread;
         $this->assign('unread',$unread);
+        $lang = new Languages();
+        $enLab = $lang->getEn();
+        $this->assign('lable',$enLab);
         return  $this->fetch();
     }
 

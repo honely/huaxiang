@@ -44,7 +44,7 @@ class User extends Controller
         //登录
         $user = Db::table('tk_user')
             ->where('openid', $data['openid'])
-            ->field('id,openid,nickname,birth,sex,real_name,tel,avaurl')
+            ->field('id,openid,nickname,wchat,birth,sex,real_name,tel,avaurl')
             ->find();
         if(!empty($user)) {
             $bltoken = $this->saveBlToken($user['id']);
@@ -95,7 +95,7 @@ class User extends Controller
 
     public function saveBlToken($user_id){
         $bltoken = Db::table('tk_bltoken')->where(['user_id' => $user_id])->find();
-      	//更新上次登录时间
+        //更新上次登录时间
         Db::table('tk_user')->where(['id' => $user_id])->update(['mdate' =>date('Y-m-d H:i:s')]);
         $data['user_id'] = $user_id;
         $data['blToken'] = md5(date('Y-m-d H:i:s'). $user_id);
@@ -285,11 +285,11 @@ class User extends Controller
     public function decryptDatas($encryptedData, $iv,$sessionKey)
     {
 
-       $OK = 0;
+        $OK = 0;
         $IllegalAesKey = -41001;
         $IllegalIv = -41002;
-       $IllegalBuffer = -41003;
-       $appid = config('wx.appid');
+        $IllegalBuffer = -41003;
+        $appid = config('wx.appid');
 
         if (strlen($sessionKey) != 24) {
             return $IllegalAesKey;
@@ -394,7 +394,13 @@ class User extends Controller
         header('Access-Control-Allow-Headers:x-requested-with, content-type');
         $id = $this->request->param('id','1','intval');
         $type = $this->request->param('type','1','intval');
-        $access_token = $this->get_access_token();
+        $access_token = $this->getAckToken();
+        if(!$access_token){
+            $return['status_code'] = 2000;
+            $return['msg'] = 'ok';
+            $return['data'] = config('appurl').'/static/qrcode.jpg';
+            echo json_encode($return);exit;
+        }
         $url = "https://api.weixin.qq.com/wxa/getwxacodeunlimit?access_token=" . $access_token;
         //type = 1 找室友  type = 2 房源
         if ($type == 2) {
@@ -424,21 +430,63 @@ class User extends Controller
 
 
 
-    public function get_access_token() {
-        $appid = config('wx.appid');
-        $appsecret = config('wx.appsecret');
-        $url = "https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=".$appid."&secret=".$appsecret;
-        $res = file_get_contents($url);
-        $res = json_decode($res, true);
-        if (@$res['errcode']) {
-            $return['status_code'] = '2001';
-            $return['msg'] = '微信请求失败';
-            $return['data'] = '';
-            echo json_encode($return);exit;
+    public function getAckToken() {
+        $ackToken = session('ackToken');
+        $expTime = session('expTime');
+        if(!$expTime && $expTime < time()){
+            $appid = config('wx.appid');
+            $appsecret = config('wx.appsecret');
+            $url = 'https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid='.$appid.'&secret='.$appsecret;
+            $res = $this->curl_get($url);
+
+            $res = json_decode($res, true);
+            $ackToken = $res['access_token'];
+            $expire=time()+7000;
+            session('ackToken',$ackToken);
+            session('expTime',$expire);
         }
-        // dd($res);
-        return $res['access_token'];
+        return $ackToken;
     }
+
+
+    function curl_get($url){
+
+        $header = array(
+            'Accept: application/json',
+        );
+        $curl = curl_init();
+        //设置抓取的url
+        curl_setopt($curl, CURLOPT_URL, $url);
+        //设置头文件的信息作为数据流输出
+        curl_setopt($curl, CURLOPT_HEADER, 0);
+        // 超时设置,以秒为单位
+        curl_setopt($curl, CURLOPT_TIMEOUT, 1);
+
+        // 超时设置，以毫秒为单位
+        // curl_setopt($curl, CURLOPT_TIMEOUT_MS, 500);
+
+        // 设置请求头
+        curl_setopt($curl, CURLOPT_HTTPHEADER, $header);
+        //设置获取的信息以文件流的形式返回，而不是直接输出。
+        curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
+        curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false);
+        curl_setopt($curl, CURLOPT_SSL_VERIFYHOST, false);
+        //执行命令
+        $data = curl_exec($curl);
+
+        // 显示错误信息
+        if (curl_error($curl)) {
+            print "Error: " . curl_error($curl);
+        } else {
+            // 打印返回的内容
+            return $data;
+//            var_dump($data);
+//            curl_close($curl);
+        }
+    }
+
+
+
 
     //post curl 请求参数
     function http($url, $data = NULL, $json = false)
@@ -588,6 +636,8 @@ class User extends Controller
         $res['msg'] = '绑定失败！';
         return json($res);
     }
+
+
 
     public function acceptSub(){
         header("Access-Control-Allow-Origin:*");

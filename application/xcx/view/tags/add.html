@@ -26,6 +26,19 @@
                                 </div>
                             </div>
                             <div class="layui-form-item">
+                                <label class="layui-form-label"><span style="color: red;">*</span>英文名称</label>
+                                <div class="layui-input-block">
+                                    <input type="text" name="ename" lay-verify="required|title" placeholder="请输入英文" autocomplete="off" class="layui-input">
+                                </div>
+                            </div>
+                            <div class="layui-form-item">
+                                <label class="layui-form-label"><span style="color: red;">*</span>排序</label>
+                                <div class="layui-input-inline">
+                                    <input type="number" name="torder" lay-verify="required" placeholder="0" min="0" max="100" autocomplete="off" class="layui-input">
+                                </div>
+                                <div class="layui-form-mid layui-word-aux">数字越小越靠前！</div>
+                            </div>
+                            <div class="layui-form-item">
                                 <div class="layui-input-block">
                                     <button class="layui-btn" lay-submit lay-filter="saveInfo">添加</button>
                                     <a class="layui-btn layui-btn-primary" href="javascript:history.back(-1)">返回</a>

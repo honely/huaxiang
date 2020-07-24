@@ -8,6 +8,7 @@
  */
 namespace app\xcx\controller;
 use app\admin\model\Commons;
+use app\xcx\model\Languages;
 use app\xcx\model\Loops;
 use app\xcx\model\Rolem;
 use think\Controller;
@@ -53,6 +54,9 @@ class House extends Controller{
         $this->assign('tjable',$tjable);
         $this->assign('offable',$offable);
         $cityinfo = Db::table('tk_cate')->where(['pid' =>0])->select();
+        $lang = new Languages();
+        $enLab = $lang->getEn();
+        $this->assign('lable',$enLab);
         $this->assign('cityinfo',$cityinfo);
         return $this->fetch();
     }
@@ -210,12 +214,25 @@ class House extends Controller{
             $design[$k]['user_id'] = $loopd->getUserNicks($v['user_id'],$v['is_admin']);
             $design[$k]['isTop'] = $this->greaterTops($v['id']);
             $design[$k]['isTj'] = $this->greaterTjs($v['id']);
+            $design[$k]['price'] = $this->getPrice($v['price']);
         }
         $res['code'] = 0;
         $res['msg'] = "";
         $res['data'] = $design;
         $res['count'] = $count;
         return json($res);
+    }
+
+    public function getPrice($price){
+        if($price == -1){
+            $lang = new Languages();
+            if($lang == 'Cn'){
+               return '租金可议';
+            }
+            return 'Negotiable';
+        }else{
+            return $price;
+        }
     }
 
     public function getarea(){
@@ -334,21 +351,32 @@ class House extends Controller{
                 ->where(['ad_id' => $adminId])
                 ->field('ad_realname,ad_email,ad_weixin,ad_phone')
                 ->find();
+            $lang = new Languages();
+            $langs = 'En';
+            $enLab = $lang->getEn();
             $this->assign('admin',$adminInfo);
             $city = Db::table('tk_cate')->where(['pid' => 0])->select();
             $this->assign('city',$city);
             $all_tags = Db::table('xcx_tags')
                 ->where(['type' => 1])
-                ->field('id,name')
+                ->field('id,name,ename')
                 ->select();
+            foreach ($all_tags as $k => $v){
+                if($langs == 'En'){
+                    $all_tags[$k]['name'] = $v['ename'];
+                }else{
+                    $all_tags[$k]['name'] = $v['name'];
+                }
+            }
+            $this->assign('lable',$enLab);
             $this->assign('tags',$all_tags);
             $this->assign('typess',$typess);
             return $this->fetch();
         }
 
     }
-  
-   //通用缩略图上传接口
+
+    //通用缩略图上传接口
     public function upload2()
     {
         if($this->request->isPost()){
@@ -376,8 +404,8 @@ class House extends Controller{
             return $res;
         }
     }
-  
-  
+
+
     public function add1(){
         $adminId = session('adminId');
         $adminInfo = Db::table('super_admin')
@@ -463,16 +491,18 @@ class House extends Controller{
      * dangmengmeng 2019年12月5日10:34:15
      */
     public function houseStatus($status){
+        $lang = new Languages();
+        $enLab = $lang->getEn();
         switch ($status)
         {
             case 1:
-                $type = '上线';
+                $type = $enLab['on'];
                 break;
             case 2:
-                $type = '下线';
+                $type = $enLab['off'];
                 break;
             default:
-                $type = '草稿';
+                $type = $enLab['draft'];
         }
         return $type;
     }
@@ -568,21 +598,27 @@ class House extends Controller{
             }
         }else{
             $houseInfo = Db::table('tk_houses')->where(['id' => $id])->find();
+            $lang = new Languages();
+            $enLab = $lang->getEn();
             $all_bill = [
                 [
                     'bill' => '包水',
+                    'billtitle' => $enLab['water'],
                     'is_checked' => false
                 ],
                 [
                     'bill' => '包电',
+                    'billtitle' => $enLab['elect'],
                     'is_checked' => false
                 ],
                 [
                     'bill' => '包气',
+                    'billtitle' => $enLab['gas'],
                     'is_checked' => false
                 ],
                 [
                     'bill' => '包网',
+                    'billtitle' => $enLab['nets'],
                     'is_checked' => false
                 ]
             ];
@@ -600,30 +636,41 @@ class House extends Controller{
             $all_set = [
                 [
                     'set' => '游泳池',
+                    'setitle' => $enLab['yongchi'],
                     'is_checked' => false
                 ],
                 [
                     'set' => '健身房',
+                    'setitle' => $enLab['jianshenfang'],
+                    'is_checked' => false
+                ],[
+                    'set' => '停车位',
+                    'setitle' => $enLab['tingchewei'],
                     'is_checked' => false
                 ],
                 [
                     'set' => '电影院',
+                    'setitle' => $enLab['dianyingyuan'],
                     'is_checked' => false
                 ],
                 [
                     'set' => '花园',
+                    'setitle' => $enLab['huayuan'],
                     'is_checked' => false
                 ],
                 [
                     'set' => '门禁',
+                    'setitle' => $enLab['menjin'],
                     'is_checked' => false
                 ],
                 [
                     'set' => '前台',
+                    'setitle' => $enLab['qiantai'],
                     'is_checked' => false
                 ],
                 [
                     'set' => '桑拿',
+                    'setitle' => $enLab['sangna'],
                     'is_checked' => false
                 ]
             ];
@@ -639,34 +686,42 @@ class House extends Controller{
             $all_trans = [
                 [
                     'trans' => '巴士站',
+                    'transtitle' => $enLab['bashizhan'],
                     'is_checked' => false
                 ],
                 [
                     'trans' => '火车站',
+                    'transtitle' => $enLab['huochezhan'],
                     'is_checked' => false
                 ],
                 [
                     'trans' => '电车站',
+                    'transtitle' => $enLab['dianchezhan'],
                     'is_checked' => false
                 ],
                 [
                     'trans' => '餐馆',
+                    'transtitle' => $enLab['canguan'],
                     'is_checked' => false
                 ],
                 [
                     'trans' => '公园',
+                    'transtitle' => $enLab['gongyuan'],
                     'is_checked' => false
                 ],
                 [
                     'trans' => '警察局',
+                    'transtitle' => $enLab['jingcaju'],
                     'is_checked' => false
                 ],
                 [
                     'trans' => '医院',
+                    'transtitle' => $enLab['yiyuan'],
                     'is_checked' => false
                 ],
                 [
                     'trans' => '超市',
+                    'transtitle' => $enLab['chaoshi'],
                     'is_checked' => false
                 ]
             ];
@@ -682,45 +737,58 @@ class House extends Controller{
             $allFours = [
                 [
                     'furn' => '床',
+                    'transtitle' => $enLab['chuang'],
                     'is_checked' => false
                 ],
                 [
                     'furn' => '沙发',
+                    'transtitle' => $enLab['shafa'],
                     'is_checked' => false
                 ],[
                     'furn' => '餐桌',
+                    'transtitle' => $enLab['canzuo'],
                     'is_checked' => false
                 ],[
                     'furn' => '椅子',
+                    'transtitle' => $enLab['yizi'],
                     'is_checked' => false
                 ],[
                     'furn' => 'WIFI',
+                    'transtitle' => $enLab['fWIFI'],
                     'is_checked' => false
                 ],[
                     'furn' => '空调',
+                    'transtitle' => $enLab['kongtiao'],
                     'is_checked' => false
                 ],[
                     'furn' => '洗衣机',
+                    'transtitle' => $enLab['xiyiji'],
                     'is_checked' => false
                 ],[
                     'furn' => '冰箱',
+                    'transtitle' => $enLab['bingxiang'],
                     'is_checked' => false
                 ],[
                     'furn' => '微波炉',
+                    'transtitle' => $enLab['weibolu'],
                     'is_checked' => false
                 ],[
                     'furn' => '暖气',
+                    'transtitle' => $enLab['nuanqi'],
                     'is_checked' => false
                 ],[
                     'furn' => '电烤箱',
+                    'transtitle' => $enLab['kaoxiang'],
                     'is_checked' => false
                 ],
                 [
                     'furn' => '洗碗机',
+                    'transtitle' => $enLab['xiwanji'],
                     'is_checked' => false
                 ]
             ];
             $houseFor= explode(',',$houseInfo['home']);
+
             foreach ($allFours as $key => &$val) {
                 if(in_array($val['furn'], $houseFor)) {
                     $val['is_checked'] = true;
@@ -729,11 +797,17 @@ class House extends Controller{
             $Tags= explode(',',$houseInfo['tags']);
             $all_tags = Db::table('xcx_tags')
                 ->where(['type' => 1])
-                ->field('id,name')
+                ->field('id,name,ename')
                 ->select();
+            $langs = 'En';
             foreach ($all_tags as $key => &$val) {
+                if($langs == 'En'){
+                    $all_tags[$key]['name'] = $val['ename'];
+                }else{
+                    $all_tags[$key]['name'] = $val['name'];
+                }
                 $all_tags[$key]['is_checked'] = false;
-                if(in_array($val['name'], $Tags)) {
+                if(in_array($val['id'], $Tags)) {
                     $val['is_checked'] = true;
                 }
             }unset($val);
@@ -748,6 +822,7 @@ class House extends Controller{
             $houseInfo['live_date_show'] =$show;
             $city = Db::table('tk_cate')->where(['pid' => 0])->select();
             $shcool = $this->getSchools($houseInfo['city']);
+            $this->assign('lable',$enLab);
             $this->assign('all_bill',$all_bill);
             $this->assign('all_trans',$all_trans);
             $this->assign('all_set',$all_set);
@@ -925,21 +1000,27 @@ class House extends Controller{
     public function detail(){
         $id = $this->request->param('id',22,'intval');
         $houseInfo = Db::table('tk_houses')->where(['id' => $id])->find();
+        $lang = new Languages();
+        $enLab = $lang->getEn();
         $all_bill = [
             [
                 'bill' => '包水',
+                'billtitle' => $enLab['water'],
                 'is_checked' => false
             ],
             [
                 'bill' => '包电',
+                'billtitle' => $enLab['elect'],
                 'is_checked' => false
             ],
             [
                 'bill' => '包气',
+                'billtitle' => $enLab['gas'],
                 'is_checked' => false
             ],
             [
                 'bill' => '包网',
+                'billtitle' => $enLab['nets'],
                 'is_checked' => false
             ]
         ];
@@ -954,30 +1035,41 @@ class House extends Controller{
         $all_set = [
             [
                 'set' => '游泳池',
+                'setitle' => $enLab['yongchi'],
                 'is_checked' => false
             ],
             [
                 'set' => '健身房',
+                'setitle' => $enLab['jianshenfang'],
+                'is_checked' => false
+            ],[
+                'set' => '停车位',
+                'setitle' => $enLab['tingchewei'],
                 'is_checked' => false
             ],
             [
                 'set' => '电影院',
+                'setitle' => $enLab['dianyingyuan'],
                 'is_checked' => false
             ],
             [
                 'set' => '花园',
+                'setitle' => $enLab['huayuan'],
                 'is_checked' => false
             ],
             [
                 'set' => '门禁',
+                'setitle' => $enLab['menjin'],
                 'is_checked' => false
             ],
             [
                 'set' => '前台',
+                'setitle' => $enLab['qiantai'],
                 'is_checked' => false
             ],
             [
                 'set' => '桑拿',
+                'setitle' => $enLab['sangna'],
                 'is_checked' => false
             ]
         ];
@@ -991,34 +1083,42 @@ class House extends Controller{
         $all_trans = [
             [
                 'trans' => '巴士站',
+                'transtitle' => $enLab['bashizhan'],
                 'is_checked' => false
             ],
             [
                 'trans' => '火车站',
+                'transtitle' => $enLab['huochezhan'],
                 'is_checked' => false
             ],
             [
                 'trans' => '电车站',
+                'transtitle' => $enLab['dianchezhan'],
                 'is_checked' => false
             ],
             [
                 'trans' => '餐馆',
+                'transtitle' => $enLab['canguan'],
                 'is_checked' => false
             ],
             [
                 'trans' => '公园',
+                'transtitle' => $enLab['gongyuan'],
                 'is_checked' => false
             ],
             [
                 'trans' => '警察局',
+                'transtitle' => $enLab['jingcaju'],
                 'is_checked' => false
             ],
             [
                 'trans' => '医院',
+                'transtitle' => $enLab['yiyuan'],
                 'is_checked' => false
             ],
             [
                 'trans' => '超市',
+                'transtitle' => $enLab['chaoshi'],
                 'is_checked' => false
             ]
         ];
@@ -1033,41 +1133,53 @@ class House extends Controller{
         $allFours = [
             [
                 'furn' => '床',
+                'transtitle' => $enLab['chuang'],
                 'is_checked' => false
             ],
             [
                 'furn' => '沙发',
+                'transtitle' => $enLab['shafa'],
                 'is_checked' => false
             ],[
                 'furn' => '餐桌',
+                'transtitle' => $enLab['canzuo'],
                 'is_checked' => false
             ],[
                 'furn' => '椅子',
+                'transtitle' => $enLab['yizi'],
                 'is_checked' => false
             ],[
                 'furn' => 'WIFI',
+                'transtitle' => $enLab['fWIFI'],
                 'is_checked' => false
             ],[
                 'furn' => '空调',
+                'transtitle' => $enLab['kongtiao'],
                 'is_checked' => false
             ],[
                 'furn' => '洗衣机',
+                'transtitle' => $enLab['xiyiji'],
                 'is_checked' => false
             ],[
                 'furn' => '冰箱',
+                'transtitle' => $enLab['bingxiang'],
                 'is_checked' => false
             ],[
                 'furn' => '微波炉',
+                'transtitle' => $enLab['weibolu'],
                 'is_checked' => false
             ],[
                 'furn' => '暖气',
+                'transtitle' => $enLab['nuanqi'],
                 'is_checked' => false
             ],[
                 'furn' => '电烤箱',
+                'transtitle' => $enLab['kaoxiang'],
                 'is_checked' => false
             ],
             [
                 'furn' => '洗碗机',
+                'transtitle' => $enLab['xiwanji'],
                 'is_checked' => false
             ]
         ];
@@ -1089,14 +1201,23 @@ class House extends Controller{
         $Tags= explode(',',$houseInfo['tags']);
         $all_tags = Db::table('xcx_tags')
             ->where(['type' => 1])
-            ->field('id,name')
+            ->field('id,name,ename')
             ->select();
+        $langs = 'En';
         foreach ($all_tags as $key => &$val) {
+            if($langs == 'En'){
+                $all_tags[$key]['name'] = $val['ename'];
+            }else{
+                $all_tags[$key]['name'] = $val['name'];
+            }
             $all_tags[$key]['is_checked'] = false;
-            if(in_array($val['name'], $Tags)) {
+            if(in_array($val['id'], $Tags)) {
                 $val['is_checked'] = true;
             }
         }unset($val);
+        $lang = new Languages();
+        $enLab = $lang->getEn();
+        $this->assign('lable',$enLab);
         $this->assign('tags',$all_tags);
         $this->assign('all_bill',$all_bill);
         $this->assign('all_trans',$all_trans);
@@ -1273,6 +1394,9 @@ class House extends Controller{
         $this->assign('editable',$editable);
         $this->assign('delable',$delable);
         $cityinfo = Db::table('tk_cate')->where(['pid' =>0])->select();
+        $lang = new Languages();
+        $enLab = $lang->getEn();
+        $this->assign('lable',$enLab);
         $this->assign('cityinfo',$cityinfo);
         return $this->fetch();
     }
@@ -1381,6 +1505,7 @@ class House extends Controller{
             $design[$k]['user_id'] = $loopd->getUserNicks($v['user_id'],$v['is_admin']);
             $design[$k]['isTop'] = $this->greaterTops($v['id']);
             $design[$k]['isTj'] = $this->greaterTjs($v['id']);
+            $design[$k]['price'] = $this->getPrice($v['price']);
         }
         $res['code'] = 0;
         $res['msg'] = "";
@@ -1412,7 +1537,7 @@ class House extends Controller{
         }
         return  json(['code' => '0','data' => ['']]);
     }
-  
+
     public function usertop(){
         $adminId = session('adminId');
         $hid = $this->request->param('id',22,'intval');
@@ -1433,7 +1558,13 @@ class House extends Controller{
             ->where(['id' => $hid])
             ->update(['cdate' => date('Y-m-d H:i:s')]);
         $count = $isTopable-1;
-        $msg = '置顶成功！您今日还剩'.$count.'次置顶机会！';
+        //$lang = $this->getLang();
+        $lang = 'En';
+        if($lang == 'Cn'){
+            $msg = '置顶成功！您今日还剩'.$count.'次置顶机会！';
+        }else{
+            $msg = 'Succeed! You have '.$count.' times left today!';
+        }
         if($insert && $updateHouseCtime){
             $this->success($msg);
         }
@@ -1449,9 +1580,9 @@ class House extends Controller{
         return $count;
     }
 
-  
-  
-  
-  
-  
+
+
+
+
+
 }

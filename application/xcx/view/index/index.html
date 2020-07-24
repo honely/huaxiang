@@ -8,7 +8,7 @@
     <meta name="apple-mobile-web-app-status-bar-style" content="black">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="format-detection" content="telephone=no">
-    <title>小宝经纪人平台</title>
+    <title>{$lable.sysname}</title>
     <link rel="stylesheet" href="__LAY__/css/layui.css">
     <script src="__PUBLIC__/static/jquery-1.10.2.min.js"></script>
     <script src="__LAY__/layui.js"></script>
@@ -26,16 +26,16 @@
 <body class="layui-layout-body">
 <div class="layui-layout layui-layout-admin">
     <div class="layui-header">
-        <div class="layui-logo">小宝经纪人平台</div>
+        <div class="layui-logo">{$lable.sysname}</div>
         <ul class="layui-nav layui-layout-left">
             <div style="line-height: 60px;">
-                <span>欢迎您，{$admin.r_name}&nbsp;&nbsp;&nbsp;{$admin.ad_realname}</span>
+                <span>{$lable.welcome}，{$admin.r_name}&nbsp;&nbsp;&nbsp;{$admin.ad_realname}</span>
             </div>
         </ul>
         {if condition='$onlineable eq true'}
             <ul class="layui-nav layui-layout-left" style="margin-left: 280px;">
                 <li class="layui-nav-item">
-                    <a href='javascript:' onclick="toUser(this)" style="padding-left: 10px !important;"  data-url="/xcx/user/newui.html">站内信</a>
+                    <a href='javascript:' onclick="toUser(this)" style="padding-left: 10px !important;"  data-url="/xcx/user/newui.html">{$lable.zhanneixin}</a>
                     <span style="margin-left: 63px;display: none" id="unread" class="layui-badge">{$unread}</span>
                 </li>
             </ul>

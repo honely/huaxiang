@@ -13,12 +13,12 @@
 </style>
 <div style="margin: 20px;">
     <span class="layui-breadcrumb" lay-separator=">">
-        <a>房源管理</a>
-        <a><cite>我的房源</cite></a>
+        <a>{$lable.houselist}</a>
+        <a><cite>{$lable.myhouse}</cite></a>
     </span>
     <div style="float:right;">
         {if condition='$addable eq true'}
-        <button class="layui-btn layui-btn-primary layui-btn-sm"  onclick="addArt()"><i class="layui-icon"></i>发布房源</button>
+        <button class="layui-btn layui-btn-primary layui-btn-sm"  onclick="addArt()"><i class="layui-icon"></i>{$lable.fabufangyuan}</button>
         {/if}
     </div>
 </div>
@@ -29,35 +29,36 @@
                 <form class="layui-form layui-form-pane1">
                     <div class="layui-form-item  demoTable">
                         <div class="layui-inline" >
-                            <label class="layui-form-label" style="padding: 9px 14px;width: 57px;font-weight: bold">关键字：</label>
+                            <label class="layui-form-label" style="padding: 9px 14px;width: 57px;font-weight: bold">{$lable.keys}：</label>
                             <div class="layui-input-inline" style="width: 80px;margin-right: 0px;">
                                 <select name="keytype" id="keytype" style="border-right: white;">
                                     <option value="2">ID</option>
-                                    <option value="1">标题</option>
-                                    <option value="3">地址</option>
-                                    <option value="5">详情</option>
+                                    <option value="1">{$lable.title}</option>
+                                    <option value="4">{$lable.postby}</option>
+                                    <option value="3">{$lable.houseAddr}</option>
+                                    <option value="5">{$lable.rendetail}</option>
                                 </select>
                             </div>
                             <div class="layui-input-inline" style="width:160px;">
-                                <input type="text" name="keywords" id="keywords"  placeholder="请输入" class="layui-input">
+                                <input type="text" name="keywords" id="keywords"  placeholder="{$lable.pleaseInput}" class="layui-input">
                             </div>
                         </div>
                         <div class="layui-inline">
-                            <label class="layui-form-label" style="padding: 9px 14px;width: 42px;font-weight: bold">状态：</label>
+                            <label class="layui-form-label" style="padding: 9px 14px;width: 42px;font-weight: bold">{$lable.status}：</label>
                             <div class="layui-input-inline" style="width:110px;">
                                 <select name="status" id="statu">
-                                    <option value="">请选择状态</option>
-                                    <option value="1">上线</option>
-                                    <option value="2">下线</option>
-                                    <option value="3">草稿</option>
+                                    <option value="">{$lable.suoyou}</option>
+                                    <option value="1">{$lable.on}</option>
+                                    <option value="2">{$lable.off}</option>
+                                    <option value="3">{$lable.draft}</option>
                                 </select>
                             </div>
                         </div>
                         <div class="layui-inline" style="margin-right: 0px;">
-                            <label class="layui-form-label" style="padding: 9px 14px;width: 42px;font-weight: bold">区域：</label>
+                            <label class="layui-form-label" style="padding: 9px 14px;width: 42px;font-weight: bold">{$lable.quyu}：</label>
                             <div class="layui-input-inline" style="width: 80px;margin-right: 0px;">
                                 <select name="city" id="city" lay-filter="bu_p_id">
-                                    <option value="">城市</option>
+                                    <option value="">{$lable.city}</option>
                                     {volist name="cityinfo" id='role'}
                                     <option value="{$role.name}">{$role.name}</option>
                                     {/volist}
@@ -66,21 +67,21 @@
                             <div class="layui-input-inline" style="width:80px;">
                                 <div class="layui-input-inline" style="width: 80px;">
                                     <select name="area" id="bu_c_id">
-                                        <option value="">地区</option>
+                                        <option value="">{$lable.area}</option>
                                     </select>
                                 </div>
                             </div>
                         </div>
                         <div class="layui-inline">
-                            <label class="layui-form-label" style="padding: 9px 14px;width: 70px;font-weight: bold">发布日期：</label>
-                            <div class="layui-input-inline" style="width:120px;">
-                                <input type="text" name="time" readonly class="layui-input" id="time" placeholder="请选择发布日期">
+                            <label class="layui-form-label" style="padding: 9px 14px;width: 80px;font-weight: bold">{$lable.postdate}：</label>
+                            <div class="layui-input-inline" style="width:244px;">
+                                <input type="text" name="time" readonly class="layui-input" id="time" placeholder="{$lable.selectUpdateTime}">
                             </div>
                         </div>
-                        <div class="layui-inline">
+                        <div class="layui-inline" style="width: 110px !important;">
                             <div class="layui-input-inline" >
-                                <span class="layui-btn layui-btn-sm " data-type="reload">查询</span>
-                                <a href="<?=url('house/myhouse')?>" class="layui-btn layui-btn-warm layui-btn-sm ">刷新</a>
+                                <span class="layui-btn layui-btn-sm " data-type="reload">{$lable.search}</span>
+                                <a href="<?=url('house/myhouse')?>" class="layui-btn layui-btn-warm layui-btn-sm ">{$lable.fresh}</a>
                             </div>
                         </div>
                     </div>
@@ -91,20 +92,20 @@
                     <div class="layui-form-item  demoTable">
                         <div class="layui-inline" style="margin-top: 5px;">
                             <div class="layui-input-inline" >
-                                <span class="layui-btn layui-btn-sm layui-btn-danger" data-type="getCheckData">删除</span>
+                                <span class="layui-btn layui-btn-sm layui-btn-danger" data-type="getCheckData">{$lable.delete}</span>
                             </div>
                         </div>
                         <div class="layui-inline" style="float: right;margin-right: 60px;">
-                            <label class="layui-form-label" style="padding: 9px 14px;width: 42px;font-weight: bold">排序：</label>
+                            <label class="layui-form-label" style="padding: 9px 14px;width: 80px;font-weight: bold">{$lable.order}：</label>
                             <div class="layui-input-inline" style="width:130px;">
                                 <select name="order" id="order"  lay-filter="reOrder">
-                                    <option value="">排序方式</option>
-                                    <option value="1">点击量从多到少</option>
-                                    <option value="2">点击量从少到多</option>
-                                    <option value="3">收藏量从多到少</option>
-                                    <option value="4">收藏量从少到多</option>
-                                    <option value="5">发布时间从近到远</option>
-                                    <option value="6">发布时间从远到近</option>
+                                    <option value="">{$lable.ordertype}</option>
+                                    <option value="1">{$lable.viewdesc}</option>
+                                    <option value="2">{$lable.viewasc}</option>
+                                    <option value="3">{$lable.likedesc}</option>
+                                    <option value="4">{$lable.likeasc}</option>
+                                    <option value="5">{$lable.datedesc}</option>
+                                    <option value="6">{$lable.detaasc}</option>
                                 </select>
                             </div>
                         </div>
@@ -116,19 +117,18 @@
                     <thead>
                     <tr>
                         <th lay-data="{type:'checkbox', width:48}">id</th>
-                        <th lay-data="{field:'dsn' ,width:110}">房源编号</th>
-                        <th lay-data="{field:'title',width:230}">标题</th>
-                        <th lay-data="{field:'city',width:80}">城市</th>
-                        <th lay-data="{field:'area',width:120}">区域</th>
-                        <th lay-data="{field:'collection',width:70}">收藏</th>
-                        <th lay-data="{field:'view',width:70}">点击</th>
-                        <th lay-data="{field:'statuss',width:70}">状态</th>
+                        <th lay-data="{field:'dsn' ,width:110}">{$lable.houseid}</th>
+                        <th lay-data="{field:'title',width:230}">{$lable.title}</th>
+                        <th lay-data="{field:'address',width:220}">{$lable.address}</th>
+                        <th lay-data="{field:'price',width:120}">{$lable.rentp}</th>
+                        <th lay-data="{field:'collection',width:70}">{$lable.like}</th>
+                        <th lay-data="{field:'view',width:70}">{$lable.view}</th>
+                        <th lay-data="{field:'statuss',width:70}">{$lable.status}</th>
                         {if condition='$offable eq true'}
-                        <th lay-data="{field:'status',templet: '#status',width:110}">上下线</th>
+                        <th lay-data="{field:'status',templet: '#status',width:110}">{$lable.shangxiaxian}</th>
                         {/if}
-                        <th lay-data="{field:'cdate',width:105}">添加时间</th>
-                        <th lay-data="{field:'user_id',width:120}">发布人</th>
-                        <th lay-data="{ width:160, toolbar: '#barDemo'}">操作</th>
+                        <th lay-data="{field:'cdate',width:120}">{$lable.updatetime}</th>
+                        <th lay-data="{ width:200, toolbar: '#barDemo'}">{$lable.caozuo}</th>
                     </tr>
                     </thead>
                 </table>
@@ -138,15 +138,15 @@
 </div>
 <script type="text/html" id="barDemo">
     {if condition='$editable eq true'}
-    <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
+    <a class="layui-btn layui-btn-xs" lay-event="edit">{$lable.edit}</a>
     {/if}
-    <a class="layui-btn layui-btn-xs  layui-btn-warm" lay-event="alert">详情</a>
+    <a class="layui-btn layui-btn-xs  layui-btn-warm" lay-event="alert">{$lable.detail}</a>
     {{#  if(d.status == 1){ }}
-    <a class="layui-btn layui-btn-normal layui-btn-xs" lay-event="userTop">置顶</a>
+    <a class="layui-btn layui-btn-normal layui-btn-xs" lay-event="userTop">{$lable.top}</a>
     {{#  } }}
 </script>
 <script type="text/html" id="status">
-    <input type="checkbox" name="sex" lay-skin="switch" value="{{d.id}}" lay-text="下线|上线" lay-filter="statusDemo" {{ d.status == 1 ? 'checked' : '' }} {{ d.status == 0 ? 'disabled' : '' }} >
+    <input type="checkbox" name="sex" lay-skin="switch" value="{{d.id}}" lay-text="{$lable.off}|{$lable.on}" lay-filter="statusDemo" {{ d.status == 1 ? 'checked' : '' }} {{ d.status == 0 ? 'disabled' : '' }} >
 </script>
 <script>
     layui.use(['table','laydate','form','element'], function(){
@@ -237,8 +237,8 @@
                 if(data.length <= 0){
                     layer.msg('请至少选择一条记录！');
                 }else{
-                    layer.confirm('确定批量删除房源记录？删除后不可恢复！', {
-                        btn : [ '确定', '取消' ]//按钮
+                    layer.confirm('{$lable.deleteConfirm}', {
+                        btn : [ '{$lable.sure}', '{$lable.cancel}' ]//按钮
                     }, function() {
                         for(var i=0;i<data.length;i++){
                             ids+=','+checkStatus.data[i].id;
@@ -250,7 +250,7 @@
                             dataType:  'json',
                             success: function(data){
                                 if(data.code == '1'){
-                                    layer.alert('批量删除成功！', {
+                                    layer.alert('{$lable.deleteSuc}！', {
                                         icon: 1,
                                         skin: 'layer-ext-moon',
                                         time: 2000,
@@ -262,7 +262,7 @@
                             }
                         });
                     },function(){
-                        layer.msg('您已取消该操作！');
+                        layer.msg('{$lable.quxiaocaozuo}！');
                     });
                 }
             },
@@ -305,7 +305,7 @@
             }else if(obj.event === 'alert'){
                 layer.open({
                     type: 2,
-                    title: '查看详情',
+                    title: '{$lable.details}',
                     shadeClose: true,
                     shade: false,
                     maxmin: true,
@@ -326,7 +326,7 @@
                         }else {
                             layer.msg(result.msg);
                             layer.open({
-                                title: '信息'
+                                title: '{$lable.info}'
                                 ,content: result.msg
                                 ,yes: function(index){
                                     layer.close(index);
@@ -343,42 +343,6 @@
                         console.log('error');
                     }
                 })
-            } else if(obj.event === 'del'){
-                layer.confirm('确定删除该房源？删除后不可恢复！', {
-                    btn : [ '确定', '取消' ]//按钮
-                }, function() {
-                    $.ajax({
-                        'type':"get",
-                        'url':"<?=url('house/del')?>",
-                        'data':{id:id},
-                        'success':function (result) {
-                            if(result.code < 1){
-                                layer.msg(result.msg);
-                            }else {
-                                layer.msg(result.msg);
-                                layer.open({
-                                    title: '信息'
-                                    ,content: result.msg
-                                    ,yes: function(index){
-                                        layer.close(index);
-                                        window.location.href='<?=url("house/myhouse")?>';
-                                    }
-                                    ,cancel:function (index) {
-                                        layer.close(index);
-                                        window.location.href='<?=url("house/myhouse")?>';
-                                    }
-                                });
-                            }
-                        },
-                        'error':function () {
-                            console.log('error');
-                        }
-                    })
-                },function(){
-                    layer.msg('您已取消该操作！',{
-                        time: 2000
-                    });
-                });
             }
         });
     });

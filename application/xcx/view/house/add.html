@@ -14,155 +14,189 @@
     .inner-class{
         display:inline-block;padding: 0px;border: 0px;width: 100%;
     }
-    .layui-upload-img { width: 90px; height: 90px; margin: 0; }
-    .pic-more { width:100%; left; margin: 10px 0px 0px 0px;}
-    .pic-more li { width:300px; float: left; margin-right: 5px;margin-top: 10px;}
-    .pic-more li .layui-input { display: initial; }
-    .pic-more li a { position: absolute; top: 0; display: block; }
-    #slide-pc-priview .item_img img{ width:277px; height: 177px}
-    #slide-pc-priview li{position: relative;}
-    #slide-pc-priview li .operate{ color: #000; display: none;}
-    #slide-pc-priview li .toleft{ position: absolute;top: 40px; left: 1px; cursor:pointer;}
-    #slide-pc-priview li .toright{ position: absolute;top: 40px; right: 1px;cursor:pointer;}
-    #slide-pc-priview li .close{position: absolute;top: 5px; right: 5px;cursor:pointer;}
-    #slide-pc-priview li:hover .operate{ display: block;}
     .right{
         width: 68%;float:left;display: block;height: 400px;
     }
     .layui-form-onswitch i {
-        left: 58px;
+        left: 98px;
         background-color: #fff;
     }
     .layui-form-switch {
-        width: 70px;
+        width: 110px;
     }
     .layui-form-switch em {
-        width: 50px;
+        width: 90px;
     }
+</style>
+<style>
+    .dragPic{
+        width:704px;
+        margin:50px auto;
+    }
+    .dragPicBox{
+        width:704px;
+        background-color:#c0ebd7;
+        position:relative;
+    }
+    .dragPic .item{
+        display: inline;
+        float: left;
+        height: 86px;
+        width: 86px;
+        cursor: move;
+
+    }
+    .dragPic .item span{
+        width:80px;
+        height:80px;
+        display:block;
+        margin:3px;
+        border: 1px solid #CDCDCB;
+    }
+    .dragPic .item:hover span,.dragPic .selected span{
+        border-color:#FF0000;
+    }
+    .dragPic .item.selected{
+        border-color:#FF0000;
+    }
+    .dragPic span img{
+        display: block;
+        height: 80px;
+        width: 80px;
+    }
+    .dragPic .spacing{
+        position:absolute;
+        width:6px;
+        height:82px;
+        background-color:#1ABC9C;
+        margin-top:3px;
+    }
+    #slide-pc-priview .close:hover{ display: block;cursor:pointer;}
+
 </style>
 <div class="layui-body">
     <div style="margin: 20px;">
-    <span class="layui-breadcrumb" lay-separator=">">
-       <a>房源管理</a>
-        <a href="<?=url('house/index')?>">房源列表</a>
-        <a><cite>发布房源</cite></a>
-    </span>
+<span class="layui-breadcrumb" lay-separator=">">
+   <a>{$lable.houselist}</a>
+    <a href="<?=url('house/index')?>">{$lable.houselist}</a>
+        <a><cite>{$lable.fabufangyuan}</cite></a>
+        </span>
         <div style="float:right;">
             <a href="javascript:history.go(-1);" class="layui-btn layui-btn-primary layui-btn-sm">
-                <i class="layui-icon layui-icon-return"></i>
-                返回列表</a>
-        </div>
+            <i class="layui-icon layui-icon-return"></i>
+            {$lable.back}</a>
     </div>
+</div>
     <hr/>
     <div style="margin: 10px">
         <div style="padding: 15px;">
             <form class="layui-form" id="myForm" action="<?=url('house/add')?>?typess={$typess}" method="post">
                 <fieldset class="layui-elem-field layui-field-title" style="margin-top: 20px;">
-                    <legend>基础信息</legend>
+                    <legend>{$lable.basicInfo}</legend>
                 </fieldset>
                 <div class="layui-form-item">
-                    <label class="layui-form-label"><span style="color: red;">*</span>房源名称</label>
+                    <label class="layui-form-label"><span style="color: red;">*</span>{$lable.houseName}</label>
                     <div class="layui-input-block">
-                        <input type="text" name="title" lay-verify="required|title" placeholder="请输入房源名称" maxlength="50" autocomplete="off" class="layui-input">
+                        <input type="text" name="title" lay-verify="required|title" placeholder="{$lable.houseNameP}" maxlength="50" autocomplete="off" class="layui-input">
                     </div>
                 </div>
                 <div class="layui-form-item">
-                    <label class="layui-form-label"><span style="color: red;">*</span>房屋地址</label>
+                    <label class="layui-form-label"><span style="color: red;">*</span>{$lable.houseAddr}</label>
                     <div class="layui-input-block" id="input">
-                        <input type="text" id="end" autocomplete="off" class="layui-input" placeholder="请输入房屋地址">
+                        <input type="text" id="end" autocomplete="off" class="layui-input" placeholder="{$lable.houseAddP}">
                         <input type="text" name="address" id="address" style="display: none" readonly class="layui-input" lay-verify="required|addresss"  placeholder="目的地取值">
                         <input type="hidden" name="x" id="x" lay-verify="addres" autocomplete="off" class="layui-input" >
                         <input type="hidden" name="y" id="y" lay-verify="addres" autocomplete="off" class="layui-input" >
                     </div>
-                   <div class="layui-form-mid layui-word-aux" style="margin-left: 110px;color: red !important;">必须从下拉框中选择对应地址，否则无法显示地理位置</div>
+                    <div class="layui-form-mid layui-word-aux" style="margin-left: 110px;color: red !important;">{$lable.selectAddNot}</div>
                 </div>
                 <div class="layui-form-item">
-                    <label class="layui-form-label">房源链接</label>
+                    <label class="layui-form-label">{$lable.houseUrl}</label>
                     <div class="layui-input-block">
-                        <input type="text" name="http"  placeholder="请输入房源链接" id="orderHouse" autocomplete="off" class="layui-input" onblur="checkHouseUrl()">
+                        <input type="text" name="http"  placeholder="{$lable.houseUrlP}" id="orderHouse" autocomplete="off" class="layui-input" onblur="checkHouseUrl()">
                     </div>
                 </div>
                 <div class="layui-form-item">
-                    <label class="layui-form-label"><span style="color: red;">*</span>城市</label>
+                    <label class="layui-form-label"><span style="color: red;">*</span>{$lable.city}</label>
                     <div class="layui-input-inline">
-                        <input type="text" name="city" id="city" lay-verify="required|title" value="墨尔本" readonly class="layui-input">
+                        <input type="text" name="city" id="city" lay-verify="required|title" value="{$lable.moerben}" readonly class="layui-input">
                     </div>
-                    <label class="layui-form-label"><span style="color: red;">*</span>校区</label>
-                    <div class="layui-input-inline">
+                    <label class="layui-form-label" style="width: 150px !important;"><span style="color: red;">*</span>{$lable.school}</label>
+                    <div class="layui-input-inline" style="width: 250px !important;">
                         <select name="school" lay-verify="required" id="school">
-                            <option value="">请选择校区</option>
+                            <option value="">{$lable.selectSchoolP}</option>
                         </select>
                     </div>
                 </div>
                 <div class="layui-form-item">
-                    <label class="layui-form-label"><span style="color: red;">*</span>每周租金</label>
-                    <div class="layui-input-inline">
-                        <input type="number" min="0" name="price" lay-verify="required|prices" placeholder="请输入租金" id="price" autocomplete="off" class="layui-input">
+                    <label class="layui-form-label"><span style="color: red;">*</span>{$lable.rent}</label>
+                    <div class="layui-input-inline" style="width: 230px !important;">
+                        <input type="number" min="0" name="price" lay-verify="required|prices" placeholder="{$lable.rentPriceP}" id="price" autocomplete="off" class="layui-input">
                     </div>
                     <div class="layui-input-inline">
-                        <input type="checkbox" lay-skin="switch" lay-filter="switchRent" lay-text="租金可议|租金可议">
+                        <input type="checkbox" lay-skin="switch" lay-filter="switchRent" lay-text="{$lable.zujinkeyi}|{$lable.zujinkeyi}">
                     </div>
                 </div>
                 <fieldset class="layui-elem-field layui-field-title" style="margin-top: 20px;">
-                    <legend>租约相关</legend>
+                    <legend>{$lable.rendetail}</legend>
                 </fieldset>
                 <div class="layui-form-item">
-                    <label class="layui-form-label"><span style="color: red;">*</span>入住时间</label>
-                    <div class="layui-input-inline">
-                        <input type="text" name="live_date" id="date" lay-verify="date" lay-verify="required" placeholder="请选择入住时间" autocomplete="off" class="layui-input">
+                    <label class="layui-form-label"><span style="color: red;">*</span>{$lable.livetime}</label>
+                    <div class="layui-input-inline" style="width: 230px !important;">
+                        <input type="text" name="live_date" id="date" lay-verify="date" lay-verify="required" placeholder="{$lable.liveDateP}" autocomplete="off" class="layui-input">
                     </div>
                     <div class="layui-input-inline">
-                        <input type="checkbox" lay-skin="switch" lay-filter="switchTest" lay-text="随时入住|随时入住">
+                        <input type="checkbox" lay-skin="switch" lay-filter="switchTest" lay-text="{$lable.anytime}|{$lable.anytime}">
                     </div>
                 </div>
                 <div class="layui-form-item">
-                    <label class="layui-form-label"><span style="color: red;">*</span>房屋来源</label>
+                    <label class="layui-form-label"><span style="color: red;">*</span>{$lable.source}</label>
                     <div class="layui-input-block">
-                        <input type="radio" name="source" value="中介" title="中介" checked>
-                        <input type="radio" name="source" value="学生公寓" title="学生公寓">
+                        <input type="radio" name="source" value="中介" title="{$lable.inter}" checked>
+                        <input type="radio" name="source" value="学生公寓" title="{$lable.studentApt}">
                     </div>
                 </div>
                 <div class="layui-form-item">
-                    <label class="layui-form-label"><span style="color: red;">*</span>出租方式</label>
+                    <label class="layui-form-label"><span style="color: red;">*</span>{$lable.rentype}</label>
                     <div class="layui-input-block">
-                        <input type="radio" name="type" value="整租" title="整租" checked>
-                        <input type="radio" name="type" value="合租" title="合租">
+                        <input type="radio" name="type" value="整租" title="{$lable.zhengzu}" checked>
+                        <input type="radio" name="type" value="合租" title="{$lable.hezu}">
                     </div>
                 </div>
                 <div class="layui-form-item">
-                    <label class="layui-form-label"><span style="color: red;">*</span>性别限制</label>
+                    <label class="layui-form-label"><span style="color: red;">*</span>{$lable.xingbie}</label>
                     <div class="layui-input-block">
-                        <input type="radio" name="sex" value="不限" title="不限" checked>
-                        <input type="radio" name="sex" value="限男性" title="限男性">
-                        <input type="radio" name="sex" value="限女性" title="限女性">
+                        <input type="radio" name="sex" value="不限" title="{$lable.xingbiebuxian}" checked>
+                        <input type="radio" name="sex" value="限男性" title="{$lable.xiannanxing}">
+                        <input type="radio" name="sex" value="限女性" title="{$lable.xiannvxing}">
                     </div>
                 </div>
                 <div class="layui-form-item">
-                    <label class="layui-form-label"><span style="color: red;">*</span>宠物</label>
+                    <label class="layui-form-label"><span style="color: red;">*</span>{$lable.pet}</label>
                     <div class="layui-input-block">
-                        <input type="radio" name="pet" value="不限" title="不限" checked>
-                        <input type="radio" name="pet" value="接受" title="接受">
-                        <input type="radio" name="pet" value="不接受" title="不接受">
+                        <input type="radio" name="pet" value="不限" title="{$lable.petbuxian}" checked>
+                        <input type="radio" name="pet" value="接受" title="{$lable.petAcc}">
+                        <input type="radio" name="pet" value="不接受" title="{$lable.petDis}">
                     </div>
                 </div>
                 <div class="layui-form-item">
-                    <label class="layui-form-label"><span style="color: red;">*</span>是否包含家具</label>
+                    <label class="layui-form-label"><span style="color: red;">*</span>{$lable.shifoujiaju}</label>
                     <div class="layui-input-block">
-                        <input type="radio" name="is_fur" value="是" title="是" checked>
-                        <input type="radio" name="is_fur" value="否" title="否">
+                        <input type="radio" name="is_fur" value="否" title="{$lable.bujiaju}" checked>
+                        <input type="radio" name="is_fur" value="是" title="{$lable.baojiaju}">
                     </div>
                 </div>
                 <div class="layui-form-item" pane="">
-                    <label class="layui-form-label">Bill相关</label>
+                    <label class="layui-form-label">{$lable.bill}</label>
                     <div class="layui-input-block">
-                        <input type="checkbox" name="bill[包水]" lay-skin="primary" title="包水">
-                        <input type="checkbox" name="bill[包电]" lay-skin="primary" title="包电">
-                        <input type="checkbox" name="bill[包气]" lay-skin="primary" title="包气">
-                        <input type="checkbox" name="bill[包网]" lay-skin="primary" title="包网">
+                        <input type="checkbox" name="bill[包水]" lay-skin="primary" title="{$lable.water}">
+                        <input type="checkbox" name="bill[包电]" lay-skin="primary" title="{$lable.elect}">
+                        <input type="checkbox" name="bill[包气]" lay-skin="primary" title="{$lable.gas}">
+                        <input type="checkbox" name="bill[包网]" lay-skin="primary" title="{$lable.nets}">
                     </div>
                 </div>
                 <div class="layui-form-item" pane="">
-                    <label class="layui-form-label">租期</label>
+                    <label class="layui-form-label" style="width: 90px !important;">{$lable.liveterm}</label>
                     <div class="layui-input-block">
                         <input type="radio" name="lease_term" value="12+" title="12+" checked>
                         <input type="radio" name="lease_term" value="6-12" title="6-12">
@@ -171,18 +205,18 @@
                     </div>
                 </div>
                 <fieldset class="layui-elem-field layui-field-title" style="margin-top: 20px;">
-                    <legend>房屋相关</legend>
+                    <legend>{$lable.housedetail}</legend>
                 </fieldset>
                 <div class="layui-form-item">
-                    <label class="layui-form-label"><span style="color: red;">*</span>房屋类型</label>
+                    <label class="layui-form-label"><span style="color: red;">*</span>{$lable.houseType}</label>
                     <div class="layui-input-block">
-                        <input type="radio" name="house_type" value="公寓" title="公寓" checked>
-                        <input type="radio" name="house_type" value="别墅" title="别墅">
-                        <input type="radio" name="house_type" value="联排别墅" title="联排别墅">
+                        <input type="radio" name="house_type" value="公寓" title="{$lable.apt}" checked>
+                        <input type="radio" name="house_type" value="别墅" title="{$lable.bieshu}">
+                        <input type="radio" name="house_type" value="联排别墅" title="{$lable.lianpaibieshu}">
                     </div>
                 </div>
                 <div class="layui-form-item">
-                    <label class="layui-form-label"><span style="color: red;">*</span>户型</label>
+                    <label class="layui-form-label"><span style="color: red;">*</span>{$lable.huxing}</label>
                     <div class="layui-input-block">
                         <input type="radio" name="house_room" value="Studio" title="Studio">
                         <input type="radio" name="house_room" value="1" title="1" checked>
@@ -199,7 +233,7 @@
                 </div>
 
                 <div class="layui-form-item">
-                    <label class="layui-form-label"><span style="color: red;">*</span>卫生间</label>
+                    <label class="layui-form-label"><span style="color: red;">*</span>{$lable.weishengjian}</label>
                     <div class="layui-input-block">
                         <input type="radio" name="toilet" value="0" title="0" checked>
                         <input type="radio" name="toilet" value="1" title="1">
@@ -214,7 +248,7 @@
                     </div>
                 </div>
                 <div class="layui-form-item">
-                    <label class="layui-form-label"><span style="color: red;">*</span>车位</label>
+                    <label class="layui-form-label"><span style="color: red;">*</span>{$lable.car}</label>
                     <div class="layui-input-block">
                         <input type="radio" name="car" value="0" title="0" checked>
                         <input type="radio" name="car" value="1" title="1">
@@ -229,100 +263,130 @@
                     </div>
                 </div>
                 <div class="layui-form-item">
-                    <label class="layui-form-label"><span style="color: red;">*</span>家具</label>
+                    <label class="layui-form-label"><span style="color: red;">*</span>{$lable.jiaju}</label>
                     <div class="layui-input-block">
-                        <input type="checkbox" name="home[床]" lay-skin="primary" title="床">
-                        <input type="checkbox" name="home[沙发]" lay-skin="primary" title="沙发">
-                        <input type="checkbox" name="home[餐桌]" lay-skin="primary" title="餐桌">
-                        <input type="checkbox" name="home[椅子]" lay-skin="primary" title="椅子">
-                        <input type="checkbox" name="home[WIFI]" lay-skin="primary" title="WIFI">
-                        <input type="checkbox" name="home[空调]" lay-skin="primary" title="空调">
-                        <input type="checkbox" name="home[洗衣机]" lay-skin="primary" title="洗衣机">
-                        <input type="checkbox" name="home[冰箱]" lay-skin="primary" title="冰箱">
-                        <input type="checkbox" name="home[微波炉]" lay-skin="primary" title="微波炉">
-                        <input type="checkbox" name="home[暖气]" lay-skin="primary" title="暖气">
-                        <input type="checkbox" name="home[电烤箱]" lay-skin="primary" title="电烤箱">
-                        <input type="checkbox" name="home[洗碗机]" lay-skin="primary" title="洗碗机">
+                        <input type="checkbox" name="home[床]" lay-skin="primary" title="{$lable.chuang}">
+                        <input type="checkbox" name="home[沙发]" lay-skin="primary" title="{$lable.shafa}">
+                        <input type="checkbox" name="home[餐桌]" lay-skin="primary" title="{$lable.canzuo}">
+                        <input type="checkbox" name="home[椅子]" lay-skin="primary" title="{$lable.yizi}">
+                        <input type="checkbox" name="home[WIFI]" lay-skin="primary" title="{$lable.fWIFI}">
+                        <input type="checkbox" name="home[空调]" lay-skin="primary" title="{$lable.kongtiao}">
+                        <input type="checkbox" name="home[洗衣机]" lay-skin="primary" title="{$lable.xiyiji}">
+                        <input type="checkbox" name="home[冰箱]" lay-skin="primary" title="{$lable.bingxiang}">
+                        <input type="checkbox" name="home[微波炉]" lay-skin="primary" title="{$lable.weibolu}">
+                        <input type="checkbox" name="home[暖气]" lay-skin="primary" title="{$lable.nuanqi}">
+                        <input type="checkbox" name="home[电烤箱]" lay-skin="primary" title="{$lable.kaoxiang}">
+                        <input type="checkbox" name="home[洗碗机]" lay-skin="primary" title="{$lable.xiwanji}">
                     </div>
                 </div>
 
                 <div class="layui-form-item" pane="">
-                    <label class="layui-form-label">基本设施</label>
+                    <label class="layui-form-label">{$lable.sheshi}</label>
                     <div class="layui-input-block">
-                        <input type="checkbox" name="furniture[游泳池]" lay-skin="primary" title="游泳池">
-                        <input type="checkbox" name="furniture[健身房]" lay-skin="primary" title="健身房">
-                        <input type="checkbox" name="furniture[停车位]" lay-skin="primary" title="停车位">
-                        <input type="checkbox" name="furniture[电影院]" lay-skin="primary" title="电影院">
-                        <input type="checkbox" name="furniture[花园]" lay-skin="primary" title="花园">
-                        <input type="checkbox" name="furniture[门禁]" lay-skin="primary" title="门禁">
-                        <input type="checkbox" name="furniture[前台]" lay-skin="primary" title="前台">
-                        <input type="checkbox" name="furniture[桑拿]" lay-skin="primary" title="桑拿">
+                        <input type="checkbox" name="furniture[游泳池]" lay-skin="primary" title="{$lable.yongchi}">
+                        <input type="checkbox" name="furniture[健身房]" lay-skin="primary" title="{$lable.jianshenfang}">
+                        <input type="checkbox" name="furniture[停车位]" lay-skin="primary" title="{$lable.tingchewei}">
+                        <input type="checkbox" name="furniture[电影院]" lay-skin="primary" title="{$lable.dianyingyuan}">
+                        <input type="checkbox" name="furniture[花园]" lay-skin="primary" title="{$lable.huayuan}">
+                        <input type="checkbox" name="furniture[门禁]" lay-skin="primary" title="{$lable.menjin}">
+                        <input type="checkbox" name="furniture[前台]" lay-skin="primary" title="{$lable.qiantai}">
+                        <input type="checkbox" name="furniture[桑拿]" lay-skin="primary" title="{$lable.sangna}">
                     </div>
                 </div>
 
                 <div class="layui-form-item" pane="">
-                    <label class="layui-form-label">周边</label>
+                    <label class="layui-form-label">{$lable.zhoubian}</label>
                     <div class="layui-input-block">
-                        <input type="checkbox" name="sation[巴士站]" lay-skin="primary" title="巴士站">
-                        <input type="checkbox" name="sation[火车站]" lay-skin="primary" title="火车站">
-                        <input type="checkbox" name="sation[电车站]" lay-skin="primary" title="电车站">
-                        <input type="checkbox" name="sation[餐馆]" lay-skin="primary" title="餐馆">
-                        <input type="checkbox" name="sation[公园]" lay-skin="primary" title="公园">
-                        <input type="checkbox" name="sation[警察局]" lay-skin="primary" title="警察局">
-                        <input type="checkbox" name="sation[医院]" lay-skin="primary" title="医院">
-                        <input type="checkbox" name="sation[超市]" lay-skin="primary" title="超市">
+                        <input type="checkbox" name="sation[巴士站]" lay-skin="primary" title="{$lable.bashizhan}">
+                        <input type="checkbox" name="sation[火车站]" lay-skin="primary" title="{$lable.huochezhan}">
+                        <input type="checkbox" name="sation[电车站]" lay-skin="primary" title="{$lable.dianchezhan}">
+                        <input type="checkbox" name="sation[餐馆]" lay-skin="primary" title="{$lable.canguan}">
+                        <input type="checkbox" name="sation[公园]" lay-skin="primary" title="{$lable.gongyuan}">
+                        <input type="checkbox" name="sation[警察局]" lay-skin="primary" title="{$lable.jingcaju}">
+                        <input type="checkbox" name="sation[医院]" lay-skin="primary" title="{$lable.yiyuan}">
+                        <input type="checkbox" name="sation[超市]" lay-skin="primary" title="{$lable.chaoshi}">
                     </div>
                 </div>
                 <div class="layui-form-item" pane="">
-                    <label class="layui-form-label">特色</label>
+                    <label class="layui-form-label">{$lable.biaoqian}</label>
                     <div class="layui-input-block">
                         {volist name='tags' id='vo'}
-                        <input type="checkbox" class="checkbox tags" lay-verify="required|des_tanlent"  lay-skin="primary" name="tags[{$vo.name}]" title="{$vo.name}">
+                        <input type="checkbox" class="checkbox tags" lay-verify="required|des_tanlent"  lay-skin="primary" name="tags[{$vo.id}]" title="{$vo.name}">
                         {/volist}
                     </div>
                 </div>
                 <fieldset class="layui-elem-field layui-field-title" style="margin-top: 20px;">
-                    <legend>房源简介</legend>
+                    <legend>{$lable.jianjie}</legend>
                 </fieldset>
-                <div class="layui-form-item layui-form-text">
+                <div class="layui-form-mid layui-word-aux" style="margin-left: 40px;">{$lable.transNotic}</div>
+                <div class="layui-form-item layui-form-text" id="preTrans">
                     <div class="layui-input-block">
-                        <textarea placeholder="请输入房源简介" style="height: 400px;" maxlength="1000" name="content" class="layui-textarea"></textarea>
+                        <textarea placeholder="{$lable.houseDescP}" style="height: 400px;" maxlength="1000" name="content" id="contents" class="layui-textarea"></textarea>
+                    </div>
+                </div>
+                <input type="hidden" value="1" id="isTrans"/>
+                <div class="layui-row" id="translate" style="display: none">
+                    <div class="layui-col-xs6">
+                        <div class="grid-demo grid-demo-bg1">
+                            <div class="layui-input-block">
+                                <textarea placeholder="{$lable.houseDescP}" style="height: 400px;" maxlength="1000" name="econtent" id="english" class="layui-textarea"></textarea>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="layui-col-xs6">
+                        <div class="grid-demo">
+                            <div class="layui-input-block" style="margin-left: 25px !important;">
+                                <textarea placeholder="{$lable.houseDescP}" style="height: 400px;" maxlength="1000" name="content" id="chinese" class="layui-textarea"></textarea>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="layui-row">
+                    <div class="layui-col-xs6">
+                        <div class="grid-demo grid-demo-bg1">
+                            <span class="layui-btn layui-btn-sm transLate" data-type="zh" style="float: right;margin-top: 10px;">英译中</span>
+                        </div>
+                    </div>
+                    <div class="layui-col-xs6">
+                        <div class="grid-demo">
+                            <span class="layui-btn layui-btn-primary layui-btn-sm  transLate" data-type="en" style="margin-left: 25px;margin-top: 10px;" >中译英</span>
+                        </div>
                     </div>
                 </div>
                 <fieldset class="layui-elem-field layui-field-title" style="margin-top: 20px;">
-                    <legend>联系方式</legend>
+                    <legend>{$lable.lianxi}</legend>
                 </fieldset>
                 <div class="layui-form-item">
-                    <label class="layui-form-label"><span style="color: red;">*</span>姓名</label>
+                    <label class="layui-form-label"><span style="color: red;">*</span>{$lable.xingming}</label>
                     <div class="layui-input-block">
                         <input type="text" name="real_name" lay-verify="required|title" placeholder="请输入姓名" autocomplete="off" value="{$admin.ad_realname}" class="layui-input">
                     </div>
                 </div>
                 <div class="layui-form-item">
-                    <label class="layui-form-label"><span style="color: red;">*</span>电话</label>
+                    <label class="layui-form-label"><span style="color: red;">*</span>{$lable.dianhua}</label>
                     <div class="layui-input-block">
                         <input type="text" name="tel" lay-verify="required" placeholder="请输入电话" autocomplete="off" value="{$admin.ad_phone}" class="layui-input">
                     </div>
                 </div>
                 <div class="layui-form-item">
-                    <label class="layui-form-label">微信号</label>
+                    <label class="layui-form-label">{$lable.weixin}</label>
                     <div class="layui-input-block">
                         <input type="text" name="wchat" placeholder="请输入微信号" autocomplete="off" value="{$admin.ad_weixin}" class="layui-input">
                     </div>
                 </div>
                 <div class="layui-form-item">
-                    <label class="layui-form-label">邮箱</label>
+                    <label class="layui-form-label">{$lable.youxiang}</label>
                     <div class="layui-input-block">
                         <input type="text" name="email" placeholder="请输入邮箱" autocomplete="off" value="{$admin.ad_email}" class="layui-input">
                     </div>
                 </div>
                 <fieldset class="layui-elem-field layui-field-title" style="margin-top: 20px;">
-                    <legend>图片</legend>
+                    <legend>{$lable.tupian}</legend>
                 </fieldset>
                 <div style="width: 100%;">
                     <div class="left" style="width: 30%;float:left;border-right: rgba(53, 153, 153) dashed 1px;display: block">
 
-                        <div class="layui-form-mid layui-word-aux" style="margin-left: 40px;">图片要求，最大5MB，支持JPG/JEPG/PNG格式</div>
+                        <div class="layui-form-mid layui-word-aux" style="margin-left: 40px;">{$lable.tupianRemark}</div>
                         <div class="layui-form-item one-pan" style="margin-left: 40px;">
                             <div class="layui-upload-drag inner-class">
                                 <image id="logoPreimg" class="logoPreimg">
@@ -335,30 +399,34 @@
                         <div class="layui-form-item" id="pics">
                             <div class="layui-input-inline" style="width: 70%;margin-left: 50px;">
                                 <div class="layui-upload">
-                                    <span style="color: red;padding: 8px;">*</span><button type="button" class="layui-btn layui-btn pull-left layui-btn-sm" id="uploadImg">请选择封面图片</button>
+                                    <span style="color: red;padding: 8px;">*</span><button type="button" class="layui-btn layui-btn pull-left layui-btn-sm" id="uploadImg">{$lable.fengmiantu}</button>
                                 </div>
                             </div>
                         </div>
                     </div>
                     <div class="right">
-                        <div class="layui-form-mid layui-word-aux" style="margin-left: 40px;">请上传0-8张其他详情图。</div>
+                        <div class="layui-form-mid layui-word-aux" style="margin-left: 40px;">{$lable.tupianNotic}</div>
                         <div class="layui-form-item">
                             <div class="layui-input-inline" style="width: 100%;margin-left: 50px;">
                                 <div class="pic-more" style="height: 266px">
-                                    <ul class="pic-more-upload-list" id="slide-pc-priview" style="width: 100%">
-                                    </ul>
+                                    <div class="dragPic">
+                                        <div class="dragPic">
+                                            <div class="dragPicBox clearfix" node-type="box" id="slide-pc-priview">
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                                 <div class="layui-upload">
-                                    <button type="button" class="layui-btn layui-btn pull-left layui-btn-sm" id="slide-pc">请选择其他图片</button>
+                                    <button type="button" class="layui-btn layui-btn pull-left layui-btn-sm" id="slide-pc">{$lable.qitatupian}</button>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
                 <fieldset class="layui-elem-field layui-field-title" style="margin-top: 20px;">
-                    <legend>视频</legend>
+                    <legend>{$lable.shipin}</legend>
                 </fieldset>
-                <div class="layui-form-mid layui-word-aux" style="margin-left: 40px;">视频仅限一个视频，大小控制在10M以内。</div>
+                <div class="layui-form-mid layui-word-aux" style="margin-left: 40px;">{$lable.otherNotic}</div>
                 <div class="layui-form-item one-pan" style="margin-left: 40px;">
                     <div class="layui-upload-drag" id="uploadLogo" style="padding: 50px;">
                         <video id="logoPre" style="display: none" controls="controls" autobuffer="autobuffer"  autoplay="autoplay" loop="loop" src="">
@@ -366,17 +434,17 @@
                         </video>
                         <div id="display">
                             <i class="layui-icon"></i>
-                            <p>请点击此处选择视频</p>
+                            <p>{$lable.xuanzeshipim}</p>
                         </div>
                     </div>
-                    <div class="layui-btn layui-btn-sm" id="upload-video" style="margin-left: 20px;" >上传视频</div>
+                    <div class="layui-btn layui-btn-sm" id="upload-video" style="margin-left: 20px;" >{$lable.shangchuan}</div>
                     <br/>
                 </div>
                 <div class="layui-form-item">
-                    <div class="layui-input-inline" style="width: 230px;margin-left: 40px;">
-                        <button class="layui-btn" lay-submit>发布</button>
-                        <span class="layui-btn layui-btn-primary" id="save" >保存</span>
-                        <a class="layui-btn layui-btn-primary" href="javascript:history.go(-1);">返回</a>
+                    <div class="layui-input-inline" style="width: 270px;margin-left: 40px;">
+                        <button class="layui-btn" lay-submit>{$lable.fabu}</button>
+                        <span class="layui-btn layui-btn-primary" id="save" >{$lable.baocun}</span>
+                        <a class="layui-btn layui-btn-primary" href="javascript:history.go(-1);">{$lable.fanhui}</a>
 
                     </div>
                 </div>
@@ -399,6 +467,47 @@
                     }else{
                         layer.msg(data.msg);
                     }
+                }
+            });
+        });
+        $('.transLate').click(function () {
+            var type = $('#isTrans').val();
+            var to = $(this).data('type');
+            if(type == 1){
+                var contents = $("#contents").val();
+            }else{
+                if(to == 'en'){
+                    var contents = $("#chinese").val();
+                }else{
+                    var contents = $("#english").val();
+                }
+            }
+            contents = contents.replace(/[\r\n]/g,"*");
+            if(!contents){
+                return layer.msg('翻译内容不能为空！');
+            }
+            $.ajax({
+                type: 'POST',
+                url: "<?=url('translate/transto')?>",
+                data:{'content':contents,'to':to},
+                dataType:  'json',
+                success: function(data){
+                    console.log(data);
+                    $('#preTrans').hide();
+                    $('#isTrans').val(2);
+                    $('#translate').show();
+                    if(to == 'en'){
+                        cn = data.src.replace('*','\n');
+                        en = data.dst.replace('*','\n');
+                        $('#chinese').val(cn);
+                        $('#english').val(en);
+                    }else{
+                        cn = data.src.replace('*','\n');
+                        en = data.dst.replace('*','\n');
+                        $('#chinese').val(en);
+                        $('#english').val(cn);
+                    }
+
                 }
             });
         });
@@ -497,7 +606,7 @@
             //租金可议
             form.on('switch(switchRent)', function(data){
                 if(this.checked){
-                   $('#price').removeAttr('min');
+                    $('#price').removeAttr('min');
                     $('#price').val('-1');
                     $('#price').hide();
                 }else{
@@ -675,7 +784,7 @@
             var upload = layui.upload;
             upload.render({
                 elem: '#slide-pc',
-                url: '{:url("house/upload")}',
+                url: '{:url("house/upload2")}',
                 size: 1024*1024*10,
                 exts: 'jpg|png|jpeg|gif|bmp|JPG',
                 multiple: true,
@@ -691,11 +800,15 @@
                     if(res.status == 0) {
                         return layer.msg(res.message);
                     }
-                    console.log(res);
                     if(res.code ==1){
-                        $('#slide-pc-priview').append('' +
-                            '<li class="item_img" style="width: 24%;float: left;"><div class="operate"><i  class="close layui-icon"></i></div><img src="__PUBLIC__/' + res.filepath + '" class="img" style="width: 100%;height: 112px;" ><input type="hidden" name="images[]" value="' + res.filepath + '" lay-verify="required|imgRegCaseType"  class="img_url" /></li>');
-
+                        var html = '<div class="item" node-type="imgW" ><div class="operate"><i  class="close layui-icon"></i></div>\n' +
+                            '                                                    <span>\n' +
+                            '                                                        <img src="__PUBLIC__/' + res.filepath + '" />\n' +
+                            '                                                        <input type="hidden" name="images[]" value="' + res.filepath + '" lay-verify="required|imgRegCaseType"  class="img_url" />\n' +
+                            '                                                    </span>\n' +
+                            '                                                </div>';
+                        $('#slide-pc-priview').append(html);
+                        refersh();
                     }else{
                         return layer.msg(res.msg);
                     }
@@ -705,6 +818,158 @@
         });
         //点击多图上传的X,删除当前的图片
         $("body").on("click",".close",function(){
-            $(this).closest("li").remove();
+            $(this).parent().parent('.item').remove();
         });
+    </script>
+    <script>
+        $(document).ready(function(){
+            refersh();
+        });
+        function refersh() {
+            var that={
+                imgaes:{},
+                box:"",
+                aveWidth:86,
+                aveHeight:86,
+                moveObj:'',
+                status:false
+            }
+            var spacingHtml = '<div node-type="spacing"> </div>';
+            var C = {
+                initState:function(){
+                    that.images = $('[node-type="imgW"]');
+                    that.box= $('[node-type="box"]');
+
+                }
+            }
+            var bindDOMFuncs = {
+                'imgMouseDown':function(e){
+                    //var evt=fixEvent(e);
+                    //阻止浏览器默认行为
+                    var evt=e;
+                    //if(evt.which && evt.button==0){
+                    that.follow=true;
+                    $(that.images).bind('dragstart',bindDOMFuncs['unDrag']);
+                    //}else{
+                    //    $(that.images).unbind('dragstart',bindDOMFuncs['unDrag']);
+                    //}
+
+                    $(that.images).removeClass('selected');
+
+                    $(this).addClass('selected');
+
+                    $(that.box).append(spacingHtml);
+                    //获得要移动的节点
+                    that.moveObj = this;
+
+                    $(that.images).bind('mousemove',bindDOMFuncs['imgMouseMove']);
+                },
+                'imgMouseMove':function(e){
+                    if(that.follow){
+                        var disX = e.pageX-$(that.box).offset().left;//鼠标位置距离父节点左边的距离
+                        var disY = e.pageY-$(that.box).offset().top;//鼠标位置距离父节点上边的距离
+                        //判断第一张图片且向左移的情况
+                        var posLeft = $(that.moveObj).position().left+that.aveWidth/2;
+                        var posTop = $(that.moveObj).position().top;
+                        if(that.moveObj){
+                            if((that.moveObj == $('[node-type="imgW"]')[0]) && disX<=posLeft && disY<=posTop+that.aveHeight){
+                                that.status = false;
+                                return;
+
+                            }
+                            if((that.moveObj == $('[node-type="imgW"]')[that.images.length-1]) && disX>=posLeft && disY>=posTop){
+                                that.status = false;
+                                return;
+
+
+                            }
+                        }
+                        //确定移动目标位置
+                        var colNum = Math.round(disX/that.aveWidth);
+                        var rowNum = parseInt(disY/that.aveHeight);
+                        var left = colNum*that.aveWidth;
+                        var top =  rowNum*that.aveHeight;
+
+                        $('[node-type="spacing"]').css({
+                            'left':left+'px',
+                            'top':top+'px'
+                        });
+                        $('[node-type="spacing"]').addClass('spacing');
+                        that.status = true;
+                    }
+                },
+                'imgMouseUp':function(e){
+                    that.follow=false;
+                    if(!that.status){
+                        return;
+                    }
+                    that.status = false;
+                    $(that.images).unbind('dragstart',bindDOMFuncs['unDrag']);
+
+                    var sLeft = $('[node-type="spacing"]').position().left;
+                    var sTop = $('[node-type="spacing"]').position().top;
+                    var xNum = sLeft/that.aveWidth;
+                    var yNum = sTop/that.aveHeight;
+                    var index = yNum*8+xNum;
+
+                    if(index == 0){
+                        var clickObj = $('[node-type="imgW"]')[index];
+                        that.moveObj && $(clickObj).before(that.moveObj);
+                    }else{
+                        var clickObj = $('[node-type="imgW"]')[index-1];
+                        that.moveObj && $(clickObj).after(that.moveObj);
+                    }
+                    $('[node-type="spacing"]').remove();
+
+                    $(that.images).unbind('mousemove',bindDOMFuncs['imgMouseMove']);
+                    that.moveObj = null;
+
+                },
+                'unDrag':function(e){
+                    if(e.stopPropagation){
+                        e.preventDefault();
+                        e.stopPropagation();
+                    }else{
+                        e.cancelBubble = true;
+                        e.returnValue = false;
+                    }
+                    return false;
+                },
+                'imgMouseLeave':function(e){
+                    $('[node-type="spacing"]') && $('[node-type="spacing"]').hide();
+                },
+                'imgMouseEnter':function(e){
+                    $('[node-type="spacing"]') && $('[node-type="spacing"]').show();
+                },
+                'docMouseUp':function(e){
+                    $('[node-type="spacing"]') && $('[node-type="spacing"]').remove();
+                },
+                'imgClick':function(e){
+                    if(e.ctrlKey){
+                        $(this).addClass('selected');
+                        that.moveObj.push(this);
+                    }else{
+                        //that.moveObj = null;
+                        $(that.images).removeClass('selected');
+                        $(this).addClass('selected');
+                        //that.moveObj = this;
+                    }
+                }
+            }
+            var bindDom=function(){
+                $(that.images).bind('mousedown',bindDOMFuncs['imgMouseDown']);
+                $(that.box).bind('mouseup',bindDOMFuncs['imgMouseUp']);
+                $(that.box).bind('mouseenter',bindDOMFuncs['imgMouseEnter']);
+                $(that.box).bind('mouseleave',bindDOMFuncs['imgMouseLeave']);
+                $(document).bind('mouseup',bindDOMFuncs['docMouseUp']);
+                //$(that.images).bind('click',bindDOMFuncs['imgClick']);
+
+
+            }
+            var init = function(){
+                C.initState();
+                bindDom();
+            }
+            init();
+        }
     </script>

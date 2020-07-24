@@ -43,7 +43,11 @@ class Cate extends Controller
         header('Access-Control-Allow-Methods:POST');
         header('Access-Control-Allow-Headers:x-requested-with, content-type');
         $type = $this->request->param('type',1,'intval');
-        $tags = Db::table('xcx_tags')->where(['type' => $type])->field('name')->select();
+        $tags = Db::table('xcx_tags')
+            ->where(['type' => $type])
+            ->field('name')
+            ->order('torder asc,id desc')
+            ->select();
         if($tags){
             $res['code'] =1;
             $res['msg'] ='读取成功！';

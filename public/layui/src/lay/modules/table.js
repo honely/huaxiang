@@ -193,7 +193,7 @@ layui.define(['laytpl', 'laypage', 'layer', 'form'], function(exports){
     ,loading: true //请求数据时，是否显示loading
     ,cellMinWidth: 60 //所有单元格默认最小宽度
     ,text: {
-      none: '无数据'
+      none: 'No Data'
     }
   };
 

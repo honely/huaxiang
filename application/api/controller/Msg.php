@@ -186,7 +186,7 @@ class Msg extends Controller
     public function isSendToday($revid){
         $date = date('Y-m-d');
         $isSend = Db::table('xcx_sub_msg')
-            ->where(['ss_user_id' => $revid,'ss_send_date' => $date,'ss_status' =>2])
+            ->where(['ss_user_id' => $revid,'ss_send_date' => $date])
             ->field('ss_id')
             ->find();
         return $isSend ? true : false;
