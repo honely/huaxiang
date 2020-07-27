@@ -172,6 +172,16 @@ class Languages extends Model
             'entocn' => 'ENG-->CHN',
             'cntoen' => 'CHN-->ENG',
             'transNotic' => 'Maximum 1500 characters. Please do proof reading after translation',
+            'homepage' => 'Main Page',
+            'todayIncUser' => 'Daily Increased Users',
+            'dayIncUser' => 'Daily Increased Users',
+            'totalUser' => 'Total Users',
+            'todayIncHouse' => 'Daily Increased property',
+            'dayIncHouse' => 'Daily Increased property',
+            'totalHouse' => 'Total Propertys',
+            'PieHouse' => 'Property distribution of city',
+            'statusPieHouse' => 'Property distribution of Status',
+            'logout' => 'Log Out',
         ];
         return $enLab;
     }
@@ -179,6 +189,16 @@ class Languages extends Model
 
     public function getCn(){
         $cnLab = [
+            'todayIncUser' => '今日新增用户',
+            'dayIncUser' => '用户每日新增',
+            'totalUser' => '用户总数',
+            'todayIncHouse' => '今日新增房源',
+            'dayIncHouse' => '房源每日新增',
+            'totalHouse' => '房源总数',
+            'PieHouse' => '房源分布图',
+            'statusPieHouse' => '房源状态分布图',
+            'homepage' => '后台首页',
+            'logout' => '退出登录',
             'entocn' => '英译中',
             'cntoen' => '中译英',
             'transNotic' => '可输入1500字，请仔细检查翻译结果',
@@ -347,15 +367,19 @@ class Languages extends Model
 
 
     public function getLang(){
-        $lang = substr($_SERVER['HTTP_ACCEPT_LANGUAGE'], 0, 4);
-        //只取前4位，这样只判断最优先的语言。如果取前5位，可能出现en,zh的情况，影响判断。
-        if (preg_match("/zh-c/i", $lang))
-            return "Cn";
-        else if (preg_match("/zh/i", $lang))
-            return "Cn";
-        else if (preg_match("/en/i", $lang))
-            return "En";
-        else return "Cn";
+        $seLang = session('language');
+        if(!isset($seLang) && !$seLang){
+            $lang = substr($_SERVER['HTTP_ACCEPT_LANGUAGE'], 0, 4);
+            //只取前4位，这样只判断最优先的语言。如果取前5位，可能出现en,zh的情况，影响判断。
+            if (preg_match("/zh-c/i", $lang))
+                return "Cn";
+            else if (preg_match("/zh/i", $lang))
+                return "Cn";
+            else if (preg_match("/en/i", $lang))
+                return "En";
+            else return "Cn";
+        }
+        return $seLang;
     }
 
     public function getLanguages(){

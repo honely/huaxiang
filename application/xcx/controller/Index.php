@@ -110,9 +110,18 @@ class Index extends Controller
         $unread = $unread > 100 ? '99+' : $unread;
         $this->assign('unread',$unread);
         $lang = new Languages();
-        $enLab = $lang->getEn();
+        $enLab = $lang->getLanguages();
+        $langs = $lang->getLang();
+        $this->assign('langs',$langs);
         $this->assign('lable',$enLab);
         return  $this->fetch();
+    }
+
+    public function changelang(){
+        $lang = $this->request->param('lang');
+        $lang = $lang == 'Cn' ? 'En' : 'Cn';
+        session('language',$lang);
+        return json(['code' => 1,'msg' => 'success']);
     }
 
 
@@ -204,6 +213,11 @@ class Index extends Controller
         //更新房源的点击和收藏量（虚拟数据）
         //2020年7月10日11:34:54佳文做市场推广，咱们是按照浏览量给用户红包
         // $this->updateHouseClickAndCollect();
+        $lang = new Languages();
+        $enLab = $lang->getLanguages();
+        $langs = $lang->getLang();
+        $this->assign('langs',$langs);
+        $this->assign('lable',$enLab);
         $this->assign('allHouse',$allHouse);
         $this->assign('allUser',$allUser);
         $this->assign('todayHouse',$todayHouse);
@@ -300,19 +314,25 @@ public function getHouse(){
     }
 
     public function getHousePie(){
+        $lang = new Languages();
+        $langs = $lang->getLang();
         $arr=[
-            '0' =>'墨尔本',
-            '1' =>'悉尼',
-            '2' =>'塔州',
-            '3' =>'布里斯班'
+            '0' => $langs == 'Cn' ? '墨尔本':'Melbourne',
+            '1' => $langs == 'Cn' ? '悉尼':'Sydney',
+            '2' => $langs == 'Cn' ? '塔州':'Tasmania',
+            '3' => $langs == 'Cn' ? '布里斯班':'Brisbane'
         ];
-        $arrs[0]['name'] = '墨尔本';
-        $arrs[1]['name'] = '悉尼';
-        $arrs[2]['name'] = '塔州';
-        $arrs[3]['name'] = '布里斯班';
+        $arrs[0]['name'] = $langs == 'Cn' ? '墨尔本':'Melbourne';
+        $arrs[0]['names'] = '墨尔本';
+        $arrs[1]['name'] = $langs == 'Cn' ? '悉尼':'Sydney';
+        $arrs[1]['names'] = '悉尼';
+        $arrs[2]['name'] = $langs == 'Cn' ? '塔州':'Tasmania';
+        $arrs[2]['names'] = '塔州';
+        $arrs[3]['name'] =  $langs == 'Cn' ? '布里斯班':'Brisbane';
+        $arrs[3]['names'] ='布里斯班';
         $houseM = new Housem();
         foreach ($arrs as $k => $v){
-            $where = "is_del = 1 and city = '".$v['name']."'";
+            $where = "is_del = 1 and city = '".$v['names']."'";
             $arrs[$k]['value'] = $houseM->houseCount($where);
         }
         $sqldata_json=json_encode($arrs);
@@ -321,10 +341,12 @@ public function getHouse(){
   
   
       public function getHousePieStatus(){
-        $arrs[0]['name'] = '草稿';
-        $arrs[1]['name'] = '发布';
-        $arrs[2]['name'] = '下线';
-        $arrs[3]['name'] = '已删除';
+        $lang = new Languages();
+        $langs = $lang->getLang();
+        $arrs[0]['name'] = $langs == 'Cn' ? '草稿':'Draft';
+        $arrs[1]['name'] = $langs == 'Cn' ? '发布':'On';
+        $arrs[2]['name'] = $langs == 'Cn' ? '下线':'Off';
+        $arrs[3]['name'] = $langs == 'Cn' ? '已删除':'Deleted';
         $houseM = new Housem();
         foreach ($arrs as $k => $v){
             $where = "is_del = 1 and status = '".$k."'";

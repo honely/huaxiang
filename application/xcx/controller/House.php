@@ -53,9 +53,20 @@ class House extends Controller{
         $this->assign('topable',$topable);
         $this->assign('tjable',$tjable);
         $this->assign('offable',$offable);
-        $cityinfo = Db::table('tk_cate')->where(['pid' =>0])->select();
         $lang = new Languages();
-        $enLab = $lang->getEn();
+        $langs = $lang->getLang();
+        $enLab = $lang->getLanguages();
+        $cityinfo = Db::table('tk_cate')
+            ->where(['pid' =>0])
+            ->field('id,name,ename')
+            ->select();
+        foreach ($cityinfo as $k => $v){
+            if($langs != 'Cn'){
+                $cityinfo[$k]['sname'] = $v['ename'];
+            }else{
+                $cityinfo[$k]['sname'] = $v['name'];
+            }
+        }
         $this->assign('lable',$enLab);
         $this->assign('cityinfo',$cityinfo);
         return $this->fetch();
@@ -236,7 +247,7 @@ class House extends Controller{
     }
 
     public function getarea(){
-        $city = trim($this->request->param('city','墨尔本'));
+        $city = trim($this->request->param('city','本墨尔'));
         $cityNames = Db::table('tk_houses')
             ->where(['city' => $city])
             ->where("area != ''")
@@ -352,8 +363,8 @@ class House extends Controller{
                 ->field('ad_realname,ad_email,ad_weixin,ad_phone')
                 ->find();
             $lang = new Languages();
-            $langs = 'En';
-            $enLab = $lang->getEn();
+            $langs = $lang->getLang();
+            $enLab = $lang->getLanguages();
             $this->assign('admin',$adminInfo);
             $city = Db::table('tk_cate')->where(['pid' => 0])->select();
             $this->assign('city',$city);
@@ -368,6 +379,7 @@ class House extends Controller{
                     $all_tags[$k]['name'] = $v['name'];
                 }
             }
+            $this->assign('langs',$langs);
             $this->assign('lable',$enLab);
             $this->assign('tags',$all_tags);
             $this->assign('typess',$typess);
@@ -458,6 +470,16 @@ class House extends Controller{
             ->where(['pid' => $cid['id'],'type' => 2])
             ->order('oseq asc')
             ->select();
+        $lang = new Languages();
+        $langs = $lang->getLang();
+        foreach ($city as $k => $v){
+            if($langs != 'Cn'){
+                $city[$k]['sname'] = $v['ename'];
+            }else{
+                $city[$k]['sname'] = $v['name'];
+            }
+        }
+        $this->assign('langs',$langs);
         return $city;
     }
 
@@ -492,7 +514,7 @@ class House extends Controller{
      */
     public function houseStatus($status){
         $lang = new Languages();
-        $enLab = $lang->getEn();
+        $enLab = $lang->getLanguages();
         switch ($status)
         {
             case 1:
@@ -821,7 +843,11 @@ class House extends Controller{
             }
             $houseInfo['live_date_show'] =$show;
             $city = Db::table('tk_cate')->where(['pid' => 0])->select();
+            $langs = $lang->getLang();
+            $cityname = $langs == 'Cn' ? $houseInfo['city'] : $this->getCityNames($houseInfo['city']);
             $shcool = $this->getSchools($houseInfo['city']);
+            $houseInfo['citys'] = $cityname;
+            $this->assign('langs',$langs);
             $this->assign('lable',$enLab);
             $this->assign('all_bill',$all_bill);
             $this->assign('all_trans',$all_trans);
@@ -833,6 +859,25 @@ class House extends Controller{
             $this->assign('house',$houseInfo);
             return $this->fetch();
         }
+    }
+
+
+    public function getCityNames($cnCity){
+        $enCityName = Db::table('tk_cate')
+            ->where(['name' => $cnCity,'pid' => 0])
+            ->field('ename')
+            ->find();
+        return $enCityName['ename'];
+
+    }
+
+    public function getSchoolNames($cnCity){
+        $enCityName = Db::table('tk_cate')
+            ->where(['name' => $cnCity,'type' => 2])
+            ->field('ename')
+            ->find();
+        return $enCityName['ename'];
+
     }
 
 
@@ -1001,7 +1046,7 @@ class House extends Controller{
         $id = $this->request->param('id',22,'intval');
         $houseInfo = Db::table('tk_houses')->where(['id' => $id])->find();
         $lang = new Languages();
-        $enLab = $lang->getEn();
+        $enLab = $lang->getLanguages();
         $all_bill = [
             [
                 'bill' => '包水',
@@ -1203,7 +1248,7 @@ class House extends Controller{
             ->where(['type' => 1])
             ->field('id,name,ename')
             ->select();
-        $langs = 'En';
+        $langs = $lang->getLang();
         foreach ($all_tags as $key => &$val) {
             if($langs == 'En'){
                 $all_tags[$key]['name'] = $val['ename'];
@@ -1215,8 +1260,10 @@ class House extends Controller{
                 $val['is_checked'] = true;
             }
         }unset($val);
-        $lang = new Languages();
-        $enLab = $lang->getEn();
+        $cityname = $langs == 'Cn' ? $houseInfo['city'] : $this->getCityNames($houseInfo['city']);
+        $schoolname = $langs == 'Cn' ? $houseInfo['school'] : $this->getSchoolNames($houseInfo['school']);
+        $houseInfo['city'] = $cityname;
+        $houseInfo['school'] = $schoolname;
         $this->assign('lable',$enLab);
         $this->assign('tags',$all_tags);
         $this->assign('all_bill',$all_bill);
@@ -1393,9 +1440,20 @@ class House extends Controller{
         $this->assign('addable',$addable);
         $this->assign('editable',$editable);
         $this->assign('delable',$delable);
-        $cityinfo = Db::table('tk_cate')->where(['pid' =>0])->select();
         $lang = new Languages();
-        $enLab = $lang->getEn();
+        $langs = $lang->getLang();
+        $enLab = $lang->getLanguages();
+        $cityinfo = Db::table('tk_cate')
+            ->where(['pid' =>0])
+            ->field('id,name,ename')
+            ->select();
+        foreach ($cityinfo as $k => $v){
+            if($langs != 'Cn'){
+                $cityinfo[$k]['sname'] = $v['ename'];
+            }else{
+                $cityinfo[$k]['sname'] = $v['name'];
+            }
+        }
         $this->assign('lable',$enLab);
         $this->assign('cityinfo',$cityinfo);
         return $this->fetch();
@@ -1526,10 +1584,19 @@ class House extends Controller{
             $where = "pid = ".$cityId['id']." and type = 2";
             $result = Db::table('tk_cate')
                 ->where($where)
-                ->field('id,name,pid,oseq')
+                ->field('id,name,ename,pid,oseq')
                 ->order('oseq asc')
                 ->select();
             if($result){
+                $lang = new Languages();
+                $langs = $lang->getLang();
+                foreach ($result as $k => $v){
+                    if($langs != 'Cn'){
+                        $result[$k]['sname'] = $v['ename'];
+                    }else{
+                        $result[$k]['sname'] = $v['name'];
+                    }
+                }
                 return  json(['code' => '1','data' => $result]);
             }else{
                 return  json(['code' => '0','data' => ['']]);

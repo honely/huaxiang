@@ -125,14 +125,15 @@
                 <div class="layui-form-item">
                     <label class="layui-form-label"><span style="color: red;">*</span>{$lable.city}</label>
                     <div class="layui-input-inline">
-                        <input type="text" name="city" id="city" lay-verify="required|title" value="{$house.city}" readonly class="layui-input">
+                        <input type="text" id="city" lay-verify="required|title" value="{$house.citys}" readonly class="layui-input">
+                        <input type="hidden" name="city" id="citys" lay-verify="required|title" value="{$house.city}" readonly class="layui-input">
                     </div>
                     <label class="layui-form-label"><span style="color: red;">*</span>{$lable.school}</label>
                     <div class="layui-input-inline">
                         <select name="school" lay-verify="required" id="school">
                             <option value="">{$lable.selectSchoolP}</option>
                             {volist name='school' id='vo'}
-                            <option value="{$vo.name}" {if condition="$house.school eq $vo.name"}selected{/if}>{$vo.name}</option>
+                            <option value="{$vo.name}" {if condition="$house.school eq $vo.name"}selected{/if}>{$vo.sname}</option>
                             {/volist}
                         </select>
                     </div>
@@ -312,23 +313,31 @@
                 <fieldset class="layui-elem-field layui-field-title" style="margin-top: 20px;">
                     <legend>{$lable.jianjie}</legend>
                 </fieldset>
-                <div class="layui-form-mid layui-word-aux" style="margin-left: 40px;">{$lable.transNotic}</div>
-                <div class="layui-row" id="translate" style="display: block">
-                    <div class="layui-col-xs6">
-                        <div class="grid-demo grid-demo-bg1">
-                            <div class="layui-input-block">
-                                <textarea placeholder="{$lable.houseDescP}" style="height: 400px;" maxlength="1500" name="econtent" id="english" class="layui-textarea">{$house.econtent}</textarea>
-                            </div>
-                        </div>
+                <div class="layui-form-mid layui-word-aux" style="margin-left: 40px;">{$lable.transNotic}123</div>
+                {if condition="$house.econtent eq null"}
+                <div class="layui-form-item layui-form-text" id="preTrans">
+                    <div class="layui-input-block">
+                        <textarea placeholder="{$lable.houseDescP}" style="height: 400px;" maxlength="1500" name="content" id="contents" class="layui-textarea">{$house.content}</textarea>
                     </div>
-                    <div class="layui-col-xs6">
-                        <div class="grid-demo">
-                            <div class="layui-input-block" style="margin-left: 25px !important;">
-                                <textarea placeholder="{$lable.houseDescP}" style="height: 400px;" maxlength="1500" name="content" id="chinese" class="layui-textarea">{$house.content}</textarea>
-                            </div>
+                </div>
+                {else/}
+                <div class="layui-row" id="translate" style="display:{if condition="$house.econtent eq null"}hide1{eles/}block1{/if}">
+                <div class="layui-col-xs6">
+                    <div class="grid-demo grid-demo-bg1">
+                        <div class="layui-input-block">
+                            <textarea placeholder="{$lable.houseDescP}" style="height: 400px;" maxlength="1500" name="econtent" id="english" class="layui-textarea">{$house.econtent}</textarea>
                         </div>
                     </div>
                 </div>
+                <div class="layui-col-xs6">
+                    <div class="grid-demo">
+                        <div class="layui-input-block" style="margin-left: 25px !important;">
+                            <textarea placeholder="{$lable.houseDescP}" style="height: 400px;" maxlength="1500" name="content" id="chinese" class="layui-textarea">{$house.content}</textarea>
+                        </div>
+                    </div>
+                </div>
+        </div>
+        {/if}
               <div class="layui-row">
                     <div class="layui-col-xs6">
                         <div class="grid-demo grid-demo-bg1">
@@ -570,13 +579,21 @@
                         city = "Tasmania";
                     }
                     let cityName='';
+                    let cityNames='';
                     let flag =false;
+                    let langs ='{$langs}';
                     city_code.forEach((item,index,array)=>{
                         //执行代码
                         if(item.code == city){
+                            cityNames = item.name;
                             flag = true;
-                            cityName = item.name;
+                            if(langs == 'Cn'){
+                                cityName = item.name;
+                            }else{
+                                cityName = item.code;
+                            }
                             $('#city').val(cityName);
+                            $('#citys').val(cityNames);
                         }
                     });
                     if(!flag){
@@ -590,14 +607,14 @@
                     $.ajax({
                         type: 'POST',
                         url: "<?=url('house/getSchoolss')?>",
-                        data: {city:cityName},
+                        data: {city:cityNames},
                         dataType:  'json',
                         success: function(data){
                             console.log(data);
                             var code=data.data;
-                            $("#school").html("<option value=''>请选择校区</option>");
+                            $("#school").html("<option value=''>{$lable.selectSchoolP}</option>");
                             $.each(code, function(i, val) {
-                                var option1 = $("<option>").val(val.name).text(val.name);
+                                var option1 = $("<option>").val(val.name).text(val.sname);
                                 $("#school").append(option1);
                                 form.render('select');
                             });

@@ -59,7 +59,7 @@
                     <div class="layui-input-inline">
                         <input type="text" readonly value="{$house.city}" class="layui-input">
                     </div>
-                    <div class="layui-input-inline">
+                    <div class="layui-input-inline" style="width: 350px;">
                         <input type="text" readonly value="{$house.school}" class="layui-input">
                     </div>
                 </div>
@@ -232,11 +232,31 @@
                 <fieldset class="layui-elem-field layui-field-title" style="margin-top: 20px;">
                     <legend>{$lable.jianjie}</legend>
                 </fieldset>
-                <div class="layui-form-item layui-form-text">
+                <div class="layui-form-mid layui-word-aux" style="margin-left: 40px;">{$lable.transNotic}123</div>
+                {if condition="$house.econtent eq null"}
+                <div class="layui-form-item layui-form-text" id="preTrans">
                     <div class="layui-input-block">
-                        <textarea readonly class="layui-textarea" style="height: 400px;">{$house.content}</textarea>
+                        <textarea placeholder="{$lable.houseDescP}" style="height: 400px;" maxlength="1500" name="content" id="contents" class="layui-textarea">{$house.content}</textarea>
                     </div>
                 </div>
+                {else/}
+                <div class="layui-row" id="translate" style="display:{if condition="$house.econtent eq null"}hide1{eles/}block1{/if}">
+                <div class="layui-col-xs6">
+                    <div class="grid-demo grid-demo-bg1">
+                        <div class="layui-input-block">
+                            <textarea placeholder="{$lable.houseDescP}" style="height: 400px;" maxlength="1500" name="econtent" readonly id="english" class="layui-textarea">{$house.econtent}</textarea>
+                        </div>
+                    </div>
+                </div>
+                <div class="layui-col-xs6">
+                    <div class="grid-demo">
+                        <div class="layui-input-block" style="margin-left: 25px !important;">
+                            <textarea placeholder="{$lable.houseDescP}" style="height: 400px;" maxlength="1500" name="content" readonly id="chinese" class="layui-textarea">{$house.content}</textarea>
+                        </div>
+                    </div>
+                </div>
+        </div>
+        {/if}
                 <fieldset class="layui-elem-field layui-field-title" style="margin-top: 20px;">
                     <legend>{$lable.lianxi}</legend>
                 </fieldset>

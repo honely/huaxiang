@@ -1,4 +1,26 @@
-{include file="index/header" /}
+<?php if (!defined('THINK_PATH')) exit(); /*a:3:{s:91:"D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\public/../application/xcx\view\house\index.html";i:1595839451;s:82:"D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\application\xcx\view\index\header.html";i:1591180794;s:82:"D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\application\xcx\view\index\footer.html";i:1577269681;}*/ ?>
+<!DOCTYPE html>
+<html style="height: 100%">
+<head>
+    <meta charset="utf-8">
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <title>小宝经纪人平台</title>
+    <link rel="stylesheet" href="../../../layui/src/css/layui.css">
+    <script src="../../../static/jquery-1.10.2.min.js"></script>
+    <script src="../../../layui/src/layui.js"></script>
+	<style>
+		.layui-body{
+			left:0!important
+		}
+	</style>
+</head>
+<body class="layui-layout-body" style="height: 100%">
+
 <style>
     .layui-table-cell{
         height:36px !important;
@@ -13,13 +35,13 @@
 </style>
 <div style="margin: 20px;">
     <span class="layui-breadcrumb" lay-separator=">">
-        <a>{$lable.houselist}</a>
-        <a><cite>{$lable.houselist}</cite></a>
+        <a><?php echo $lable['houselist']; ?></a>
+        <a><cite><?php echo $lable['houselist']; ?></cite></a>
     </span>
     <div style="float:right;">
-        {if condition='$addable eq true'}
-        <button class="layui-btn layui-btn-primary layui-btn-sm"  onclick="addArt()"><i class="layui-icon"></i>{$lable.fabufangyuan}</button>
-        {/if}
+        <?php if($addable == true): ?>
+        <button class="layui-btn layui-btn-primary layui-btn-sm"  onclick="addArt()"><i class="layui-icon"></i><?php echo $lable['fabufangyuan']; ?></button>
+        <?php endif; ?>
     </div>
 </div>
 <div class="layui-tab layui-tab-brief" lay-filter="docDemoTabBrief">
@@ -29,65 +51,65 @@
                 <form class="layui-form layui-form-pane1">
                     <div class="layui-form-item  demoTable">
                         <div class="layui-inline" >
-                            <label class="layui-form-label" style="padding: 9px 14px;width: 57px;font-weight: bold">{$lable.keys}：</label>
+                            <label class="layui-form-label" style="padding: 9px 14px;width: 57px;font-weight: bold"><?php echo $lable['keys']; ?>：</label>
                             <div class="layui-input-inline" style="width: 80px;margin-right: 0px;">
                                 <select name="keytype" id="keytype" style="border-right: white;">
                                     <option value="2">ID</option>
-                                    <option value="1">{$lable.title}</option>
-                                    <option value="4">{$lable.postby}</option>
-                                    <option value="3">{$lable.houseAddr}</option>
-                                    <option value="5">{$lable.rendetail}</option>
+                                    <option value="1"><?php echo $lable['title']; ?></option>
+                                    <option value="4"><?php echo $lable['postby']; ?></option>
+                                    <option value="3"><?php echo $lable['houseAddr']; ?></option>
+                                    <option value="5"><?php echo $lable['rendetail']; ?></option>
                                 </select>
                             </div>
                             <div class="layui-input-inline" style="width:160px;">
-                                <input type="text" name="keywords" id="keywords"  placeholder="{$lable.pleaseInput}" class="layui-input">
+                                <input type="text" name="keywords" id="keywords"  placeholder="<?php echo $lable['pleaseInput']; ?>" class="layui-input">
                             </div>
                         </div>
                         <div class="layui-inline">
-                            <label class="layui-form-label" style="padding: 9px 14px;width: 42px;font-weight: bold">{$lable.status}：</label>
+                            <label class="layui-form-label" style="padding: 9px 14px;width: 42px;font-weight: bold"><?php echo $lable['status']; ?>：</label>
                             <div class="layui-input-inline" style="width:110px;">
                                 <select name="status" id="statu">
-                                    <option value="">{$lable.suoyou}</option>
-                                    <option value="1">{$lable.on}</option>
-                                    <option value="2">{$lable.off}</option>
-                                    <option value="3">{$lable.draft}</option>
+                                    <option value=""><?php echo $lable['suoyou']; ?></option>
+                                    <option value="1"><?php echo $lable['on']; ?></option>
+                                    <option value="2"><?php echo $lable['off']; ?></option>
+                                    <option value="3"><?php echo $lable['draft']; ?></option>
                                 </select>
                             </div>
                         </div>
                         <div class="layui-inline" style="margin-right: 0px;">
-                            <label class="layui-form-label" style="padding: 9px 14px;width: 42px;font-weight: bold">{$lable.quyu}：</label>
+                            <label class="layui-form-label" style="padding: 9px 14px;width: 42px;font-weight: bold"><?php echo $lable['quyu']; ?>：</label>
                             <div class="layui-input-inline" style="width: 80px;margin-right: 0px;">
                                 <select name="city" id="city" lay-filter="bu_p_id">
-                                    <option value="">{$lable.city}</option>
-                                    {volist name="cityinfo" id='role'}
-                                    <option value="{$role.name}">{$role.sname}</option>
-                                    {/volist}
+                                    <option value=""><?php echo $lable['city']; ?></option>
+                                    <?php if(is_array($cityinfo) || $cityinfo instanceof \think\Collection || $cityinfo instanceof \think\Paginator): $i = 0; $__LIST__ = $cityinfo;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$role): $mod = ($i % 2 );++$i;?>
+                                    <option value="<?php echo $role['name']; ?>"><?php echo $role['sname']; ?></option>
+                                    <?php endforeach; endif; else: echo "" ;endif; ?>
                                 </select>
                             </div>
                             <div class="layui-input-inline" style="width:80px;">
                                 <div class="layui-input-inline" style="width: 80px;">
                                     <select name="area" id="bu_c_id">
-                                        <option value="">{$lable.area}</option>
+                                        <option value=""><?php echo $lable['area']; ?></option>
                                     </select>
                                 </div>
                             </div>
                         </div>
                         <div class="layui-inline">
-                            <label class="layui-form-label" style="padding: 9px 14px;width: 80px;font-weight: bold">{$lable.postdate}：</label>
+                            <label class="layui-form-label" style="padding: 9px 14px;width: 80px;font-weight: bold"><?php echo $lable['postdate']; ?>：</label>
                             <div class="layui-input-inline">
                                 <input type="text" name="time" readonly class="layui-input" id="time">
                             </div>
                         </div>
                         <div class="layui-inline">
                             <div class="layui-input-inline" style="width:150px;">
-                                <input type="checkbox" id="top" lay-skin="primary" title="{$lable.top}" value="否" lay-filter="top123">
-                                <input type="checkbox" id="tj" lay-skin="primary" title="{$lable.tuijian}" value="否" lay-filter="tj123">
+                                <input type="checkbox" id="top" lay-skin="primary" title="<?php echo $lable['top']; ?>" value="否" lay-filter="top123">
+                                <input type="checkbox" id="tj" lay-skin="primary" title="<?php echo $lable['tuijian']; ?>" value="否" lay-filter="tj123">
                             </div>
                         </div>
                         <div class="layui-inline">
                             <div class="layui-input-inline" >
-                                <span class="layui-btn layui-btn-sm " data-type="reload">{$lable.search}</span>
-                                <a href="<?=url('house/index')?>" class="layui-btn layui-btn-warm layui-btn-sm ">{$lable.fresh}</a>
+                                <span class="layui-btn layui-btn-sm " data-type="reload"><?php echo $lable['search']; ?></span>
+                                <a href="<?=url('house/index')?>" class="layui-btn layui-btn-warm layui-btn-sm "><?php echo $lable['fresh']; ?></a>
                             </div>
                         </div>
                     </div>
@@ -98,20 +120,20 @@
                     <div class="layui-form-item  demoTable">
                         <div class="layui-inline" style="margin-top: 5px;">
                             <div class="layui-input-inline" >
-                                <span class="layui-btn layui-btn-sm layui-btn-danger" data-type="getCheckData">{$lable.delete}</span>
+                                <span class="layui-btn layui-btn-sm layui-btn-danger" data-type="getCheckData"><?php echo $lable['delete']; ?></span>
                             </div>
                         </div>
                         <div class="layui-inline" style="float: right;margin-right: 60px;">
-                            <label class="layui-form-label" style="padding: 9px 14px;width: 80px;font-weight: bold">{$lable.order}：</label>
+                            <label class="layui-form-label" style="padding: 9px 14px;width: 80px;font-weight: bold"><?php echo $lable['order']; ?>：</label>
                             <div class="layui-input-inline" style="width:130px;">
                                 <select name="order" id="order"  lay-filter="reOrder">
-                                    <option value="">{$lable.ordertype}</option>
-                                    <option value="1">{$lable.viewdesc}</option>
-                                    <option value="2">{$lable.viewasc}</option>
-                                    <option value="3">{$lable.likedesc}</option>
-                                    <option value="4">{$lable.likeasc}</option>
-                                    <option value="5">{$lable.datedesc}</option>
-                                    <option value="6">{$lable.detaasc}</option>
+                                    <option value=""><?php echo $lable['ordertype']; ?></option>
+                                    <option value="1"><?php echo $lable['viewdesc']; ?></option>
+                                    <option value="2"><?php echo $lable['viewasc']; ?></option>
+                                    <option value="3"><?php echo $lable['likedesc']; ?></option>
+                                    <option value="4"><?php echo $lable['likeasc']; ?></option>
+                                    <option value="5"><?php echo $lable['datedesc']; ?></option>
+                                    <option value="6"><?php echo $lable['detaasc']; ?></option>
                                 </select>
                             </div>
                         </div>
@@ -123,24 +145,23 @@
                     <thead>
                     <tr>
                         <th lay-data="{type:'checkbox', width:48}">id</th>
-                        <th lay-data="{field:'dsn' ,width:110}">{$lable.houseid}</th>
-                        <th lay-data="{field:'title',width:230}">{$lable.title}</th>
-                        <th lay-data="{field:'address',width:120}">{$lable.address}</th>
-                        <th lay-data="{field:'price',width:120}">{$lable.rentp}</th>
-                        <th lay-data="{field:'collection',width:70}">{$lable.like}</th>
-                        <th lay-data="{field:'view',width:70}">{$lable.view}</th>
-                        {if condition='$topable eq true'}
-                        <th lay-data="{field:'top', templet: '#top1',width:85}">{$lable.top}</th>
-                        {/if}
-                        {if condition='$tjable eq true'}
-                        <th lay-data="{field:'tj', templet: '#switchTj',width:85}">{$lable.tuijian}</th>
-                        {/if}
-                        <th lay-data="{field:'statuss',width:70}">{$lable.status}</th>
-                        {if condition='$offable eq true'}
-                        <th lay-data="{field:'status',templet: '#status',width:110}">{$lable.shangxiaxian}</th>
-                        {/if}
-                        <th lay-data="{field:'cdate',width:105}">{$lable.updatetime}</th>
-                        <th lay-data="{ width:116, toolbar: '#barDemo'}">{$lable.caozuo}</th>
+                        <th lay-data="{field:'dsn' ,width:110}"><?php echo $lable['houseid']; ?></th>
+                        <th lay-data="{field:'title',width:230}"><?php echo $lable['title']; ?></th>
+                        <th lay-data="{field:'address',width:120}"><?php echo $lable['address']; ?></th>
+                        <th lay-data="{field:'price',width:120}"><?php echo $lable['rentp']; ?></th>
+                        <th lay-data="{field:'collection',width:70}"><?php echo $lable['like']; ?></th>
+                        <th lay-data="{field:'view',width:70}"><?php echo $lable['view']; ?></th>
+                        <?php if($topable == true): ?>
+                        <th lay-data="{field:'top', templet: '#top1',width:85}"><?php echo $lable['top']; ?></th>
+                        <?php endif; if($tjable == true): ?>
+                        <th lay-data="{field:'tj', templet: '#switchTj',width:85}"><?php echo $lable['tuijian']; ?></th>
+                        <?php endif; ?>
+                        <th lay-data="{field:'statuss',width:70}"><?php echo $lable['status']; ?></th>
+                        <?php if($offable == true): ?>
+                        <th lay-data="{field:'status',templet: '#status',width:110}"><?php echo $lable['shangxiaxian']; ?></th>
+                        <?php endif; ?>
+                        <th lay-data="{field:'cdate',width:105}"><?php echo $lable['updatetime']; ?></th>
+                        <th lay-data="{ width:116, toolbar: '#barDemo'}"><?php echo $lable['caozuo']; ?></th>
                     </tr>
                     </thead>
                 </table>
@@ -149,19 +170,19 @@
     </div>
 </div>
 <script type="text/html" id="barDemo">
-    {if condition='$editable eq true'}
-    <a class="layui-btn layui-btn-xs" lay-event="edit">{$lable.edit}</a>
-    {/if}
-    <a class="layui-btn layui-btn-xs  layui-btn-warm" lay-event="alert">{$lable.detail}</a>
+    <?php if($editable == true): ?>
+    <a class="layui-btn layui-btn-xs" lay-event="edit"><?php echo $lable['edit']; ?></a>
+    <?php endif; ?>
+    <a class="layui-btn layui-btn-xs  layui-btn-warm" lay-event="alert"><?php echo $lable['detail']; ?></a>
 </script>
 <script type="text/html" id="top1">
-    <input type="checkbox" name="sex" lay-skin="switch" value="{{d.id}}" lay-text="{$lable.shi}|{$lable.fou}" lay-filter="topDemo" {{ d.top == '是' ? 'checked' : '' }}  {{ d.isTop == false ? 'disabled' : '' }}  {{ d.status == 0 ? 'disabled' : '' }}>
+    <input type="checkbox" name="sex" lay-skin="switch" value="{{d.id}}" lay-text="<?php echo $lable['shi']; ?>|<?php echo $lable['fou']; ?>" lay-filter="topDemo" {{ d.top == '是' ? 'checked' : '' }}  {{ d.isTop == false ? 'disabled' : '' }}  {{ d.status == 0 ? 'disabled' : '' }}>
 </script>
 <script type="text/html" id="status">
-    <input type="checkbox" name="sex" lay-skin="switch" value="{{d.id}}" lay-text="{$lable.off}|{$lable.on}" lay-filter="statusDemo" {{ d.status == 1 ? 'checked' : '' }}  {{ d.status == 0 ? 'disabled' : '' }}>
+    <input type="checkbox" name="sex" lay-skin="switch" value="{{d.id}}" lay-text="<?php echo $lable['off']; ?>|<?php echo $lable['on']; ?>" lay-filter="statusDemo" {{ d.status == 1 ? 'checked' : '' }}  {{ d.status == 0 ? 'disabled' : '' }}>
 </script>
 <script type="text/html" id="switchTj">
-    <input type="checkbox" name="sex" lay-skin="switch" value="{{d.id}}" lay-text="{$lable.shi}|{$lable.fou}" lay-filter="sexDemo" {{ d.tj == '是' ? 'checked' : '' }} {{ d.isTj == false ? 'disabled' : '' }}  {{ d.status == 0 ? 'disabled' : '' }}>
+    <input type="checkbox" name="sex" lay-skin="switch" value="{{d.id}}" lay-text="<?php echo $lable['shi']; ?>|<?php echo $lable['fou']; ?>" lay-filter="sexDemo" {{ d.tj == '是' ? 'checked' : '' }} {{ d.isTj == false ? 'disabled' : '' }}  {{ d.status == 0 ? 'disabled' : '' }}>
 </script>
 <script>
     layui.use(['table','laydate','form','element'], function(){
@@ -191,7 +212,7 @@
                 success: function(data){
                     var code=data.data;
                     console.log(code);
-                    $("#bu_c_id").html("<option value=''>{$lable.area}</option>");
+                    $("#bu_c_id").html("<option value=''><?php echo $lable['area']; ?></option>");
                     $.each(code, function(i, val) {
                         var option1 = $("<option>").val(val.area).text(val.area);
                         $("#bu_c_id").append(option1);
@@ -350,8 +371,8 @@
                 if(data.length <= 0){
                     layer.msg('请至少选择一条记录！');
                 }else{
-                    layer.confirm('{$lable.deleteConfirm}', {
-                        btn : [ '{$lable.sure}', '{$lable.cancel}' ]//按钮
+                    layer.confirm('<?php echo $lable['deleteConfirm']; ?>', {
+                        btn : [ '<?php echo $lable['sure']; ?>', '<?php echo $lable['cancel']; ?>' ]//按钮
                     }, function() {
                         for(var i=0;i<data.length;i++){
                             ids+=','+checkStatus.data[i].id;
@@ -363,7 +384,7 @@
                             dataType:  'json',
                             success: function(data){
                                 if(data.code == '1'){
-                                    layer.alert('{$lable.deleteSuc}！', {
+                                    layer.alert('<?php echo $lable['deleteSuc']; ?>！', {
                                         icon: 1,
                                         skin: 'layer-ext-moon',
                                         time: 2000,
@@ -375,7 +396,7 @@
                             }
                         });
                     },function(){
-                        layer.msg('{$lable.quxiaocaozuo}！');
+                        layer.msg('<?php echo $lable['quxiaocaozuo']; ?>！');
                     });
                 }
             }
@@ -392,7 +413,7 @@
             }else if(obj.event === 'alert'){
                 layer.open({
                     type: 2,
-                    title: '{$lable.details}',
+                    title: '<?php echo $lable['details']; ?>',
                     shadeClose: true,
                     shade: false,
                     maxmin: true,
@@ -410,4 +431,13 @@
         window.location.href='<?=url("house/add1")?>';
     }
 </script>
-{include file="index/footer" /}
+</div>
+<script>
+    //JavaScript代码区域
+    layui.use('element', function(){
+        var element = layui.element;
+
+    });
+</script>
+</body>
+</html>
