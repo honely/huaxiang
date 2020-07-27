@@ -42,13 +42,13 @@
         {/if}
         <ul class="layui-nav layui-layout-right">
             <li class="layui-nav-item">
-                <span style="padding-left: 10px !important;" data-lang="{$langs}" id="changeLang">
+                <a style="padding-left: 10px !important;" href="javascript:void()" data-lang="{$langs}" id="changeLang">
                     {if condition="$langs eq 'Cn'"}
                     Language（ENG）
                     {else/}
                     Language（CHN）
                     {/if}
-                </span>
+                </a>
             </li>
             <li class="layui-nav-item"><a style="padding-left: 10px !important;" href="javascript:location.reload();" >{$lable.homepage}</a></li>
             <li class="layui-nav-item"><a style="padding-left: 10px !important;"  href="<?=url('login/loginOut')?>">{$lable.logout}</a></li>

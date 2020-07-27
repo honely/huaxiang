@@ -4,6 +4,7 @@
 namespace app\xcx\controller;
 
 
+use app\xcx\model\Languages;
 use app\xcx\model\Msgs;
 use phpmailer\PHPMailer;
 use think\Controller;
@@ -33,6 +34,9 @@ class Account extends Controller
 
     public function index(){
         $adminId=session('adminId');
+        $lang = new Languages();
+        $enLang = $lang->getLanguages();
+        $this->assign('lable',$enLang);
         $this->assign('admin_id',$adminId);
         return $this->fetch();
     }
@@ -43,30 +47,38 @@ class Account extends Controller
         $adminInfo=Db::table('super_admin')
             ->where(['ad_id' => $ad_id])
             ->find();
+        $lang = new Languages();
+        $enLang = $lang->getLanguages();
+        $this->assign('lable',$enLang);
         $allrole = [
             [
                 'ad_id' => '1',
                 'ad_role' => '超级管理员',
+                'erole' => $enLang['superadmin'],
                 'is_checked' => false
             ],
             [
                 'ad_id' => '43',
                 'ad_role' => '企业负责人',
+                'erole' => $enLang['director'],
                 'is_checked' => false
             ],
             [
                 'ad_id' => '44',
                 'ad_role' => '企业员工',
+                'erole' => $enLang['staff'],
                 'is_checked' => false
             ],
             [
                 'ad_id' => '45',
                 'ad_role' => '运营负责人',
+                'erole' => $enLang['operator'],
                 'is_checked' => false
             ],
             [
                 'ad_id' => '46',
                 'ad_role' => '客服',
+                'erole' => $enLang['employee'],
                 'is_checked' => false
             ]
         ];
@@ -86,6 +98,7 @@ class Account extends Controller
             ->where(['role_id' => 1])
             ->field('id,nickname,tel')
             ->select();
+        $this->assign('lable',$enLang);
         $this->assign('allrole',$allrole);
         $this->assign('user',$adminUser);
         $this->assign('role',$roleInfo);
@@ -122,30 +135,38 @@ class Account extends Controller
             $adminInfo=Db::table('super_admin')
                 ->where(['ad_id' => $ad_id])
                 ->find();
+            $lang = new Languages();
+            $enLang = $lang->getLanguages();
+            $this->assign('lable',$enLang);
             $allrole = [
                 [
                     'ad_id' => '1',
                     'ad_role' => '超级管理员',
+                    'erole' => $enLang['superadmin'],
                     'is_checked' => false
                 ],
                 [
                     'ad_id' => '43',
                     'ad_role' => '企业负责人',
+                    'erole' => $enLang['director'],
                     'is_checked' => false
                 ],
                 [
                     'ad_id' => '44',
                     'ad_role' => '企业员工',
+                    'erole' => $enLang['staff'],
                     'is_checked' => false
                 ],
                 [
                     'ad_id' => '45',
                     'ad_role' => '运营负责人',
+                    'erole' => $enLang['operator'],
                     'is_checked' => false
                 ],
                 [
                     'ad_id' => '46',
                     'ad_role' => '客服',
+                    'erole' => $enLang['employee'],
                     'is_checked' => false
                 ]
             ];
@@ -175,6 +196,9 @@ class Account extends Controller
 
 
     public function email(){
+        $lang = new Languages();
+        $enLang = $lang->getLanguages();
+        $this->assign('lable',$enLang);
         return $this->fetch();
 
     }
@@ -317,6 +341,9 @@ This is an automatic email, please do not reply. ".$code."，请尽快处理！"
     }
 
     public function phone(){
+        $lang = new Languages();
+        $enLang = $lang->getLanguages();
+        $this->assign('lable',$enLang);
         return $this->fetch();
 
     }

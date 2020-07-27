@@ -8,89 +8,89 @@
 <div class="layui-body">
     <div style="margin: 20px;">
     <span class="layui-breadcrumb" lay-separator=">">
-        <a>账户管理</a>
-        <a><cite>个人资料</cite></a>
+        <a>{$lable.zhanghuguanli}</a>
+        <a><cite>{$lable.gerenziliao}</cite></a>
     </span>
         <div style="float:right;">
             <a href="<?=url('account/edit')?>" class="layui-btn layui-btn-primary layui-btn-sm">
                 <i class="layui-icon">&#xe642;</i>
-                修改资料</a>
+                {$lable.xiugaiziliao}</a>
         </div>
     </div>
     <div style="padding: 15px;">
         <form class="layui-form layui-form-pane1" action="<?=url('admin/edit')?>?ad_id={$admin.ad_id}" method="post">
             <div class="layui-form-item">
-                <label class="layui-form-label"><span style="color: red;">*</span>员工姓名</label>
+                <label class="layui-form-label"><span style="color: red;">*</span>{$lable.yuangongxm}</label>
                 <div class="layui-input-block">
                     <input type="text" readonly value="{$admin.ad_realname}" class="layui-input">
                 </div>
             </div>
             <div class="layui-form-item">
-                <label class="layui-form-label"><span style="color: red;">*</span>员工角色</label>
+                <label class="layui-form-label"><span style="color: red;">*</span>{$lable.yuangongjs}</label>
                 <div class="layui-input-block">
                     {volist name='allrole' id='vo'}
-                    <input type="checkbox" class="checkbox" lay-skin="primary" name="ad_role[{$vo.ad_id}]" title="{$vo.ad_role}" disabled  {$vo.is_checked ? 'checked' : ''}>
+                    <input type="checkbox" class="checkbox" lay-skin="primary" name="ad_role[{$vo.ad_id}]" title="{$vo.erole}" disabled  {$vo.is_checked ? 'checked' : ''}>
                     {/volist}
                 </div>
             </div>
             <div class="layui-form-item">
-                <label class="layui-form-label"><span style="color: red;">*</span>电子邮箱</label>
+                <label class="layui-form-label"><span style="color: red;">*</span>{$lable.email}</label>
                 <div class="layui-input-inline">
                     <input type="text" value="{$admin.ad_email}" readonly class="layui-input">
                 </div>
                 <div class="layui-input-inline">
-                    <span class="layui-btn layui-btn-sm layui-btn-normal" id="changeEmail" data-href="<?=url('account/email')?>">更换邮箱</span>
+                    <span class="layui-btn layui-btn-sm layui-btn-normal" id="changeEmail" data-href="<?=url('account/email')?>">{$lable.cemail}</span>
                 </div>
             </div>
             <div class="layui-form-item">
-                <label class="layui-form-label"><span style="color: red;">*</span>手机号码</label>
+                <label class="layui-form-label"><span style="color: red;">*</span>{$lable.phone}</label>
                 <div class="layui-input-inline">
                     <input type="text" name="ad_phone" value="{$admin.ad_phone}" readonly  class="layui-input">
                 </div>
                 <div class="layui-input-inline">
-                    <span class="layui-btn layui-btn-sm layui-btn-normal" id="changePhone" data-href="<?=url('account/phone')?>">更换手机号</span>
+                    <span class="layui-btn layui-btn-sm layui-btn-normal" id="changePhone" data-href="<?=url('account/phone')?>">{$lable.cemail}</span>
                 </div>
             </div>
             <div class="layui-upload">
-                <label class="layui-form-label">头像</label>
+                <label class="layui-form-label">{$lable.avatar}</label>
                 <div class="layui-input-inline">
                     <img class="layui-upload-img" id="demo1" {if condition="$admin.ad_img neq null"}src="__PUBLIC__/{$admin.ad_img}"{/if} >
                     <p id="demoText"></p>
                 </div>
             </div>
             <div class="layui-form-item" pane>
-                <label class="layui-form-label"><span style="color: red;">*</span>性别</label>
+                <label class="layui-form-label"><span style="color: red;">*</span>{$lable.gender}</label>
                 <div class="layui-input-block">
-                    <input type="radio" disabled name="ad_sex" value="1" title="男" {if condition="$admin.ad_sex eq 1" }checked{/if}>
-                    <input type="radio" disabled name="ad_sex" value="2" title="女" {if condition="$admin.ad_sex eq 2" }checked{/if}>
+                    <input type="radio" disabled name="ad_sex" value="1" title="{$lable.male}" {if condition="$admin.ad_sex eq 1" }checked{/if}>
+                    <input type="radio" disabled name="ad_sex" value="2" title="{$lable.female}" {if condition="$admin.ad_sex eq 2" }checked{/if}>
                 </div>
             </div>
             <div class="layui-form-item">
-                <label class="layui-form-label">公司</label>
+                <label class="layui-form-label">{$lable.company} </label>
                 <div class="layui-input-block">
                     <input type="text" readonly class="layui-input" value="{$admin.ad_corp}" >
                 </div>
             </div>
             <div class="layui-form-item">
-                <label class="layui-form-label">职位</label>
+                <label class="layui-form-label">{$lable.position}</label>
                 <div class="layui-input-block">
                     <input type="text" readonly class="layui-input" value="{$admin.ad_job}" >
                 </div>
             </div>
             <div class="layui-form-item">
-                <label class="layui-form-label">工号</label>
+                <label class="layui-form-label">{$lable.staffid}</label>
                 <div class="layui-input-block">
                     <input type="text" readonly value="{$admin.ad_bid}" class="layui-input">
                 </div>
             </div>
             <div class="layui-form-item">
-                <label class="layui-form-label">微信号码</label>
+                <label class="layui-form-label">{$lable.wechat}</label>
                 <div class="layui-input-block">
                     <input type="text" value="{$admin.ad_weixin}" readonly class="layui-input">
                 </div>
             </div>
             <div class="layui-form-item layui-form-text">
-                <label class="layui-form-label">个人简介</label>
+                <label class="layui-form-label">{$lable.desc}</label>
                 <div class="layui-input-block">
                     <textarea readonly class="layui-textarea">{$admin.ad_desc}</textarea>
                 </div>
@@ -117,7 +117,7 @@
         var urls = $(this).attr('data-href');
         layer.open({
             type: 2,
-            title: '更换邮箱',
+            title: '{$lable.gengxinyouxiang}',
             shadeClose: true,
             shade: false,
             maxmin: true,
@@ -129,7 +129,7 @@
         var urls = $(this).attr('data-href');
         layer.open({
             type: 2,
-            title: '更换手机号',
+            title: '{$lable.gengxinshouji}',
             shadeClose: true,
             shade: false,
             maxmin: true,

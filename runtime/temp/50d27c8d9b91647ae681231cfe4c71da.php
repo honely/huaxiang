@@ -1,4 +1,4 @@
-<?php if (!defined('THINK_PATH')) exit(); /*a:1:{s:91:"D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\public/../application/xcx\view\index\index.html";i:1595847227;}*/ ?>
+<?php if (!defined('THINK_PATH')) exit(); /*a:1:{s:91:"D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\public/../application/xcx\view\index\index.html";i:1595849518;}*/ ?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -43,13 +43,13 @@
         <?php endif; ?>
         <ul class="layui-nav layui-layout-right">
             <li class="layui-nav-item">
-                <span style="padding-left: 10px !important;" data-lang="<?php echo $langs; ?>" id="changeLang">
+                <a style="padding-left: 10px !important;" href="javascript:void()" data-lang="<?php echo $langs; ?>" id="changeLang">
                     <?php if($langs == 'Cn'): ?>
                     Language（ENG）
                     <?php else: ?>
                     Language（CHN）
                     <?php endif; ?>
-                </span>
+                </a>
             </li>
             <li class="layui-nav-item"><a style="padding-left: 10px !important;" href="javascript:location.reload();" ><?php echo $lable['homepage']; ?></a></li>
             <li class="layui-nav-item"><a style="padding-left: 10px !important;"  href="<?=url('login/loginOut')?>"><?php echo $lable['logout']; ?></a></li>

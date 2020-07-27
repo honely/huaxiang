@@ -306,7 +306,7 @@
                     <label class="layui-form-label">{$lable.biaoqian}</label>
                     <div class="layui-input-block">
                         {volist name='tags' id='vo'}
-                        <input type="checkbox" class="checkbox tags"  lay-verify="required|des_tanlent" lay-skin="primary" name="tags[{$vo.id}]" title="{$vo.name}" {$vo.is_checked ? 'checked' : ''}>
+                        <input type="checkbox" class="checkbox tags"  lay-verify="required|des_tanlent" lay-skin="primary" name="tags[{$vo.name}]" title="{$vo.sname}" {$vo.is_checked ? 'checked' : ''}>
                         {/volist}
                     </div>
                 </div>

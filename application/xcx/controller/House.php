@@ -374,9 +374,9 @@ class House extends Controller{
                 ->select();
             foreach ($all_tags as $k => $v){
                 if($langs == 'En'){
-                    $all_tags[$k]['name'] = $v['ename'];
+                    $all_tags[$k]['sname'] = $v['ename'];
                 }else{
-                    $all_tags[$k]['name'] = $v['name'];
+                    $all_tags[$k]['sname'] = $v['name'];
                 }
             }
             $this->assign('langs',$langs);
@@ -621,7 +621,7 @@ class House extends Controller{
         }else{
             $houseInfo = Db::table('tk_houses')->where(['id' => $id])->find();
             $lang = new Languages();
-            $enLab = $lang->getEn();
+            $enLab = $lang->getLanguages();
             $all_bill = [
                 [
                     'bill' => '包水',
@@ -821,15 +821,15 @@ class House extends Controller{
                 ->where(['type' => 1])
                 ->field('id,name,ename')
                 ->select();
-            $langs = 'En';
+            $langs = $lang->getLang();
             foreach ($all_tags as $key => &$val) {
                 if($langs == 'En'){
-                    $all_tags[$key]['name'] = $val['ename'];
+                    $all_tags[$key]['sname'] = $val['ename'];
                 }else{
-                    $all_tags[$key]['name'] = $val['name'];
+                    $all_tags[$key]['sname'] = $val['name'];
                 }
                 $all_tags[$key]['is_checked'] = false;
-                if(in_array($val['id'], $Tags)) {
+                if(in_array($val['name'], $Tags)) {
                     $val['is_checked'] = true;
                 }
             }unset($val);
@@ -1251,12 +1251,12 @@ class House extends Controller{
         $langs = $lang->getLang();
         foreach ($all_tags as $key => &$val) {
             if($langs == 'En'){
-                $all_tags[$key]['name'] = $val['ename'];
+                $all_tags[$key]['sname'] = $val['ename'];
             }else{
-                $all_tags[$key]['name'] = $val['name'];
+                $all_tags[$key]['sname'] = $val['name'];
             }
             $all_tags[$key]['is_checked'] = false;
-            if(in_array($val['id'], $Tags)) {
+            if(in_array($val['name'], $Tags)) {
                 $val['is_checked'] = true;
             }
         }unset($val);
