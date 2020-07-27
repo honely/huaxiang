@@ -83,7 +83,7 @@ class User extends Controller
         }else{
             $user = Db::table('tk_user')
                 ->where('openid', $data['openid'])
-                ->field('id,openid,nickname,birth,sex,real_name,tel,avaurl')
+                ->field('id,openid,nickname,birth,sex,real_name,tel,avaurl,wchat')
                 ->find();
             if($user){
                 $this->sucess(1, '用户信息存在',$user);
@@ -95,7 +95,7 @@ class User extends Controller
 
     public function saveBlToken($user_id){
         $bltoken = Db::table('tk_bltoken')->where(['user_id' => $user_id])->find();
-        //更新上次登录时间
+      	//更新上次登录时间
         Db::table('tk_user')->where(['id' => $user_id])->update(['mdate' =>date('Y-m-d H:i:s')]);
         $data['user_id'] = $user_id;
         $data['blToken'] = md5(date('Y-m-d H:i:s'). $user_id);
@@ -285,11 +285,11 @@ class User extends Controller
     public function decryptDatas($encryptedData, $iv,$sessionKey)
     {
 
-        $OK = 0;
+       $OK = 0;
         $IllegalAesKey = -41001;
         $IllegalIv = -41002;
-        $IllegalBuffer = -41003;
-        $appid = config('wx.appid');
+       $IllegalBuffer = -41003;
+       $appid = config('wx.appid');
 
         if (strlen($sessionKey) != 24) {
             return $IllegalAesKey;
@@ -434,11 +434,11 @@ class User extends Controller
         $ackToken = session('ackToken');
         $expTime = session('expTime');
         if(!$expTime && $expTime < time()){
-            $appid = config('wx.appid');
+             $appid = config('wx.appid');
             $appsecret = config('wx.appsecret');
             $url = 'https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid='.$appid.'&secret='.$appsecret;
             $res = $this->curl_get($url);
-
+           
             $res = json_decode($res, true);
             $ackToken = $res['access_token'];
             $expire=time()+7000;
@@ -447,8 +447,8 @@ class User extends Controller
         }
         return $ackToken;
     }
-
-
+    
+    
     function curl_get($url){
 
         $header = array(
@@ -485,8 +485,8 @@ class User extends Controller
         }
     }
 
-
-
+    
+    
 
     //post curl 请求参数
     function http($url, $data = NULL, $json = false)
@@ -636,9 +636,9 @@ class User extends Controller
         $res['msg'] = '绑定失败！';
         return json($res);
     }
-
-
-
+    
+    
+    
     public function acceptSub(){
         header("Access-Control-Allow-Origin:*");
         header('Access-Control-Allow-Methods:POST');

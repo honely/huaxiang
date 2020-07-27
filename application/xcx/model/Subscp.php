@@ -10,13 +10,21 @@ class Subscp extends Model
 {
 
     public function getAckToken() {
-        $appid = config('wx.appid');
-        $appsecret = config('wx.appsecret');
-        $url = 'https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid='.$appid.'&secret='.$appsecret;
-        $res = $this->curl_get($url);
-        $res = json_decode($res, true);
-        $accktoken = $res['access_token'];
-        return $accktoken;
+        $ackToken = session('ackToken');
+        $expTime = session('expTime');
+        if(!$expTime || $expTime < time()){
+             $appid = config('wx.appid');
+            $appsecret = config('wx.appsecret');
+            $url = 'https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid='.$appid.'&secret='.$appsecret;
+            $res = $this->curl_get($url);
+           
+            $res = json_decode($res, true);
+            $ackToken = $res['access_token'];
+            $expire=time()+7000;
+            session('ackToken',$ackToken);
+            session('expTime',$expire);
+        }
+        return $ackToken;
     }
 
     /***
@@ -27,7 +35,11 @@ class Subscp extends Model
      */
     public function sendMessage($uNick,$uOpen,$stime)
     {
-        $access_token = $this->getAckToken();
+        $access_token = session('ackToken');
+        $expTime = session('expTime');
+        if($expTime < time()){
+           $access_token = $this->getAckToken(); 
+        }
         //要发送给微信接口的数据
         $send_data = [
             //用户openId
@@ -35,7 +47,7 @@ class Subscp extends Model
             //模板id
             "template_id" => "9NEqSIAuFl9AjDItgILGP1iNAP-vgCOWEVuiGYie1a0",
             //指定发送到开发版
-            "miniprogram_state" => "trial",
+            "miniprogram_state" => "formal",
             "page" => "pages/list/list",
             'data' =>[
                 'thing4' =>[

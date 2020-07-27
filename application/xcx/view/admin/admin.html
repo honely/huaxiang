@@ -84,7 +84,7 @@
             var data = obj.data;
             var ad_id = data.ad_id;
             if(obj.event === 'edit'){
-                window.location.href='<?=url("admin/edit")?>?ad_id='+ ad_id;
+                window.location.href='<?=url("admin/edit")?>?ad_id='+ ad_id ;
             }else if(obj.event === 'details'){
                 layer.open({
                     type: 2,

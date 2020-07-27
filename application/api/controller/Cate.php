@@ -23,7 +23,7 @@ class Cate extends Controller
         $where = $cId == 0 ? 'pid = 0' : "pid = ".$cId." and type = 2";
         $result = Db::table('tk_cate')
             ->where($where)
-           ->field('id,name,pid,oseq')
+            ->field('id,name,pid,oseq')
             ->order('oseq asc')
             ->select();
         if($result){
@@ -43,9 +43,9 @@ class Cate extends Controller
         header('Access-Control-Allow-Methods:POST');
         header('Access-Control-Allow-Headers:x-requested-with, content-type');
         $type = $this->request->param('type',1,'intval');
-        $tags = Db::table('xcx_tags')
+       $tags = Db::table('xcx_tags')
             ->where(['type' => $type])
-            ->field('name')
+            ->field('id,name')
             ->order('torder asc,id desc')
             ->select();
         if($tags){

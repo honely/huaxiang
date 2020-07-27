@@ -46,7 +46,7 @@ class Housem extends Model
             $data['area'] = trim(explode(',',$add)[1]);
         }
         $data['is_admin'] = 1;
-        //是否绑定手机号
+          //是否绑定手机号
         if(isset($data['is_save']) && $data['is_save'] == 1){
             Db::table('tk_user')
                 ->where(['id' => $data['user_id']])
@@ -68,11 +68,11 @@ class Housem extends Model
             $add = $data['address'];
             $data['area'] = trim(explode(',',$add)[1]);
         }
-        //是否绑定手机号
+          //是否绑定手机号
         if(isset($data['is_save']) && $data['is_save'] == 1){
             Db::table('tk_user')
                 ->where(['id' => $data['user_id']])
-                ->update(['tel' => $data['tel'],'wchat' => $data['wchat']]);
+               ->update(['tel' => $data['tel'],'wchat' => $data['wchat']]);
         }
         unset($data['is_save']);
         unset($data['id']);

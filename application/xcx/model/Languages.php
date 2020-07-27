@@ -169,6 +169,8 @@ class Languages extends Model
             'welcome' => 'Welcome',
             'suoyou' => 'All',
             'info' => 'Info',
+            'entocn' => 'ENG-->CHN',
+            'cntoen' => 'CHN-->ENG',
             'transNotic' => 'Maximum 1500 characters. Please do proof reading after translation',
         ];
         return $enLab;
@@ -177,6 +179,8 @@ class Languages extends Model
 
     public function getCn(){
         $cnLab = [
+            'entocn' => '英译中',
+            'cntoen' => '中译英',
             'transNotic' => '可输入1500字，请仔细检查翻译结果',
             'suoyou' => '所有',
             'info' => '信息',
@@ -248,7 +252,7 @@ class Languages extends Model
             'tingchewei' => '停车位',
             'dianyingyuan' => '电影院',
             'huayuan' => '花园',
-            'menjin' => '门禁',
+            'menjin' => '门禁系统',
             'qiantai' => '前台',
             'sangna' => '桑拿',
             'zhoubian' => '周边',

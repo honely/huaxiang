@@ -80,6 +80,7 @@ class Msg extends Controller
         $message = Db::table('xcx_msg_content')
             ->where(['xcx_msg_isread' => 2, 'xcx_msg_isable' => 1])
             ->group('xcx_msg_mp_id')->order('xcx_msg_id asc')->select();
+
         if (!$message) {
             return 1;
         }
@@ -113,7 +114,8 @@ class Msg extends Controller
         }
         return 2;
     }
-
+    
+    
     /***
      * @param $sendId string 发送者id 用来查找发送人昵称
      * @param $sendType  string 发送者类型
@@ -191,6 +193,11 @@ class Msg extends Controller
             ->find();
         return $isSend ? true : false;
     }
+    
+    public function ack(){
+         $send = new Subscp();
+         $res = $send->getAckToken();
+    }
 
     /***
      * @param $revid string 消息接收者id
@@ -224,6 +231,9 @@ class Msg extends Controller
         }
     }
 
+    
+    
+    
    public function msgIsDel($mpid){
         $msg = Db::table('xcx_msg_person')->where(['mp_id' => $mpid])->field('mp_isable')->find();
         return $msg['mp_isable'];
