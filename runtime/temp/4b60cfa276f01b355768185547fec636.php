@@ -1,3 +1,4 @@
+<?php if (!defined('THINK_PATH')) exit(); /*a:1:{s:91:"D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\public/../application/xcx\view\login\login.html";i:1595934702;}*/ ?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -5,8 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <title>小宝小程序后台</title>
 <!--    <link rel="stylesheet" href="__PUBLIC/static/admin.css">-->
-    <link rel="stylesheet" href="__LAY__/css/layui.css">
-    <script src="__LAY__/layui.js"></script>
+    <link rel="stylesheet" href="../../../layui/src/css/layui.css">
+    <script src="../../../layui/src/layui.js"></script>
     <style>
         html,body{
             width: 100%;

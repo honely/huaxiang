@@ -1,4 +1,4 @@
-<?php if (!defined('THINK_PATH')) exit(); /*a:3:{s:89:"D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\public/../application/xcx\view\house\add.html";i:1595849686;s:82:"D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\application\xcx\view\index\header.html";i:1591180794;s:82:"D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\application\xcx\view\index\footer.html";i:1577269681;}*/ ?>
+<?php if (!defined('THINK_PATH')) exit(); /*a:3:{s:89:"D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\public/../application/xcx\view\house\add.html";i:1595935067;s:82:"D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\application\xcx\view\index\header.html";i:1591180794;s:82:"D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\application\xcx\view\index\footer.html";i:1577269681;}*/ ?>
 <!DOCTYPE html>
 <html style="height: 100%">
 <head>
@@ -166,7 +166,7 @@
                 <div class="layui-form-item">
                     <label class="layui-form-label"><span style="color: red;">*</span><?php echo $lable['livetime']; ?></label>
                     <div class="layui-input-inline" style="width: 230px !important;">
-                        <input type="text" name="live_date" id="date" lay-verify="date" lay-verify="required" placeholder="<?php echo $lable['liveDateP']; ?>" autocomplete="off" class="layui-input">
+                        <input type="text" readonly name="live_date" id="date" lay-verify="date" lay-verify="required" placeholder="<?php echo $lable['liveDateP']; ?>" autocomplete="off" class="layui-input">
                     </div>
                     <div class="layui-input-inline">
                         <input type="checkbox" lay-skin="switch" lay-filter="switchTest" lay-text="<?php echo $lable['anytime']; ?>|<?php echo $lable['anytime']; ?>">
@@ -221,10 +221,10 @@
                 <div class="layui-form-item" pane="">
                     <label class="layui-form-label" style="width: 90px !important;"><?php echo $lable['liveterm']; ?></label>
                     <div class="layui-input-block">
-                        <input type="radio" name="lease_term" value="12+" title="12+" checked>
-                        <input type="radio" name="lease_term" value="6-12" title="6-12">
-                        <input type="radio" name="lease_term" value="3-6" title="3-6">
-                        <input type="radio" name="lease_term" value="0-3" title="0-3">
+                        <input type="checkbox" name="lease_term[12+]" lay-skin="primary" title="12+" checked>
+                        <input type="checkbox" name="lease_term[6-12]" lay-skin="primary" title="6-12">
+                        <input type="checkbox" name="lease_term[3-6]" lay-skin="primary" title="3-6">
+                        <input type="checkbox" name="lease_term[0-3]" lay-skin="primary" title="0-3">
                     </div>
                 </div>
                 <fieldset class="layui-elem-field layui-field-title" style="margin-top: 20px;">

@@ -1,4 +1,4 @@
-<?php if (!defined('THINK_PATH')) exit(); /*a:3:{s:92:"D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\public/../application/xcx\view\house\detail.html";i:1595849936;s:82:"D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\application\xcx\view\index\header.html";i:1591180794;s:82:"D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\application\xcx\view\index\footer.html";i:1577269681;}*/ ?>
+<?php if (!defined('THINK_PATH')) exit(); /*a:3:{s:92:"D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\public/../application/xcx\view\house\detail.html";i:1595934180;s:82:"D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\application\xcx\view\index\header.html";i:1591180794;s:82:"D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\application\xcx\view\index\footer.html";i:1577269681;}*/ ?>
 <!DOCTYPE html>
 <html style="height: 100%">
 <head>
@@ -148,13 +148,9 @@
                 <div class="layui-form-item" pane="">
                     <label class="layui-form-label"><?php echo $lable['liveterm']; ?></label>
                     <div class="layui-input-block">
-                        <input type="radio" name="lease_term" disabled value="12+" title="12+" <?php if($house['lease_term'] == '12+'): ?>checked<?php endif; ?>>
-
-                        <input type="radio" name="lease_term" disabled value="6-12" title="6-12" <?php if($house['lease_term'] == '6-12'): ?>checked<?php endif; ?>>
-
-                        <input type="radio" name="lease_term" disabled value="3-6" title="3-6" <?php if($house['lease_term'] == '3-6'): ?>checked<?php endif; ?>>
-
-                        <input type="radio" name="lease_term" disabled value="0-3" title="0-3" <?php if($house['lease_term'] == '0-3'): ?>checked<?php endif; ?>>
+                        <?php if(is_array($all_term) || $all_term instanceof \think\Collection || $all_term instanceof \think\Paginator): $i = 0; $__LIST__ = $all_term;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$vo): $mod = ($i % 2 );++$i;?>
+                        <input type="checkbox" class="checkbox" disabled lay-skin="primary" name="lease_term[<?php echo $vo['term']; ?>]" title="<?php echo $vo['term']; ?>"  <?php echo !empty($vo['is_checked'])?'checked' : ''; ?>>
+                        <?php endforeach; endif; else: echo "" ;endif; ?>
                     </div>
                 </div>
                 <fieldset class="layui-elem-field layui-field-title" style="margin-top: 20px;">

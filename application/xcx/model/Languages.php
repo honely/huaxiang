@@ -178,7 +178,7 @@ class Languages extends Model
             'totalUser' => 'Total Users',
             'todayIncHouse' => 'Daily Increased property',
             'dayIncHouse' => 'Daily Increased property',
-            'totalHouse' => 'Total Propertys',
+            'totalHouse' => 'Total Properties',
             'PieHouse' => 'Property distribution of city',
             'statusPieHouse' => 'Property distribution of Status',
             'zhanghuguanli' => 'Account',
@@ -215,6 +215,7 @@ class Languages extends Model
             'fasong' => 'Send',
             'gengxinshouji' => 'Update Tel',
             'gengxinyouxiang' => 'Update Email',
+            'gengxin' => 'Update',
         ];
         return $enLab;
     }
@@ -222,6 +223,7 @@ class Languages extends Model
 
     public function getCn(){
         $cnLab = [
+            'gengxin' => '更新',
             'gengxinshouji' => '更换手机号',
             'gengxinyouxiang' => '更换邮箱',
             'fasong' => 'Send',
@@ -365,7 +367,7 @@ class Languages extends Model
             'shipin' => '视频',
             'otherNotic' => '仅限一个视频，大小控制在10M以内',
             'xuanzeshipim' => '请点击此处选择视频',
-            'shangchuan' => '上传视频',
+            'shangchuan' => '上传',
             'fabu' => '发布',
             'baocun' => '保存',
             'fanhui' => '返回',

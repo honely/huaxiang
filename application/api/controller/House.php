@@ -48,16 +48,11 @@ class House extends Controller
         if(isset($house_type) && !empty($house_type) && $house_type){
             $where.=" and house_type = '".$house_type."'";
         }
-        //租期
-        $lease_term = $this->request->param('lease_term');
-       Log::write('获取房源参数lease_term：'.$lease_term,'info');
-        if(isset($lease_term) && !empty($lease_term) && $lease_term){
-          if($lease_term == '12+'){
-           $where.=" and lease_term = '12'";
-          }else{
-          	$where.=" and lease_term = '".$lease_term."'";
-          }
-           
+        //租期发布多选，帅选单选
+        $term = $this->request->param('lease_term');
+        Log::write('获取房源参数lease_term：'.$term,'info');
+        if(isset($term) && !empty($term) && $term){
+            $where.=" and find_in_set('".$term."',lease_term)";
         }
         //学校
         $school = trim($this->request->param('school'));
@@ -73,13 +68,13 @@ class House extends Controller
 
         //所有有房源的区
         //租房价格最大值 最小值
-      //租房价格最大值 最小值
+        //租房价格最大值 最小值
         $maxprice = trim($this->request->param('maxprice','5000'));
         Log::write('租房价格最大值：'.$maxprice,'info');
-       $mimprice = trim($this->request->param('minprice','0'));
+        $mimprice = trim($this->request->param('minprice','0'));
         Log::write('租房价格最小值：'.$mimprice,'info');
-      $maxprice = $maxprice ? $maxprice : '5000';
-       $mimprice = $mimprice ? $mimprice : '0';
+        $maxprice = $maxprice ? $maxprice : '5000';
+        $mimprice = $mimprice ? $mimprice : '0';
         if(isset($maxprice) && !empty($maxprice) && $maxprice){
             $where.=" and ( price <= ".$maxprice." ";
         }
@@ -92,16 +87,16 @@ class House extends Controller
         $maxtime = trim($this->request->param('maxtime'));
         if((isset($mintime) && !empty($mintime) && $mintime) && !$maxtime){
             $mintime = date( 'Y-m-d', strtotime($mintime.' -5 days'));
-           Log::write('入住时间最小值：'.$mintime,'info');
+            Log::write('入住时间最小值：'.$mintime,'info');
             $where.=" and (live_date >= '".$mintime."' or ( live_date = '0100-01-01' or live_date = '0000-00-00' ))";
         }
 
         if((isset($maxtime) && !empty($maxtime) && $maxtime) && !$mintime){
-           Log::write('入住时间最大值：'.$maxtime,'info');
+            Log::write('入住时间最大值：'.$maxtime,'info');
             $where.=" and (live_date  <= '".$maxtime."' or ( live_date = '0100-01-01' or live_date = '0000-00-00' ))";
         }
         if($mintime && $maxtime){
-           Log::write('入住时间最小值：'.$mintime.'入住时间最大值'.$maxtime,'info');
+            Log::write('入住时间最小值：'.$mintime.'入住时间最大值'.$maxtime,'info');
             $where.= " and ((live_date >= '".$mintime."' and live_date  <= '".$maxtime."')  or ( live_date = '0100-01-01' or live_date = '0000-00-00' ))";
         }
         //户型  卧室
@@ -166,13 +161,21 @@ class House extends Controller
         //楼宇设施
         $home = trim($this->request->param('home'));
         if(isset($home) && !empty($home) && $home){
-            $where.=" and find_in_set('".$home."',home)";
+            $where.=" and (";
+            $homes = explode(',',$home);
+            for($i=0;$i<count($homes);$i++){
+                if($i == (count($homes)-1)){
+                    $where.=" find_in_set('".$homes[$i]."',furniture)";
+                }else{
+                    $where.=" find_in_set('".$homes[$i]."',furniture) and ";
+                }
+            }
+            $where.=" ) ";
         }
         //宠物
-        //楼宇设施
         $limit = trim($this->request->param('limit','10'));
         $page = trim($this->request->param('page','0'));
-      Log::write('前端用户：'.$uid.'进行了翻页，当前页码'.$page,'info');
+        Log::write('前端用户：'.$uid.'进行了翻页，当前页码'.$page,'info');
         $order = trim($this->request->param('order','0'));
         $orders = '';
         if(isset($order)){
@@ -199,7 +202,7 @@ class House extends Controller
             }
         }
         $order = $orders;
-        $field = 'id,type,title,house_room,area,images,price,toilet,furniture,home,school,address,tj,top,mdate,tags,area,live_date,car';
+        $field = 'id,type,title,house_room,area,images,price,toilet,furniture,home,school,address,tj,top,mdate,tags,area,live_date,car,lease_term';
         $housem = new Housem();
         $house = $housem->readData($where,$order,$limit,$page,$field);
         //更新上次登录时间
@@ -212,7 +215,7 @@ class House extends Controller
             $res['code'] = 1;
             $res['msg'] = '读取成功！';
             $res['data'] = $house;
-           $res['where'] = $where;
+            $res['where'] = $where;
             return json($res);
         }
         $res['code'] = 1;
@@ -441,8 +444,8 @@ class House extends Controller
             ->find();
         return $isBind ? $isBind : null;
     }
-  
-  
+
+
     public function getArea(){
         header("Access-Control-Allow-Origin:*");
         header('Access-Control-Allow-Methods:POST');
@@ -660,7 +663,7 @@ class House extends Controller
     }
 
 
-   public function houseRoom($room){
+    public function houseRoom($room){
         if($room == 0){
             $type = 'Studio';
         }else{
@@ -668,7 +671,7 @@ class House extends Controller
         }
         return $type;
     }
-   
+
     public function hotSech(){
         header("Access-Control-Allow-Origin:*");
         header('Access-Control-Allow-Methods:POST');
@@ -689,5 +692,4 @@ class House extends Controller
         $res['msg'] = '数据为空！';
         return json($res);
     }
-    
 }

@@ -62,22 +62,38 @@
                 {if isset($menu.child) && $menu.child}
                 {if condition='$menu.m_name neq "站内信"'}
                 <li class="layui-nav-item">
-                    <a href="javascript:;">{$menu.m_name}</a>
+                    <a href="javascript:;">
+                        {if condition="$langs eq 'En'"}
+                        {if condition="$menu.m_ename eq null"}
+                        {$menu.m_name}
+                        {else/}
+                        {/if}
+                        {$menu.m_ename}
+                        {else/}
+                        {$menu.m_name}
+                        {/if}
+                    </a>
                     {if isset($menu.child) && $menu.child neq null}
                     {volist name="menu['child']" id="child"}
                     {if condition='$child.m_id neq 284'}
                     <dl class="layui-nav-child">
-                        <dd><a href='javascript:' data-url="/xcx/{$child['m_control']}/{$child['m_action']}.html">{$child.m_name}</a></dd>
+                        <dd><a href='javascript:' data-url="/xcx/{$child['m_control']}/{$child['m_action']}.html">
+                            {if condition="$langs eq 'En'"}
+                            {if condition="$child.m_ename eq null"}
+                            {$child.m_name}
+                            {else/}
+                            {/if}
+                            {$child.m_ename}
+                            {else/}
+                            {$child.m_name}
+                            {/if}
+                        </a></dd>
                     </dl>
                     {/if}
                     {/volist}
                     {/if}
                 </li>
                 {/if}
-                {else}
-                <li  class="layui-nav-item">
-                    <a href="{$menu.m_name}">{$menu.m_name}</a>
-                </li>
                 {/if}
                 {/volist}
                 {/if}

@@ -287,6 +287,16 @@ class House extends Controller{
             }else{
                 $data['bill'] ='';
             }
+            if(isset($_POST['lease_term']) && $_POST['lease_term']){
+                $term = $_POST['lease_term'];
+                $terms = '';
+                foreach($term as $key => $val){
+                    $terms .= $key.',';
+                }
+                $data['lease_term'] = rtrim($terms,',');
+            }else{
+                $data['lease_term'] ='';
+            }
             if(isset($_POST['home']) && $_POST['home']){
                 $home = $_POST['home'];
                 $homes = '';
@@ -556,6 +566,16 @@ class House extends Controller{
             }else{
                 $data['bill'] ='';
             }
+            if(isset($_POST['lease_term']) && $_POST['lease_term']){
+                $term = $_POST['lease_term'];
+                $terms = '';
+                foreach($term as $key => $val){
+                    $terms .= $key.',';
+                }
+                $data['lease_term'] = rtrim($terms,',');
+            }else{
+                $data['lease_term'] ='';
+            }
             if(isset($_POST['home']) && $_POST['home']){
                 $home = $_POST['home'];
                 $homes = '';
@@ -653,8 +673,33 @@ class House extends Controller{
                 }unset($val);
                 $houseInfo['bill'] = $houseBill;
             }
-
-
+            $all_term = [
+                [
+                    'term' => '12+',
+                    'is_checked' => false
+                ],
+                [
+                    'term' => '6-12',
+                    'is_checked' => false
+                ],
+                [
+                    'term' => '3-6',
+                    'is_checked' => false
+                ],
+                [
+                    'term' => '0-3',
+                    'is_checked' => false
+                ]
+            ];
+            if($houseInfo['lease_term']){
+                $houseTerm = explode(',',$houseInfo['lease_term']);
+                foreach ($all_term as $key => &$val) {
+                    if(in_array($val['term'], $houseTerm)) {
+                        $val['is_checked'] = true;
+                    }
+                }unset($val);
+                $houseInfo['lease_term'] = $houseTerm;
+            }
             $all_set = [
                 [
                     'set' => '游泳池',
@@ -681,7 +726,7 @@ class House extends Controller{
                     'is_checked' => false
                 ],
                 [
-                    'set' => '门禁',
+                    'set' => '门禁系统',
                     'setitle' => $enLab['menjin'],
                     'is_checked' => false
                 ],
@@ -850,6 +895,7 @@ class House extends Controller{
             $this->assign('langs',$langs);
             $this->assign('lable',$enLab);
             $this->assign('all_bill',$all_bill);
+            $this->assign('all_term',$all_term);
             $this->assign('all_trans',$all_trans);
             $this->assign('all_set',$all_set);
             $this->assign('all_four',$allFours);
@@ -1076,7 +1122,33 @@ class House extends Controller{
             }
         }unset($val);
         $houseInfo['sub'] = $houseBill;
-
+        $all_term = [
+            [
+                'term' => '12+',
+                'is_checked' => false
+            ],
+            [
+                'term' => '6-12',
+                'is_checked' => false
+            ],
+            [
+                'term' => '3-6',
+                'is_checked' => false
+            ],
+            [
+                'term' => '0-3',
+                'is_checked' => false
+            ]
+        ];
+        if($houseInfo['lease_term']){
+            $houseTerm = explode(',',$houseInfo['lease_term']);
+            foreach ($all_term as $key => &$val) {
+                if(in_array($val['term'], $houseTerm)) {
+                    $val['is_checked'] = true;
+                }
+            }unset($val);
+            $houseInfo['lease_term'] = $houseTerm;
+        }
         $all_set = [
             [
                 'set' => '游泳池',
@@ -1103,7 +1175,7 @@ class House extends Controller{
                 'is_checked' => false
             ],
             [
-                'set' => '门禁',
+                'set' => '门禁系统',
                 'setitle' => $enLab['menjin'],
                 'is_checked' => false
             ],
@@ -1264,6 +1336,7 @@ class House extends Controller{
         $schoolname = $langs == 'Cn' ? $houseInfo['school'] : $this->getSchoolNames($houseInfo['school']);
         $houseInfo['city'] = $cityname;
         $houseInfo['school'] = $schoolname;
+        $this->assign('all_term',$all_term);
         $this->assign('lable',$enLab);
         $this->assign('tags',$all_tags);
         $this->assign('all_bill',$all_bill);

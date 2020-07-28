@@ -153,9 +153,7 @@
                 <div class="layui-form-item">
                     <label class="layui-form-label"><span style="color: red;">*</span>{$lable.livetime}</label>
                     <div class="layui-input-inline">
-
-                        <input type="text" name="live_date" id="date" lay-verify="date" lay-verify="required" style="display:{if condition="$house.live_date_show eq 1"}none{else/}block{/if}" placeholder="{$lable.liveDateP}" value="{$house.live_date}" autocomplete="off" class="layui-input">
-
+                        <input type="text" readonly name="live_date" id="date" lay-verify="date" lay-verify="required" style="display:{if condition="$house.live_date_show eq 1"}none{else/}block{/if}" placeholder="{$lable.liveDateP}" value="{$house.live_date}" autocomplete="off" class="layui-input">
                     </div>
                     <div class="layui-input-inline">
                         <input type="checkbox" lay-skin="switch" lay-filter="switchTest" lay-text="{$lable.anytime}|{$lable.anytime}" {if condition="$house.live_date_show eq 1"}checked{else/}{/if} >
@@ -209,13 +207,9 @@
                 <div class="layui-form-item" pane="">
                     <label class="layui-form-label" style="width: 90px !important;">{$lable.liveterm}</label>
                     <div class="layui-input-block">
-                        <input type="radio" name="lease_term" value="12+" title="12+" {if condition="$house.lease_term eq '12+'"}checked{/if}>
-
-                        <input type="radio" name="lease_term" value="6-12" title="6-12" {if condition="$house.lease_term eq '6-12'"}checked{/if}>
-
-                        <input type="radio" name="lease_term" value="3-6" title="3-6" {if condition="$house.lease_term eq '3-6'"}checked{/if}>
-
-                        <input type="radio" name="lease_term" value="0-3" title="0-3" {if condition="$house.lease_term eq '0-3'"}checked{/if}>
+                        {volist name='all_term' id='vo'}
+                        <input type="checkbox" class="checkbox" lay-skin="primary" name="lease_term[{$vo.term}]" title="{$vo.term}"  {$vo.is_checked ? 'checked' : ''}>
+                        {/volist}
                     </div>
                 </div>
                 <fieldset class="layui-elem-field layui-field-title" style="margin-top: 20px;">
