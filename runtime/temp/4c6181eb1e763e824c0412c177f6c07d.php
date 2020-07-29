@@ -1,4 +1,4 @@
-<?php if (!defined('THINK_PATH')) exit(); /*a:3:{s:93:"D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\public/../application/xcx\view\index\welcome.html";i:1595847947;s:82:"D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\application\xcx\view\index\header.html";i:1591180794;s:82:"D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\application\xcx\view\index\footer.html";i:1577269681;}*/ ?>
+<?php if (!defined('THINK_PATH')) exit(); /*a:3:{s:93:"D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\public/../application/xcx\view\index\welcome.html";i:1595988911;s:82:"D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\application\xcx\view\index\header.html";i:1591180794;s:82:"D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\application\xcx\view\index\footer.html";i:1577269681;}*/ ?>
 <!DOCTYPE html>
 <html style="height: 100%">
 <head>
@@ -57,6 +57,7 @@
                     </a>
                 </div>
             </div>
+            <?php if($adminId == 1): ?>
             <div class="layui-col-md3"  style="width: 24% !important;">
                 <div class="layui-card">
                     <a>
@@ -77,15 +78,16 @@
                     </a>
                 </div>
             </div>
+            <?php endif; ?>
         </div>
     </div>
     <div style="padding: 20px; background-color: #F2F2F2;">
         <div class="layui-row layui-col-space15">
             <div class="layui-col-md6">
-                <div id="main1" style="width: 600px;height:400px;"></div>
+                <div id="main" style="width: 600px;height:400px;"></div>
             </div>
             <div class="layui-col-md6">
-                <div id="main" style="width: 600px;height:400px;"></div>
+                <div id="main1" style="width: 600px;height:400px;display: <?php if($adminId == 1): ?>block<?php else: ?>none<?php endif; ?>;"></div>
             </div>
         </div>
     </div>

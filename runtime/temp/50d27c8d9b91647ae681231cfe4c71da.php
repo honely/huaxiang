@@ -1,4 +1,4 @@
-<?php if (!defined('THINK_PATH')) exit(); /*a:1:{s:91:"D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\public/../application/xcx\view\index\index.html";i:1595929821;}*/ ?>
+<?php if (!defined('THINK_PATH')) exit(); /*a:1:{s:91:"D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\public/../application/xcx\view\index\index.html";i:1595988730;}*/ ?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -82,7 +82,8 @@
         </div>
     </div>
 	<div class='layui-body' style="">
-		<iframe id='option' <?php if($ad_role == 1): ?>src="<?=url('index/welcome')?>"<?php else: ?>src="<?=url('house/myhouse')?>"<?php endif; ?>  frameborder='no' width='100%' height='99%'>
+<!--		<iframe id='option' <?php if($ad_role == 1): ?>src="<?=url('index/welcome')?>"<?php else: ?>src="<?=url('house/myhouse')?>"<?php endif; ?>  frameborder='no' width='100%' height='99%'>-->
+		<iframe id='option' src="<?=url('index/welcome')?>" frameborder='no' width='100%' height='99%'>
         </iframe>
 	</div>
 </div>

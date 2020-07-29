@@ -159,6 +159,14 @@
                         <input type="checkbox" lay-skin="switch" lay-filter="switchTest" lay-text="{$lable.anytime}|{$lable.anytime}" {if condition="$house.live_date_show eq 1"}checked{else/}{/if} >
                     </div>
                 </div>
+                <div class="layui-form-item" pane="">
+                    <label class="layui-form-label" style="width: 90px !important;">{$lable.liveterm}</label>
+                    <div class="layui-input-block">
+                        {volist name='all_term' id='vo'}
+                        <input type="checkbox" class="checkbox" lay-skin="primary" name="lease_term[{$vo.term}]" title="{$vo.term}"  {$vo.is_checked ? 'checked' : ''}>
+                        {/volist}
+                    </div>
+                </div>
                 <div class="layui-form-item">
                     <label class="layui-form-label"><span style="color: red;">*</span>{$lable.source}</label>
                     <div class="layui-input-block">
@@ -201,14 +209,6 @@
                     <div class="layui-input-block">
                         {volist name='all_bill' id='vo'}
                         <input type="checkbox" class="checkbox" lay-skin="primary" name="bill[{$vo.bill}]" title="{$vo.billtitle}"  {$vo.is_checked ? 'checked' : ''}>
-                        {/volist}
-                    </div>
-                </div>
-                <div class="layui-form-item" pane="">
-                    <label class="layui-form-label" style="width: 90px !important;">{$lable.liveterm}</label>
-                    <div class="layui-input-block">
-                        {volist name='all_term' id='vo'}
-                        <input type="checkbox" class="checkbox" lay-skin="primary" name="lease_term[{$vo.term}]" title="{$vo.term}"  {$vo.is_checked ? 'checked' : ''}>
                         {/volist}
                     </div>
                 </div>
@@ -359,12 +359,12 @@
                         <input type="text" name="tel" lay-verify="required" placeholder="请输入电话" value="{$house.tel}" autocomplete="off" class="layui-input">
                     </div>
                 </div>
-                <div class="layui-form-item">
-                    <label class="layui-form-label">{$lable.weixin}</label>
-                    <div class="layui-input-block">
-                        <input type="text" name="wchat" placeholder="请输入微信号" value="{$house.wchat}" autocomplete="off" class="layui-input">
-                    </div>
-                </div>
+<!--                <div class="layui-form-item">-->
+<!--                    <label class="layui-form-label">{$lable.weixin}</label>-->
+<!--                    <div class="layui-input-block">-->
+<!--                        <input type="text" name="wchat" placeholder="请输入微信号" value="{$house.wchat}" autocomplete="off" class="layui-input">-->
+<!--                    </div>-->
+<!--                </div>-->
                 <div class="layui-form-item">
                     <label class="layui-form-label">{$lable.youxiang}</label>
                     <div class="layui-input-block">

@@ -1,3 +1,4 @@
+<?php if (!defined('THINK_PATH')) exit(); /*a:1:{s:92:"D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\public/../application/xcx\view\user\details.html";i:1595984305;}*/ ?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -8,9 +9,9 @@
     <meta name="apple-mobile-web-app-status-bar-style" content="black">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="format-detection" content="telephone=no">
-    <link rel="stylesheet" href="__LAY__/css/layui.css">
-    <script src="__PUBLIC__/static/jquery-1.10.2.min.js"></script>
-    <script src="__LAY__/layui.js"></script>
+    <link rel="stylesheet" href="../../../layui/src/css/layui.css">
+    <script src="../../../static/jquery-1.10.2.min.js"></script>
+    <script src="../../../layui/src/layui.js"></script>
 </head>
 <form class="layui-form" action="" id="cusInfo" method="post">
     <fieldset class="layui-elem-field layui-field-title" style="margin-top: 20px;">
@@ -18,43 +19,43 @@
     </fieldset>
     <div class="layui-form-item" style="margin:50px">
         <div class="layui-form-item">
-        <div class="layui-form-mid layui-word-aux">id: {$cus.id}</div>
+        <div class="layui-form-mid layui-word-aux">id: <?php echo $cus['id']; ?></div>
         </div>
         <div class="layui-form-item">
-        <div class="layui-form-mid layui-word-aux">昵称: {$cus.nickname}</div>
+        <div class="layui-form-mid layui-word-aux">昵称: <?php echo $cus['nickname']; ?></div>
         </div>
         <div class="layui-form-item">
         <div class="layui-form-mid layui-word-aux">图像:
-            <img style="width: 60px;height: 60px;" src="{$cus.avaurl}" alt="{$cus.nickname}">
+            <img style="width: 60px;height: 60px;" src="<?php echo $cus['avaurl']; ?>" alt="<?php echo $cus['nickname']; ?>">
         </div>
         </div>
         <div class="layui-form-item">
-        <div class="layui-form-mid layui-word-aux">性别:{$cus.sex}</div>
+        <div class="layui-form-mid layui-word-aux">性别:<?php echo $cus['sex']; ?></div>
         </div>
         <div class="layui-form-item">
-            <div class="layui-form-mid layui-word-aux">微信:{$cus.wchat}</div>
+            <div class="layui-form-mid layui-word-aux">微信:<?php echo $cus['wchat']; ?></div>
         </div>
       <div class="layui-form-item">
-            <div class="layui-form-mid layui-word-aux">电话:{$cus.tel}</div>
+            <div class="layui-form-mid layui-word-aux">电话:<?php echo $cus['tel']; ?></div>
         </div>
         <div class="layui-form-item">
-        <div class="layui-form-mid layui-word-aux">生日:{$cus.birth}</div>
+        <div class="layui-form-mid layui-word-aux">生日:<?php echo $cus['birth']; ?></div>
         </div>
         <div class="layui-form-item">
-        <div class="layui-form-mid layui-word-aux">邮箱:{$cus.email}</div>
+        <div class="layui-form-mid layui-word-aux">邮箱:<?php echo $cus['email']; ?></div>
         </div>
         <div class="layui-form-item">
-        <div class="layui-form-mid layui-word-aux">注册日期：{$cus.cdate}</div>
+        <div class="layui-form-mid layui-word-aux">注册日期：<?php echo $cus['cdate']; ?></div>
         </div>
         <div class="layui-form-item">
-        <div class="layui-form-mid layui-word-aux">上次登录：{$cus.mdate}</div>
+        <div class="layui-form-mid layui-word-aux">上次登录：<?php echo $cus['mdate']; ?></div>
         </div>
     </div>
     <fieldset class="layui-elem-field layui-field-title" style="margin-top: 20px;">
         <legend>用户行为分析</legend>
     </fieldset>
     <div class="layui-form-item" style="margin: 50px">
-        {if condition='$collect neq null'}
+        <?php if($collect != null): ?>
         <div class="layui-inline">
             <label class="layui-form-label">用户收藏</label>
             <table class="layui-table" lay-size="sm">
@@ -65,21 +66,20 @@
                     <th>收藏时间</th>
 <!--                    <th>操作</th>-->
                 </tr>
-                {volist name='collect' id='vo'}
+                <?php if(is_array($collect) || $collect instanceof \think\Collection || $collect instanceof \think\Paginator): $i = 0; $__LIST__ = $collect;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$vo): $mod = ($i % 2 );++$i;?>
                     <tr>
-                        <td>{$vo.cl_id}</td>
-                        <td>{$vo.cl_house_id}</td>
-                        <td>{$vo.cl_type == '1' ? '房源' : '找室友'}</td>
-                        <td>{$vo.cl_addtime}</td>
+                        <td><?php echo $vo['cl_id']; ?></td>
+                        <td><?php echo $vo['cl_house_id']; ?></td>
+                        <td><?php echo $vo['cl_type']=='1'?'房源' : '找室友'; ?></td>
+                        <td><?php echo $vo['cl_addtime']; ?></td>
 <!--                        <td>-->
 <!--                            <span class="layui-btn layui-btn-xs">详情</span>-->
 <!--                        </td>-->
                     </tr>
-                {/volist}
+                <?php endforeach; endif; else: echo "" ;endif; ?>
             </table>
         </div>
-        {/if}
-        {if condition='$view neq null'}
+        <?php endif; if($view != null): ?>
         <div class="layui-inline">
             <label class="layui-form-label">用户浏览</label>
             <table class="layui-table" lay-size="sm">
@@ -90,21 +90,20 @@
                     <th>浏览时间</th>
 <!--                    <th>操作</th>-->
                 </tr>
-                {volist name='view' id='vo'}
+                <?php if(is_array($view) || $view instanceof \think\Collection || $view instanceof \think\Paginator): $i = 0; $__LIST__ = $view;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$vo): $mod = ($i % 2 );++$i;?>
                 <tr>
-                    <td>{$vo.vh_id}</td>
-                    <td>{$vo.vh_house_id}</td>
-                    <td>{$vo.vh_type == '1' ? '房源' : '找室友'}</td>
-                    <td>{$vo.vh_add_time}</td>
+                    <td><?php echo $vo['vh_id']; ?></td>
+                    <td><?php echo $vo['vh_house_id']; ?></td>
+                    <td><?php echo $vo['vh_type']=='1'?'房源' : '找室友'; ?></td>
+                    <td><?php echo $vo['vh_add_time']; ?></td>
 <!--                    <td>-->
 <!--                        <span class="layui-btn layui-btn-xs">详情</span>-->
 <!--                    </td>-->
                 </tr>
-                {/volist}
+                <?php endforeach; endif; else: echo "" ;endif; ?>
             </table>
         </div>
-        {/if}
-        {if condition='$querys neq null'}
+        <?php endif; if($querys != null): ?>
         <div class="layui-inline">
             <label class="layui-form-label">用户搜索</label>
             <table class="layui-table" lay-size="sm">
@@ -114,17 +113,17 @@
                     <th>搜索类型</th>
                     <th>搜索时间</th>
                 </tr>
-                {volist name='querys' id='vo'}
+                <?php if(is_array($querys) || $querys instanceof \think\Collection || $querys instanceof \think\Paginator): $i = 0; $__LIST__ = $querys;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$vo): $mod = ($i % 2 );++$i;?>
                 <tr>
-                    <td>{$vo.sk_id}</td>
-                    <td>{$vo.sk_keywords}</td>
-                    <td>{$vo.sk_type == '1' ? '房源' : '找室友'}</td>
-                    <td>{$vo.sk_addtime}</td>
+                    <td><?php echo $vo['sk_id']; ?></td>
+                    <td><?php echo $vo['sk_keywords']; ?></td>
+                    <td><?php echo $vo['sk_type']=='1'?'房源' : '找室友'; ?></td>
+                    <td><?php echo $vo['sk_addtime']; ?></td>
                 </tr>
-                {/volist}
+                <?php endforeach; endif; else: echo "" ;endif; ?>
             </table>
         </div>
-        {/if}
+        <?php endif; ?>
     </div>
 </form>
 </html>

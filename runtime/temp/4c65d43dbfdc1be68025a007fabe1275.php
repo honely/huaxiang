@@ -1,4 +1,4 @@
-<?php if (!defined('THINK_PATH')) exit(); /*a:3:{s:90:"D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\public/../application/xcx\view\house\edit.html";i:1595935099;s:82:"D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\application\xcx\view\index\header.html";i:1591180794;s:82:"D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\application\xcx\view\index\footer.html";i:1577269681;}*/ ?>
+<?php if (!defined('THINK_PATH')) exit(); /*a:3:{s:90:"D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\public/../application/xcx\view\house\edit.html";i:1595988266;s:82:"D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\application\xcx\view\index\header.html";i:1591180794;s:82:"D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\application\xcx\view\index\footer.html";i:1577269681;}*/ ?>
 <!DOCTYPE html>
 <html style="height: 100%">
 <head>
@@ -181,6 +181,14 @@
                         <input type="checkbox" lay-skin="switch" lay-filter="switchTest" lay-text="<?php echo $lable['anytime']; ?>|<?php echo $lable['anytime']; ?>" <?php if($house['live_date_show'] == 1): ?>checked<?php else: endif; ?> >
                     </div>
                 </div>
+                <div class="layui-form-item" pane="">
+                    <label class="layui-form-label" style="width: 90px !important;"><?php echo $lable['liveterm']; ?></label>
+                    <div class="layui-input-block">
+                        <?php if(is_array($all_term) || $all_term instanceof \think\Collection || $all_term instanceof \think\Paginator): $i = 0; $__LIST__ = $all_term;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$vo): $mod = ($i % 2 );++$i;?>
+                        <input type="checkbox" class="checkbox" lay-skin="primary" name="lease_term[<?php echo $vo['term']; ?>]" title="<?php echo $vo['term']; ?>"  <?php echo !empty($vo['is_checked'])?'checked' : ''; ?>>
+                        <?php endforeach; endif; else: echo "" ;endif; ?>
+                    </div>
+                </div>
                 <div class="layui-form-item">
                     <label class="layui-form-label"><span style="color: red;">*</span><?php echo $lable['source']; ?></label>
                     <div class="layui-input-block">
@@ -223,14 +231,6 @@
                     <div class="layui-input-block">
                         <?php if(is_array($all_bill) || $all_bill instanceof \think\Collection || $all_bill instanceof \think\Paginator): $i = 0; $__LIST__ = $all_bill;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$vo): $mod = ($i % 2 );++$i;?>
                         <input type="checkbox" class="checkbox" lay-skin="primary" name="bill[<?php echo $vo['bill']; ?>]" title="<?php echo $vo['billtitle']; ?>"  <?php echo !empty($vo['is_checked'])?'checked' : ''; ?>>
-                        <?php endforeach; endif; else: echo "" ;endif; ?>
-                    </div>
-                </div>
-                <div class="layui-form-item" pane="">
-                    <label class="layui-form-label" style="width: 90px !important;"><?php echo $lable['liveterm']; ?></label>
-                    <div class="layui-input-block">
-                        <?php if(is_array($all_term) || $all_term instanceof \think\Collection || $all_term instanceof \think\Paginator): $i = 0; $__LIST__ = $all_term;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$vo): $mod = ($i % 2 );++$i;?>
-                        <input type="checkbox" class="checkbox" lay-skin="primary" name="lease_term[<?php echo $vo['term']; ?>]" title="<?php echo $vo['term']; ?>"  <?php echo !empty($vo['is_checked'])?'checked' : ''; ?>>
                         <?php endforeach; endif; else: echo "" ;endif; ?>
                     </div>
                 </div>

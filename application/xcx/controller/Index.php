@@ -196,16 +196,17 @@ class Index extends Controller
 
     //网站首页。欢迎页
     public function welcome(){
-        $adminId = session('adminId');
-        $roleId = intval(session('ad_role'));
+        $corpId = intval(session('ad_corp'));
         $houseM = new Housem();
+        $adminId = session('adminId');
+        $whereHAll = '1 = 1 and is_admin = 2 and user_id = '.$adminId;
         $whereAll = '1 = 1';
-        $allHouse = $houseM->houseCount($whereAll);
+        $allHouse = $houseM->houseCount($whereHAll);
         $allUser = $houseM->userCount($whereAll);
         $todayStart = date('Y-m-d').' 00:00:00';
         $todayEnd = date('Y-m-d').' 23:59:59';
         $whereToday = "(cdate >= '".$todayStart."' and cdate <= '".$todayEnd."')";
-        $where = "(publish_date >= '".$todayStart."' and publish_date <= '".$todayEnd."')";
+        $where = "(publish_date >= '".$todayStart."' and publish_date <= '".$todayEnd."') and is_admin = 2 and user_id = ".$adminId;
         $todayUser = $houseM->userCount($whereToday);
         $todayHouse = $houseM->houseCount($where);
         //下线一个月之前发布的房源
@@ -216,6 +217,7 @@ class Index extends Controller
         $lang = new Languages();
         $enLab = $lang->getLanguages();
         $langs = $lang->getLang();
+        $this->assign('adminId',$adminId);
         $this->assign('langs',$langs);
         $this->assign('lable',$enLab);
         $this->assign('allHouse',$allHouse);
@@ -298,16 +300,18 @@ class Index extends Controller
     }
 
 
-public function getHouse(){
+    public function getHouse(){
         $today = date('Y-m-d');
         $weekAgo = date("Y-m-d", strtotime("-30 days"));
         $arr = $this->periodDate($weekAgo,$today);
         $houseM = new Housem();
+        $adminId = session('adminId');
+        $where = 'is_admin = 2 and user_id = '.$adminId;
         foreach ($arr as $k => $v){
-            $wherehouse = " publish_date >= '".$v['date']." 00:00:00' and publish_date <= '".$v['date']." 23:59:59' and is_del = 1";
-            $where = " cdate >= '".$v['date']." 00:00:00' and cdate <= '".$v['date']." 23:59:59'";
+            $wherehouse = " publish_date >= '".$v['date']." 00:00:00' and publish_date <= '".$v['date']." 23:59:59' and is_del = 1 and ".$where;
+            $wheres = " cdate >= '".$v['date']." 00:00:00' and cdate <= '".$v['date']." 23:59:59'";
             $arr[$k]['nums'] = $houseM->houseCount($wherehouse);
-            $arr[$k]['users'] = $houseM->userCount($where);
+            $arr[$k]['users'] = $houseM->userCount($wheres);
         }
         $sqldata_json=json_encode($arr);
         echo  $sqldata_json;
@@ -331,9 +335,11 @@ public function getHouse(){
         $arrs[3]['name'] =  $langs == 'Cn' ? '布里斯班':'Brisbane';
         $arrs[3]['names'] ='布里斯班';
         $houseM = new Housem();
+        $adminId = session('adminId');
+        $where = '1 = 1 and is_admin = 2 and user_id = '.$adminId;
         foreach ($arrs as $k => $v){
-            $where = "is_del = 1 and city = '".$v['names']."'";
-            $arrs[$k]['value'] = $houseM->houseCount($where);
+            $wheres = "is_del = 1 and city = '".$v['names']."' and ".$where;
+            $arrs[$k]['value'] = $houseM->houseCount($wheres);
         }
         $sqldata_json=json_encode($arrs);
         echo  $sqldata_json;
@@ -343,17 +349,20 @@ public function getHouse(){
       public function getHousePieStatus(){
         $lang = new Languages();
         $langs = $lang->getLang();
+        $adminId = session('adminId');
+        $where = ' is_admin = 2 and user_id = '.$adminId;
         $arrs[0]['name'] = $langs == 'Cn' ? '草稿':'Draft';
         $arrs[1]['name'] = $langs == 'Cn' ? '发布':'On';
         $arrs[2]['name'] = $langs == 'Cn' ? '下线':'Off';
         $arrs[3]['name'] = $langs == 'Cn' ? '已删除':'Deleted';
         $houseM = new Housem();
         foreach ($arrs as $k => $v){
-            $where = "is_del = 1 and status = '".$k."'";
-            $arrs[$k]['value'] = $houseM->houseCount($where);
             if($k == 3){
-                $delWhere = 'is_del = 2';
+                $delWhere = 'is_del = 2 and '.$where;
                 $arrs[$k]['value'] = $houseM->houseCount($delWhere);
+            }else{
+                $wheres = "is_del = 1 and status = '".$k."' and ".$where;
+                $arrs[$k]['value'] = $houseM->houseCount($wheres);
             }
         }
         $sqldata_json=json_encode($arrs);

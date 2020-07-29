@@ -78,6 +78,14 @@
                         <input type="text" name="live_date" lay-verify="date" lay-verify="required" placeholder="{$lable.liveDateP}" value="{if condition='$house.live_date_show eq 1'}{$lable.anytime}{else/}{$house.live_date}{/if}" autocomplete="off" class="layui-input">
                     </div>
                 </div>
+                <div class="layui-form-item" pane="">
+                    <label class="layui-form-label">{$lable.liveterm}</label>
+                    <div class="layui-input-block">
+                        {volist name='all_term' id='vo'}
+                        <input type="checkbox" class="checkbox" disabled lay-skin="primary" name="lease_term[{$vo.term}]" title="{$vo.term}"  {$vo.is_checked ? 'checked' : ''}>
+                        {/volist}
+                    </div>
+                </div>
                 <div class="layui-form-item">
                     <label class="layui-form-label"><span style="color: red;">*</span>{$lable.source}</label>
                     <div class="layui-input-block">
@@ -120,14 +128,6 @@
                     <div class="layui-input-block">
                         {volist name='all_bill' id='vo'}
                         <input type="checkbox" class="checkbox" disabled lay-skin="primary" name="bill[{$vo.bill}]" title="{$vo.billtitle}"  {$vo.is_checked ? 'checked' : ''}>
-                        {/volist}
-                    </div>
-                </div>
-                <div class="layui-form-item" pane="">
-                    <label class="layui-form-label">{$lable.liveterm}</label>
-                    <div class="layui-input-block">
-                        {volist name='all_term' id='vo'}
-                        <input type="checkbox" class="checkbox" disabled lay-skin="primary" name="lease_term[{$vo.term}]" title="{$vo.term}"  {$vo.is_checked ? 'checked' : ''}>
                         {/volist}
                     </div>
                 </div>
@@ -268,12 +268,12 @@
                         <input type="text" readonly value="{$house.tel}" autocomplete="off" class="layui-input">
                     </div>
                 </div>
-                <div class="layui-form-item">
-                    <label class="layui-form-label">{$lable.weixin}</label>
-                    <div class="layui-input-block">
-                        <input type="text" readonly value="{$house.wchat}" autocomplete="off" class="layui-input">
-                    </div>
-                </div>
+<!--                <div class="layui-form-item">-->
+<!--                    <label class="layui-form-label">{$lable.weixin}</label>-->
+<!--                    <div class="layui-input-block">-->
+<!--                        <input type="text" readonly value="{$house.wchat}" autocomplete="off" class="layui-input">-->
+<!--                    </div>-->
+<!--                </div>-->
                 <div class="layui-form-item">
                     <label class="layui-form-label">{$lable.youxiang}</label>
                     <div class="layui-input-block">

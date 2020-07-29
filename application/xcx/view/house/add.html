@@ -150,6 +150,15 @@
                         <input type="checkbox" lay-skin="switch" lay-filter="switchTest" lay-text="{$lable.anytime}|{$lable.anytime}">
                     </div>
                 </div>
+                <div class="layui-form-item" pane="">
+                    <label class="layui-form-label" style="width: 90px !important;">{$lable.liveterm}</label>
+                    <div class="layui-input-block">
+                        <input type="checkbox" name="lease_term[12+]" lay-skin="primary" title="12+" checked>
+                        <input type="checkbox" name="lease_term[6-12]" lay-skin="primary" title="6-12">
+                        <input type="checkbox" name="lease_term[3-6]" lay-skin="primary" title="3-6">
+                        <input type="checkbox" name="lease_term[0-3]" lay-skin="primary" title="0-3">
+                    </div>
+                </div>
                 <div class="layui-form-item">
                     <label class="layui-form-label"><span style="color: red;">*</span>{$lable.source}</label>
                     <div class="layui-input-block">
@@ -194,15 +203,6 @@
                         <input type="checkbox" name="bill[包电]" lay-skin="primary" title="{$lable.elect}">
                         <input type="checkbox" name="bill[包气]" lay-skin="primary" title="{$lable.gas}">
                         <input type="checkbox" name="bill[包网]" lay-skin="primary" title="{$lable.nets}">
-                    </div>
-                </div>
-                <div class="layui-form-item" pane="">
-                    <label class="layui-form-label" style="width: 90px !important;">{$lable.liveterm}</label>
-                    <div class="layui-input-block">
-                        <input type="checkbox" name="lease_term[12+]" lay-skin="primary" title="12+" checked>
-                        <input type="checkbox" name="lease_term[6-12]" lay-skin="primary" title="6-12">
-                        <input type="checkbox" name="lease_term[3-6]" lay-skin="primary" title="3-6">
-                        <input type="checkbox" name="lease_term[0-3]" lay-skin="primary" title="0-3">
                     </div>
                 </div>
                 <fieldset class="layui-elem-field layui-field-title" style="margin-top: 20px;">
@@ -369,12 +369,12 @@
                         <input type="text" name="tel" lay-verify="required" placeholder="请输入电话" autocomplete="off" value="{$admin.ad_phone}" class="layui-input">
                     </div>
                 </div>
-                <div class="layui-form-item">
-                    <label class="layui-form-label">{$lable.weixin}</label>
-                    <div class="layui-input-block">
-                        <input type="text" name="wchat" placeholder="请输入微信号" autocomplete="off" value="{$admin.ad_weixin}" class="layui-input">
-                    </div>
-                </div>
+<!--                <div class="layui-form-item">-->
+<!--                    <label class="layui-form-label">{$lable.weixin}</label>-->
+<!--                    <div class="layui-input-block">-->
+<!--                        <input type="text" name="wchat" placeholder="请输入微信号" autocomplete="off" value="{$admin.ad_weixin}" class="layui-input">-->
+<!--                    </div>-->
+<!--                </div>-->
                 <div class="layui-form-item">
                     <label class="layui-form-label">{$lable.youxiang}</label>
                     <div class="layui-input-block">
