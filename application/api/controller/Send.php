@@ -67,7 +67,7 @@ class Send extends Controller
             $rens['status'] = 0;
             $rens['codes'] = $code;
             $rens['country'] = 'Au';
-            $insertId = Db::table('super_msg_send')->insertGetId($rens);
+            $insertId = Db::connect('db3')->table('super_msg_send')->insertGetId($rens);
             $msg = new Msgs();
             $res = $msg->sendAus($code,$phone);
             if($res == 200){

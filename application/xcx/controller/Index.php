@@ -199,14 +199,15 @@ class Index extends Controller
         $corpId = intval(session('ad_corp'));
         $houseM = new Housem();
         $adminId = session('adminId');
-        $whereHAll = '1 = 1 and is_admin = 2 and user_id = '.$adminId;
+        $ad_role = session('ad_role');
+        $whereHAll = $ad_role == 1 ? '1 = 1' : '1 = 1 and is_admin = 2 and user_id = '.$adminId;
         $whereAll = '1 = 1';
         $allHouse = $houseM->houseCount($whereHAll);
         $allUser = $houseM->userCount($whereAll);
         $todayStart = date('Y-m-d').' 00:00:00';
         $todayEnd = date('Y-m-d').' 23:59:59';
         $whereToday = "(cdate >= '".$todayStart."' and cdate <= '".$todayEnd."')";
-        $where = "(publish_date >= '".$todayStart."' and publish_date <= '".$todayEnd."') and is_admin = 2 and user_id = ".$adminId;
+        $where = "(publish_date >= '".$todayStart."' and publish_date <= '".$todayEnd."') and ".$whereHAll;
         $todayUser = $houseM->userCount($whereToday);
         $todayHouse = $houseM->houseCount($where);
         //下线一个月之前发布的房源
@@ -217,7 +218,7 @@ class Index extends Controller
         $lang = new Languages();
         $enLab = $lang->getLanguages();
         $langs = $lang->getLang();
-        $this->assign('adminId',$adminId);
+        $this->assign('adminId',$ad_role);
         $this->assign('langs',$langs);
         $this->assign('lable',$enLab);
         $this->assign('allHouse',$allHouse);
@@ -306,7 +307,8 @@ class Index extends Controller
         $arr = $this->periodDate($weekAgo,$today);
         $houseM = new Housem();
         $adminId = session('adminId');
-        $where = 'is_admin = 2 and user_id = '.$adminId;
+        $ad_role = session('ad_role');
+        $where = $ad_role == 1 ? '1 = 1' : 'is_admin = 2 and user_id = '.$adminId;
         foreach ($arr as $k => $v){
             $wherehouse = " publish_date >= '".$v['date']." 00:00:00' and publish_date <= '".$v['date']." 23:59:59' and is_del = 1 and ".$where;
             $wheres = " cdate >= '".$v['date']." 00:00:00' and cdate <= '".$v['date']." 23:59:59'";
@@ -336,7 +338,8 @@ class Index extends Controller
         $arrs[3]['names'] ='布里斯班';
         $houseM = new Housem();
         $adminId = session('adminId');
-        $where = '1 = 1 and is_admin = 2 and user_id = '.$adminId;
+        $ad_role = session('ad_role');
+        $where = $ad_role == 1 ? '1 = 1' : 'is_admin = 2 and user_id = '.$adminId;
         foreach ($arrs as $k => $v){
             $wheres = "is_del = 1 and city = '".$v['names']."' and ".$where;
             $arrs[$k]['value'] = $houseM->houseCount($wheres);
@@ -350,7 +353,8 @@ class Index extends Controller
         $lang = new Languages();
         $langs = $lang->getLang();
         $adminId = session('adminId');
-        $where = ' is_admin = 2 and user_id = '.$adminId;
+        $ad_role = session('ad_role');
+        $where = $ad_role == 1 ? '1 = 1' : 'is_admin = 2 and user_id = '.$adminId;
         $arrs[0]['name'] = $langs == 'Cn' ? '草稿':'Draft';
         $arrs[1]['name'] = $langs == 'Cn' ? '发布':'On';
         $arrs[2]['name'] = $langs == 'Cn' ? '下线':'Off';

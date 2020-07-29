@@ -1,4 +1,4 @@
-<?php if (!defined('THINK_PATH')) exit(); /*a:3:{s:93:"D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\public/../application/xcx\view\account\email.html";i:1595853914;s:82:"D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\application\xcx\view\index\header.html";i:1591180794;s:82:"D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\application\xcx\view\index\footer.html";i:1577269681;}*/ ?>
+<?php if (!defined('THINK_PATH')) exit(); /*a:3:{s:93:"D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\public/../application/xcx\view\account\email.html";i:1595854248;s:82:"D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\application\xcx\view\index\header.html";i:1591180794;s:82:"D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\application\xcx\view\index\footer.html";i:1577269681;}*/ ?>
 <!DOCTYPE html>
 <html style="height: 100%">
 <head>
@@ -43,7 +43,7 @@
                 <label class="layui-form-label"><span style="color: red;">*</span><?php echo $lable['yanzhengma']; ?></label>
                 <div class="layui-input-inline">
                     <input type="text" name="ucode" id="ucode" lay-verify="required|title" placeholder="<?php echo $lable['pleaseInput']; ?>" autocomplete="off" value="" class="layui-input">
-                    <input type="text" name="code" id="code" class="layui-input">
+                    <input type="hidden" name="code" id="code" class="layui-input">
                 </div>
             </div>
             <div class="layui-form-item">

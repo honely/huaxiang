@@ -88,32 +88,32 @@ class Account extends Controller
                 $val['is_checked'] = true;
             }
         }unset($val);
+        $adminInfo['ad_corp'] = $this->getAdminCorp($adminInfo['ad_corp']);
         $houseInfo['sub'] = $houseBill;
         $where = '1 = 1';
         $roleInfo=Db::table('super_role')
             ->field('r_id,r_name')
             ->where($where)
             ->select();
-        $adminUser = Db::table('tk_user')
-            ->where(['role_id' => 1])
-            ->field('id,nickname,tel')
-            ->select();
         $this->assign('lable',$enLang);
         $this->assign('allrole',$allrole);
-        $this->assign('user',$adminUser);
         $this->assign('role',$roleInfo);
         $this->assign('admin',$adminInfo);
         return $this->fetch();
     }
-
+    public function getAdminCorp($cpId){
+        $corp = Db::table('xcx_corp')
+            ->where(['cp_id' => $cpId])
+            ->field('cp_name')
+            ->find();
+        return $corp ? $corp['cp_name'] : '未选择公司';
+    }
     public function edit(){
         $ad_id =session('adminId');
         if($_POST){
             $data['ad_realname'] = $_POST['ad_realname'];
             $data['ad_sex'] = $_POST['ad_sex'];
-            $data['ad_bid'] = $_POST['ad_bid'];
             $data['ad_corp'] = $_POST['ad_corp'];
-            $data['ad_weixin'] = $_POST['ad_weixin'];
             $data['ad_job'] = $_POST['ad_job'];
             $data['ad_img'] = $_POST['ad_img'];
             $data['ad_desc'] = $_POST['ad_desc'];
@@ -177,18 +177,12 @@ class Account extends Controller
                 }
             }unset($val);
             $houseInfo['sub'] = $houseBill;
-            $where = '1 = 1';
-            $roleInfo=Db::table('super_role')
-                ->field('r_id,r_name')
-                ->where($where)
+            $crop = Db::table('xcx_corp')
+                ->where(['cp_able' => 1])
+                ->field('cp_id,cp_name')
                 ->select();
-            $adminUser = Db::table('tk_user')
-                ->where(['role_id' => 1])
-                ->field('id,nickname,tel')
-                ->select();
+            $this->assign('crop',$crop);
             $this->assign('allrole',$allrole);
-            $this->assign('user',$adminUser);
-            $this->assign('role',$roleInfo);
             $this->assign('admin',$adminInfo);
             return $this->fetch();
         }

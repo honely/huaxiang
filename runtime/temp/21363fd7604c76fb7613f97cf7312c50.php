@@ -1,4 +1,4 @@
-<?php if (!defined('THINK_PATH')) exit(); /*a:3:{s:96:"D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\public/../application/xcx\view\account\personal.html";i:1595854213;s:82:"D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\application\xcx\view\index\header.html";i:1591180794;s:82:"D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\application\xcx\view\index\footer.html";i:1577269681;}*/ ?>
+<?php if (!defined('THINK_PATH')) exit(); /*a:3:{s:96:"D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\public/../application/xcx\view\account\personal.html";i:1596001389;s:82:"D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\application\xcx\view\index\header.html";i:1591180794;s:82:"D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\application\xcx\view\index\footer.html";i:1577269681;}*/ ?>
 <!DOCTYPE html>
 <html style="height: 100%">
 <head>
@@ -61,7 +61,7 @@
                     <input type="text" value="<?php echo $admin['ad_email']; ?>" readonly class="layui-input">
                 </div>
                 <div class="layui-input-inline">
-                    <span class="layui-btn layui-btn-sm layui-btn-normal" id="changeEmail" data-href="<?=url('account/email')?>"><?php echo $lable['cemail']; ?></span>
+                    <span class="layui-btn layui-btn-sm layui-btn-normal" id="changeEmail" data-href="<?=url('account/email')?>"><?php echo $lable['gengxinyouxiang']; ?></span>
                 </div>
             </div>
             <div class="layui-form-item">
@@ -70,7 +70,7 @@
                     <input type="text" name="ad_phone" value="<?php echo $admin['ad_phone']; ?>" readonly  class="layui-input">
                 </div>
                 <div class="layui-input-inline">
-                    <span class="layui-btn layui-btn-sm layui-btn-normal" id="changePhone" data-href="<?=url('account/phone')?>"><?php echo $lable['cemail']; ?></span>
+                    <span class="layui-btn layui-btn-sm layui-btn-normal" id="changePhone" data-href="<?=url('account/phone')?>"><?php echo $lable['gengxinshouji']; ?></span>
                 </div>
             </div>
             <div class="layui-upload">
@@ -97,18 +97,6 @@
                 <label class="layui-form-label"><?php echo $lable['position']; ?></label>
                 <div class="layui-input-block">
                     <input type="text" readonly class="layui-input" value="<?php echo $admin['ad_job']; ?>" >
-                </div>
-            </div>
-            <div class="layui-form-item">
-                <label class="layui-form-label"><?php echo $lable['staffid']; ?></label>
-                <div class="layui-input-block">
-                    <input type="text" readonly value="<?php echo $admin['ad_bid']; ?>" class="layui-input">
-                </div>
-            </div>
-            <div class="layui-form-item">
-                <label class="layui-form-label"><?php echo $lable['wechat']; ?></label>
-                <div class="layui-input-block">
-                    <input type="text" value="<?php echo $admin['ad_weixin']; ?>" readonly class="layui-input">
                 </div>
             </div>
             <div class="layui-form-item layui-form-text">
