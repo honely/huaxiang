@@ -66,6 +66,7 @@ class Index extends Controller
                 foreach ($power_list as $val){
                     $menu_list = Db::table("super_menu")
                         ->where(['m_id' =>$val])
+                        ->order('m_sort desc')
                         ->find();
                     $powerData[] = $menu_list;
                 }

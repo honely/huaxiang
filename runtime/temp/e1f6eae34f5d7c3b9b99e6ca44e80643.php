@@ -1,4 +1,4 @@
-<?php if (!defined('THINK_PATH')) exit(); /*a:3:{s:90:"D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\public/../application/xcx\view\corp\index.html";i:1594897943;s:82:"D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\application\xcx\view\index\header.html";i:1591180794;s:82:"D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\application\xcx\view\index\footer.html";i:1577269681;}*/ ?>
+<?php if (!defined('THINK_PATH')) exit(); /*a:3:{s:90:"D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\public/../application/xcx\view\corp\index.html";i:1596190067;s:82:"D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\application\xcx\view\index\header.html";i:1591180794;s:82:"D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\application\xcx\view\index\footer.html";i:1577269681;}*/ ?>
 <!DOCTYPE html>
 <html style="height: 100%">
 <head>
@@ -34,7 +34,9 @@
         <a><cite>公司列表</cite></a>
     </span>
     <div style="float:right;">
+        <?php if($addable == true): ?>
         <button class="layui-btn layui-btn-primary layui-btn-sm"  onclick="addBanner()"><i class="layui-icon"></i>添加公司</button>
+        <?php endif; ?>
     </div>
 </div>
 <hr/>
@@ -54,13 +56,13 @@
         </thead>
     </table>
 </section>
-<script type="text/html" id="top1">
-    <input type="checkbox" name="sex" lay-skin="switch" value="{{d.h_id}}" lay-text="已回访|未回访" lay-filter="topDemo" {{ d.h_is_review == '是' ? 'checked' : '' }}>
-</script>
 <script type="text/html" id="barDemo">
     <a class="layui-btn layui-btn-xs" lay-event="review">详情</a>
+    <?php if($editable == true): ?>
     <a class="layui-btn layui-btn-xs layui-btn-warm" lay-event="edit">编辑</a>
+    <?php endif; if($delable == true): ?>
     <a class="layui-btn layui-btn-xs layui-btn-danger" lay-event="del">删除</a>
+    <?php endif; ?>
 </script>
 <script type="text/javascript">
 

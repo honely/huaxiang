@@ -389,6 +389,14 @@ class House extends Controller{
                     $all_tags[$k]['sname'] = $v['name'];
                 }
             }
+            //选择公司和PM
+            $cropId = session('ad_corp');
+            $where='cp_able = 1 and cp_id  in ('.$cropId.')';
+            $corp=Db::table('xcx_corp')
+                ->where($where)
+                ->field('cp_id,cp_name')
+                ->select();
+            $this->assign('corp',$corp);
             $this->assign('langs',$langs);
             $this->assign('lable',$enLab);
             $this->assign('tags',$all_tags);
@@ -396,6 +404,32 @@ class House extends Controller{
             return $this->fetch();
         }
 
+    }
+
+
+    public function getpm(){
+        $cpid = trim($this->request->param('cp_id'));
+        $pmInfo = Db::table('super_admin')
+            ->where("ad_corp in (".$cpid.")")
+            ->field('ad_id,ad_realname')
+            ->select();
+        if($pmInfo){
+            return  json(['code' => '1','data' => $pmInfo]);
+        }
+        return  json(['code' => '0','data' => null]);
+
+    }
+
+    public function getpminfo(){
+        $pmid = trim($this->request->param('pmid'));
+        $pmInfo = Db::table('super_admin')
+            ->where(['ad_id' => $pmid])
+            ->field('ad_realname,ad_phone,ad_email')
+            ->find();
+        if($pmInfo){
+            return  json(['code' => '1','data' => $pmInfo]);
+        }
+        return  json(['code' => '0','data' => null]);
     }
 
     //通用缩略图上传接口
@@ -892,6 +926,19 @@ class House extends Controller{
             $cityname = $langs == 'Cn' ? $houseInfo['city'] : $this->getCityNames($houseInfo['city']);
             $shcool = $this->getSchools($houseInfo['city']);
             $houseInfo['citys'] = $cityname;
+            //选择公司和PM
+            $cropId = session('ad_corp');
+            $where='cp_able = 1 and cp_id  in ('.$cropId.')';
+            $corp=Db::table('xcx_corp')
+                ->where($where)
+                ->field('cp_id,cp_name')
+                ->select();
+            $pminfo =Db::table('super_admin')
+                ->where("ad_corp in (".$houseInfo['corp'].")")
+                ->field('ad_id,ad_realname')
+                ->select();
+            $this->assign('pminfo',$pminfo);
+            $this->assign('corp',$corp);
             $this->assign('langs',$langs);
             $this->assign('lable',$enLab);
             $this->assign('all_bill',$all_bill);
@@ -1336,6 +1383,19 @@ class House extends Controller{
         $schoolname = $langs == 'Cn' ? $houseInfo['school'] : $this->getSchoolNames($houseInfo['school']);
         $houseInfo['city'] = $cityname;
         $houseInfo['school'] = $schoolname;
+        //选择公司和PM
+        $cropId = session('ad_corp');
+        $where='cp_able = 1 and cp_id  in ('.$cropId.')';
+        $corp=Db::table('xcx_corp')
+            ->where($where)
+            ->field('cp_id,cp_name')
+            ->select();
+        $pminfo =Db::table('super_admin')
+            ->where("ad_corp in (".$houseInfo['corp'].")")
+            ->field('ad_id,ad_realname')
+            ->select();
+        $this->assign('pminfo',$pminfo);
+        $this->assign('corp',$corp);
         $this->assign('all_term',$all_term);
         $this->assign('lable',$enLab);
         $this->assign('tags',$all_tags);
@@ -1381,7 +1441,7 @@ class House extends Controller{
             $res['msg'] = '上传成功！';
             $file = $this->request->file('file');
             $config = [
-                'size' => 1024*1024*10
+                'size' => 1024*1024*30
             ];
             $size = $file->validate($config);
             if($size){

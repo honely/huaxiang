@@ -60,6 +60,7 @@ class Admin extends Controller{
             $sex = $v['ad_sex']== 1 ? '男' :'女';
             $admin[$k]['adWechat'] = $loop->getUserNick($v['ad_wechat']);
             $admin[$k]['ad_roles'] = $this->getRoleName($v['ad_role']);
+            $admin[$k]['ad_corp'] = $this->getCropName($v['ad_corp']);
             $admin[$k]['ad_createtime'] = date('Y-m-d H:i:s',$v['ad_createtime']);
             $admin[$k]['ad_realname'] = $v['ad_realname']."    ( ".$sex." )";
         }
@@ -70,6 +71,28 @@ class Admin extends Controller{
         $res['where'] = $where;
         return json($res);
     }
+
+
+    public function getCropName($corpIds){
+        $roleArr = explode(',',$corpIds);
+        $roleNames = '';
+        for ($i = 0;$i < count($roleArr);$i++){
+            $roleName = $this->getCrop($roleArr[$i]);
+            $roleNames.= $roleName.',';
+        }
+        return rtrim($roleNames,',');
+    }
+
+
+
+    public function getCrop($roleid){
+        $roleInfo = Db::table('xcx_corp')
+            ->where(['cp_id' => $roleid])
+            ->field('cp_name')
+            ->find();
+        return $roleInfo['cp_name'];
+    }
+
 
     public function getRoleName($roleIds){
         $roleArr = explode(',',$roleIds);
@@ -195,16 +218,18 @@ class Admin extends Controller{
     //添加管理员
     public function add(){
         $ad_role = intval(session('ad_role'));
+        $type = trim($this->request->param('type',1,'intval'));
         if($_POST){
             $data['ad_realname'] = $_POST['ad_realname'];
             $data['ad_sex'] = $_POST['ad_sex'];
             $data['ad_phone'] = str_replace(' ', '', $_POST['ad_phone']);
             $data['ad_email'] = $_POST['ad_email'];
+            $url = $type == 1 ? 'corp/adda' : 'admin/add';
             $isRepeat=Db::table('super_admin')
                 ->where(['ad_email' => $data['ad_email']])
                 ->find();
             if($isRepeat){
-                $this->error('此邮箱已注册！','add');
+                $this->error('此邮箱已注册！',$url);
             }
             $data['ad_isable'] = 2;
             if(isset($_POST['ad_role']) && $_POST['ad_role']){
@@ -215,10 +240,17 @@ class Admin extends Controller{
                 }
                 $data['ad_role'] = rtrim($bills,',');
             }
+            if(isset($_POST['ad_corp']) && $_POST['ad_corp']){
+                $bill = $_POST['ad_corp'];
+                $bills = '';
+                foreach($bill as $key => $val){
+                    $bills .= $key.',';
+                }
+                $data['ad_corp'] = rtrim($bills,',');
+            }
             $data['ad_createtime'] = time();
             $data['ad_admin'] = session('adminId');
             $data['ad_password'] = md5($_POST['ad_password']);
-            $data['ad_corp'] = $_POST['ad_corp'];
             $data['ad_job'] = $_POST['ad_job'];
             $data['ad_img'] = $_POST['ad_img'];
             $data['ad_desc'] = $_POST['ad_desc'];
@@ -235,9 +267,9 @@ class Admin extends Controller{
                     ->find();
                 $this->sendEmail($adminInfo['ad_email']);
                 //给平台用户发送一条账户邮箱激活链接
-                $this->success('添加成功，请查收账户激活邮件','admin');
+                $this->success('添加成功，请查收账户激活邮件',$url);
             }else{
-                $this->error('添加管理员失败','admin');
+                $this->error('添加管理员失败',$url);
             }
         }else{
             $where = '1 = 1';
@@ -253,6 +285,7 @@ class Admin extends Controller{
                 ->where(['cp_able' => 1])
                 ->field('cp_id,cp_name')
                 ->select();
+            $this->assign('type',$type);
             $this->assign('crop',$crop);
             $this->assign('user',$adminUser);
             $this->assign('role',$roleInfo);
@@ -287,7 +320,7 @@ Welhome Agent Platform (WAP) is an professional property leasing platform dedica
  <br/><br/>
 <b>Default Password:</b> 123456
  <br/><br/>
-Please follow the activation link: <a href='https://wx.huaxiangxiaobao.com/api/index/active?email=".$mailer."'>https://wx.huaxiangxiaobao.com/api/index/active?email=".$mailer."</a>
+Please follow the activation link: <a href='https://cs.huaxiangxiaobao.com/api/index/active?email=".$mailer."'>https://cs.huaxiangxiaobao.com/api/index/active?email=".$mailer."</a>
  <br/><br/><br/><br/><br/>
 <img style='width: 204px;height: 86px;' src='https://wx.huaxiangxiaobao.com/public/ueditor/php/upload/image/20200417/1587119666198174.png'>
 <br>
@@ -311,7 +344,6 @@ ABN: 11 628 249 687</b>
             $data['ad_realname'] = $_POST['ad_realname'];
             $data['ad_sex'] = $_POST['ad_sex'];
             $data['ad_phone'] = str_replace(' ', '', $_POST['ad_phone']);
-            $data['ad_corp'] = $_POST['ad_corp'];
             $data['ad_job'] = $_POST['ad_job'];
             $data['ad_img'] = $_POST['ad_img'];
             $data['ad_desc'] = $_POST['ad_desc'];
@@ -330,6 +362,14 @@ ABN: 11 628 249 687</b>
                     $bills .= $key.',';
                 }
                 $data['ad_role'] = rtrim($bills,',');
+            }
+            if(isset($_POST['ad_corp']) && $_POST['ad_corp']){
+                $bill = $_POST['ad_corp'];
+                $bills = '';
+                foreach($bill as $key => $val){
+                    $bills .= $key.',';
+                }
+                $data['ad_corp'] = rtrim($bills,',');
             }
             $edit=Db::table('super_admin')->where(['ad_id' => $ad_id])->update($data);
             if($edit){
@@ -376,11 +416,18 @@ ABN: 11 628 249 687</b>
                 }
             }unset($val);
             $houseInfo['sub'] = $houseBill;
-            $crop = Db::table('xcx_corp')
+            $all_tags = Db::table('xcx_corp')
                 ->where(['cp_able' => 1])
                 ->field('cp_id,cp_name')
                 ->select();
-            $this->assign('crop',$crop);
+            $crops= explode(',',$adminInfo['ad_corp']);
+            foreach ($all_tags as $key => &$val) {
+                $all_tags[$key]['is_checked'] = false;
+                if(in_array($val['cp_id'], $crops)) {
+                    $val['is_checked'] = true;
+                }
+            }unset($val);
+            $this->assign('crop',$all_tags);
             $this->assign('allrole',$allrole);
             $this->assign('admin',$adminInfo);
             return $this->fetch();
@@ -396,7 +443,7 @@ ABN: 11 628 249 687</b>
             ->find();
         if($adminInfo){
             $adminInfo['ad_roles'] = $this->getRoleName($adminInfo['ad_role']);
-            $adminInfo['ad_corp'] = $this->getAdminCorp($adminInfo['ad_corp']);
+            $adminInfo['ad_corp'] = $this->getCropName($adminInfo['ad_corp']);
         }
         $where = '1 = 1';
         $roleInfo=Db::table('super_role')

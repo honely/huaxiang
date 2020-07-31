@@ -88,7 +88,7 @@ class Account extends Controller
                 $val['is_checked'] = true;
             }
         }unset($val);
-        $adminInfo['ad_corp'] = $this->getAdminCorp($adminInfo['ad_corp']);
+        $adminInfo['ad_corp'] = $this->getCropName($adminInfo['ad_corp']);
         $houseInfo['sub'] = $houseBill;
         $where = '1 = 1';
         $roleInfo=Db::table('super_role')
@@ -101,6 +101,26 @@ class Account extends Controller
         $this->assign('admin',$adminInfo);
         return $this->fetch();
     }
+    public function getCropName($corpIds){
+        $roleArr = explode(',',$corpIds);
+        $roleNames = '';
+        for ($i = 0;$i < count($roleArr);$i++){
+            $roleName = $this->getCrop($roleArr[$i]);
+            $roleNames.= $roleName.',';
+        }
+        return rtrim($roleNames,',');
+    }
+
+
+
+    public function getCrop($roleid){
+        $roleInfo = Db::table('xcx_corp')
+            ->where(['cp_id' => $roleid])
+            ->field('cp_name')
+            ->find();
+        return $roleInfo['cp_name'];
+    }
+
     public function getAdminCorp($cpId){
         $corp = Db::table('xcx_corp')
             ->where(['cp_id' => $cpId])
@@ -113,7 +133,14 @@ class Account extends Controller
         if($_POST){
             $data['ad_realname'] = $_POST['ad_realname'];
             $data['ad_sex'] = $_POST['ad_sex'];
-            $data['ad_corp'] = $_POST['ad_corp'];
+            if(isset($_POST['ad_corp']) && $_POST['ad_corp']){
+                $bill = $_POST['ad_corp'];
+                $bills = '';
+                foreach($bill as $key => $val){
+                    $bills .= $key.',';
+                }
+                $data['ad_corp'] = rtrim($bills,',');
+            }
             $data['ad_job'] = $_POST['ad_job'];
             $data['ad_img'] = $_POST['ad_img'];
             $data['ad_desc'] = $_POST['ad_desc'];
@@ -177,11 +204,18 @@ class Account extends Controller
                 }
             }unset($val);
             $houseInfo['sub'] = $houseBill;
-            $crop = Db::table('xcx_corp')
+            $all_tags = Db::table('xcx_corp')
                 ->where(['cp_able' => 1])
                 ->field('cp_id,cp_name')
                 ->select();
-            $this->assign('crop',$crop);
+            $crops= explode(',',$adminInfo['ad_corp']);
+            foreach ($all_tags as $key => &$val) {
+                $all_tags[$key]['is_checked'] = false;
+                if(in_array($val['cp_id'], $crops)) {
+                    $val['is_checked'] = true;
+                }
+            }unset($val);
+            $this->assign('crop',$all_tags);
             $this->assign('allrole',$allrole);
             $this->assign('admin',$adminInfo);
             return $this->fetch();

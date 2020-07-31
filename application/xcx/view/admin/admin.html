@@ -51,6 +51,7 @@
                 <th lay-data="{field:'adWechat'}">关联微信</th>
                 <th lay-data="{field:'ad_phone'}">手机</th>
                 <th lay-data="{field:'ad_corp'}">公司</th>
+                <th lay-data="{field:'ad_job'}">职位</th>
                 {if condition='$offable eq true'}
                 <th lay-data="{field:'ad_isable',width:120,templet: '#switchTpl', unresize: true}">状态</th>
                 {/if}
@@ -238,7 +239,7 @@
 </script>
 <script type="text/javascript">
     function addAdmin(){
-        window.location.href='<?=url('admin/add')?>';
+        window.location.href="<?=url('admin/add')?>";
     }
 </script>
 {include file="index/footer" /}

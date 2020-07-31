@@ -257,6 +257,26 @@
                     <legend>{$lable.lianxi}</legend>
                 </fieldset>
                 <div class="layui-form-item">
+                    <label class="layui-form-label"><span style="color: red;">*</span>公司</label>
+                    <div class="layui-input-inline">
+                        <select name="corp" lay-filter="selectPm" disabled  lay-search="" >
+                            <option value="">请选择</option>
+                            {volist name='corp' id='vo'}
+                            <option value="{$vo.cp_id}"  {if condition="$house.corp eq $vo.cp_id"}selected{/if}>{$vo.cp_name}</option>
+                            {/volist}
+                        </select>
+                    </div>
+                    <label class="layui-form-label" style="width: 150px !important;"><span style="color: red;">*</span>PM</label>
+                    <div class="layui-input-inline" style="width: 250px !important;">
+                        <select name="pm" disabled lay-verify="required" lay-filter="selectPmInfo"  id="pm"  lay-search="">
+                            <option value=""></option>
+                            {volist name='pminfo' id='vo'}
+                            <option value="{$vo.ad_id}"  {if condition="$house.pm eq $vo.ad_id"}selected{/if}>{$vo.ad_realname}</option>
+                            {/volist}
+                        </select>
+                    </div>
+                </div>
+                <div class="layui-form-item">
                     <label class="layui-form-label"><span style="color: red;">*</span>{$lable.xingming}</label>
                     <div class="layui-input-block">
                         <input type="text" readonly value="{$house.real_name}" autocomplete="off" class="layui-input">
@@ -268,12 +288,6 @@
                         <input type="text" readonly value="{$house.tel}" autocomplete="off" class="layui-input">
                     </div>
                 </div>
-<!--                <div class="layui-form-item">-->
-<!--                    <label class="layui-form-label">{$lable.weixin}</label>-->
-<!--                    <div class="layui-input-block">-->
-<!--                        <input type="text" readonly value="{$house.wchat}" autocomplete="off" class="layui-input">-->
-<!--                    </div>-->
-<!--                </div>-->
                 <div class="layui-form-item">
                     <label class="layui-form-label">{$lable.youxiang}</label>
                     <div class="layui-input-block">

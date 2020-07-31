@@ -1,4 +1,4 @@
-<?php if (!defined('THINK_PATH')) exit(); /*a:3:{s:92:"D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\public/../application/xcx\view\account\edit.html";i:1596001720;s:82:"D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\application\xcx\view\index\header.html";i:1591180794;s:82:"D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\application\xcx\view\index\footer.html";i:1577269681;}*/ ?>
+<?php if (!defined('THINK_PATH')) exit(); /*a:3:{s:92:"D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\public/../application/xcx\view\account\edit.html";i:1596193101;s:82:"D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\application\xcx\view\index\header.html";i:1591180794;s:82:"D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\application\xcx\view\index\footer.html";i:1577269681;}*/ ?>
 <!DOCTYPE html>
 <html style="height: 100%">
 <head>
@@ -83,14 +83,11 @@
                     <input type="radio" name="ad_sex" value="2" title="<?php echo $lable['female']; ?>" <?php if($admin['ad_sex'] == 2): ?>checked<?php endif; ?>>
             </div>
             <div class="layui-form-item">
-                <label class="layui-form-label"><?php echo $lable['company']; ?></label>
-                <div class="layui-input-inline">
-                    <select name="ad_corp">
-                        <option value="">请选择公司</option>
-                        <?php if(is_array($crop) || $crop instanceof \think\Collection || $crop instanceof \think\Paginator): $i = 0; $__LIST__ = $crop;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$vo): $mod = ($i % 2 );++$i;?>
-                        <option value="<?php echo $vo['cp_id']; ?>" <?php if($admin['ad_corp'] == $vo['cp_id']): ?>selected<?php endif; ?>><?php echo $vo['cp_name']; ?></option>
-                        <?php endforeach; endif; else: echo "" ;endif; ?>
-                    </select>
+                <label class="layui-form-label">公司</label>
+                <div class="layui-input-block">
+                    <?php if(is_array($crop) || $crop instanceof \think\Collection || $crop instanceof \think\Paginator): $i = 0; $__LIST__ = $crop;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$vo): $mod = ($i % 2 );++$i;?>
+                    <input type="checkbox" class="checkbox" lay-skin="primary" name="ad_corp[<?php echo $vo['cp_id']; ?>]" title="<?php echo $vo['cp_name']; ?>"  <?php echo !empty($vo['is_checked'])?'checked' : ''; ?>>
+                    <?php endforeach; endif; else: echo "" ;endif; ?>
                 </div>
             </div>
             <div class="layui-form-item">

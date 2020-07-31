@@ -61,14 +61,11 @@
                     <input type="radio" name="ad_sex" value="2" title="{$lable.female}" {if condition="$admin.ad_sex eq 2" }checked{/if}>
             </div>
             <div class="layui-form-item">
-                <label class="layui-form-label">{$lable.company}</label>
-                <div class="layui-input-inline">
-                    <select name="ad_corp">
-                        <option value="">请选择公司</option>
-                        {volist name="crop" id='vo'}
-                        <option value="{$vo.cp_id}" {if condition="$admin.ad_corp eq $vo.cp_id"}selected{/if}>{$vo.cp_name}</option>
-                        {/volist}
-                    </select>
+                <label class="layui-form-label">公司</label>
+                <div class="layui-input-block">
+                    {volist name='crop' id='vo'}
+                    <input type="checkbox" class="checkbox" lay-skin="primary" name="ad_corp[{$vo.cp_id}]" title="{$vo.cp_name}"  {$vo.is_checked ? 'checked' : ''}>
+                    {/volist}
                 </div>
             </div>
             <div class="layui-form-item">

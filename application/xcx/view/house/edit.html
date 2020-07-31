@@ -307,15 +307,16 @@
                 <fieldset class="layui-elem-field layui-field-title" style="margin-top: 20px;">
                     <legend>{$lable.jianjie}</legend>
                 </fieldset>
-                <div class="layui-form-mid layui-word-aux" style="margin-left: 40px;">{$lable.transNotic}123</div>
+                <input type="hidden" value="{if condition="$house.econtent eq null"}1{else/}2{/if}" id="isTrans"/>
+                <div class="layui-form-mid layui-word-aux" style="margin-left: 40px;">{$lable.transNotic}</div>
                 {if condition="$house.econtent eq null"}
                 <div class="layui-form-item layui-form-text" id="preTrans">
                     <div class="layui-input-block">
                         <textarea placeholder="{$lable.houseDescP}" style="height: 400px;" maxlength="1500" name="content" id="contents" class="layui-textarea">{$house.content}</textarea>
                     </div>
                 </div>
-                {else/}
-                <div class="layui-row" id="translate" style="display:{if condition="$house.econtent eq null"}hide1{eles/}block1{/if}">
+                {/if}
+                <div class="layui-row" id="translate" style="display:{if condition="$house.econtent eq null"}none{else/}block{/if}">
                 <div class="layui-col-xs6">
                     <div class="grid-demo grid-demo-bg1">
                         <div class="layui-input-block">
@@ -330,9 +331,8 @@
                         </div>
                     </div>
                 </div>
-        </div>
-        {/if}
-              <div class="layui-row">
+            </div>
+                <div class="layui-row">
                     <div class="layui-col-xs6">
                         <div class="grid-demo grid-demo-bg1">
                             <span class="layui-btn layui-btn-sm transLate" data-type="zh" style="float: right;margin-top: 10px;">{$lable.entocn}</span>
@@ -348,27 +348,41 @@
                     <legend>{$lable.lianxi}</legend>
                 </fieldset>
                 <div class="layui-form-item">
+                    <label class="layui-form-label"><span style="color: red;">*</span>公司</label>
+                    <div class="layui-input-inline">
+                        <select name="corp" lay-filter="selectPm"  lay-search="" >
+                            <option value="">请选择</option>
+                            {volist name='corp' id='vo'}
+                            <option value="{$vo.cp_id}"  {if condition="$house.corp eq $vo.cp_id"}selected{/if}>{$vo.cp_name}</option>
+                            {/volist}
+                        </select>
+                    </div>
+                    <label class="layui-form-label" style="width: 150px !important;"><span style="color: red;">*</span>PM</label>
+                    <div class="layui-input-inline" style="width: 250px !important;">
+                        <select name="pm" lay-verify="required" lay-filter="selectPmInfo"  id="pm"  lay-search="">
+                            <option value=""></option>
+                            {volist name='pminfo' id='vo'}
+                            <option value="{$vo.ad_id}"  {if condition="$house.pm eq $vo.ad_id"}selected{/if}>{$vo.ad_realname}</option>
+                            {/volist}
+                        </select>
+                    </div>
+                </div>
+                <div class="layui-form-item">
                     <label class="layui-form-label"><span style="color: red;">*</span>{$lable.xingming}</label>
                     <div class="layui-input-block">
-                        <input type="text" name="real_name" lay-verify="required|title" placeholder="请输入姓名" value="{$house.real_name}" autocomplete="off" class="layui-input">
+                        <input type="text" name="real_name" id="real_name" lay-verify="required|title" placeholder="请输入姓名" value="{$house.real_name}" autocomplete="off" class="layui-input">
                     </div>
                 </div>
                 <div class="layui-form-item">
                     <label class="layui-form-label"><span style="color: red;">*</span>{$lable.dianhua}</label>
                     <div class="layui-input-block">
-                        <input type="text" name="tel" lay-verify="required" placeholder="请输入电话" value="{$house.tel}" autocomplete="off" class="layui-input">
+                        <input type="text" name="tel" id="tel" lay-verify="required" placeholder="请输入电话" value="{$house.tel}" autocomplete="off" class="layui-input">
                     </div>
                 </div>
-<!--                <div class="layui-form-item">-->
-<!--                    <label class="layui-form-label">{$lable.weixin}</label>-->
-<!--                    <div class="layui-input-block">-->
-<!--                        <input type="text" name="wchat" placeholder="请输入微信号" value="{$house.wchat}" autocomplete="off" class="layui-input">-->
-<!--                    </div>-->
-<!--                </div>-->
                 <div class="layui-form-item">
                     <label class="layui-form-label">{$lable.youxiang}</label>
                     <div class="layui-input-block">
-                        <input type="text" name="email" lay-verify="emails" placeholder="请输入邮箱" value="{$house.email}" autocomplete="off" class="layui-input">
+                        <input type="text" name="email" id="email" lay-verify="emails" placeholder="请输入邮箱" value="{$house.email}" autocomplete="off" class="layui-input">
                     </div>
                 </div>
                 <fieldset class="layui-elem-field layui-field-title" style="margin-top: 20px;">
@@ -492,13 +506,14 @@
         $('.transLate').click(function () {
             var type = $('#isTrans').val();
             var to = $(this).data('type');
+            var contents = '';
             if(type == 1){
-                var contents = $("#contents").val();
+                contents = $("#contents").val();
             }else{
                 if(to == 'en'){
-                    var contents = $("#chinese").val();
+                    contents = $("#chinese").val();
                 }else{
-                    var contents = $("#english").val();
+                    contents = $("#english").val();
                 }
             }
             contents = contents.replace(/[\r\n]/g,"*");
@@ -511,7 +526,6 @@
                 data:{'content':contents,'to':to},
                 dataType:  'json',
                 success: function(data){
-                    console.log(data);
                     $('#preTrans').hide();
                     $('#isTrans').val(2);
                     $('#translate').show();
@@ -629,6 +643,46 @@
                 }else{
                     $('#date').show();
                 }
+            });
+            //异步
+            form.on('select(selectPm)', function(data){
+                var cp_id = data.value;
+                $.ajax({
+                    type: 'POST',
+                    url: "<?=url('house/getpm')?>",
+                    data: {cp_id:cp_id},
+                    dataType:  'json',
+                    success: function(data){
+                        console.log(data);
+                        var code=data.data;
+                        $("#pm").html("<option value=''>{$lable.selectSchoolP}</option>");
+                        $.each(code, function(i, val) {
+                            var option1 = $("<option>").val(val.ad_id).text(val.ad_realname);
+                            $("#pm").append(option1);
+                            form.render('select');
+                        });
+                    }
+                });
+            });
+            //异步
+            form.on('select(selectPmInfo)', function(data){
+                var pmid = data.value;
+                $.ajax({
+                    type: 'POST',
+                    url: "<?=url('house/getpminfo')?>",
+                    data: {pmid:pmid},
+                    dataType:  'json',
+                    success: function(data){
+                        console.log(data);
+                        var code=data.data;
+                        if(data.code == 1){
+                            $('#real_name').val(code.ad_realname);
+                            $('#tel').val(code.ad_phone);
+                            $('#email').val(code.ad_email);
+                        }
+
+                    }
+                });
             });
             //租金可议
             form.on('switch(switchRent)', function(data){
@@ -751,8 +805,8 @@
                             layer.close(layer.index);
                             let video_time = document.getElementById("logoPre").duration;
                             console.log(video_time);
-                            if(video_time > 45){
-                                layer.msg('上传视频不能超过45秒', {icon: 2})
+                            if(video_time > 125){
+                                layer.msg('上传视频不能超过120秒', {icon: 2})
                             }
                             clearTimeout(timer);
                         },1000);

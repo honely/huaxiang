@@ -1,4 +1,4 @@
-<?php if (!defined('THINK_PATH')) exit(); /*a:3:{s:91:"D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\public/../application/xcx\view\admin\admin.html";i:1592964473;s:82:"D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\application\xcx\view\index\header.html";i:1591180794;s:82:"D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\application\xcx\view\index\footer.html";i:1577269681;}*/ ?>
+<?php if (!defined('THINK_PATH')) exit(); /*a:3:{s:91:"D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\public/../application/xcx\view\admin\admin.html";i:1596186681;s:82:"D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\application\xcx\view\index\header.html";i:1591180794;s:82:"D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\application\xcx\view\index\footer.html";i:1577269681;}*/ ?>
 <!DOCTYPE html>
 <html style="height: 100%">
 <head>
@@ -73,6 +73,7 @@
                 <th lay-data="{field:'adWechat'}">关联微信</th>
                 <th lay-data="{field:'ad_phone'}">手机</th>
                 <th lay-data="{field:'ad_corp'}">公司</th>
+                <th lay-data="{field:'ad_job'}">职位</th>
                 <?php if($offable == true): ?>
                 <th lay-data="{field:'ad_isable',width:120,templet: '#switchTpl', unresize: true}">状态</th>
                 <?php endif; ?>
@@ -258,7 +259,7 @@
 </script>
 <script type="text/javascript">
     function addAdmin(){
-        window.location.href='<?=url('admin/add')?>';
+        window.location.href="<?=url('admin/add')?>";
     }
 </script>
 </div>

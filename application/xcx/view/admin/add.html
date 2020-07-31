@@ -71,13 +71,10 @@
             </div>
             <div class="layui-form-item">
                 <label class="layui-form-label">公司</label>
-                <div class="layui-input-inline">
-                    <select name="ad_corp">
-                        <option value="">请选择公司</option>
-                        {volist name="crop" id='vo'}
-                        <option value="{$vo.cp_id}">{$vo.cp_name}</option>
-                        {/volist}
-                    </select>
+                <div class="layui-input-block">
+                    {volist name='crop' id='vo'}
+                    <input type="checkbox" class="checkbox" lay-skin="primary" name="ad_corp[{$vo.cp_id}]" title="{$vo.cp_name}" >
+                    {/volist}
                 </div>
             </div>
             <div class="layui-form-item">

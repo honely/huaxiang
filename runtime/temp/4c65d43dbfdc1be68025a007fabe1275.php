@@ -1,4 +1,4 @@
-<?php if (!defined('THINK_PATH')) exit(); /*a:3:{s:90:"D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\public/../application/xcx\view\house\edit.html";i:1595988266;s:82:"D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\application\xcx\view\index\header.html";i:1591180794;s:82:"D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\application\xcx\view\index\footer.html";i:1577269681;}*/ ?>
+<?php if (!defined('THINK_PATH')) exit(); /*a:3:{s:90:"D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\public/../application/xcx\view\house\edit.html";i:1596201387;s:82:"D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\application\xcx\view\index\header.html";i:1591180794;s:82:"D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\application\xcx\view\index\footer.html";i:1577269681;}*/ ?>
 <!DOCTYPE html>
 <html style="height: 100%">
 <head>
@@ -329,15 +329,16 @@
                 <fieldset class="layui-elem-field layui-field-title" style="margin-top: 20px;">
                     <legend><?php echo $lable['jianjie']; ?></legend>
                 </fieldset>
-                <div class="layui-form-mid layui-word-aux" style="margin-left: 40px;"><?php echo $lable['transNotic']; ?>123</div>
+                <input type="hidden" value="<?php if($house['econtent'] == null): ?>1<?php else: ?>2<?php endif; ?>" id="isTrans"/>
+                <div class="layui-form-mid layui-word-aux" style="margin-left: 40px;"><?php echo $lable['transNotic']; ?></div>
                 <?php if($house['econtent'] == null): ?>
                 <div class="layui-form-item layui-form-text" id="preTrans">
                     <div class="layui-input-block">
                         <textarea placeholder="<?php echo $lable['houseDescP']; ?>" style="height: 400px;" maxlength="1500" name="content" id="contents" class="layui-textarea"><?php echo $house['content']; ?></textarea>
                     </div>
                 </div>
-                <?php else: ?>
-                <div class="layui-row" id="translate" style="display:<?php if($house['econtent'] == null): ?>hide1{eles/}block1<?php endif; ?>">
+                <?php endif; ?>
+                <div class="layui-row" id="translate" style="display:<?php if($house['econtent'] == null): ?>none<?php else: ?>block<?php endif; ?>">
                 <div class="layui-col-xs6">
                     <div class="grid-demo grid-demo-bg1">
                         <div class="layui-input-block">
@@ -352,9 +353,8 @@
                         </div>
                     </div>
                 </div>
-        </div>
-        <?php endif; ?>
-              <div class="layui-row">
+            </div>
+                <div class="layui-row">
                     <div class="layui-col-xs6">
                         <div class="grid-demo grid-demo-bg1">
                             <span class="layui-btn layui-btn-sm transLate" data-type="zh" style="float: right;margin-top: 10px;"><?php echo $lable['entocn']; ?></span>
@@ -370,27 +370,41 @@
                     <legend><?php echo $lable['lianxi']; ?></legend>
                 </fieldset>
                 <div class="layui-form-item">
+                    <label class="layui-form-label"><span style="color: red;">*</span>公司</label>
+                    <div class="layui-input-inline">
+                        <select name="corp" lay-filter="selectPm"  lay-search="" >
+                            <option value="">请选择</option>
+                            <?php if(is_array($corp) || $corp instanceof \think\Collection || $corp instanceof \think\Paginator): $i = 0; $__LIST__ = $corp;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$vo): $mod = ($i % 2 );++$i;?>
+                            <option value="<?php echo $vo['cp_id']; ?>"  <?php if($house['corp'] == $vo['cp_id']): ?>selected<?php endif; ?>><?php echo $vo['cp_name']; ?></option>
+                            <?php endforeach; endif; else: echo "" ;endif; ?>
+                        </select>
+                    </div>
+                    <label class="layui-form-label" style="width: 150px !important;"><span style="color: red;">*</span>PM</label>
+                    <div class="layui-input-inline" style="width: 250px !important;">
+                        <select name="pm" lay-verify="required" lay-filter="selectPmInfo"  id="pm"  lay-search="">
+                            <option value=""></option>
+                            <?php if(is_array($pminfo) || $pminfo instanceof \think\Collection || $pminfo instanceof \think\Paginator): $i = 0; $__LIST__ = $pminfo;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$vo): $mod = ($i % 2 );++$i;?>
+                            <option value="<?php echo $vo['ad_id']; ?>"  <?php if($house['pm'] == $vo['ad_id']): ?>selected<?php endif; ?>><?php echo $vo['ad_realname']; ?></option>
+                            <?php endforeach; endif; else: echo "" ;endif; ?>
+                        </select>
+                    </div>
+                </div>
+                <div class="layui-form-item">
                     <label class="layui-form-label"><span style="color: red;">*</span><?php echo $lable['xingming']; ?></label>
                     <div class="layui-input-block">
-                        <input type="text" name="real_name" lay-verify="required|title" placeholder="请输入姓名" value="<?php echo $house['real_name']; ?>" autocomplete="off" class="layui-input">
+                        <input type="text" name="real_name" id="real_name" lay-verify="required|title" placeholder="请输入姓名" value="<?php echo $house['real_name']; ?>" autocomplete="off" class="layui-input">
                     </div>
                 </div>
                 <div class="layui-form-item">
                     <label class="layui-form-label"><span style="color: red;">*</span><?php echo $lable['dianhua']; ?></label>
                     <div class="layui-input-block">
-                        <input type="text" name="tel" lay-verify="required" placeholder="请输入电话" value="<?php echo $house['tel']; ?>" autocomplete="off" class="layui-input">
-                    </div>
-                </div>
-                <div class="layui-form-item">
-                    <label class="layui-form-label"><?php echo $lable['weixin']; ?></label>
-                    <div class="layui-input-block">
-                        <input type="text" name="wchat" placeholder="请输入微信号" value="<?php echo $house['wchat']; ?>" autocomplete="off" class="layui-input">
+                        <input type="text" name="tel" id="tel" lay-verify="required" placeholder="请输入电话" value="<?php echo $house['tel']; ?>" autocomplete="off" class="layui-input">
                     </div>
                 </div>
                 <div class="layui-form-item">
                     <label class="layui-form-label"><?php echo $lable['youxiang']; ?></label>
                     <div class="layui-input-block">
-                        <input type="text" name="email" lay-verify="emails" placeholder="请输入邮箱" value="<?php echo $house['email']; ?>" autocomplete="off" class="layui-input">
+                        <input type="text" name="email" id="email" lay-verify="emails" placeholder="请输入邮箱" value="<?php echo $house['email']; ?>" autocomplete="off" class="layui-input">
                     </div>
                 </div>
                 <fieldset class="layui-elem-field layui-field-title" style="margin-top: 20px;">
@@ -511,13 +525,14 @@
         $('.transLate').click(function () {
             var type = $('#isTrans').val();
             var to = $(this).data('type');
+            var contents = '';
             if(type == 1){
-                var contents = $("#contents").val();
+                contents = $("#contents").val();
             }else{
                 if(to == 'en'){
-                    var contents = $("#chinese").val();
+                    contents = $("#chinese").val();
                 }else{
-                    var contents = $("#english").val();
+                    contents = $("#english").val();
                 }
             }
             contents = contents.replace(/[\r\n]/g,"*");
@@ -530,7 +545,6 @@
                 data:{'content':contents,'to':to},
                 dataType:  'json',
                 success: function(data){
-                    console.log(data);
                     $('#preTrans').hide();
                     $('#isTrans').val(2);
                     $('#translate').show();
@@ -648,6 +662,46 @@
                 }else{
                     $('#date').show();
                 }
+            });
+            //异步
+            form.on('select(selectPm)', function(data){
+                var cp_id = data.value;
+                $.ajax({
+                    type: 'POST',
+                    url: "<?=url('house/getpm')?>",
+                    data: {cp_id:cp_id},
+                    dataType:  'json',
+                    success: function(data){
+                        console.log(data);
+                        var code=data.data;
+                        $("#pm").html("<option value=''><?php echo $lable['selectSchoolP']; ?></option>");
+                        $.each(code, function(i, val) {
+                            var option1 = $("<option>").val(val.ad_id).text(val.ad_realname);
+                            $("#pm").append(option1);
+                            form.render('select');
+                        });
+                    }
+                });
+            });
+            //异步
+            form.on('select(selectPmInfo)', function(data){
+                var pmid = data.value;
+                $.ajax({
+                    type: 'POST',
+                    url: "<?=url('house/getpminfo')?>",
+                    data: {pmid:pmid},
+                    dataType:  'json',
+                    success: function(data){
+                        console.log(data);
+                        var code=data.data;
+                        if(data.code == 1){
+                            $('#real_name').val(code.ad_realname);
+                            $('#tel').val(code.ad_phone);
+                            $('#email').val(code.ad_email);
+                        }
+
+                    }
+                });
             });
             //租金可议
             form.on('switch(switchRent)', function(data){
@@ -770,8 +824,8 @@
                             layer.close(layer.index);
                             let video_time = document.getElementById("logoPre").duration;
                             console.log(video_time);
-                            if(video_time > 45){
-                                layer.msg('上传视频不能超过45秒', {icon: 2})
+                            if(video_time > 125){
+                                layer.msg('上传视频不能超过120秒', {icon: 2})
                             }
                             clearTimeout(timer);
                         },1000);

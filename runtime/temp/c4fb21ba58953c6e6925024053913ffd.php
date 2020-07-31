@@ -1,4 +1,4 @@
-<?php if (!defined('THINK_PATH')) exit(); /*a:3:{s:89:"D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\public/../application/xcx\view\admin\add.html";i:1595985049;s:82:"D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\application\xcx\view\index\header.html";i:1591180794;s:82:"D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\application\xcx\view\index\footer.html";i:1577269681;}*/ ?>
+<?php if (!defined('THINK_PATH')) exit(); /*a:3:{s:89:"D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\public/../application/xcx\view\admin\add.html";i:1596186921;s:82:"D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\application\xcx\view\index\header.html";i:1591180794;s:82:"D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\application\xcx\view\index\footer.html";i:1577269681;}*/ ?>
 <!DOCTYPE html>
 <html style="height: 100%">
 <head>
@@ -93,13 +93,10 @@
             </div>
             <div class="layui-form-item">
                 <label class="layui-form-label">公司</label>
-                <div class="layui-input-inline">
-                    <select name="ad_corp">
-                        <option value="">请选择公司</option>
-                        <?php if(is_array($crop) || $crop instanceof \think\Collection || $crop instanceof \think\Paginator): $i = 0; $__LIST__ = $crop;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$vo): $mod = ($i % 2 );++$i;?>
-                        <option value="<?php echo $vo['cp_id']; ?>"><?php echo $vo['cp_name']; ?></option>
-                        <?php endforeach; endif; else: echo "" ;endif; ?>
-                    </select>
+                <div class="layui-input-block">
+                    <?php if(is_array($crop) || $crop instanceof \think\Collection || $crop instanceof \think\Paginator): $i = 0; $__LIST__ = $crop;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$vo): $mod = ($i % 2 );++$i;?>
+                    <input type="checkbox" class="checkbox" lay-skin="primary" name="ad_corp[<?php echo $vo['cp_id']; ?>]" title="<?php echo $vo['cp_name']; ?>" >
+                    <?php endforeach; endif; else: echo "" ;endif; ?>
                 </div>
             </div>
             <div class="layui-form-item">

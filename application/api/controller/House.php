@@ -353,7 +353,7 @@ class House extends Controller
             $file = $this->request->file('file');
             $config = [
                 'size' => 1024*1024*10,
-                'ext' => 'jpg,gif,png,bmp,jpeg,JPG'
+                'ext' => 'jpg,gif,png,bmp,jpeg,JPG,mp4,MP4'
             ];
             $size = $file->validate($config);
             if($size){
