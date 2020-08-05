@@ -29,7 +29,9 @@
                 <label class="layui-form-label"><span style="color: red;">*</span>{$lable.yuangongjs}</label>
                 <div class="layui-input-block">
                     {volist name='allrole' id='vo'}
-                    <input type="checkbox" class="checkbox" lay-skin="primary" name="ad_role[{$vo.ad_id}]" title="{$vo.erole}" disabled  {$vo.is_checked ? 'checked' : ''}>
+                    {if condition="$vo.is_checked eq true"}
+                    <input type="checkbox" class="checkbox" lay-skin="primary" name="ad_role[{$vo.ad_id}]" title="{$vo.erole}" disabled checked>
+                    {/if}
                     {/volist}
                 </div>
             </div>

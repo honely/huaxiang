@@ -197,11 +197,11 @@ class Index extends Controller
 
     //网站首页。欢迎页
     public function welcome(){
-        $corpId = intval(session('ad_corp'));
+        $corpId = session('ad_corp');
         $houseM = new Housem();
-        $adminId = session('adminId');
         $ad_role = session('ad_role');
-        $whereHAll = $ad_role == 1 ? '1 = 1' : '1 = 1 and is_admin = 2 and user_id = '.$adminId;
+        $adminid = session('adminId');
+        $whereHAll = $ad_role == 1 ? "1 = 1" : "1 = 1 and is_admin = 2 and corp in (".$corpId.")";
         $whereAll = '1 = 1';
         $allHouse = $houseM->houseCount($whereHAll);
         $allUser = $houseM->userCount($whereAll);
@@ -209,8 +209,12 @@ class Index extends Controller
         $todayEnd = date('Y-m-d').' 23:59:59';
         $whereToday = "(cdate >= '".$todayStart."' and cdate <= '".$todayEnd."')";
         $where = "(publish_date >= '".$todayStart."' and publish_date <= '".$todayEnd."') and ".$whereHAll;
+        $wherePerAll = 'is_admin = 2 and pm = '.$adminid;
+        $wherePerTodayHouse = 'is_admin = 2 and pm = '.$adminid." and ".$whereToday;
         $todayUser = $houseM->userCount($whereToday);
         $todayHouse = $houseM->houseCount($where);
+        $perAllHouse = $houseM->houseCount($wherePerAll);
+        $perTodayHouse = $houseM->houseCount($wherePerTodayHouse);
         //下线一个月之前发布的房源
         $this->offLineHouse();
         //更新房源的点击和收藏量（虚拟数据）
@@ -225,6 +229,8 @@ class Index extends Controller
         $this->assign('allHouse',$allHouse);
         $this->assign('allUser',$allUser);
         $this->assign('todayHouse',$todayHouse);
+        $this->assign('perAllHouse',$perAllHouse);
+        $this->assign('perTodayHouse',$perTodayHouse);
         $this->assign('todayUser',$todayUser);
         return $this->fetch();
     }
@@ -307,13 +313,20 @@ class Index extends Controller
         $weekAgo = date("Y-m-d", strtotime("-30 days"));
         $arr = $this->periodDate($weekAgo,$today);
         $houseM = new Housem();
-        $adminId = session('adminId');
         $ad_role = session('ad_role');
-        $where = $ad_role == 1 ? '1 = 1' : 'is_admin = 2 and user_id = '.$adminId;
+        $corpId = session('ad_corp');
+        $ad_id=intval(session('adminId'));
+        //角色不是超级管理员且有房源列表的权限的员工仅显示他的公司下的房源
+        $where = $ad_role == 1 ? '1 = 1' : 'is_admin = 2 and corp in ('.$corpId.')';
+        $whereAdmin = $ad_role == 1 ? '1 = 1' : 'is_admin = 2 and pm = '.$ad_id;
         foreach ($arr as $k => $v){
-            $wherehouse = " publish_date >= '".$v['date']." 00:00:00' and publish_date <= '".$v['date']." 23:59:59' and is_del = 1 and ".$where;
+            $wherehouse = " publish_date <= '".$v['date']." 23:59:59' and is_del = 1";
             $wheres = " cdate >= '".$v['date']." 00:00:00' and cdate <= '".$v['date']." 23:59:59'";
-            $arr[$k]['nums'] = $houseM->houseCount($wherehouse);
+            $arr[$k]['nums'] = $houseM->houseCount($wherehouse." and ".$where);
+            //企业每日新增
+            $arr[$k]['nums1'] = $houseM->houseCount($wherehouse." and ".$where);
+            //个人每日新增
+            $arr[$k]['nums2'] = $houseM->houseCount($wherehouse." and ".$whereAdmin);
             $arr[$k]['users'] = $houseM->userCount($wheres);
         }
         $sqldata_json=json_encode($arr);
@@ -338,9 +351,10 @@ class Index extends Controller
         $arrs[3]['name'] =  $langs == 'Cn' ? '布里斯班':'Brisbane';
         $arrs[3]['names'] ='布里斯班';
         $houseM = new Housem();
-        $adminId = session('adminId');
         $ad_role = session('ad_role');
-        $where = $ad_role == 1 ? '1 = 1' : 'is_admin = 2 and user_id = '.$adminId;
+        $corpId = session('ad_corp');
+        //角色不是超级管理员且有房源列表的权限的员工仅显示他的公司下的房源
+        $where = $ad_role == 1 ? '1 = 1' : 'is_admin = 2 and corp = '.$corpId;
         foreach ($arrs as $k => $v){
             $wheres = "is_del = 1 and city = '".$v['names']."' and ".$where;
             $arrs[$k]['value'] = $houseM->houseCount($wheres);
@@ -351,11 +365,25 @@ class Index extends Controller
   
   
       public function getHousePieStatus(){
+        $type = $this->request->param('type',0);
         $lang = new Languages();
         $langs = $lang->getLang();
         $adminId = session('adminId');
-        $ad_role = session('ad_role');
-        $where = $ad_role == 1 ? '1 = 1' : 'is_admin = 2 and user_id = '.$adminId;
+        $corpId = session('ad_corp');
+        //角色不是超级管理员且有房源列表的权限的员工仅显示他的公司下的房源
+          switch ($type){
+              //企业
+              case 1:
+                  $where = "is_admin = 2 and corp in (".$corpId.")";
+                  break;
+                  //个人
+              case 2:
+                  $where = "is_admin = 2 and pm = ".$adminId;
+                  break;
+                  //管理员
+              default:
+                  $where = '1 = 1';
+          }
         $arrs[0]['name'] = $langs == 'Cn' ? '草稿':'Draft';
         $arrs[1]['name'] = $langs == 'Cn' ? '发布':'On';
         $arrs[2]['name'] = $langs == 'Cn' ? '下线':'Off';
@@ -473,5 +501,36 @@ class Index extends Controller
             Db::table('tk_houses')->where(['id' => $v['id']])->update(['publish_date' => $v['mdate']]);
         }
         dump($houses);
+    }
+
+
+    /***
+     * 根据发房源的公司信息修改房源的公司信息和PM
+     */
+    public function updateHouseCorpAndPm(){
+        //查询所有是后台发布的房源
+        $adminHouse = Db::table('tk_houses')
+            ->where(['is_admin' => 2])
+            ->field('id,user_id,pm,corp,is_admin')
+            ->select();
+        if($adminHouse){
+            foreach ($adminHouse as $k => $v){
+                //根据每个房源的userID查询到发房员的公司id
+                //更新房源的公司id和pm
+                $adminCorpid = $this->getAdminCorpId($v['user_id']);
+                $res = Db::table('tk_houses')
+                    ->where(['id' => $v['id']])
+                    ->update(['pm' => $v['user_id'],'corp' =>$adminCorpid]);
+            }
+        }
+    }
+
+
+    public function getAdminCorpId($userid){
+        $adminInfo = Db::table('super_admin')
+            ->where(['ad_id' => $userid])
+            ->field('ad_corp')
+            ->find();
+        return $adminInfo ? $adminInfo['ad_corp'] : 0;
     }
 }

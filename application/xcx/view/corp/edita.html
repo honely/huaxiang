@@ -67,7 +67,9 @@
                 <label class="layui-form-label">公司</label>
                 <div class="layui-input-block">
                     {volist name='crop' id='vo'}
-                    <input type="checkbox" class="checkbox" disabled lay-skin="primary" name="ad_corp[{$vo.cp_id}]" title="{$vo.cp_name}"  {$vo.is_checked ? 'checked' : ''}>
+                    {if condition="$vo.is_checked eq true"}
+                    <input type="checkbox" class="checkbox" lay-skin="primary" name="ad_corp[{$vo.cp_id}]" title="{$vo.cp_name}"  disabled checked >
+                    {/if}
                     {/volist}
                 </div>
             </div>

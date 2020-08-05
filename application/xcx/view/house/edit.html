@@ -655,7 +655,7 @@
                     success: function(data){
                         console.log(data);
                         var code=data.data;
-                        $("#pm").html("<option value=''>{$lable.selectSchoolP}</option>");
+                        $("#pm").html("<option value=''></option>");
                         $.each(code, function(i, val) {
                             var option1 = $("<option>").val(val.ad_id).text(val.ad_realname);
                             $("#pm").append(option1);

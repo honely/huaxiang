@@ -89,7 +89,13 @@ class House extends Controller{
         return $roleInfo['r_power'];
     }
     public function houseData(){
+        $roleId = session('ad_role');
+        $corpId = session('ad_corp');
         $where ='is_del = 1';
+        //角色不是超级管理员且有房源列表的权限的员工仅显示他的公司下的房源
+        if($roleId != 1){
+            $where .=" and corp in (".$corpId.")";
+        }
         $keywords = trim($this->request->param('keywords'));
         $keytype = trim($this->request->param('keytype'));
         $time = trim($this->request->param('time'));
@@ -226,12 +232,29 @@ class House extends Controller{
             $design[$k]['isTop'] = $this->greaterTops($v['id']);
             $design[$k]['isTj'] = $this->greaterTjs($v['id']);
             $design[$k]['price'] = $this->getPrice($v['price']);
+            $design[$k]['corp'] = $this->getCorp($v['corp']);
+            $design[$k]['pm'] = $this->getPmname($v['pm']);
         }
         $res['code'] = 0;
         $res['msg'] = "";
         $res['data'] = $design;
         $res['count'] = $count;
         return json($res);
+    }
+
+    public function getPmname($pm){
+        $pminfo = Db::table('super_admin')
+            ->where(['ad_id' => $pm])
+            ->field('ad_realname')
+            ->find();
+        return $pminfo ? $pminfo['ad_realname'] : 'Unknown';
+    }
+    public function getCorp($price){
+        $pminfo = Db::table('xcx_corp')
+            ->where(['cp_id' => $price])
+            ->field('cp_name')
+            ->find();
+        return $pminfo ? $pminfo['cp_name'] : 'Unknown';
     }
 
     public function getPrice($price){
@@ -367,15 +390,9 @@ class House extends Controller{
                 $this->error('添加失败！',$url);
             }
         }else{
-            $adminId = session('adminId');
-            $adminInfo = Db::table('super_admin')
-                ->where(['ad_id' => $adminId])
-                ->field('ad_realname,ad_email,ad_weixin,ad_phone')
-                ->find();
             $lang = new Languages();
             $langs = $lang->getLang();
             $enLab = $lang->getLanguages();
-            $this->assign('admin',$adminInfo);
             $city = Db::table('tk_cate')->where(['pid' => 0])->select();
             $this->assign('city',$city);
             $all_tags = Db::table('xcx_tags')
@@ -409,8 +426,9 @@ class House extends Controller{
 
     public function getpm(){
         $cpid = trim($this->request->param('cp_id'));
+        //一在多里面 find_in_set  多在一里面 in
         $pmInfo = Db::table('super_admin')
-            ->where("ad_corp in (".$cpid.")")
+            ->where("find_in_set('".$cpid."',ad_corp) and ad_isable = 1")
             ->field('ad_id,ad_realname')
             ->select();
         if($pmInfo){
@@ -1593,13 +1611,16 @@ class House extends Controller{
     }
 
     public function myData(){
-        $userId = session('ad_wechat');
+        //$userId = session('ad_wechat');
         $adminId = session('adminId');
-        if($userId){
-            $where ='is_del = 1 and  (( user_id = '.$userId.' and is_admin = 1 ) or ( user_id = '.$adminId.' and is_admin = 2))';
-        }else{
-            $where ='is_del = 1 and  user_id = '.$adminId.' and is_admin = 2 ';
-        }
+        //$corpId = session('ad_corp');
+        //我的房源显示我发布的房源或者pm是我的房源
+        $where ='is_del = 1 and  ( user_id = '.$adminId.' or pm = '.$adminId.') and is_admin = 2 ';
+//        if($userId){
+//            $where ='is_del = 1 and  (( user_id = '.$userId.' and is_admin = 1 ) or ( user_id = '.$adminId.' and is_admin = 2))';
+//        }else{
+//            $where ='is_del = 1 and  user_id = '.$adminId.' and is_admin = 2 ';
+//        }
         $keywords = trim($this->request->param('keywords'));
         $time = trim($this->request->param('time'));
         $keytype = trim($this->request->param('keytype'));
@@ -1697,6 +1718,8 @@ class House extends Controller{
             $design[$k]['isTop'] = $this->greaterTops($v['id']);
             $design[$k]['isTj'] = $this->greaterTjs($v['id']);
             $design[$k]['price'] = $this->getPrice($v['price']);
+            $design[$k]['corp'] = $this->getCorp($v['corp']);
+            $design[$k]['pm'] = $this->getPmname($v['pm']);
         }
         $res['code'] = 0;
         $res['msg'] = "";

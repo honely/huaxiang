@@ -1,4 +1,4 @@
-<?php if (!defined('THINK_PATH')) exit(); /*a:3:{s:96:"D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\public/../application/xcx\view\account\personal.html";i:1596001389;s:82:"D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\application\xcx\view\index\header.html";i:1591180794;s:82:"D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\application\xcx\view\index\footer.html";i:1577269681;}*/ ?>
+<?php if (!defined('THINK_PATH')) exit(); /*a:3:{s:96:"D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\public/../application/xcx\view\account\personal.html";i:1596437318;s:82:"D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\application\xcx\view\index\header.html";i:1591180794;s:82:"D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\application\xcx\view\index\footer.html";i:1577269681;}*/ ?>
 <!DOCTYPE html>
 <html style="height: 100%">
 <head>
@@ -50,9 +50,9 @@
             <div class="layui-form-item">
                 <label class="layui-form-label"><span style="color: red;">*</span><?php echo $lable['yuangongjs']; ?></label>
                 <div class="layui-input-block">
-                    <?php if(is_array($allrole) || $allrole instanceof \think\Collection || $allrole instanceof \think\Paginator): $i = 0; $__LIST__ = $allrole;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$vo): $mod = ($i % 2 );++$i;?>
-                    <input type="checkbox" class="checkbox" lay-skin="primary" name="ad_role[<?php echo $vo['ad_id']; ?>]" title="<?php echo $vo['erole']; ?>" disabled  <?php echo !empty($vo['is_checked'])?'checked' : ''; ?>>
-                    <?php endforeach; endif; else: echo "" ;endif; ?>
+                    <?php if(is_array($allrole) || $allrole instanceof \think\Collection || $allrole instanceof \think\Paginator): $i = 0; $__LIST__ = $allrole;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$vo): $mod = ($i % 2 );++$i;if($vo['is_checked'] == true): ?>
+                    <input type="checkbox" class="checkbox" lay-skin="primary" name="ad_role[<?php echo $vo['ad_id']; ?>]" title="<?php echo $vo['erole']; ?>" disabled checked>
+                    <?php endif; endforeach; endif; else: echo "" ;endif; ?>
                 </div>
             </div>
             <div class="layui-form-item">

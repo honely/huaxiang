@@ -1,4 +1,4 @@
-<?php if (!defined('THINK_PATH')) exit(); /*a:3:{s:89:"D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\public/../application/xcx\view\house\add.html";i:1596200729;s:82:"D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\application\xcx\view\index\header.html";i:1591180794;s:82:"D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\application\xcx\view\index\footer.html";i:1577269681;}*/ ?>
+<?php if (!defined('THINK_PATH')) exit(); /*a:3:{s:89:"D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\public/../application/xcx\view\house\add.html";i:1596435540;s:82:"D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\application\xcx\view\index\header.html";i:1591180794;s:82:"D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\application\xcx\view\index\footer.html";i:1577269681;}*/ ?>
 <!DOCTYPE html>
 <html style="height: 100%">
 <head>
@@ -399,19 +399,19 @@
                 <div class="layui-form-item">
                     <label class="layui-form-label"><span style="color: red;">*</span><?php echo $lable['xingming']; ?></label>
                     <div class="layui-input-block">
-                        <input type="text" name="real_name" id='real_name' lay-verify="required|title" placeholder="请输入姓名" autocomplete="off" value="<?php echo $admin['ad_realname']; ?>" class="layui-input">
+                        <input type="text" name="real_name" id='real_name' lay-verify="required|title" placeholder="请输入姓名" autocomplete="off" value="" class="layui-input">
                     </div>
                 </div>
                 <div class="layui-form-item">
                     <label class="layui-form-label"><span style="color: red;">*</span><?php echo $lable['dianhua']; ?></label>
                     <div class="layui-input-block">
-                        <input type="text" name="tel" id="tel" lay-verify="required" placeholder="请输入电话" autocomplete="off" value="<?php echo $admin['ad_phone']; ?>" class="layui-input">
+                        <input type="text" name="tel" id="tel" lay-verify="required" placeholder="请输入电话" autocomplete="off" value="" class="layui-input">
                     </div>
                 </div>
                 <div class="layui-form-item">
                     <label class="layui-form-label"><?php echo $lable['youxiang']; ?></label>
                     <div class="layui-input-block">
-                        <input type="text" name="email" id="email" placeholder="请输入邮箱" autocomplete="off" value="<?php echo $admin['ad_email']; ?>" class="layui-input">
+                        <input type="text" name="email" id="email" placeholder="请输入邮箱" autocomplete="off" value="" class="layui-input">
                     </div>
                 </div>
                 <fieldset class="layui-elem-field layui-field-title" style="margin-top: 20px;">
@@ -658,7 +658,7 @@
                     success: function(data){
                         console.log(data);
                         var code=data.data;
-                        $("#pm").html("<option value=''><?php echo $lable['selectSchoolP']; ?></option>");
+                        $("#pm").html("<option value=''></option>");
                         $.each(code, function(i, val) {
                             var option1 = $("<option>").val(val.ad_id).text(val.ad_realname);
                             $("#pm").append(option1);

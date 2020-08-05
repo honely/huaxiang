@@ -1,4 +1,4 @@
-<?php if (!defined('THINK_PATH')) exit(); /*a:3:{s:93:"D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\public/../application/xcx\view\house\myhouse.html";i:1595839451;s:82:"D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\application\xcx\view\index\header.html";i:1591180794;s:82:"D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\application\xcx\view\index\footer.html";i:1577269681;}*/ ?>
+<?php if (!defined('THINK_PATH')) exit(); /*a:3:{s:93:"D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\public/../application/xcx\view\house\myhouse.html";i:1596527777;s:82:"D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\application\xcx\view\index\header.html";i:1591180794;s:82:"D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\application\xcx\view\index\footer.html";i:1577269681;}*/ ?>
 <!DOCTYPE html>
 <html style="height: 100%">
 <head>
@@ -149,6 +149,9 @@
                         <?php if($offable == true): ?>
                         <th lay-data="{field:'status',templet: '#status',width:110}"><?php echo $lable['shangxiaxian']; ?></th>
                         <?php endif; ?>
+                        <th lay-data="{field:'pm' ,width:110}">PM</th>
+                        <th lay-data="{field:'corp' ,width:110}">公司</th>
+                        <th lay-data="{field:'user_id' ,width:110}">发布人</th>
                         <th lay-data="{field:'cdate',width:120}"><?php echo $lable['updatetime']; ?></th>
                         <th lay-data="{ width:200, toolbar: '#barDemo'}"><?php echo $lable['caozuo']; ?></th>
                     </tr>

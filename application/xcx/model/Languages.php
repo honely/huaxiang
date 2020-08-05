@@ -308,7 +308,7 @@ class Languages extends Model
             'elect' => '包电',
             'gas' => '包气',
             'nets' => '包网',
-            'liveterm' => '租期',
+            'liveterm' => '租期（月）',
             'housedetail' => '房屋相关',
             'houseType' => '房型',
             'typebuxian' => '不限',
