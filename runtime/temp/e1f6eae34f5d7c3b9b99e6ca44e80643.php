@@ -1,4 +1,4 @@
-<?php if (!defined('THINK_PATH')) exit(); /*a:3:{s:90:"D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\public/../application/xcx\view\corp\index.html";i:1596190067;s:82:"D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\application\xcx\view\index\header.html";i:1591180794;s:82:"D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\application\xcx\view\index\footer.html";i:1577269681;}*/ ?>
+<?php if (!defined('THINK_PATH')) exit(); /*a:3:{s:90:"D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\public/../application/xcx\view\corp\index.html";i:1596633472;s:82:"D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\application\xcx\view\index\header.html";i:1591180794;s:82:"D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\application\xcx\view\index\footer.html";i:1577269681;}*/ ?>
 <!DOCTYPE html>
 <html style="height: 100%">
 <head>
@@ -30,38 +30,38 @@
 </style>
 <div style="margin: 20px;">
     <span class="layui-breadcrumb" lay-separator=">">
-        <a>公司管理</a>
-        <a><cite>公司列表</cite></a>
+        <a><?php echo $lable['gongsiguanli']; ?></a>
+        <a><cite><?php echo $lable['gongsiliebiao']; ?></cite></a>
     </span>
     <div style="float:right;">
         <?php if($addable == true): ?>
-        <button class="layui-btn layui-btn-primary layui-btn-sm"  onclick="addBanner()"><i class="layui-icon"></i>添加公司</button>
+        <button class="layui-btn layui-btn-primary layui-btn-sm"  onclick="addBanner()"><i class="layui-icon"></i><?php echo $lable['tianjia']; ?></button>
         <?php endif; ?>
     </div>
 </div>
 <hr/>
 <section class="panel panel-padding">
-    <table lay-skin="line" class="layui-table" lay-filter="demo" lay-data="{height: 'full-200', cellMinWidth:30, url:'/xcx/corp/corpData/', limit:50,limits:[50] ,id: 'testReload',page:true}" >
+    <table lay-skin="line" class="layui-table" lay-filter="demo" lay-data="{height: 'full-100', cellMinWidth:30, url:'/xcx/corp/corpData/', limit:50,limits:[50] ,id: 'testReload',page:true}" >
         <thead>
         <tr>
             <th lay-data="{field:'cp_id',width:80}">Id</th>
-            <th lay-data="{field:'cp_name'}">公司名称</th>
-            <th lay-data="{field:'cp_address'}">地址</th>
-            <th lay-data="{field:'cp_email'}">邮箱</th>
-            <th lay-data="{field:'cp_tel'}">电话</th>
-            <th lay-data="{field:'cp_count'}">员工数</th>
-            <th lay-data="{field:'cp_addtime'}">提交时间</th>
-            <th lay-data="{align:'left',width:168, toolbar: '#barDemo'}">操作</th>
+            <th lay-data="{field:'cp_name'}"><?php echo $lable['gongsimingcheng']; ?></th>
+            <th lay-data="{field:'cp_address'}"><?php echo $lable['address']; ?></th>
+            <th lay-data="{field:'cp_email'}"><?php echo $lable['youxiang']; ?></th>
+            <th lay-data="{field:'cp_tel'}"><?php echo $lable['dianhua']; ?></th>
+            <th lay-data="{field:'cp_count'}"><?php echo $lable['yuangongshu']; ?></th>
+            <th lay-data="{field:'cp_addtime'}"><?php echo $lable['tijiaoshijian']; ?></th>
+            <th lay-data="{align:'left',width:188, toolbar: '#barDemo'}"><?php echo $lable['caozuo']; ?></th>
         </tr>
         </thead>
     </table>
 </section>
 <script type="text/html" id="barDemo">
-    <a class="layui-btn layui-btn-xs" lay-event="review">详情</a>
+    <a class="layui-btn layui-btn-xs" lay-event="review"><?php echo $lable['xiangqing']; ?></a>
     <?php if($editable == true): ?>
-    <a class="layui-btn layui-btn-xs layui-btn-warm" lay-event="edit">编辑</a>
+    <a class="layui-btn layui-btn-xs layui-btn-warm" lay-event="edit"><?php echo $lable['bianji']; ?></a>
     <?php endif; if($delable == true): ?>
-    <a class="layui-btn layui-btn-xs layui-btn-danger" lay-event="del">删除</a>
+    <a class="layui-btn layui-btn-xs layui-btn-danger" lay-event="del"><?php echo $lable['delete']; ?></a>
     <?php endif; ?>
 </script>
 <script type="text/javascript">
@@ -101,7 +101,7 @@
             if(obj.event === 'review'){
                 layer.open({
                     type: 2,
-                    title: '公司详情',
+                    title: '<?php echo $lable['xiangqing']; ?>',
                     shadeClose: true,
                     shade: false,
                     maxmin: true,
@@ -111,8 +111,8 @@
             }else if(obj.event === 'edit'){
                 window.location.href='<?=url("corp/edit")?>?cp_id='+h_id;
             }else if(obj.event === 'del'){
-                layer.confirm('确定删除该公司？删除后不可恢复！', {
-                    btn : [ '确定', '取消' ]//按钮
+                layer.confirm('<?php echo $lable['deleteConfirm']; ?>！', {
+                    btn : [ '<?php echo $lable['sure']; ?>', '<?php echo $lable['cancel']; ?>' ]//按钮
                 }, function() {
                     $.ajax({
                         'type':"get",
@@ -124,7 +124,7 @@
                             }else {
                                 layer.msg(result.msg);
                                 layer.open({
-                                    title: '信息'
+                                    title: '<?php echo $lable['deleteSuc']; ?>'
                                     ,content: result.msg
                                     ,yes: function(index){
                                         layer.close(index);
@@ -142,7 +142,7 @@
                         }
                     })
                 },function(){
-                    layer.msg('您已取消该操作！',{
+                    layer.msg('<?php echo $lable['quxiaocaozuo']; ?>！',{
                         time: 2000
                     });
                 });

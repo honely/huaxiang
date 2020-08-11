@@ -1,4 +1,4 @@
-<?php if (!defined('THINK_PATH')) exit(); /*a:3:{s:93:"D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\public/../application/xcx\view\index\welcome.html";i:1596537015;s:82:"D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\application\xcx\view\index\header.html";i:1591180794;s:82:"D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\application\xcx\view\index\footer.html";i:1577269681;}*/ ?>
+<?php if (!defined('THINK_PATH')) exit(); /*a:3:{s:93:"D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\public/../application/xcx\view\index\welcome.html";i:1596636056;s:82:"D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\application\xcx\view\index\header.html";i:1591180794;s:82:"D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\application\xcx\view\index\footer.html";i:1577269681;}*/ ?>
 <!DOCTYPE html>
 <html style="height: 100%">
 <head>
@@ -289,7 +289,7 @@
     // 每日房源新增折线图
     option = {
         title: {
-            text: '<?php echo $lable['dayIncHouse']; ?>'
+            text: '<?php echo $lable['totalHouse']; ?>'
         },
         xAxis: {
             type: 'category',
@@ -306,7 +306,7 @@
     //每日用户新增折线图
     option1 = {
         title: {
-            text: '<?php echo $lable['dayIncUser']; ?>'
+            text: '<?php echo $lable['totalUser']; ?>'
         },
         xAxis: {
             type: 'category',
@@ -388,7 +388,7 @@
     //房源企业每日新增
     option4 = {
         title: {
-            text: '<?php echo $lable['dayIncHouse']; ?>'
+            text: '<?php echo $lable['totalHouse']; ?>'
         },
         xAxis: {
             type: 'category',
@@ -437,7 +437,7 @@
     //房源个人每日新增
     option6 = {
         title: {
-            text: '<?php echo $lable['dayIncHouse']; ?>'
+            text: '<?php echo $lable['totalHouse']; ?>'
         },
         xAxis: {
             type: 'category',

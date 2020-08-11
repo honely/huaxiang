@@ -61,6 +61,7 @@ class Mailer extends  Controller
         $mail->addReplyTo($mailer,"Reply");
         $mail->Subject = "新举报提醒";// 邮件标题
         $mail->Body = "有一条新的请尽快处理！";
+        dump($mail->send());
         if(!$mail->send()){
             return json(['code'=>0,'msg'=>'发送失败！请联系管理员']);
         }else{

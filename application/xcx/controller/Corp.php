@@ -3,6 +3,7 @@
 namespace app\xcx\controller;
 
 
+use app\xcx\model\Languages;
 use app\xcx\model\Loops;
 use app\xcx\model\Rolem;
 use phpmailer\PHPMailer;
@@ -19,6 +20,9 @@ class Corp extends Controller
         $addable = in_array('290',$power_list,true);
         $editable = in_array('291',$power_list,true);
         $delable = in_array('293',$power_list,true);
+        $lang = new Languages();
+        $enLab = $lang->getLanguages();
+        $this->assign('lable',$enLab);
         $this->assign('addable',$addable);
         $this->assign('editable',$editable);
         $this->assign('delable',$delable);
@@ -98,6 +102,9 @@ class Corp extends Controller
         $power_list = $roleM->getPowerListByAdminId($adminId);
         $addable = in_array('288',$power_list,true);
         $editable = in_array('289',$power_list,true);
+        $lang = new Languages();
+        $enLab = $lang->getLanguages();
+        $this->assign('lable',$enLab);
         $this->assign('addable',$addable);
         $this->assign('editable',$editable);
         return $this->fetch();
@@ -126,6 +133,9 @@ class Corp extends Controller
                 $this->error('添加失败!','index');
             }
         }else{
+            $lang = new Languages();
+            $enLab = $lang->getLanguages();
+            $this->assign('lable',$enLab);
             return $this->fetch();
         }
     }
@@ -159,6 +169,9 @@ class Corp extends Controller
             $banInfo=Db::table('xcx_corp')
                 ->where(['cp_id'=> $ba_id])
                 ->find();
+            $lang = new Languages();
+            $enLab = $lang->getLanguages();
+            $this->assign('lable',$enLab);
             $this->assign('type',$type);
             $this->assign('title',$title);
             $this->assign('corp',$banInfo);
@@ -200,6 +213,9 @@ class Corp extends Controller
         $banInfo=Db::table('xcx_corp')
             ->where(['cp_id'=> $ba_id])
             ->find();
+        $lang = new Languages();
+        $enLab = $lang->getLanguages();
+        $this->assign('lable',$enLab);
         $this->assign('corp',$banInfo);
         return $this->fetch();
     }
@@ -209,11 +225,14 @@ class Corp extends Controller
         $adminId = session('adminId');
         $roleM = new Rolem();
         $power_list = $roleM->getPowerListByAdminId($adminId);
-        $addable = in_array('237',$power_list,true);
-        $editable = in_array('238',$power_list,true);
+        $addable = in_array('287',$power_list,true);
+        $editable = in_array('288',$power_list,true);
         $delable = in_array('239',$power_list,true);
         $offable = in_array('286',$power_list,true);
         $connectable = in_array('285',$power_list,true);
+        $lang = new Languages();
+        $enLab = $lang->getLanguages();
+        $this->assign('lable',$enLab);
         $this->assign('addable',$addable);
         $this->assign('editable',$editable);
         $this->assign('delable',$delable);
@@ -293,9 +312,11 @@ class Corp extends Controller
     public function getRole($roleid){
         $roleInfo = Db::table('super_role')
             ->where(['r_id' => $roleid])
-            ->field('r_name')
+            ->field('r_name,r_admin')
             ->find();
-        return $roleInfo['r_name'];
+        $lang = new Languages();
+        $enLab = $lang->getLang();
+        return $enLab == 'Cn' ? $roleInfo['r_name'] : $roleInfo['r_admin'];
     }
 
 
@@ -341,9 +362,9 @@ class Corp extends Controller
                     ->find();
                 $this->sendEmail($adminInfo['ad_email']);
                 //给平台用户发送一条账户邮箱激活链接
-                $this->success('添加成功，请查收账户激活邮件','admin');
+                $this->success('添加成功，请查收账户激活邮件','my');
             }else{
-                $this->error('添加管理员失败','admin');
+                $this->error('添加管理员失败','my');
             }
         }else{
             $cropId = session('ad_corp');
@@ -357,6 +378,9 @@ class Corp extends Controller
                 ->field('cp_name')
                 ->find();
             $cpname = $cpname['cp_name'];
+            $lang = new Languages();
+            $enLab = $lang->getLanguages();
+            $this->assign('lable',$enLab);
             $this->assign('crop',$crop);
             $this->assign('crop',$crop);
             $this->assign('cpname',$cpname);
@@ -405,13 +429,15 @@ class Corp extends Controller
                 $this->error('您未做任何修改！','admin');
             }
         }else{
+            $lang = new Languages();
             $adminInfo=Db::table('super_admin')
                 ->where(['ad_id' => $ad_id])
                 ->find();
+            $enLab = $lang->getLanguages();
             $allrole = [
                 [
                     'ad_id' => '44',
-                    'ad_role' => '企业员工',
+                    'ad_role' => $enLab['staff'],
                     'is_checked' => false
                 ]
             ];
@@ -436,6 +462,7 @@ class Corp extends Controller
                     $val['is_checked'] = true;
                 }
             }unset($val);
+            $this->assign('lable',$enLab);
             $this->assign('crop',$all_tags);
             $this->assign('allrole',$allrole);
             $this->assign('admin',$adminInfo);
@@ -443,6 +470,28 @@ class Corp extends Controller
         }
     }
 
+
+    public function detaila(){
+        $ad_id=intval($_GET['ad_id']);
+        $adminInfo=Db::table('super_admin')
+            ->where(['ad_id' => $ad_id])
+            ->find();
+        if($adminInfo){
+            $adminInfo['ad_roles'] = $this->getRoleName($adminInfo['ad_role']);
+            $adminInfo['ad_corp'] = $this->getCropName($adminInfo['ad_corp']);
+        }
+        $where = '1 = 1';
+        $roleInfo=Db::table('super_role')
+            ->field('r_id,r_name')
+            ->where($where)
+            ->select();
+        $lang = new Languages();
+        $enLab = $lang->getLanguages();
+        $this->assign('lable',$enLab);
+        $this->assign('role',$roleInfo);
+        $this->assign('admin',$adminInfo);
+        return $this->fetch();
+    }
 
 
     public function sendEmail($mailer){
@@ -462,16 +511,16 @@ class Corp extends Controller
         $mail->addReplyTo($mailer,"Reply");
         $mail->Subject = "[Welhome]Congratulations, You have registered on Welhome Agent Platform!";// 邮件标题
         $mail->IsHTML(true);
-        $mail->Body = "Welhome Aboard! You're the most valuable client to us.
+        $mail->Body = "Welhome Aboard! Welhome Agent Platform (www.welho.me).
         <br/><br/>
-Welhome Agent Platform (WAP) is an professional property leasing platform dedicated design for Realestate Agents. It's totally free!
+The best Realestate wechat app in Australia, an professional property leasing platform dedicated for Realestate Agents.
  <br/><br/>
  You can 'Add listing', 'Manage Listing' and 'Chat' . If you find any problem or suggestion, please feel free to contact us!<br/><br/>
 <b>Your Account:</b>".$mailer."
  <br/><br/>
 <b>Default Password:</b> 123456
  <br/><br/>
-Please follow the activation link: <a href='https://cs.huaxiangxiaobao.com/api/index/active?email=".$mailer."'>https://cs.huaxiangxiaobao.com/api/index/active?email=".$mailer."</a>
+Please follow the activation link: <a href='https://wx.huaxiangxiaobao.com/api/index/active?email=".$mailer."'>https://wx.huaxiangxiaobao.com/api/index/active?email=".$mailer."</a>
  <br/><br/><br/><br/><br/>
 <img style='width: 204px;height: 86px;' src='https://wx.huaxiangxiaobao.com/public/ueditor/php/upload/image/20200417/1587119666198174.png'>
 <br>

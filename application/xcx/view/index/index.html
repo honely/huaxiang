@@ -40,6 +40,13 @@
                 </li>
             </ul>
         {/if}
+        {if condition="$ad_role eq 1"}
+            <ul class="layui-nav layui-layout-left" style="margin-left: 350px;">
+                <li class="layui-nav-item">
+                    <a href='javascript:void()' onclick="toUser(this)" style="padding-left: 10px !important;"  data-url="/xcx/help/index.html">帮我找房</a>
+                </li>
+            </ul>
+        {/if}
         <ul class="layui-nav layui-layout-right">
             <li class="layui-nav-item">
                 <a style="padding-left: 10px !important;" href="javascript:void()" data-lang="{$langs}" id="changeLang">

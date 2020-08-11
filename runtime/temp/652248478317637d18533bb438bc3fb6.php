@@ -1,4 +1,4 @@
-<?php if (!defined('THINK_PATH')) exit(); /*a:3:{s:91:"D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\public/../application/xcx\view\corp\detail.html";i:1596183550;s:82:"D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\application\xcx\view\index\header.html";i:1591180794;s:82:"D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\application\xcx\view\index\footer.html";i:1577269681;}*/ ?>
+<?php if (!defined('THINK_PATH')) exit(); /*a:3:{s:91:"D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\public/../application/xcx\view\corp\detail.html";i:1596593775;s:82:"D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\application\xcx\view\index\header.html";i:1591180794;s:82:"D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\application\xcx\view\index\footer.html";i:1577269681;}*/ ?>
 <!DOCTYPE html>
 <html style="height: 100%">
 <head>
@@ -33,31 +33,30 @@
 <div class="layui-body">
     <div class="layui-tab">
         <div class="layui-tab-content">
-            <!--基本信息-->
             <div class="layui-tab-item layui-show">
                 <div style="margin: 10px">
                     <div style="padding: 15px;">
                         <form class="layui-form" method="post">
                             <div class="layui-form-item">
-                                <label class="layui-form-label"><span style="color: red;">*</span>公司名称</label>
+                                <label class="layui-form-label"><span style="color: red;">*</span><?php echo $lable['gongsimingcheng']; ?></label>
                                 <div class="layui-input-block">
-                                    <input type="text" name="cp_name" lay-verify="required|title" readonly placeholder="请输入公司名称" value="<?php echo $corp['cp_name']; ?>" autocomplete="off" class="layui-input">
+                                    <input type="text" name="cp_name" lay-verify="required|title" readonly value="<?php echo $corp['cp_name']; ?>" autocomplete="off" class="layui-input">
                                 </div>
                             </div>
                             <div class="layui-form-item">
                                 <label class="layui-form-label"><span style="color: red;">*</span>ABN</label>
                                 <div class="layui-input-block">
-                                    <input type="text" name="cp_identity" lay-verify="required|title" placeholder="请输入ABN" readonly value="<?php echo $corp['cp_identity']; ?>"  autocomplete="off" class="layui-input">
+                                    <input type="text" name="cp_identity" lay-verify="required|title" readonly value="<?php echo $corp['cp_identity']; ?>"  autocomplete="off" class="layui-input">
                                 </div>
                             </div>
                             <div class="layui-form-item">
-                                <label class="layui-form-label"><span style="color: red;">*</span>公司地址</label>
+                                <label class="layui-form-label"><span style="color: red;">*</span><?php echo $lable['address']; ?></label>
                                 <div class="layui-input-block">
-                                    <input type="text" readonly name="cp_address" lay-verify="required|title" placeholder="请输入公司地址" value="<?php echo $corp['cp_address']; ?>"  autocomplete="off" class="layui-input">
+                                    <input type="text" readonly name="cp_address" lay-verify="required|title" value="<?php echo $corp['cp_address']; ?>"  autocomplete="off" class="layui-input">
                                 </div>
                             </div>
                             <div class="layui-form-item one-pan">
-                                <label class="layui-form-label"><span style="color: red;">*</span>公司logo</label>
+                                <label class="layui-form-label"><span style="color: red;">*</span>Logo</label>
                                 <div <?php if($corp['cp_logo'] == null): ?>class="layui-upload-drag"<?php endif; ?> style="display:inline-block;" >
                                 <image id="logoPre"
                                        <?php if($corp['cp_logo'] == null): else: ?>
@@ -69,25 +68,25 @@
                                 </image>
                             </div>
                                 <div class="one">
-                                    <div class="layui-form-mid layui-word-aux" style="margin-left: 39px; ">图片要求，最大800KB，支持JPG/JEPG/PNG格式</div>
+                                    <div class="layui-form-mid layui-word-aux" style="margin-left: 39px; "><?php echo $lable['tupianRemark']; ?></div>
                                 </div>
                             </div>
                             <div class="layui-form-item">
-                                <label class="layui-form-label"><span style="color: red;">*</span>邮箱</label>
+                                <label class="layui-form-label"><span style="color: red;">*</span><?php echo $lable['youxiang']; ?></label>
                                 <div class="layui-input-block">
-                                    <input type="text" readonly name="cp_email" lay-verify="required|title" placeholder="请输入公司邮箱" value="<?php echo $corp['cp_email']; ?>"  autocomplete="off" class="layui-input">
+                                    <input type="text" readonly name="cp_email" lay-verify="required|title" value="<?php echo $corp['cp_email']; ?>"  autocomplete="off" class="layui-input">
                                 </div>
                             </div>
                             <div class="layui-form-item">
-                                <label class="layui-form-label"><span style="color: red;">*</span>电话</label>
+                                <label class="layui-form-label"><span style="color: red;">*</span><?php echo $lable['dianhua']; ?></label>
                                 <div class="layui-input-block">
-                                    <input type="text" readonly name="cp_tel" lay-verify="required|title" placeholder="请输入电话" value="<?php echo $corp['cp_tel']; ?>"  autocomplete="off" class="layui-input">
+                                    <input type="text" readonly name="cp_tel" lay-verify="required|title" value="<?php echo $corp['cp_tel']; ?>"  autocomplete="off" class="layui-input">
                                 </div>
                             </div>
                             <div class="layui-form-item layui-form-text">
-                                <label class="layui-form-label">公司简介</label>
+                                <label class="layui-form-label"><?php echo $lable['desc']; ?></label>
                                 <div class="layui-input-block">
-                                    <textarea placeholder="请输入公司简介" readonly maxlength="500" name="cp_desc" class="layui-textarea"><?php echo $corp['cp_desc']; ?></textarea>
+                                    <textarea readonly maxlength="500" name="cp_desc" class="layui-textarea"><?php echo $corp['cp_desc']; ?></textarea>
                                 </div>
                             </div>
                         </form>

@@ -1,4 +1,4 @@
-<?php if (!defined('THINK_PATH')) exit(); /*a:3:{s:91:"D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\public/../application/xcx\view\house\index.html";i:1596527777;s:82:"D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\application\xcx\view\index\header.html";i:1591180794;s:82:"D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\application\xcx\view\index\footer.html";i:1577269681;}*/ ?>
+<?php if (!defined('THINK_PATH')) exit(); /*a:3:{s:91:"D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\public/../application/xcx\view\house\index.html";i:1596628983;s:82:"D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\application\xcx\view\index\header.html";i:1591180794;s:82:"D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\application\xcx\view\index\footer.html";i:1577269681;}*/ ?>
 <!DOCTYPE html>
 <html style="height: 100%">
 <head>
@@ -58,7 +58,7 @@
                                     <option value="1"><?php echo $lable['title']; ?></option>
                                     <option value="4"><?php echo $lable['postby']; ?></option>
                                     <option value="3"><?php echo $lable['houseAddr']; ?></option>
-                                    <option value="5"><?php echo $lable['rendetail']; ?></option>
+                                    <option value="5"><?php echo $lable['detail']; ?></option>
                                 </select>
                             </div>
                             <div class="layui-input-inline" style="width:160px;">

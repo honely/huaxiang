@@ -628,7 +628,7 @@ class House extends Controller
         }
         $house = Db::table('tk_houses')
             ->where(['id' => $id])
-            ->field('id,title,city,area,price,type,status,house_room,car,toilet,user_id,is_admin')
+            ->field('id,title,city,area,price,type,status,house_room,car,toilet,user_id,is_admin,thumnail,images,cover')
             ->find();
         if (empty($house)) {
             $res['code'] = 0;
@@ -649,6 +649,11 @@ class House extends Controller
             $house['car'] =  $house['car'].'车位';
             $house['suburb'] =  $house['city'].' '.$house['area'];
             $house['toilet'] = $house['toilet'].'卫';
+
+            $cover = $this->getCoverImg($house['thumnail'],$house['images'],$house['cover']);
+            $house['cover'] = $this->compImg($id,$cover);
+            unset($house['thumnail']);
+            unset($house['images']);
             $res['code'] = 1;
             $res['msg'] = '读取成功！';
             $res['data'] = $house;
@@ -662,6 +667,34 @@ class House extends Controller
         return json($res);
     }
 
+
+    public function compImg($id,$cover){
+        $image = Image::open($cover);
+        $pathName = 'uploads/compress/cp'.$id.'.png';
+        $path = config('compImg').'uploads/compress/cp'.$id.'.png';
+        $corpImg = $image->thumb(650,430,Image::THUMB_CENTER)->save($pathName);
+        //吧压缩的图片更新到cover
+        Db::table('tk_houses')->where(['id'=> $id])->update(['cover' => $pathName]);
+       return $path;
+    }
+
+    /***
+     * 获取封面图片
+     * @param $thumb
+     * @param $image
+     * @param $cover
+     * @return mixed
+     */
+    public function getCoverImg($thumb,$image,$cover){
+        if(!$cover){
+            if(!$thumb){
+                $covers = explode(',',$image);
+                return $covers[0];
+            }
+            return $thumb;
+        }
+        return $cover;
+    }
 
     public function houseRoom($room){
         if($room == 0){

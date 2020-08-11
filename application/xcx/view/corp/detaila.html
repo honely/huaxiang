@@ -1,0 +1,77 @@
+{include file="index/header" /}
+<style>
+    .layui-upload-img {
+        width: 92px;
+        height: 92px;
+    }
+</style>
+<div class="layui-body">
+    <div style="padding: 15px;">
+        <form class="layui-form layui-form-pane1" action="<?=url('admin/add')?>" method="post">
+            <div class="layui-form-item">
+                <label class="layui-form-label"><span style="color: red;">*</span>{$lable.yuangongxm}</label>
+                <div class="layui-input-block">
+                    <input type="text" name="ad_realname" lay-verify="required|title"  value="{$admin.ad_realname}" readonly autocomplete="off" class="layui-input">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label"><span style="color: red;">*</span>{$lable.yuangongjs}</label>
+                <div class="layui-input-block">
+                    <input type="text" value="{$admin.ad_roles}" readonly autocomplete="off" class="layui-input">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label"><span style="color: red;">*</span>{$lable.email}</label>
+                <div class="layui-input-block">
+                    <input type="text" name="ad_email" id="ad_email" onblur="checkEmail()" autocomplete="off" readonly value="{$admin.ad_email}"  class="layui-input">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label"><span style="color: red;">*</span>{$lable.phone}</label>
+                <div class="layui-input-block">
+                    <input type="text" name="ad_phone" value="{$admin.ad_phone}"  id="ad_phone" readonly autocomplete="off" class="layui-input">
+                </div>
+            </div>
+            <div class="layui-upload">
+                <label class="layui-form-label">{$lable.avatar}</label>
+                <div class="layui-input-inline">
+                    <img class="layui-upload-img" id="demo1" {if condition="$admin.ad_img neq null"}src="__PUBLIC__/{$admin.ad_img}"{/if} >
+                    <p id="demoText"></p>
+                </div>
+            </div>
+            <div class="layui-form-item" pane>
+                <label class="layui-form-label"><span style="color: red;">*</span>{$lable.gender}</label>
+                <div class="layui-input-block">
+                    <input type="radio" name="ad_sex" disabled value="1" title="{$lable.male}" {if condition="$admin.ad_sex eq 1" }checked{/if}>
+                    <input type="radio" name="ad_sex" disabled value="2" title="{$lable.female}" {if condition="$admin.ad_sex eq 2" }checked{/if}>
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">{$lable.company}</label>
+                <div class="layui-input-block">
+                    <input type="text" name="ad_corp" readonly value="{$admin.ad_corp}"  autocomplete="off" class="layui-input">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">{$lable.position}</label>
+                <div class="layui-input-block">
+                    <input type="text" name="ad_job" readonly value="{$admin.ad_job}"  autocomplete="off" class="layui-input">
+                </div>
+            </div>
+            <div class="layui-form-item layui-form-text">
+                <label class="layui-form-label">{$lable.desc}</label>
+                <div class="layui-input-block">
+                    <textarea readonly maxlength="500" name="ad_desc" class="layui-textarea">{$admin.ad_desc}</textarea>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+<script>
+    layui.use(['form','jquery','upload'], function(){
+        var form = layui.form
+            ,$ = layui.jquery,
+            upload = layui.upload;
+    });
+</script>
+{include file="index/footer" /}

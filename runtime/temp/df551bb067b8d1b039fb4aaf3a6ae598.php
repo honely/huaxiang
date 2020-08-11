@@ -1,4 +1,4 @@
-<?php if (!defined('THINK_PATH')) exit(); /*a:3:{s:88:"D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\public/../application/xcx\view\corp\add.html";i:1596183550;s:82:"D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\application\xcx\view\index\header.html";i:1591180794;s:82:"D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\application\xcx\view\index\footer.html";i:1577269681;}*/ ?>
+<?php if (!defined('THINK_PATH')) exit(); /*a:3:{s:88:"D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\public/../application/xcx\view\corp\add.html";i:1596610421;s:82:"D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\application\xcx\view\index\header.html";i:1591180794;s:82:"D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\application\xcx\view\index\footer.html";i:1577269681;}*/ ?>
 <!DOCTYPE html>
 <html style="height: 100%">
 <head>
@@ -34,14 +34,14 @@
 <div class="layui-body">
     <div style="margin: 20px;">
     <span class="layui-breadcrumb" lay-separator=">">
-        <a>公司管理</a>
-        <a href="<?=url('corp/index')?>">公司列表</a>
-        <a><cite>添加公司</cite></a>
+        <a><?php echo $lable['gongsiguanli']; ?></a>
+        <a href="<?=url('corp/index')?>"><?php echo $lable['gongsiliebiao']; ?></a>
+        <a><cite><?php echo $lable['tianjia']; ?></cite></a>
     </span>
         <div style="float:right;">
             <a href="<?=url('corp/index')?>" class="layui-btn layui-btn-primary layui-btn-sm">
                 <i class="layui-icon layui-icon-return"></i>
-                返回列表</a>
+                <?php echo $lable['back']; ?></a>
         </div>
     </div>
     <hr/>
@@ -53,60 +53,60 @@
                     <div style="padding: 15px;">
                         <form class="layui-form" action="<?=url('corp/add')?>" method="post">
                             <div class="layui-form-item">
-                                <label class="layui-form-label"><span style="color: red;">*</span>公司名称</label>
+                                <label class="layui-form-label"><span style="color: red;">*</span><?php echo $lable['gongsimingcheng']; ?></label>
                                 <div class="layui-input-block">
-                                    <input type="text" name="cp_name" lay-verify="required|title" placeholder="请输入公司名称" autocomplete="off" class="layui-input">
+                                    <input type="text" name="cp_name" lay-verify="required|title" placeholder="<?php echo $lable['pleaseInput']; ?>" autocomplete="off" class="layui-input">
                                 </div>
                             </div>
                             <div class="layui-form-item">
                                 <label class="layui-form-label"><span style="color: red;">*</span>ABN</label>
                                 <div class="layui-input-block">
-                                    <input type="text" name="cp_identity" lay-verify="required|title" placeholder="请输入ABN" autocomplete="off" class="layui-input">
+                                    <input type="text" name="cp_identity" lay-verify="required|title" placeholder="<?php echo $lable['pleaseInput']; ?>" autocomplete="off" class="layui-input">
                                 </div>
                             </div>
                             <div class="layui-form-item">
-                                <label class="layui-form-label"><span style="color: red;">*</span>公司地址</label>
+                                <label class="layui-form-label"><span style="color: red;">*</span><?php echo $lable['address']; ?></label>
                                 <div class="layui-input-block">
-                                    <input type="text" name="cp_address" lay-verify="required|title" placeholder="请输入公司地址" autocomplete="off" class="layui-input">
+                                    <input type="text" name="cp_address" lay-verify="required|title" placeholder="<?php echo $lable['pleaseInput']; ?>" autocomplete="off" class="layui-input">
                                 </div>
                             </div>
                             <div class="layui-form-item one-pan">
-                                <label class="layui-form-label"><span style="color: red;">*</span>公司logo</label>
+                                <label class="layui-form-label"><span style="color: red;">*</span>Logo</label>
                                 <div class="layui-upload-drag" id="uploadLogo" style="display:inline-block;">
                                     <image id="logoPre">
                                         <input type="hidden" lay-verify="imgReg" name="cp_logo" id="cp_logo" value=""/>
                                     </image>
                                     <div id="display">
                                         <i class="layui-icon"></i>
-                                        <p>请点击此处上传logo</p>
+                                        <p><?php echo $lable['shangchuan']; ?></p>
                                     </div>
                                 </div>
                                 <div class="one">
-                                    <div class="layui-form-mid layui-word-aux" style="margin-left: 39px; ">图片要求，最大800KB，支持JPG/JEPG/PNG格式</div>
+                                    <div class="layui-form-mid layui-word-aux" style="margin-left: 39px; "><?php echo $lable['tupianRemark']; ?></div>
                                 </div>
                             </div>
                             <div class="layui-form-item">
-                                <label class="layui-form-label"><span style="color: red;">*</span>邮箱</label>
+                                <label class="layui-form-label"><span style="color: red;">*</span><?php echo $lable['youxiang']; ?></label>
                                 <div class="layui-input-block">
-                                    <input type="text" name="cp_email" lay-verify="required|title" placeholder="请输入公司邮箱" autocomplete="off" class="layui-input">
+                                    <input type="text" name="cp_email" lay-verify="required|title" placeholder="<?php echo $lable['pleaseInput']; ?>" autocomplete="off" class="layui-input">
                                 </div>
                             </div>
                             <div class="layui-form-item">
-                                <label class="layui-form-label"><span style="color: red;">*</span>电话</label>
+                                <label class="layui-form-label"><span style="color: red;">*</span><?php echo $lable['dianhua']; ?></label>
                                 <div class="layui-input-block">
-                                    <input type="text" name="cp_tel" lay-verify="required|title" placeholder="请输入电话" autocomplete="off" class="layui-input">
+                                    <input type="text" name="cp_tel" lay-verify="required|title" placeholder="<?php echo $lable['pleaseInput']; ?>" autocomplete="off" class="layui-input">
                                 </div>
                             </div>
                             <div class="layui-form-item layui-form-text">
-                                <label class="layui-form-label">公司简介</label>
+                                <label class="layui-form-label"><?php echo $lable['desc']; ?></label>
                                 <div class="layui-input-block">
-                                    <textarea placeholder="请输入公司简介" maxlength="500" name="cp_desc" class="layui-textarea"></textarea>
+                                    <textarea placeholder="<?php echo $lable['pleaseInput']; ?>" maxlength="500" name="cp_desc" class="layui-textarea"></textarea>
                                 </div>
                             </div>
                             <div class="layui-form-item">
                                 <div class="layui-input-block">
-                                    <button class="layui-btn" lay-submit lay-filter="saveInfo">添加</button>
-                                    <a class="layui-btn layui-btn-primary" href="<?=url('corp/index')?>">返回</a>
+                                    <button class="layui-btn" lay-submit lay-filter="saveInfo"><?php echo $lable['fabu']; ?></button>
+                                    <a class="layui-btn layui-btn-primary" href="<?=url('corp/index')?>"><?php echo $lable['back']; ?></a>
                                 </div>
                             </div>
                         </form>

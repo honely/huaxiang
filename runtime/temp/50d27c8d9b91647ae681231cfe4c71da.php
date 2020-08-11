@@ -1,4 +1,4 @@
-<?php if (!defined('THINK_PATH')) exit(); /*a:1:{s:91:"D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\public/../application/xcx\view\index\index.html";i:1595988804;}*/ ?>
+<?php if (!defined('THINK_PATH')) exit(); /*a:1:{s:91:"D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\public/../application/xcx\view\index\index.html";i:1597115906;}*/ ?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -38,6 +38,12 @@
                 <li class="layui-nav-item">
                     <a href='javascript:' onclick="toUser(this)" style="padding-left: 10px !important;"  data-url="/xcx/user/newui.html"><?php echo $lable['zhanneixin']; ?></a>
                     <span style="margin-left: 63px;display: none" id="unread" class="layui-badge"><?php echo $unread; ?></span>
+                </li>
+            </ul>
+        <?php endif; if($ad_role == 1): ?>
+            <ul class="layui-nav layui-layout-left" style="margin-left: 350px;">
+                <li class="layui-nav-item">
+                    <a href='javascript:void()' onclick="toUser(this)" style="padding-left: 10px !important;"  data-url="/xcx/help/index.html">帮我找房</a>
                 </li>
             </ul>
         <?php endif; ?>

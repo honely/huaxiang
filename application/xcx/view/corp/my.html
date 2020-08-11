@@ -8,34 +8,34 @@
 </style>
 <div style="margin: 20px;">
     <span class="layui-breadcrumb" lay-separator=">">
-        <a>公司管理</a>
-        <a><cite>我的公司</cite></a>
+        <a>{$lable.gongsiguanli}</a>
+        <a><cite>{$lable.wodegongsi}</cite></a>
     </span>
 </div>
 <hr/>
 <section class="panel panel-padding">
-    <table lay-skin="line" class="layui-table" lay-filter="demo" lay-data="{height: 'full-200', cellMinWidth:30, url:'/xcx/corp/myData/', limit:50,limits:[50] ,id: 'testReload',page:true}" >
+    <table lay-skin="line" class="layui-table" lay-filter="demo" lay-data="{height: 'full-90', cellMinWidth:30, url:'/xcx/corp/myData/', limit:50,limits:[50] ,id: 'testReload',page:true}" >
         <thead>
         <tr>
             <th lay-data="{field:'cp_id',width:80}">Id</th>
-            <th lay-data="{field:'cp_name'}">公司名称</th>
-            <th lay-data="{field:'cp_address'}">地址</th>
-            <th lay-data="{field:'cp_email'}">邮箱</th>
-            <th lay-data="{field:'cp_tel'}">电话</th>
-            <th lay-data="{field:'cp_count'}">员工数</th>
-            <th lay-data="{field:'cp_addtime'}">提交时间</th>
-            <th lay-data="{align:'left',width:185, toolbar: '#barDemo'}">操作</th>
+            <th lay-data="{field:'cp_name'}">{$lable.gongsimingcheng}</th>
+            <th lay-data="{field:'cp_address'}">{$lable.address}</th>
+            <th lay-data="{field:'cp_email'}">{$lable.youxiang}</th>
+            <th lay-data="{field:'cp_tel'}">{$lable.dianhua}</th>
+            <th lay-data="{field:'cp_count'}">{$lable.yuangongshu}</th>
+            <th lay-data="{field:'cp_addtime'}">{$lable.tijiaoshijian}</th>
+            <th lay-data="{align:'left',width:185, toolbar: '#barDemo'}">{$lable.caozuo}</th>
         </tr>
         </thead>
     </table>
 </section>
 <script type="text/html" id="barDemo">
-    <a class="layui-btn layui-btn-xs" lay-event="review">详情</a>
+    <a class="layui-btn layui-btn-xs" lay-event="review">{$lable.xiangqing}</a>
     {if condition='$editable eq true'}
-    <a class="layui-btn layui-btn-xs layui-btn-warm" lay-event="edit">编辑</a>
+    <a class="layui-btn layui-btn-xs layui-btn-warm" lay-event="edit">{$lable.bianji}</a>
     {/if}
     {if condition='$addable eq true'}
-    <a class="layui-btn layui-btn-xs layui-btn-warm" lay-event="add">添加员工</a>
+    <a class="layui-btn layui-btn-xs layui-btn-warm" lay-event="add">{$lable.tianjiayuangong}</a>
     {/if}
 </script>
 <script>
@@ -48,7 +48,7 @@
             if(obj.event === 'review'){
                 layer.open({
                     type: 2,
-                    title: '公司详情',
+                    title: '{$lable.xiangqing}',
                     shadeClose: true,
                     shade: false,
                     maxmin: true,

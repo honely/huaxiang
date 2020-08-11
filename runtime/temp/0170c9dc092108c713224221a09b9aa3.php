@@ -1,4 +1,4 @@
-<?php if (!defined('THINK_PATH')) exit(); /*a:3:{s:90:"D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\public/../application/xcx\view\corp\edita.html";i:1596437950;s:82:"D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\application\xcx\view\index\header.html";i:1591180794;s:82:"D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\application\xcx\view\index\footer.html";i:1577269681;}*/ ?>
+<?php if (!defined('THINK_PATH')) exit(); /*a:3:{s:90:"D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\public/../application/xcx\view\corp\edita.html";i:1596610278;s:82:"D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\application\xcx\view\index\header.html";i:1591180794;s:82:"D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\application\xcx\view\index\footer.html";i:1577269681;}*/ ?>
 <!DOCTYPE html>
 <html style="height: 100%">
 <head>
@@ -30,27 +30,26 @@
 <div class="layui-body">
     <div style="margin: 20px;">
     <span class="layui-breadcrumb" lay-separator=">">
-        <a>公司管理</a>
-        <a href="<?=url('corp/admin')?>">员工列表</a>
-        <a><cite>修改员工</cite></a>
+        <a><?php echo $lable['gongsiguanli']; ?></a>
+        <a><cite><?php echo $lable['bianji']; ?></cite></a>
     </span>
         <div style="float:right;">
             <a href="<?=url('corp/admin')?>" class="layui-btn layui-btn-primary layui-btn-sm">
                 <i class="layui-icon layui-icon-return"></i>
-                返回列表</a>
+                <?php echo $lable['back']; ?></a>
         </div>
     </div>
     <hr/>
     <div style="padding: 15px;">
         <form class="layui-form layui-form-pane1" action="<?=url('corp/edita')?>?ad_id=<?php echo $admin['ad_id']; ?>" method="post">
             <div class="layui-form-item">
-                <label class="layui-form-label"><span style="color: red;">*</span>员工姓名</label>
+                <label class="layui-form-label"><span style="color: red;">*</span><?php echo $lable['yuangongxm']; ?></label>
                 <div class="layui-input-block">
-                    <input type="text" name="ad_realname" lay-verify="required|title" placeholder="请输入管理员姓名" autocomplete="off" value="<?php echo $admin['ad_realname']; ?>" class="layui-input">
+                    <input type="text" name="ad_realname" lay-verify="required|title" placeholder="<?php echo $lable['pleaseInput']; ?>" autocomplete="off" value="<?php echo $admin['ad_realname']; ?>" class="layui-input">
                 </div>
             </div>
             <div class="layui-form-item">
-                <label class="layui-form-label"><span style="color: red;">*</span>员工角色</label>
+                <label class="layui-form-label"><span style="color: red;">*</span><?php echo $lable['yuangongjs']; ?></label>
                 <div class="layui-input-block">
                     <?php if(is_array($allrole) || $allrole instanceof \think\Collection || $allrole instanceof \think\Paginator): $i = 0; $__LIST__ = $allrole;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$vo): $mod = ($i % 2 );++$i;?>
                     <input type="checkbox" class="checkbox" disabled lay-skin="primary" name="ad_role[<?php echo $vo['ad_id']; ?>]" title="<?php echo $vo['ad_role']; ?>"  <?php echo !empty($vo['is_checked'])?'checked' : ''; ?>>
@@ -58,35 +57,35 @@
                 </div>
             </div>
             <div class="layui-form-item">
-                <label class="layui-form-label"><span style="color: red;">*</span>电子邮箱</label>
+                <label class="layui-form-label"><span style="color: red;">*</span><?php echo $lable['email']; ?></label>
                 <div class="layui-input-block">
-                    <input type="text" name="ad_email" id="ad_email" value="<?php echo $admin['ad_email']; ?>"  onblur="checkEmail()" lay-verify="required|email"  placeholder="请输入电子邮箱" autocomplete="off" class="layui-input">
+                    <input type="text" name="ad_email" id="ad_email" value="<?php echo $admin['ad_email']; ?>"  onblur="checkEmail()" lay-verify="required|email"  placeholder="<?php echo $lable['pleaseInput']; ?>" autocomplete="off" class="layui-input">
                 </div>
             </div>
             <div class="layui-form-item">
-                <label class="layui-form-label"><span style="color: red;">*</span>手机号码</label>
+                <label class="layui-form-label"><span style="color: red;">*</span><?php echo $lable['phone']; ?></label>
                 <div class="layui-input-block">
-                    <input type="text" name="ad_phone" value="<?php echo $admin['ad_phone']; ?>" id="ad_phone" placeholder="请输入手机号码" lay-verify="required|phones"  autocomplete="off" class="layui-input">
+                    <input type="text" name="ad_phone" value="<?php echo $admin['ad_phone']; ?>" id="ad_phone" placeholder="<?php echo $lable['pleaseInput']; ?>" lay-verify="required|phones"  autocomplete="off" class="layui-input">
                 </div>
             </div>
             <div class="layui-upload">
-                <label class="layui-form-label">头像</label>
+                <label class="layui-form-label"><?php echo $lable['avatar']; ?></label>
                 <div class="layui-input-inline">
                     <img class="layui-upload-img" id="demo1" <?php if($admin['ad_img'] != null): ?>src="../../../<?php echo $admin['ad_img']; ?>"<?php endif; ?> >
                     <p id="demoText"></p>
                 </div>
                 <input type="hidden" name="ad_img" id="ad_img" value="<?php echo $admin['ad_img']; ?>">
-                <span class="layui-btn" id="test1">上传图片</span>
+                <span class="layui-btn" id="test1"><?php echo $lable['shangchuan']; ?></span>
             </div>
             <div class="layui-form-item" pane>
-                <label class="layui-form-label"><span style="color: red;">*</span>性别</label>
+                <label class="layui-form-label"><span style="color: red;">*</span><?php echo $lable['gender']; ?></label>
                 <div class="layui-input-block">
-                    <input type="radio" name="ad_sex" value="1" title="男" <?php if($admin['ad_sex'] == 1): ?>checked<?php endif; ?>>
-                    <input type="radio" name="ad_sex" value="2" title="女" <?php if($admin['ad_sex'] == 2): ?>checked<?php endif; ?>>
+                    <input type="radio" name="ad_sex" value="1" title="<?php echo $lable['male']; ?>" <?php if($admin['ad_sex'] == 1): ?>checked<?php endif; ?>>
+                    <input type="radio" name="ad_sex" value="2" title="<?php echo $lable['female']; ?>" <?php if($admin['ad_sex'] == 2): ?>checked<?php endif; ?>>
                 </div>
             </div>
             <div class="layui-form-item">
-                <label class="layui-form-label">公司</label>
+                <label class="layui-form-label"><?php echo $lable['company']; ?></label>
                 <div class="layui-input-block">
                     <?php if(is_array($crop) || $crop instanceof \think\Collection || $crop instanceof \think\Paginator): $i = 0; $__LIST__ = $crop;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$vo): $mod = ($i % 2 );++$i;if($vo['is_checked'] == true): ?>
                     <input type="checkbox" class="checkbox" lay-skin="primary" name="ad_corp[<?php echo $vo['cp_id']; ?>]" title="<?php echo $vo['cp_name']; ?>"  disabled checked >
@@ -94,21 +93,21 @@
                 </div>
             </div>
             <div class="layui-form-item">
-                <label class="layui-form-label">职位</label>
+                <label class="layui-form-label"><?php echo $lable['position']; ?></label>
                 <div class="layui-input-block">
-                    <input type="text" name="ad_job" placeholder="请输入职位" autocomplete="off" class="layui-input" value="<?php echo $admin['ad_job']; ?>" >
+                    <input type="text" name="ad_job" placeholder="<?php echo $lable['pleaseInput']; ?>" autocomplete="off" class="layui-input" value="<?php echo $admin['ad_job']; ?>" >
                 </div>
             </div>
             <div class="layui-form-item layui-form-text">
-                <label class="layui-form-label">个人简介</label>
+                <label class="layui-form-label"><?php echo $lable['desc']; ?></label>
                 <div class="layui-input-block">
-                    <textarea placeholder="请输入个人简介" maxlength="500" name="ad_desc" class="layui-textarea"><?php echo $admin['ad_desc']; ?></textarea>
+                    <textarea placeholder="<?php echo $lable['pleaseInput']; ?>" maxlength="500" name="ad_desc" class="layui-textarea"><?php echo $admin['ad_desc']; ?></textarea>
                 </div>
             </div>
             <div class="layui-form-item">
                 <div class="layui-input-block">
-                    <button class="layui-btn" lay-submit lay-filter="saveInfo">更新</button>
-                    <a class="layui-btn layui-btn-primary" href="<?=url('corp/admin')?>">返回</a>
+                    <button class="layui-btn" lay-submit lay-filter="saveInfo"><?php echo $lable['gengxin']; ?></button>
+                    <a class="layui-btn layui-btn-primary" href="<?=url('corp/admin')?>"><?php echo $lable['back']; ?></a>
                 </div>
             </div>
         </form>

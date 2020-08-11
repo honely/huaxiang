@@ -307,31 +307,7 @@
                 <fieldset class="layui-elem-field layui-field-title" style="margin-top: 20px;">
                     <legend>{$lable.jianjie}</legend>
                 </fieldset>
-                <input type="hidden" value="{if condition="$house.econtent eq null"}1{else/}2{/if}" id="isTrans"/>
-                <div class="layui-form-mid layui-word-aux" style="margin-left: 40px;">{$lable.transNotic}</div>
-                {if condition="$house.econtent eq null"}
-                <div class="layui-form-item layui-form-text" id="preTrans">
-                    <div class="layui-input-block">
-                        <textarea placeholder="{$lable.houseDescP}" style="height: 400px;" maxlength="1500" name="content" id="contents" class="layui-textarea">{$house.content}</textarea>
-                    </div>
-                </div>
-                {/if}
-                <div class="layui-row" id="translate" style="display:{if condition="$house.econtent eq null"}none{else/}block{/if}">
-                <div class="layui-col-xs6">
-                    <div class="grid-demo grid-demo-bg1">
-                        <div class="layui-input-block">
-                            <textarea placeholder="{$lable.houseDescP}" style="height: 400px;" maxlength="1500" name="econtent" id="english" class="layui-textarea">{$house.econtent}</textarea>
-                        </div>
-                    </div>
-                </div>
-                <div class="layui-col-xs6">
-                    <div class="grid-demo">
-                        <div class="layui-input-block" style="margin-left: 25px !important;">
-                            <textarea placeholder="{$lable.houseDescP}" style="height: 400px;" maxlength="1500" name="content" id="chinese" class="layui-textarea">{$house.content}</textarea>
-                        </div>
-                    </div>
-                </div>
-            </div>
+              <div style="margin:0 auto !important;color: red !important;clear:both;text-align: center">{$lable.transNoticNew}</div>
                 <div class="layui-row">
                     <div class="layui-col-xs6">
                         <div class="grid-demo grid-demo-bg1">
@@ -344,6 +320,23 @@
                         </div>
                     </div>
                 </div>
+                <div class="layui-row" id="translate" style="margin-top: 12px;">
+                <div class="layui-col-xs6">
+                    <div class="grid-demo grid-demo-bg1">
+                        <div class="layui-input-block">
+                            <textarea placeholder="{$lable.transPlaceEn}" style="height: 400px;" maxlength="1500" name="econtent"  lay-verify="required" id="english" class="layui-textarea">{$house.econtent}</textarea>
+                        </div>
+                    </div>
+                </div>
+                <div class="layui-col-xs6">
+                    <div class="grid-demo">
+                        <div class="layui-input-block" style="margin-left: 25px !important;">
+                            <textarea placeholder="{$lable.transPlaceCn}" lay-verify="required"  style="height: 400px;" maxlength="1500" name="content" id="chinese" class="layui-textarea">{$house.content}</textarea>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
                 <fieldset class="layui-elem-field layui-field-title" style="margin-top: 20px;">
                     <legend>{$lable.lianxi}</legend>
                 </fieldset>

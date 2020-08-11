@@ -51,7 +51,6 @@ class Index extends Controller
         return  $this->fetch();
     }
     public function index(){
-        $ad_role=session('ad_role');
         $adminId = session('adminId');
         $userData = Db::table("super_admin")
             ->alias('admin')
@@ -105,6 +104,10 @@ class Index extends Controller
         $this->assign('menuList',$parentData);
         $siteName=Db::table('super_setinfo')->where(['s_key' => 'webname'])->column('s_value');
         $this->assign('siteName',$siteName[0]);
+        $ad_role = session('ad_role');
+        if($ad_role == 45 || $ad_role == 1){
+            $ad_role = 1;
+        }
         $this->assign('ad_role',$ad_role);
         //获取当前未读消息数
         $unread = $this->getUnreadMsg($adminId);
@@ -321,7 +324,7 @@ class Index extends Controller
         $whereAdmin = $ad_role == 1 ? '1 = 1' : 'is_admin = 2 and pm = '.$ad_id;
         foreach ($arr as $k => $v){
             $wherehouse = " publish_date <= '".$v['date']." 23:59:59' and is_del = 1";
-            $wheres = " cdate >= '".$v['date']." 00:00:00' and cdate <= '".$v['date']." 23:59:59'";
+            $wheres = "cdate <= '".$v['date']." 23:59:59'";
             $arr[$k]['nums'] = $houseM->houseCount($wherehouse." and ".$where);
             //企业每日新增
             $arr[$k]['nums1'] = $houseM->houseCount($wherehouse." and ".$where);

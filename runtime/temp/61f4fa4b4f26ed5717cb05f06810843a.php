@@ -1,4 +1,4 @@
-<?php if (!defined('THINK_PATH')) exit(); /*a:3:{s:89:"D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\public/../application/xcx\view\house\add.html";i:1596435540;s:82:"D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\application\xcx\view\index\header.html";i:1591180794;s:82:"D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\application\xcx\view\index\footer.html";i:1577269681;}*/ ?>
+<?php if (!defined('THINK_PATH')) exit(); /*a:3:{s:89:"D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\public/../application/xcx\view\house\add.html";i:1596677831;s:82:"D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\application\xcx\view\index\header.html";i:1591180794;s:82:"D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\application\xcx\view\index\footer.html";i:1577269681;}*/ ?>
 <!DOCTYPE html>
 <html style="height: 100%">
 <head>
@@ -341,29 +341,8 @@
                 <fieldset class="layui-elem-field layui-field-title" style="margin-top: 20px;">
                     <legend><?php echo $lable['jianjie']; ?></legend>
                 </fieldset>
-                <div class="layui-form-mid layui-word-aux" style="margin-left: 40px;"><?php echo $lable['transNotic']; ?></div>
-                <div class="layui-form-item layui-form-text" id="preTrans">
-                    <div class="layui-input-block">
-                        <textarea placeholder="<?php echo $lable['houseDescP']; ?>" style="height: 400px;" maxlength="1500" name="content" id="contents" class="layui-textarea"></textarea>
-                    </div>
-                </div>
+                <div style="margin:0 auto !important;color: red !important;clear:both;text-align: center"><?php echo $lable['transNoticNew']; ?></div>
                 <input type="hidden" value="1" id="isTrans"/>
-                <div class="layui-row" id="translate" style="display: none">
-                    <div class="layui-col-xs6">
-                        <div class="grid-demo grid-demo-bg1">
-                            <div class="layui-input-block">
-                                <textarea placeholder="<?php echo $lable['houseDescP']; ?>" style="height: 400px;" maxlength="1500" name="econtent" id="english" class="layui-textarea"></textarea>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="layui-col-xs6">
-                        <div class="grid-demo">
-                            <div class="layui-input-block" style="margin-left: 25px !important;">
-                                <textarea placeholder="<?php echo $lable['houseDescP']; ?>" style="height: 400px;" maxlength="1500" id="chinese" class="layui-textarea"></textarea>
-                            </div>
-                        </div>
-                    </div>
-                </div>
                 <div class="layui-row">
                     <div class="layui-col-xs6">
                         <div class="grid-demo grid-demo-bg1">
@@ -373,6 +352,22 @@
                     <div class="layui-col-xs6">
                         <div class="grid-demo">
                             <span class="layui-btn layui-btn-primary layui-btn-sm  transLate" data-type="en" style="margin-left: 25px;margin-top: 10px;" ><?php echo $lable['cntoen']; ?></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="layui-row" id="translate" style="margin-top: 12px;">
+                    <div class="layui-col-xs6">
+                        <div class="grid-demo grid-demo-bg1">
+                            <div class="layui-input-block">
+                                <textarea lay-verify="required" placeholder="<?php echo $lable['transPlaceEn']; ?>" style="height: 400px;" maxlength="1500" name="econtent" id="english" class="layui-textarea"></textarea>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="layui-col-xs6">
+                        <div class="grid-demo">
+                            <div class="layui-input-block" style="margin-left: 25px !important;">
+                                <textarea lay-verify="required" placeholder="<?php echo $lable['transPlaceCn']; ?>" style="height: 400px;" maxlength="1500" id="chinese" class="layui-textarea"></textarea>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -505,18 +500,14 @@
             });
         });
         $('.transLate').click(function () {
-            var type = $('#isTrans').val();
             var to = $(this).data('type');
+            var contents='';
             $('#contents').removeAttr('name');
             $('#chinese').attr('name','content');
-            if(type == 1){
-                var contents = $("#contents").val();
+            if(to == 'en'){
+                contents = $("#chinese").val();
             }else{
-                if(to == 'en'){
-                    var contents = $("#chinese").val();
-                }else{
-                    var contents = $("#english").val();
-                }
+                contents = $("#english").val();
             }
             contents = contents.replace(/[\r\n]/g,"*");
             if(!contents){
@@ -528,10 +519,6 @@
                 data:{'content':contents,'to':to},
                 dataType:  'json',
                 success: function(data){
-                    console.log(data);
-                    $('#preTrans').hide();
-                    $('#isTrans').val(2);
-                    $('#translate').show();
                     if(to == 'en'){
                         cn = data.src.replace('*','\n');
                         en = data.dst.replace('*','\n');

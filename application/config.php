@@ -333,6 +333,7 @@ return [
         // 是否需要进行SQL性能分析
         'sql_explain'     => false,
     ],
+    'compImg' => 'http://www.huaxiang.com/',
     'wx' => [
         'appid' => 'wx45426a13290ecb64',
         'appsecret' => '0c323386f153831f379938f2c659fff7',

@@ -218,18 +218,16 @@ class Admin extends Controller{
     //添加管理员
     public function add(){
         $ad_role = intval(session('ad_role'));
-        $type = trim($this->request->param('type',1,'intval'));
         if($_POST){
             $data['ad_realname'] = $_POST['ad_realname'];
             $data['ad_sex'] = $_POST['ad_sex'];
             $data['ad_phone'] = str_replace(' ', '', $_POST['ad_phone']);
             $data['ad_email'] = $_POST['ad_email'];
-            $url = $type == 1 ? 'corp/adda' : 'admin/add';
             $isRepeat=Db::table('super_admin')
                 ->where(['ad_email' => $data['ad_email']])
                 ->find();
             if($isRepeat){
-                $this->error('此邮箱已注册！',$url);
+                $this->error('此邮箱已注册！','admin');
             }
             $data['ad_isable'] = 2;
             if(isset($_POST['ad_role']) && $_POST['ad_role']){
@@ -267,9 +265,9 @@ class Admin extends Controller{
                     ->find();
                 $this->sendEmail($adminInfo['ad_email']);
                 //给平台用户发送一条账户邮箱激活链接
-                $this->success('添加成功，请查收账户激活邮件',$url);
+                $this->success('添加成功，请查收账户激活邮件','admin');
             }else{
-                $this->error('添加管理员失败',$url);
+                $this->error('添加管理员失败','admin');
             }
         }else{
             $where = '1 = 1';
@@ -285,7 +283,6 @@ class Admin extends Controller{
                 ->where(['cp_able' => 1])
                 ->field('cp_id,cp_name')
                 ->select();
-            $this->assign('type',$type);
             $this->assign('crop',$crop);
             $this->assign('user',$adminUser);
             $this->assign('role',$roleInfo);
@@ -311,16 +308,16 @@ class Admin extends Controller{
         $mail->addReplyTo($mailer,"Reply");
         $mail->Subject = "[Welhome]Congratulations, You have registered on Welhome Agent Platform!";// 邮件标题
         $mail->IsHTML(true);
-        $mail->Body = "Welhome Aboard! You're the most valuable client to us.
+        $mail->Body = "Welhome Aboard! Welhome Agent Platform (www.welho.me).
         <br/><br/>
-Welhome Agent Platform (WAP) is an professional property leasing platform dedicated design for Realestate Agents. It's totally free!
+The best Realestate wechat app in Australia, an professional property leasing platform dedicated for Realestate Agents.
  <br/><br/>
  You can 'Add listing', 'Manage Listing' and 'Chat' . If you find any problem or suggestion, please feel free to contact us!<br/><br/>
 <b>Your Account:</b>".$mailer."
  <br/><br/>
 <b>Default Password:</b> 123456
  <br/><br/>
-Please follow the activation link: <a href='https://cs.huaxiangxiaobao.com/api/index/active?email=".$mailer."'>https://cs.huaxiangxiaobao.com/api/index/active?email=".$mailer."</a>
+Please follow the activation link: <a href='https://wx.huaxiangxiaobao.com/api/index/active?email=".$mailer."'>https://wx.huaxiangxiaobao.com/api/index/active?email=".$mailer."</a>
  <br/><br/><br/><br/><br/>
 <img style='width: 204px;height: 86px;' src='https://wx.huaxiangxiaobao.com/public/ueditor/php/upload/image/20200417/1587119666198174.png'>
 <br>

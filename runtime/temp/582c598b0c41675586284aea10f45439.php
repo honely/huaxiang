@@ -1,4 +1,4 @@
-<?php if (!defined('THINK_PATH')) exit(); /*a:3:{s:87:"D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\public/../application/xcx\view\corp\my.html";i:1596189925;s:82:"D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\application\xcx\view\index\header.html";i:1591180794;s:82:"D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\application\xcx\view\index\footer.html";i:1577269681;}*/ ?>
+<?php if (!defined('THINK_PATH')) exit(); /*a:3:{s:87:"D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\public/../application/xcx\view\corp\my.html";i:1596633528;s:82:"D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\application\xcx\view\index\header.html";i:1591180794;s:82:"D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\application\xcx\view\index\footer.html";i:1577269681;}*/ ?>
 <!DOCTYPE html>
 <html style="height: 100%">
 <head>
@@ -30,33 +30,33 @@
 </style>
 <div style="margin: 20px;">
     <span class="layui-breadcrumb" lay-separator=">">
-        <a>公司管理</a>
-        <a><cite>我的公司</cite></a>
+        <a><?php echo $lable['gongsiguanli']; ?></a>
+        <a><cite><?php echo $lable['wodegongsi']; ?></cite></a>
     </span>
 </div>
 <hr/>
 <section class="panel panel-padding">
-    <table lay-skin="line" class="layui-table" lay-filter="demo" lay-data="{height: 'full-200', cellMinWidth:30, url:'/xcx/corp/myData/', limit:50,limits:[50] ,id: 'testReload',page:true}" >
+    <table lay-skin="line" class="layui-table" lay-filter="demo" lay-data="{height: 'full-90', cellMinWidth:30, url:'/xcx/corp/myData/', limit:50,limits:[50] ,id: 'testReload',page:true}" >
         <thead>
         <tr>
             <th lay-data="{field:'cp_id',width:80}">Id</th>
-            <th lay-data="{field:'cp_name'}">公司名称</th>
-            <th lay-data="{field:'cp_address'}">地址</th>
-            <th lay-data="{field:'cp_email'}">邮箱</th>
-            <th lay-data="{field:'cp_tel'}">电话</th>
-            <th lay-data="{field:'cp_count'}">员工数</th>
-            <th lay-data="{field:'cp_addtime'}">提交时间</th>
-            <th lay-data="{align:'left',width:185, toolbar: '#barDemo'}">操作</th>
+            <th lay-data="{field:'cp_name'}"><?php echo $lable['gongsimingcheng']; ?></th>
+            <th lay-data="{field:'cp_address'}"><?php echo $lable['address']; ?></th>
+            <th lay-data="{field:'cp_email'}"><?php echo $lable['youxiang']; ?></th>
+            <th lay-data="{field:'cp_tel'}"><?php echo $lable['dianhua']; ?></th>
+            <th lay-data="{field:'cp_count'}"><?php echo $lable['yuangongshu']; ?></th>
+            <th lay-data="{field:'cp_addtime'}"><?php echo $lable['tijiaoshijian']; ?></th>
+            <th lay-data="{align:'left',width:185, toolbar: '#barDemo'}"><?php echo $lable['caozuo']; ?></th>
         </tr>
         </thead>
     </table>
 </section>
 <script type="text/html" id="barDemo">
-    <a class="layui-btn layui-btn-xs" lay-event="review">详情</a>
+    <a class="layui-btn layui-btn-xs" lay-event="review"><?php echo $lable['xiangqing']; ?></a>
     <?php if($editable == true): ?>
-    <a class="layui-btn layui-btn-xs layui-btn-warm" lay-event="edit">编辑</a>
+    <a class="layui-btn layui-btn-xs layui-btn-warm" lay-event="edit"><?php echo $lable['bianji']; ?></a>
     <?php endif; if($addable == true): ?>
-    <a class="layui-btn layui-btn-xs layui-btn-warm" lay-event="add">添加员工</a>
+    <a class="layui-btn layui-btn-xs layui-btn-warm" lay-event="add"><?php echo $lable['tianjiayuangong']; ?></a>
     <?php endif; ?>
 </script>
 <script>
@@ -69,7 +69,7 @@
             if(obj.event === 'review'){
                 layer.open({
                     type: 2,
-                    title: '公司详情',
+                    title: '<?php echo $lable['xiangqing']; ?>',
                     shadeClose: true,
                     shade: false,
                     maxmin: true,

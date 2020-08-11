@@ -1,4 +1,4 @@
-<?php if (!defined('THINK_PATH')) exit(); /*a:3:{s:90:"D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\public/../application/xcx\view\corp\admin.html";i:1596182388;s:82:"D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\application\xcx\view\index\header.html";i:1591180794;s:82:"D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\application\xcx\view\index\footer.html";i:1577269681;}*/ ?>
+<?php if (!defined('THINK_PATH')) exit(); /*a:3:{s:90:"D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\public/../application/xcx\view\corp\admin.html";i:1596610968;s:82:"D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\application\xcx\view\index\header.html";i:1591180794;s:82:"D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\application\xcx\view\index\footer.html";i:1577269681;}*/ ?>
 <!DOCTYPE html>
 <html style="height: 100%">
 <head>
@@ -21,14 +21,26 @@
 </head>
 <body class="layui-layout-body" style="height: 100%">
 
+<style>
+    .layui-form-onswitch i {
+        left: 78px;
+        background-color: #fff;
+    }
+    .layui-form-switch {
+        width: 90px;
+    }
+    .layui-form-switch em {
+        width: 70px;
+    }
+</style>
 <div style="margin: 20px;">
     <span class="layui-breadcrumb" lay-separator=">">
-        <a>公司管理</a>
-        <a><cite>员工列表</cite></a>
+        <a><?php echo $lable['gongsiguanli']; ?></a>
+        <a><cite><?php echo $lable['yuangongguanli']; ?></cite></a>
     </span>
     <div style="float:right;">
         <?php if($addable == true): ?>
-        <button class="layui-btn layui-btn-primary layui-btn-sm"  onclick="addAdmin()"><i class="layui-icon"></i>添加员工</button>
+        <button class="layui-btn layui-btn-primary layui-btn-sm"  onclick="addAdmin()"><i class="layui-icon"></i><?php echo $lable['tianjiayuangong']; ?></button>
         <?php endif; ?>
     </div>
 </div>
@@ -38,13 +50,13 @@
         <div class="layui-form-item  demoTable">
             <div class="layui-inline">
                 <div class="layui-input-inline">
-                    <input type="text" name="keywords" id="keywords"  placeholder="请输入姓名/工号" class="layui-input">
+                    <input type="text" name="keywords" id="keywords"  placeholder="<?php echo $lable['nameorid']; ?>" class="layui-input">
                 </div>
             </div>
             <div class="layui-inline">
                 <div class="layui-input-inline">
-                    <span class="layui-btn" data-type="reload">查询</span>
-                    <a href="<?=url('corp/admin')?>" class="layui-btn layui-btn-warm">刷新</a>
+                    <span class="layui-btn" data-type="reload"><?php echo $lable['search']; ?></span>
+                    <a href="<?=url('corp/admin')?>" class="layui-btn layui-btn-warm"><?php echo $lable['fresh']; ?></a>
                 </div>
             </div>
         </div>
@@ -54,42 +66,42 @@
     <table lay-skin="line" class="layui-table" lay-filter="demo" lay-data="{height: 'full-120', cellMinWidth:80, url:'/xcx/corp/adminData/', limit:50,limits:[50] ,id: 'testReload',page:true}" >
             <thead>
             <tr>
-                <th lay-data="{field:'ad_id'}">平台ID</th>
-                <th lay-data="{field:'ad_realname'}">员工姓名</th>
-                <th lay-data="{field:'ad_roles'}">角色</th>
-                <th lay-data="{field:'ad_email'}">员工邮箱</th>
-                <th lay-data="{field:'adWechat'}">关联微信</th>
-                <th lay-data="{field:'ad_phone'}">手机</th>
-                <th lay-data="{field:'ad_corp'}">公司</th>
-                <th lay-data="{field:'ad_job'}">职位</th>
+                <th lay-data="{field:'ad_id'}">ID</th>
+                <th lay-data="{field:'ad_realname'}"><?php echo $lable['yuangongxm']; ?></th>
+                <th lay-data="{field:'ad_roles'}"><?php echo $lable['juese']; ?></th>
+                <th lay-data="{field:'ad_email'}"><?php echo $lable['youxiang']; ?></th>
+                <th lay-data="{field:'adWechat'}"><?php echo $lable['conwechat']; ?></th>
+                <th lay-data="{field:'ad_phone'}"><?php echo $lable['phone']; ?></th>
+                <th lay-data="{field:'ad_corp'}"><?php echo $lable['company']; ?></th>
+                <th lay-data="{field:'ad_job'}"><?php echo $lable['position']; ?></th>
                 <?php if($offable == true): ?>
-                <th lay-data="{field:'ad_isable',width:120,templet: '#switchTpl', unresize: true}">状态</th>
+                <th lay-data="{field:'ad_isable',width:145,templet: '#switchTpl', unresize: true}"><?php echo $lable['status']; ?></th>
                 <?php endif; ?>
-                <th lay-data="{field:'ad_createtime'}">添加时间</th>
-                <th lay-data="{align:'center',width:320, toolbar: '#barDemo'}">操作</th>
+                <th lay-data="{field:'ad_createtime'}"><?php echo $lable['addtime']; ?></th>
+                <th lay-data="{align:'center',width:320, toolbar: '#barDemo'}"><?php echo $lable['caozuo']; ?></th>
             </tr>
             </thead>
         </table>
 </section>
 
 <script type="text/html" id="barDemo">
-    <a class="layui-btn layui-btn-xs" lay-event="details">详情</a>
+    <a class="layui-btn layui-btn-xs" lay-event="details"><?php echo $lable['detail']; ?></a>
     <?php if($editable == true): ?>
     {{#  if(d.ad_role == 44){ }}
-    <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
+    <a class="layui-btn layui-btn-xs" lay-event="edit"><?php echo $lable['edit']; ?></a>
     {{#  } }}
     <?php endif; if($connectable == true): ?>
     {{#  if(d.ad_role == 44){ }}
-    <a class="layui-btn layui-btn-xs" lay-event="connect">关联用户</a>
+    <a class="layui-btn layui-btn-xs" lay-event="connect"><?php echo $lable['connect']; ?></a>
     {{#  } }}
     <?php endif; if($delable == true): ?>
     {{#  if(d.ad_role == 44){ }}
-    <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
+    <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del"><?php echo $lable['delete']; ?></a>
     {{#  } }}
     <?php endif; ?>
 </script>
 <script type="text/html" id="switchTpl">
-    <input type="checkbox" name="sex" lay-skin="switch" value="{{d.ad_id}}" lay-text="在职|离职" lay-filter="sexDemo" {{ d.ad_isable == 1 ? 'checked' : '' }}>
+    <input type="checkbox" name="sex" lay-skin="switch" value="{{d.ad_id}}" lay-text="<?php echo $lable['zaizhi']; ?>|<?php echo $lable['lizhi']; ?>" lay-filter="sexDemo" {{ d.ad_isable == 1 ? 'checked' : '' }}>
 </script>
 <script>
     layui.use(['table','laydate','form'], function(){
@@ -103,12 +115,12 @@
             }else if(obj.event === 'details'){
                 layer.open({
                     type: 2,
-                    title: '查看详情',
+                    title: '<?php echo $lable['detail']; ?>',
                     shadeClose: true,
                     shade: false,
                     maxmin: true,
                     area: ['80%', '80%'],
-                    content: "<?=url('admin/detail')?>?ad_id="+ad_id
+                    content: "<?=url('corp/detaila')?>?ad_id="+ad_id
                 });
             }else if(obj.event === 'connect'){
                 layer.open({
@@ -130,8 +142,8 @@
                 });
             } else if(obj.event === 'del'){
                 var ad_id = data.ad_id;
-                layer.confirm('确定删除该员工？删除后不可恢复！', {
-                    btn : [ '确定', '取消' ]//按钮
+                layer.confirm('<?php echo $lable['deleteConfirm']; ?>！', {
+                    btn : [ '<?php echo $lable['sure']; ?>', '<?php echo $lable['cancel']; ?>']//按钮
                 }, function() {
                     $.ajax({
                         'type':"get",
@@ -143,7 +155,7 @@
                             }else {
                                 layer.msg(result.msg);
                                 layer.open({
-                                    title: '信息'
+                                    title: '<?php echo $lable['deleteSuc']; ?>'
                                     ,content: result.msg
                                     ,yes: function(index){
                                         layer.close(index);
@@ -161,7 +173,7 @@
                         }
                     })
                 },function(){
-                    layer.msg('您已取消该操作！',{
+                    layer.msg('<?php echo $lable['quxiaocaozuo']; ?>！',{
                         time: 2000
                     });
                 });
