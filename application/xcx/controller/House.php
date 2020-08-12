@@ -13,6 +13,7 @@ use app\xcx\model\Loops;
 use app\xcx\model\Rolem;
 use think\Controller;
 use think\Db;
+use think\Image;
 use think\Request;
 
 class House extends Controller{
@@ -692,6 +693,14 @@ class House extends Controller{
             }
         }else{
             $houseInfo = Db::table('tk_houses')->where(['id' => $id])->find();
+            if($houseInfo['images']){
+                //压缩房源图片
+                $houseInfo['images'] = $this->cpHouseImg($houseInfo['images']);
+            }
+            if($houseInfo['thumnail']){
+                //压缩封面图
+                $houseInfo['thumnail'] = $this->compImg($houseInfo['thumnail']);
+            }
             $lang = new Languages();
             $enLab = $lang->getLanguages();
             $all_bill = [
@@ -1152,10 +1161,65 @@ class House extends Controller{
         }
         return true;
     }
+    public function cpHouseImg($images){
+        $imgurl ='';
+        if($images){
+            $images = explode(',',$images);
+            foreach ($images as $k => $item){
+                $img = $this->compImg($item);
+                $imgurl .= $img.",";
+            }
+        }
+        $imgurl = rtrim($imgurl,',');
+        return $imgurl;
+    }
+
+
+    //压缩大于1.5m的房源图片
+    public function compImg($files){
+        $file = "./".$files;
+        $size = filesize($file);
+        $imgSize = ceil($size/1024);
+        $Size1 = 1.5*1024;
+        $Size2 = 2.5*1024;
+        $Size3 = 3*1024;
+        $Size4 = 6*1024;
+        if($Size1 < $imgSize){
+            return $file;
+        }elseif($Size2 > $imgSize && $imgSize > $Size1){
+            $this->compressImg($file,80);
+        }elseif($Size3 > $imgSize && $imgSize > $Size2){
+            $this->compressImg($file,70);
+        }elseif($Size4 > $imgSize && $imgSize > $Size3){
+            $this->compressImg($file,60);
+        }else{
+            $this->compressImg($file,40);
+        }
+        return $files;
+    }
+
+    /***
+     * @param $filePath string 文件路径
+     * @param $quality int 压缩比率
+     * @return mixed
+     */
+    public function compressImg($filePath,$quality){
+        $image = Image::open($filePath);
+        $image->save($filePath,null,$quality);
+        return $filePath;
+    }
 
     public function detail(){
         $id = $this->request->param('id',22,'intval');
         $houseInfo = Db::table('tk_houses')->where(['id' => $id])->find();
+        if($houseInfo['images']){
+            //压缩房源图片
+            $houseInfo['images'] = $this->cpHouseImg($houseInfo['images']);
+        }
+        if($houseInfo['thumnail']){
+            //压缩封面图
+            $houseInfo['thumnail'] = $this->compImg($houseInfo['thumnail']);
+        }
         $lang = new Languages();
         $enLab = $lang->getLanguages();
         $all_bill = [

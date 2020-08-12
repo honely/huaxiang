@@ -5,44 +5,53 @@ namespace app\xcx\controller;
 
 
 use think\Controller;
+use think\Db;
 use think\Image;
 
 class Compimg extends Controller
 {
-    public function getComImage(){
-        $file = '.\uploads\admin\123.jpg';
-        $size = filesize($file);
-        dump($size);
-        //单位为KB
-        $imgSize = ceil($size/(1024*1024));
-        $compareSize = 1.5;
-        if($imgSize > $compareSize){
-            echo '当前图片大小'.$file.'Mb<br/><br/>';
-            dump($file);
-            $filew = $this->compressImg($file);
-            $size1 = filesize($filew);
-            //单位为KB
-            $imgSize = ceil($size1/(1024*1024));
-            echo '压缩后大小'.$imgSize;
-        }else{
-            echo '目标图片已小鱼1.5MB<br/><br/>';
-            echo "目标图片大小".$imgSize."MB";
+    public function gethouse(){
+        $hid = $this->request->param('id');
+        $HouseInfo = Db::table('tk_houses')->where(['id' => $hid])->find();
+        $images = $HouseInfo['images'];
+        if($images){
+            $images = explode(',',$images);
+            foreach ($images as $k => $item){
+                $res = $this->formatImg($item);
+                dump($res);
+            }
         }
-
     }
 
+    public function formatImg(){
+        $file = "./uploads/admin/w.jpg";
+        $size = filesize($file);
+        $imgSize = ceil($size/1024);
+        $Size1 = 1.5*1024;
+        $Size2 = 2.5*1024;
+        $Size3 = 3*1024;
+        if($Size1 < $imgSize){
+            return $file;
+        }elseif($Size2 > $imgSize && $imgSize > $Size1){
+            $this->compressImg($file,80);
+        }elseif($Size3 > $imgSize && $imgSize > $Size2){
+            $this->compressImg($file,70);
+        }elseif($imgSize > $Size2){
+            $this->compressImg($file,60);
+        }else{
+            $this->compressImg($file,40);
+        }
+        return $file;
+    }
 
     /***
-     * 压缩图片80%
-     * @param $filePath
+     * @param $filePath string 文件路径
+     * @param $quality int 压缩比率
+     * @return mixed
      */
-    public function compressImg(){
-        $filePath =".\uploads\admin\b.jpg";
-        dump($filePath);
+    public function compressImg($filePath,$quality){
         $image = Image::open($filePath);
-        dump($image);
-        $res = $image->save('.\uploads\admin\b1.jpg');
-        dump($res);
+        $image->save("./uploads/admin/w1.jpg",null,$quality);
         return $filePath;
     }
 

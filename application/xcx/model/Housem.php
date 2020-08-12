@@ -1,6 +1,7 @@
 <?php
 namespace app\xcx\model;
 use think\Db;
+use think\Image;
 use think\Model;
 use think\Log;
 class Housem extends Model
@@ -111,7 +112,13 @@ class Housem extends Model
             if($house['live_date'] == '0100-01-01' || $house['live_date']== '0000-00-00'){
                 $house['live_date'] = '随时入住';
             }
+            if($house['images']){
+                //压缩房源图片
+                $house['images'] = $this->cpHouseImg($house['images']);
+            }
             if($house['thumnail']){
+                //压缩封面图
+                $house['thumnail'] = $this->compImg($house['thumnail']);
                 $house['images'] = $house['thumnail'].','.$house['images'];
             }
             $house['toilet'] = intval($house['toilet']);
@@ -128,6 +135,55 @@ class Housem extends Model
         $res['data'] = $house;
         return $res;
     }
+
+    public function cpHouseImg($images){
+        $imgurl ='';
+        if($images){
+            $images = explode(',',$images);
+            foreach ($images as $k => $item){
+                $img = $this->compImg($item);
+                $imgurl .= $img.",";
+            }
+        }
+        $imgurl = rtrim($imgurl,',');
+        return $imgurl;
+    }
+
+
+    //压缩大于1.5m的房源图片
+    public function compImg($files){
+        $file = "./".$files;
+        $size = filesize($file);
+        $imgSize = ceil($size/1024);
+        $Size1 = 1.5*1024;
+        $Size2 = 2.5*1024;
+        $Size3 = 3*1024;
+        $Size4 = 6*1024;
+        if($Size1 < $imgSize){
+            return $file;
+        }elseif($Size2 > $imgSize && $imgSize > $Size1){
+            $this->compressImg($file,80);
+        }elseif($Size3 > $imgSize && $imgSize > $Size2){
+            $this->compressImg($file,70);
+        }elseif($Size4 > $imgSize && $imgSize > $Size3){
+            $this->compressImg($file,60);
+        }else{
+            $this->compressImg($file,40);
+        }
+        return $files;
+    }
+
+    /***
+     * @param $filePath string 文件路径
+     * @param $quality int 压缩比率
+     * @return mixed
+     */
+    public function compressImg($filePath,$quality){
+        $image = Image::open($filePath);
+        $image->save($filePath,null,$quality);
+        return $filePath;
+    }
+
 
 
     public function get_area_id($id, $x, $y) {

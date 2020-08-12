@@ -295,9 +295,9 @@ class House extends Controller
             $res['code'] = $house['code'];
             $res['msg'] = $house['msg'];
             $res['data'] = $house['data'];
-            $soup = new Soup();
-            $soups =$soup->getSoup();
-            $res['data']['soup'] = $soups;
+//            $soup = new Soup();
+//            $soups =$soup->getSoup();
+//            $res['data']['soup'] = $soups;
             return json($res);
         }
         $res['code'] = 0;
@@ -649,7 +649,6 @@ class House extends Controller
             $house['car'] =  $house['car'].'车位';
             $house['suburb'] =  $house['city'].' '.$house['area'];
             $house['toilet'] = $house['toilet'].'卫';
-
             $cover = $this->getCoverImg($house['thumnail'],$house['images'],$house['cover']);
             $house['cover'] = $this->compImg($id,$cover);
             unset($house['thumnail']);
