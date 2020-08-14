@@ -9,10 +9,60 @@ use think\Controller;
 
 class Mailre extends Controller
 {
-    public function __construct()
-    {
-        $this->now = time();
-        $this->setSavePath();
+    public function gettotal(){
+        $mailServer="mail.welho.me";
+
+        $mailLink="{{$mailServer}:143}INBOX" ; //imagp连接地址：不同主机地址不同
+
+        $mailUser = 'mengmeng.dang@welho.me'; //邮箱用户名
+
+        $mailPass = 'dmm1586,1.q'; //邮箱密码
+
+        $mbox = imap_open($mailLink,$mailUser,$mailPass);
+
+        $totalrows = imap_num_msg($mbox);
+
+        echo "总信件条数：{$totalrows}";
+    }
+
+    public function getMails(){
+        $userName = "customerservices@welho.me";
+        $pass = "hxxb0401!!";
+        //$userName = 'mengmeng.dang@welho.me';
+        //$pass = 'dmm1586,1.q';
+        $mbox = imap_open("{mail.welho.me/imap/ssl/novalidate-cert}INBOX", $userName, $pass);
+        $emails = imap_search($mbox, 'ALL');
+        if ($emails) {
+            $output = '';
+            rsort($emails);
+            foreach ($emails as $email_number) {
+                $overview = imap_fetch_overview($mbox, $email_number, 0);
+                $structure = imap_fetchstructure($mbox, $email_number);
+                var_dump($structure->parts);
+                if (isset($structure->parts) && is_array($structure->parts) && isset($structure->parts[1])) {
+                    $part = $structure->parts[1];
+                    $message = imap_fetchbody($mbox, $email_number, 2);
+
+                    if ($part->encoding == 3) {
+                        $message = imap_base64($message);
+                    } else if ($part->encoding == 1) {
+                        $message = imap_8bit($message);
+                    } else {
+                        $message = imap_qprint($message);
+                    }
+                }
+
+                $output .= '<div class="toggle' . ($overview[0]->seen ? 'read' : 'unread') . '">';
+                $output .= '<span class="from">From: ' . utf8_decode(imap_utf8($overview[0]->from)) . '</span>';
+                $output .= '<span class="date">on ' . utf8_decode(imap_utf8($overview[0]->date)) . '</span>';
+                $output .= '<br /><span class="subject">Subject(' . $part->encoding . '): ' . utf8_decode(imap_utf8($overview[0]->subject)) . '</span> ';
+                $output .= 'aaaaaaa</div>';
+
+                $output .= '<div class="body">' . $message . '</div><hr />';
+            }
+
+            echo $output;
+        }
     }
 
     /**

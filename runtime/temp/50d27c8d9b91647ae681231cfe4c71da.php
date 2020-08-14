@@ -1,4 +1,4 @@
-<?php if (!defined('THINK_PATH')) exit(); /*a:1:{s:91:"D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\public/../application/xcx\view\index\index.html";i:1597115906;}*/ ?>
+<?php if (!defined('THINK_PATH')) exit(); /*a:1:{s:91:"D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\public/../application/xcx\view\index\index.html";i:1597366361;}*/ ?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -22,6 +22,68 @@
         .friend-count{
             margin-left: 63px;
         }
+        #preCenn{
+            position: absolute;
+            width: 150px;
+            transform-origin: center top;
+            height: 200px;
+            background: #fff;
+            z-index: 9999;
+            color: #606266;
+            line-height: 1.4;
+            text-align: justify;
+            padding: 0;
+            border: none;
+            border-radius: 2px;
+            box-shadow: 0 3px 6px rgba(0,0,0,.2)!important;
+            right: 5px;
+            top: 55px;
+            font-size: 14px;
+            display: none;
+        }
+        #preCenn div a{
+            cursor: pointer;
+            display: -ms-flexbox;
+            display: flex;
+            -ms-flex-pack: justify;
+            justify-content: space-between;
+            -ms-flex-align: center;
+            align-items: center;
+            transition: .3s ease;
+            padding: 8px 23px;
+        }
+        #preCenn div a:hover{
+            background: rgba(0,0,0,.3);
+        }
+        #preCenn div a:hover div{
+            color: #fff;
+        }
+        #preCenn div a div{
+            font-size: 14px;
+            color: #212121;
+            display: -ms-flexbox;
+            display: flex;
+            -ms-flex-align: center;
+            align-items: center;
+        }
+        #preCenn div a div i{
+            font-size: 24px;
+            vertical-align: middle;
+            color: #979797;
+            margin-right: 5px;
+        }
+        .triangle{
+            text-align: center;
+            width: 0;
+            height: 0;
+            border-top: 10px solid rgba(0,0,0,0);
+            border-right: 10px solid rgba(0,0,0,0);
+            border-bottom: 10px solid #fff;
+            border-left: 10px solid rgba(0,0,0,0);
+            margin: 0 auto;
+            position: relative;
+            top: -20px;
+        }
     </style>
 </head>
 <body class="layui-layout-body">
@@ -33,34 +95,67 @@
                 <span><?php echo $lable['welcome']; ?>，<?php echo $admin['r_name']; ?>&nbsp;&nbsp;&nbsp;<?php echo $admin['ad_realname']; ?></span>
             </div>
         </ul>
+        <ul class="layui-nav layui-layout-left" style="margin-left: 230px;">
+            <li class="layui-nav-item">
+                <a href="javascript:location.reload();"  style="padding-left: 10px !important;" ><?php echo $lable['homepage']; ?></a>
+            </li>
+        </ul>
         <?php if($onlineable == true): ?>
-            <ul class="layui-nav layui-layout-left" style="margin-left: 280px;">
-                <li class="layui-nav-item">
-                    <a href='javascript:' onclick="toUser(this)" style="padding-left: 10px !important;"  data-url="/xcx/user/newui.html"><?php echo $lable['zhanneixin']; ?></a>
-                    <span style="margin-left: 63px;display: none" id="unread" class="layui-badge"><?php echo $unread; ?></span>
-                </li>
-            </ul>
+        <ul class="layui-nav layui-layout-left" style="margin-left: 330px;">
+            <li class="layui-nav-item">
+                <a href='javascript:' onclick="toUser(this)" style="padding-left: 10px !important;"  data-url="/xcx/user/newui.html"><?php echo $lable['zhanneixin']; ?></a>
+                <span style="margin-left: 63px;display: none" id="unread" class="layui-badge"><?php echo $unread; ?></span>
+            </li>
+        </ul>
         <?php endif; if($ad_role == 1): ?>
-            <ul class="layui-nav layui-layout-left" style="margin-left: 350px;">
-                <li class="layui-nav-item">
-                    <a href='javascript:void()' onclick="toUser(this)" style="padding-left: 10px !important;"  data-url="/xcx/help/index.html">帮我找房</a>
-                </li>
-            </ul>
+        <ul class="layui-nav layui-layout-left" style="margin-left: 420px;">
+            <li class="layui-nav-item">
+                <a href='javascript:void()' onclick="toUser(this)" style="padding-left: 10px !important;"  data-url="/xcx/help/index.html">帮我找房</a>
+            </li>
+        </ul>
         <?php endif; ?>
         <ul class="layui-nav layui-layout-right">
-            <li class="layui-nav-item">
-                <a style="padding-left: 10px !important;" href="javascript:void()" data-lang="<?php echo $langs; ?>" id="changeLang">
+            <li class="layui-nav-item" id="preCen">
+                <a style="padding-left: 10px !important;cursor:pointer;">
+                    <?php echo $lable['gerenziliao']; ?>
+                </a>
+            </li>
+        </ul>
+    </div>
+    <div id="preCenn">
+        <div class="triangle"></div>
+        <div>
+            <a onclick="toUser(this)" data-url="/xcx/account/personal.html">
+                <div>
+                    <i></i>
+                    <?php echo $lable['gerenziliao']; ?>
+                </div>
+            </a>
+            <a onclick="toUser(this)" data-url="/xcx/account/index.html">
+                <div>
+                    <i></i>
+                    <?php echo $lable['xiugaimima']; ?>
+                </div>
+            </a>
+            <a href="javascript:void()" data-lang="<?php echo $langs; ?>" id="changeLang">
+                <div>
+                    <i></i>
                     <?php if($langs == 'Cn'): ?>
                     Language（ENG）
                     <?php else: ?>
                     Language（CHN）
                     <?php endif; ?>
-                </a>
-            </li>
-            <li class="layui-nav-item"><a style="padding-left: 10px !important;" href="javascript:location.reload();" ><?php echo $lable['homepage']; ?></a></li>
-            <li class="layui-nav-item"><a style="padding-left: 10px !important;"  href="<?=url('login/loginOut')?>"><?php echo $lable['logout']; ?></a></li>
-        </ul>
+                </div>
+            </a>
+            <a href="<?=url('login/loginOut')?>">
+                <div>
+                    <i></i>
+                    <?php echo $lable['logout']; ?>
+                </div>
+            </a>
+        </div>
     </div>
+
     <div class="layui-side layui-bg-black">
         <div class="layui-side-scroll" >
             <ul class="layui-nav layui-nav-tree" lay-filter="test">
@@ -87,11 +182,10 @@
             </ul>
         </div>
     </div>
-	<div class='layui-body' style="">
-<!--		<iframe id='option' <?php if($ad_role == 1): ?>src="<?=url('index/welcome')?>"<?php else: ?>src="<?=url('house/myhouse')?>"<?php endif; ?>  frameborder='no' width='100%' height='99%'>-->
-		<iframe id='option' src="<?=url('index/welcome')?>" frameborder='no' width='100%' height='99%'>
+    <div class='layui-body' style="">
+        <iframe id='option' src="<?=url('index/welcome')?>" frameborder='no' width='100%' height='99%'>
         </iframe>
-	</div>
+    </div>
 </div>
 <script>
     $('#changeLang').click(function () {
@@ -116,11 +210,11 @@
     //JavaScript代码区域
     layui.use(['element','jquery','layer'], function(){
         var element = layui.element,
-		$ = layui.jquery;
-		element.on('nav(test)',function(elem){
-			var $url = $(elem).eq(0).attr('data-url');
-			$("#option").attr('src',$url)
-		})
+            $ = layui.jquery;
+        element.on('nav(test)',function(elem){
+            var $url = $(elem).eq(0).attr('data-url');
+            $("#option").attr('src',$url)
+        })
     });
     function toUser(e) {
         var $url = $(e).attr('data-url');
@@ -133,7 +227,7 @@
             url:"<?=url('index/unread')?>",
             dataType:"json",
             success:function(result){
-               if (result) {
+                if (result) {
                     $('#unread').show();
                     $('#unread').html(result);
                 }else{
@@ -147,6 +241,17 @@
     var t2 = window.setInterval("hello()",10000);
     //去掉定时器的方法
     window.clearInterval(t1);
+    // 鼠标悬停显示隐藏
+    $("#preCen").mouseover(function(){
+        // 显示隐藏框
+        $("#preCenn").show();
+    })
+    $("#preCenn").mouseover(function(){
+        // 显示隐藏框
+        $("#preCenn").show();
+    }).mouseout(function(){
+        $("#preCenn").hide();
+    })
 </script>
 </body>
 </html>

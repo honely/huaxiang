@@ -1544,6 +1544,32 @@ class House extends Controller{
         }
     }
 
+
+    public function video(){
+        if($_POST){
+            $data = $_POST;
+
+        }else{
+            return $this->fetch();
+        }
+    }
+
+    public function getSign($link,$timestamp){
+        $clientSecretKey ='';
+        $sign = md5($link . $timestamp . $clientSecretKey);
+        return $sign;
+    }
+    function file_get_contents_post($url, $post) {
+        $options = array(
+            "http"=> array(
+                "method"=>"POST",
+                "header" => "Content-type: application/x-www-form-urlencoded",
+                "content"=> http_build_query($post)
+            ),
+        );
+        $result = file_get_contents($url,false, stream_context_create($options));
+        return $result;
+    }
     //通用缩略图上传接口
     public function upload1()
     {

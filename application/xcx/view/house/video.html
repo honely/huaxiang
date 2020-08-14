@@ -1,0 +1,48 @@
+{include file="index/header" /}
+<div class="layui-body">
+    <hr/>
+    <div style="margin: 10px">
+        <div style="padding: 15px;">
+            <form class="layui-form">
+                <fieldset class="layui-elem-field layui-field-title" style="margin-top: 20px;">
+                    <legend>视频下载</legend>
+                </fieldset>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">视频链接</label>
+                    <div class="layui-input-block">
+                        <input type="text" name="title" id="url" class="layui-input">
+                    </div>
+                    <span class="layui-btn" id="download">一键下载</span>
+                </div>
+            </form>
+
+        </div>
+    </div>
+</div>
+<script>
+    $("#download").click(function () {
+        var url = $("#url").val();
+        var timestamp = Date.parse(new Date());
+        console.log(url);
+        $.ajax({
+            type: 'POST',
+            url: "https://service.iiilab.com/video/download",
+            data:{'link':url,'timestamp':timestamp,},
+            dataType:  'json',
+            success: function(data){
+                if(to == 'en'){
+                    cn = data.src.replace(/~/g,"\n");
+                    en = data.dst.replace(/~/g,"\n");
+                    $('#chinese').val(cn);
+                    $('#english').val(en);
+                }else{
+                    cn = data.src.replace(/~/g,"\n");
+                    en = data.dst.replace(/~/g,"\n");
+                    $('#chinese').val(en);
+                    $('#english').val(cn);
+                }
+            }
+        });
+    });
+</script>
+{include file="index/footer" /}

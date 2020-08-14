@@ -1,4 +1,4 @@
-<?php if (!defined('THINK_PATH')) exit(); /*a:3:{s:89:"D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\public/../application/xcx\view\house\add.html";i:1596677831;s:82:"D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\application\xcx\view\index\header.html";i:1591180794;s:82:"D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\application\xcx\view\index\footer.html";i:1577269681;}*/ ?>
+<?php if (!defined('THINK_PATH')) exit(); /*a:3:{s:89:"D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\public/../application/xcx\view\house\add.html";i:1597376991;s:82:"D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\application\xcx\view\index\header.html";i:1591180794;s:82:"D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\application\xcx\view\index\footer.html";i:1577269681;}*/ ?>
 <!DOCTYPE html>
 <html style="height: 100%">
 <head>
@@ -105,10 +105,10 @@
         </span>
         <div style="float:right;">
             <a href="javascript:history.go(-1);" class="layui-btn layui-btn-primary layui-btn-sm">
-            <i class="layui-icon layui-icon-return"></i>
-            <?php echo $lable['back']; ?></a>
+                <i class="layui-icon layui-icon-return"></i>
+                <?php echo $lable['back']; ?></a>
+        </div>
     </div>
-</div>
     <hr/>
     <div style="margin: 10px">
         <div style="padding: 15px;">
@@ -458,15 +458,24 @@
                 <div class="layui-form-mid layui-word-aux" style="margin-left: 40px;"><?php echo $lable['otherNotic']; ?></div>
                 <div class="layui-form-item one-pan" style="margin-left: 40px;">
                     <div class="layui-upload-drag" id="uploadLogo" style="padding: 50px;">
-                        <video id="logoPre" style="display: none" controls="controls" autobuffer="autobuffer"  autoplay="autoplay" loop="loop" src="">
+                        <video id="logoPre" style="display: none" controls="controls" autobuffer="autobuffer" loop="loop" src="">
                             <input type="hidden" name="video" id="video" value=""/>
                         </video>
+                        <!--进度条-->
+                        <div id="jdT" style="width:200px;height:18px;position: absolute;top: 157px;left: 113px;display:none;">
+                            <div class="layui-progress layui-progress-big" lay-showPercent="true" lay-filter="demo">
+                                <div class="layui-progress-bar layui-bg-red" lay-percent="0%"></div>
+                            </div>
+                        </div>
+                        <!--删除按钮-->
+                        <div id="vidDel" style="position: absolute;left: 60px;top: 18px;color: red;display: none;cursor: pointer;"><?php echo $lable['delete']; ?></div>
                         <div id="display">
                             <i class="layui-icon"></i>
                             <p><?php echo $lable['xuanzeshipim']; ?></p>
                         </div>
                     </div>
-                    <div class="layui-btn layui-btn-sm" id="upload-video" style="margin-left: 20px;" ><?php echo $lable['shangchuan']; ?></div>
+                    <div class="layui-btn layui-btn-sm uploadLogo" style="margin-left: 20px;" id="choiceVid" ><?php echo $lable['shangchuan']; ?></div>
+                    <div class="layui-btn layui-btn-sm" id="upload-video" style="margin-left: 20px;display:none;" ><?php echo $lable['shangchuan']; ?></div>
                     <br/>
                 </div>
                 <div class="layui-form-item">
@@ -509,10 +518,11 @@
             }else{
                 contents = $("#english").val();
             }
-            contents = contents.replace(/[\r\n]/g,"*");
+            contents = contents.replace(/[\r\n]/g,"~");
             if(!contents){
                 return layer.msg('翻译内容不能为空！');
             }
+            console.log(contents);
             $.ajax({
                 type: 'POST',
                 url: "<?=url('translate/transto')?>",
@@ -520,15 +530,17 @@
                 dataType:  'json',
                 success: function(data){
                     if(to == 'en'){
-                        cn = data.src.replace('*','\n');
-                        en = data.dst.replace('*','\n');
+                        cn = data.src.replace(/~/g,"\n");
+                        en = data.dst.replace(/~/g,"\n");
+                        console.log(cn);
+                        console.log(en);
                         $('#chinese').val(cn);
                         $('#english').val(en);
                     }else{
-                        cn = data.src.replace('*','\n');
-                        en = data.dst.replace('*','\n');
-                        $('#chinese').val(en);
-                        $('#english').val(cn);
+                        cn = data.src.replace(/~/g,"\n");
+                        en = data.dst.replace(/~/g,"\n");
+                        console.log(cn);
+                        console.log(en);
                     }
 
                 }
@@ -542,13 +554,30 @@
             , version: false,
             debug: false,
         });
-        layui.use(['form', 'jquery','upload','laydate', 'autocomplete'], function(){
+        layui.use(['form', 'jquery','upload','laydate','element', 'autocomplete'], function(){
             var form = layui.form
                 ,upload = layui.upload
                 , laydate = layui.laydate
-                ,$ = layui.jquery,
-                autocomplete = layui.autocomplete;
-
+                ,$ = layui.jquery
+                ,autocomplete = layui.autocomplete
+                ,element = layui.element;
+            var xhrOnProgress=function(fun) {
+                xhrOnProgress.onprogress = fun;
+                //绑定监听
+                //使用闭包实现监听绑
+                return function() {
+                    //通过$.ajaxSettings.xhr();获得XMLHttpRequest对象
+                    var xhr = $.ajaxSettings.xhr();
+                    //判断监听函数是否为函数
+                    if (typeof xhrOnProgress.onprogress !== 'function')
+                        return xhr;
+                    //如果有监听函数并且xhr对象支持绑定时就把监听函数绑定上去
+                    if (xhrOnProgress.onprogress && xhr.upload) {
+                        xhr.upload.onprogress = xhrOnProgress.onprogress;
+                    }
+                    return xhr;
+                }
+            }
             autocomplete.render({
                 elem: $('#end'),
                 response: {code: 'code', data: 'suggestions'},
@@ -774,7 +803,7 @@
 
             //视频上传
             upload.render({
-                elem: '#uploadLogo'
+                elem: '.uploadLogo'
                 ,auto:false
                 ,url: '<?php echo url("house/upload"); ?>'
                 ,size:10240 //限制文件大小，单位 KB
@@ -782,10 +811,22 @@
                 ,ext: 'mp4'
                 ,accept: 'video' //限制文件大小，单位 KB
                 ,bindAction: '#upload-video'
+                ,xhr:xhrOnProgress
+                ,progress:function(value){
+                    //上传进度回调 value进度值
+                    element.progress('demo', value+'%');//设置页面进度条
+                }
                 ,choose:function(obj){
+                    console.log("执行上传视频选择")
                     obj.preview(function(index, file, result){
+                        console.log("预览视频")
                         let url = URL.createObjectURL(file);
                         $('#logoPre').show();
+                        // 删除显示
+                        $('#vidDel').show();
+                        // 上传显示，选择隐藏
+                        // $('#upload-video').show();
+                        $('#choiceVid').hide();
                         $('#display').hide();
                         $('#uploadLogo').removeClass('layui-upload-drag');
                         $('#logoPre').css('width','335px');
@@ -800,16 +841,48 @@
                             }
                             clearTimeout(timer);
                         },1000);
+                        // 显示进度条
+                        // 上传显示进度条
+                        $("#jdT").show();
+                        // 创建定时器 0.5秒后执行  然后清除定时器，让他只执行一次
+                        var d1 = setInterval(function(){
+                            $('#logoPre').attr('autoplay', 'autoplay');
+                            console.log("定时器执行，上传点击事件")
+                            $('#upload-video').click();
+                            clearTimeout(d1);
+                        },500);
+
+
+                        // 视频删除,样式重置，上传视频初始化
+                        $('#vidDel').click(function(event){
+                            console.log("执行删除");
+                            $('#vidDel').hide();                                               //删除按钮隐藏
+                            $('#logoPre').removeAttr('src');                                   //视频清空地址
+                            $('#logoPre').css('width','');
+                            $('#logoPre').css('height','');
+                            $('#video').val('');
+                            $('#logoPre').hide();                                              //视频隐藏
+                            $('#display').show();                                              //提示图标，文字显示
+                            $('#uploadLogo').addClass("layui-upload-drag");                    //父级初始样式
+                            // 上传隐藏，选择显示
+                            $('#upload-video').hide();
+                            $('#choiceVid').show();
+                            //初始化上传视频组件
+                            upload.render();
+                            event.stopPropagation();                                           //禁止冒泡
+                        });
                     });
                 }
                 ,before: function(input){
                     loading = layer.load(2, {
                         shade: [0.2,'#000']
                     });
+                    console.log(input)
                 }
                 ,done: function(res){
                     $('#logoPre').removeAttr('src');
                     $('#video').val('');
+                    console.log(res.filepath);
                     layer.close(loading);
                     $('#video').val(res.filepath);
                     $('#uploadLogo').removeClass('layui-upload-drag');
@@ -818,6 +891,10 @@
                     $('#logoPre').attr('src',"../../../"+res.filepath);
                     $('#display').hide();
                     layer.msg(res.msg, {icon: 1, time: 1000});
+                    // 上传完成隐藏进度条  进度条重置，解决再次上传初始为100%的问题
+                    $("#jdT").hide();
+                    $(".layui-bg-red").css("width","");
+                    $(".layui-progress-text").text("0%");
                 }
                 ,error: function(res){
                     layer.msg(res.msg, {icon: 2, time: 1000});
