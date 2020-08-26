@@ -1,4 +1,4 @@
-<?php if (!defined('THINK_PATH')) exit(); /*a:3:{s:89:"D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\public/../application/xcx\view\house\add.html";i:1597376991;s:82:"D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\application\xcx\view\index\header.html";i:1591180794;s:82:"D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\application\xcx\view\index\footer.html";i:1577269681;}*/ ?>
+<?php if (!defined('THINK_PATH')) exit(); /*a:3:{s:89:"D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\public/../application/xcx\view\house\add.html";i:1598341107;s:82:"D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\application\xcx\view\index\header.html";i:1591180794;s:82:"D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\application\xcx\view\index\footer.html";i:1577269681;}*/ ?>
 <!DOCTYPE html>
 <html style="height: 100%">
 <head>
@@ -223,7 +223,7 @@
                     <div class="layui-input-block">
                         <input type="checkbox" name="bill[包水]" lay-skin="primary" title="<?php echo $lable['water']; ?>">
                         <input type="checkbox" name="bill[包电]" lay-skin="primary" title="<?php echo $lable['elect']; ?>">
-                        <input type="checkbox" name="bill[包气]" lay-skin="primary" title="<?php echo $lable['gas']; ?>">
+                        <input type="checkbox" name="bill[包煤气]" lay-skin="primary" title="<?php echo $lable['gas']; ?>">
                         <input type="checkbox" name="bill[包网]" lay-skin="primary" title="<?php echo $lable['nets']; ?>">
                     </div>
                 </div>
@@ -290,8 +290,8 @@
                     <div class="layui-input-block">
                         <input type="checkbox" name="home[床]" lay-skin="primary" title="<?php echo $lable['chuang']; ?>">
                         <input type="checkbox" name="home[沙发]" lay-skin="primary" title="<?php echo $lable['shafa']; ?>">
-                        <input type="checkbox" name="home[餐桌]" lay-skin="primary" title="<?php echo $lable['canzuo']; ?>">
-                        <input type="checkbox" name="home[椅子]" lay-skin="primary" title="<?php echo $lable['yizi']; ?>">
+<!--                        <input type="checkbox" name="home[餐桌]" lay-skin="primary" title="<?php echo $lable['canzuo']; ?>">-->
+<!--                        <input type="checkbox" name="home[椅子]" lay-skin="primary" title="<?php echo $lable['yizi']; ?>">-->
                         <input type="checkbox" name="home[WIFI]" lay-skin="primary" title="<?php echo $lable['fWIFI']; ?>">
                         <input type="checkbox" name="home[空调]" lay-skin="primary" title="<?php echo $lable['kongtiao']; ?>">
                         <input type="checkbox" name="home[洗衣机]" lay-skin="primary" title="<?php echo $lable['xiyiji']; ?>">
@@ -300,6 +300,10 @@
                         <input type="checkbox" name="home[暖气]" lay-skin="primary" title="<?php echo $lable['nuanqi']; ?>">
                         <input type="checkbox" name="home[电烤箱]" lay-skin="primary" title="<?php echo $lable['kaoxiang']; ?>">
                         <input type="checkbox" name="home[洗碗机]" lay-skin="primary" title="<?php echo $lable['xiwanji']; ?>">
+                        <input type="checkbox" name="home[书桌]" lay-skin="primary" title="<?php echo $lable['shuzhuo']; ?>">
+                        <input type="checkbox" name="home[烘干机]" lay-skin="primary" title="<?php echo $lable['hongganji']; ?>">
+                        <input type="checkbox" name="home[电视]" lay-skin="primary" title="<?php echo $lable['dianshi']; ?>">
+                        <input type="checkbox" name="home[天然气]" lay-skin="primary" title="<?php echo $lable['tianranqi']; ?>">
                     </div>
                 </div>
 
@@ -310,26 +314,26 @@
                         <input type="checkbox" name="furniture[健身房]" lay-skin="primary" title="<?php echo $lable['jianshenfang']; ?>">
                         <input type="checkbox" name="furniture[停车位]" lay-skin="primary" title="<?php echo $lable['tingchewei']; ?>">
                         <input type="checkbox" name="furniture[电影院]" lay-skin="primary" title="<?php echo $lable['dianyingyuan']; ?>">
-                        <input type="checkbox" name="furniture[花园]" lay-skin="primary" title="<?php echo $lable['huayuan']; ?>">
+<!--                        <input type="checkbox" name="furniture[花园]" lay-skin="primary" title="<?php echo $lable['huayuan']; ?>">-->
                         <input type="checkbox" name="furniture[门禁]" lay-skin="primary" title="<?php echo $lable['menjin']; ?>">
                         <input type="checkbox" name="furniture[前台]" lay-skin="primary" title="<?php echo $lable['qiantai']; ?>">
                         <input type="checkbox" name="furniture[桑拿]" lay-skin="primary" title="<?php echo $lable['sangna']; ?>">
                     </div>
                 </div>
 
-                <div class="layui-form-item" pane="">
-                    <label class="layui-form-label"><?php echo $lable['zhoubian']; ?></label>
-                    <div class="layui-input-block">
-                        <input type="checkbox" name="sation[巴士站]" lay-skin="primary" title="<?php echo $lable['bashizhan']; ?>">
-                        <input type="checkbox" name="sation[火车站]" lay-skin="primary" title="<?php echo $lable['huochezhan']; ?>">
-                        <input type="checkbox" name="sation[电车站]" lay-skin="primary" title="<?php echo $lable['dianchezhan']; ?>">
-                        <input type="checkbox" name="sation[餐馆]" lay-skin="primary" title="<?php echo $lable['canguan']; ?>">
-                        <input type="checkbox" name="sation[公园]" lay-skin="primary" title="<?php echo $lable['gongyuan']; ?>">
-                        <input type="checkbox" name="sation[警察局]" lay-skin="primary" title="<?php echo $lable['jingcaju']; ?>">
-                        <input type="checkbox" name="sation[医院]" lay-skin="primary" title="<?php echo $lable['yiyuan']; ?>">
-                        <input type="checkbox" name="sation[超市]" lay-skin="primary" title="<?php echo $lable['chaoshi']; ?>">
-                    </div>
-                </div>
+<!--                <div class="layui-form-item" pane="">-->
+<!--                    <label class="layui-form-label"><?php echo $lable['zhoubian']; ?></label>-->
+<!--                    <div class="layui-input-block">-->
+<!--                        <input type="checkbox" name="sation[巴士站]" lay-skin="primary" title="<?php echo $lable['bashizhan']; ?>">-->
+<!--                        <input type="checkbox" name="sation[火车站]" lay-skin="primary" title="<?php echo $lable['huochezhan']; ?>">-->
+<!--                        <input type="checkbox" name="sation[电车站]" lay-skin="primary" title="<?php echo $lable['dianchezhan']; ?>">-->
+<!--                        <input type="checkbox" name="sation[餐馆]" lay-skin="primary" title="<?php echo $lable['canguan']; ?>">-->
+<!--                        <input type="checkbox" name="sation[公园]" lay-skin="primary" title="<?php echo $lable['gongyuan']; ?>">-->
+<!--                        <input type="checkbox" name="sation[警察局]" lay-skin="primary" title="<?php echo $lable['jingcaju']; ?>">-->
+<!--                        <input type="checkbox" name="sation[医院]" lay-skin="primary" title="<?php echo $lable['yiyuan']; ?>">-->
+<!--                        <input type="checkbox" name="sation[超市]" lay-skin="primary" title="<?php echo $lable['chaoshi']; ?>">-->
+<!--                    </div>-->
+<!--                </div>-->
                 <div class="layui-form-item" pane="">
                     <label class="layui-form-label"><?php echo $lable['biaoqian']; ?></label>
                     <div class="layui-input-block">
@@ -522,7 +526,6 @@
             if(!contents){
                 return layer.msg('翻译内容不能为空！');
             }
-            console.log(contents);
             $.ajax({
                 type: 'POST',
                 url: "<?=url('translate/transto')?>",
@@ -532,17 +535,14 @@
                     if(to == 'en'){
                         cn = data.src.replace(/~/g,"\n");
                         en = data.dst.replace(/~/g,"\n");
-                        console.log(cn);
-                        console.log(en);
                         $('#chinese').val(cn);
                         $('#english').val(en);
                     }else{
                         cn = data.src.replace(/~/g,"\n");
                         en = data.dst.replace(/~/g,"\n");
-                        console.log(cn);
-                        console.log(en);
+                        $('#chinese').val(en);
+                        $('#english').val(cn);
                     }
-
                 }
             });
         });
@@ -785,8 +785,9 @@
                 elem: '#uploadImg'
                 ,url: '<?php echo url("house/upload"); ?>'
                 ,exts: 'jpg|png|jpeg|gif|bmp|JPG'
-                ,size: '30000'
+                ,size: 1024*5
                 ,done: function(res){
+                    console.log(123);
                     layer.close(layer.msg());//关闭上传提示窗口
                     if(res.status == 0) {
                         return layer.msg(res.message);
@@ -796,7 +797,6 @@
                     $('#logoPreimg').css('height','251px');
                     $('#logoPreimg').attr('src',"../../../"+res.filepath);
                     $('#displayImg').hide();
-                    console.log(res);
                     $('#thumnail').val('' +res.filepath + '');
                 }
             });
@@ -942,7 +942,7 @@
             upload.render({
                 elem: '#slide-pc',
                 url: '<?php echo url("house/upload2"); ?>',
-                size: 1024*1024*10,
+                size: 1024*5,
                 exts: 'jpg|png|jpeg|gif|bmp|JPG',
                 multiple: true,
                 before: function(obj) {

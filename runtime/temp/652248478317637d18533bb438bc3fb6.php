@@ -1,4 +1,4 @@
-<?php if (!defined('THINK_PATH')) exit(); /*a:3:{s:91:"D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\public/../application/xcx\view\corp\detail.html";i:1596593775;s:82:"D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\application\xcx\view\index\header.html";i:1591180794;s:82:"D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\application\xcx\view\index\footer.html";i:1577269681;}*/ ?>
+<?php if (!defined('THINK_PATH')) exit(); /*a:3:{s:91:"D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\public/../application/xcx\view\corp\detail.html";i:1597887198;s:82:"D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\application\xcx\view\index\header.html";i:1591180794;s:82:"D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\application\xcx\view\index\footer.html";i:1577269681;}*/ ?>
 <!DOCTYPE html>
 <html style="height: 100%">
 <head>
@@ -66,11 +66,28 @@
                                 >
                                 <input type="hidden" lay-verify="imgReg" name="b_cover" id="b_cover" value="<?php echo $corp['cp_logo']; ?>"/>
                                 </image>
-                            </div>
+                                </div>
                                 <div class="one">
                                     <div class="layui-form-mid layui-word-aux" style="margin-left: 39px; "><?php echo $lable['tupianRemark']; ?></div>
                                 </div>
                             </div>
+                            <div class="layui-form-item one-pan">
+                                <label class="layui-form-label"><span style="color: red;">*</span>主页背景图</label>
+                                <div <?php if($corp['backimg'] == null): ?>class="layui-upload-drag"<?php endif; ?> style="display:inline-block;" >
+                                <?php if($corp['backimg'] == null): ?>未上传<?php endif; ?>
+                                <image id="logoPre"
+                                       <?php if($corp['backimg'] == null): else: ?>
+                                src="../../../<?php echo $corp['backimg']; ?>"
+                                class="logoPre"
+                                <?php endif; ?>
+                                >
+                                <input type="hidden" lay-verify="imgReg" name="backimg" id="backimg" value="<?php echo $corp['backimg']; ?>"/>
+                                </image>
+                            </div>
+                            <div class="one">
+                                <div class="layui-form-mid layui-word-aux" style="margin-left: 39px; "><?php echo $lable['tupianRemark']; ?></div>
+                            </div>
+                        </div>
                             <div class="layui-form-item">
                                 <label class="layui-form-label"><span style="color: red;">*</span><?php echo $lable['youxiang']; ?></label>
                                 <div class="layui-input-block">

@@ -33,6 +33,8 @@
                                     <input type="text" readonly name="cp_address" lay-verify="required|title" value="{$corp.cp_address}"  autocomplete="off" class="layui-input">
                                 </div>
                             </div>
+                            
+                            
                             <div class="layui-form-item one-pan">
                                 <label class="layui-form-label"><span style="color: red;">*</span>Logo</label>
                                 <div {if condition="$corp.cp_logo eq null"}class="layui-upload-drag"{/if} style="display:inline-block;" >
@@ -45,9 +47,52 @@
                                 >
                                 <input type="hidden" lay-verify="imgReg" name="b_cover" id="b_cover" value="{$corp.cp_logo}"/>
                                 </image>
-                            </div>
+                                </div>
                                 <div class="one">
                                     <div class="layui-form-mid layui-word-aux" style="margin-left: 39px; ">{$lable.tupianRemark}</div>
+                                </div>
+                            </div>
+                            
+                               <div class="layui-form-item one-pan">
+                                <label class="layui-form-label"><span style="color: red;">*</span>miniLogo</label>
+                                <div {if condition="$corp.minilogo eq null"}class="layui-upload-drag"{/if} style="display:inline-block;" >
+                                <image id="logoPre"
+                                       {if condition="$corp.minilogo eq null"}
+                                       {else/}
+                                src="__PUBLIC__/{$corp.minilogo}"
+                                class="logoPre"
+                                {/if}
+                                >
+                                <input type="hidden" lay-verify="imgReg" name="minilogo" id="minilogo" value="{$corp.minilogo}"/>
+                                </image>
+                                </div>
+                                <div class="one">
+                                    <div class="layui-form-mid layui-word-aux" style="margin-left: 39px; ">{$lable.tupianRemark}</div>
+                                </div>
+                            </div>
+                            
+                            <div class="layui-form-item one-pan">
+                                <label class="layui-form-label"><span style="color: red;">*</span>主页背景图</label>
+                                <div {if condition="$corp.backimg eq null"}class="layui-upload-drag"{/if} style="display:inline-block;" >
+                                {if condition="$corp.backimg eq null"}未上传{/if}
+                                <image id="logoPre"
+                                       {if condition="$corp.backimg eq null"}
+                                       {else/}
+                                src="__PUBLIC__/{$corp.backimg}"
+                                class="logoPre"
+                                {/if}
+                                >
+                                <input type="hidden" lay-verify="imgReg" name="backimg" id="backimg" value="{$corp.backimg}"/>
+                                </image>
+                            </div>
+                            <div class="one">
+                                <div class="layui-form-mid layui-word-aux" style="margin-left: 39px; ">{$lable.tupianRemark}</div>
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                                <label class="layui-form-label"><span style="color: red;">*</span>前端颜色</label>
+                                <div class="layui-input-block">
+                                    <input type="text" name="colour" value="{if condition='$corp.colour eq 1'}浅色{else/}深色{/if}" readonly autocomplete="off" class="layui-input">
                                 </div>
                             </div>
                             <div class="layui-form-item">

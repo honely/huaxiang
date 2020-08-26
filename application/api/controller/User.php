@@ -408,7 +408,7 @@ class User extends Controller
             $data['path'] = 'pages/roommateDetail/roommateDetail';
         }else{
             $data['scene'] = 'h' . $id;
-            $data['path'] = 'pages/detail/detail';
+            $data['path'] = 'pages/wholeRentDeatil/wholeRentDeatil';
         }
         $data['width'] = '180';
         $res = $this->http($url, json_encode($data),1);

@@ -237,11 +237,19 @@ class Languages extends Model
             'transNoticNew' => 'Enter ENGLISH on the LEFT then click ENG->CHN, or enter CHINESE on the RIGHT then click CHN->ENG',
             'transPlaceCn' => 'Enter CHINESE, and proofread the translation',
             'transPlaceEn' => 'Enter ENGLISH letters, and proofread the translation',
+            'shuzhuo' => 'Desk',
+            'hongganji' => 'Dryer',
+            'dianshi' => 'TV',
+            'tianranqi' => 'Gas Cooktop',
         ];
         return $enLab;
     }
     public function getCn(){
         $cnLab = [
+            'shuzhuo' => '书桌',
+            'hongganji' => '烘干机',
+            'dianshi' => '电视',
+            'tianranqi' => '煤气灶',
             'transPlaceCn' => '请输入中文CHINESE，并仔细检查翻译结果',
             'transPlaceEn' => '请输入英文ENGLISH，并仔细检查翻译结果',
             'transNoticNew' => '请在左侧输入英文ENGLISH并点击英译中，或在右侧输入中文CHINESE并点击中译英',
@@ -345,7 +353,7 @@ class Languages extends Model
             'bill' => 'Bill相关',
             'water' => '包水',
             'elect' => '包电',
-            'gas' => '包气',
+            'gas' => '包煤气',
             'nets' => '包网',
             'liveterm' => '租期（月）',
             'housedetail' => '房屋相关',

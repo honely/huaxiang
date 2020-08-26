@@ -22,7 +22,7 @@ class Housem extends Model
        $field = $field.',thumnail';
         $result = Db::table('tk_houses')
             ->where($where)
-          ->where(['is_del' => 1])
+            ->where(['is_del' => 1])
             ->limit(($page)*$limit,$limit)
             ->order($order)
             ->field($field)
@@ -53,6 +53,26 @@ class Housem extends Model
                 ->where(['id' => $data['user_id']])
                 ->update(['tel' => $data['tel'],'wchat' => $data['wchat']]);
         }
+        if(isset($data['city']) && $data['city']){
+            switch ($data['city']){
+                case 'Melbourne':
+                    $city = '墨尔本';
+                    break;
+                case 'Sydney':
+                    $city = '悉尼';
+                    break;
+                case 'Tasmania':
+                    $city = '塔州';
+                    break;
+                case 'Brisbane':
+                    $city = '布里斯班';
+                    break;
+                default:
+                    $city  = $data['city'];
+                    break;
+            }
+            $data['city'] = $city;
+        }
         unset($data['is_save']);
         $addHouse = Db::table('tk_houses')->insertGetId($data);
         $mateInfo = Db::table('tk_houses')->where(['id' =>$addHouse])->field('user_id')->find();
@@ -74,6 +94,26 @@ class Housem extends Model
             Db::table('tk_user')
                 ->where(['id' => $data['user_id']])
                ->update(['tel' => $data['tel'],'wchat' => $data['wchat']]);
+        }
+        if(isset($data['city']) && $data['city']){
+            switch ($data['city']){
+                case 'Melbourne':
+                    $city = '墨尔本';
+                    break;
+                case 'Sydney':
+                    $city = '悉尼';
+                    break;
+                case 'Tasmania':
+                    $city = '塔州';
+                    break;
+                case 'Brisbane':
+                    $city = '布里斯班';
+                    break;
+                default:
+                    $city  = $data['city'];
+                    break;
+            }
+            $data['city'] = $city;
         }
         unset($data['is_save']);
         unset($data['id']);
@@ -108,6 +148,9 @@ class Housem extends Model
             ->where(['id' => $id])
             ->find();
         $loop = new Loops();
+        $areaHouse =[];
+        $loardHouse =[];
+        $comment =[];
         if($house){
             if($house['live_date'] == '0100-01-01' || $house['live_date']== '0000-00-00'){
                 $house['live_date'] = '随时入住';
@@ -126,6 +169,39 @@ class Housem extends Model
             $house['house_room'] = $this->numRoom($house['house_room']);
             $house['real_name'] = $loop->getUserNicks($house['user_id'],$house['is_admin']);
             $house['avatar'] = $loop->getUserAvatars($house['user_id'],$house['is_admin']);
+            $house['logo'] = $this->getAdminLogo($house['corp']);
+            $house['minilogo'] = $this->getMiniLogo($house['corp']);
+            $cover = $this->getCoverImg($house['thumnail'],$house['images'],$house['cover']);
+            $house['cover'] = $this->compCover($id,$cover);
+            //$house['colour'] = $this->getColour($house['corp']);
+             //看过本房的还在看
+            $area = $house['area'];
+            $where ="status = 1 and area = '".$area."' and id != ".$id;
+            $field = "id,title,house_type,toilet,car,house_room,area,images,price,address,tags";
+            $areaHouse['data'] = $this->readData($where,'id desc',7,0,$field);
+            //房东的其他房源is_admin = 1 个人房源  =2 中介房源
+            $fields = "id,house_type,toilet,car,house_room,area,price,images";
+            if($house['is_admin'] == 2){
+                $whereloard ="status = 1 and pm = ".$house['user_id']." and id != ".$id;
+            }else{
+                $whereloard ="status = 1 and user_id = ".$house['user_id']." and id != ".$id;
+            }
+            $loardHouse = $this->readData($whereloard,'id desc',3,0,$fields);
+            if($house['type'] == "合租"){
+                $comment = Db::table('tk_comment')
+                    ->where(['type' => 1,'repy' => 1,'status' =>1,'tid' => $id])
+                    ->order('cid desc')
+                    ->limit(20)
+                    ->select();
+                if($comment){
+                    $loop = new Loops();
+                    foreach ($comment as $k => $v){
+                        $comment[$k]['nickname'] = $loop->getUserNick($v['userid']);
+                        $comment[$k]['avatar'] = $loop->getUserAvatar($v['userid']);
+                        $comment[$k]['replys'] = $this->getReplay($v['cid']);
+                    }
+                }
+            }
         }
         //写入一条浏览记录
         $view = new Views();
@@ -133,9 +209,75 @@ class Housem extends Model
         $res['code'] = 1;
         $res['msg'] = '读取成功';
         $res['data'] = $house;
+        $res['other'] = $areaHouse;
+        $res['counto'] = sizeof($areaHouse);
+        $res['loard'] = $loardHouse;
+        $res['countl'] = sizeof($loardHouse);
+        $res['comment'] = $comment;
+        $res['countc'] = sizeof($comment);
         return $res;
     }
+    
+    
+    public function compCover($id,$cover){
+        $image = Image::open($cover);
+        $pathName = 'uploads/compress/cp'.$id.'.png';
+        $path = config('compImg').'uploads/compress/cp'.$id.'.png';
+        $corpImg = $image->thumb(650,430,Image::THUMB_CENTER)->save($pathName);
+        //吧压缩的图片更新到cover
+        Db::table('tk_houses')->where(['id'=> $id])->update(['cover' => $pathName]);
+        return $path;
+    }
+    public function getCoverImg($thumb,$image,$cover){
+        if(!$cover){
+            if(!$thumb){
+                $covers = explode(',',$image);
+                return $covers[0];
+            }
+            return $thumb;
+        }
+        return $cover;
+    }
+    
+    public function getReplay($cid){
+        $comment = Db::table('tk_comment')
+            ->where(['repy' => 2,'status' =>1,'repyid' => $cid])
+            ->limit(20)
+            ->order('cid desc')
+            ->select();
+        if($comment){
+            $loop = new Loops();
+            foreach ($comment as $k => $v){
+                $comment[$k]['nickname'] = $loop->getUserNick($v['userid']);
+                $comment[$k]['avatar'] = $loop->getUserAvatar($v['userid']);
+                $comment[$k]['replys'] = $this->getReplay($v['cid']);
+            }
+        }
+        return $comment;
+    }
 
+    public function getColour($corpid){
+        $logo = Db::table('xcx_corp')
+            ->where(['cp_id' =>$corpid])
+            ->field('colour')
+            ->find();
+        return $logo ? $logo['colour'] : '';
+    }
+
+    public function getMiniLogo($corpid){
+        $logo = Db::table('xcx_corp')
+            ->where(['cp_id' =>$corpid])
+            ->field('minilogo')
+            ->find();
+        return $logo ? $logo['minilogo'] : '';
+    }
+    public function getAdminLogo($corpid){
+        $logo = Db::table('xcx_corp')
+            ->where(['cp_id' =>$corpid])
+            ->field('cp_logo')
+            ->find();
+        return $logo ? $logo['cp_logo'] : '';
+    }
     public function cpHouseImg($images){
         $imgurl ='';
         if($images){
@@ -158,17 +300,12 @@ class Housem extends Model
         $Size1 = 1.5*1024;
         $Size2 = 2.5*1024;
         $Size3 = 3*1024;
-        $Size4 = 6*1024;
-        if($Size1 < $imgSize){
-            return $file;
-        }elseif($Size2 > $imgSize && $imgSize > $Size1){
+        if($Size2 > $imgSize && $imgSize > $Size1){
             $this->compressImg($file,80);
         }elseif($Size3 > $imgSize && $imgSize > $Size2){
             $this->compressImg($file,70);
-        }elseif($Size4 > $imgSize && $imgSize > $Size3){
+        }elseif($imgSize > $Size2){
             $this->compressImg($file,60);
-        }else{
-            $this->compressImg($file,40);
         }
         return $files;
     }

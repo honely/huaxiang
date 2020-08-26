@@ -1,4 +1,4 @@
-<?php if (!defined('THINK_PATH')) exit(); /*a:3:{s:88:"D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\public/../application/xcx\view\corp\add.html";i:1596610421;s:82:"D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\application\xcx\view\index\header.html";i:1591180794;s:82:"D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\application\xcx\view\index\footer.html";i:1577269681;}*/ ?>
+<?php if (!defined('THINK_PATH')) exit(); /*a:3:{s:88:"D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\public/../application/xcx\view\corp\add.html";i:1597886311;s:82:"D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\application\xcx\view\index\header.html";i:1591180794;s:82:"D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\application\xcx\view\index\footer.html";i:1577269681;}*/ ?>
 <!DOCTYPE html>
 <html style="height: 100%">
 <head>
@@ -85,6 +85,21 @@
                                     <div class="layui-form-mid layui-word-aux" style="margin-left: 39px; "><?php echo $lable['tupianRemark']; ?></div>
                                 </div>
                             </div>
+                            <div class="layui-form-item one-pan">
+                                <label class="layui-form-label"><span style="color: red;">*</span>主页背景图</label>
+                                <div class="layui-upload-drag" id="uploadImg" style="display:inline-block;">
+                                    <image id="imgPre">
+                                        <input type="hidden" lay-verify="imgReg" name="backimg" id="backimg" value=""/>
+                                    </image>
+                                    <div id="displays">
+                                        <i class="layui-icon"></i>
+                                        <p><?php echo $lable['shangchuan']; ?></p>
+                                    </div>
+                                </div>
+                                <div class="one">
+                                    <div class="layui-form-mid layui-word-aux" style="margin-left: 39px; "><?php echo $lable['tupianRemark']; ?></div>
+                                </div>
+                            </div>
                             <div class="layui-form-item">
                                 <label class="layui-form-label"><span style="color: red;">*</span><?php echo $lable['youxiang']; ?></label>
                                 <div class="layui-input-block">
@@ -149,6 +164,23 @@
                 $('#logoPre').attr('src',"../../../"+res.path);
                 console.log(res);
                 $('#cp_logo').val('' +res.path + '');
+            }
+        }); upload.render({
+            elem: '#uploadImg'
+            ,url: '<?php echo url("xcx/corp/upload"); ?>'
+            ,exts: 'PNG|JPG'
+            ,size: '30000'
+            ,done: function(res){
+                layer.close(layer.msg());//关闭上传提示窗口
+                if(res.status == 0) {
+                    return layer.msg(res.message);
+                }
+                $('#uploadImg').removeClass('layui-upload-drag');
+                $('#imgPre').css('width','216px');
+                $('#imgPre').css('height','150px');
+                $('#imgPre').attr('src',"../../../"+res.path);
+                console.log(res);
+                $('#backimg').val('' +res.path + '');
             }
         });
     });

@@ -1,4 +1,4 @@
-<?php if (!defined('THINK_PATH')) exit(); /*a:3:{s:90:"D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\public/../application/xcx\view\house\edit.html";i:1597308104;s:82:"D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\application\xcx\view\index\header.html";i:1591180794;s:82:"D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\application\xcx\view\index\footer.html";i:1577269681;}*/ ?>
+<?php if (!defined('THINK_PATH')) exit(); /*a:3:{s:90:"D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\public/../application/xcx\view\house\edit.html";i:1598006153;s:82:"D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\application\xcx\view\index\header.html";i:1591180794;s:82:"D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\application\xcx\view\index\footer.html";i:1577269681;}*/ ?>
 <!DOCTYPE html>
 <html style="height: 100%">
 <head>
@@ -222,8 +222,8 @@
                 <div class="layui-form-item">
                     <label class="layui-form-label"><span style="color: red;">*</span><?php echo $lable['shifoujiaju']; ?></label>
                     <div class="layui-input-block">
-                        <input type="radio" name="is_fur" value="是" title="<?php echo $lable['bujiaju']; ?>" <?php if($house['is_fur'] == '是'): ?>checked<?php endif; ?>>
-                        <input type="radio" name="is_fur" value="否" title="<?php echo $lable['baojiaju']; ?>" <?php if($house['is_fur'] == '否'): ?>checked<?php endif; ?>>
+                        <input type="radio" name="is_fur" value="否" title="<?php echo $lable['bujiaju']; ?>" <?php if($house['is_fur'] == '否'): ?>checked<?php endif; ?>>
+                        <input type="radio" name="is_fur" value="是" title="<?php echo $lable['baojiaju']; ?>" <?php if($house['is_fur'] == '是'): ?>checked<?php endif; ?>>
                     </div>
                 </div>
                 <div class="layui-form-item" pane="">
@@ -310,14 +310,14 @@
                     </div>
                 </div>
 
-                <div class="layui-form-item" pane="">
-                    <label class="layui-form-label"><?php echo $lable['zhoubian']; ?></label>
-                    <div class="layui-input-block">
-                        <?php if(is_array($all_trans) || $all_trans instanceof \think\Collection || $all_trans instanceof \think\Paginator): $i = 0; $__LIST__ = $all_trans;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$vo): $mod = ($i % 2 );++$i;?>
-                        <input type="checkbox" class="checkbox" lay-skin="primary" name="sation[<?php echo $vo['trans']; ?>]" title="<?php echo $vo['transtitle']; ?>"  <?php echo !empty($vo['is_checked'])?'checked' : ''; ?>>
-                        <?php endforeach; endif; else: echo "" ;endif; ?>
-                    </div>
-                </div>
+<!--                <div class="layui-form-item" pane="">-->
+<!--                    <label class="layui-form-label"><?php echo $lable['zhoubian']; ?></label>-->
+<!--                    <div class="layui-input-block">-->
+<!--                        <?php if(is_array($all_trans) || $all_trans instanceof \think\Collection || $all_trans instanceof \think\Paginator): $i = 0; $__LIST__ = $all_trans;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$vo): $mod = ($i % 2 );++$i;?>-->
+<!--                        <input type="checkbox" class="checkbox" lay-skin="primary" name="sation[<?php echo $vo['trans']; ?>]" title="<?php echo $vo['transtitle']; ?>"  <?php echo !empty($vo['is_checked'])?'checked' : ''; ?>>-->
+<!--                        <?php endforeach; endif; else: echo "" ;endif; ?>-->
+<!--                    </div>-->
+<!--                </div>-->
                 <div class="layui-form-item" pane="">
                     <label class="layui-form-label"><?php echo $lable['biaoqian']; ?></label>
                     <div class="layui-input-block">
@@ -467,7 +467,7 @@
                         <video id="logoPre" controls="controls" autobuffer="autobuffer" style="width: 335px;height: 215px;" autoplay="autoplay" loop="loop" src="<?php if($house['video'] != null): ?>../../../<?php echo $house['video']; else: endif; ?>">
                             <input type="hidden" name="video" id="video" value="<?php if($house['video'] != null): ?><?php echo $house['video']; else: endif; ?>"/>
                         </video>
-                        <div id="vidDel" style="position: absolute;left: 60px;top: 18px;color: red;cursor: pointer;">删除</div>
+                        <div id="vidDel" style="position: absolute;left: 60px;top: 18px;color: red;cursor: pointer;"><?php echo $lable['delete']; ?></div>
                         <div id="display" style="display: none">
                             <i class="layui-icon"></i>
                             <p><?php echo $lable['xuanzeshipim']; ?></p>
@@ -481,14 +481,14 @@
                                 <div class="layui-progress-bar layui-bg-red" lay-percent="0%"></div>
                             </div>
                         </div>
-                        <div id="vidDel" style="position: absolute;left: 60px;top: 18px;color: red;cursor: pointer;">删除</div>
+                        <div id="vidDel" style="position: absolute;left: 60px;top: 18px;color: red;cursor: pointer;"><?php echo $lable['delete']; ?></div>
                         <div id="display">
                             <i class="layui-icon"></i>
                             <p><?php echo $lable['xuanzeshipim']; ?></p>
                         </div>
                         <?php endif; ?>
                     </div>
-                    <div class="layui-btn layui-btn-sm uploadLogo" style="margin-left: 20px;" id="choiceVid" >视频上传选择</div>
+                    <div class="layui-btn layui-btn-sm uploadLogo" style="margin-left: 20px;" id="choiceVid" ><?php echo $lable['shangchuan']; ?></div>
                     <div class="layui-btn layui-btn-sm" id="upload-video" style="margin-left: 20px;display: none" ><?php echo $lable['shangchuan']; ?></div>
                     <br/>
                 </div>
@@ -536,7 +536,7 @@
                     contents = $("#english").val();
                 }
             }
-            contents = contents.replace(/[\r\n]/g,"*");
+            contents = contents.replace(/[\r\n]/g,"~");
             if(!contents){
                 return layer.msg('翻译内容不能为空！');
             }
@@ -550,13 +550,13 @@
                     $('#isTrans').val(2);
                     $('#translate').show();
                     if(to == 'en'){
-                        cn = data.src.replace('*','\n');
-                        en = data.dst.replace('*','\n');
+                        cn = data.src.replace(/~/g,"\n");
+                        en = data.dst.replace(/~/g,"\n");
                         $('#chinese').val(cn);
                         $('#english').val(en);
                     }else{
-                        cn = data.src.replace('*','\n');
-                        en = data.dst.replace('*','\n');
+                        cn = data.src.replace(/~/g,"\n");
+                        en = data.dst.replace(/~/g,"\n");
                         $('#chinese').val(en);
                         $('#english').val(cn);
                     }
@@ -803,7 +803,7 @@
                 elem: '#uploadImg'
                 ,url: '<?php echo url("house/upload"); ?>'
                 ,exts: 'jpg|png|jpeg|gif|bmp|JPG'
-                ,size: '30000'
+                ,size: 1024*5
                 ,done: function(res){
                     layer.close(layer.msg());//关闭上传提示窗口
                     if(res.status == 0) {
@@ -964,7 +964,7 @@
             upload.render({
                 elem: '#slide-pc',
                 url: '<?php echo url("house/upload"); ?>',
-                size: 1024*1024*10,
+                size: 1024*5,
                 exts: 'jpg|png|jpeg|gif|bmp|JPG',
                 multiple: true,
                 before: function(obj) {

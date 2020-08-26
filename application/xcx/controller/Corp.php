@@ -116,7 +116,9 @@ class Corp extends Controller
             $data['cp_name']=$_POST['cp_name'];
             $data['cp_identity']=$_POST['cp_identity'];
             $data['cp_logo']=$_POST['cp_logo'];
-            $data['cp_email']=$_POST['cp_email'];
+            $data['backimg']=$_POST['backimg'];
+            $data['minilogo']=$_POST['minilogo'];
+            $data['colour']=$_POST['colour'];
             $data['cp_address']=$_POST['cp_address'];
             $data['cp_email']=$_POST['cp_email'];
             $data['cp_desc']=$_POST['cp_desc'];
@@ -149,7 +151,9 @@ class Corp extends Controller
             $data['cp_name']=$_POST['cp_name'];
             $data['cp_identity']=$_POST['cp_identity'];
             $data['cp_logo']=$_POST['cp_logo'];
-            $data['cp_email']=$_POST['cp_email'];
+            $data['backimg']=$_POST['backimg'];
+            $data['minilogo']=$_POST['minilogo'];
+            $data['colour']=$_POST['colour'];
             $data['cp_address']=$_POST['cp_address'];
             $data['cp_email']=$_POST['cp_email'];
             $data['cp_desc']=$_POST['cp_desc'];

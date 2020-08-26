@@ -51,6 +51,7 @@ class Index extends Controller
         return  $this->fetch();
     }
     public function index(){
+        $ad_role=session('ad_role');
         $adminId = session('adminId');
         $userData = Db::table("super_admin")
             ->alias('admin')
@@ -104,10 +105,6 @@ class Index extends Controller
         $this->assign('menuList',$parentData);
         $siteName=Db::table('super_setinfo')->where(['s_key' => 'webname'])->column('s_value');
         $this->assign('siteName',$siteName[0]);
-        $ad_role = session('ad_role');
-        if($ad_role == 45 || $ad_role == 1){
-            $ad_role = 1;
-        }
         $this->assign('ad_role',$ad_role);
         //获取当前未读消息数
         $unread = $this->getUnreadMsg($adminId);
@@ -204,7 +201,7 @@ class Index extends Controller
         $houseM = new Housem();
         $ad_role = session('ad_role');
         $adminid = session('adminId');
-        $whereHAll = $ad_role == 1 ? "1 = 1" : "1 = 1 and is_admin = 2 and corp in (".$corpId.")";
+        $whereHAll = $ad_role == 1 ? "is_del = 1" : "is_del = 1 and is_admin = 2 and corp in (".$corpId.")";
         $whereAll = '1 = 1';
         $allHouse = $houseM->houseCount($whereHAll);
         $allUser = $houseM->userCount($whereAll);
@@ -223,6 +220,7 @@ class Index extends Controller
         //更新房源的点击和收藏量（虚拟数据）
         //2020年7月10日11:34:54佳文做市场推广，咱们是按照浏览量给用户红包
         // $this->updateHouseClickAndCollect();
+        //dump($where);
         $lang = new Languages();
         $enLab = $lang->getLanguages();
         $langs = $lang->getLang();

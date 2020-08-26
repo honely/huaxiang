@@ -155,4 +155,71 @@ class Colt extends Controller
         }
     }
 
+
+    /***
+     * 用户点赞
+     * @return \think\response\Json
+     * @throws \think\Exception
+     * @throws \think\db\exception\DataNotFoundException
+     * @throws \think\db\exception\ModelNotFoundException
+     * @throws \think\exception\DbException
+     */
+    public function likes(){
+        header("Access-Control-Allow-Origin:*");
+        header('Access-Control-Allow-Methods:POST');
+        header('Access-Control-Allow-Headers:x-requested-with, content-type');
+        $id = intval(trim($this->request->param('id')));
+        $uid = intval(trim($this->request->param('uid')));
+        $clid = intval(trim($this->request->param('type')));
+        $date = date('Y-m-d');
+        $colt =  Db::table('xcx_likes')
+            ->where(['uid' => $uid,'tid'=>$id,'type' => $clid,'addtime' => $date])
+            ->find();
+        if(!$colt){
+            $data['addtime'] = $date;
+            $data['uid'] = $uid;
+            $data['tid'] = $id;
+            $data['type'] = $clid;
+            $insert = Db::table('xcx_likes')->insertGetId($data);
+            if($insert){
+                if($clid == 1){
+                    Db::table('tk_houses')
+                        ->where(['id' => $id])
+                        ->setInc('likes');
+                }elseif($clid == 2){
+                    Db::table('tk_forent')
+                        ->where(['id' => $id])
+                        ->setInc('likes');
+                }
+            }
+            $res['code'] = 1;
+            $res['msg'] = '点赞成功！';
+            return json($res);
+        }
+        $res['code'] = 0;
+        $res['msg'] = '您今天已经点过赞了！';
+        return json($res);
+    }
+
+    public function unlike(){
+        header("Access-Control-Allow-Origin:*");
+        header('Access-Control-Allow-Methods:POST');
+        header('Access-Control-Allow-Headers:x-requested-with, content-type');
+        $clid = intval(trim($this->request->param('cl_id')));
+        $colt =  Db::table('xcx_collect')
+            ->where(['cl_id' => $clid])
+            ->field('cl_user_id')
+            ->find();
+        $del = Db::table('xcx_collect')->where(['cl_id' => $clid])->delete();
+        //更新用户收藏量
+        Db::table('tk_user')->where(['id' => $colt['cl_user_id']])->setDec('count');
+        if($del){
+            $res['code'] = 1;
+            $res['msg'] = '取消收藏成功！';
+            return json($res);
+        }
+        $res['code'] = 0;
+        $res['msg'] = '取消收藏失败！';
+        return json($res);
+    }
 }

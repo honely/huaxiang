@@ -63,6 +63,43 @@
                                     <div class="layui-form-mid layui-word-aux" style="margin-left: 39px; ">{$lable.tupianRemark}</div>
                                 </div>
                             </div>
+                             <div class="layui-form-item one-pan">
+                                <label class="layui-form-label"><span style="color: red;">*</span>miniLogo</label>
+                                <div class="layui-upload-drag" id="uploadLogom" style="display:inline-block;">
+                                    <image id="logoPrem">
+                                        <input type="hidden" lay-verify="imgReg" name="minilogo" id="minilogo" value=""/>
+                                    </image>
+                                    <div id="display">
+                                        <i class="layui-icon"></i>
+                                        <p>{$lable.shangchuan}</p>
+                                    </div>
+                                </div>
+                                <div class="one">
+                                    <div class="layui-form-mid layui-word-aux" style="margin-left: 39px; ">{$lable.tupianRemark}</div>
+                                </div>
+                            </div>
+                            <div class="layui-form-item one-pan">
+                                <label class="layui-form-label"><span style="color: red;">*</span>主页背景图</label>
+                                <div class="layui-upload-drag" id="uploadImg" style="display:inline-block;">
+                                    <image id="imgPre">
+                                        <input type="hidden" lay-verify="imgReg" name="backimg" id="backimg" value=""/>
+                                    </image>
+                                    <div id="displays">
+                                        <i class="layui-icon"></i>
+                                        <p>{$lable.shangchuan}</p>
+                                    </div>
+                                </div>
+                                <div class="one">
+                                    <div class="layui-form-mid layui-word-aux" style="margin-left: 39px; ">{$lable.tupianRemark}图片规格1125*840</div>
+                                </div>
+                            </div>
+                            <div class="layui-form-item">
+                                <label class="layui-form-label"><span style="color: red;">*</span>前端颜色</label>
+                                <div class="layui-input-block">
+                                    <input type="radio" name="colour" value="1" title="浅色" checked>
+                                    <input type="radio" name="colour" value="2" title="深色">
+                                </div>
+                            </div>
                             <div class="layui-form-item">
                                 <label class="layui-form-label"><span style="color: red;">*</span>{$lable.youxiang}</label>
                                 <div class="layui-input-block">
@@ -127,6 +164,42 @@
                 $('#logoPre').attr('src',"__PUBLIC__/"+res.path);
                 console.log(res);
                 $('#cp_logo').val('' +res.path + '');
+            }
+        }); 
+         upload.render({
+            elem: '#uploadLogom'
+            ,url: '{:url("xcx/corp/upload")}'
+            ,exts: 'PNG|JPG'
+            ,size: '30000'
+            ,done: function(res){
+                layer.close(layer.msg());//关闭上传提示窗口
+                if(res.status == 0) {
+                    return layer.msg(res.message);
+                }
+                $('#uploadLogo').removeClass('layui-upload-drag');
+                $('#logoPrem').css('width','216px');
+                $('#logoPrem').css('height','150px');
+                $('#logoPrem').attr('src',"__PUBLIC__/"+res.path);
+                console.log(res);
+                $('#minilogo').val('' +res.path + '');
+            }
+        }); 
+        upload.render({
+            elem: '#uploadImg'
+            ,url: '{:url("xcx/corp/upload")}'
+            ,exts: 'PNG|JPG'
+            ,size: '30000'
+            ,done: function(res){
+                layer.close(layer.msg());//关闭上传提示窗口
+                if(res.status == 0) {
+                    return layer.msg(res.message);
+                }
+                $('#uploadImg').removeClass('layui-upload-drag');
+                $('#imgPre').css('width','216px');
+                $('#imgPre').css('height','150px');
+                $('#imgPre').attr('src',"__PUBLIC__/"+res.path);
+                console.log(res);
+                $('#backimg').val('' +res.path + '');
             }
         });
     });

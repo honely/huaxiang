@@ -23,23 +23,19 @@ class Compimg extends Controller
         }
     }
 
-    public function formatImg(){
-        $file = "./uploads/admin/w.jpg";
+    public function formatImg($file){
+        $file = "./".$file;
         $size = filesize($file);
         $imgSize = ceil($size/1024);
         $Size1 = 1.5*1024;
         $Size2 = 2.5*1024;
         $Size3 = 3*1024;
-        if($Size1 < $imgSize){
-            return $file;
-        }elseif($Size2 > $imgSize && $imgSize > $Size1){
+        if($Size2 > $imgSize && $imgSize > $Size1){
             $this->compressImg($file,80);
         }elseif($Size3 > $imgSize && $imgSize > $Size2){
             $this->compressImg($file,70);
         }elseif($imgSize > $Size2){
             $this->compressImg($file,60);
-        }else{
-            $this->compressImg($file,40);
         }
         return $file;
     }
@@ -51,7 +47,7 @@ class Compimg extends Controller
      */
     public function compressImg($filePath,$quality){
         $image = Image::open($filePath);
-        $image->save("./uploads/admin/w1.jpg",null,$quality);
+        $image->save($filePath,null,$quality);
         return $filePath;
     }
 

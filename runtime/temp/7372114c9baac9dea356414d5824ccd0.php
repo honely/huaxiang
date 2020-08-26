@@ -1,4 +1,4 @@
-<?php if (!defined('THINK_PATH')) exit(); /*a:3:{s:92:"D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\public/../application/xcx\view\house\detail.html";i:1596201752;s:82:"D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\application\xcx\view\index\header.html";i:1591180794;s:82:"D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\application\xcx\view\index\footer.html";i:1577269681;}*/ ?>
+<?php if (!defined('THINK_PATH')) exit(); /*a:3:{s:92:"D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\public/../application/xcx\view\house\detail.html";i:1597370674;s:82:"D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\application\xcx\view\index\header.html";i:1591180794;s:82:"D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\application\xcx\view\index\footer.html";i:1577269681;}*/ ?>
 <!DOCTYPE html>
 <html style="height: 100%">
 <head>
@@ -141,8 +141,8 @@
                 <div class="layui-form-item">
                     <label class="layui-form-label"><span style="color: red;">*</span><?php echo $lable['shifoujiaju']; ?></label>
                     <div class="layui-input-block">
-                        <input type="radio" name="is_fur" disabled  value="是" title="<?php echo $lable['bujiaju']; ?>" <?php if($house['is_fur'] == '是'): ?>checked<?php endif; ?>>
-                        <input type="radio" name="is_fur" disabled  value="否" title="<?php echo $lable['baojiaju']; ?>" <?php if($house['is_fur'] == '否'): ?>checked<?php endif; ?>>
+                        <input type="radio" name="is_fur" disabled value="否" title="<?php echo $lable['bujiaju']; ?>" <?php if($house['is_fur'] == '否'): ?>checked<?php endif; ?>>
+                        <input type="radio" name="is_fur" disabled value="是" title="<?php echo $lable['baojiaju']; ?>" <?php if($house['is_fur'] == '是'): ?>checked<?php endif; ?>>
                     </div>
                 </div>
                 <div class="layui-form-item" pane="">

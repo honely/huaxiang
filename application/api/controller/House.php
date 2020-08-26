@@ -17,7 +17,7 @@ class House extends Controller
      * @throws \think\db\exception\ModelNotFoundException
      * @throws \think\exception\DbException
      */
-    public function getList(){
+     public function getList(){
         header("Access-Control-Allow-Origin:*");
         header('Access-Control-Allow-Methods:POST');
         header('Access-Control-Allow-Headers:x-requested-with, content-type');
@@ -28,21 +28,32 @@ class House extends Controller
         //热门区域
         $where = "status = 1 and is_del = 1 and city = '".$city."'";
         $area = trim($this->request->param('area'));
+        $keys = trim($this->request->param('keys'));
         $hot = trim($this->request->param('hot'));
-        if(isset($area) && !empty($area) && $area){
-            $where.=" and area = '".$area."'";
-        }
         if(isset($hot) && !empty($hot) && $hot){
             $where.=" and area = '".$hot."'";
         }
-        $keys = trim($this->request->param('keys'));
-        if(isset($keys) && !empty($keys) && $keys){
-            $where.=" and ( title like '%".$keys."%' or dsn like '%".$keys."%'  or school like '%".$keys."%' or city like '%".$keys."%')";
+        //如果key == area 只查询area 
+        //如果不相等 都查询
+        if($area != $keys){
+            if(isset($keys) && !empty($keys) && $keys){
+            $where.=" and ( title like '%".$keys."%' or dsn like '%".$keys."%'  or school like '%".$keys."%' or city like '%".$keys."%' or area like '%".$keys."%')";
             //写入一条关键词查询记录
             if($uid){
                 $this->addQueryLog($uid,$keys,1);
             }
+            }
         }
+        if(isset($area) && !empty($area) && $area){
+            $area = explode(',',$area);
+            $areas = '';
+            foreach ($area as $key => $item){
+                $areas .= "'".$item."',";
+            }
+            $areas = rtrim($areas,',');
+            $where.=" and area in (".$areas.")";
+        }
+        
         //房屋类型
         $house_type = trim($this->request->param('house_type'));
         if(isset($house_type) && !empty($house_type) && $house_type){
@@ -81,13 +92,11 @@ class House extends Controller
         if(isset($mimprice)){
             $where.=" and price >= ".$mimprice."  or price = -1 )";
         }
-
-        //入住时间最大值 最小值 mintime  结束    maxtime  左边加5天
-        $mintime = trim($this->request->param('mintime'));
-        $maxtime = trim($this->request->param('maxtime'));
+        $livedate = trim($this->request->param('livedate'));
+        $liveDate = $this->getLiveDate($livedate);
+        $mintime = $liveDate['min'];
+        $maxtime = $liveDate['max'];
         if((isset($mintime) && !empty($mintime) && $mintime) && !$maxtime){
-            $mintime = date( 'Y-m-d', strtotime($mintime.' -5 days'));
-            Log::write('入住时间最小值：'.$mintime,'info');
             $where.=" and (live_date >= '".$mintime."' or ( live_date = '0100-01-01' or live_date = '0000-00-00' ))";
         }
 
@@ -99,12 +108,12 @@ class House extends Controller
             Log::write('入住时间最小值：'.$mintime.'入住时间最大值'.$maxtime,'info');
             $where.= " and ((live_date >= '".$mintime."' and live_date  <= '".$maxtime."')  or ( live_date = '0100-01-01' or live_date = '0000-00-00' ))";
         }
-        //户型  卧室
+        //户型  卧室 1 2 3 4 5 5+
         $house_room = $this->request->param('house_room');
         Log::write('卧室house_room：'.$house_room,'info');
         if(isset($house_room) && !empty($house_room) && $house_room){
-            if($house_room == '4+'){
-                $where.=" and house_room > 4";
+            if($house_room == '5+'){
+                $where.=" and house_room > 5";
             }else{
                 $where.=" and house_room = '".$house_room."'";
             }
@@ -115,6 +124,16 @@ class House extends Controller
         $sex = trim($this->request->param('sex'));
         if(isset($sex) && !empty($sex) && $sex){
             $where.=" and ( sex = '限".$sex."' or sex = '不限' ) ";
+        }
+
+        //是否有视频vid  1 有视频 2  无视频
+        $vid = trim($this->request->param('vid'));
+        if(isset($vid) && !empty($vid) && $vid){
+            if($vid == 1){
+                $where .=" and video != '' ";
+            }else{
+                $where .=" and video = '' ";
+            }
         }
         //出租方式
         $type = trim($this->request->param('type'));
@@ -134,7 +153,7 @@ class House extends Controller
                 $where.=" and toilet = ".$toilet;
             }
         }
-        //车位
+        //车位 1 2 3 3+
         $car = $this->request->param('car');
         Log::write('车位car：'.$car,'info');
         if(isset($car) && !empty($car) && $car){
@@ -164,6 +183,10 @@ class House extends Controller
             $where.=" and (";
             $homes = explode(',',$home);
             for($i=0;$i<count($homes);$i++){
+                if($homes[$i] == '门禁系统'){
+                    $homes[$i] = '门禁';
+                }
+                Log::write('用户查询furniture：'.$homes[$i],'info');
                 if($i == (count($homes)-1)){
                     $where.=" find_in_set('".$homes[$i]."',furniture)";
                 }else{
@@ -202,15 +225,27 @@ class House extends Controller
             }
         }
         $order = $orders;
-        $field = 'id,type,title,house_room,area,images,price,toilet,furniture,home,school,address,tj,top,mdate,tags,area,live_date,car,lease_term';
+        $field = 'id,type,title,house_room,area,images,price,toilet,furniture,home,school,address,tj,top,mdate,tags,area,live_date,car,lease_term,video,is_admin,corp,pm,house_type';
         $housem = new Housem();
         $house = $housem->readData($where,$order,$limit,$page,$field);
         //更新上次登录时间
         Db::table('tk_user')->where(['id' => $uid])->update(['mdate' =>date('Y-m-d H:i:s')]);
         if($house){
+             //是否收藏
+            $collects = $this->getCollects($uid);
             foreach ($house as $k => $v){
+                $colt = in_array($v['id'],$collects,true);
+                $house[$k]['is_colt'] = $colt ? 1 : 0;
                 $house[$k]['tj'] = $v['tj'] == '是' ? '推荐房源'  : '';
                 $house[$k]['tingwei'] = $this->formatRoom($v['house_room']).''.$this->formatToilet($v['toilet']);
+                //如果是后端发布的房源，查询中介个人图像，公司名称中介logo
+                if($v['is_admin'] == 2){
+                    $house[$k]['corplogo'] = $this->getCorpLogo($v['corp']);
+                    $pmInfo = $this->getPmname($v['pm']);
+                    $house[$k]['pm_name'] = $pmInfo['ad_realname'];
+                    $house[$k]['pm_avatar'] = $pmInfo['ad_img'];
+                    $house[$k]['colour'] = $housem->getColour($v['corp']);
+                }
             }
             $res['code'] = 1;
             $res['msg'] = '读取成功！';
@@ -226,6 +261,39 @@ class House extends Controller
     }
 
 
+
+    public function getCollects($uid){
+        $collects = Db::table('xcx_collect')
+            ->where(['cl_user_id' => $uid,'cl_type' => 1])
+            ->field('cl_house_id')
+            ->select();
+        $collect =  array_column($collects,'cl_house_id');
+        return $collect;
+    }
+
+    public function getCorpLogo($corp){
+        $logo = Db::table('xcx_corp')->where(['cp_id' => $corp])->field('cp_logo')->find();
+        return $logo ? $logo['cp_logo'] : '';
+    }
+
+    public function getPmname($pm){
+        $logo = Db::table('super_admin')->where(['ad_id' => $pm])->field('ad_realname,ad_img')->find();
+        return $logo ? $logo : null;
+    }
+
+    public function getLiveDate($date){
+        $now = date('Y-m-d');
+        if($date){
+            $time['min'] = date( 'Y-m-d', strtotime($now.' -'.$date.' days'));
+            $time['max'] = date( 'Y-m-d', strtotime($now.' +'.$date.' days'));
+        }else{
+            $time['min'] = '';
+            $time['max'] = '';
+        }
+        return $time;
+    }
+
+
     public function addHouse(){
         header("Access-Control-Allow-Origin:*");
         header('Access-Control-Allow-Methods:POST');
@@ -237,6 +305,7 @@ class House extends Controller
             return json($res);
         }
         $data['source'] = '个人房源';
+        $data['publish_date'] = date('Y-m-d H:i:s');
         $data['cdate'] = date('Y-m-d H:i:s');
         $data['mdate'] = date('Y-m-d H:i:s');
         $housem = new Housem();
@@ -295,9 +364,12 @@ class House extends Controller
             $res['code'] = $house['code'];
             $res['msg'] = $house['msg'];
             $res['data'] = $house['data'];
-//            $soup = new Soup();
-//            $soups =$soup->getSoup();
-//            $res['data']['soup'] = $soups;
+            $res['other'] = $house['other'];
+            $res['loard'] = $house['loard'];
+            $res['counto'] = $house['counto'];
+            $res['countl'] = $house['countl'];
+            $res['comment'] = $house['comment'] ;
+            $res['countc'] = $house['countc'];
             return json($res);
         }
         $res['code'] = 0;
@@ -446,7 +518,7 @@ class House extends Controller
     }
 
 
-    public function getArea(){
+   public function getArea(){
         header("Access-Control-Allow-Origin:*");
         header('Access-Control-Allow-Methods:POST');
         header('Access-Control-Allow-Headers:x-requested-with, content-type');
@@ -455,12 +527,32 @@ class House extends Controller
             ->where(['city' => $city])
             ->where("area != ''")
             ->group('area')
-            ->field('area')
+            ->field('id,area')
+            ->order('area')
             ->select();
+        $orgData = [];
+        foreach ($result as $key => &$val) {
+            $result[$key]['key'] = $this->getFristName($val['area']);
+            $orgData[] = [
+                'fristName' => $val['key'],
+                'cur' => $val
+            ];
+        }unset($val);
+        $keys = array_unique(array_column($result, 'key'));
+        $newDatas = [];
+        foreach ($keys as $key) {
+            $temp = [];
+            foreach ($result as $data) {
+                if($key == $data['key']) {
+                    $temp[] = $data;
+                }
+            }
+            $newDatas[] = ['firstName' => $key, 'cur' => $temp];
+        }
         if($result){
             $res['code'] =1;
             $res['msg'] ='读取成功！';
-            $res['data'] =$result;
+            $res['data'] =$newDatas;
             return json($res);
         }else{
             $res['code'] =1;
@@ -469,6 +561,11 @@ class House extends Controller
         }
     }
 
+
+    public function getFristName($area){
+        $fristName = substr( $area, 0, 1 );
+        return strtoupper($fristName);
+    }
     public function history(){
         header("Access-Control-Allow-Origin:*");
         header('Access-Control-Allow-Methods:POST');
@@ -517,7 +614,7 @@ class House extends Controller
         }
         $condition['city'] = $data['city'];
         $condition['status'] = 1;
-        $list = Db::table('tk_keyword')->where($condition)->field('name')->order('id DESC')->select();
+        $list = Db::table('tk_keyword')->where($condition)->field('name')->order('id asc')->select();
         if($list){
             $res['code'] = 1;
             $res['msg'] = '读取成功！';
@@ -549,7 +646,7 @@ class House extends Controller
             return json($res);
         }
         $list = Db::table('xcx_search_keywords')
-            ->where(['sk_userid' => $uid,'sk_type' => 1])
+            ->where(['sk_userid' => $uid,'sk_type' => 1,'is_del' =>1])
             ->limit(10)
             ->field('sk_keywords')
             ->order('sk_id desc')
@@ -566,7 +663,28 @@ class House extends Controller
         return json($res);
     }
 
-
+    public function delSearch(){
+        header("Access-Control-Allow-Origin:*");
+        header('Access-Control-Allow-Methods:POST');
+        header('Access-Control-Allow-Headers:x-requested-with, content-type');
+        $uid = trim($this->request->param('uid',0));
+        if ($uid == 0) {
+            $res['code'] = 1;
+            $res['msg'] = '参数为空！';
+            return json($res);
+        }
+        $list = Db::table('xcx_search_keywords')
+            ->where(['sk_userid' => $uid,'sk_type' => 1,'is_del' =>1])
+            ->update(['is_del' =>2]);
+        if($list){
+            $res['code'] = 1;
+            $res['msg'] = '删除成功！';
+            return json($res);
+        }
+        $res['code'] = 0;
+        $res['msg'] = '删除失败！';
+        return json($res);
+    }
     public function addQueryLog($uid,$key,$type){
         $data['sk_keywords'] = $key;
         $data['sk_userid'] = $uid;
@@ -656,9 +774,6 @@ class House extends Controller
             $res['code'] = 1;
             $res['msg'] = '读取成功！';
             $res['data'] = $house;
-//            $soup = new Soup();
-//            $soups =$soup->getSoup();
-//            $res['data']['soup'] = $soups;
             return json($res);
         }
         $res['code'] = 0;
@@ -674,7 +789,7 @@ class House extends Controller
         $corpImg = $image->thumb(650,430,Image::THUMB_CENTER)->save($pathName);
         //吧压缩的图片更新到cover
         Db::table('tk_houses')->where(['id'=> $id])->update(['cover' => $pathName]);
-       return $path;
+        return $path;
     }
 
     /***

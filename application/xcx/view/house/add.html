@@ -201,7 +201,7 @@
                     <div class="layui-input-block">
                         <input type="checkbox" name="bill[包水]" lay-skin="primary" title="{$lable.water}">
                         <input type="checkbox" name="bill[包电]" lay-skin="primary" title="{$lable.elect}">
-                        <input type="checkbox" name="bill[包气]" lay-skin="primary" title="{$lable.gas}">
+                        <input type="checkbox" name="bill[包煤气]" lay-skin="primary" title="{$lable.gas}">
                         <input type="checkbox" name="bill[包网]" lay-skin="primary" title="{$lable.nets}">
                     </div>
                 </div>
@@ -268,8 +268,8 @@
                     <div class="layui-input-block">
                         <input type="checkbox" name="home[床]" lay-skin="primary" title="{$lable.chuang}">
                         <input type="checkbox" name="home[沙发]" lay-skin="primary" title="{$lable.shafa}">
-                        <input type="checkbox" name="home[餐桌]" lay-skin="primary" title="{$lable.canzuo}">
-                        <input type="checkbox" name="home[椅子]" lay-skin="primary" title="{$lable.yizi}">
+<!--                        <input type="checkbox" name="home[餐桌]" lay-skin="primary" title="{$lable.canzuo}">-->
+<!--                        <input type="checkbox" name="home[椅子]" lay-skin="primary" title="{$lable.yizi}">-->
                         <input type="checkbox" name="home[WIFI]" lay-skin="primary" title="{$lable.fWIFI}">
                         <input type="checkbox" name="home[空调]" lay-skin="primary" title="{$lable.kongtiao}">
                         <input type="checkbox" name="home[洗衣机]" lay-skin="primary" title="{$lable.xiyiji}">
@@ -278,6 +278,10 @@
                         <input type="checkbox" name="home[暖气]" lay-skin="primary" title="{$lable.nuanqi}">
                         <input type="checkbox" name="home[电烤箱]" lay-skin="primary" title="{$lable.kaoxiang}">
                         <input type="checkbox" name="home[洗碗机]" lay-skin="primary" title="{$lable.xiwanji}">
+                        <input type="checkbox" name="home[书桌]" lay-skin="primary" title="{$lable.shuzhuo}">
+                        <input type="checkbox" name="home[烘干机]" lay-skin="primary" title="{$lable.hongganji}">
+                        <input type="checkbox" name="home[电视]" lay-skin="primary" title="{$lable.dianshi}">
+                        <input type="checkbox" name="home[天然气]" lay-skin="primary" title="{$lable.tianranqi}">
                     </div>
                 </div>
 
@@ -288,26 +292,26 @@
                         <input type="checkbox" name="furniture[健身房]" lay-skin="primary" title="{$lable.jianshenfang}">
                         <input type="checkbox" name="furniture[停车位]" lay-skin="primary" title="{$lable.tingchewei}">
                         <input type="checkbox" name="furniture[电影院]" lay-skin="primary" title="{$lable.dianyingyuan}">
-                        <input type="checkbox" name="furniture[花园]" lay-skin="primary" title="{$lable.huayuan}">
+<!--                        <input type="checkbox" name="furniture[花园]" lay-skin="primary" title="{$lable.huayuan}">-->
                         <input type="checkbox" name="furniture[门禁]" lay-skin="primary" title="{$lable.menjin}">
                         <input type="checkbox" name="furniture[前台]" lay-skin="primary" title="{$lable.qiantai}">
                         <input type="checkbox" name="furniture[桑拿]" lay-skin="primary" title="{$lable.sangna}">
                     </div>
                 </div>
 
-                <div class="layui-form-item" pane="">
-                    <label class="layui-form-label">{$lable.zhoubian}</label>
-                    <div class="layui-input-block">
-                        <input type="checkbox" name="sation[巴士站]" lay-skin="primary" title="{$lable.bashizhan}">
-                        <input type="checkbox" name="sation[火车站]" lay-skin="primary" title="{$lable.huochezhan}">
-                        <input type="checkbox" name="sation[电车站]" lay-skin="primary" title="{$lable.dianchezhan}">
-                        <input type="checkbox" name="sation[餐馆]" lay-skin="primary" title="{$lable.canguan}">
-                        <input type="checkbox" name="sation[公园]" lay-skin="primary" title="{$lable.gongyuan}">
-                        <input type="checkbox" name="sation[警察局]" lay-skin="primary" title="{$lable.jingcaju}">
-                        <input type="checkbox" name="sation[医院]" lay-skin="primary" title="{$lable.yiyuan}">
-                        <input type="checkbox" name="sation[超市]" lay-skin="primary" title="{$lable.chaoshi}">
-                    </div>
-                </div>
+<!--                <div class="layui-form-item" pane="">-->
+<!--                    <label class="layui-form-label">{$lable.zhoubian}</label>-->
+<!--                    <div class="layui-input-block">-->
+<!--                        <input type="checkbox" name="sation[巴士站]" lay-skin="primary" title="{$lable.bashizhan}">-->
+<!--                        <input type="checkbox" name="sation[火车站]" lay-skin="primary" title="{$lable.huochezhan}">-->
+<!--                        <input type="checkbox" name="sation[电车站]" lay-skin="primary" title="{$lable.dianchezhan}">-->
+<!--                        <input type="checkbox" name="sation[餐馆]" lay-skin="primary" title="{$lable.canguan}">-->
+<!--                        <input type="checkbox" name="sation[公园]" lay-skin="primary" title="{$lable.gongyuan}">-->
+<!--                        <input type="checkbox" name="sation[警察局]" lay-skin="primary" title="{$lable.jingcaju}">-->
+<!--                        <input type="checkbox" name="sation[医院]" lay-skin="primary" title="{$lable.yiyuan}">-->
+<!--                        <input type="checkbox" name="sation[超市]" lay-skin="primary" title="{$lable.chaoshi}">-->
+<!--                    </div>-->
+<!--                </div>-->
                 <div class="layui-form-item" pane="">
                     <label class="layui-form-label">{$lable.biaoqian}</label>
                     <div class="layui-input-block">
@@ -759,8 +763,9 @@
                 elem: '#uploadImg'
                 ,url: '{:url("house/upload")}'
                 ,exts: 'jpg|png|jpeg|gif|bmp|JPG'
-                ,size: '30000'
+                ,size: 1024*5
                 ,done: function(res){
+                    console.log(123);
                     layer.close(layer.msg());//关闭上传提示窗口
                     if(res.status == 0) {
                         return layer.msg(res.message);
@@ -770,7 +775,6 @@
                     $('#logoPreimg').css('height','251px');
                     $('#logoPreimg').attr('src',"__PUBLIC__/"+res.filepath);
                     $('#displayImg').hide();
-                    console.log(res);
                     $('#thumnail').val('' +res.filepath + '');
                 }
             });
@@ -907,7 +911,7 @@
             upload.render({
                 elem: '#slide-pc',
                 url: '{:url("house/upload2")}',
-                size: 1024*1024*10,
+                size: 1024*5,
                 exts: 'jpg|png|jpeg|gif|bmp|JPG',
                 multiple: true,
                 before: function(obj) {

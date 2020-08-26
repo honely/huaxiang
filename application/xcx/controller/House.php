@@ -873,14 +873,6 @@ class House extends Controller{
                     'transtitle' => $enLab['shafa'],
                     'is_checked' => false
                 ],[
-                    'furn' => '餐桌',
-                    'transtitle' => $enLab['canzuo'],
-                    'is_checked' => false
-                ],[
-                    'furn' => '椅子',
-                    'transtitle' => $enLab['yizi'],
-                    'is_checked' => false
-                ],[
                     'furn' => 'WIFI',
                     'transtitle' => $enLab['fWIFI'],
                     'is_checked' => false
@@ -912,6 +904,26 @@ class House extends Controller{
                 [
                     'furn' => '洗碗机',
                     'transtitle' => $enLab['xiwanji'],
+                    'is_checked' => false
+                ],
+                [
+                    'furn' => '书桌',
+                    'transtitle' => $enLab['shuzhuo'],
+                    'is_checked' => false
+                ],
+                [
+                    'furn' => '烘干机',
+                    'transtitle' => $enLab['hongganji'],
+                    'is_checked' => false
+                ],
+                [
+                    'furn' => '电视',
+                    'transtitle' => $enLab['dianshi'],
+                    'is_checked' => false
+                ],
+                [
+                    'furn' => '天然气',
+                    'transtitle' => $enLab['tianranqi'],
                     'is_checked' => false
                 ]
             ];
@@ -1387,14 +1399,6 @@ class House extends Controller{
                 'transtitle' => $enLab['shafa'],
                 'is_checked' => false
             ],[
-                'furn' => '餐桌',
-                'transtitle' => $enLab['canzuo'],
-                'is_checked' => false
-            ],[
-                'furn' => '椅子',
-                'transtitle' => $enLab['yizi'],
-                'is_checked' => false
-            ],[
                 'furn' => 'WIFI',
                 'transtitle' => $enLab['fWIFI'],
                 'is_checked' => false
@@ -1426,6 +1430,26 @@ class House extends Controller{
             [
                 'furn' => '洗碗机',
                 'transtitle' => $enLab['xiwanji'],
+                'is_checked' => false
+            ],
+            [
+                'furn' => '书桌',
+                'transtitle' => $enLab['shuzhuo'],
+                'is_checked' => false
+            ],
+            [
+                'furn' => '烘干机',
+                'transtitle' => $enLab['hongganji'],
+                'is_checked' => false
+            ],
+            [
+                'furn' => '电视',
+                'transtitle' => $enLab['dianshi'],
+                'is_checked' => false
+            ],
+            [
+                'furn' => '天然气',
+                'transtitle' => $enLab['tianranqi'],
                 'is_checked' => false
             ]
         ];
@@ -1493,14 +1517,32 @@ class House extends Controller{
 
     public function del(){
         $id = $this->request->param('id',22,'intval');
-        $del = Db::table('tk_houses')
+        $dels = Db::table('tk_houses')
             ->where(['id' => $id])
             ->update(['is_del' => 2]);
-        if($del){
+        //删除该房源的会话和消息
+        $del = Db::table('xcx_msg_person')
+            ->where(['mp_hid' => $id])
+            ->field('mp_id')
+            ->select();
+        foreach ($del as $k => $v){
+            $this->delMsg($v['mp_id']);
+        }
+        Db::table('xcx_msg_person')
+            ->where(['mp_hid' => $id])
+            ->update(['mp_isable' =>2]);
+        if($dels){
             $this->success('删除成功！','index');
         }else{
             $this->error('删除失败！','index');
         }
+    }
+
+
+    public function delMsg($mpid){
+        Db::table('xcx_msg_content')
+            ->where(['xcx_msg_id' => $mpid])
+            ->update(['xcx_msg_isable' => 2]);
     }
 
     public function delBatch(){

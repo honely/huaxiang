@@ -288,14 +288,14 @@
                     </div>
                 </div>
 
-                <div class="layui-form-item" pane="">
-                    <label class="layui-form-label">{$lable.zhoubian}</label>
-                    <div class="layui-input-block">
-                        {volist name='all_trans' id='vo'}
-                        <input type="checkbox" class="checkbox" lay-skin="primary" name="sation[{$vo.trans}]" title="{$vo.transtitle}"  {$vo.is_checked ? 'checked' : ''}>
-                        {/volist}
-                    </div>
-                </div>
+<!--                <div class="layui-form-item" pane="">-->
+<!--                    <label class="layui-form-label">{$lable.zhoubian}</label>-->
+<!--                    <div class="layui-input-block">-->
+<!--                        {volist name='all_trans' id='vo'}-->
+<!--                        <input type="checkbox" class="checkbox" lay-skin="primary" name="sation[{$vo.trans}]" title="{$vo.transtitle}"  {$vo.is_checked ? 'checked' : ''}>-->
+<!--                        {/volist}-->
+<!--                    </div>-->
+<!--                </div>-->
                 <div class="layui-form-item" pane="">
                     <label class="layui-form-label">{$lable.biaoqian}</label>
                     <div class="layui-input-block">
@@ -784,7 +784,7 @@
                 elem: '#uploadImg'
                 ,url: '{:url("house/upload")}'
                 ,exts: 'jpg|png|jpeg|gif|bmp|JPG'
-                ,size: '30000'
+                ,size: 1024*5
                 ,done: function(res){
                     layer.close(layer.msg());//关闭上传提示窗口
                     if(res.status == 0) {
@@ -936,7 +936,7 @@
             upload.render({
                 elem: '#slide-pc',
                 url: '{:url("house/upload")}',
-                size: 1024*1024*10,
+                size: 1024*5,
                 exts: 'jpg|png|jpeg|gif|bmp|JPG',
                 multiple: true,
                 before: function(obj) {

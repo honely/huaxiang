@@ -5,19 +5,101 @@ namespace app\api\controller;
 
 
 use phpmailer\receiver;
+use phpmailer\Imap;
 use think\Controller;
+use PhpImap\Exceptions\ConnectionException;
+use PhpImap\Mailbox;
+use Exception;
 
 class Mailre extends Controller
 {
+    //https://github.com/barbushin/php-imap
+    public function demo() {
+        $mailbox = new Mailbox(
+            '{mail.welho.me/imap/ssl/novalidate-cert}INBOX',
+            'mengmeng.dang@welho.me',
+            'dmm1586,1.q',
+            __DIR__,
+            'UTF-8'
+        );
+        try {
+            $mail_ids = $mailbox->searchMailbox('UNSEEN');
+        } catch (ConnectionException $ex) {
+            die('IMAP connection failed: '.$ex->getMessage());
+        } catch (Exception $ex) {
+            die('An error occured: '.$ex->getMessage());
+        }
+    
+        foreach ($mail_ids as $mail_id) {
+            echo "+------ P A R S I N G ------+\n";
+            $email = $mailbox->getMail($mail_id, false);
+            echo 'from-name: '.(string) (isset($email->fromName) ? $email->fromName : $email->fromAddress)."\n";
+            echo 'from-email: '.(string) $email->fromAddress."\n";
+            echo 'to: '.(string) $email->toString."\n";
+            echo 'subject: '.(string) $email->subject."\n";
+            echo 'message_id: '.(string) $email->messageId."\n";
+            echo 'mail has attachments? ';
+            if ($email->hasAttachments()) {
+                echo "Yes\n";
+            } else {
+                echo "No\n";
+            }
+            if (!empty($email->getAttachments())) {
+                echo \count($email->getAttachments())." attachements\n";
+            }
+            if ($email->textHtml) {
+                echo "Message HTML:\n".$email->textHtml;
+            } else {
+                echo "Message Plain:\n".$email->textPlain;
+            }
+            if (!empty($email->autoSubmitted)) {
+                // Mark email as "read" / "seen"
+                $mailbox->markMailAsRead($mail_id);
+                echo "+------ IGNORING: Auto-Reply ------+\n";
+            }
+            if (!empty($email->precedence)) {
+                // Mark email as "read" / "seen"
+                $mailbox->markMailAsRead($mail_id);
+                echo "+------ IGNORING: Non-Delivery Report/Receipt ------+\n";
+            }
+        }
+        $mailbox->disconnect();
+    }
+
+    public function test() {
+        $imap=new Imap("{mail.welho.me/imap/ssl/novalidate-cert}INBOX",30,30);
+        $imap->capability();
+        $imap->id(array(
+            'name'          => 'SinaMail OtherMail Client',
+            'version'       => '1',
+            'os'            => 'SinaMail OtherMail',
+            'os-version'    => '1.0',
+        ));
+        $imap->login("mengmeng.dang@welho.me","dmm1586,1.q");
+        $folders=$imap->getList('', '*');
+        var_dump($folders);
+        $status = $imap->select('SENT');
+        var_dump($status);
+        $ls = $imap->fetch(array(), array('uid', 'internaldate', 'rfc822.size'));
+        
+        
+        
+        
+        foreach($ls as $k=>$i){
+            $info=$imap->fetch(array($k), array('rfc822'));
+        }
+    }
+    
     public function gettotal(){
         $mailServer="mail.welho.me";
 
-        $mailLink="{{$mailServer}:143}INBOX" ; //imagp连接地址：不同主机地址不同
+        $mailLink="{mail.welho.me/imap/ssl/novalidate-cert}INBOX" ; //imagp连接地址：不同主机地址不同
 
         $mailUser = 'mengmeng.dang@welho.me'; //邮箱用户名
 
         $mailPass = 'dmm1586,1.q'; //邮箱密码
-
+        $mailUser = "customerservices@welho.me";
+        $mailPass = "hxxb0401!!";
         $mbox = imap_open($mailLink,$mailUser,$mailPass);
 
         $totalrows = imap_num_msg($mbox);
@@ -28,8 +110,8 @@ class Mailre extends Controller
     public function getMails(){
         $userName = "customerservices@welho.me";
         $pass = "hxxb0401!!";
-        //$userName = 'mengmeng.dang@welho.me';
-        //$pass = 'dmm1586,1.q';
+        // $userName = 'mengmeng.dang@welho.me';
+        // $pass = 'dmm1586,1.q';
         $mbox = imap_open("{mail.welho.me/imap/ssl/novalidate-cert}INBOX", $userName, $pass);
         $emails = imap_search($mbox, 'ALL');
         if ($emails) {
@@ -38,7 +120,9 @@ class Mailre extends Controller
             foreach ($emails as $email_number) {
                 $overview = imap_fetch_overview($mbox, $email_number, 0);
                 $structure = imap_fetchstructure($mbox, $email_number);
-                var_dump($structure->parts);
+                if(!isset($structure->parts)) {
+                   $data = imap_fetchbody($mbox, $email_number, 1);
+                }
                 if (isset($structure->parts) && is_array($structure->parts) && isset($structure->parts[1])) {
                     $part = $structure->parts[1];
                     $message = imap_fetchbody($mbox, $email_number, 2);
@@ -50,15 +134,14 @@ class Mailre extends Controller
                     } else {
                         $message = imap_qprint($message);
                     }
+                    $output .= '<div class="toggle' . ($overview[0]->seen ? 'read' : 'unread') . '">';
+                    $output .= '<span class="from">From: ' . utf8_decode(imap_utf8($overview[0]->from)) . '</span>';
+                    $output .= '<span class="date">on ' . utf8_decode(imap_utf8($overview[0]->date)) . '</span>';
+                    $output .= '<br /><span class="subject">Subject(' . $part->encoding . '): ' . utf8_decode(imap_utf8($overview[0]->subject)) . '</span> ';
+                    $output .= 'aaaaaaa</div>';
+
+                    $output .= '<div class="body">' . $message . '</div><hr />';
                 }
-
-                $output .= '<div class="toggle' . ($overview[0]->seen ? 'read' : 'unread') . '">';
-                $output .= '<span class="from">From: ' . utf8_decode(imap_utf8($overview[0]->from)) . '</span>';
-                $output .= '<span class="date">on ' . utf8_decode(imap_utf8($overview[0]->date)) . '</span>';
-                $output .= '<br /><span class="subject">Subject(' . $part->encoding . '): ' . utf8_decode(imap_utf8($overview[0]->subject)) . '</span> ';
-                $output .= 'aaaaaaa</div>';
-
-                $output .= '<div class="body">' . $message . '</div><hr />';
             }
 
             echo $output;
@@ -83,6 +166,7 @@ class Mailre extends Controller
 //        }
         // Get Total Number of Unread Email in mail box
         $tot=$obj->getTotalMails(); //Total Mails in Inbox Return integer value
+         $savePath = "./upload/" . date('Ym/', time());
 
         if(0 == $tot) { //如果信件数为0,显示信息
             return array("msg"=>"No Message for ".$this->mailAccount);
@@ -96,7 +180,7 @@ class Mailre extends Controller
                 $head=$obj->getHeaders($i);  // Get Header Info Return Array Of Headers **Array Keys are (subject,to,toOth,toNameOth,from,fromName)
 
                 //处理邮件附件
-                $files=$obj->GetAttach($i,$this->savePath); // 获取邮件附件，返回的邮件附件信息数组
+                $files=$obj->GetAttach($i,$savePath); // 获取邮件附件，返回的邮件附件信息数组
 
                 $imageList=array();
                 foreach($files as $k => $file)

@@ -1,0 +1,1866 @@
+---------------------------------------------------------------
+[ 2020-08-20T19:08:12+08:00 ] 127.0.0.1 POST www.huaxiang.com/xcx/index/unread.html
+[运行时间：0.130329s] [吞吐率：7.67req/s] [内存消耗：2,235.48kb] [文件加载：54]
+[ info ] [ LANG ] D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\thinkphp\lang\zh-cn.php
+[ info ] [ ROUTE ] array (
+  'type' => 'module',
+  'module' => 
+  array (
+    0 => 'xcx',
+    1 => 'index',
+    2 => 'unread',
+  ),
+)
+[ info ] [ HEADER ] array (
+  'cookie' => 'PHPSESSID=3g51qit2202i7butmpgb4v0i34',
+  'accept-language' => 'zh-CN,zh;q=0.9',
+  'accept-encoding' => 'gzip, deflate',
+  'referer' => 'http://www.huaxiang.com/xcx/index/index.html',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.70 Safari/537.36',
+  'x-requested-with' => 'XMLHttpRequest',
+  'origin' => 'http://www.huaxiang.com',
+  'accept' => 'application/json, text/javascript, */*; q=0.01',
+  'content-length' => '0',
+  'connection' => 'close',
+  'host' => 'www.huaxiang.com',
+)
+[ info ] [ PARAM ] array (
+  '/xcx/index/unread_html' => '',
+)
+[ info ] [ SESSION ] INIT array (
+  'id' => '',
+  'var_session_id' => '',
+  'prefix' => 'think',
+  'type' => '',
+  'auto_start' => true,
+)
+[ info ] [ RUN ] app\xcx\controller\Index->unread[ D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\application\xcx\controller\Index.php ]
+[ info ] [ DB ] INIT mysql
+[ info ] [ LOG ] INIT File
+[ sql ] [ DB ] CONNECT:[ UseTime:0.001289s ] mysql:host=127.0.0.1;port=3306;dbname=xcxnew;charset=utf8mb4
+[ sql ] [ SQL ] SHOW COLUMNS FROM `xcx_msg_person` [ RunTime:0.013997s ]
+[ sql ] [ SQL ] SELECT `mp_id` FROM `xcx_msg_person` WHERE  (  (mp_u_id = 1 and mp_utype = 2 and mp_isable = 1) or (mp_ul_id = 1 and mp_ultype = 2 and  mp_isable = 1) or (mp_u_id = 1 and mp_utype = 1 and mp_isable = 1) or (mp_ul_id = 1 and mp_ultype = 1 and  mp_isable = 1) ) [ RunTime:0.000968s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `super_admin` [ RunTime:0.013542s ]
+[ sql ] [ SQL ] SELECT `ad_wechat` FROM `super_admin` WHERE  `ad_id` = 1 LIMIT 1 [ RunTime:0.000513s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `xcx_msg_content` [ RunTime:0.013180s ]
+[ sql ] [ SQL ] SELECT COUNT(xcx_msg_id) AS tp_count FROM `xcx_msg_content` WHERE  `xcx_msg_mp_id` = 17  AND `xcx_msg_isread` = 2  AND `xcx_msg_isable` = 1  AND (  ( xcx_msg_uid != 1 and xcx_msg_u_type = 1 ) or ( xcx_msg_uid != 1 and  xcx_msg_u_type = 2 ) ) LIMIT 1 [ RunTime:0.000752s ]
+[ sql ] [ SQL ] SELECT `ad_wechat` FROM `super_admin` WHERE  `ad_id` = 1 LIMIT 1 [ RunTime:0.000396s ]
+[ sql ] [ SQL ] SELECT COUNT(xcx_msg_id) AS tp_count FROM `xcx_msg_content` WHERE  `xcx_msg_mp_id` = 18  AND `xcx_msg_isread` = 2  AND `xcx_msg_isable` = 1  AND (  ( xcx_msg_uid != 1 and xcx_msg_u_type = 1 ) or ( xcx_msg_uid != 1 and  xcx_msg_u_type = 2 ) ) LIMIT 1 [ RunTime:0.000395s ]
+[ sql ] [ SQL ] SELECT `ad_wechat` FROM `super_admin` WHERE  `ad_id` = 1 LIMIT 1 [ RunTime:0.000358s ]
+[ sql ] [ SQL ] SELECT COUNT(xcx_msg_id) AS tp_count FROM `xcx_msg_content` WHERE  `xcx_msg_mp_id` = 19  AND `xcx_msg_isread` = 2  AND `xcx_msg_isable` = 1  AND (  ( xcx_msg_uid != 1 and xcx_msg_u_type = 1 ) or ( xcx_msg_uid != 1 and  xcx_msg_u_type = 2 ) ) LIMIT 1 [ RunTime:0.000389s ]
+[ sql ] [ SQL ] SELECT `ad_wechat` FROM `super_admin` WHERE  `ad_id` = 1 LIMIT 1 [ RunTime:0.000345s ]
+[ sql ] [ SQL ] SELECT COUNT(xcx_msg_id) AS tp_count FROM `xcx_msg_content` WHERE  `xcx_msg_mp_id` = 20  AND `xcx_msg_isread` = 2  AND `xcx_msg_isable` = 1  AND (  ( xcx_msg_uid != 1 and xcx_msg_u_type = 1 ) or ( xcx_msg_uid != 1 and  xcx_msg_u_type = 2 ) ) LIMIT 1 [ RunTime:0.000376s ]
+---------------------------------------------------------------
+[ 2020-08-20T19:08:27+08:00 ] 127.0.0.1 POST www.huaxiang.com/xcx/index/unread.html
+[运行时间：0.395540s] [吞吐率：2.53req/s] [内存消耗：2,235.56kb] [文件加载：54]
+[ info ] [ LANG ] D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\thinkphp\lang\zh-cn.php
+[ info ] [ ROUTE ] array (
+  'type' => 'module',
+  'module' => 
+  array (
+    0 => 'xcx',
+    1 => 'index',
+    2 => 'unread',
+  ),
+)
+[ info ] [ HEADER ] array (
+  'cookie' => 'PHPSESSID=3g51qit2202i7butmpgb4v0i34',
+  'accept-language' => 'zh-CN,zh;q=0.9',
+  'accept-encoding' => 'gzip, deflate',
+  'referer' => 'http://www.huaxiang.com/xcx/index/index.html',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.70 Safari/537.36',
+  'x-requested-with' => 'XMLHttpRequest',
+  'origin' => 'http://www.huaxiang.com',
+  'accept' => 'application/json, text/javascript, */*; q=0.01',
+  'content-length' => '0',
+  'connection' => 'close',
+  'host' => 'www.huaxiang.com',
+)
+[ info ] [ PARAM ] array (
+  '/xcx/index/unread_html' => '',
+)
+[ info ] [ SESSION ] INIT array (
+  'id' => '',
+  'var_session_id' => '',
+  'prefix' => 'think',
+  'type' => '',
+  'auto_start' => true,
+)
+[ info ] [ RUN ] app\xcx\controller\Index->unread[ D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\application\xcx\controller\Index.php ]
+[ info ] [ DB ] INIT mysql
+[ info ] [ LOG ] INIT File
+[ sql ] [ DB ] CONNECT:[ UseTime:0.001632s ] mysql:host=127.0.0.1;port=3306;dbname=xcxnew;charset=utf8mb4
+[ sql ] [ SQL ] SHOW COLUMNS FROM `xcx_msg_person` [ RunTime:0.121498s ]
+[ sql ] [ SQL ] SELECT `mp_id` FROM `xcx_msg_person` WHERE  (  (mp_u_id = 1 and mp_utype = 2 and mp_isable = 1) or (mp_ul_id = 1 and mp_ultype = 2 and  mp_isable = 1) or (mp_u_id = 1 and mp_utype = 1 and mp_isable = 1) or (mp_ul_id = 1 and mp_ultype = 1 and  mp_isable = 1) ) [ RunTime:0.000610s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `super_admin` [ RunTime:0.111043s ]
+[ sql ] [ SQL ] SELECT `ad_wechat` FROM `super_admin` WHERE  `ad_id` = 1 LIMIT 1 [ RunTime:0.000535s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `xcx_msg_content` [ RunTime:0.013809s ]
+[ sql ] [ SQL ] SELECT COUNT(xcx_msg_id) AS tp_count FROM `xcx_msg_content` WHERE  `xcx_msg_mp_id` = 17  AND `xcx_msg_isread` = 2  AND `xcx_msg_isable` = 1  AND (  ( xcx_msg_uid != 1 and xcx_msg_u_type = 1 ) or ( xcx_msg_uid != 1 and  xcx_msg_u_type = 2 ) ) LIMIT 1 [ RunTime:0.000971s ]
+[ sql ] [ SQL ] SELECT `ad_wechat` FROM `super_admin` WHERE  `ad_id` = 1 LIMIT 1 [ RunTime:0.000618s ]
+[ sql ] [ SQL ] SELECT COUNT(xcx_msg_id) AS tp_count FROM `xcx_msg_content` WHERE  `xcx_msg_mp_id` = 18  AND `xcx_msg_isread` = 2  AND `xcx_msg_isable` = 1  AND (  ( xcx_msg_uid != 1 and xcx_msg_u_type = 1 ) or ( xcx_msg_uid != 1 and  xcx_msg_u_type = 2 ) ) LIMIT 1 [ RunTime:0.000603s ]
+[ sql ] [ SQL ] SELECT `ad_wechat` FROM `super_admin` WHERE  `ad_id` = 1 LIMIT 1 [ RunTime:0.000515s ]
+[ sql ] [ SQL ] SELECT COUNT(xcx_msg_id) AS tp_count FROM `xcx_msg_content` WHERE  `xcx_msg_mp_id` = 19  AND `xcx_msg_isread` = 2  AND `xcx_msg_isable` = 1  AND (  ( xcx_msg_uid != 1 and xcx_msg_u_type = 1 ) or ( xcx_msg_uid != 1 and  xcx_msg_u_type = 2 ) ) LIMIT 1 [ RunTime:0.000902s ]
+[ sql ] [ SQL ] SELECT `ad_wechat` FROM `super_admin` WHERE  `ad_id` = 1 LIMIT 1 [ RunTime:0.000817s ]
+[ sql ] [ SQL ] SELECT COUNT(xcx_msg_id) AS tp_count FROM `xcx_msg_content` WHERE  `xcx_msg_mp_id` = 20  AND `xcx_msg_isread` = 2  AND `xcx_msg_isable` = 1  AND (  ( xcx_msg_uid != 1 and xcx_msg_u_type = 1 ) or ( xcx_msg_uid != 1 and  xcx_msg_u_type = 2 ) ) LIMIT 1 [ RunTime:0.000765s ]
+---------------------------------------------------------------
+[ 2020-08-20T19:09:10+08:00 ] 127.0.0.1 POST www.huaxiang.com/xcx/index/unread.html
+[运行时间：0.103827s] [吞吐率：9.63req/s] [内存消耗：2,235.56kb] [文件加载：54]
+[ info ] [ LANG ] D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\thinkphp\lang\zh-cn.php
+[ info ] [ ROUTE ] array (
+  'type' => 'module',
+  'module' => 
+  array (
+    0 => 'xcx',
+    1 => 'index',
+    2 => 'unread',
+  ),
+)
+[ info ] [ HEADER ] array (
+  'cookie' => 'PHPSESSID=3g51qit2202i7butmpgb4v0i34',
+  'accept-language' => 'zh-CN,zh;q=0.9',
+  'accept-encoding' => 'gzip, deflate',
+  'referer' => 'http://www.huaxiang.com/xcx/index/index.html',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.70 Safari/537.36',
+  'x-requested-with' => 'XMLHttpRequest',
+  'origin' => 'http://www.huaxiang.com',
+  'accept' => 'application/json, text/javascript, */*; q=0.01',
+  'content-length' => '0',
+  'connection' => 'close',
+  'host' => 'www.huaxiang.com',
+)
+[ info ] [ PARAM ] array (
+  '/xcx/index/unread_html' => '',
+)
+[ info ] [ SESSION ] INIT array (
+  'id' => '',
+  'var_session_id' => '',
+  'prefix' => 'think',
+  'type' => '',
+  'auto_start' => true,
+)
+[ info ] [ RUN ] app\xcx\controller\Index->unread[ D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\application\xcx\controller\Index.php ]
+[ info ] [ DB ] INIT mysql
+[ info ] [ LOG ] INIT File
+[ sql ] [ DB ] CONNECT:[ UseTime:0.001481s ] mysql:host=127.0.0.1;port=3306;dbname=xcxnew;charset=utf8mb4
+[ sql ] [ SQL ] SHOW COLUMNS FROM `xcx_msg_person` [ RunTime:0.014946s ]
+[ sql ] [ SQL ] SELECT `mp_id` FROM `xcx_msg_person` WHERE  (  (mp_u_id = 1 and mp_utype = 2 and mp_isable = 1) or (mp_ul_id = 1 and mp_ultype = 2 and  mp_isable = 1) or (mp_u_id = 1 and mp_utype = 1 and mp_isable = 1) or (mp_ul_id = 1 and mp_ultype = 1 and  mp_isable = 1) ) [ RunTime:0.000489s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `super_admin` [ RunTime:0.013870s ]
+[ sql ] [ SQL ] SELECT `ad_wechat` FROM `super_admin` WHERE  `ad_id` = 1 LIMIT 1 [ RunTime:0.000524s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `xcx_msg_content` [ RunTime:0.013203s ]
+[ sql ] [ SQL ] SELECT COUNT(xcx_msg_id) AS tp_count FROM `xcx_msg_content` WHERE  `xcx_msg_mp_id` = 17  AND `xcx_msg_isread` = 2  AND `xcx_msg_isable` = 1  AND (  ( xcx_msg_uid != 1 and xcx_msg_u_type = 1 ) or ( xcx_msg_uid != 1 and  xcx_msg_u_type = 2 ) ) LIMIT 1 [ RunTime:0.000693s ]
+[ sql ] [ SQL ] SELECT `ad_wechat` FROM `super_admin` WHERE  `ad_id` = 1 LIMIT 1 [ RunTime:0.000394s ]
+[ sql ] [ SQL ] SELECT COUNT(xcx_msg_id) AS tp_count FROM `xcx_msg_content` WHERE  `xcx_msg_mp_id` = 18  AND `xcx_msg_isread` = 2  AND `xcx_msg_isable` = 1  AND (  ( xcx_msg_uid != 1 and xcx_msg_u_type = 1 ) or ( xcx_msg_uid != 1 and  xcx_msg_u_type = 2 ) ) LIMIT 1 [ RunTime:0.000403s ]
+[ sql ] [ SQL ] SELECT `ad_wechat` FROM `super_admin` WHERE  `ad_id` = 1 LIMIT 1 [ RunTime:0.000390s ]
+[ sql ] [ SQL ] SELECT COUNT(xcx_msg_id) AS tp_count FROM `xcx_msg_content` WHERE  `xcx_msg_mp_id` = 19  AND `xcx_msg_isread` = 2  AND `xcx_msg_isable` = 1  AND (  ( xcx_msg_uid != 1 and xcx_msg_u_type = 1 ) or ( xcx_msg_uid != 1 and  xcx_msg_u_type = 2 ) ) LIMIT 1 [ RunTime:0.000397s ]
+[ sql ] [ SQL ] SELECT `ad_wechat` FROM `super_admin` WHERE  `ad_id` = 1 LIMIT 1 [ RunTime:0.000324s ]
+[ sql ] [ SQL ] SELECT COUNT(xcx_msg_id) AS tp_count FROM `xcx_msg_content` WHERE  `xcx_msg_mp_id` = 20  AND `xcx_msg_isread` = 2  AND `xcx_msg_isable` = 1  AND (  ( xcx_msg_uid != 1 and xcx_msg_u_type = 1 ) or ( xcx_msg_uid != 1 and  xcx_msg_u_type = 2 ) ) LIMIT 1 [ RunTime:0.000375s ]
+---------------------------------------------------------------
+[ 2020-08-20T19:09:21+08:00 ] 127.0.0.1 POST www.huaxiang.com/xcx/index/unread.html
+[运行时间：0.105590s] [吞吐率：9.47req/s] [内存消耗：2,235.56kb] [文件加载：54]
+[ info ] [ LANG ] D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\thinkphp\lang\zh-cn.php
+[ info ] [ ROUTE ] array (
+  'type' => 'module',
+  'module' => 
+  array (
+    0 => 'xcx',
+    1 => 'index',
+    2 => 'unread',
+  ),
+)
+[ info ] [ HEADER ] array (
+  'cookie' => 'PHPSESSID=3g51qit2202i7butmpgb4v0i34',
+  'accept-language' => 'zh-CN,zh;q=0.9',
+  'accept-encoding' => 'gzip, deflate',
+  'referer' => 'http://www.huaxiang.com/xcx/index/index.html',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.70 Safari/537.36',
+  'x-requested-with' => 'XMLHttpRequest',
+  'origin' => 'http://www.huaxiang.com',
+  'accept' => 'application/json, text/javascript, */*; q=0.01',
+  'content-length' => '0',
+  'connection' => 'close',
+  'host' => 'www.huaxiang.com',
+)
+[ info ] [ PARAM ] array (
+  '/xcx/index/unread_html' => '',
+)
+[ info ] [ SESSION ] INIT array (
+  'id' => '',
+  'var_session_id' => '',
+  'prefix' => 'think',
+  'type' => '',
+  'auto_start' => true,
+)
+[ info ] [ RUN ] app\xcx\controller\Index->unread[ D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\application\xcx\controller\Index.php ]
+[ info ] [ DB ] INIT mysql
+[ info ] [ LOG ] INIT File
+[ sql ] [ DB ] CONNECT:[ UseTime:0.001230s ] mysql:host=127.0.0.1;port=3306;dbname=xcxnew;charset=utf8mb4
+[ sql ] [ SQL ] SHOW COLUMNS FROM `xcx_msg_person` [ RunTime:0.014179s ]
+[ sql ] [ SQL ] SELECT `mp_id` FROM `xcx_msg_person` WHERE  (  (mp_u_id = 1 and mp_utype = 2 and mp_isable = 1) or (mp_ul_id = 1 and mp_ultype = 2 and  mp_isable = 1) or (mp_u_id = 1 and mp_utype = 1 and mp_isable = 1) or (mp_ul_id = 1 and mp_ultype = 1 and  mp_isable = 1) ) [ RunTime:0.000530s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `super_admin` [ RunTime:0.013898s ]
+[ sql ] [ SQL ] SELECT `ad_wechat` FROM `super_admin` WHERE  `ad_id` = 1 LIMIT 1 [ RunTime:0.000493s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `xcx_msg_content` [ RunTime:0.013846s ]
+[ sql ] [ SQL ] SELECT COUNT(xcx_msg_id) AS tp_count FROM `xcx_msg_content` WHERE  `xcx_msg_mp_id` = 17  AND `xcx_msg_isread` = 2  AND `xcx_msg_isable` = 1  AND (  ( xcx_msg_uid != 1 and xcx_msg_u_type = 1 ) or ( xcx_msg_uid != 1 and  xcx_msg_u_type = 2 ) ) LIMIT 1 [ RunTime:0.000623s ]
+[ sql ] [ SQL ] SELECT `ad_wechat` FROM `super_admin` WHERE  `ad_id` = 1 LIMIT 1 [ RunTime:0.000368s ]
+[ sql ] [ SQL ] SELECT COUNT(xcx_msg_id) AS tp_count FROM `xcx_msg_content` WHERE  `xcx_msg_mp_id` = 18  AND `xcx_msg_isread` = 2  AND `xcx_msg_isable` = 1  AND (  ( xcx_msg_uid != 1 and xcx_msg_u_type = 1 ) or ( xcx_msg_uid != 1 and  xcx_msg_u_type = 2 ) ) LIMIT 1 [ RunTime:0.000390s ]
+[ sql ] [ SQL ] SELECT `ad_wechat` FROM `super_admin` WHERE  `ad_id` = 1 LIMIT 1 [ RunTime:0.000654s ]
+[ sql ] [ SQL ] SELECT COUNT(xcx_msg_id) AS tp_count FROM `xcx_msg_content` WHERE  `xcx_msg_mp_id` = 19  AND `xcx_msg_isread` = 2  AND `xcx_msg_isable` = 1  AND (  ( xcx_msg_uid != 1 and xcx_msg_u_type = 1 ) or ( xcx_msg_uid != 1 and  xcx_msg_u_type = 2 ) ) LIMIT 1 [ RunTime:0.000532s ]
+[ sql ] [ SQL ] SELECT `ad_wechat` FROM `super_admin` WHERE  `ad_id` = 1 LIMIT 1 [ RunTime:0.000392s ]
+[ sql ] [ SQL ] SELECT COUNT(xcx_msg_id) AS tp_count FROM `xcx_msg_content` WHERE  `xcx_msg_mp_id` = 20  AND `xcx_msg_isread` = 2  AND `xcx_msg_isable` = 1  AND (  ( xcx_msg_uid != 1 and xcx_msg_u_type = 1 ) or ( xcx_msg_uid != 1 and  xcx_msg_u_type = 2 ) ) LIMIT 1 [ RunTime:0.000401s ]
+---------------------------------------------------------------
+[ 2020-08-20T19:09:33+08:00 ] 127.0.0.1 POST www.huaxiang.com/xcx/index/unread.html
+[运行时间：0.107240s] [吞吐率：9.32req/s] [内存消耗：2,235.56kb] [文件加载：54]
+[ info ] [ LANG ] D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\thinkphp\lang\zh-cn.php
+[ info ] [ ROUTE ] array (
+  'type' => 'module',
+  'module' => 
+  array (
+    0 => 'xcx',
+    1 => 'index',
+    2 => 'unread',
+  ),
+)
+[ info ] [ HEADER ] array (
+  'cookie' => 'PHPSESSID=3g51qit2202i7butmpgb4v0i34',
+  'accept-language' => 'zh-CN,zh;q=0.9',
+  'accept-encoding' => 'gzip, deflate',
+  'referer' => 'http://www.huaxiang.com/xcx/index/index.html',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.70 Safari/537.36',
+  'x-requested-with' => 'XMLHttpRequest',
+  'origin' => 'http://www.huaxiang.com',
+  'accept' => 'application/json, text/javascript, */*; q=0.01',
+  'content-length' => '0',
+  'connection' => 'close',
+  'host' => 'www.huaxiang.com',
+)
+[ info ] [ PARAM ] array (
+  '/xcx/index/unread_html' => '',
+)
+[ info ] [ SESSION ] INIT array (
+  'id' => '',
+  'var_session_id' => '',
+  'prefix' => 'think',
+  'type' => '',
+  'auto_start' => true,
+)
+[ info ] [ RUN ] app\xcx\controller\Index->unread[ D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\application\xcx\controller\Index.php ]
+[ info ] [ DB ] INIT mysql
+[ info ] [ LOG ] INIT File
+[ sql ] [ DB ] CONNECT:[ UseTime:0.001230s ] mysql:host=127.0.0.1;port=3306;dbname=xcxnew;charset=utf8mb4
+[ sql ] [ SQL ] SHOW COLUMNS FROM `xcx_msg_person` [ RunTime:0.014655s ]
+[ sql ] [ SQL ] SELECT `mp_id` FROM `xcx_msg_person` WHERE  (  (mp_u_id = 1 and mp_utype = 2 and mp_isable = 1) or (mp_ul_id = 1 and mp_ultype = 2 and  mp_isable = 1) or (mp_u_id = 1 and mp_utype = 1 and mp_isable = 1) or (mp_ul_id = 1 and mp_ultype = 1 and  mp_isable = 1) ) [ RunTime:0.000511s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `super_admin` [ RunTime:0.014718s ]
+[ sql ] [ SQL ] SELECT `ad_wechat` FROM `super_admin` WHERE  `ad_id` = 1 LIMIT 1 [ RunTime:0.000730s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `xcx_msg_content` [ RunTime:0.014126s ]
+[ sql ] [ SQL ] SELECT COUNT(xcx_msg_id) AS tp_count FROM `xcx_msg_content` WHERE  `xcx_msg_mp_id` = 17  AND `xcx_msg_isread` = 2  AND `xcx_msg_isable` = 1  AND (  ( xcx_msg_uid != 1 and xcx_msg_u_type = 1 ) or ( xcx_msg_uid != 1 and  xcx_msg_u_type = 2 ) ) LIMIT 1 [ RunTime:0.000546s ]
+[ sql ] [ SQL ] SELECT `ad_wechat` FROM `super_admin` WHERE  `ad_id` = 1 LIMIT 1 [ RunTime:0.000682s ]
+[ sql ] [ SQL ] SELECT COUNT(xcx_msg_id) AS tp_count FROM `xcx_msg_content` WHERE  `xcx_msg_mp_id` = 18  AND `xcx_msg_isread` = 2  AND `xcx_msg_isable` = 1  AND (  ( xcx_msg_uid != 1 and xcx_msg_u_type = 1 ) or ( xcx_msg_uid != 1 and  xcx_msg_u_type = 2 ) ) LIMIT 1 [ RunTime:0.000548s ]
+[ sql ] [ SQL ] SELECT `ad_wechat` FROM `super_admin` WHERE  `ad_id` = 1 LIMIT 1 [ RunTime:0.000405s ]
+[ sql ] [ SQL ] SELECT COUNT(xcx_msg_id) AS tp_count FROM `xcx_msg_content` WHERE  `xcx_msg_mp_id` = 19  AND `xcx_msg_isread` = 2  AND `xcx_msg_isable` = 1  AND (  ( xcx_msg_uid != 1 and xcx_msg_u_type = 1 ) or ( xcx_msg_uid != 1 and  xcx_msg_u_type = 2 ) ) LIMIT 1 [ RunTime:0.000745s ]
+[ sql ] [ SQL ] SELECT `ad_wechat` FROM `super_admin` WHERE  `ad_id` = 1 LIMIT 1 [ RunTime:0.000559s ]
+[ sql ] [ SQL ] SELECT COUNT(xcx_msg_id) AS tp_count FROM `xcx_msg_content` WHERE  `xcx_msg_mp_id` = 20  AND `xcx_msg_isread` = 2  AND `xcx_msg_isable` = 1  AND (  ( xcx_msg_uid != 1 and xcx_msg_u_type = 1 ) or ( xcx_msg_uid != 1 and  xcx_msg_u_type = 2 ) ) LIMIT 1 [ RunTime:0.000517s ]
+---------------------------------------------------------------
+[ 2020-08-20T19:09:46+08:00 ] 127.0.0.1 POST www.huaxiang.com/xcx/index/unread.html
+[运行时间：0.104716s] [吞吐率：9.55req/s] [内存消耗：2,235.56kb] [文件加载：54]
+[ info ] [ LANG ] D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\thinkphp\lang\zh-cn.php
+[ info ] [ ROUTE ] array (
+  'type' => 'module',
+  'module' => 
+  array (
+    0 => 'xcx',
+    1 => 'index',
+    2 => 'unread',
+  ),
+)
+[ info ] [ HEADER ] array (
+  'cookie' => 'PHPSESSID=3g51qit2202i7butmpgb4v0i34',
+  'accept-language' => 'zh-CN,zh;q=0.9',
+  'accept-encoding' => 'gzip, deflate',
+  'referer' => 'http://www.huaxiang.com/xcx/index/index.html',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.70 Safari/537.36',
+  'x-requested-with' => 'XMLHttpRequest',
+  'origin' => 'http://www.huaxiang.com',
+  'accept' => 'application/json, text/javascript, */*; q=0.01',
+  'content-length' => '0',
+  'connection' => 'close',
+  'host' => 'www.huaxiang.com',
+)
+[ info ] [ PARAM ] array (
+  '/xcx/index/unread_html' => '',
+)
+[ info ] [ SESSION ] INIT array (
+  'id' => '',
+  'var_session_id' => '',
+  'prefix' => 'think',
+  'type' => '',
+  'auto_start' => true,
+)
+[ info ] [ RUN ] app\xcx\controller\Index->unread[ D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\application\xcx\controller\Index.php ]
+[ info ] [ DB ] INIT mysql
+[ info ] [ LOG ] INIT File
+[ sql ] [ DB ] CONNECT:[ UseTime:0.001184s ] mysql:host=127.0.0.1;port=3306;dbname=xcxnew;charset=utf8mb4
+[ sql ] [ SQL ] SHOW COLUMNS FROM `xcx_msg_person` [ RunTime:0.013178s ]
+[ sql ] [ SQL ] SELECT `mp_id` FROM `xcx_msg_person` WHERE  (  (mp_u_id = 1 and mp_utype = 2 and mp_isable = 1) or (mp_ul_id = 1 and mp_ultype = 2 and  mp_isable = 1) or (mp_u_id = 1 and mp_utype = 1 and mp_isable = 1) or (mp_ul_id = 1 and mp_ultype = 1 and  mp_isable = 1) ) [ RunTime:0.000540s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `super_admin` [ RunTime:0.013623s ]
+[ sql ] [ SQL ] SELECT `ad_wechat` FROM `super_admin` WHERE  `ad_id` = 1 LIMIT 1 [ RunTime:0.000780s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `xcx_msg_content` [ RunTime:0.014646s ]
+[ sql ] [ SQL ] SELECT COUNT(xcx_msg_id) AS tp_count FROM `xcx_msg_content` WHERE  `xcx_msg_mp_id` = 17  AND `xcx_msg_isread` = 2  AND `xcx_msg_isable` = 1  AND (  ( xcx_msg_uid != 1 and xcx_msg_u_type = 1 ) or ( xcx_msg_uid != 1 and  xcx_msg_u_type = 2 ) ) LIMIT 1 [ RunTime:0.000943s ]
+[ sql ] [ SQL ] SELECT `ad_wechat` FROM `super_admin` WHERE  `ad_id` = 1 LIMIT 1 [ RunTime:0.000935s ]
+[ sql ] [ SQL ] SELECT COUNT(xcx_msg_id) AS tp_count FROM `xcx_msg_content` WHERE  `xcx_msg_mp_id` = 18  AND `xcx_msg_isread` = 2  AND `xcx_msg_isable` = 1  AND (  ( xcx_msg_uid != 1 and xcx_msg_u_type = 1 ) or ( xcx_msg_uid != 1 and  xcx_msg_u_type = 2 ) ) LIMIT 1 [ RunTime:0.000506s ]
+[ sql ] [ SQL ] SELECT `ad_wechat` FROM `super_admin` WHERE  `ad_id` = 1 LIMIT 1 [ RunTime:0.000411s ]
+[ sql ] [ SQL ] SELECT COUNT(xcx_msg_id) AS tp_count FROM `xcx_msg_content` WHERE  `xcx_msg_mp_id` = 19  AND `xcx_msg_isread` = 2  AND `xcx_msg_isable` = 1  AND (  ( xcx_msg_uid != 1 and xcx_msg_u_type = 1 ) or ( xcx_msg_uid != 1 and  xcx_msg_u_type = 2 ) ) LIMIT 1 [ RunTime:0.000417s ]
+[ sql ] [ SQL ] SELECT `ad_wechat` FROM `super_admin` WHERE  `ad_id` = 1 LIMIT 1 [ RunTime:0.000720s ]
+[ sql ] [ SQL ] SELECT COUNT(xcx_msg_id) AS tp_count FROM `xcx_msg_content` WHERE  `xcx_msg_mp_id` = 20  AND `xcx_msg_isread` = 2  AND `xcx_msg_isable` = 1  AND (  ( xcx_msg_uid != 1 and xcx_msg_u_type = 1 ) or ( xcx_msg_uid != 1 and  xcx_msg_u_type = 2 ) ) LIMIT 1 [ RunTime:0.000543s ]
+---------------------------------------------------------------
+[ 2020-08-20T19:09:58+08:00 ] 127.0.0.1 POST www.huaxiang.com/xcx/index/unread.html
+[运行时间：0.105434s] [吞吐率：9.48req/s] [内存消耗：2,235.56kb] [文件加载：54]
+[ info ] [ LANG ] D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\thinkphp\lang\zh-cn.php
+[ info ] [ ROUTE ] array (
+  'type' => 'module',
+  'module' => 
+  array (
+    0 => 'xcx',
+    1 => 'index',
+    2 => 'unread',
+  ),
+)
+[ info ] [ HEADER ] array (
+  'cookie' => 'PHPSESSID=3g51qit2202i7butmpgb4v0i34',
+  'accept-language' => 'zh-CN,zh;q=0.9',
+  'accept-encoding' => 'gzip, deflate',
+  'referer' => 'http://www.huaxiang.com/xcx/index/index.html',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.70 Safari/537.36',
+  'x-requested-with' => 'XMLHttpRequest',
+  'origin' => 'http://www.huaxiang.com',
+  'accept' => 'application/json, text/javascript, */*; q=0.01',
+  'content-length' => '0',
+  'connection' => 'close',
+  'host' => 'www.huaxiang.com',
+)
+[ info ] [ PARAM ] array (
+  '/xcx/index/unread_html' => '',
+)
+[ info ] [ SESSION ] INIT array (
+  'id' => '',
+  'var_session_id' => '',
+  'prefix' => 'think',
+  'type' => '',
+  'auto_start' => true,
+)
+[ info ] [ RUN ] app\xcx\controller\Index->unread[ D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\application\xcx\controller\Index.php ]
+[ info ] [ DB ] INIT mysql
+[ info ] [ LOG ] INIT File
+[ sql ] [ DB ] CONNECT:[ UseTime:0.001140s ] mysql:host=127.0.0.1;port=3306;dbname=xcxnew;charset=utf8mb4
+[ sql ] [ SQL ] SHOW COLUMNS FROM `xcx_msg_person` [ RunTime:0.013713s ]
+[ sql ] [ SQL ] SELECT `mp_id` FROM `xcx_msg_person` WHERE  (  (mp_u_id = 1 and mp_utype = 2 and mp_isable = 1) or (mp_ul_id = 1 and mp_ultype = 2 and  mp_isable = 1) or (mp_u_id = 1 and mp_utype = 1 and mp_isable = 1) or (mp_ul_id = 1 and mp_ultype = 1 and  mp_isable = 1) ) [ RunTime:0.000563s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `super_admin` [ RunTime:0.013533s ]
+[ sql ] [ SQL ] SELECT `ad_wechat` FROM `super_admin` WHERE  `ad_id` = 1 LIMIT 1 [ RunTime:0.000551s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `xcx_msg_content` [ RunTime:0.013707s ]
+[ sql ] [ SQL ] SELECT COUNT(xcx_msg_id) AS tp_count FROM `xcx_msg_content` WHERE  `xcx_msg_mp_id` = 17  AND `xcx_msg_isread` = 2  AND `xcx_msg_isable` = 1  AND (  ( xcx_msg_uid != 1 and xcx_msg_u_type = 1 ) or ( xcx_msg_uid != 1 and  xcx_msg_u_type = 2 ) ) LIMIT 1 [ RunTime:0.000619s ]
+[ sql ] [ SQL ] SELECT `ad_wechat` FROM `super_admin` WHERE  `ad_id` = 1 LIMIT 1 [ RunTime:0.000402s ]
+[ sql ] [ SQL ] SELECT COUNT(xcx_msg_id) AS tp_count FROM `xcx_msg_content` WHERE  `xcx_msg_mp_id` = 18  AND `xcx_msg_isread` = 2  AND `xcx_msg_isable` = 1  AND (  ( xcx_msg_uid != 1 and xcx_msg_u_type = 1 ) or ( xcx_msg_uid != 1 and  xcx_msg_u_type = 2 ) ) LIMIT 1 [ RunTime:0.000950s ]
+[ sql ] [ SQL ] SELECT `ad_wechat` FROM `super_admin` WHERE  `ad_id` = 1 LIMIT 1 [ RunTime:0.000505s ]
+[ sql ] [ SQL ] SELECT COUNT(xcx_msg_id) AS tp_count FROM `xcx_msg_content` WHERE  `xcx_msg_mp_id` = 19  AND `xcx_msg_isread` = 2  AND `xcx_msg_isable` = 1  AND (  ( xcx_msg_uid != 1 and xcx_msg_u_type = 1 ) or ( xcx_msg_uid != 1 and  xcx_msg_u_type = 2 ) ) LIMIT 1 [ RunTime:0.000427s ]
+[ sql ] [ SQL ] SELECT `ad_wechat` FROM `super_admin` WHERE  `ad_id` = 1 LIMIT 1 [ RunTime:0.000347s ]
+[ sql ] [ SQL ] SELECT COUNT(xcx_msg_id) AS tp_count FROM `xcx_msg_content` WHERE  `xcx_msg_mp_id` = 20  AND `xcx_msg_isread` = 2  AND `xcx_msg_isable` = 1  AND (  ( xcx_msg_uid != 1 and xcx_msg_u_type = 1 ) or ( xcx_msg_uid != 1 and  xcx_msg_u_type = 2 ) ) LIMIT 1 [ RunTime:0.000379s ]
+---------------------------------------------------------------
+[ 2020-08-20T19:10:17+08:00 ] 127.0.0.1 POST www.huaxiang.com/xcx/index/unread.html
+[运行时间：0.186339s] [吞吐率：5.37req/s] [内存消耗：2,235.56kb] [文件加载：54]
+[ info ] [ LANG ] D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\thinkphp\lang\zh-cn.php
+[ info ] [ ROUTE ] array (
+  'type' => 'module',
+  'module' => 
+  array (
+    0 => 'xcx',
+    1 => 'index',
+    2 => 'unread',
+  ),
+)
+[ info ] [ HEADER ] array (
+  'cookie' => 'PHPSESSID=3g51qit2202i7butmpgb4v0i34',
+  'accept-language' => 'zh-CN,zh;q=0.9',
+  'accept-encoding' => 'gzip, deflate',
+  'referer' => 'http://www.huaxiang.com/xcx/index/index.html',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.70 Safari/537.36',
+  'x-requested-with' => 'XMLHttpRequest',
+  'origin' => 'http://www.huaxiang.com',
+  'accept' => 'application/json, text/javascript, */*; q=0.01',
+  'content-length' => '0',
+  'connection' => 'close',
+  'host' => 'www.huaxiang.com',
+)
+[ info ] [ PARAM ] array (
+  '/xcx/index/unread_html' => '',
+)
+[ info ] [ SESSION ] INIT array (
+  'id' => '',
+  'var_session_id' => '',
+  'prefix' => 'think',
+  'type' => '',
+  'auto_start' => true,
+)
+[ info ] [ RUN ] app\xcx\controller\Index->unread[ D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\application\xcx\controller\Index.php ]
+[ info ] [ DB ] INIT mysql
+[ info ] [ LOG ] INIT File
+[ sql ] [ DB ] CONNECT:[ UseTime:0.011874s ] mysql:host=127.0.0.1;port=3306;dbname=xcxnew;charset=utf8mb4
+[ sql ] [ SQL ] SHOW COLUMNS FROM `xcx_msg_person` [ RunTime:0.067226s ]
+[ sql ] [ SQL ] SELECT `mp_id` FROM `xcx_msg_person` WHERE  (  (mp_u_id = 1 and mp_utype = 2 and mp_isable = 1) or (mp_ul_id = 1 and mp_ultype = 2 and  mp_isable = 1) or (mp_u_id = 1 and mp_utype = 1 and mp_isable = 1) or (mp_ul_id = 1 and mp_ultype = 1 and  mp_isable = 1) ) [ RunTime:0.001365s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `super_admin` [ RunTime:0.017656s ]
+[ sql ] [ SQL ] SELECT `ad_wechat` FROM `super_admin` WHERE  `ad_id` = 1 LIMIT 1 [ RunTime:0.000754s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `xcx_msg_content` [ RunTime:0.020407s ]
+[ sql ] [ SQL ] SELECT COUNT(xcx_msg_id) AS tp_count FROM `xcx_msg_content` WHERE  `xcx_msg_mp_id` = 17  AND `xcx_msg_isread` = 2  AND `xcx_msg_isable` = 1  AND (  ( xcx_msg_uid != 1 and xcx_msg_u_type = 1 ) or ( xcx_msg_uid != 1 and  xcx_msg_u_type = 2 ) ) LIMIT 1 [ RunTime:0.001255s ]
+[ sql ] [ SQL ] SELECT `ad_wechat` FROM `super_admin` WHERE  `ad_id` = 1 LIMIT 1 [ RunTime:0.000566s ]
+[ sql ] [ SQL ] SELECT COUNT(xcx_msg_id) AS tp_count FROM `xcx_msg_content` WHERE  `xcx_msg_mp_id` = 18  AND `xcx_msg_isread` = 2  AND `xcx_msg_isable` = 1  AND (  ( xcx_msg_uid != 1 and xcx_msg_u_type = 1 ) or ( xcx_msg_uid != 1 and  xcx_msg_u_type = 2 ) ) LIMIT 1 [ RunTime:0.000661s ]
+[ sql ] [ SQL ] SELECT `ad_wechat` FROM `super_admin` WHERE  `ad_id` = 1 LIMIT 1 [ RunTime:0.001780s ]
+[ sql ] [ SQL ] SELECT COUNT(xcx_msg_id) AS tp_count FROM `xcx_msg_content` WHERE  `xcx_msg_mp_id` = 19  AND `xcx_msg_isread` = 2  AND `xcx_msg_isable` = 1  AND (  ( xcx_msg_uid != 1 and xcx_msg_u_type = 1 ) or ( xcx_msg_uid != 1 and  xcx_msg_u_type = 2 ) ) LIMIT 1 [ RunTime:0.001136s ]
+[ sql ] [ SQL ] SELECT `ad_wechat` FROM `super_admin` WHERE  `ad_id` = 1 LIMIT 1 [ RunTime:0.000526s ]
+[ sql ] [ SQL ] SELECT COUNT(xcx_msg_id) AS tp_count FROM `xcx_msg_content` WHERE  `xcx_msg_mp_id` = 20  AND `xcx_msg_isread` = 2  AND `xcx_msg_isable` = 1  AND (  ( xcx_msg_uid != 1 and xcx_msg_u_type = 1 ) or ( xcx_msg_uid != 1 and  xcx_msg_u_type = 2 ) ) LIMIT 1 [ RunTime:0.000489s ]
+---------------------------------------------------------------
+[ 2020-08-20T19:10:38+08:00 ] 127.0.0.1 POST www.huaxiang.com/xcx/index/unread.html
+[运行时间：0.112461s] [吞吐率：8.89req/s] [内存消耗：2,235.56kb] [文件加载：54]
+[ info ] [ LANG ] D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\thinkphp\lang\zh-cn.php
+[ info ] [ ROUTE ] array (
+  'type' => 'module',
+  'module' => 
+  array (
+    0 => 'xcx',
+    1 => 'index',
+    2 => 'unread',
+  ),
+)
+[ info ] [ HEADER ] array (
+  'cookie' => 'PHPSESSID=3g51qit2202i7butmpgb4v0i34',
+  'accept-language' => 'zh-CN,zh;q=0.9',
+  'accept-encoding' => 'gzip, deflate',
+  'referer' => 'http://www.huaxiang.com/xcx/index/index.html',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.70 Safari/537.36',
+  'x-requested-with' => 'XMLHttpRequest',
+  'origin' => 'http://www.huaxiang.com',
+  'accept' => 'application/json, text/javascript, */*; q=0.01',
+  'content-length' => '0',
+  'connection' => 'close',
+  'host' => 'www.huaxiang.com',
+)
+[ info ] [ PARAM ] array (
+  '/xcx/index/unread_html' => '',
+)
+[ info ] [ SESSION ] INIT array (
+  'id' => '',
+  'var_session_id' => '',
+  'prefix' => 'think',
+  'type' => '',
+  'auto_start' => true,
+)
+[ info ] [ RUN ] app\xcx\controller\Index->unread[ D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\application\xcx\controller\Index.php ]
+[ info ] [ DB ] INIT mysql
+[ info ] [ LOG ] INIT File
+[ sql ] [ DB ] CONNECT:[ UseTime:0.001092s ] mysql:host=127.0.0.1;port=3306;dbname=xcxnew;charset=utf8mb4
+[ sql ] [ SQL ] SHOW COLUMNS FROM `xcx_msg_person` [ RunTime:0.013077s ]
+[ sql ] [ SQL ] SELECT `mp_id` FROM `xcx_msg_person` WHERE  (  (mp_u_id = 1 and mp_utype = 2 and mp_isable = 1) or (mp_ul_id = 1 and mp_ultype = 2 and  mp_isable = 1) or (mp_u_id = 1 and mp_utype = 1 and mp_isable = 1) or (mp_ul_id = 1 and mp_ultype = 1 and  mp_isable = 1) ) [ RunTime:0.000562s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `super_admin` [ RunTime:0.012882s ]
+[ sql ] [ SQL ] SELECT `ad_wechat` FROM `super_admin` WHERE  `ad_id` = 1 LIMIT 1 [ RunTime:0.000472s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `xcx_msg_content` [ RunTime:0.013397s ]
+[ sql ] [ SQL ] SELECT COUNT(xcx_msg_id) AS tp_count FROM `xcx_msg_content` WHERE  `xcx_msg_mp_id` = 17  AND `xcx_msg_isread` = 2  AND `xcx_msg_isable` = 1  AND (  ( xcx_msg_uid != 1 and xcx_msg_u_type = 1 ) or ( xcx_msg_uid != 1 and  xcx_msg_u_type = 2 ) ) LIMIT 1 [ RunTime:0.000713s ]
+[ sql ] [ SQL ] SELECT `ad_wechat` FROM `super_admin` WHERE  `ad_id` = 1 LIMIT 1 [ RunTime:0.000385s ]
+[ sql ] [ SQL ] SELECT COUNT(xcx_msg_id) AS tp_count FROM `xcx_msg_content` WHERE  `xcx_msg_mp_id` = 18  AND `xcx_msg_isread` = 2  AND `xcx_msg_isable` = 1  AND (  ( xcx_msg_uid != 1 and xcx_msg_u_type = 1 ) or ( xcx_msg_uid != 1 and  xcx_msg_u_type = 2 ) ) LIMIT 1 [ RunTime:0.000495s ]
+[ sql ] [ SQL ] SELECT `ad_wechat` FROM `super_admin` WHERE  `ad_id` = 1 LIMIT 1 [ RunTime:0.000384s ]
+[ sql ] [ SQL ] SELECT COUNT(xcx_msg_id) AS tp_count FROM `xcx_msg_content` WHERE  `xcx_msg_mp_id` = 19  AND `xcx_msg_isread` = 2  AND `xcx_msg_isable` = 1  AND (  ( xcx_msg_uid != 1 and xcx_msg_u_type = 1 ) or ( xcx_msg_uid != 1 and  xcx_msg_u_type = 2 ) ) LIMIT 1 [ RunTime:0.000423s ]
+[ sql ] [ SQL ] SELECT `ad_wechat` FROM `super_admin` WHERE  `ad_id` = 1 LIMIT 1 [ RunTime:0.000325s ]
+[ sql ] [ SQL ] SELECT COUNT(xcx_msg_id) AS tp_count FROM `xcx_msg_content` WHERE  `xcx_msg_mp_id` = 20  AND `xcx_msg_isread` = 2  AND `xcx_msg_isable` = 1  AND (  ( xcx_msg_uid != 1 and xcx_msg_u_type = 1 ) or ( xcx_msg_uid != 1 and  xcx_msg_u_type = 2 ) ) LIMIT 1 [ RunTime:0.000375s ]
+---------------------------------------------------------------
+[ 2020-08-20T19:10:51+08:00 ] 127.0.0.1 POST www.huaxiang.com/xcx/index/unread.html
+[运行时间：0.193794s] [吞吐率：5.16req/s] [内存消耗：2,235.56kb] [文件加载：54]
+[ info ] [ LANG ] D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\thinkphp\lang\zh-cn.php
+[ info ] [ ROUTE ] array (
+  'type' => 'module',
+  'module' => 
+  array (
+    0 => 'xcx',
+    1 => 'index',
+    2 => 'unread',
+  ),
+)
+[ info ] [ HEADER ] array (
+  'cookie' => 'PHPSESSID=3g51qit2202i7butmpgb4v0i34',
+  'accept-language' => 'zh-CN,zh;q=0.9',
+  'accept-encoding' => 'gzip, deflate',
+  'referer' => 'http://www.huaxiang.com/xcx/index/index.html',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.70 Safari/537.36',
+  'x-requested-with' => 'XMLHttpRequest',
+  'origin' => 'http://www.huaxiang.com',
+  'accept' => 'application/json, text/javascript, */*; q=0.01',
+  'content-length' => '0',
+  'connection' => 'close',
+  'host' => 'www.huaxiang.com',
+)
+[ info ] [ PARAM ] array (
+  '/xcx/index/unread_html' => '',
+)
+[ info ] [ SESSION ] INIT array (
+  'id' => '',
+  'var_session_id' => '',
+  'prefix' => 'think',
+  'type' => '',
+  'auto_start' => true,
+)
+[ info ] [ RUN ] app\xcx\controller\Index->unread[ D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\application\xcx\controller\Index.php ]
+[ info ] [ DB ] INIT mysql
+[ info ] [ LOG ] INIT File
+[ sql ] [ DB ] CONNECT:[ UseTime:0.001185s ] mysql:host=127.0.0.1;port=3306;dbname=xcxnew;charset=utf8mb4
+[ sql ] [ SQL ] SHOW COLUMNS FROM `xcx_msg_person` [ RunTime:0.012539s ]
+[ sql ] [ SQL ] SELECT `mp_id` FROM `xcx_msg_person` WHERE  (  (mp_u_id = 1 and mp_utype = 2 and mp_isable = 1) or (mp_ul_id = 1 and mp_ultype = 2 and  mp_isable = 1) or (mp_u_id = 1 and mp_utype = 1 and mp_isable = 1) or (mp_ul_id = 1 and mp_ultype = 1 and  mp_isable = 1) ) [ RunTime:0.000550s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `super_admin` [ RunTime:0.013185s ]
+[ sql ] [ SQL ] SELECT `ad_wechat` FROM `super_admin` WHERE  `ad_id` = 1 LIMIT 1 [ RunTime:0.000756s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `xcx_msg_content` [ RunTime:0.052280s ]
+[ sql ] [ SQL ] SELECT COUNT(xcx_msg_id) AS tp_count FROM `xcx_msg_content` WHERE  `xcx_msg_mp_id` = 17  AND `xcx_msg_isread` = 2  AND `xcx_msg_isable` = 1  AND (  ( xcx_msg_uid != 1 and xcx_msg_u_type = 1 ) or ( xcx_msg_uid != 1 and  xcx_msg_u_type = 2 ) ) LIMIT 1 [ RunTime:0.000923s ]
+[ sql ] [ SQL ] SELECT `ad_wechat` FROM `super_admin` WHERE  `ad_id` = 1 LIMIT 1 [ RunTime:0.000817s ]
+[ sql ] [ SQL ] SELECT COUNT(xcx_msg_id) AS tp_count FROM `xcx_msg_content` WHERE  `xcx_msg_mp_id` = 18  AND `xcx_msg_isread` = 2  AND `xcx_msg_isable` = 1  AND (  ( xcx_msg_uid != 1 and xcx_msg_u_type = 1 ) or ( xcx_msg_uid != 1 and  xcx_msg_u_type = 2 ) ) LIMIT 1 [ RunTime:0.000621s ]
+[ sql ] [ SQL ] SELECT `ad_wechat` FROM `super_admin` WHERE  `ad_id` = 1 LIMIT 1 [ RunTime:0.000656s ]
+[ sql ] [ SQL ] SELECT COUNT(xcx_msg_id) AS tp_count FROM `xcx_msg_content` WHERE  `xcx_msg_mp_id` = 19  AND `xcx_msg_isread` = 2  AND `xcx_msg_isable` = 1  AND (  ( xcx_msg_uid != 1 and xcx_msg_u_type = 1 ) or ( xcx_msg_uid != 1 and  xcx_msg_u_type = 2 ) ) LIMIT 1 [ RunTime:0.000714s ]
+[ sql ] [ SQL ] SELECT `ad_wechat` FROM `super_admin` WHERE  `ad_id` = 1 LIMIT 1 [ RunTime:0.000544s ]
+[ sql ] [ SQL ] SELECT COUNT(xcx_msg_id) AS tp_count FROM `xcx_msg_content` WHERE  `xcx_msg_mp_id` = 20  AND `xcx_msg_isread` = 2  AND `xcx_msg_isable` = 1  AND (  ( xcx_msg_uid != 1 and xcx_msg_u_type = 1 ) or ( xcx_msg_uid != 1 and  xcx_msg_u_type = 2 ) ) LIMIT 1 [ RunTime:0.052865s ]
+---------------------------------------------------------------
+[ 2020-08-20T19:11:13+08:00 ] 127.0.0.1 POST www.huaxiang.com/xcx/index/unread.html
+[运行时间：0.107946s] [吞吐率：9.26req/s] [内存消耗：2,235.56kb] [文件加载：54]
+[ info ] [ LANG ] D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\thinkphp\lang\zh-cn.php
+[ info ] [ ROUTE ] array (
+  'type' => 'module',
+  'module' => 
+  array (
+    0 => 'xcx',
+    1 => 'index',
+    2 => 'unread',
+  ),
+)
+[ info ] [ HEADER ] array (
+  'cookie' => 'PHPSESSID=3g51qit2202i7butmpgb4v0i34',
+  'accept-language' => 'zh-CN,zh;q=0.9',
+  'accept-encoding' => 'gzip, deflate',
+  'referer' => 'http://www.huaxiang.com/xcx/index/index.html',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.70 Safari/537.36',
+  'x-requested-with' => 'XMLHttpRequest',
+  'origin' => 'http://www.huaxiang.com',
+  'accept' => 'application/json, text/javascript, */*; q=0.01',
+  'content-length' => '0',
+  'connection' => 'close',
+  'host' => 'www.huaxiang.com',
+)
+[ info ] [ PARAM ] array (
+  '/xcx/index/unread_html' => '',
+)
+[ info ] [ SESSION ] INIT array (
+  'id' => '',
+  'var_session_id' => '',
+  'prefix' => 'think',
+  'type' => '',
+  'auto_start' => true,
+)
+[ info ] [ RUN ] app\xcx\controller\Index->unread[ D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\application\xcx\controller\Index.php ]
+[ info ] [ DB ] INIT mysql
+[ info ] [ LOG ] INIT File
+[ sql ] [ DB ] CONNECT:[ UseTime:0.001212s ] mysql:host=127.0.0.1;port=3306;dbname=xcxnew;charset=utf8mb4
+[ sql ] [ SQL ] SHOW COLUMNS FROM `xcx_msg_person` [ RunTime:0.014131s ]
+[ sql ] [ SQL ] SELECT `mp_id` FROM `xcx_msg_person` WHERE  (  (mp_u_id = 1 and mp_utype = 2 and mp_isable = 1) or (mp_ul_id = 1 and mp_ultype = 2 and  mp_isable = 1) or (mp_u_id = 1 and mp_utype = 1 and mp_isable = 1) or (mp_ul_id = 1 and mp_ultype = 1 and  mp_isable = 1) ) [ RunTime:0.000611s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `super_admin` [ RunTime:0.014480s ]
+[ sql ] [ SQL ] SELECT `ad_wechat` FROM `super_admin` WHERE  `ad_id` = 1 LIMIT 1 [ RunTime:0.000492s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `xcx_msg_content` [ RunTime:0.014269s ]
+[ sql ] [ SQL ] SELECT COUNT(xcx_msg_id) AS tp_count FROM `xcx_msg_content` WHERE  `xcx_msg_mp_id` = 17  AND `xcx_msg_isread` = 2  AND `xcx_msg_isable` = 1  AND (  ( xcx_msg_uid != 1 and xcx_msg_u_type = 1 ) or ( xcx_msg_uid != 1 and  xcx_msg_u_type = 2 ) ) LIMIT 1 [ RunTime:0.000730s ]
+[ sql ] [ SQL ] SELECT `ad_wechat` FROM `super_admin` WHERE  `ad_id` = 1 LIMIT 1 [ RunTime:0.000561s ]
+[ sql ] [ SQL ] SELECT COUNT(xcx_msg_id) AS tp_count FROM `xcx_msg_content` WHERE  `xcx_msg_mp_id` = 18  AND `xcx_msg_isread` = 2  AND `xcx_msg_isable` = 1  AND (  ( xcx_msg_uid != 1 and xcx_msg_u_type = 1 ) or ( xcx_msg_uid != 1 and  xcx_msg_u_type = 2 ) ) LIMIT 1 [ RunTime:0.000804s ]
+[ sql ] [ SQL ] SELECT `ad_wechat` FROM `super_admin` WHERE  `ad_id` = 1 LIMIT 1 [ RunTime:0.000459s ]
+[ sql ] [ SQL ] SELECT COUNT(xcx_msg_id) AS tp_count FROM `xcx_msg_content` WHERE  `xcx_msg_mp_id` = 19  AND `xcx_msg_isread` = 2  AND `xcx_msg_isable` = 1  AND (  ( xcx_msg_uid != 1 and xcx_msg_u_type = 1 ) or ( xcx_msg_uid != 1 and  xcx_msg_u_type = 2 ) ) LIMIT 1 [ RunTime:0.000581s ]
+[ sql ] [ SQL ] SELECT `ad_wechat` FROM `super_admin` WHERE  `ad_id` = 1 LIMIT 1 [ RunTime:0.000342s ]
+[ sql ] [ SQL ] SELECT COUNT(xcx_msg_id) AS tp_count FROM `xcx_msg_content` WHERE  `xcx_msg_mp_id` = 20  AND `xcx_msg_isread` = 2  AND `xcx_msg_isable` = 1  AND (  ( xcx_msg_uid != 1 and xcx_msg_u_type = 1 ) or ( xcx_msg_uid != 1 and  xcx_msg_u_type = 2 ) ) LIMIT 1 [ RunTime:0.000386s ]
+---------------------------------------------------------------
+[ 2020-08-20T19:11:25+08:00 ] 127.0.0.1 POST www.huaxiang.com/xcx/index/unread.html
+[运行时间：0.109976s] [吞吐率：9.09req/s] [内存消耗：2,235.56kb] [文件加载：54]
+[ info ] [ LANG ] D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\thinkphp\lang\zh-cn.php
+[ info ] [ ROUTE ] array (
+  'type' => 'module',
+  'module' => 
+  array (
+    0 => 'xcx',
+    1 => 'index',
+    2 => 'unread',
+  ),
+)
+[ info ] [ HEADER ] array (
+  'cookie' => 'PHPSESSID=3g51qit2202i7butmpgb4v0i34',
+  'accept-language' => 'zh-CN,zh;q=0.9',
+  'accept-encoding' => 'gzip, deflate',
+  'referer' => 'http://www.huaxiang.com/xcx/index/index.html',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.70 Safari/537.36',
+  'x-requested-with' => 'XMLHttpRequest',
+  'origin' => 'http://www.huaxiang.com',
+  'accept' => 'application/json, text/javascript, */*; q=0.01',
+  'content-length' => '0',
+  'connection' => 'close',
+  'host' => 'www.huaxiang.com',
+)
+[ info ] [ PARAM ] array (
+  '/xcx/index/unread_html' => '',
+)
+[ info ] [ SESSION ] INIT array (
+  'id' => '',
+  'var_session_id' => '',
+  'prefix' => 'think',
+  'type' => '',
+  'auto_start' => true,
+)
+[ info ] [ RUN ] app\xcx\controller\Index->unread[ D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\application\xcx\controller\Index.php ]
+[ info ] [ DB ] INIT mysql
+[ info ] [ LOG ] INIT File
+[ sql ] [ DB ] CONNECT:[ UseTime:0.001193s ] mysql:host=127.0.0.1;port=3306;dbname=xcxnew;charset=utf8mb4
+[ sql ] [ SQL ] SHOW COLUMNS FROM `xcx_msg_person` [ RunTime:0.015333s ]
+[ sql ] [ SQL ] SELECT `mp_id` FROM `xcx_msg_person` WHERE  (  (mp_u_id = 1 and mp_utype = 2 and mp_isable = 1) or (mp_ul_id = 1 and mp_ultype = 2 and  mp_isable = 1) or (mp_u_id = 1 and mp_utype = 1 and mp_isable = 1) or (mp_ul_id = 1 and mp_ultype = 1 and  mp_isable = 1) ) [ RunTime:0.000483s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `super_admin` [ RunTime:0.013022s ]
+[ sql ] [ SQL ] SELECT `ad_wechat` FROM `super_admin` WHERE  `ad_id` = 1 LIMIT 1 [ RunTime:0.000493s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `xcx_msg_content` [ RunTime:0.021031s ]
+[ sql ] [ SQL ] SELECT COUNT(xcx_msg_id) AS tp_count FROM `xcx_msg_content` WHERE  `xcx_msg_mp_id` = 17  AND `xcx_msg_isread` = 2  AND `xcx_msg_isable` = 1  AND (  ( xcx_msg_uid != 1 and xcx_msg_u_type = 1 ) or ( xcx_msg_uid != 1 and  xcx_msg_u_type = 2 ) ) LIMIT 1 [ RunTime:0.000661s ]
+[ sql ] [ SQL ] SELECT `ad_wechat` FROM `super_admin` WHERE  `ad_id` = 1 LIMIT 1 [ RunTime:0.000382s ]
+[ sql ] [ SQL ] SELECT COUNT(xcx_msg_id) AS tp_count FROM `xcx_msg_content` WHERE  `xcx_msg_mp_id` = 18  AND `xcx_msg_isread` = 2  AND `xcx_msg_isable` = 1  AND (  ( xcx_msg_uid != 1 and xcx_msg_u_type = 1 ) or ( xcx_msg_uid != 1 and  xcx_msg_u_type = 2 ) ) LIMIT 1 [ RunTime:0.000399s ]
+[ sql ] [ SQL ] SELECT `ad_wechat` FROM `super_admin` WHERE  `ad_id` = 1 LIMIT 1 [ RunTime:0.000338s ]
+[ sql ] [ SQL ] SELECT COUNT(xcx_msg_id) AS tp_count FROM `xcx_msg_content` WHERE  `xcx_msg_mp_id` = 19  AND `xcx_msg_isread` = 2  AND `xcx_msg_isable` = 1  AND (  ( xcx_msg_uid != 1 and xcx_msg_u_type = 1 ) or ( xcx_msg_uid != 1 and  xcx_msg_u_type = 2 ) ) LIMIT 1 [ RunTime:0.000398s ]
+[ sql ] [ SQL ] SELECT `ad_wechat` FROM `super_admin` WHERE  `ad_id` = 1 LIMIT 1 [ RunTime:0.000335s ]
+[ sql ] [ SQL ] SELECT COUNT(xcx_msg_id) AS tp_count FROM `xcx_msg_content` WHERE  `xcx_msg_mp_id` = 20  AND `xcx_msg_isread` = 2  AND `xcx_msg_isable` = 1  AND (  ( xcx_msg_uid != 1 and xcx_msg_u_type = 1 ) or ( xcx_msg_uid != 1 and  xcx_msg_u_type = 2 ) ) LIMIT 1 [ RunTime:0.000376s ]
+---------------------------------------------------------------
+[ 2020-08-20T19:11:37+08:00 ] 127.0.0.1 POST www.huaxiang.com/xcx/index/unread.html
+[运行时间：0.102721s] [吞吐率：9.74req/s] [内存消耗：2,235.56kb] [文件加载：54]
+[ info ] [ LANG ] D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\thinkphp\lang\zh-cn.php
+[ info ] [ ROUTE ] array (
+  'type' => 'module',
+  'module' => 
+  array (
+    0 => 'xcx',
+    1 => 'index',
+    2 => 'unread',
+  ),
+)
+[ info ] [ HEADER ] array (
+  'cookie' => 'PHPSESSID=3g51qit2202i7butmpgb4v0i34',
+  'accept-language' => 'zh-CN,zh;q=0.9',
+  'accept-encoding' => 'gzip, deflate',
+  'referer' => 'http://www.huaxiang.com/xcx/index/index.html',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.70 Safari/537.36',
+  'x-requested-with' => 'XMLHttpRequest',
+  'origin' => 'http://www.huaxiang.com',
+  'accept' => 'application/json, text/javascript, */*; q=0.01',
+  'content-length' => '0',
+  'connection' => 'close',
+  'host' => 'www.huaxiang.com',
+)
+[ info ] [ PARAM ] array (
+  '/xcx/index/unread_html' => '',
+)
+[ info ] [ SESSION ] INIT array (
+  'id' => '',
+  'var_session_id' => '',
+  'prefix' => 'think',
+  'type' => '',
+  'auto_start' => true,
+)
+[ info ] [ RUN ] app\xcx\controller\Index->unread[ D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\application\xcx\controller\Index.php ]
+[ info ] [ DB ] INIT mysql
+[ info ] [ LOG ] INIT File
+[ sql ] [ DB ] CONNECT:[ UseTime:0.001308s ] mysql:host=127.0.0.1;port=3306;dbname=xcxnew;charset=utf8mb4
+[ sql ] [ SQL ] SHOW COLUMNS FROM `xcx_msg_person` [ RunTime:0.012980s ]
+[ sql ] [ SQL ] SELECT `mp_id` FROM `xcx_msg_person` WHERE  (  (mp_u_id = 1 and mp_utype = 2 and mp_isable = 1) or (mp_ul_id = 1 and mp_ultype = 2 and  mp_isable = 1) or (mp_u_id = 1 and mp_utype = 1 and mp_isable = 1) or (mp_ul_id = 1 and mp_ultype = 1 and  mp_isable = 1) ) [ RunTime:0.000474s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `super_admin` [ RunTime:0.013615s ]
+[ sql ] [ SQL ] SELECT `ad_wechat` FROM `super_admin` WHERE  `ad_id` = 1 LIMIT 1 [ RunTime:0.000619s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `xcx_msg_content` [ RunTime:0.012989s ]
+[ sql ] [ SQL ] SELECT COUNT(xcx_msg_id) AS tp_count FROM `xcx_msg_content` WHERE  `xcx_msg_mp_id` = 17  AND `xcx_msg_isread` = 2  AND `xcx_msg_isable` = 1  AND (  ( xcx_msg_uid != 1 and xcx_msg_u_type = 1 ) or ( xcx_msg_uid != 1 and  xcx_msg_u_type = 2 ) ) LIMIT 1 [ RunTime:0.000521s ]
+[ sql ] [ SQL ] SELECT `ad_wechat` FROM `super_admin` WHERE  `ad_id` = 1 LIMIT 1 [ RunTime:0.000491s ]
+[ sql ] [ SQL ] SELECT COUNT(xcx_msg_id) AS tp_count FROM `xcx_msg_content` WHERE  `xcx_msg_mp_id` = 18  AND `xcx_msg_isread` = 2  AND `xcx_msg_isable` = 1  AND (  ( xcx_msg_uid != 1 and xcx_msg_u_type = 1 ) or ( xcx_msg_uid != 1 and  xcx_msg_u_type = 2 ) ) LIMIT 1 [ RunTime:0.000521s ]
+[ sql ] [ SQL ] SELECT `ad_wechat` FROM `super_admin` WHERE  `ad_id` = 1 LIMIT 1 [ RunTime:0.000387s ]
+[ sql ] [ SQL ] SELECT COUNT(xcx_msg_id) AS tp_count FROM `xcx_msg_content` WHERE  `xcx_msg_mp_id` = 19  AND `xcx_msg_isread` = 2  AND `xcx_msg_isable` = 1  AND (  ( xcx_msg_uid != 1 and xcx_msg_u_type = 1 ) or ( xcx_msg_uid != 1 and  xcx_msg_u_type = 2 ) ) LIMIT 1 [ RunTime:0.000449s ]
+[ sql ] [ SQL ] SELECT `ad_wechat` FROM `super_admin` WHERE  `ad_id` = 1 LIMIT 1 [ RunTime:0.000471s ]
+[ sql ] [ SQL ] SELECT COUNT(xcx_msg_id) AS tp_count FROM `xcx_msg_content` WHERE  `xcx_msg_mp_id` = 20  AND `xcx_msg_isread` = 2  AND `xcx_msg_isable` = 1  AND (  ( xcx_msg_uid != 1 and xcx_msg_u_type = 1 ) or ( xcx_msg_uid != 1 and  xcx_msg_u_type = 2 ) ) LIMIT 1 [ RunTime:0.000511s ]
+---------------------------------------------------------------
+[ 2020-08-20T19:11:49+08:00 ] 127.0.0.1 POST www.huaxiang.com/xcx/index/unread.html
+[运行时间：0.110951s] [吞吐率：9.01req/s] [内存消耗：2,235.56kb] [文件加载：54]
+[ info ] [ LANG ] D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\thinkphp\lang\zh-cn.php
+[ info ] [ ROUTE ] array (
+  'type' => 'module',
+  'module' => 
+  array (
+    0 => 'xcx',
+    1 => 'index',
+    2 => 'unread',
+  ),
+)
+[ info ] [ HEADER ] array (
+  'cookie' => 'PHPSESSID=3g51qit2202i7butmpgb4v0i34',
+  'accept-language' => 'zh-CN,zh;q=0.9',
+  'accept-encoding' => 'gzip, deflate',
+  'referer' => 'http://www.huaxiang.com/xcx/index/index.html',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.70 Safari/537.36',
+  'x-requested-with' => 'XMLHttpRequest',
+  'origin' => 'http://www.huaxiang.com',
+  'accept' => 'application/json, text/javascript, */*; q=0.01',
+  'content-length' => '0',
+  'connection' => 'close',
+  'host' => 'www.huaxiang.com',
+)
+[ info ] [ PARAM ] array (
+  '/xcx/index/unread_html' => '',
+)
+[ info ] [ SESSION ] INIT array (
+  'id' => '',
+  'var_session_id' => '',
+  'prefix' => 'think',
+  'type' => '',
+  'auto_start' => true,
+)
+[ info ] [ RUN ] app\xcx\controller\Index->unread[ D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\application\xcx\controller\Index.php ]
+[ info ] [ DB ] INIT mysql
+[ info ] [ LOG ] INIT File
+[ sql ] [ DB ] CONNECT:[ UseTime:0.001122s ] mysql:host=127.0.0.1;port=3306;dbname=xcxnew;charset=utf8mb4
+[ sql ] [ SQL ] SHOW COLUMNS FROM `xcx_msg_person` [ RunTime:0.013974s ]
+[ sql ] [ SQL ] SELECT `mp_id` FROM `xcx_msg_person` WHERE  (  (mp_u_id = 1 and mp_utype = 2 and mp_isable = 1) or (mp_ul_id = 1 and mp_ultype = 2 and  mp_isable = 1) or (mp_u_id = 1 and mp_utype = 1 and mp_isable = 1) or (mp_ul_id = 1 and mp_ultype = 1 and  mp_isable = 1) ) [ RunTime:0.000773s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `super_admin` [ RunTime:0.013870s ]
+[ sql ] [ SQL ] SELECT `ad_wechat` FROM `super_admin` WHERE  `ad_id` = 1 LIMIT 1 [ RunTime:0.001092s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `xcx_msg_content` [ RunTime:0.015743s ]
+[ sql ] [ SQL ] SELECT COUNT(xcx_msg_id) AS tp_count FROM `xcx_msg_content` WHERE  `xcx_msg_mp_id` = 17  AND `xcx_msg_isread` = 2  AND `xcx_msg_isable` = 1  AND (  ( xcx_msg_uid != 1 and xcx_msg_u_type = 1 ) or ( xcx_msg_uid != 1 and  xcx_msg_u_type = 2 ) ) LIMIT 1 [ RunTime:0.000845s ]
+[ sql ] [ SQL ] SELECT `ad_wechat` FROM `super_admin` WHERE  `ad_id` = 1 LIMIT 1 [ RunTime:0.000494s ]
+[ sql ] [ SQL ] SELECT COUNT(xcx_msg_id) AS tp_count FROM `xcx_msg_content` WHERE  `xcx_msg_mp_id` = 18  AND `xcx_msg_isread` = 2  AND `xcx_msg_isable` = 1  AND (  ( xcx_msg_uid != 1 and xcx_msg_u_type = 1 ) or ( xcx_msg_uid != 1 and  xcx_msg_u_type = 2 ) ) LIMIT 1 [ RunTime:0.000464s ]
+[ sql ] [ SQL ] SELECT `ad_wechat` FROM `super_admin` WHERE  `ad_id` = 1 LIMIT 1 [ RunTime:0.000398s ]
+[ sql ] [ SQL ] SELECT COUNT(xcx_msg_id) AS tp_count FROM `xcx_msg_content` WHERE  `xcx_msg_mp_id` = 19  AND `xcx_msg_isread` = 2  AND `xcx_msg_isable` = 1  AND (  ( xcx_msg_uid != 1 and xcx_msg_u_type = 1 ) or ( xcx_msg_uid != 1 and  xcx_msg_u_type = 2 ) ) LIMIT 1 [ RunTime:0.000430s ]
+[ sql ] [ SQL ] SELECT `ad_wechat` FROM `super_admin` WHERE  `ad_id` = 1 LIMIT 1 [ RunTime:0.000409s ]
+[ sql ] [ SQL ] SELECT COUNT(xcx_msg_id) AS tp_count FROM `xcx_msg_content` WHERE  `xcx_msg_mp_id` = 20  AND `xcx_msg_isread` = 2  AND `xcx_msg_isable` = 1  AND (  ( xcx_msg_uid != 1 and xcx_msg_u_type = 1 ) or ( xcx_msg_uid != 1 and  xcx_msg_u_type = 2 ) ) LIMIT 1 [ RunTime:0.000443s ]
+---------------------------------------------------------------
+[ 2020-08-20T19:12:02+08:00 ] 127.0.0.1 POST www.huaxiang.com/xcx/index/unread.html
+[运行时间：0.411658s] [吞吐率：2.43req/s] [内存消耗：2,235.56kb] [文件加载：54]
+[ info ] [ LANG ] D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\thinkphp\lang\zh-cn.php
+[ info ] [ ROUTE ] array (
+  'type' => 'module',
+  'module' => 
+  array (
+    0 => 'xcx',
+    1 => 'index',
+    2 => 'unread',
+  ),
+)
+[ info ] [ HEADER ] array (
+  'cookie' => 'PHPSESSID=3g51qit2202i7butmpgb4v0i34',
+  'accept-language' => 'zh-CN,zh;q=0.9',
+  'accept-encoding' => 'gzip, deflate',
+  'referer' => 'http://www.huaxiang.com/xcx/index/index.html',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.70 Safari/537.36',
+  'x-requested-with' => 'XMLHttpRequest',
+  'origin' => 'http://www.huaxiang.com',
+  'accept' => 'application/json, text/javascript, */*; q=0.01',
+  'content-length' => '0',
+  'connection' => 'close',
+  'host' => 'www.huaxiang.com',
+)
+[ info ] [ PARAM ] array (
+  '/xcx/index/unread_html' => '',
+)
+[ info ] [ SESSION ] INIT array (
+  'id' => '',
+  'var_session_id' => '',
+  'prefix' => 'think',
+  'type' => '',
+  'auto_start' => true,
+)
+[ info ] [ RUN ] app\xcx\controller\Index->unread[ D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\application\xcx\controller\Index.php ]
+[ info ] [ DB ] INIT mysql
+[ info ] [ LOG ] INIT File
+[ sql ] [ DB ] CONNECT:[ UseTime:0.001170s ] mysql:host=127.0.0.1;port=3306;dbname=xcxnew;charset=utf8mb4
+[ sql ] [ SQL ] SHOW COLUMNS FROM `xcx_msg_person` [ RunTime:0.111835s ]
+[ sql ] [ SQL ] SELECT `mp_id` FROM `xcx_msg_person` WHERE  (  (mp_u_id = 1 and mp_utype = 2 and mp_isable = 1) or (mp_ul_id = 1 and mp_ultype = 2 and  mp_isable = 1) or (mp_u_id = 1 and mp_utype = 1 and mp_isable = 1) or (mp_ul_id = 1 and mp_ultype = 1 and  mp_isable = 1) ) [ RunTime:0.000504s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `super_admin` [ RunTime:0.112154s ]
+[ sql ] [ SQL ] SELECT `ad_wechat` FROM `super_admin` WHERE  `ad_id` = 1 LIMIT 1 [ RunTime:0.000530s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `xcx_msg_content` [ RunTime:0.125708s ]
+[ sql ] [ SQL ] SELECT COUNT(xcx_msg_id) AS tp_count FROM `xcx_msg_content` WHERE  `xcx_msg_mp_id` = 17  AND `xcx_msg_isread` = 2  AND `xcx_msg_isable` = 1  AND (  ( xcx_msg_uid != 1 and xcx_msg_u_type = 1 ) or ( xcx_msg_uid != 1 and  xcx_msg_u_type = 2 ) ) LIMIT 1 [ RunTime:0.000909s ]
+[ sql ] [ SQL ] SELECT `ad_wechat` FROM `super_admin` WHERE  `ad_id` = 1 LIMIT 1 [ RunTime:0.000522s ]
+[ sql ] [ SQL ] SELECT COUNT(xcx_msg_id) AS tp_count FROM `xcx_msg_content` WHERE  `xcx_msg_mp_id` = 18  AND `xcx_msg_isread` = 2  AND `xcx_msg_isable` = 1  AND (  ( xcx_msg_uid != 1 and xcx_msg_u_type = 1 ) or ( xcx_msg_uid != 1 and  xcx_msg_u_type = 2 ) ) LIMIT 1 [ RunTime:0.000584s ]
+[ sql ] [ SQL ] SELECT `ad_wechat` FROM `super_admin` WHERE  `ad_id` = 1 LIMIT 1 [ RunTime:0.000363s ]
+[ sql ] [ SQL ] SELECT COUNT(xcx_msg_id) AS tp_count FROM `xcx_msg_content` WHERE  `xcx_msg_mp_id` = 19  AND `xcx_msg_isread` = 2  AND `xcx_msg_isable` = 1  AND (  ( xcx_msg_uid != 1 and xcx_msg_u_type = 1 ) or ( xcx_msg_uid != 1 and  xcx_msg_u_type = 2 ) ) LIMIT 1 [ RunTime:0.000387s ]
+[ sql ] [ SQL ] SELECT `ad_wechat` FROM `super_admin` WHERE  `ad_id` = 1 LIMIT 1 [ RunTime:0.000500s ]
+[ sql ] [ SQL ] SELECT COUNT(xcx_msg_id) AS tp_count FROM `xcx_msg_content` WHERE  `xcx_msg_mp_id` = 20  AND `xcx_msg_isread` = 2  AND `xcx_msg_isable` = 1  AND (  ( xcx_msg_uid != 1 and xcx_msg_u_type = 1 ) or ( xcx_msg_uid != 1 and  xcx_msg_u_type = 2 ) ) LIMIT 1 [ RunTime:0.000424s ]
+---------------------------------------------------------------
+[ 2020-08-20T19:12:45+08:00 ] 127.0.0.1 POST www.huaxiang.com/xcx/index/unread.html
+[运行时间：0.143924s] [吞吐率：6.95req/s] [内存消耗：2,235.56kb] [文件加载：54]
+[ info ] [ LANG ] D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\thinkphp\lang\zh-cn.php
+[ info ] [ ROUTE ] array (
+  'type' => 'module',
+  'module' => 
+  array (
+    0 => 'xcx',
+    1 => 'index',
+    2 => 'unread',
+  ),
+)
+[ info ] [ HEADER ] array (
+  'cookie' => 'PHPSESSID=3g51qit2202i7butmpgb4v0i34',
+  'accept-language' => 'zh-CN,zh;q=0.9',
+  'accept-encoding' => 'gzip, deflate',
+  'referer' => 'http://www.huaxiang.com/xcx/index/index.html',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.70 Safari/537.36',
+  'x-requested-with' => 'XMLHttpRequest',
+  'origin' => 'http://www.huaxiang.com',
+  'accept' => 'application/json, text/javascript, */*; q=0.01',
+  'content-length' => '0',
+  'connection' => 'close',
+  'host' => 'www.huaxiang.com',
+)
+[ info ] [ PARAM ] array (
+  '/xcx/index/unread_html' => '',
+)
+[ info ] [ SESSION ] INIT array (
+  'id' => '',
+  'var_session_id' => '',
+  'prefix' => 'think',
+  'type' => '',
+  'auto_start' => true,
+)
+[ info ] [ RUN ] app\xcx\controller\Index->unread[ D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\application\xcx\controller\Index.php ]
+[ info ] [ DB ] INIT mysql
+[ info ] [ LOG ] INIT File
+[ sql ] [ DB ] CONNECT:[ UseTime:0.001315s ] mysql:host=127.0.0.1;port=3306;dbname=xcxnew;charset=utf8mb4
+[ sql ] [ SQL ] SHOW COLUMNS FROM `xcx_msg_person` [ RunTime:0.018684s ]
+[ sql ] [ SQL ] SELECT `mp_id` FROM `xcx_msg_person` WHERE  (  (mp_u_id = 1 and mp_utype = 2 and mp_isable = 1) or (mp_ul_id = 1 and mp_ultype = 2 and  mp_isable = 1) or (mp_u_id = 1 and mp_utype = 1 and mp_isable = 1) or (mp_ul_id = 1 and mp_ultype = 1 and  mp_isable = 1) ) [ RunTime:0.001050s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `super_admin` [ RunTime:0.016961s ]
+[ sql ] [ SQL ] SELECT `ad_wechat` FROM `super_admin` WHERE  `ad_id` = 1 LIMIT 1 [ RunTime:0.000840s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `xcx_msg_content` [ RunTime:0.014354s ]
+[ sql ] [ SQL ] SELECT COUNT(xcx_msg_id) AS tp_count FROM `xcx_msg_content` WHERE  `xcx_msg_mp_id` = 17  AND `xcx_msg_isread` = 2  AND `xcx_msg_isable` = 1  AND (  ( xcx_msg_uid != 1 and xcx_msg_u_type = 1 ) or ( xcx_msg_uid != 1 and  xcx_msg_u_type = 2 ) ) LIMIT 1 [ RunTime:0.002107s ]
+[ sql ] [ SQL ] SELECT `ad_wechat` FROM `super_admin` WHERE  `ad_id` = 1 LIMIT 1 [ RunTime:0.000828s ]
+[ sql ] [ SQL ] SELECT COUNT(xcx_msg_id) AS tp_count FROM `xcx_msg_content` WHERE  `xcx_msg_mp_id` = 18  AND `xcx_msg_isread` = 2  AND `xcx_msg_isable` = 1  AND (  ( xcx_msg_uid != 1 and xcx_msg_u_type = 1 ) or ( xcx_msg_uid != 1 and  xcx_msg_u_type = 2 ) ) LIMIT 1 [ RunTime:0.000885s ]
+[ sql ] [ SQL ] SELECT `ad_wechat` FROM `super_admin` WHERE  `ad_id` = 1 LIMIT 1 [ RunTime:0.000700s ]
+[ sql ] [ SQL ] SELECT COUNT(xcx_msg_id) AS tp_count FROM `xcx_msg_content` WHERE  `xcx_msg_mp_id` = 19  AND `xcx_msg_isread` = 2  AND `xcx_msg_isable` = 1  AND (  ( xcx_msg_uid != 1 and xcx_msg_u_type = 1 ) or ( xcx_msg_uid != 1 and  xcx_msg_u_type = 2 ) ) LIMIT 1 [ RunTime:0.003623s ]
+[ sql ] [ SQL ] SELECT `ad_wechat` FROM `super_admin` WHERE  `ad_id` = 1 LIMIT 1 [ RunTime:0.000570s ]
+[ sql ] [ SQL ] SELECT COUNT(xcx_msg_id) AS tp_count FROM `xcx_msg_content` WHERE  `xcx_msg_mp_id` = 20  AND `xcx_msg_isread` = 2  AND `xcx_msg_isable` = 1  AND (  ( xcx_msg_uid != 1 and xcx_msg_u_type = 1 ) or ( xcx_msg_uid != 1 and  xcx_msg_u_type = 2 ) ) LIMIT 1 [ RunTime:0.001725s ]
+---------------------------------------------------------------
+[ 2020-08-20T19:13:01+08:00 ] 127.0.0.1 POST www.huaxiang.com/xcx/index/unread.html
+[运行时间：0.135445s] [吞吐率：7.38req/s] [内存消耗：2,235.61kb] [文件加载：54]
+[ info ] [ LANG ] D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\thinkphp\lang\zh-cn.php
+[ info ] [ ROUTE ] array (
+  'type' => 'module',
+  'module' => 
+  array (
+    0 => 'xcx',
+    1 => 'index',
+    2 => 'unread',
+  ),
+)
+[ info ] [ HEADER ] array (
+  'cookie' => 'PHPSESSID=3g51qit2202i7butmpgb4v0i34',
+  'accept-language' => 'zh-CN,zh;q=0.9',
+  'accept-encoding' => 'gzip, deflate',
+  'referer' => 'http://www.huaxiang.com/xcx/index/index.html',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.70 Safari/537.36',
+  'x-requested-with' => 'XMLHttpRequest',
+  'origin' => 'http://www.huaxiang.com',
+  'accept' => 'application/json, text/javascript, */*; q=0.01',
+  'content-length' => '0',
+  'connection' => 'close',
+  'host' => 'www.huaxiang.com',
+)
+[ info ] [ PARAM ] array (
+  '/xcx/index/unread_html' => '',
+)
+[ info ] [ SESSION ] INIT array (
+  'id' => '',
+  'var_session_id' => '',
+  'prefix' => 'think',
+  'type' => '',
+  'auto_start' => true,
+)
+[ info ] [ RUN ] app\xcx\controller\Index->unread[ D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\application\xcx\controller\Index.php ]
+[ info ] [ DB ] INIT mysql
+[ info ] [ LOG ] INIT File
+[ sql ] [ DB ] CONNECT:[ UseTime:0.003621s ] mysql:host=127.0.0.1;port=3306;dbname=xcxnew;charset=utf8mb4
+[ sql ] [ SQL ] SHOW COLUMNS FROM `xcx_msg_person` [ RunTime:0.015924s ]
+[ sql ] [ SQL ] SELECT `mp_id` FROM `xcx_msg_person` WHERE  (  (mp_u_id = 1 and mp_utype = 2 and mp_isable = 1) or (mp_ul_id = 1 and mp_ultype = 2 and  mp_isable = 1) or (mp_u_id = 1 and mp_utype = 1 and mp_isable = 1) or (mp_ul_id = 1 and mp_ultype = 1 and  mp_isable = 1) ) [ RunTime:0.000851s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `super_admin` [ RunTime:0.015148s ]
+[ sql ] [ SQL ] SELECT `ad_wechat` FROM `super_admin` WHERE  `ad_id` = 1 LIMIT 1 [ RunTime:0.000971s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `xcx_msg_content` [ RunTime:0.018311s ]
+[ sql ] [ SQL ] SELECT COUNT(xcx_msg_id) AS tp_count FROM `xcx_msg_content` WHERE  `xcx_msg_mp_id` = 17  AND `xcx_msg_isread` = 2  AND `xcx_msg_isable` = 1  AND (  ( xcx_msg_uid != 1 and xcx_msg_u_type = 1 ) or ( xcx_msg_uid != 1 and  xcx_msg_u_type = 2 ) ) LIMIT 1 [ RunTime:0.000891s ]
+[ sql ] [ SQL ] SELECT `ad_wechat` FROM `super_admin` WHERE  `ad_id` = 1 LIMIT 1 [ RunTime:0.000620s ]
+[ sql ] [ SQL ] SELECT COUNT(xcx_msg_id) AS tp_count FROM `xcx_msg_content` WHERE  `xcx_msg_mp_id` = 18  AND `xcx_msg_isread` = 2  AND `xcx_msg_isable` = 1  AND (  ( xcx_msg_uid != 1 and xcx_msg_u_type = 1 ) or ( xcx_msg_uid != 1 and  xcx_msg_u_type = 2 ) ) LIMIT 1 [ RunTime:0.000485s ]
+[ sql ] [ SQL ] SELECT `ad_wechat` FROM `super_admin` WHERE  `ad_id` = 1 LIMIT 1 [ RunTime:0.000397s ]
+[ sql ] [ SQL ] SELECT COUNT(xcx_msg_id) AS tp_count FROM `xcx_msg_content` WHERE  `xcx_msg_mp_id` = 19  AND `xcx_msg_isread` = 2  AND `xcx_msg_isable` = 1  AND (  ( xcx_msg_uid != 1 and xcx_msg_u_type = 1 ) or ( xcx_msg_uid != 1 and  xcx_msg_u_type = 2 ) ) LIMIT 1 [ RunTime:0.000486s ]
+[ sql ] [ SQL ] SELECT `ad_wechat` FROM `super_admin` WHERE  `ad_id` = 1 LIMIT 1 [ RunTime:0.000414s ]
+[ sql ] [ SQL ] SELECT COUNT(xcx_msg_id) AS tp_count FROM `xcx_msg_content` WHERE  `xcx_msg_mp_id` = 20  AND `xcx_msg_isread` = 2  AND `xcx_msg_isable` = 1  AND (  ( xcx_msg_uid != 1 and xcx_msg_u_type = 1 ) or ( xcx_msg_uid != 1 and  xcx_msg_u_type = 2 ) ) LIMIT 1 [ RunTime:0.000475s ]
+---------------------------------------------------------------
+[ 2020-08-20T19:13:51+08:00 ] 127.0.0.1 POST www.huaxiang.com/xcx/index/unread.html
+[运行时间：0.162835s] [吞吐率：6.14req/s] [内存消耗：2,235.56kb] [文件加载：54]
+[ info ] [ LANG ] D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\thinkphp\lang\zh-cn.php
+[ info ] [ ROUTE ] array (
+  'type' => 'module',
+  'module' => 
+  array (
+    0 => 'xcx',
+    1 => 'index',
+    2 => 'unread',
+  ),
+)
+[ info ] [ HEADER ] array (
+  'cookie' => 'PHPSESSID=3g51qit2202i7butmpgb4v0i34',
+  'accept-language' => 'zh-CN,zh;q=0.9',
+  'accept-encoding' => 'gzip, deflate',
+  'referer' => 'http://www.huaxiang.com/xcx/index/index.html',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.70 Safari/537.36',
+  'x-requested-with' => 'XMLHttpRequest',
+  'origin' => 'http://www.huaxiang.com',
+  'accept' => 'application/json, text/javascript, */*; q=0.01',
+  'content-length' => '0',
+  'connection' => 'close',
+  'host' => 'www.huaxiang.com',
+)
+[ info ] [ PARAM ] array (
+  '/xcx/index/unread_html' => '',
+)
+[ info ] [ SESSION ] INIT array (
+  'id' => '',
+  'var_session_id' => '',
+  'prefix' => 'think',
+  'type' => '',
+  'auto_start' => true,
+)
+[ info ] [ RUN ] app\xcx\controller\Index->unread[ D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\application\xcx\controller\Index.php ]
+[ info ] [ DB ] INIT mysql
+[ info ] [ LOG ] INIT File
+[ sql ] [ DB ] CONNECT:[ UseTime:0.002576s ] mysql:host=127.0.0.1;port=3306;dbname=xcxnew;charset=utf8mb4
+[ sql ] [ SQL ] SHOW COLUMNS FROM `xcx_msg_person` [ RunTime:0.022982s ]
+[ sql ] [ SQL ] SELECT `mp_id` FROM `xcx_msg_person` WHERE  (  (mp_u_id = 1 and mp_utype = 2 and mp_isable = 1) or (mp_ul_id = 1 and mp_ultype = 2 and  mp_isable = 1) or (mp_u_id = 1 and mp_utype = 1 and mp_isable = 1) or (mp_ul_id = 1 and mp_ultype = 1 and  mp_isable = 1) ) [ RunTime:0.001088s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `super_admin` [ RunTime:0.029697s ]
+[ sql ] [ SQL ] SELECT `ad_wechat` FROM `super_admin` WHERE  `ad_id` = 1 LIMIT 1 [ RunTime:0.001310s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `xcx_msg_content` [ RunTime:0.020695s ]
+[ sql ] [ SQL ] SELECT COUNT(xcx_msg_id) AS tp_count FROM `xcx_msg_content` WHERE  `xcx_msg_mp_id` = 17  AND `xcx_msg_isread` = 2  AND `xcx_msg_isable` = 1  AND (  ( xcx_msg_uid != 1 and xcx_msg_u_type = 1 ) or ( xcx_msg_uid != 1 and  xcx_msg_u_type = 2 ) ) LIMIT 1 [ RunTime:0.000671s ]
+[ sql ] [ SQL ] SELECT `ad_wechat` FROM `super_admin` WHERE  `ad_id` = 1 LIMIT 1 [ RunTime:0.000444s ]
+[ sql ] [ SQL ] SELECT COUNT(xcx_msg_id) AS tp_count FROM `xcx_msg_content` WHERE  `xcx_msg_mp_id` = 18  AND `xcx_msg_isread` = 2  AND `xcx_msg_isable` = 1  AND (  ( xcx_msg_uid != 1 and xcx_msg_u_type = 1 ) or ( xcx_msg_uid != 1 and  xcx_msg_u_type = 2 ) ) LIMIT 1 [ RunTime:0.000446s ]
+[ sql ] [ SQL ] SELECT `ad_wechat` FROM `super_admin` WHERE  `ad_id` = 1 LIMIT 1 [ RunTime:0.000425s ]
+[ sql ] [ SQL ] SELECT COUNT(xcx_msg_id) AS tp_count FROM `xcx_msg_content` WHERE  `xcx_msg_mp_id` = 19  AND `xcx_msg_isread` = 2  AND `xcx_msg_isable` = 1  AND (  ( xcx_msg_uid != 1 and xcx_msg_u_type = 1 ) or ( xcx_msg_uid != 1 and  xcx_msg_u_type = 2 ) ) LIMIT 1 [ RunTime:0.000419s ]
+[ sql ] [ SQL ] SELECT `ad_wechat` FROM `super_admin` WHERE  `ad_id` = 1 LIMIT 1 [ RunTime:0.000459s ]
+[ sql ] [ SQL ] SELECT COUNT(xcx_msg_id) AS tp_count FROM `xcx_msg_content` WHERE  `xcx_msg_mp_id` = 20  AND `xcx_msg_isread` = 2  AND `xcx_msg_isable` = 1  AND (  ( xcx_msg_uid != 1 and xcx_msg_u_type = 1 ) or ( xcx_msg_uid != 1 and  xcx_msg_u_type = 2 ) ) LIMIT 1 [ RunTime:0.000406s ]
+---------------------------------------------------------------
+[ 2020-08-20T19:29:14+08:00 ] 127.0.0.1 GET www.huaxiang.com/xcx/index/index.html
+[运行时间：0.545233s] [吞吐率：1.83req/s] [内存消耗：2,807.84kb] [文件加载：58]
+[ info ] [ LANG ] D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\thinkphp\lang\zh-cn.php
+[ info ] [ ROUTE ] array (
+  'type' => 'module',
+  'module' => 
+  array (
+    0 => 'xcx',
+    1 => 'index',
+    2 => 'index',
+  ),
+)
+[ info ] [ HEADER ] array (
+  'cookie' => 'PHPSESSID=3g51qit2202i7butmpgb4v0i34',
+  'accept-language' => 'zh-CN,zh;q=0.9',
+  'accept-encoding' => 'gzip, deflate',
+  'referer' => 'http://www.huaxiang.com/xcx/login/login.html',
+  'accept' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.70 Safari/537.36',
+  'upgrade-insecure-requests' => '1',
+  'connection' => 'close',
+  'host' => 'www.huaxiang.com',
+)
+[ info ] [ PARAM ] array (
+  '/xcx/index/index_html' => '',
+)
+[ info ] [ SESSION ] INIT array (
+  'id' => '',
+  'var_session_id' => '',
+  'prefix' => 'think',
+  'type' => '',
+  'auto_start' => true,
+)
+[ info ] [ RUN ] app\xcx\controller\Index->index[ D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\application\xcx\controller\Index.php ]
+[ info ] [ DB ] INIT mysql
+[ info ] [ VIEW ] D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\public/../application/xcx\view\index\index.html [ array (
+  0 => 'onlineable',
+  1 => 'admin',
+  2 => 'menuList',
+  3 => 'siteName',
+  4 => 'ad_role',
+  5 => 'unread',
+  6 => 'langs',
+  7 => 'lable',
+) ]
+[ info ] [ LOG ] INIT File
+[ sql ] [ DB ] CONNECT:[ UseTime:0.004475s ] mysql:host=127.0.0.1;port=3306;dbname=xcxnew;charset=utf8mb4
+[ sql ] [ SQL ] SHOW COLUMNS FROM `super_admin` [ RunTime:0.026871s ]
+[ sql ] [ SQL ] SELECT * FROM `super_admin` `admin` WHERE  `admin`.`ad_id` = 1 LIMIT 1 [ RunTime:0.001864s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `super_role` [ RunTime:0.024363s ]
+[ sql ] [ SQL ] SELECT `r_power` FROM `super_role` WHERE  `r_id` = 1 LIMIT 1 [ RunTime:0.006476s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `super_menu` [ RunTime:0.033431s ]
+[ sql ] [ SQL ] SELECT * FROM `super_menu` WHERE  `m_id` = 228 ORDER BY `m_sort` DESC LIMIT 1 [ RunTime:0.012281s ]
+[ sql ] [ SQL ] SELECT * FROM `super_menu` WHERE  `m_id` = 234 ORDER BY `m_sort` DESC LIMIT 1 [ RunTime:0.001065s ]
+[ sql ] [ SQL ] SELECT * FROM `super_menu` WHERE  `m_id` = 288 ORDER BY `m_sort` DESC LIMIT 1 [ RunTime:0.000633s ]
+[ sql ] [ SQL ] SELECT * FROM `super_menu` WHERE  `m_id` = 289 ORDER BY `m_sort` DESC LIMIT 1 [ RunTime:0.000461s ]
+[ sql ] [ SQL ] SELECT * FROM `super_menu` WHERE  `m_id` = 235 ORDER BY `m_sort` DESC LIMIT 1 [ RunTime:0.000559s ]
+[ sql ] [ SQL ] SELECT * FROM `super_menu` WHERE  `m_id` = 237 ORDER BY `m_sort` DESC LIMIT 1 [ RunTime:0.001625s ]
+[ sql ] [ SQL ] SELECT * FROM `super_menu` WHERE  `m_id` = 238 ORDER BY `m_sort` DESC LIMIT 1 [ RunTime:0.001560s ]
+[ sql ] [ SQL ] SELECT * FROM `super_menu` WHERE  `m_id` = 285 ORDER BY `m_sort` DESC LIMIT 1 [ RunTime:0.000948s ]
+[ sql ] [ SQL ] SELECT * FROM `super_menu` WHERE  `m_id` = 286 ORDER BY `m_sort` DESC LIMIT 1 [ RunTime:0.001061s ]
+[ sql ] [ SQL ] SELECT * FROM `super_menu` WHERE  `m_id` = 236 ORDER BY `m_sort` DESC LIMIT 1 [ RunTime:0.000604s ]
+[ sql ] [ SQL ] SELECT * FROM `super_menu` WHERE  `m_id` = 290 ORDER BY `m_sort` DESC LIMIT 1 [ RunTime:0.000431s ]
+[ sql ] [ SQL ] SELECT * FROM `super_menu` WHERE  `m_id` = 291 ORDER BY `m_sort` DESC LIMIT 1 [ RunTime:0.000429s ]
+[ sql ] [ SQL ] SELECT * FROM `super_menu` WHERE  `m_id` = 292 ORDER BY `m_sort` DESC LIMIT 1 [ RunTime:0.000437s ]
+[ sql ] [ SQL ] SELECT * FROM `super_menu` WHERE  `m_id` = 293 ORDER BY `m_sort` DESC LIMIT 1 [ RunTime:0.000413s ]
+[ sql ] [ SQL ] SELECT * FROM `super_menu` WHERE  `m_id` = 10 ORDER BY `m_sort` DESC LIMIT 1 [ RunTime:0.000591s ]
+[ sql ] [ SQL ] SELECT * FROM `super_menu` WHERE  `m_id` = 11 ORDER BY `m_sort` DESC LIMIT 1 [ RunTime:0.000690s ]
+[ sql ] [ SQL ] SELECT * FROM `super_menu` WHERE  `m_id` = 87 ORDER BY `m_sort` DESC LIMIT 1 [ RunTime:0.000452s ]
+[ sql ] [ SQL ] SELECT * FROM `super_menu` WHERE  `m_id` = 1 ORDER BY `m_sort` DESC LIMIT 1 [ RunTime:0.000417s ]
+[ sql ] [ SQL ] SELECT * FROM `super_menu` WHERE  `m_id` = 2 ORDER BY `m_sort` DESC LIMIT 1 [ RunTime:0.000499s ]
+[ sql ] [ SQL ] SELECT * FROM `super_menu` WHERE  `m_id` = 247 ORDER BY `m_sort` DESC LIMIT 1 [ RunTime:0.000716s ]
+[ sql ] [ SQL ] SELECT * FROM `super_menu` WHERE  `m_id` = 248 ORDER BY `m_sort` DESC LIMIT 1 [ RunTime:0.000514s ]
+[ sql ] [ SQL ] SELECT * FROM `super_menu` WHERE  `m_id` = 249 ORDER BY `m_sort` DESC LIMIT 1 [ RunTime:0.000474s ]
+[ sql ] [ SQL ] SELECT * FROM `super_menu` WHERE  `m_id` = 250 ORDER BY `m_sort` DESC LIMIT 1 [ RunTime:0.000831s ]
+[ sql ] [ SQL ] SELECT * FROM `super_menu` WHERE  `m_id` = 251 ORDER BY `m_sort` DESC LIMIT 1 [ RunTime:0.000898s ]
+[ sql ] [ SQL ] SELECT * FROM `super_menu` WHERE  `m_id` = 4 ORDER BY `m_sort` DESC LIMIT 1 [ RunTime:0.000870s ]
+[ sql ] [ SQL ] SELECT * FROM `super_menu` WHERE  `m_id` = 252 ORDER BY `m_sort` DESC LIMIT 1 [ RunTime:0.000724s ]
+[ sql ] [ SQL ] SELECT * FROM `super_menu` WHERE  `m_id` = 253 ORDER BY `m_sort` DESC LIMIT 1 [ RunTime:0.001181s ]
+[ sql ] [ SQL ] SELECT * FROM `super_menu` WHERE  `m_id` = 254 ORDER BY `m_sort` DESC LIMIT 1 [ RunTime:0.000900s ]
+[ sql ] [ SQL ] SELECT * FROM `super_menu` WHERE  `m_id` = 214 ORDER BY `m_sort` DESC LIMIT 1 [ RunTime:0.000892s ]
+[ sql ] [ SQL ] SELECT * FROM `super_menu` WHERE  `m_id` = 215 ORDER BY `m_sort` DESC LIMIT 1 [ RunTime:0.000911s ]
+[ sql ] [ SQL ] SELECT * FROM `super_menu` WHERE  `m_id` = 268 ORDER BY `m_sort` DESC LIMIT 1 [ RunTime:0.000617s ]
+[ sql ] [ SQL ] SELECT * FROM `super_menu` WHERE  `m_id` = 269 ORDER BY `m_sort` DESC LIMIT 1 [ RunTime:0.000522s ]
+[ sql ] [ SQL ] SELECT * FROM `super_menu` WHERE  `m_id` = 270 ORDER BY `m_sort` DESC LIMIT 1 [ RunTime:0.000591s ]
+[ sql ] [ SQL ] SELECT * FROM `super_menu` WHERE  `m_id` = 216 ORDER BY `m_sort` DESC LIMIT 1 [ RunTime:0.001258s ]
+[ sql ] [ SQL ] SELECT * FROM `super_menu` WHERE  `m_id` = 271 ORDER BY `m_sort` DESC LIMIT 1 [ RunTime:0.001025s ]
+[ sql ] [ SQL ] SELECT * FROM `super_menu` WHERE  `m_id` = 272 ORDER BY `m_sort` DESC LIMIT 1 [ RunTime:0.001565s ]
+[ sql ] [ SQL ] SELECT * FROM `super_menu` WHERE  `m_id` = 273 ORDER BY `m_sort` DESC LIMIT 1 [ RunTime:0.001163s ]
+[ sql ] [ SQL ] SELECT * FROM `super_menu` WHERE  `m_id` = 217 ORDER BY `m_sort` DESC LIMIT 1 [ RunTime:0.001179s ]
+[ sql ] [ SQL ] SELECT * FROM `super_menu` WHERE  `m_id` = 218 ORDER BY `m_sort` DESC LIMIT 1 [ RunTime:0.000622s ]
+[ sql ] [ SQL ] SELECT * FROM `super_menu` WHERE  `m_id` = 201 ORDER BY `m_sort` DESC LIMIT 1 [ RunTime:0.000643s ]
+[ sql ] [ SQL ] SELECT * FROM `super_menu` WHERE  `m_id` = 210 ORDER BY `m_sort` DESC LIMIT 1 [ RunTime:0.000471s ]
+[ sql ] [ SQL ] SELECT * FROM `super_menu` WHERE  `m_id` = 274 ORDER BY `m_sort` DESC LIMIT 1 [ RunTime:0.000484s ]
+[ sql ] [ SQL ] SELECT * FROM `super_menu` WHERE  `m_id` = 275 ORDER BY `m_sort` DESC LIMIT 1 [ RunTime:0.000428s ]
+[ sql ] [ SQL ] SELECT * FROM `super_menu` WHERE  `m_id` = 222 ORDER BY `m_sort` DESC LIMIT 1 [ RunTime:0.000540s ]
+[ sql ] [ SQL ] SELECT * FROM `super_menu` WHERE  `m_id` = 256 ORDER BY `m_sort` DESC LIMIT 1 [ RunTime:0.000453s ]
+[ sql ] [ SQL ] SELECT * FROM `super_menu` WHERE  `m_id` = 202 ORDER BY `m_sort` DESC LIMIT 1 [ RunTime:0.000415s ]
+[ sql ] [ SQL ] SELECT * FROM `super_menu` WHERE  `m_id` = 209 ORDER BY `m_sort` DESC LIMIT 1 [ RunTime:0.000482s ]
+[ sql ] [ SQL ] SELECT * FROM `super_menu` WHERE  `m_id` = 279 ORDER BY `m_sort` DESC LIMIT 1 [ RunTime:0.000717s ]
+[ sql ] [ SQL ] SELECT * FROM `super_menu` WHERE  `m_id` = 240 ORDER BY `m_sort` DESC LIMIT 1 [ RunTime:0.000501s ]
+[ sql ] [ SQL ] SELECT * FROM `super_menu` WHERE  `m_id` = 230 ORDER BY `m_sort` DESC LIMIT 1 [ RunTime:0.000440s ]
+[ sql ] [ SQL ] SELECT * FROM `super_menu` WHERE  `m_id` = 232 ORDER BY `m_sort` DESC LIMIT 1 [ RunTime:0.000443s ]
+[ sql ] [ SQL ] SELECT * FROM `super_menu` WHERE  `m_id` = 233 ORDER BY `m_sort` DESC LIMIT 1 [ RunTime:0.000436s ]
+[ sql ] [ SQL ] SELECT * FROM `super_menu` WHERE  `m_id` = 241 ORDER BY `m_sort` DESC LIMIT 1 [ RunTime:0.000426s ]
+[ sql ] [ SQL ] SELECT * FROM `super_menu` WHERE  `m_id` = 229 ORDER BY `m_sort` DESC LIMIT 1 [ RunTime:0.000490s ]
+[ sql ] [ SQL ] SELECT * FROM `super_menu` WHERE  `m_id` = 242 ORDER BY `m_sort` DESC LIMIT 1 [ RunTime:0.000824s ]
+[ sql ] [ SQL ] SELECT * FROM `super_menu` WHERE  `m_id` = 243 ORDER BY `m_sort` DESC LIMIT 1 [ RunTime:0.001910s ]
+[ sql ] [ SQL ] SELECT * FROM `super_menu` WHERE  `m_id` = 244 ORDER BY `m_sort` DESC LIMIT 1 [ RunTime:0.001710s ]
+[ sql ] [ SQL ] SELECT * FROM `super_menu` WHERE  `m_id` = 203 ORDER BY `m_sort` DESC LIMIT 1 [ RunTime:0.000787s ]
+[ sql ] [ SQL ] SELECT * FROM `super_menu` WHERE  `m_id` = 208 ORDER BY `m_sort` DESC LIMIT 1 [ RunTime:0.000782s ]
+[ sql ] [ SQL ] SELECT * FROM `super_menu` WHERE  `m_id` = 245 ORDER BY `m_sort` DESC LIMIT 1 [ RunTime:0.000702s ]
+[ sql ] [ SQL ] SELECT * FROM `super_menu` WHERE  `m_id` = 246 ORDER BY `m_sort` DESC LIMIT 1 [ RunTime:0.000782s ]
+[ sql ] [ SQL ] SELECT * FROM `super_menu` WHERE  `m_id` = 204 ORDER BY `m_sort` DESC LIMIT 1 [ RunTime:0.000407s ]
+[ sql ] [ SQL ] SELECT * FROM `super_menu` WHERE  `m_id` = 207 ORDER BY `m_sort` DESC LIMIT 1 [ RunTime:0.000397s ]
+[ sql ] [ SQL ] SELECT * FROM `super_menu` WHERE  `m_id` = 257 ORDER BY `m_sort` DESC LIMIT 1 [ RunTime:0.000379s ]
+[ sql ] [ SQL ] SELECT * FROM `super_menu` WHERE  `m_id` = 258 ORDER BY `m_sort` DESC LIMIT 1 [ RunTime:0.000663s ]
+[ sql ] [ SQL ] SELECT * FROM `super_menu` WHERE  `m_id` = 259 ORDER BY `m_sort` DESC LIMIT 1 [ RunTime:0.000424s ]
+[ sql ] [ SQL ] SELECT * FROM `super_menu` WHERE  `m_id` = 219 ORDER BY `m_sort` DESC LIMIT 1 [ RunTime:0.000572s ]
+[ sql ] [ SQL ] SELECT * FROM `super_menu` WHERE  `m_id` = 220 ORDER BY `m_sort` DESC LIMIT 1 [ RunTime:0.001307s ]
+[ sql ] [ SQL ] SELECT * FROM `super_menu` WHERE  `m_id` = 262 ORDER BY `m_sort` DESC LIMIT 1 [ RunTime:0.001348s ]
+[ sql ] [ SQL ] SELECT * FROM `super_menu` WHERE  `m_id` = 263 ORDER BY `m_sort` DESC LIMIT 1 [ RunTime:0.000613s ]
+[ sql ] [ SQL ] SELECT * FROM `super_menu` WHERE  `m_id` = 264 ORDER BY `m_sort` DESC LIMIT 1 [ RunTime:0.000488s ]
+[ sql ] [ SQL ] SELECT * FROM `super_menu` WHERE  `m_id` = 221 ORDER BY `m_sort` DESC LIMIT 1 [ RunTime:0.000461s ]
+[ sql ] [ SQL ] SELECT * FROM `super_menu` WHERE  `m_id` = 265 ORDER BY `m_sort` DESC LIMIT 1 [ RunTime:0.000459s ]
+[ sql ] [ SQL ] SELECT * FROM `super_menu` WHERE  `m_id` = 266 ORDER BY `m_sort` DESC LIMIT 1 [ RunTime:0.000465s ]
+[ sql ] [ SQL ] SELECT * FROM `super_menu` WHERE  `m_id` = 267 ORDER BY `m_sort` DESC LIMIT 1 [ RunTime:0.000470s ]
+[ sql ] [ SQL ] SELECT * FROM `super_menu` WHERE  `m_id` = 225 ORDER BY `m_sort` DESC LIMIT 1 [ RunTime:0.000465s ]
+[ sql ] [ SQL ] SELECT * FROM `super_menu` WHERE  `m_id` = 226 ORDER BY `m_sort` DESC LIMIT 1 [ RunTime:0.001115s ]
+[ sql ] [ SQL ] SELECT * FROM `super_menu` WHERE  `m_id` = 227 ORDER BY `m_sort` DESC LIMIT 1 [ RunTime:0.001322s ]
+[ sql ] [ SQL ] SELECT * FROM `super_menu` WHERE  `m_id` = 283 ORDER BY `m_sort` DESC LIMIT 1 [ RunTime:0.000774s ]
+[ sql ] [ SQL ] SELECT * FROM `super_menu` WHERE  `m_id` = 284 ORDER BY `m_sort` DESC LIMIT 1 [ RunTime:0.000762s ]
+[ sql ] [ SQL ] SELECT * FROM `super_admin` INNER JOIN `super_role` ON `super_admin`.`ad_role`=`super_role`.`r_id` WHERE  `ad_id` = 1 LIMIT 1 [ RunTime:0.001776s ]
+[ sql ] [ SQL ] SELECT * FROM `super_admin` `admin` WHERE  `admin`.`ad_id` = 1 LIMIT 1 [ RunTime:0.001015s ]
+[ sql ] [ SQL ] SELECT `r_power` FROM `super_role` WHERE  `r_id` = 1 LIMIT 1 [ RunTime:0.001110s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `super_setinfo` [ RunTime:0.035405s ]
+[ sql ] [ SQL ] SELECT `s_value` FROM `super_setinfo` WHERE  `s_key` = 'webname' [ RunTime:0.006870s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `xcx_msg_person` [ RunTime:0.045308s ]
+[ sql ] [ SQL ] SELECT `mp_id` FROM `xcx_msg_person` WHERE  (  (mp_u_id = 1 and mp_utype = 2 and mp_isable = 1) or (mp_ul_id = 1 and mp_ultype = 2 and  mp_isable = 1) or (mp_u_id = 1 and mp_utype = 1 and mp_isable = 1) or (mp_ul_id = 1 and mp_ultype = 1 and  mp_isable = 1) ) [ RunTime:0.001247s ]
+[ sql ] [ SQL ] SELECT `ad_wechat` FROM `super_admin` WHERE  `ad_id` = 1 LIMIT 1 [ RunTime:0.002248s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `xcx_msg_content` [ RunTime:0.017485s ]
+[ sql ] [ SQL ] SELECT COUNT(xcx_msg_id) AS tp_count FROM `xcx_msg_content` WHERE  `xcx_msg_mp_id` = 17  AND `xcx_msg_isread` = 2  AND `xcx_msg_isable` = 1  AND (  ( xcx_msg_uid != 1 and xcx_msg_u_type = 1 ) or ( xcx_msg_uid != 1 and  xcx_msg_u_type = 2 ) ) LIMIT 1 [ RunTime:0.006478s ]
+[ sql ] [ SQL ] SELECT `ad_wechat` FROM `super_admin` WHERE  `ad_id` = 1 LIMIT 1 [ RunTime:0.001605s ]
+[ sql ] [ SQL ] SELECT COUNT(xcx_msg_id) AS tp_count FROM `xcx_msg_content` WHERE  `xcx_msg_mp_id` = 18  AND `xcx_msg_isread` = 2  AND `xcx_msg_isable` = 1  AND (  ( xcx_msg_uid != 1 and xcx_msg_u_type = 1 ) or ( xcx_msg_uid != 1 and  xcx_msg_u_type = 2 ) ) LIMIT 1 [ RunTime:0.001248s ]
+[ sql ] [ SQL ] SELECT `ad_wechat` FROM `super_admin` WHERE  `ad_id` = 1 LIMIT 1 [ RunTime:0.000632s ]
+[ sql ] [ SQL ] SELECT COUNT(xcx_msg_id) AS tp_count FROM `xcx_msg_content` WHERE  `xcx_msg_mp_id` = 19  AND `xcx_msg_isread` = 2  AND `xcx_msg_isable` = 1  AND (  ( xcx_msg_uid != 1 and xcx_msg_u_type = 1 ) or ( xcx_msg_uid != 1 and  xcx_msg_u_type = 2 ) ) LIMIT 1 [ RunTime:0.000810s ]
+[ sql ] [ SQL ] SELECT `ad_wechat` FROM `super_admin` WHERE  `ad_id` = 1 LIMIT 1 [ RunTime:0.000520s ]
+[ sql ] [ SQL ] SELECT COUNT(xcx_msg_id) AS tp_count FROM `xcx_msg_content` WHERE  `xcx_msg_mp_id` = 20  AND `xcx_msg_isread` = 2  AND `xcx_msg_isable` = 1  AND (  ( xcx_msg_uid != 1 and xcx_msg_u_type = 1 ) or ( xcx_msg_uid != 1 and  xcx_msg_u_type = 2 ) ) LIMIT 1 [ RunTime:0.001176s ]
+---------------------------------------------------------------
+[ 2020-08-20T19:29:15+08:00 ] 127.0.0.1 GET www.huaxiang.com/xcx/house/index.html
+[运行时间：0.206960s] [吞吐率：4.83req/s] [内存消耗：2,850.71kb] [文件加载：57]
+[ info ] [ LANG ] D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\thinkphp\lang\zh-cn.php
+[ info ] [ ROUTE ] array (
+  'type' => 'module',
+  'module' => 
+  array (
+    0 => 'xcx',
+    1 => 'house',
+    2 => 'index',
+  ),
+)
+[ info ] [ HEADER ] array (
+  'cookie' => 'PHPSESSID=3g51qit2202i7butmpgb4v0i34',
+  'accept-language' => 'zh-CN,zh;q=0.9',
+  'accept-encoding' => 'gzip, deflate',
+  'referer' => 'http://www.huaxiang.com/xcx/house/edit.html?id=1047&type=1',
+  'accept' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.70 Safari/537.36',
+  'upgrade-insecure-requests' => '1',
+  'connection' => 'close',
+  'host' => 'www.huaxiang.com',
+)
+[ info ] [ PARAM ] array (
+  '/xcx/house/index_html' => '',
+)
+[ info ] [ SESSION ] INIT array (
+  'id' => '',
+  'var_session_id' => '',
+  'prefix' => 'think',
+  'type' => '',
+  'auto_start' => true,
+)
+[ info ] [ RUN ] app\xcx\controller\House->index[ D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\application\xcx\controller\House.php ]
+[ info ] [ DB ] INIT mysql
+[ info ] [ VIEW ] D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\public/../application/xcx\view\house\index.html [ array (
+  0 => 'addable',
+  1 => 'editable',
+  2 => 'delable',
+  3 => 'topable',
+  4 => 'tjable',
+  5 => 'offable',
+  6 => 'lable',
+  7 => 'cityinfo',
+) ]
+[ info ] [ LOG ] INIT File
+[ sql ] [ DB ] CONNECT:[ UseTime:0.001813s ] mysql:host=127.0.0.1;port=3306;dbname=xcxnew;charset=utf8mb4
+[ sql ] [ SQL ] SHOW COLUMNS FROM `super_admin` [ RunTime:0.017875s ]
+[ sql ] [ SQL ] SELECT * FROM `super_admin` `admin` WHERE  `admin`.`ad_id` = 1 LIMIT 1 [ RunTime:0.001083s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `super_role` [ RunTime:0.018027s ]
+[ sql ] [ SQL ] SELECT `r_power` FROM `super_role` WHERE  `r_id` = 1 LIMIT 1 [ RunTime:0.000872s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `tk_cate` [ RunTime:0.040837s ]
+[ sql ] [ SQL ] SELECT `id`,`name`,`ename` FROM `tk_cate` WHERE  `pid` = 0 [ RunTime:0.009695s ]
+---------------------------------------------------------------
+[ 2020-08-20T19:29:16+08:00 ] 127.0.0.1 GET www.huaxiang.com/xcx/house/houseData/?page=1&limit=50
+[运行时间：1.047737s] [吞吐率：0.95req/s] [内存消耗：3,194.50kb] [文件加载：57]
+[ info ] [ LANG ] D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\thinkphp\lang\zh-cn.php
+[ info ] [ ROUTE ] array (
+  'type' => 'module',
+  'module' => 
+  array (
+    0 => 'xcx',
+    1 => 'house',
+    2 => 'houseData',
+  ),
+)
+[ info ] [ HEADER ] array (
+  'cookie' => 'PHPSESSID=3g51qit2202i7butmpgb4v0i34',
+  'accept-language' => 'zh-CN,zh;q=0.9',
+  'accept-encoding' => 'gzip, deflate',
+  'referer' => 'http://www.huaxiang.com/xcx/house/index.html',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.70 Safari/537.36',
+  'x-requested-with' => 'XMLHttpRequest',
+  'accept' => 'application/json, text/javascript, */*; q=0.01',
+  'connection' => 'close',
+  'host' => 'www.huaxiang.com',
+)
+[ info ] [ PARAM ] array (
+  '/xcx/house/houseData/' => '',
+  'page' => '1',
+  'limit' => '50',
+)
+[ info ] [ SESSION ] INIT array (
+  'id' => '',
+  'var_session_id' => '',
+  'prefix' => 'think',
+  'type' => '',
+  'auto_start' => true,
+)
+[ info ] [ RUN ] app\xcx\controller\House->houseData[ D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\application\xcx\controller\House.php ]
+[ info ] [ DB ] INIT mysql
+[ info ] [ LOG ] INIT File
+[ sql ] [ DB ] CONNECT:[ UseTime:0.001230s ] mysql:host=127.0.0.1;port=3306;dbname=xcxnew;charset=utf8mb4
+[ sql ] [ SQL ] SHOW COLUMNS FROM `tk_houses` [ RunTime:0.018747s ]
+[ sql ] [ SQL ] SELECT COUNT(*) AS tp_count FROM `tk_houses` WHERE  (  is_del = 1 ) LIMIT 1 [ RunTime:0.049542s ]
+[ sql ] [ SQL ] SELECT * FROM `tk_houses` WHERE  (  is_del = 1 ) ORDER BY `top` DESC,`cdate` DESC LIMIT 0,50 [ RunTime:0.008604s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `tk_user` [ RunTime:0.029922s ]
+[ sql ] [ SQL ] SELECT `nickname` FROM `tk_user` WHERE  `id` = 1595 LIMIT 1 [ RunTime:0.000592s ]
+[ sql ] [ SQL ] SELECT `city`,`top` FROM `tk_houses` WHERE  `id` = 1015 LIMIT 1 [ RunTime:0.008881s ]
+[ sql ] [ SQL ] SELECT COUNT(*) AS tp_count FROM `tk_houses` WHERE  `city` = '墨尔本'  AND `top` = '是' LIMIT 1 [ RunTime:0.003838s ]
+[ sql ] [ SQL ] SELECT `city`,`tj` FROM `tk_houses` WHERE  `id` = 1015 LIMIT 1 [ RunTime:0.000667s ]
+[ sql ] [ SQL ] SELECT COUNT(*) AS tp_count FROM `tk_houses` WHERE  `city` = '墨尔本'  AND `tj` = '是' LIMIT 1 [ RunTime:0.003685s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `xcx_corp` [ RunTime:0.024035s ]
+[ sql ] [ SQL ] SELECT `cp_name` FROM `xcx_corp` WHERE  `cp_id` IS NULL LIMIT 1 [ RunTime:0.000617s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `super_admin` [ RunTime:0.016930s ]
+[ sql ] [ SQL ] SELECT `ad_realname` FROM `super_admin` WHERE  `ad_id` IS NULL LIMIT 1 [ RunTime:0.000727s ]
+[ sql ] [ SQL ] SELECT `nickname` FROM `tk_user` WHERE  `id` = 1606 LIMIT 1 [ RunTime:0.000673s ]
+[ sql ] [ SQL ] SELECT `city`,`top` FROM `tk_houses` WHERE  `id` = 1033 LIMIT 1 [ RunTime:0.001285s ]
+[ sql ] [ SQL ] SELECT COUNT(*) AS tp_count FROM `tk_houses` WHERE  `city` = '墨尔本'  AND `top` = '是' LIMIT 1 [ RunTime:0.004809s ]
+[ sql ] [ SQL ] SELECT `city`,`tj` FROM `tk_houses` WHERE  `id` = 1033 LIMIT 1 [ RunTime:0.000701s ]
+[ sql ] [ SQL ] SELECT COUNT(*) AS tp_count FROM `tk_houses` WHERE  `city` = '墨尔本'  AND `tj` = '是' LIMIT 1 [ RunTime:0.003961s ]
+[ sql ] [ SQL ] SELECT `cp_name` FROM `xcx_corp` WHERE  `cp_id` IS NULL LIMIT 1 [ RunTime:0.000456s ]
+[ sql ] [ SQL ] SELECT `ad_realname` FROM `super_admin` WHERE  `ad_id` IS NULL LIMIT 1 [ RunTime:0.000315s ]
+[ sql ] [ SQL ] SELECT `nickname` FROM `tk_user` WHERE  `id` = 1602 LIMIT 1 [ RunTime:0.000527s ]
+[ sql ] [ SQL ] SELECT `city`,`top` FROM `tk_houses` WHERE  `id` = 1031 LIMIT 1 [ RunTime:0.000861s ]
+[ sql ] [ SQL ] SELECT COUNT(*) AS tp_count FROM `tk_houses` WHERE  `city` = '墨尔本'  AND `top` = '是' LIMIT 1 [ RunTime:0.004794s ]
+[ sql ] [ SQL ] SELECT `city`,`tj` FROM `tk_houses` WHERE  `id` = 1031 LIMIT 1 [ RunTime:0.000821s ]
+[ sql ] [ SQL ] SELECT COUNT(*) AS tp_count FROM `tk_houses` WHERE  `city` = '墨尔本'  AND `tj` = '是' LIMIT 1 [ RunTime:0.003792s ]
+[ sql ] [ SQL ] SELECT `cp_name` FROM `xcx_corp` WHERE  `cp_id` IS NULL LIMIT 1 [ RunTime:0.000513s ]
+[ sql ] [ SQL ] SELECT `ad_realname` FROM `super_admin` WHERE  `ad_id` IS NULL LIMIT 1 [ RunTime:0.000533s ]
+[ sql ] [ SQL ] SELECT `nickname` FROM `tk_user` WHERE  `id` = 1600 LIMIT 1 [ RunTime:0.000547s ]
+[ sql ] [ SQL ] SELECT `city`,`top` FROM `tk_houses` WHERE  `id` = 1019 LIMIT 1 [ RunTime:0.000557s ]
+[ sql ] [ SQL ] SELECT COUNT(*) AS tp_count FROM `tk_houses` WHERE  `city` = '墨尔本'  AND `top` = '是' LIMIT 1 [ RunTime:0.003782s ]
+[ sql ] [ SQL ] SELECT `city`,`tj` FROM `tk_houses` WHERE  `id` = 1019 LIMIT 1 [ RunTime:0.000528s ]
+[ sql ] [ SQL ] SELECT COUNT(*) AS tp_count FROM `tk_houses` WHERE  `city` = '墨尔本'  AND `tj` = '是' LIMIT 1 [ RunTime:0.003473s ]
+[ sql ] [ SQL ] SELECT `cp_name` FROM `xcx_corp` WHERE  `cp_id` IS NULL LIMIT 1 [ RunTime:0.000497s ]
+[ sql ] [ SQL ] SELECT `ad_realname` FROM `super_admin` WHERE  `ad_id` IS NULL LIMIT 1 [ RunTime:0.000283s ]
+[ sql ] [ SQL ] SELECT `ad_realname` FROM `super_admin` WHERE  `ad_id` = 1 LIMIT 1 [ RunTime:0.000376s ]
+[ sql ] [ SQL ] SELECT `city`,`top` FROM `tk_houses` WHERE  `id` = 1047 LIMIT 1 [ RunTime:0.000354s ]
+[ sql ] [ SQL ] SELECT COUNT(*) AS tp_count FROM `tk_houses` WHERE  `city` = '墨尔本'  AND `top` = '是' LIMIT 1 [ RunTime:0.003344s ]
+[ sql ] [ SQL ] SELECT `city`,`tj` FROM `tk_houses` WHERE  `id` = 1047 LIMIT 1 [ RunTime:0.000421s ]
+[ sql ] [ SQL ] SELECT COUNT(*) AS tp_count FROM `tk_houses` WHERE  `city` = '墨尔本'  AND `tj` = '是' LIMIT 1 [ RunTime:0.003403s ]
+[ sql ] [ SQL ] SELECT `cp_name` FROM `xcx_corp` WHERE  `cp_id` = 1 LIMIT 1 [ RunTime:0.000879s ]
+[ sql ] [ SQL ] SELECT `ad_realname` FROM `super_admin` WHERE  `ad_id` = 1 LIMIT 1 [ RunTime:0.000712s ]
+[ sql ] [ SQL ] SELECT `ad_realname` FROM `super_admin` WHERE  `ad_id` = 1 LIMIT 1 [ RunTime:0.000635s ]
+[ sql ] [ SQL ] SELECT `city`,`top` FROM `tk_houses` WHERE  `id` = 1046 LIMIT 1 [ RunTime:0.000691s ]
+[ sql ] [ SQL ] SELECT COUNT(*) AS tp_count FROM `tk_houses` WHERE  `city` = '墨尔本'  AND `top` = '是' LIMIT 1 [ RunTime:0.003365s ]
+[ sql ] [ SQL ] SELECT `city`,`tj` FROM `tk_houses` WHERE  `id` = 1046 LIMIT 1 [ RunTime:0.000528s ]
+[ sql ] [ SQL ] SELECT COUNT(*) AS tp_count FROM `tk_houses` WHERE  `city` = '墨尔本'  AND `tj` = '是' LIMIT 1 [ RunTime:0.003210s ]
+[ sql ] [ SQL ] SELECT `cp_name` FROM `xcx_corp` WHERE  `cp_id` = 1 LIMIT 1 [ RunTime:0.000527s ]
+[ sql ] [ SQL ] SELECT `ad_realname` FROM `super_admin` WHERE  `ad_id` = 1 LIMIT 1 [ RunTime:0.000481s ]
+[ sql ] [ SQL ] SELECT `ad_realname` FROM `super_admin` WHERE  `ad_id` = 1 LIMIT 1 [ RunTime:0.000561s ]
+[ sql ] [ SQL ] SELECT `city`,`top` FROM `tk_houses` WHERE  `id` = 1045 LIMIT 1 [ RunTime:0.000369s ]
+[ sql ] [ SQL ] SELECT COUNT(*) AS tp_count FROM `tk_houses` WHERE  `city` = '墨尔本'  AND `top` = '是' LIMIT 1 [ RunTime:0.003431s ]
+[ sql ] [ SQL ] SELECT `city`,`tj` FROM `tk_houses` WHERE  `id` = 1045 LIMIT 1 [ RunTime:0.000600s ]
+[ sql ] [ SQL ] SELECT COUNT(*) AS tp_count FROM `tk_houses` WHERE  `city` = '墨尔本'  AND `tj` = '是' LIMIT 1 [ RunTime:0.003356s ]
+[ sql ] [ SQL ] SELECT `cp_name` FROM `xcx_corp` WHERE  `cp_id` = 1 LIMIT 1 [ RunTime:0.000510s ]
+[ sql ] [ SQL ] SELECT `ad_realname` FROM `super_admin` WHERE  `ad_id` = 1 LIMIT 1 [ RunTime:0.000404s ]
+[ sql ] [ SQL ] SELECT `ad_realname` FROM `super_admin` WHERE  `ad_id` = 1 LIMIT 1 [ RunTime:0.000426s ]
+[ sql ] [ SQL ] SELECT `city`,`top` FROM `tk_houses` WHERE  `id` = 1044 LIMIT 1 [ RunTime:0.000446s ]
+[ sql ] [ SQL ] SELECT COUNT(*) AS tp_count FROM `tk_houses` WHERE  `city` = '墨尔本'  AND `top` = '是' LIMIT 1 [ RunTime:0.003272s ]
+[ sql ] [ SQL ] SELECT `city`,`tj` FROM `tk_houses` WHERE  `id` = 1044 LIMIT 1 [ RunTime:0.000819s ]
+[ sql ] [ SQL ] SELECT COUNT(*) AS tp_count FROM `tk_houses` WHERE  `city` = '墨尔本'  AND `tj` = '是' LIMIT 1 [ RunTime:0.003813s ]
+[ sql ] [ SQL ] SELECT `cp_name` FROM `xcx_corp` WHERE  `cp_id` = 1 LIMIT 1 [ RunTime:0.000421s ]
+[ sql ] [ SQL ] SELECT `ad_realname` FROM `super_admin` WHERE  `ad_id` = 1 LIMIT 1 [ RunTime:0.000331s ]
+[ sql ] [ SQL ] SELECT `ad_realname` FROM `super_admin` WHERE  `ad_id` = 1 LIMIT 1 [ RunTime:0.000352s ]
+[ sql ] [ SQL ] SELECT `city`,`top` FROM `tk_houses` WHERE  `id` = 1043 LIMIT 1 [ RunTime:0.000331s ]
+[ sql ] [ SQL ] SELECT COUNT(*) AS tp_count FROM `tk_houses` WHERE  `city` = '墨尔本'  AND `top` = '是' LIMIT 1 [ RunTime:0.003622s ]
+[ sql ] [ SQL ] SELECT `city`,`tj` FROM `tk_houses` WHERE  `id` = 1043 LIMIT 1 [ RunTime:0.000545s ]
+[ sql ] [ SQL ] SELECT COUNT(*) AS tp_count FROM `tk_houses` WHERE  `city` = '墨尔本'  AND `tj` = '是' LIMIT 1 [ RunTime:0.003549s ]
+[ sql ] [ SQL ] SELECT `cp_name` FROM `xcx_corp` WHERE  `cp_id` = 1 LIMIT 1 [ RunTime:0.000436s ]
+[ sql ] [ SQL ] SELECT `ad_realname` FROM `super_admin` WHERE  `ad_id` = 1 LIMIT 1 [ RunTime:0.000373s ]
+[ sql ] [ SQL ] SELECT `ad_realname` FROM `super_admin` WHERE  `ad_id` = 1 LIMIT 1 [ RunTime:0.000364s ]
+[ sql ] [ SQL ] SELECT `city`,`top` FROM `tk_houses` WHERE  `id` = 1042 LIMIT 1 [ RunTime:0.000308s ]
+[ sql ] [ SQL ] SELECT COUNT(*) AS tp_count FROM `tk_houses` WHERE  `city` = '墨尔本'  AND `top` = '是' LIMIT 1 [ RunTime:0.003541s ]
+[ sql ] [ SQL ] SELECT `city`,`tj` FROM `tk_houses` WHERE  `id` = 1042 LIMIT 1 [ RunTime:0.000613s ]
+[ sql ] [ SQL ] SELECT COUNT(*) AS tp_count FROM `tk_houses` WHERE  `city` = '墨尔本'  AND `tj` = '是' LIMIT 1 [ RunTime:0.003912s ]
+[ sql ] [ SQL ] SELECT `cp_name` FROM `xcx_corp` WHERE  `cp_id` = 1 LIMIT 1 [ RunTime:0.000769s ]
+[ sql ] [ SQL ] SELECT `ad_realname` FROM `super_admin` WHERE  `ad_id` = 1 LIMIT 1 [ RunTime:0.000499s ]
+[ sql ] [ SQL ] SELECT `ad_realname` FROM `super_admin` WHERE  `ad_id` = 1 LIMIT 1 [ RunTime:0.000505s ]
+[ sql ] [ SQL ] SELECT `city`,`top` FROM `tk_houses` WHERE  `id` = 1037 LIMIT 1 [ RunTime:0.000416s ]
+[ sql ] [ SQL ] SELECT COUNT(*) AS tp_count FROM `tk_houses` WHERE  `city` = '布里斯班'  AND `top` = '是' LIMIT 1 [ RunTime:0.003599s ]
+[ sql ] [ SQL ] SELECT `city`,`tj` FROM `tk_houses` WHERE  `id` = 1037 LIMIT 1 [ RunTime:0.000525s ]
+[ sql ] [ SQL ] SELECT COUNT(*) AS tp_count FROM `tk_houses` WHERE  `city` = '布里斯班'  AND `tj` = '是' LIMIT 1 [ RunTime:0.003587s ]
+[ sql ] [ SQL ] SELECT `cp_name` FROM `xcx_corp` WHERE  `cp_id` = 1 LIMIT 1 [ RunTime:0.000561s ]
+[ sql ] [ SQL ] SELECT `ad_realname` FROM `super_admin` WHERE  `ad_id` = 1 LIMIT 1 [ RunTime:0.000384s ]
+[ sql ] [ SQL ] SELECT `ad_realname` FROM `super_admin` WHERE  `ad_id` = 46 LIMIT 1 [ RunTime:0.000285s ]
+[ sql ] [ SQL ] SELECT `city`,`top` FROM `tk_houses` WHERE  `id` = 1036 LIMIT 1 [ RunTime:0.000380s ]
+[ sql ] [ SQL ] SELECT COUNT(*) AS tp_count FROM `tk_houses` WHERE  `city` = '墨尔本'  AND `top` = '是' LIMIT 1 [ RunTime:0.003506s ]
+[ sql ] [ SQL ] SELECT `city`,`tj` FROM `tk_houses` WHERE  `id` = 1036 LIMIT 1 [ RunTime:0.000938s ]
+[ sql ] [ SQL ] SELECT COUNT(*) AS tp_count FROM `tk_houses` WHERE  `city` = '墨尔本'  AND `tj` = '是' LIMIT 1 [ RunTime:0.003285s ]
+[ sql ] [ SQL ] SELECT `cp_name` FROM `xcx_corp` WHERE  `cp_id` = 0 LIMIT 1 [ RunTime:0.000343s ]
+[ sql ] [ SQL ] SELECT `ad_realname` FROM `super_admin` WHERE  `ad_id` = 46 LIMIT 1 [ RunTime:0.000356s ]
+[ sql ] [ SQL ] SELECT `nickname` FROM `tk_user` WHERE  `id` = 59 LIMIT 1 [ RunTime:0.000284s ]
+[ sql ] [ SQL ] SELECT `city`,`top` FROM `tk_houses` WHERE  `id` = 1035 LIMIT 1 [ RunTime:0.000504s ]
+[ sql ] [ SQL ] SELECT COUNT(*) AS tp_count FROM `tk_houses` WHERE  `city` = '墨尔本'  AND `top` = '是' LIMIT 1 [ RunTime:0.003332s ]
+[ sql ] [ SQL ] SELECT `city`,`tj` FROM `tk_houses` WHERE  `id` = 1035 LIMIT 1 [ RunTime:0.000495s ]
+[ sql ] [ SQL ] SELECT COUNT(*) AS tp_count FROM `tk_houses` WHERE  `city` = '墨尔本'  AND `tj` = '是' LIMIT 1 [ RunTime:0.003458s ]
+[ sql ] [ SQL ] SELECT `cp_name` FROM `xcx_corp` WHERE  `cp_id` IS NULL LIMIT 1 [ RunTime:0.000387s ]
+[ sql ] [ SQL ] SELECT `ad_realname` FROM `super_admin` WHERE  `ad_id` IS NULL LIMIT 1 [ RunTime:0.000296s ]
+[ sql ] [ SQL ] SELECT `nickname` FROM `tk_user` WHERE  `id` = 59 LIMIT 1 [ RunTime:0.000329s ]
+[ sql ] [ SQL ] SELECT `city`,`top` FROM `tk_houses` WHERE  `id` = 1034 LIMIT 1 [ RunTime:0.000377s ]
+[ sql ] [ SQL ] SELECT COUNT(*) AS tp_count FROM `tk_houses` WHERE  `city` = '墨尔本'  AND `top` = '是' LIMIT 1 [ RunTime:0.003187s ]
+[ sql ] [ SQL ] SELECT `city`,`tj` FROM `tk_houses` WHERE  `id` = 1034 LIMIT 1 [ RunTime:0.000475s ]
+[ sql ] [ SQL ] SELECT COUNT(*) AS tp_count FROM `tk_houses` WHERE  `city` = '墨尔本'  AND `tj` = '是' LIMIT 1 [ RunTime:0.003369s ]
+[ sql ] [ SQL ] SELECT `cp_name` FROM `xcx_corp` WHERE  `cp_id` IS NULL LIMIT 1 [ RunTime:0.000412s ]
+[ sql ] [ SQL ] SELECT `ad_realname` FROM `super_admin` WHERE  `ad_id` IS NULL LIMIT 1 [ RunTime:0.000306s ]
+[ sql ] [ SQL ] SELECT `ad_realname` FROM `super_admin` WHERE  `ad_id` = 35 LIMIT 1 [ RunTime:0.000351s ]
+[ sql ] [ SQL ] SELECT `city`,`top` FROM `tk_houses` WHERE  `id` = 912 LIMIT 1 [ RunTime:0.000383s ]
+[ sql ] [ SQL ] SELECT COUNT(*) AS tp_count FROM `tk_houses` WHERE  `city` = '墨尔本'  AND `top` = '是' LIMIT 1 [ RunTime:0.003212s ]
+[ sql ] [ SQL ] SELECT `city`,`tj` FROM `tk_houses` WHERE  `id` = 912 LIMIT 1 [ RunTime:0.000482s ]
+[ sql ] [ SQL ] SELECT COUNT(*) AS tp_count FROM `tk_houses` WHERE  `city` = '墨尔本'  AND `tj` = '是' LIMIT 1 [ RunTime:0.003245s ]
+[ sql ] [ SQL ] SELECT `cp_name` FROM `xcx_corp` WHERE  `cp_id` = 0 LIMIT 1 [ RunTime:0.000351s ]
+[ sql ] [ SQL ] SELECT `ad_realname` FROM `super_admin` WHERE  `ad_id` = 35 LIMIT 1 [ RunTime:0.000487s ]
+[ sql ] [ SQL ] SELECT `ad_realname` FROM `super_admin` WHERE  `ad_id` = 35 LIMIT 1 [ RunTime:0.000610s ]
+[ sql ] [ SQL ] SELECT `city`,`top` FROM `tk_houses` WHERE  `id` = 882 LIMIT 1 [ RunTime:0.000461s ]
+[ sql ] [ SQL ] SELECT COUNT(*) AS tp_count FROM `tk_houses` WHERE  `city` = '墨尔本'  AND `top` = '是' LIMIT 1 [ RunTime:0.003216s ]
+[ sql ] [ SQL ] SELECT `city`,`tj` FROM `tk_houses` WHERE  `id` = 882 LIMIT 1 [ RunTime:0.000396s ]
+[ sql ] [ SQL ] SELECT COUNT(*) AS tp_count FROM `tk_houses` WHERE  `city` = '墨尔本'  AND `tj` = '是' LIMIT 1 [ RunTime:0.003330s ]
+[ sql ] [ SQL ] SELECT `cp_name` FROM `xcx_corp` WHERE  `cp_id` = 0 LIMIT 1 [ RunTime:0.000385s ]
+[ sql ] [ SQL ] SELECT `ad_realname` FROM `super_admin` WHERE  `ad_id` = 35 LIMIT 1 [ RunTime:0.000297s ]
+[ sql ] [ SQL ] SELECT `ad_realname` FROM `super_admin` WHERE  `ad_id` = 35 LIMIT 1 [ RunTime:0.000324s ]
+[ sql ] [ SQL ] SELECT `city`,`top` FROM `tk_houses` WHERE  `id` = 881 LIMIT 1 [ RunTime:0.000340s ]
+[ sql ] [ SQL ] SELECT COUNT(*) AS tp_count FROM `tk_houses` WHERE  `city` = '墨尔本'  AND `top` = '是' LIMIT 1 [ RunTime:0.003098s ]
+[ sql ] [ SQL ] SELECT `city`,`tj` FROM `tk_houses` WHERE  `id` = 881 LIMIT 1 [ RunTime:0.000362s ]
+[ sql ] [ SQL ] SELECT COUNT(*) AS tp_count FROM `tk_houses` WHERE  `city` = '墨尔本'  AND `tj` = '是' LIMIT 1 [ RunTime:0.003007s ]
+[ sql ] [ SQL ] SELECT `cp_name` FROM `xcx_corp` WHERE  `cp_id` = 0 LIMIT 1 [ RunTime:0.000432s ]
+[ sql ] [ SQL ] SELECT `ad_realname` FROM `super_admin` WHERE  `ad_id` = 35 LIMIT 1 [ RunTime:0.000289s ]
+[ sql ] [ SQL ] SELECT `ad_realname` FROM `super_admin` WHERE  `ad_id` = 35 LIMIT 1 [ RunTime:0.000279s ]
+[ sql ] [ SQL ] SELECT `city`,`top` FROM `tk_houses` WHERE  `id` = 817 LIMIT 1 [ RunTime:0.000319s ]
+[ sql ] [ SQL ] SELECT COUNT(*) AS tp_count FROM `tk_houses` WHERE  `city` = '墨尔本'  AND `top` = '是' LIMIT 1 [ RunTime:0.003259s ]
+[ sql ] [ SQL ] SELECT `city`,`tj` FROM `tk_houses` WHERE  `id` = 817 LIMIT 1 [ RunTime:0.000590s ]
+[ sql ] [ SQL ] SELECT COUNT(*) AS tp_count FROM `tk_houses` WHERE  `city` = '墨尔本'  AND `tj` = '是' LIMIT 1 [ RunTime:0.003204s ]
+[ sql ] [ SQL ] SELECT `cp_name` FROM `xcx_corp` WHERE  `cp_id` = 0 LIMIT 1 [ RunTime:0.000403s ]
+[ sql ] [ SQL ] SELECT `ad_realname` FROM `super_admin` WHERE  `ad_id` = 35 LIMIT 1 [ RunTime:0.000288s ]
+[ sql ] [ SQL ] SELECT `ad_realname` FROM `super_admin` WHERE  `ad_id` = 35 LIMIT 1 [ RunTime:0.000502s ]
+[ sql ] [ SQL ] SELECT `city`,`top` FROM `tk_houses` WHERE  `id` = 657 LIMIT 1 [ RunTime:0.000442s ]
+[ sql ] [ SQL ] SELECT COUNT(*) AS tp_count FROM `tk_houses` WHERE  `city` = '墨尔本'  AND `top` = '是' LIMIT 1 [ RunTime:0.003195s ]
+[ sql ] [ SQL ] SELECT `city`,`tj` FROM `tk_houses` WHERE  `id` = 657 LIMIT 1 [ RunTime:0.000376s ]
+[ sql ] [ SQL ] SELECT COUNT(*) AS tp_count FROM `tk_houses` WHERE  `city` = '墨尔本'  AND `tj` = '是' LIMIT 1 [ RunTime:0.003086s ]
+[ sql ] [ SQL ] SELECT `cp_name` FROM `xcx_corp` WHERE  `cp_id` = 0 LIMIT 1 [ RunTime:0.000305s ]
+[ sql ] [ SQL ] SELECT `ad_realname` FROM `super_admin` WHERE  `ad_id` = 35 LIMIT 1 [ RunTime:0.000269s ]
+[ sql ] [ SQL ] SELECT `ad_realname` FROM `super_admin` WHERE  `ad_id` = 35 LIMIT 1 [ RunTime:0.000342s ]
+[ sql ] [ SQL ] SELECT `city`,`top` FROM `tk_houses` WHERE  `id` = 693 LIMIT 1 [ RunTime:0.000409s ]
+[ sql ] [ SQL ] SELECT COUNT(*) AS tp_count FROM `tk_houses` WHERE  `city` = '墨尔本'  AND `top` = '是' LIMIT 1 [ RunTime:0.003106s ]
+[ sql ] [ SQL ] SELECT `city`,`tj` FROM `tk_houses` WHERE  `id` = 693 LIMIT 1 [ RunTime:0.000419s ]
+[ sql ] [ SQL ] SELECT COUNT(*) AS tp_count FROM `tk_houses` WHERE  `city` = '墨尔本'  AND `tj` = '是' LIMIT 1 [ RunTime:0.003118s ]
+[ sql ] [ SQL ] SELECT `cp_name` FROM `xcx_corp` WHERE  `cp_id` = 0 LIMIT 1 [ RunTime:0.000315s ]
+[ sql ] [ SQL ] SELECT `ad_realname` FROM `super_admin` WHERE  `ad_id` = 35 LIMIT 1 [ RunTime:0.000271s ]
+[ sql ] [ SQL ] SELECT `nickname` FROM `tk_user` WHERE  `id` = 1575 LIMIT 1 [ RunTime:0.000283s ]
+[ sql ] [ SQL ] SELECT `city`,`top` FROM `tk_houses` WHERE  `id` = 1000 LIMIT 1 [ RunTime:0.000326s ]
+[ sql ] [ SQL ] SELECT COUNT(*) AS tp_count FROM `tk_houses` WHERE  `city` = '墨尔本'  AND `top` = '是' LIMIT 1 [ RunTime:0.003286s ]
+[ sql ] [ SQL ] SELECT `city`,`tj` FROM `tk_houses` WHERE  `id` = 1000 LIMIT 1 [ RunTime:0.000531s ]
+[ sql ] [ SQL ] SELECT COUNT(*) AS tp_count FROM `tk_houses` WHERE  `city` = '墨尔本'  AND `tj` = '是' LIMIT 1 [ RunTime:0.003140s ]
+[ sql ] [ SQL ] SELECT `cp_name` FROM `xcx_corp` WHERE  `cp_id` IS NULL LIMIT 1 [ RunTime:0.000328s ]
+[ sql ] [ SQL ] SELECT `ad_realname` FROM `super_admin` WHERE  `ad_id` IS NULL LIMIT 1 [ RunTime:0.000249s ]
+[ sql ] [ SQL ] SELECT `nickname` FROM `tk_user` WHERE  `id` = 1520 LIMIT 1 [ RunTime:0.000277s ]
+[ sql ] [ SQL ] SELECT `city`,`top` FROM `tk_houses` WHERE  `id` = 1032 LIMIT 1 [ RunTime:0.000362s ]
+[ sql ] [ SQL ] SELECT COUNT(*) AS tp_count FROM `tk_houses` WHERE  `city` = '墨尔本'  AND `top` = '是' LIMIT 1 [ RunTime:0.003034s ]
+[ sql ] [ SQL ] SELECT `city`,`tj` FROM `tk_houses` WHERE  `id` = 1032 LIMIT 1 [ RunTime:0.000486s ]
+[ sql ] [ SQL ] SELECT COUNT(*) AS tp_count FROM `tk_houses` WHERE  `city` = '墨尔本'  AND `tj` = '是' LIMIT 1 [ RunTime:0.003172s ]
+[ sql ] [ SQL ] SELECT `cp_name` FROM `xcx_corp` WHERE  `cp_id` IS NULL LIMIT 1 [ RunTime:0.000297s ]
+[ sql ] [ SQL ] SELECT `ad_realname` FROM `super_admin` WHERE  `ad_id` IS NULL LIMIT 1 [ RunTime:0.000241s ]
+[ sql ] [ SQL ] SELECT `ad_realname` FROM `super_admin` WHERE  `ad_id` = 64 LIMIT 1 [ RunTime:0.000297s ]
+[ sql ] [ SQL ] SELECT `city`,`top` FROM `tk_houses` WHERE  `id` = 1030 LIMIT 1 [ RunTime:0.000326s ]
+[ sql ] [ SQL ] SELECT COUNT(*) AS tp_count FROM `tk_houses` WHERE  `city` = '墨尔本'  AND `top` = '是' LIMIT 1 [ RunTime:0.003080s ]
+[ sql ] [ SQL ] SELECT `city`,`tj` FROM `tk_houses` WHERE  `id` = 1030 LIMIT 1 [ RunTime:0.000348s ]
+[ sql ] [ SQL ] SELECT COUNT(*) AS tp_count FROM `tk_houses` WHERE  `city` = '墨尔本'  AND `tj` = '是' LIMIT 1 [ RunTime:0.003011s ]
+[ sql ] [ SQL ] SELECT `cp_name` FROM `xcx_corp` WHERE  `cp_id` = 0 LIMIT 1 [ RunTime:0.000318s ]
+[ sql ] [ SQL ] SELECT `ad_realname` FROM `super_admin` WHERE  `ad_id` = 64 LIMIT 1 [ RunTime:0.000286s ]
+[ sql ] [ SQL ] SELECT `ad_realname` FROM `super_admin` WHERE  `ad_id` = 64 LIMIT 1 [ RunTime:0.000382s ]
+[ sql ] [ SQL ] SELECT `city`,`top` FROM `tk_houses` WHERE  `id` = 1029 LIMIT 1 [ RunTime:0.000506s ]
+[ sql ] [ SQL ] SELECT COUNT(*) AS tp_count FROM `tk_houses` WHERE  `city` = '墨尔本'  AND `top` = '是' LIMIT 1 [ RunTime:0.003232s ]
+[ sql ] [ SQL ] SELECT `city`,`tj` FROM `tk_houses` WHERE  `id` = 1029 LIMIT 1 [ RunTime:0.000366s ]
+[ sql ] [ SQL ] SELECT COUNT(*) AS tp_count FROM `tk_houses` WHERE  `city` = '墨尔本'  AND `tj` = '是' LIMIT 1 [ RunTime:0.003074s ]
+[ sql ] [ SQL ] SELECT `cp_name` FROM `xcx_corp` WHERE  `cp_id` = 0 LIMIT 1 [ RunTime:0.000317s ]
+[ sql ] [ SQL ] SELECT `ad_realname` FROM `super_admin` WHERE  `ad_id` = 64 LIMIT 1 [ RunTime:0.000264s ]
+[ sql ] [ SQL ] SELECT `ad_realname` FROM `super_admin` WHERE  `ad_id` = 64 LIMIT 1 [ RunTime:0.000270s ]
+[ sql ] [ SQL ] SELECT `city`,`top` FROM `tk_houses` WHERE  `id` = 1013 LIMIT 1 [ RunTime:0.000318s ]
+[ sql ] [ SQL ] SELECT COUNT(*) AS tp_count FROM `tk_houses` WHERE  `city` = '墨尔本'  AND `top` = '是' LIMIT 1 [ RunTime:0.003540s ]
+[ sql ] [ SQL ] SELECT `city`,`tj` FROM `tk_houses` WHERE  `id` = 1013 LIMIT 1 [ RunTime:0.000479s ]
+[ sql ] [ SQL ] SELECT COUNT(*) AS tp_count FROM `tk_houses` WHERE  `city` = '墨尔本'  AND `tj` = '是' LIMIT 1 [ RunTime:0.003378s ]
+[ sql ] [ SQL ] SELECT `cp_name` FROM `xcx_corp` WHERE  `cp_id` = 0 LIMIT 1 [ RunTime:0.000536s ]
+[ sql ] [ SQL ] SELECT `ad_realname` FROM `super_admin` WHERE  `ad_id` = 64 LIMIT 1 [ RunTime:0.000309s ]
+[ sql ] [ SQL ] SELECT `ad_realname` FROM `super_admin` WHERE  `ad_id` = 71 LIMIT 1 [ RunTime:0.000290s ]
+[ sql ] [ SQL ] SELECT `city`,`top` FROM `tk_houses` WHERE  `id` = 1028 LIMIT 1 [ RunTime:0.000334s ]
+[ sql ] [ SQL ] SELECT COUNT(*) AS tp_count FROM `tk_houses` WHERE  `city` = '墨尔本'  AND `top` = '是' LIMIT 1 [ RunTime:0.003477s ]
+[ sql ] [ SQL ] SELECT `city`,`tj` FROM `tk_houses` WHERE  `id` = 1028 LIMIT 1 [ RunTime:0.000434s ]
+[ sql ] [ SQL ] SELECT COUNT(*) AS tp_count FROM `tk_houses` WHERE  `city` = '墨尔本'  AND `tj` = '是' LIMIT 1 [ RunTime:0.003148s ]
+[ sql ] [ SQL ] SELECT `cp_name` FROM `xcx_corp` WHERE  `cp_id` = 0 LIMIT 1 [ RunTime:0.000363s ]
+[ sql ] [ SQL ] SELECT `ad_realname` FROM `super_admin` WHERE  `ad_id` = 71 LIMIT 1 [ RunTime:0.000343s ]
+[ sql ] [ SQL ] SELECT `ad_realname` FROM `super_admin` WHERE  `ad_id` = 71 LIMIT 1 [ RunTime:0.000316s ]
+[ sql ] [ SQL ] SELECT `city`,`top` FROM `tk_houses` WHERE  `id` = 1027 LIMIT 1 [ RunTime:0.000351s ]
+[ sql ] [ SQL ] SELECT COUNT(*) AS tp_count FROM `tk_houses` WHERE  `city` = '墨尔本'  AND `top` = '是' LIMIT 1 [ RunTime:0.003368s ]
+[ sql ] [ SQL ] SELECT `city`,`tj` FROM `tk_houses` WHERE  `id` = 1027 LIMIT 1 [ RunTime:0.000570s ]
+[ sql ] [ SQL ] SELECT COUNT(*) AS tp_count FROM `tk_houses` WHERE  `city` = '墨尔本'  AND `tj` = '是' LIMIT 1 [ RunTime:0.003622s ]
+[ sql ] [ SQL ] SELECT `cp_name` FROM `xcx_corp` WHERE  `cp_id` = 0 LIMIT 1 [ RunTime:0.000348s ]
+[ sql ] [ SQL ] SELECT `ad_realname` FROM `super_admin` WHERE  `ad_id` = 71 LIMIT 1 [ RunTime:0.000311s ]
+[ sql ] [ SQL ] SELECT `ad_realname` FROM `super_admin` WHERE  `ad_id` = 71 LIMIT 1 [ RunTime:0.000288s ]
+[ sql ] [ SQL ] SELECT `city`,`top` FROM `tk_houses` WHERE  `id` = 1026 LIMIT 1 [ RunTime:0.000471s ]
+[ sql ] [ SQL ] SELECT COUNT(*) AS tp_count FROM `tk_houses` WHERE  `city` = '墨尔本'  AND `top` = '是' LIMIT 1 [ RunTime:0.003525s ]
+[ sql ] [ SQL ] SELECT `city`,`tj` FROM `tk_houses` WHERE  `id` = 1026 LIMIT 1 [ RunTime:0.000512s ]
+[ sql ] [ SQL ] SELECT COUNT(*) AS tp_count FROM `tk_houses` WHERE  `city` = '墨尔本'  AND `tj` = '是' LIMIT 1 [ RunTime:0.004058s ]
+[ sql ] [ SQL ] SELECT `cp_name` FROM `xcx_corp` WHERE  `cp_id` = 0 LIMIT 1 [ RunTime:0.000361s ]
+[ sql ] [ SQL ] SELECT `ad_realname` FROM `super_admin` WHERE  `ad_id` = 71 LIMIT 1 [ RunTime:0.000289s ]
+[ sql ] [ SQL ] SELECT `ad_realname` FROM `super_admin` WHERE  `ad_id` = 71 LIMIT 1 [ RunTime:0.000288s ]
+[ sql ] [ SQL ] SELECT `city`,`top` FROM `tk_houses` WHERE  `id` = 1025 LIMIT 1 [ RunTime:0.000650s ]
+[ sql ] [ SQL ] SELECT COUNT(*) AS tp_count FROM `tk_houses` WHERE  `city` = '墨尔本'  AND `top` = '是' LIMIT 1 [ RunTime:0.003640s ]
+[ sql ] [ SQL ] SELECT `city`,`tj` FROM `tk_houses` WHERE  `id` = 1025 LIMIT 1 [ RunTime:0.000471s ]
+[ sql ] [ SQL ] SELECT COUNT(*) AS tp_count FROM `tk_houses` WHERE  `city` = '墨尔本'  AND `tj` = '是' LIMIT 1 [ RunTime:0.003437s ]
+[ sql ] [ SQL ] SELECT `cp_name` FROM `xcx_corp` WHERE  `cp_id` = 0 LIMIT 1 [ RunTime:0.000435s ]
+[ sql ] [ SQL ] SELECT `ad_realname` FROM `super_admin` WHERE  `ad_id` = 71 LIMIT 1 [ RunTime:0.000294s ]
+[ sql ] [ SQL ] SELECT `ad_realname` FROM `super_admin` WHERE  `ad_id` = 71 LIMIT 1 [ RunTime:0.000284s ]
+[ sql ] [ SQL ] SELECT `city`,`top` FROM `tk_houses` WHERE  `id` = 1023 LIMIT 1 [ RunTime:0.000361s ]
+[ sql ] [ SQL ] SELECT COUNT(*) AS tp_count FROM `tk_houses` WHERE  `city` = '墨尔本'  AND `top` = '是' LIMIT 1 [ RunTime:0.003696s ]
+[ sql ] [ SQL ] SELECT `city`,`tj` FROM `tk_houses` WHERE  `id` = 1023 LIMIT 1 [ RunTime:0.000567s ]
+[ sql ] [ SQL ] SELECT COUNT(*) AS tp_count FROM `tk_houses` WHERE  `city` = '墨尔本'  AND `tj` = '是' LIMIT 1 [ RunTime:0.003576s ]
+[ sql ] [ SQL ] SELECT `cp_name` FROM `xcx_corp` WHERE  `cp_id` = 0 LIMIT 1 [ RunTime:0.000380s ]
+[ sql ] [ SQL ] SELECT `ad_realname` FROM `super_admin` WHERE  `ad_id` = 71 LIMIT 1 [ RunTime:0.000284s ]
+[ sql ] [ SQL ] SELECT `ad_realname` FROM `super_admin` WHERE  `ad_id` = 71 LIMIT 1 [ RunTime:0.000274s ]
+[ sql ] [ SQL ] SELECT `city`,`top` FROM `tk_houses` WHERE  `id` = 1024 LIMIT 1 [ RunTime:0.000545s ]
+[ sql ] [ SQL ] SELECT COUNT(*) AS tp_count FROM `tk_houses` WHERE  `city` = '墨尔本'  AND `top` = '是' LIMIT 1 [ RunTime:0.003686s ]
+[ sql ] [ SQL ] SELECT `city`,`tj` FROM `tk_houses` WHERE  `id` = 1024 LIMIT 1 [ RunTime:0.000795s ]
+[ sql ] [ SQL ] SELECT COUNT(*) AS tp_count FROM `tk_houses` WHERE  `city` = '墨尔本'  AND `tj` = '是' LIMIT 1 [ RunTime:0.003649s ]
+[ sql ] [ SQL ] SELECT `cp_name` FROM `xcx_corp` WHERE  `cp_id` = 0 LIMIT 1 [ RunTime:0.000373s ]
+[ sql ] [ SQL ] SELECT `ad_realname` FROM `super_admin` WHERE  `ad_id` = 71 LIMIT 1 [ RunTime:0.000282s ]
+[ sql ] [ SQL ] SELECT `ad_realname` FROM `super_admin` WHERE  `ad_id` = 71 LIMIT 1 [ RunTime:0.000279s ]
+[ sql ] [ SQL ] SELECT `city`,`top` FROM `tk_houses` WHERE  `id` = 1022 LIMIT 1 [ RunTime:0.000335s ]
+[ sql ] [ SQL ] SELECT COUNT(*) AS tp_count FROM `tk_houses` WHERE  `city` = '墨尔本'  AND `top` = '是' LIMIT 1 [ RunTime:0.003230s ]
+[ sql ] [ SQL ] SELECT `city`,`tj` FROM `tk_houses` WHERE  `id` = 1022 LIMIT 1 [ RunTime:0.000366s ]
+[ sql ] [ SQL ] SELECT COUNT(*) AS tp_count FROM `tk_houses` WHERE  `city` = '墨尔本'  AND `tj` = '是' LIMIT 1 [ RunTime:0.003799s ]
+[ sql ] [ SQL ] SELECT `cp_name` FROM `xcx_corp` WHERE  `cp_id` = 0 LIMIT 1 [ RunTime:0.000520s ]
+[ sql ] [ SQL ] SELECT `ad_realname` FROM `super_admin` WHERE  `ad_id` = 71 LIMIT 1 [ RunTime:0.000494s ]
+[ sql ] [ SQL ] SELECT `ad_realname` FROM `super_admin` WHERE  `ad_id` = 15 LIMIT 1 [ RunTime:0.001147s ]
+[ sql ] [ SQL ] SELECT `city`,`top` FROM `tk_houses` WHERE  `id` = 736 LIMIT 1 [ RunTime:0.000544s ]
+[ sql ] [ SQL ] SELECT COUNT(*) AS tp_count FROM `tk_houses` WHERE  `city` = '墨尔本'  AND `top` = '是' LIMIT 1 [ RunTime:0.003397s ]
+[ sql ] [ SQL ] SELECT `city`,`tj` FROM `tk_houses` WHERE  `id` = 736 LIMIT 1 [ RunTime:0.000419s ]
+[ sql ] [ SQL ] SELECT COUNT(*) AS tp_count FROM `tk_houses` WHERE  `city` = '墨尔本'  AND `tj` = '是' LIMIT 1 [ RunTime:0.003662s ]
+[ sql ] [ SQL ] SELECT `cp_name` FROM `xcx_corp` WHERE  `cp_id` = 0 LIMIT 1 [ RunTime:0.000415s ]
+[ sql ] [ SQL ] SELECT `ad_realname` FROM `super_admin` WHERE  `ad_id` = 15 LIMIT 1 [ RunTime:0.000309s ]
+[ sql ] [ SQL ] SELECT `nickname` FROM `tk_user` WHERE  `id` = 315 LIMIT 1 [ RunTime:0.000400s ]
+[ sql ] [ SQL ] SELECT `city`,`top` FROM `tk_houses` WHERE  `id` = 226 LIMIT 1 [ RunTime:0.000388s ]
+[ sql ] [ SQL ] SELECT COUNT(*) AS tp_count FROM `tk_houses` WHERE  `city` = '墨尔本'  AND `top` = '是' LIMIT 1 [ RunTime:0.003878s ]
+[ sql ] [ SQL ] SELECT `city`,`tj` FROM `tk_houses` WHERE  `id` = 226 LIMIT 1 [ RunTime:0.000608s ]
+[ sql ] [ SQL ] SELECT COUNT(*) AS tp_count FROM `tk_houses` WHERE  `city` = '墨尔本'  AND `tj` = '是' LIMIT 1 [ RunTime:0.003482s ]
+[ sql ] [ SQL ] SELECT `cp_name` FROM `xcx_corp` WHERE  `cp_id` IS NULL LIMIT 1 [ RunTime:0.000406s ]
+[ sql ] [ SQL ] SELECT `ad_realname` FROM `super_admin` WHERE  `ad_id` IS NULL LIMIT 1 [ RunTime:0.000492s ]
+[ sql ] [ SQL ] SELECT `nickname` FROM `tk_user` WHERE  `id` = 315 LIMIT 1 [ RunTime:0.000361s ]
+[ sql ] [ SQL ] SELECT `city`,`top` FROM `tk_houses` WHERE  `id` = 230 LIMIT 1 [ RunTime:0.002378s ]
+[ sql ] [ SQL ] SELECT COUNT(*) AS tp_count FROM `tk_houses` WHERE  `city` = '墨尔本'  AND `top` = '是' LIMIT 1 [ RunTime:0.003901s ]
+[ sql ] [ SQL ] SELECT `city`,`tj` FROM `tk_houses` WHERE  `id` = 230 LIMIT 1 [ RunTime:0.000418s ]
+[ sql ] [ SQL ] SELECT COUNT(*) AS tp_count FROM `tk_houses` WHERE  `city` = '墨尔本'  AND `tj` = '是' LIMIT 1 [ RunTime:0.003756s ]
+[ sql ] [ SQL ] SELECT `cp_name` FROM `xcx_corp` WHERE  `cp_id` IS NULL LIMIT 1 [ RunTime:0.000370s ]
+[ sql ] [ SQL ] SELECT `ad_realname` FROM `super_admin` WHERE  `ad_id` IS NULL LIMIT 1 [ RunTime:0.000246s ]
+[ sql ] [ SQL ] SELECT `nickname` FROM `tk_user` WHERE  `id` = 315 LIMIT 1 [ RunTime:0.000305s ]
+[ sql ] [ SQL ] SELECT `city`,`top` FROM `tk_houses` WHERE  `id` = 252 LIMIT 1 [ RunTime:0.000357s ]
+[ sql ] [ SQL ] SELECT COUNT(*) AS tp_count FROM `tk_houses` WHERE  `city` = '墨尔本'  AND `top` = '是' LIMIT 1 [ RunTime:0.003840s ]
+[ sql ] [ SQL ] SELECT `city`,`tj` FROM `tk_houses` WHERE  `id` = 252 LIMIT 1 [ RunTime:0.000451s ]
+[ sql ] [ SQL ] SELECT COUNT(*) AS tp_count FROM `tk_houses` WHERE  `city` = '墨尔本'  AND `tj` = '是' LIMIT 1 [ RunTime:0.003892s ]
+[ sql ] [ SQL ] SELECT `cp_name` FROM `xcx_corp` WHERE  `cp_id` IS NULL LIMIT 1 [ RunTime:0.000528s ]
+[ sql ] [ SQL ] SELECT `ad_realname` FROM `super_admin` WHERE  `ad_id` IS NULL LIMIT 1 [ RunTime:0.000418s ]
+[ sql ] [ SQL ] SELECT `ad_realname` FROM `super_admin` WHERE  `ad_id` = 50 LIMIT 1 [ RunTime:0.000436s ]
+[ sql ] [ SQL ] SELECT `city`,`top` FROM `tk_houses` WHERE  `id` = 1021 LIMIT 1 [ RunTime:0.000558s ]
+[ sql ] [ SQL ] SELECT COUNT(*) AS tp_count FROM `tk_houses` WHERE  `city` = '墨尔本'  AND `top` = '是' LIMIT 1 [ RunTime:0.003359s ]
+[ sql ] [ SQL ] SELECT `city`,`tj` FROM `tk_houses` WHERE  `id` = 1021 LIMIT 1 [ RunTime:0.000715s ]
+[ sql ] [ SQL ] SELECT COUNT(*) AS tp_count FROM `tk_houses` WHERE  `city` = '墨尔本'  AND `tj` = '是' LIMIT 1 [ RunTime:0.003589s ]
+[ sql ] [ SQL ] SELECT `cp_name` FROM `xcx_corp` WHERE  `cp_id` = 0 LIMIT 1 [ RunTime:0.000355s ]
+[ sql ] [ SQL ] SELECT `ad_realname` FROM `super_admin` WHERE  `ad_id` = 50 LIMIT 1 [ RunTime:0.000274s ]
+[ sql ] [ SQL ] SELECT `ad_realname` FROM `super_admin` WHERE  `ad_id` = 50 LIMIT 1 [ RunTime:0.000273s ]
+[ sql ] [ SQL ] SELECT `city`,`top` FROM `tk_houses` WHERE  `id` = 1020 LIMIT 1 [ RunTime:0.000351s ]
+[ sql ] [ SQL ] SELECT COUNT(*) AS tp_count FROM `tk_houses` WHERE  `city` = '墨尔本'  AND `top` = '是' LIMIT 1 [ RunTime:0.003656s ]
+[ sql ] [ SQL ] SELECT `city`,`tj` FROM `tk_houses` WHERE  `id` = 1020 LIMIT 1 [ RunTime:0.000812s ]
+[ sql ] [ SQL ] SELECT COUNT(*) AS tp_count FROM `tk_houses` WHERE  `city` = '墨尔本'  AND `tj` = '是' LIMIT 1 [ RunTime:0.003481s ]
+[ sql ] [ SQL ] SELECT `cp_name` FROM `xcx_corp` WHERE  `cp_id` = 0 LIMIT 1 [ RunTime:0.000533s ]
+[ sql ] [ SQL ] SELECT `ad_realname` FROM `super_admin` WHERE  `ad_id` = 50 LIMIT 1 [ RunTime:0.000502s ]
+[ sql ] [ SQL ] SELECT `nickname` FROM `tk_user` WHERE  `id` = 1517 LIMIT 1 [ RunTime:0.000636s ]
+[ sql ] [ SQL ] SELECT `city`,`top` FROM `tk_houses` WHERE  `id` = 911 LIMIT 1 [ RunTime:0.000893s ]
+[ sql ] [ SQL ] SELECT COUNT(*) AS tp_count FROM `tk_houses` WHERE  `city` = '墨尔本'  AND `top` = '是' LIMIT 1 [ RunTime:0.004008s ]
+[ sql ] [ SQL ] SELECT `city`,`tj` FROM `tk_houses` WHERE  `id` = 911 LIMIT 1 [ RunTime:0.000437s ]
+[ sql ] [ SQL ] SELECT COUNT(*) AS tp_count FROM `tk_houses` WHERE  `city` = '墨尔本'  AND `tj` = '是' LIMIT 1 [ RunTime:0.003456s ]
+[ sql ] [ SQL ] SELECT `cp_name` FROM `xcx_corp` WHERE  `cp_id` IS NULL LIMIT 1 [ RunTime:0.000530s ]
+[ sql ] [ SQL ] SELECT `ad_realname` FROM `super_admin` WHERE  `ad_id` IS NULL LIMIT 1 [ RunTime:0.000643s ]
+[ sql ] [ SQL ] SELECT `ad_realname` FROM `super_admin` WHERE  `ad_id` = 50 LIMIT 1 [ RunTime:0.000446s ]
+[ sql ] [ SQL ] SELECT `city`,`top` FROM `tk_houses` WHERE  `id` = 1018 LIMIT 1 [ RunTime:0.000695s ]
+[ sql ] [ SQL ] SELECT COUNT(*) AS tp_count FROM `tk_houses` WHERE  `city` = '墨尔本'  AND `top` = '是' LIMIT 1 [ RunTime:0.004163s ]
+[ sql ] [ SQL ] SELECT `city`,`tj` FROM `tk_houses` WHERE  `id` = 1018 LIMIT 1 [ RunTime:0.001817s ]
+[ sql ] [ SQL ] SELECT COUNT(*) AS tp_count FROM `tk_houses` WHERE  `city` = '墨尔本'  AND `tj` = '是' LIMIT 1 [ RunTime:0.004017s ]
+[ sql ] [ SQL ] SELECT `cp_name` FROM `xcx_corp` WHERE  `cp_id` = 0 LIMIT 1 [ RunTime:0.000689s ]
+[ sql ] [ SQL ] SELECT `ad_realname` FROM `super_admin` WHERE  `ad_id` = 50 LIMIT 1 [ RunTime:0.000486s ]
+[ sql ] [ SQL ] SELECT `nickname` FROM `tk_user` WHERE  `id` = 1591 LIMIT 1 [ RunTime:0.000429s ]
+[ sql ] [ SQL ] SELECT `city`,`top` FROM `tk_houses` WHERE  `id` = 1017 LIMIT 1 [ RunTime:0.000480s ]
+[ sql ] [ SQL ] SELECT COUNT(*) AS tp_count FROM `tk_houses` WHERE  `city` = '墨尔本'  AND `top` = '是' LIMIT 1 [ RunTime:0.003283s ]
+[ sql ] [ SQL ] SELECT `city`,`tj` FROM `tk_houses` WHERE  `id` = 1017 LIMIT 1 [ RunTime:0.000452s ]
+[ sql ] [ SQL ] SELECT COUNT(*) AS tp_count FROM `tk_houses` WHERE  `city` = '墨尔本'  AND `tj` = '是' LIMIT 1 [ RunTime:0.004636s ]
+[ sql ] [ SQL ] SELECT `cp_name` FROM `xcx_corp` WHERE  `cp_id` IS NULL LIMIT 1 [ RunTime:0.000776s ]
+[ sql ] [ SQL ] SELECT `ad_realname` FROM `super_admin` WHERE  `ad_id` IS NULL LIMIT 1 [ RunTime:0.000395s ]
+[ sql ] [ SQL ] SELECT `nickname` FROM `tk_user` WHERE  `id` = 1591 LIMIT 1 [ RunTime:0.000348s ]
+[ sql ] [ SQL ] SELECT `city`,`top` FROM `tk_houses` WHERE  `id` = 1016 LIMIT 1 [ RunTime:0.000706s ]
+[ sql ] [ SQL ] SELECT COUNT(*) AS tp_count FROM `tk_houses` WHERE  `city` = '墨尔本'  AND `top` = '是' LIMIT 1 [ RunTime:0.004070s ]
+[ sql ] [ SQL ] SELECT `city`,`tj` FROM `tk_houses` WHERE  `id` = 1016 LIMIT 1 [ RunTime:0.000702s ]
+[ sql ] [ SQL ] SELECT COUNT(*) AS tp_count FROM `tk_houses` WHERE  `city` = '墨尔本'  AND `tj` = '是' LIMIT 1 [ RunTime:0.004931s ]
+[ sql ] [ SQL ] SELECT `cp_name` FROM `xcx_corp` WHERE  `cp_id` IS NULL LIMIT 1 [ RunTime:0.000662s ]
+[ sql ] [ SQL ] SELECT `ad_realname` FROM `super_admin` WHERE  `ad_id` IS NULL LIMIT 1 [ RunTime:0.000462s ]
+[ sql ] [ SQL ] SELECT `ad_realname` FROM `super_admin` WHERE  `ad_id` = 50 LIMIT 1 [ RunTime:0.000577s ]
+[ sql ] [ SQL ] SELECT `city`,`top` FROM `tk_houses` WHERE  `id` = 1014 LIMIT 1 [ RunTime:0.000686s ]
+[ sql ] [ SQL ] SELECT COUNT(*) AS tp_count FROM `tk_houses` WHERE  `city` = '墨尔本'  AND `top` = '是' LIMIT 1 [ RunTime:0.004305s ]
+[ sql ] [ SQL ] SELECT `city`,`tj` FROM `tk_houses` WHERE  `id` = 1014 LIMIT 1 [ RunTime:0.001084s ]
+[ sql ] [ SQL ] SELECT COUNT(*) AS tp_count FROM `tk_houses` WHERE  `city` = '墨尔本'  AND `tj` = '是' LIMIT 1 [ RunTime:0.005157s ]
+[ sql ] [ SQL ] SELECT `cp_name` FROM `xcx_corp` WHERE  `cp_id` = 0 LIMIT 1 [ RunTime:0.000910s ]
+[ sql ] [ SQL ] SELECT `ad_realname` FROM `super_admin` WHERE  `ad_id` = 50 LIMIT 1 [ RunTime:0.000813s ]
+[ sql ] [ SQL ] SELECT `nickname` FROM `tk_user` WHERE  `id` = 1594 LIMIT 1 [ RunTime:0.000703s ]
+[ sql ] [ SQL ] SELECT `city`,`top` FROM `tk_houses` WHERE  `id` = 1012 LIMIT 1 [ RunTime:0.000682s ]
+[ sql ] [ SQL ] SELECT COUNT(*) AS tp_count FROM `tk_houses` WHERE  `city` = '墨尔本'  AND `top` = '是' LIMIT 1 [ RunTime:0.003427s ]
+[ sql ] [ SQL ] SELECT `city`,`tj` FROM `tk_houses` WHERE  `id` = 1012 LIMIT 1 [ RunTime:0.000578s ]
+[ sql ] [ SQL ] SELECT COUNT(*) AS tp_count FROM `tk_houses` WHERE  `city` = '墨尔本'  AND `tj` = '是' LIMIT 1 [ RunTime:0.003390s ]
+[ sql ] [ SQL ] SELECT `cp_name` FROM `xcx_corp` WHERE  `cp_id` IS NULL LIMIT 1 [ RunTime:0.000311s ]
+[ sql ] [ SQL ] SELECT `ad_realname` FROM `super_admin` WHERE  `ad_id` IS NULL LIMIT 1 [ RunTime:0.000272s ]
+[ sql ] [ SQL ] SELECT `nickname` FROM `tk_user` WHERE  `id` = 1594 LIMIT 1 [ RunTime:0.000319s ]
+[ sql ] [ SQL ] SELECT `city`,`top` FROM `tk_houses` WHERE  `id` = 1011 LIMIT 1 [ RunTime:0.000333s ]
+[ sql ] [ SQL ] SELECT COUNT(*) AS tp_count FROM `tk_houses` WHERE  `city` = '墨尔本'  AND `top` = '是' LIMIT 1 [ RunTime:0.003797s ]
+[ sql ] [ SQL ] SELECT `city`,`tj` FROM `tk_houses` WHERE  `id` = 1011 LIMIT 1 [ RunTime:0.000664s ]
+[ sql ] [ SQL ] SELECT COUNT(*) AS tp_count FROM `tk_houses` WHERE  `city` = '墨尔本'  AND `tj` = '是' LIMIT 1 [ RunTime:0.003681s ]
+[ sql ] [ SQL ] SELECT `cp_name` FROM `xcx_corp` WHERE  `cp_id` IS NULL LIMIT 1 [ RunTime:0.000456s ]
+[ sql ] [ SQL ] SELECT `ad_realname` FROM `super_admin` WHERE  `ad_id` IS NULL LIMIT 1 [ RunTime:0.000308s ]
+[ sql ] [ SQL ] SELECT `ad_realname` FROM `super_admin` WHERE  `ad_id` = 50 LIMIT 1 [ RunTime:0.000497s ]
+[ sql ] [ SQL ] SELECT `city`,`top` FROM `tk_houses` WHERE  `id` = 1010 LIMIT 1 [ RunTime:0.000563s ]
+[ sql ] [ SQL ] SELECT COUNT(*) AS tp_count FROM `tk_houses` WHERE  `city` = '墨尔本'  AND `top` = '是' LIMIT 1 [ RunTime:0.003723s ]
+[ sql ] [ SQL ] SELECT `city`,`tj` FROM `tk_houses` WHERE  `id` = 1010 LIMIT 1 [ RunTime:0.000725s ]
+[ sql ] [ SQL ] SELECT COUNT(*) AS tp_count FROM `tk_houses` WHERE  `city` = '墨尔本'  AND `tj` = '是' LIMIT 1 [ RunTime:0.004403s ]
+[ sql ] [ SQL ] SELECT `cp_name` FROM `xcx_corp` WHERE  `cp_id` = 0 LIMIT 1 [ RunTime:0.000599s ]
+[ sql ] [ SQL ] SELECT `ad_realname` FROM `super_admin` WHERE  `ad_id` = 50 LIMIT 1 [ RunTime:0.000595s ]
+[ sql ] [ SQL ] SELECT `ad_realname` FROM `super_admin` WHERE  `ad_id` = 50 LIMIT 1 [ RunTime:0.000387s ]
+[ sql ] [ SQL ] SELECT `city`,`top` FROM `tk_houses` WHERE  `id` = 1009 LIMIT 1 [ RunTime:0.000433s ]
+[ sql ] [ SQL ] SELECT COUNT(*) AS tp_count FROM `tk_houses` WHERE  `city` = '墨尔本'  AND `top` = '是' LIMIT 1 [ RunTime:0.004175s ]
+[ sql ] [ SQL ] SELECT `city`,`tj` FROM `tk_houses` WHERE  `id` = 1009 LIMIT 1 [ RunTime:0.000624s ]
+[ sql ] [ SQL ] SELECT COUNT(*) AS tp_count FROM `tk_houses` WHERE  `city` = '墨尔本'  AND `tj` = '是' LIMIT 1 [ RunTime:0.003219s ]
+[ sql ] [ SQL ] SELECT `cp_name` FROM `xcx_corp` WHERE  `cp_id` = 0 LIMIT 1 [ RunTime:0.000340s ]
+[ sql ] [ SQL ] SELECT `ad_realname` FROM `super_admin` WHERE  `ad_id` = 50 LIMIT 1 [ RunTime:0.000285s ]
+[ sql ] [ SQL ] SELECT `ad_realname` FROM `super_admin` WHERE  `ad_id` = 50 LIMIT 1 [ RunTime:0.000650s ]
+[ sql ] [ SQL ] SELECT `city`,`top` FROM `tk_houses` WHERE  `id` = 1008 LIMIT 1 [ RunTime:0.000475s ]
+[ sql ] [ SQL ] SELECT COUNT(*) AS tp_count FROM `tk_houses` WHERE  `city` = '墨尔本'  AND `top` = '是' LIMIT 1 [ RunTime:0.003502s ]
+[ sql ] [ SQL ] SELECT `city`,`tj` FROM `tk_houses` WHERE  `id` = 1008 LIMIT 1 [ RunTime:0.000534s ]
+[ sql ] [ SQL ] SELECT COUNT(*) AS tp_count FROM `tk_houses` WHERE  `city` = '墨尔本'  AND `tj` = '是' LIMIT 1 [ RunTime:0.003685s ]
+[ sql ] [ SQL ] SELECT `cp_name` FROM `xcx_corp` WHERE  `cp_id` = 0 LIMIT 1 [ RunTime:0.000728s ]
+[ sql ] [ SQL ] SELECT `ad_realname` FROM `super_admin` WHERE  `ad_id` = 50 LIMIT 1 [ RunTime:0.000612s ]
+[ sql ] [ SQL ] SELECT `nickname` FROM `tk_user` WHERE  `id` = 1593 LIMIT 1 [ RunTime:0.000431s ]
+[ sql ] [ SQL ] SELECT `city`,`top` FROM `tk_houses` WHERE  `id` = 1007 LIMIT 1 [ RunTime:0.000703s ]
+[ sql ] [ SQL ] SELECT COUNT(*) AS tp_count FROM `tk_houses` WHERE  `city` = '墨尔本'  AND `top` = '是' LIMIT 1 [ RunTime:0.003629s ]
+[ sql ] [ SQL ] SELECT `city`,`tj` FROM `tk_houses` WHERE  `id` = 1007 LIMIT 1 [ RunTime:0.000458s ]
+[ sql ] [ SQL ] SELECT COUNT(*) AS tp_count FROM `tk_houses` WHERE  `city` = '墨尔本'  AND `tj` = '是' LIMIT 1 [ RunTime:0.003461s ]
+[ sql ] [ SQL ] SELECT `cp_name` FROM `xcx_corp` WHERE  `cp_id` IS NULL LIMIT 1 [ RunTime:0.000305s ]
+[ sql ] [ SQL ] SELECT `ad_realname` FROM `super_admin` WHERE  `ad_id` IS NULL LIMIT 1 [ RunTime:0.000254s ]
+[ sql ] [ SQL ] SELECT `ad_realname` FROM `super_admin` WHERE  `ad_id` = 50 LIMIT 1 [ RunTime:0.000295s ]
+[ sql ] [ SQL ] SELECT `city`,`top` FROM `tk_houses` WHERE  `id` = 748 LIMIT 1 [ RunTime:0.000356s ]
+[ sql ] [ SQL ] SELECT COUNT(*) AS tp_count FROM `tk_houses` WHERE  `city` = '墨尔本'  AND `top` = '是' LIMIT 1 [ RunTime:0.003384s ]
+[ sql ] [ SQL ] SELECT `city`,`tj` FROM `tk_houses` WHERE  `id` = 748 LIMIT 1 [ RunTime:0.000795s ]
+[ sql ] [ SQL ] SELECT COUNT(*) AS tp_count FROM `tk_houses` WHERE  `city` = '墨尔本'  AND `tj` = '是' LIMIT 1 [ RunTime:0.003817s ]
+[ sql ] [ SQL ] SELECT `cp_name` FROM `xcx_corp` WHERE  `cp_id` = 0 LIMIT 1 [ RunTime:0.000408s ]
+[ sql ] [ SQL ] SELECT `ad_realname` FROM `super_admin` WHERE  `ad_id` = 50 LIMIT 1 [ RunTime:0.000309s ]
+---------------------------------------------------------------
+[ 2020-08-20T19:29:25+08:00 ] 127.0.0.1 POST www.huaxiang.com/xcx/index/unread.html
+[运行时间：0.113883s] [吞吐率：8.78req/s] [内存消耗：2,235.56kb] [文件加载：54]
+[ info ] [ LANG ] D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\thinkphp\lang\zh-cn.php
+[ info ] [ ROUTE ] array (
+  'type' => 'module',
+  'module' => 
+  array (
+    0 => 'xcx',
+    1 => 'index',
+    2 => 'unread',
+  ),
+)
+[ info ] [ HEADER ] array (
+  'cookie' => 'PHPSESSID=3g51qit2202i7butmpgb4v0i34',
+  'accept-language' => 'zh-CN,zh;q=0.9',
+  'accept-encoding' => 'gzip, deflate',
+  'referer' => 'http://www.huaxiang.com/xcx/index/index.html',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.70 Safari/537.36',
+  'x-requested-with' => 'XMLHttpRequest',
+  'origin' => 'http://www.huaxiang.com',
+  'accept' => 'application/json, text/javascript, */*; q=0.01',
+  'content-length' => '0',
+  'connection' => 'close',
+  'host' => 'www.huaxiang.com',
+)
+[ info ] [ PARAM ] array (
+  '/xcx/index/unread_html' => '',
+)
+[ info ] [ SESSION ] INIT array (
+  'id' => '',
+  'var_session_id' => '',
+  'prefix' => 'think',
+  'type' => '',
+  'auto_start' => true,
+)
+[ info ] [ RUN ] app\xcx\controller\Index->unread[ D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\application\xcx\controller\Index.php ]
+[ info ] [ DB ] INIT mysql
+[ info ] [ LOG ] INIT File
+[ sql ] [ DB ] CONNECT:[ UseTime:0.002129s ] mysql:host=127.0.0.1;port=3306;dbname=xcxnew;charset=utf8mb4
+[ sql ] [ SQL ] SHOW COLUMNS FROM `xcx_msg_person` [ RunTime:0.013684s ]
+[ sql ] [ SQL ] SELECT `mp_id` FROM `xcx_msg_person` WHERE  (  (mp_u_id = 1 and mp_utype = 2 and mp_isable = 1) or (mp_ul_id = 1 and mp_ultype = 2 and  mp_isable = 1) or (mp_u_id = 1 and mp_utype = 1 and mp_isable = 1) or (mp_ul_id = 1 and mp_ultype = 1 and  mp_isable = 1) ) [ RunTime:0.000881s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `super_admin` [ RunTime:0.016673s ]
+[ sql ] [ SQL ] SELECT `ad_wechat` FROM `super_admin` WHERE  `ad_id` = 1 LIMIT 1 [ RunTime:0.000623s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `xcx_msg_content` [ RunTime:0.011968s ]
+[ sql ] [ SQL ] SELECT COUNT(xcx_msg_id) AS tp_count FROM `xcx_msg_content` WHERE  `xcx_msg_mp_id` = 17  AND `xcx_msg_isread` = 2  AND `xcx_msg_isable` = 1  AND (  ( xcx_msg_uid != 1 and xcx_msg_u_type = 1 ) or ( xcx_msg_uid != 1 and  xcx_msg_u_type = 2 ) ) LIMIT 1 [ RunTime:0.001720s ]
+[ sql ] [ SQL ] SELECT `ad_wechat` FROM `super_admin` WHERE  `ad_id` = 1 LIMIT 1 [ RunTime:0.001113s ]
+[ sql ] [ SQL ] SELECT COUNT(xcx_msg_id) AS tp_count FROM `xcx_msg_content` WHERE  `xcx_msg_mp_id` = 18  AND `xcx_msg_isread` = 2  AND `xcx_msg_isable` = 1  AND (  ( xcx_msg_uid != 1 and xcx_msg_u_type = 1 ) or ( xcx_msg_uid != 1 and  xcx_msg_u_type = 2 ) ) LIMIT 1 [ RunTime:0.001297s ]
+[ sql ] [ SQL ] SELECT `ad_wechat` FROM `super_admin` WHERE  `ad_id` = 1 LIMIT 1 [ RunTime:0.000943s ]
+[ sql ] [ SQL ] SELECT COUNT(xcx_msg_id) AS tp_count FROM `xcx_msg_content` WHERE  `xcx_msg_mp_id` = 19  AND `xcx_msg_isread` = 2  AND `xcx_msg_isable` = 1  AND (  ( xcx_msg_uid != 1 and xcx_msg_u_type = 1 ) or ( xcx_msg_uid != 1 and  xcx_msg_u_type = 2 ) ) LIMIT 1 [ RunTime:0.000889s ]
+[ sql ] [ SQL ] SELECT `ad_wechat` FROM `super_admin` WHERE  `ad_id` = 1 LIMIT 1 [ RunTime:0.000640s ]
+[ sql ] [ SQL ] SELECT COUNT(xcx_msg_id) AS tp_count FROM `xcx_msg_content` WHERE  `xcx_msg_mp_id` = 20  AND `xcx_msg_isread` = 2  AND `xcx_msg_isable` = 1  AND (  ( xcx_msg_uid != 1 and xcx_msg_u_type = 1 ) or ( xcx_msg_uid != 1 and  xcx_msg_u_type = 2 ) ) LIMIT 1 [ RunTime:0.000680s ]
+---------------------------------------------------------------
+[ 2020-08-20T19:29:34+08:00 ] 127.0.0.1 GET www.huaxiang.com/api/house/getlist
+[ info ] [ LANG ] D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\thinkphp\lang\zh-cn.php
+[ info ] [ ROUTE ] array (
+  'type' => 'module',
+  'module' => 
+  array (
+    0 => 'api',
+    1 => 'house',
+    2 => 'getlist',
+  ),
+)
+[ info ] [ HEADER ] array (
+  'cookie' => 'PHPSESSID=3g51qit2202i7butmpgb4v0i34',
+  'accept-language' => 'zh-CN,zh;q=0.9',
+  'accept-encoding' => 'gzip, deflate',
+  'accept' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.70 Safari/537.36',
+  'upgrade-insecure-requests' => '1',
+  'connection' => 'close',
+  'host' => 'www.huaxiang.com',
+)
+[ info ] [ PARAM ] array (
+  '/api/house/getlist' => '',
+)
+[ info ] [ RUN ] app\api\controller\House->getList[ D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\application\api\controller\House.php ]
+[ info ] 获取房源参数lease_term：
+---------------------------------------------------------------
+[ 2020-08-20T19:29:34+08:00 ] 127.0.0.1 GET www.huaxiang.com/api/house/getlist
+[ info ] 租房价格最大值：5000
+---------------------------------------------------------------
+[ 2020-08-20T19:29:34+08:00 ] 127.0.0.1 GET www.huaxiang.com/api/house/getlist
+[ info ] 租房价格最小值：0
+---------------------------------------------------------------
+[ 2020-08-20T19:29:34+08:00 ] 127.0.0.1 GET www.huaxiang.com/api/house/getlist
+[ info ] 入住时间最小值：1970-01-01入住时间最大值1970-01-01
+---------------------------------------------------------------
+[ 2020-08-20T19:29:34+08:00 ] 127.0.0.1 GET www.huaxiang.com/api/house/getlist
+[ info ] 卧室house_room：
+---------------------------------------------------------------
+[ 2020-08-20T19:29:34+08:00 ] 127.0.0.1 GET www.huaxiang.com/api/house/getlist
+[ info ] 车位car：
+---------------------------------------------------------------
+[ 2020-08-20T19:29:34+08:00 ] 127.0.0.1 GET www.huaxiang.com/api/house/getlist
+[ info ] 前端用户：进行了翻页，当前页码0
+---------------------------------------------------------------
+[ 2020-08-20T19:29:34+08:00 ] 127.0.0.1 GET www.huaxiang.com/api/house/getlist
+[运行时间：0.198482s] [吞吐率：5.04req/s] [内存消耗：2,637.38kb] [文件加载：58]
+[ info ] [ DB ] INIT mysql
+[ info ] [ CACHE ] INIT File
+[ sql ] [ DB ] CONNECT:[ UseTime:0.001337s ] mysql:host=127.0.0.1;port=3306;dbname=xcxnew;charset=utf8mb4
+[ sql ] [ SQL ] SHOW COLUMNS FROM `tk_houses` [ RunTime:0.015747s ]
+[ sql ] [ SQL ] SELECT `id`,`type`,`title`,`house_room`,`area`,`images`,`price`,`toilet`,`furniture`,`home`,`school`,`address`,`tj`,`top`,`mdate`,`tags`,`live_date`,`car`,`lease_term`,`video`,`thumnail` FROM `tk_houses` WHERE  (  status = 1 and is_del = 1 and city = '墨尔本' and ( price <= 5000  and price >= 0  or price = -1 ) and ((live_date >= '1970-01-01' and live_date  <= '1970-01-01')  or ( live_date = '0100-01-01' or live_date = '0000-00-00' )) )  AND `is_del` = 1 ORDER BY `top` DESC,`cdate` DESC LIMIT 0,10 [ RunTime:0.014848s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `tk_user` [ RunTime:0.013731s ]
+[ sql ] [ SQL ] UPDATE `tk_user`  SET `mdate`='2020-08-20 19:29:34'  WHERE  `id` = 0 [ RunTime:0.000972s ]
+---------------------------------------------------------------
+[ 2020-08-20T19:29:44+08:00 ] 127.0.0.1 GET www.huaxiang.com/api/house/getlist?livedate=5
+[ info ] [ LANG ] D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\thinkphp\lang\zh-cn.php
+[ info ] [ ROUTE ] array (
+  'type' => 'module',
+  'module' => 
+  array (
+    0 => 'api',
+    1 => 'house',
+    2 => 'getlist',
+  ),
+)
+[ info ] [ HEADER ] array (
+  'cookie' => 'PHPSESSID=3g51qit2202i7butmpgb4v0i34',
+  'accept-language' => 'zh-CN,zh;q=0.9',
+  'accept-encoding' => 'gzip, deflate',
+  'accept' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.70 Safari/537.36',
+  'upgrade-insecure-requests' => '1',
+  'connection' => 'close',
+  'host' => 'www.huaxiang.com',
+)
+[ info ] [ PARAM ] array (
+  '/api/house/getlist' => '',
+  'livedate' => '5',
+)
+[ info ] [ RUN ] app\api\controller\House->getList[ D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\application\api\controller\House.php ]
+[ info ] 获取房源参数lease_term：
+---------------------------------------------------------------
+[ 2020-08-20T19:29:44+08:00 ] 127.0.0.1 GET www.huaxiang.com/api/house/getlist?livedate=5
+[ info ] 租房价格最大值：5000
+---------------------------------------------------------------
+[ 2020-08-20T19:29:44+08:00 ] 127.0.0.1 GET www.huaxiang.com/api/house/getlist?livedate=5
+[ info ] 租房价格最小值：0
+---------------------------------------------------------------
+[ 2020-08-20T19:29:44+08:00 ] 127.0.0.1 GET www.huaxiang.com/api/house/getlist?livedate=5
+[ info ] 入住时间最小值：2020-08-15入住时间最大值2020-08-25
+---------------------------------------------------------------
+[ 2020-08-20T19:29:44+08:00 ] 127.0.0.1 GET www.huaxiang.com/api/house/getlist?livedate=5
+[ info ] 卧室house_room：
+---------------------------------------------------------------
+[ 2020-08-20T19:29:44+08:00 ] 127.0.0.1 GET www.huaxiang.com/api/house/getlist?livedate=5
+[ info ] 车位car：
+---------------------------------------------------------------
+[ 2020-08-20T19:29:44+08:00 ] 127.0.0.1 GET www.huaxiang.com/api/house/getlist?livedate=5
+[ info ] 前端用户：进行了翻页，当前页码0
+---------------------------------------------------------------
+[ 2020-08-20T19:29:44+08:00 ] 127.0.0.1 GET www.huaxiang.com/api/house/getlist?livedate=5
+[运行时间：0.126181s] [吞吐率：7.93req/s] [内存消耗：2,637.30kb] [文件加载：58]
+[ info ] [ DB ] INIT mysql
+[ info ] [ CACHE ] INIT File
+[ sql ] [ DB ] CONNECT:[ UseTime:0.001625s ] mysql:host=127.0.0.1;port=3306;dbname=xcxnew;charset=utf8mb4
+[ sql ] [ SQL ] SHOW COLUMNS FROM `tk_houses` [ RunTime:0.017159s ]
+[ sql ] [ SQL ] SELECT `id`,`type`,`title`,`house_room`,`area`,`images`,`price`,`toilet`,`furniture`,`home`,`school`,`address`,`tj`,`top`,`mdate`,`tags`,`live_date`,`car`,`lease_term`,`video`,`thumnail` FROM `tk_houses` WHERE  (  status = 1 and is_del = 1 and city = '墨尔本' and ( price <= 5000  and price >= 0  or price = -1 ) and ((live_date >= '2020-08-15' and live_date  <= '2020-08-25')  or ( live_date = '0100-01-01' or live_date = '0000-00-00' )) )  AND `is_del` = 1 ORDER BY `top` DESC,`cdate` DESC LIMIT 0,10 [ RunTime:0.004185s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `tk_user` [ RunTime:0.015234s ]
+[ sql ] [ SQL ] UPDATE `tk_user`  SET `mdate`='2020-08-20 19:29:44'  WHERE  `id` = 0 [ RunTime:0.000779s ]
+---------------------------------------------------------------
+[ 2020-08-20T19:29:51+08:00 ] 127.0.0.1 GET www.huaxiang.com/api/house/getlist?livedate=10
+[ info ] [ LANG ] D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\thinkphp\lang\zh-cn.php
+[ info ] [ ROUTE ] array (
+  'type' => 'module',
+  'module' => 
+  array (
+    0 => 'api',
+    1 => 'house',
+    2 => 'getlist',
+  ),
+)
+[ info ] [ HEADER ] array (
+  'cookie' => 'PHPSESSID=3g51qit2202i7butmpgb4v0i34',
+  'accept-language' => 'zh-CN,zh;q=0.9',
+  'accept-encoding' => 'gzip, deflate',
+  'accept' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.70 Safari/537.36',
+  'upgrade-insecure-requests' => '1',
+  'connection' => 'close',
+  'host' => 'www.huaxiang.com',
+)
+[ info ] [ PARAM ] array (
+  '/api/house/getlist' => '',
+  'livedate' => '10',
+)
+[ info ] [ RUN ] app\api\controller\House->getList[ D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\application\api\controller\House.php ]
+[ info ] 获取房源参数lease_term：
+---------------------------------------------------------------
+[ 2020-08-20T19:29:51+08:00 ] 127.0.0.1 GET www.huaxiang.com/api/house/getlist?livedate=10
+[ info ] 租房价格最大值：5000
+---------------------------------------------------------------
+[ 2020-08-20T19:29:51+08:00 ] 127.0.0.1 GET www.huaxiang.com/api/house/getlist?livedate=10
+[ info ] 租房价格最小值：0
+---------------------------------------------------------------
+[ 2020-08-20T19:29:51+08:00 ] 127.0.0.1 GET www.huaxiang.com/api/house/getlist?livedate=10
+[ info ] 入住时间最小值：2020-08-10入住时间最大值2020-08-30
+---------------------------------------------------------------
+[ 2020-08-20T19:29:51+08:00 ] 127.0.0.1 GET www.huaxiang.com/api/house/getlist?livedate=10
+[ info ] 卧室house_room：
+---------------------------------------------------------------
+[ 2020-08-20T19:29:51+08:00 ] 127.0.0.1 GET www.huaxiang.com/api/house/getlist?livedate=10
+[ info ] 车位car：
+---------------------------------------------------------------
+[ 2020-08-20T19:29:51+08:00 ] 127.0.0.1 GET www.huaxiang.com/api/house/getlist?livedate=10
+[ info ] 前端用户：进行了翻页，当前页码0
+---------------------------------------------------------------
+[ 2020-08-20T19:29:51+08:00 ] 127.0.0.1 GET www.huaxiang.com/api/house/getlist?livedate=10
+[运行时间：0.120840s] [吞吐率：8.28req/s] [内存消耗：2,637.30kb] [文件加载：58]
+[ info ] [ DB ] INIT mysql
+[ info ] [ CACHE ] INIT File
+[ sql ] [ DB ] CONNECT:[ UseTime:0.001266s ] mysql:host=127.0.0.1;port=3306;dbname=xcxnew;charset=utf8mb4
+[ sql ] [ SQL ] SHOW COLUMNS FROM `tk_houses` [ RunTime:0.015986s ]
+[ sql ] [ SQL ] SELECT `id`,`type`,`title`,`house_room`,`area`,`images`,`price`,`toilet`,`furniture`,`home`,`school`,`address`,`tj`,`top`,`mdate`,`tags`,`live_date`,`car`,`lease_term`,`video`,`thumnail` FROM `tk_houses` WHERE  (  status = 1 and is_del = 1 and city = '墨尔本' and ( price <= 5000  and price >= 0  or price = -1 ) and ((live_date >= '2020-08-10' and live_date  <= '2020-08-30')  or ( live_date = '0100-01-01' or live_date = '0000-00-00' )) )  AND `is_del` = 1 ORDER BY `top` DESC,`cdate` DESC LIMIT 0,10 [ RunTime:0.004471s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `tk_user` [ RunTime:0.014300s ]
+[ sql ] [ SQL ] UPDATE `tk_user`  SET `mdate`='2020-08-20 19:29:51'  WHERE  `id` = 0 [ RunTime:0.000706s ]
+---------------------------------------------------------------
+[ 2020-08-20T19:29:55+08:00 ] 127.0.0.1 GET www.huaxiang.com/api/house/getlist?livedate=20
+[ info ] [ LANG ] D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\thinkphp\lang\zh-cn.php
+[ info ] [ ROUTE ] array (
+  'type' => 'module',
+  'module' => 
+  array (
+    0 => 'api',
+    1 => 'house',
+    2 => 'getlist',
+  ),
+)
+[ info ] [ HEADER ] array (
+  'cookie' => 'PHPSESSID=3g51qit2202i7butmpgb4v0i34',
+  'accept-language' => 'zh-CN,zh;q=0.9',
+  'accept-encoding' => 'gzip, deflate',
+  'accept' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.70 Safari/537.36',
+  'upgrade-insecure-requests' => '1',
+  'connection' => 'close',
+  'host' => 'www.huaxiang.com',
+)
+[ info ] [ PARAM ] array (
+  '/api/house/getlist' => '',
+  'livedate' => '20',
+)
+[ info ] [ RUN ] app\api\controller\House->getList[ D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\application\api\controller\House.php ]
+[ info ] 获取房源参数lease_term：
+---------------------------------------------------------------
+[ 2020-08-20T19:29:55+08:00 ] 127.0.0.1 GET www.huaxiang.com/api/house/getlist?livedate=20
+[ info ] 租房价格最大值：5000
+---------------------------------------------------------------
+[ 2020-08-20T19:29:55+08:00 ] 127.0.0.1 GET www.huaxiang.com/api/house/getlist?livedate=20
+[ info ] 租房价格最小值：0
+---------------------------------------------------------------
+[ 2020-08-20T19:29:55+08:00 ] 127.0.0.1 GET www.huaxiang.com/api/house/getlist?livedate=20
+[ info ] 入住时间最小值：2020-07-31入住时间最大值2020-09-09
+---------------------------------------------------------------
+[ 2020-08-20T19:29:55+08:00 ] 127.0.0.1 GET www.huaxiang.com/api/house/getlist?livedate=20
+[ info ] 卧室house_room：
+---------------------------------------------------------------
+[ 2020-08-20T19:29:55+08:00 ] 127.0.0.1 GET www.huaxiang.com/api/house/getlist?livedate=20
+[ info ] 车位car：
+---------------------------------------------------------------
+[ 2020-08-20T19:29:55+08:00 ] 127.0.0.1 GET www.huaxiang.com/api/house/getlist?livedate=20
+[ info ] 前端用户：进行了翻页，当前页码0
+---------------------------------------------------------------
+[ 2020-08-20T19:29:55+08:00 ] 127.0.0.1 GET www.huaxiang.com/api/house/getlist?livedate=20
+[运行时间：0.124418s] [吞吐率：8.04req/s] [内存消耗：2,637.30kb] [文件加载：58]
+[ info ] [ DB ] INIT mysql
+[ info ] [ CACHE ] INIT File
+[ sql ] [ DB ] CONNECT:[ UseTime:0.001391s ] mysql:host=127.0.0.1;port=3306;dbname=xcxnew;charset=utf8mb4
+[ sql ] [ SQL ] SHOW COLUMNS FROM `tk_houses` [ RunTime:0.018363s ]
+[ sql ] [ SQL ] SELECT `id`,`type`,`title`,`house_room`,`area`,`images`,`price`,`toilet`,`furniture`,`home`,`school`,`address`,`tj`,`top`,`mdate`,`tags`,`live_date`,`car`,`lease_term`,`video`,`thumnail` FROM `tk_houses` WHERE  (  status = 1 and is_del = 1 and city = '墨尔本' and ( price <= 5000  and price >= 0  or price = -1 ) and ((live_date >= '2020-07-31' and live_date  <= '2020-09-09')  or ( live_date = '0100-01-01' or live_date = '0000-00-00' )) )  AND `is_del` = 1 ORDER BY `top` DESC,`cdate` DESC LIMIT 0,10 [ RunTime:0.004160s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `tk_user` [ RunTime:0.013767s ]
+[ sql ] [ SQL ] UPDATE `tk_user`  SET `mdate`='2020-08-20 19:29:55'  WHERE  `id` = 0 [ RunTime:0.000486s ]
+---------------------------------------------------------------
+[ 2020-08-20T19:30:04+08:00 ] 127.0.0.1 GET www.huaxiang.com/api/house/getlist?livedate=30
+[ info ] [ LANG ] D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\thinkphp\lang\zh-cn.php
+[ info ] [ ROUTE ] array (
+  'type' => 'module',
+  'module' => 
+  array (
+    0 => 'api',
+    1 => 'house',
+    2 => 'getlist',
+  ),
+)
+[ info ] [ HEADER ] array (
+  'cookie' => 'PHPSESSID=3g51qit2202i7butmpgb4v0i34',
+  'accept-language' => 'zh-CN,zh;q=0.9',
+  'accept-encoding' => 'gzip, deflate',
+  'accept' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.70 Safari/537.36',
+  'upgrade-insecure-requests' => '1',
+  'connection' => 'close',
+  'host' => 'www.huaxiang.com',
+)
+[ info ] [ PARAM ] array (
+  '/api/house/getlist' => '',
+  'livedate' => '30',
+)
+[ info ] [ RUN ] app\api\controller\House->getList[ D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\application\api\controller\House.php ]
+[ info ] 获取房源参数lease_term：
+---------------------------------------------------------------
+[ 2020-08-20T19:30:04+08:00 ] 127.0.0.1 GET www.huaxiang.com/api/house/getlist?livedate=30
+[ info ] 租房价格最大值：5000
+---------------------------------------------------------------
+[ 2020-08-20T19:30:04+08:00 ] 127.0.0.1 GET www.huaxiang.com/api/house/getlist?livedate=30
+[ info ] 租房价格最小值：0
+---------------------------------------------------------------
+[ 2020-08-20T19:30:04+08:00 ] 127.0.0.1 GET www.huaxiang.com/api/house/getlist?livedate=30
+[ info ] 入住时间最小值：2020-07-21入住时间最大值2020-09-19
+---------------------------------------------------------------
+[ 2020-08-20T19:30:04+08:00 ] 127.0.0.1 GET www.huaxiang.com/api/house/getlist?livedate=30
+[ info ] 卧室house_room：
+---------------------------------------------------------------
+[ 2020-08-20T19:30:04+08:00 ] 127.0.0.1 GET www.huaxiang.com/api/house/getlist?livedate=30
+[ info ] 车位car：
+---------------------------------------------------------------
+[ 2020-08-20T19:30:04+08:00 ] 127.0.0.1 GET www.huaxiang.com/api/house/getlist?livedate=30
+[ info ] 前端用户：进行了翻页，当前页码0
+---------------------------------------------------------------
+[ 2020-08-20T19:30:05+08:00 ] 127.0.0.1 GET www.huaxiang.com/api/house/getlist?livedate=30
+[运行时间：0.123534s] [吞吐率：8.09req/s] [内存消耗：2,637.30kb] [文件加载：58]
+[ info ] [ DB ] INIT mysql
+[ info ] [ CACHE ] INIT File
+[ sql ] [ DB ] CONNECT:[ UseTime:0.001790s ] mysql:host=127.0.0.1;port=3306;dbname=xcxnew;charset=utf8mb4
+[ sql ] [ SQL ] SHOW COLUMNS FROM `tk_houses` [ RunTime:0.020569s ]
+[ sql ] [ SQL ] SELECT `id`,`type`,`title`,`house_room`,`area`,`images`,`price`,`toilet`,`furniture`,`home`,`school`,`address`,`tj`,`top`,`mdate`,`tags`,`live_date`,`car`,`lease_term`,`video`,`thumnail` FROM `tk_houses` WHERE  (  status = 1 and is_del = 1 and city = '墨尔本' and ( price <= 5000  and price >= 0  or price = -1 ) and ((live_date >= '2020-07-21' and live_date  <= '2020-09-19')  or ( live_date = '0100-01-01' or live_date = '0000-00-00' )) )  AND `is_del` = 1 ORDER BY `top` DESC,`cdate` DESC LIMIT 0,10 [ RunTime:0.004557s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `tk_user` [ RunTime:0.013136s ]
+[ sql ] [ SQL ] UPDATE `tk_user`  SET `mdate`='2020-08-20 19:30:04'  WHERE  `id` = 0 [ RunTime:0.000450s ]

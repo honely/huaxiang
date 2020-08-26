@@ -65,4 +65,12 @@ class Top extends Controller
         return $count;
     }
 
+
+    //更新livedate0000-00-00
+    public function updateLiveDate(){
+        Db::table('tk_houses')
+            ->where("live_date <= '".date('Y-m-d')."'")
+            ->update(['live_date' => '0000-00-00']);
+    }
+
 }
