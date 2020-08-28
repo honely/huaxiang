@@ -22,7 +22,7 @@ class House extends Controller{
         parent::__construct($request);
         $adminName=session('adminName');
         if(empty($adminName)){
-            $this->error('请先登录！','login/login');
+            $this->error('Please Login！','login/login');
         }
         if(isset($_SESSION['expiretime'])) {
             if($_SESSION['expiretime'] < time()) {
@@ -298,7 +298,7 @@ class House extends Controller{
                     ->where(['http' => $data['http']])
                     ->find();
                 if($isRepeat){
-                    $this->error('此房源已添加！');
+                    $this->error('Already Exist！');
                 }
             }
             if(isset($_POST['bill']) && $_POST['bill']){
@@ -386,9 +386,9 @@ class House extends Controller{
             $add=Db::table('tk_houses')->insert($data);
             $url =   $typess==1 ? 'myhouse' : 'index';
             if($add){
-                $this->success('添加成功！',$url);
+                $this->success('Success！',$url);
             }else{
-                $this->error('添加失败！',$url);
+                $this->error('Fail！',$url);
             }
         }else{
             $lang = new Languages();
@@ -464,13 +464,14 @@ class House extends Controller{
             $size = $file->validate($config);
             if($size){
                 $info = $file->move(ROOT_PATH . 'public' . DS . 'uploads/ceshi');
-                //halt( $info);
-                if($info){
-                    $res['name'] = $info->getFilename();
-                    $res['filepath'] = 'uploads/ceshi/'.$info->getSaveName();
+                $res['name'] = $info->getFilename();
+                $res['filepath'] = 'uploads/text/'.$info->getSaveName();
+                $check = $this->checkImg($res['filepath']);
+                if($check == 1){
+                    $this->compImg($res['filepath']);
                 }else{
                     $res['code'] = 0;
-                    $res['msg'] = '上传失败！'.$file->getError();
+                    $res['msg'] = '为方便浏览房源实景，请勿上传长图！';
                 }
             }else{
                 $res['code'] = 0;
@@ -606,7 +607,7 @@ class House extends Controller{
                     ->where('id != '.$id)
                     ->find();
                 if($isRepeat){
-                    $this->error('此房源已添加！');
+                    $this->error('Already Exist！');
                 }
             }
             if(isset($_POST['bill']) && $_POST['bill']){
@@ -687,9 +688,9 @@ class House extends Controller{
             $url = $type == 1 ? 'index' : 'myhouse';
             $add=Db::table('tk_houses')->where(['id' => $id])->update($data);
             if($add){
-                $this->success('修改成功！',$url);
+                $this->success('Success！',$url);
             }else{
-                $this->error('修改失败！',$url);
+                $this->error('Fail！',$url);
             }
         }else{
             $houseInfo = Db::table('tk_houses')->where(['id' => $id])->find();
@@ -1574,6 +1575,14 @@ class House extends Controller{
                 if($info){
                     $res['name'] = $info->getFilename();
                     $res['filepath'] = 'uploads/text/'.$info->getSaveName();
+                    $check = $this->checkImg($res['filepath']);
+                    if($check == 1){
+                       $this->compImg($res['filepath']);
+                    }else{
+                        $res['code'] = 0;
+                        $res['msg'] = '为方便浏览房源实景，请勿上传长图！';
+                    }
+
                 }else{
                     $res['code'] = 0;
                     $res['msg'] = '上传失败！'.$file->getError();
@@ -1587,6 +1596,24 @@ class House extends Controller{
     }
 
 
+    public function checkImg($filePath){
+        //$filePath = "./uploads\admin\a.jpg";
+        $image = Image::open($filePath);
+        //长宽比超过2.5：1
+        $w = $image->width();
+        $h = $image->height();
+        $scale = $h / $w;
+        $default = 2.5;
+        if($scale > $default) {
+            //程序删掉这个图片
+            if(file_exists($filePath)){
+                unlink($filePath);
+            }
+            return 1;
+        } else {
+            return 2;
+        }
+    }
     public function video(){
         if($_POST){
             $data = $_POST;

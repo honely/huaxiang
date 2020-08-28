@@ -93,6 +93,8 @@ class Msg extends Controller
             if ($diff_num <= 300) {
                 continue;
             }
+            //消息超过5天未读，自动变为已读
+            $this->netDate($val['xcx_msg_add_time'],$val['xcx_msg_id']);
           if($msgFidIsdel == 1){
             if($val['xcx_msg_ul_type'] == 1){
                 //dump('前端用户userid='.$val['xcx_msg_ul_id']);
@@ -114,7 +116,15 @@ class Msg extends Controller
         }
         return 2;
     }
-    
+    public function netDate($date,$id){
+        $data = date("Y-m-d H:i:s",strtotime($date.' +5 days'));
+        $today = date("Y-m-d H:i:s");
+        if($today < $data){
+            Db::table('xcx_msg_content')
+                ->where(['xcx_msg_id' =>$id])
+                ->update(['xcx_msg_isread' => 1]);
+        }
+    }
     
     /***
      * @param $sendId string 发送者id 用来查找发送人昵称

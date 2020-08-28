@@ -36,7 +36,7 @@ class Msgs extends Model
                 //前端对后端发送消息 检测是否重复
                 //发起者为小程序用户  mp_utype = 1
                 //接受者为后端平台用户  mp_ultype = 2
-                $ulId = $adminInfo['user_id'];
+                $ulId = $adminInfo['pm'];
                 $isRepeat = Db::table('xcx_msg_person')
                     ->where("(mp_u_id = ".$uId." and mp_utype = 1 and mp_ul_id = ".$ulId." and mp_ultype = 2 and mp_isable = 1 ) or (mp_ul_id = ".$uId." and mp_ultype = 1 and mp_u_id = ".$ulId." and mp_utype = 2 and mp_isable = 1 )")
                     ->field('mp_id,mp_mod_time')
@@ -152,7 +152,7 @@ class Msgs extends Model
     public function getHouseAddAdminIdViaHouseId($hid){
         $houseInfo = Db::table('tk_houses')
             ->where(['id' => $hid])
-            ->field('is_admin,user_id,title,dsn')
+            ->field('is_admin,user_id,pm,title,dsn')
             ->find();
         return $houseInfo ? $houseInfo : null;
     }

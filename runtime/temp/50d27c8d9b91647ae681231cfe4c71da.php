@@ -1,4 +1,4 @@
-<?php if (!defined('THINK_PATH')) exit(); /*a:1:{s:91:"D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\public/../application/xcx\view\index\index.html";i:1597366361;}*/ ?>
+<?php if (!defined('THINK_PATH')) exit(); /*a:1:{s:91:"D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\public/../application/xcx\view\index\index.html";i:1598600483;}*/ ?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -92,7 +92,7 @@
         <div class="layui-logo"><?php echo $lable['sysname']; ?></div>
         <ul class="layui-nav layui-layout-left">
             <div style="line-height: 60px;">
-                <span><?php echo $lable['welcome']; ?>，<?php echo $admin['r_name']; ?>&nbsp;&nbsp;&nbsp;<?php echo $admin['ad_realname']; ?></span>
+                <span><?php echo $lable['welcome']; ?>，<?php echo $admin['ad_realname']; ?></span>
             </div>
         </ul>
         <ul class="layui-nav layui-layout-left" style="margin-left: 230px;">

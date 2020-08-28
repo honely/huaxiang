@@ -17,7 +17,7 @@ class House extends Controller
      * @throws \think\db\exception\ModelNotFoundException
      * @throws \think\exception\DbException
      */
-     public function getList(){
+    public function getList(){
         header("Access-Control-Allow-Origin:*");
         header('Access-Control-Allow-Methods:POST');
         header('Access-Control-Allow-Headers:x-requested-with, content-type');
@@ -33,27 +33,29 @@ class House extends Controller
         if(isset($hot) && !empty($hot) && $hot){
             $where.=" and area = '".$hot."'";
         }
-        //如果key == area 只查询area 
+        //如果key == area 只查询area
         //如果不相等 都查询
         if($area != $keys){
             if(isset($keys) && !empty($keys) && $keys){
-            $where.=" and ( title like '%".$keys."%' or dsn like '%".$keys."%'  or school like '%".$keys."%' or city like '%".$keys."%' or area like '%".$keys."%')";
-            //写入一条关键词查询记录
-            if($uid){
-                $this->addQueryLog($uid,$keys,1);
-            }
+                $where.=" and ( title like '%".$keys."%' or dsn like '%".$keys."%'  or school like '%".$keys."%' or city like '%".$keys."%' or area like '%".$keys."%')";
+                //写入一条关键词查询记录
+                if($uid){
+                    $this->addQueryLog($uid,$keys,1);
+                }
             }
         }
         if(isset($area) && !empty($area) && $area){
-            $area = explode(',',$area);
-            $areas = '';
-            foreach ($area as $key => $item){
-                $areas .= "'".$item."',";
-            }
-            $areas = rtrim($areas,',');
-            $where.=" and area in (".$areas.")";
+            // $area = explode(',',$area);
+            // $areas = '';
+            // foreach ($area as $key => $item){
+            //     $areas .= "'".$item."',";
+            // }
+            // $areas = rtrim($areas,',');
+            $areas = $area;
+            //$where.=" and area in (".$areas.")";
+            $where.=" and area like '%".$areas."%' ";
         }
-        
+
         //房屋类型
         $house_type = trim($this->request->param('house_type'));
         if(isset($house_type) && !empty($house_type) && $house_type){
@@ -225,25 +227,29 @@ class House extends Controller
             }
         }
         $order = $orders;
-        $field = 'id,type,title,house_room,area,images,price,toilet,furniture,home,school,address,tj,top,mdate,tags,area,live_date,car,lease_term,video,is_admin,corp,pm,house_type';
+        $field = 'id,type,title,house_room,area,images,price,toilet,furniture,home,school,address,tj,top,mdate,cdate,tags,area,live_date,car,lease_term,video,is_admin,corp,pm,house_type,likes,loard_sex,loard_job,user_id';
         $housem = new Housem();
         $house = $housem->readData($where,$order,$limit,$page,$field);
         //更新上次登录时间
         Db::table('tk_user')->where(['id' => $uid])->update(['mdate' =>date('Y-m-d H:i:s')]);
         if($house){
-             //是否收藏
+            //是否收藏
             $collects = $this->getCollects($uid);
+            $likes = $this->getLikes($uid);
             foreach ($house as $k => $v){
                 $colt = in_array($v['id'],$collects,true);
                 $house[$k]['is_colt'] = $colt ? 1 : 0;
+                $likes = in_array($v['id'],$likes,true);
+                $house[$k]['is_like'] = $likes ? 1 : 0;
+                $house[$k]['is_new'] = $this->newTags($v['cdate']);
                 $house[$k]['tj'] = $v['tj'] == '是' ? '推荐房源'  : '';
                 $house[$k]['tingwei'] = $this->formatRoom($v['house_room']).''.$this->formatToilet($v['toilet']);
                 //如果是后端发布的房源，查询中介个人图像，公司名称中介logo
+                $pmInfo = $this->getPmname($v['is_admin'],$v['pm'],$v['user_id']);
+                $house[$k]['pm_name'] = $pmInfo['ad_realname'];
+                $house[$k]['pm_avatar'] = $pmInfo['ad_img'];
                 if($v['is_admin'] == 2){
                     $house[$k]['corplogo'] = $this->getCorpLogo($v['corp']);
-                    $pmInfo = $this->getPmname($v['pm']);
-                    $house[$k]['pm_name'] = $pmInfo['ad_realname'];
-                    $house[$k]['pm_avatar'] = $pmInfo['ad_img'];
                     $house[$k]['colour'] = $housem->getColour($v['corp']);
                 }
             }
@@ -260,7 +266,66 @@ class House extends Controller
         return json($res);
     }
 
+    public function newTags($cdate){
+        //三天之内的房源都是新房源
+        $cdate = strtotime($cdate.' +3 days');
+        $now = time();
+        return $cdate < $now? 0 :1;
+    }
 
+    public function checkImg($filePath){
+        //$filePath = "./uploads\admin\a.jpg";
+        $image = Image::open($filePath);
+        //长宽比超过2.5：1
+        $w = $image->width();
+        $h = $image->height();
+        $scale = $h / $w;
+        $default = 2.5;
+        if($scale > $default) {
+            //程序删掉这个图片
+            if(file_exists($filePath)){
+                unlink($filePath);
+            }
+            return 1;
+        } else {
+            return 2;
+        }
+    }
+
+
+    //压缩大于1.5m的房源图片
+    public function compImages($files){
+        $file = "./".$files;
+        $size = filesize($file);
+        $imgSize = ceil($size/1024);
+        $Size1 = 1.5*1024;
+        $Size2 = 2.5*1024;
+        $Size3 = 3*1024;
+        $Size4 = 6*1024;
+        if($Size1 < $imgSize){
+            return $file;
+        }elseif($Size2 > $imgSize && $imgSize > $Size1){
+            $this->compressImg($file,80);
+        }elseif($Size3 > $imgSize && $imgSize > $Size2){
+            $this->compressImg($file,70);
+        }elseif($Size4 > $imgSize && $imgSize > $Size3){
+            $this->compressImg($file,60);
+        }else{
+            $this->compressImg($file,40);
+        }
+        return $files;
+    }
+
+    /***
+     * @param $filePath string 文件路径
+     * @param $quality int 压缩比率
+     * @return mixed
+     */
+    public function compressImg($filePath,$quality){
+        $image = Image::open($filePath);
+        $image->save($filePath,null,$quality);
+        return $filePath;
+    }
 
     public function getCollects($uid){
         $collects = Db::table('xcx_collect')
@@ -270,15 +335,33 @@ class House extends Controller
         $collect =  array_column($collects,'cl_house_id');
         return $collect;
     }
+    public function getLikes($uid){
+        $collects = Db::table('xcx_likes')
+            ->where(['uid' => $uid,'type' => 1])
+            ->field('tid')
+            ->select();
+        $collect =  array_column($collects,'tid');
+        return $collect;
+    }
 
     public function getCorpLogo($corp){
         $logo = Db::table('xcx_corp')->where(['cp_id' => $corp])->field('cp_logo')->find();
         return $logo ? $logo['cp_logo'] : '';
     }
 
-    public function getPmname($pm){
-        $logo = Db::table('super_admin')->where(['ad_id' => $pm])->field('ad_realname,ad_img')->find();
-        return $logo ? $logo : null;
+    public function getPmname($admin,$pm,$uid){
+        $userName['ad_realname'] ='';
+        $userName['pm_avatar'] = '';
+        if($admin == 1){
+            $user = Db::table('tk_user')->where(['id' => $uid])->field('nickname,avaurl')->find();
+            $userName['ad_realname'] = $user['nickname'] ? $user['nickname'] : '外星人呀';
+            $userName['ad_img'] = $user['avaurl'] ? $user['avaurl'] : '';
+        }else if($admin == 2){
+            $user = Db::table('super_admin')->where(['ad_id' => $pm])->field('ad_realname,ad_img')->find();
+            $userName['ad_realname'] = $user['ad_realname'] ? $user['ad_realname'] : '外星人呀';
+            $userName['ad_img'] = $user['ad_img'] ? $user['ad_img'] : '';
+        }
+        return $userName;
     }
 
     public function getLiveDate($date){
@@ -302,6 +385,11 @@ class House extends Controller
         if(!$data){
             $res['code'] = 0;
             $res['msg'] = '缺少提交参数！';
+            return json($res);
+        }
+        if(!$data['user_id']){
+            $res['code'] = 0;
+            $res['msg'] = '用户还未登录！';
             return json($res);
         }
         $data['source'] = '个人房源';
@@ -432,7 +520,14 @@ class House extends Controller
                 $info = $file->move(ROOT_PATH . 'public' . DS . 'uploads/house/'.$path_date.'/');
                 if($info){
                     $path = 'uploads/house/'.$path_date.'/'.$info->getSaveName();
-                    return json(array('code'=>1,'path'=>$path,'msg'=> '图片上传成功！'));
+                    //判断一下图片宽高，如果比例长宽比超过2.5：1，则认定为长图
+                    $check = $this->checkImg($path);
+                    if($check == 1){
+                        $path = $this->compImages($path);
+                        return json(array('code'=>1,'path'=>$path,'msg'=> '图片上传成功！'));
+                    }else{
+                        return json(array('code'=>0,'path'=>'','msg'=> '为方便浏览房源实景，请勿上传长图！'));
+                    }
                 }else{
                     if($file->getError() == '上传文件大小不符！'){
                         return json(array('code'=>0,'path'=>'','msg'=> '文件大小超过10MB，请压缩后重新上传'));
@@ -494,7 +589,7 @@ class House extends Controller
             $where.=" or (is_del =1 and user_id = ".$isBindAdmin['ad_id']." and is_admin = 2)";
         }
         $order = 'mdate desc';
-        $field = 'id,user_id,title,type,house_room,area,images,price,status,home,address';
+        $field = 'id,user_id,mdate,title,type,images,price,status,address,house_type';
         $housem = new Housem();
         $house = $housem->readData($where,$order,$limit,$page,$field);
         if($house){
@@ -518,7 +613,7 @@ class House extends Controller
     }
 
 
-   public function getArea(){
+    public function getArea(){
         header("Access-Control-Allow-Origin:*");
         header('Access-Control-Allow-Methods:POST');
         header('Access-Control-Allow-Headers:x-requested-with, content-type');
@@ -614,7 +709,7 @@ class House extends Controller
         }
         $condition['city'] = $data['city'];
         $condition['status'] = 1;
-        $list = Db::table('tk_keyword')->where($condition)->field('name')->order('id asc')->select();
+        $list = Db::table('tk_keyword')->where($condition)->field('name')->order('id DESC')->select();
         if($list){
             $res['code'] = 1;
             $res['msg'] = '读取成功！';
@@ -739,6 +834,7 @@ class House extends Controller
         header('Access-Control-Allow-Methods:POST');
         header('Access-Control-Allow-Headers:x-requested-with, content-type');
         $id = trim($this->request->param('id'));
+        $uid = trim($this->request->param('uid'));
         if(!$id){
             $res['code'] = 2;
             $res['msg'] = '缺少参数！';
@@ -746,7 +842,7 @@ class House extends Controller
         }
         $house = Db::table('tk_houses')
             ->where(['id' => $id])
-            ->field('id,title,city,area,price,type,status,house_room,car,toilet,user_id,is_admin,thumnail,images,cover')
+            ->field('id,title,city,area,price,type,house_type,status,house_room,car,toilet,user_id,is_admin,thumnail,images,cover,sex,pet,is_couple,smoke')
             ->find();
         if (empty($house)) {
             $res['code'] = 0;
@@ -762,13 +858,19 @@ class House extends Controller
         if($house){
             $loop = new Loops();
             $house['house_room'] =  $this->houseRoom($house['house_room']);
-            $house['nickname'] =  $loop->getUserNicks($house['user_id'],$house['is_admin']);
-            $house['avatar'] =  $loop->getUserAvatars($house['user_id'],$house['is_admin']);
+            //李斯涵2020年8月27日15:13:45
+            //整租和合租的卡片，头像是转发人的
+            $house['nickname'] =  $loop->getUserNick($uid);
+            $house['avatar'] =  $loop->getUserAvatar($uid);
             $house['car'] =  $house['car'].'车位';
             $house['suburb'] =  $house['city'].' '.$house['area'];
             $house['toilet'] = $house['toilet'].'卫';
             $cover = $this->getCoverImg($house['thumnail'],$house['images'],$house['cover']);
             $house['cover'] = $this->compImg($id,$cover);
+            $house['sex'] = $this->compSex($house['sex']);
+            $house['pet'] = $house['pet'].'宠物';
+            $house['is_couple'] =$house['is_couple'] ? $house['is_couple'].'情侣' :'不限情侣';
+            $house['smoke'] = $this->compSmoke($house['smoke']); //不限；是否
             unset($house['thumnail']);
             unset($house['images']);
             $res['code'] = 1;
@@ -779,6 +881,35 @@ class House extends Controller
         $res['code'] = 0;
         $res['msg'] = '读取失败！';
         return json($res);
+    }
+
+    public function compSex($sex){
+        switch ($sex){
+            case '不限':
+                $sexName = '男女不限';
+                break;
+            default:
+                $sexName = "仅".$sex;
+        }
+        return $sexName;
+    }
+
+    public function compSmoke($pet){
+        switch ($pet){
+//        不限；是否
+            case '不限':
+                $sexName = '吸烟'.$pet;
+                break;
+            case '是':
+                $sexName = '吸烟可接受';
+                break;
+            case '否':
+                $sexName = '不接受吸烟';
+                break;
+            default:
+                $sexName = "吸烟不限";
+        }
+        return $sexName;
     }
 
 

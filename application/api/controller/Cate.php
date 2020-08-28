@@ -251,9 +251,10 @@ class Cate extends Controller
         header('Access-Control-Allow-Headers:x-requested-with, content-type');
         $x = $this->request->param('x');
         $y = $this->request->param('y');
+        $r = $this->request->param('r');
         $cate = $this->request->param('cate');
         $at=$x."%2C".$y;
-        $url="https://browse.search.hereapi.com/v1/browse?at=".$at."&categories=".$cate."&circle=".$at."%3Br%3D3000&limit=5&apiKey=WgZd-Ykul-3XNV5agUgW2vMohtzAlYEA64GIQvcrfaw";
+        $url="https://browse.search.hereapi.com/v1/browse?at=".$at."&categories=".$cate."&circle=".$at."%3Br%3D".$r."&limit=5&apiKey=WgZd-Ykul-3XNV5agUgW2vMohtzAlYEA64GIQvcrfaw";
         $res = json_decode(file_get_contents($url),true);
         return json($res);
     }

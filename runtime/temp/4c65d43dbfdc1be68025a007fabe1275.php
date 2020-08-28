@@ -1,4 +1,4 @@
-<?php if (!defined('THINK_PATH')) exit(); /*a:3:{s:90:"D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\public/../application/xcx\view\house\edit.html";i:1598006153;s:82:"D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\application\xcx\view\index\header.html";i:1591180794;s:82:"D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\application\xcx\view\index\footer.html";i:1577269681;}*/ ?>
+<?php if (!defined('THINK_PATH')) exit(); /*a:3:{s:90:"D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\public/../application/xcx\view\house\edit.html";i:1598601075;s:82:"D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\application\xcx\view\index\header.html";i:1591180794;s:82:"D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\application\xcx\view\index\footer.html";i:1577269681;}*/ ?>
 <!DOCTYPE html>
 <html style="height: 100%">
 <head>
@@ -363,10 +363,10 @@
                     <legend><?php echo $lable['lianxi']; ?></legend>
                 </fieldset>
                 <div class="layui-form-item">
-                    <label class="layui-form-label"><span style="color: red;">*</span>公司</label>
+                    <label class="layui-form-label"><span style="color: red;">*</span><?php echo $lable['gongsi']; ?></label>
                     <div class="layui-input-inline">
                         <select name="corp" lay-filter="selectPm"  lay-search="" >
-                            <option value="">请选择</option>
+                            <option value="">Pls Select</option>
                             <?php if(is_array($corp) || $corp instanceof \think\Collection || $corp instanceof \think\Paginator): $i = 0; $__LIST__ = $corp;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$vo): $mod = ($i % 2 );++$i;?>
                             <option value="<?php echo $vo['cp_id']; ?>"  <?php if($house['corp'] == $vo['cp_id']): ?>selected<?php endif; ?>><?php echo $vo['cp_name']; ?></option>
                             <?php endforeach; endif; else: echo "" ;endif; ?>
@@ -375,7 +375,7 @@
                     <label class="layui-form-label" style="width: 150px !important;"><span style="color: red;">*</span>PM</label>
                     <div class="layui-input-inline" style="width: 250px !important;">
                         <select name="pm" lay-verify="required" lay-filter="selectPmInfo"  id="pm"  lay-search="">
-                            <option value=""></option>
+                            <option value="">Pls Select</option>
                             <?php if(is_array($pminfo) || $pminfo instanceof \think\Collection || $pminfo instanceof \think\Paginator): $i = 0; $__LIST__ = $pminfo;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$vo): $mod = ($i % 2 );++$i;?>
                             <option value="<?php echo $vo['ad_id']; ?>"  <?php if($house['pm'] == $vo['ad_id']): ?>selected<?php endif; ?>><?php echo $vo['ad_realname']; ?></option>
                             <?php endforeach; endif; else: echo "" ;endif; ?>
@@ -385,19 +385,19 @@
                 <div class="layui-form-item">
                     <label class="layui-form-label"><span style="color: red;">*</span><?php echo $lable['xingming']; ?></label>
                     <div class="layui-input-block">
-                        <input type="text" name="real_name" id="real_name" lay-verify="required|title" placeholder="请输入姓名" value="<?php echo $house['real_name']; ?>" autocomplete="off" class="layui-input">
+                        <input type="text" name="real_name" id="real_name" lay-verify="required|title" placeholder="<?php echo $lable['pleaseInput']; ?>" value="<?php echo $house['real_name']; ?>" autocomplete="off" class="layui-input">
                     </div>
                 </div>
                 <div class="layui-form-item">
                     <label class="layui-form-label"><span style="color: red;">*</span><?php echo $lable['dianhua']; ?></label>
                     <div class="layui-input-block">
-                        <input type="text" name="tel" id="tel" lay-verify="required" placeholder="请输入电话" value="<?php echo $house['tel']; ?>" autocomplete="off" class="layui-input">
+                        <input type="text" name="tel" id="tel" lay-verify="required" placeholder="<?php echo $lable['pleaseInput']; ?>" value="<?php echo $house['tel']; ?>" autocomplete="off" class="layui-input">
                     </div>
                 </div>
                 <div class="layui-form-item">
                     <label class="layui-form-label"><?php echo $lable['youxiang']; ?></label>
                     <div class="layui-input-block">
-                        <input type="text" name="email" id="email" lay-verify="emails" placeholder="请输入邮箱" value="<?php echo $house['email']; ?>" autocomplete="off" class="layui-input">
+                        <input type="text" name="email" id="email" lay-verify="emails" placeholder="<?php echo $lable['pleaseInput']; ?>" value="<?php echo $house['email']; ?>" autocomplete="off" class="layui-input">
                     </div>
                 </div>
                 <fieldset class="layui-elem-field layui-field-title" style="margin-top: 20px;">

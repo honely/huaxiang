@@ -15,10 +15,10 @@ class Login extends Controller{
             $user=trim($_POST['username']);
             $pwd=md5(trim($_POST['password']));
             if(empty($user)){
-                $this->error('请输入工号进行登录！','login');
+                $this->error('Please Use Email Account to Login！','login');
             }else{
                 if(empty($pwd)){
-                    $this->error('请输入密码！','login');
+                    $this->error('Password required！','login');
                 }else{
                     //改为邮箱登录2020年5月27日09:14:36
                     $login=Db::table('super_admin')
@@ -34,12 +34,12 @@ class Login extends Controller{
                             session('ad_wechat',$login['ad_wechat']);
                             session('ad_corp',$login['ad_corp']);
                             session('expiretime',time() + 1800);
-                            $this->success('登录成功！','index/index');
+                            $this->success('Success！','index/index');
                         }else{
-                            $this->error('账号或者密码错误！','login');
+                            $this->error('Wrong Account Or Password！','login');
                         }
                     }else{
-                        $this->error('没有此账户信息，或账号异常，请联系管理员！');
+                        $this->error('No Account Info,please Connect Administrator！');
                     }
                 }
             }
@@ -52,6 +52,6 @@ class Login extends Controller{
     public function loginOut()
     {
         session(null);
-        $this->success('欢迎再来','https://huaxiangxiaobao.com/', 3);
+        $this->success('Welcome Back','https://huaxiangxiaobao.com/', 3);
     }
 }

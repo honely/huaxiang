@@ -1,4 +1,4 @@
-<?php if (!defined('THINK_PATH')) exit(); /*a:3:{s:93:"D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\public/../application/xcx\view\index\welcome.html";i:1596636056;s:82:"D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\application\xcx\view\index\header.html";i:1591180794;s:82:"D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\application\xcx\view\index\footer.html";i:1577269681;}*/ ?>
+<?php if (!defined('THINK_PATH')) exit(); /*a:3:{s:93:"D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\public/../application/xcx\view\index\welcome.html";i:1598600454;s:82:"D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\application\xcx\view\index\header.html";i:1591180794;s:82:"D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\application\xcx\view\index\footer.html";i:1577269681;}*/ ?>
 <!DOCTYPE html>
 <html style="height: 100%">
 <head>
@@ -32,7 +32,7 @@
 <div class="layui-body" style="width: 97%;">
     <div class="layui-main" style="width: 97%;">
         <fieldset class="layui-elem-field layui-field-title" style="margin-top: 30px;">
-            <legend><?php if($adminId == 1): ?><?php echo $lable['homepage']; else: ?>公司统计<?php endif; ?></legend>
+            <legend><?php if($adminId == 1): ?><?php echo $lable['homepage']; else: ?><?php echo $lable['gongsidata']; endif; ?></legend>
         </fieldset>
     </div>
     <div style="padding: 10px; background-color: #F2F2F2;">
@@ -122,7 +122,7 @@
     <?php endif; if($adminId != 1): ?>
     <div class="layui-main" style="width: 97%;">
         <fieldset class="layui-elem-field layui-field-title" style="margin-top: 30px;">
-            <legend>个人统计</legend>
+            <legend><?php echo $lable['gerendata']; ?></legend>
         </fieldset>
     </div>
     <div style="padding: 10px; background-color: #F2F2F2;">

@@ -241,11 +241,26 @@ class Languages extends Model
             'hongganji' => 'Dryer',
             'dianshi' => 'TV',
             'tianranqi' => 'Gas Cooktop',
+            'gongsidata' => 'Company data',
+            'gerendata' => 'Personal data',
+            'gongsi' => 'Company',
+            'poster' => 'Author',
+            'beijingtu' => 'Home Image',
+            'qianduancolor' => 'Banner Color',
+            'qianse' => 'Light',
+            'shense' => 'Dark',
         ];
         return $enLab;
     }
     public function getCn(){
         $cnLab = [
+            'beijingtu' => '主页背景图',
+            'qianduancolor' => '前端颜色',
+            'qianse' => '浅色',
+            'shense' => '深色',
+            'poster' => '发布人',
+            'gongsi' => '公司',
+            'gerendata' => '个人统计',
             'shuzhuo' => '书桌',
             'hongganji' => '烘干机',
             'dianshi' => '电视',

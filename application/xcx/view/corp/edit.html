@@ -85,7 +85,7 @@
                     </div>
                     
                     <div class="layui-form-item one-pan">
-                        <label class="layui-form-label"><span style="color: red;">*</span>主页背景图</label>
+                        <label class="layui-form-label"><span style="color: red;">*</span>{$lable.beijingtu}</label>
                         <div {if condition="$corp.backimg eq null"}class="layui-upload-drag"{/if} id="uploadImg" style="display:inline-block;" >
 
                         <image id="imgPre"
@@ -108,10 +108,10 @@
                     </div>
                 </div>
                  <div class="layui-form-item">
-                    <label class="layui-form-label"><span style="color: red;">*</span>前端颜色</label>
+                    <label class="layui-form-label"><span style="color: red;">*</span>{$lable.qianduancolor}</label>
                     <div class="layui-input-block">
-                        <input type="radio" name="colour" value="1" title="浅色" {if condition="$corp.colour eq 1"}checked{/if}>
-                        <input type="radio" name="colour" value="2" title="深色" {if condition="$corp.colour eq 2"}checked{/if}>
+                        <input type="radio" name="colour" value="1" title="{$lable.qianse}" {if condition="$corp.colour eq 1"}checked{/if}>
+                        <input type="radio" name="colour" value="2" title="{$lable.shense}" {if condition="$corp.colour eq 2"}checked{/if}>
                     </div>
                 </div>
                     <div class="layui-form-item">
@@ -158,7 +158,7 @@
             }
             ,imgReg:function (value) {
                 if(value.length <= 0){
-                    return '请上传图片';
+                    return 'Images Required';
                 }
             }
         });

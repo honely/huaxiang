@@ -202,4 +202,154 @@ class Rent extends Controller
         return $resault;
     }
 
+
+
+    public function myrent(){
+        header("Access-Control-Allow-Origin:*");
+        header('Access-Control-Allow-Methods:POST');
+        header('Access-Control-Allow-Headers:x-requested-with, content-type');
+        $uid = intval(trim($this->request->param('uid')));
+        if(!$uid){
+            $res['code'] = 0;
+            $res['msg'] = '缺少参数';
+            return json($res);
+        }
+        $limit = trim($this->request->param('limit','10'));
+        $page = trim($this->request->param('page','0'));
+        $where = "status =1 and userid = ".$uid;
+        $order = 'mdate desc';
+        $result = Db::table('tk_forent')
+            ->where($where)
+            ->limit(($page)*$limit,$limit)
+            ->order($order)
+            ->select();
+        if($result){
+            $res['code'] = 1;
+            $res['msg'] = '读取成功！';
+            $res['data'] = $result;
+            return json($res);
+        }
+        $res['code'] = 1;
+        $res['msg'] = '数据为空！';
+        $res['data'] = $result;
+        return json($res);
+    }
+
+
+    public function rentpost(){
+        header("Access-Control-Allow-Origin:*");
+        header('Access-Control-Allow-Methods:POST');
+        header('Access-Control-Allow-Headers:x-requested-with, content-type');
+        $id = trim($this->request->param('id'));
+        $uid = trim($this->request->param('uid'));
+        if(!$id){
+            $res['code'] = 2;
+            $res['msg'] = '缺少参数！';
+            return json($res);
+        }
+        // tags  title地区 户型 租期  图像 昵称 类型
+        $house = Db::table('tk_forent')
+            ->where(['id' => $id,'status' =>1])
+            ->field('id,title,userid,city,area,room,mytags,type,leaseterm,status,livedate')
+            ->find();
+
+        if (!is_null($house)) {
+            $res['code'] = 0;
+            $res['msg'] = '该记录已经不存在了';
+            $res['data'] = null;
+            return $res;
+        }
+        if($house['status'] != 1){
+            $res['code'] = 0;
+            $res['msg'] = '该记录已被外星人劫持！';
+            return json($res);
+        }
+
+        if($house){
+            $loop = new Loops();
+            $house['nickname'] =  $loop->getUserNick($house['userid']);
+            $house['avatar'] =  $loop->getUserAvatar($house['userid']);
+            $res['code'] = 1;
+            $res['msg'] = '读取成功！';
+            $res['data'] = $house;
+            return json($res);
+        }
+        $res['code'] = 0;
+        $res['msg'] = '读取失败！';
+        return json($res);
+    }
+
+
+    //求租拼租删除
+    public function del(){
+        header("Access-Control-Allow-Origin:*");
+        header('Access-Control-Allow-Methods:POST');
+        header('Access-Control-Allow-Headers:x-requested-with, content-type');
+        $id = trim($this->request->param('id'));
+        if (!@$id) {
+            $res['code'] = 0;
+            $res['msg'] = 'id不能为空！';
+            return json($res);
+        }
+        $one = Db::table('tk_forent')
+            ->where(['id' => $id])->field('id')->find();
+        if(!$one){
+            $res['code'] = 0;
+            $res['msg'] = '记录不存在！';
+            return json($res);
+        }
+        $del = Db::table('tk_forent')
+            ->where(['id' => $id])
+            ->update(['status' => 3]);
+        if($del){
+            $res['code'] = 1;
+            $res['msg'] = '删除成功！';
+            return json($res);
+        }else{
+            $res['code'] = 0;
+            $res['msg'] = '删除失败！';
+            return json($res);
+        }
+
+    }
+
+
+    /***
+     * 求租拼租上线下
+     * 1.帖子id
+     * 2.status = 1 上线  ； = 2 下线
+     */
+    public function onstatus(){
+        header("Access-Control-Allow-Origin:*");
+        header('Access-Control-Allow-Methods:POST');
+        header('Access-Control-Allow-Headers:x-requested-with, content-type');
+        $id = trim($this->request->param('id'));
+        $status = trim($this->request->param('status'));
+        if (!@$id || $status) {
+            $res['code'] = 0;
+            $res['msg'] = '缺少参数！';
+            return json($res);
+        }
+        $one = Db::table('tk_forent')
+            ->where(['id' => $id])->field('id')->find();
+        if(!$one){
+            $res['code'] = 0;
+            $res['msg'] = '记录不存在！';
+            return json($res);
+        }
+        $del = Db::table('tk_forent')
+            ->where(['id' => $id])
+            ->update(['status' => $status]);
+        if($del){
+            $res['code'] = 1;
+            $res['msg'] = '操作成功！';
+            return json($res);
+        }else{
+            $res['code'] = 0;
+            $res['msg'] = '操作失败！';
+            return json($res);
+        }
+    }
+
+
 }

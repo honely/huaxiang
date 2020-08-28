@@ -1,4 +1,4 @@
-<?php if (!defined('THINK_PATH')) exit(); /*a:3:{s:91:"D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\public/../application/xcx\view\corp\detail.html";i:1597887198;s:82:"D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\application\xcx\view\index\header.html";i:1591180794;s:82:"D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\application\xcx\view\index\footer.html";i:1577269681;}*/ ?>
+<?php if (!defined('THINK_PATH')) exit(); /*a:3:{s:91:"D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\public/../application/xcx\view\corp\detail.html";i:1598604274;s:82:"D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\application\xcx\view\index\header.html";i:1591180794;s:82:"D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\application\xcx\view\index\footer.html";i:1577269681;}*/ ?>
 <!DOCTYPE html>
 <html style="height: 100%">
 <head>
@@ -55,6 +55,8 @@
                                     <input type="text" readonly name="cp_address" lay-verify="required|title" value="<?php echo $corp['cp_address']; ?>"  autocomplete="off" class="layui-input">
                                 </div>
                             </div>
+                            
+                            
                             <div class="layui-form-item one-pan">
                                 <label class="layui-form-label"><span style="color: red;">*</span>Logo</label>
                                 <div <?php if($corp['cp_logo'] == null): ?>class="layui-upload-drag"<?php endif; ?> style="display:inline-block;" >
@@ -71,10 +73,28 @@
                                     <div class="layui-form-mid layui-word-aux" style="margin-left: 39px; "><?php echo $lable['tupianRemark']; ?></div>
                                 </div>
                             </div>
+                            
+                               <div class="layui-form-item one-pan">
+                                <label class="layui-form-label"><span style="color: red;">*</span>miniLogo</label>
+                                <div <?php if($corp['minilogo'] == null): ?>class="layui-upload-drag"<?php endif; ?> style="display:inline-block;" >
+                                <image id="logoPre"
+                                       <?php if($corp['minilogo'] == null): else: ?>
+                                src="../../../<?php echo $corp['minilogo']; ?>"
+                                class="logoPre"
+                                <?php endif; ?>
+                                >
+                                <input type="hidden" lay-verify="imgReg" name="minilogo" id="minilogo" value="<?php echo $corp['minilogo']; ?>"/>
+                                </image>
+                                </div>
+                                <div class="one">
+                                    <div class="layui-form-mid layui-word-aux" style="margin-left: 39px; "><?php echo $lable['tupianRemark']; ?></div>
+                                </div>
+                            </div>
+                            
                             <div class="layui-form-item one-pan">
-                                <label class="layui-form-label"><span style="color: red;">*</span>主页背景图</label>
+                                <label class="layui-form-label"><span style="color: red;">*</span><?php echo $lable['beijingtu']; ?></label>
                                 <div <?php if($corp['backimg'] == null): ?>class="layui-upload-drag"<?php endif; ?> style="display:inline-block;" >
-                                <?php if($corp['backimg'] == null): ?>未上传<?php endif; ?>
+                                <?php if($corp['backimg'] == null): ?>No Data<?php endif; ?>
                                 <image id="logoPre"
                                        <?php if($corp['backimg'] == null): else: ?>
                                 src="../../../<?php echo $corp['backimg']; ?>"
@@ -88,6 +108,12 @@
                                 <div class="layui-form-mid layui-word-aux" style="margin-left: 39px; "><?php echo $lable['tupianRemark']; ?></div>
                             </div>
                         </div>
+                        <div class="layui-form-item">
+                                <label class="layui-form-label"><span style="color: red;">*</span><?php echo $lable['qianduancolor']; ?></label>
+                                <div class="layui-input-block">
+                                    <input type="text" name="colour" value="<?php if($corp['colour'] == 1): ?><?php echo $lable['qianse']; else: ?><?php echo $lable['shense']; endif; ?>" readonly autocomplete="off" class="layui-input">
+                                </div>
+                            </div>
                             <div class="layui-form-item">
                                 <label class="layui-form-label"><span style="color: red;">*</span><?php echo $lable['youxiang']; ?></label>
                                 <div class="layui-input-block">

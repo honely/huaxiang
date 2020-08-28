@@ -1,0 +1,144 @@
+{include file="index/header" /}
+<div class="layui-body">
+    <div style="margin: 10px">
+        <div style="padding: 15px;">
+            <form class="layui-form" action="" method="post">
+                <div class="layui-form-item">
+                    <label class="layui-form-label"><span style="color: red;">*</span>标题</label>
+                    <div class="layui-input-block">
+                        <input type="text" readonly lay-verify="required|title" value="{$house.title}" class="layui-input">
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label"><span style="color: red;">*</span>城市</label>
+                    <div class="layui-input-block">
+                        <input type="text" readonly lay-verify="required|title" value="{$house.city}" class="layui-input">
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label"><span style="color: red;">*</span>地区</label>
+                    <div class="layui-input-block">
+                        <input type="text" readonly lay-verify="required|title" value="{$house.area}" class="layui-input">
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label"><span style="color: red;">*</span>学校</label>
+                    <div class="layui-input-block">
+                        <input type="text" readonly lay-verify="required|title" value="{$house.school}" class="layui-input">
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">昵称</label>
+                    <div class="layui-input-block">
+                        <input type="text" readonly lay-verify="required|title" value="{$house.real_name}" class="layui-input">
+                        <img src="{$house.avaurl}" alt="" style="width: 100px;height: 100px;">
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">性别</label>
+                    <div class="layui-input-block">
+                        <input type="text" readonly lay-verify="required|title" value="{$house.sex}" class="layui-input">
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">入住时间</label>
+                    <div class="layui-input-block">
+                        <input type="text" readonly lay-verify="required|title" value="{$house.livedate}" class="layui-input">
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">租期</label>
+                    <div class="layui-input-block">
+                        <input type="text" readonly lay-verify="required|title" value="{$house.leaseterm}" class="layui-input">
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">包含家具</label>
+                    <div class="layui-input-block">
+                        <input type="text" readonly lay-verify="required|title" value="{$house.isfur}" class="layui-input">
+                    </div>
+                </div>   <div class="layui-form-item">
+                    <label class="layui-form-label">是否为留学生</label>
+                    <div class="layui-input-block">
+                        <input type="text" readonly lay-verify="required|title" value="{$house.istudent}" class="layui-input">
+                    </div>
+                </div>   <div class="layui-form-item">
+                    <label class="layui-form-label">发布人职业</label>
+                    <div class="layui-input-block">
+                        <input type="text" readonly lay-verify="required|title" value="{$house.myjob}" class="layui-input">
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">微信号</label>
+                    <div class="layui-input-block">
+                        <input type="text" readonly lay-verify="required|title" value="{$house.wechat}" class="layui-input">
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">类型</label>
+                    <div class="layui-input-block">
+                        <input type="text" readonly lay-verify="required|title" value="{$house.type}" class="layui-input">
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">微信号</label>
+                    <div class="layui-input-block">
+                        <input type="text" readonly lay-verify="required|title" value="{$house.wechat}" class="layui-input">
+                    </div>
+                </div><div class="layui-form-item">
+                    <label class="layui-form-label">点赞量</label>
+                    <div class="layui-input-block">
+                        <input type="text" readonly lay-verify="required|title" value="{$house.likes}" class="layui-input">
+                    </div>
+                </div><div class="layui-form-item">
+                    <label class="layui-form-label">浏览量</label>
+                    <div class="layui-input-block">
+                        <input type="text" readonly lay-verify="required|title" value="{$house.view}" class="layui-input">
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">我的标签</label>
+                    <div class="layui-input-block">
+                        <input type="text" readonly lay-verify="required|title" value="{$house.mytags}" class="layui-input">
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">户型</label>
+                    <div class="layui-input-block">
+                        <input type="text" readonly lay-verify="required|title" value="{$house.room}" class="layui-input">
+                    </div>
+                </div> <div class="layui-form-item">
+                    <label class="layui-form-label">创建时间</label>
+                    <div class="layui-input-block">
+                        <input type="text" readonly lay-verify="required|title" value="{$house.cdate}" class="layui-input">
+                    </div>
+                </div> <div class="layui-form-item">
+                    <label class="layui-form-label">修改时间</label>
+                    <div class="layui-input-block">
+                        <input type="text" readonly lay-verify="required|title" value="{$house.mdate}" class="layui-input">
+                    </div>
+                </div>
+                <div class="layui-form-item layui-form-text">
+                    <label class="layui-form-label">描述</label>
+                    <div class="layui-input-block">
+                        <textarea readonly class="layui-textarea">{$house.desc}</textarea>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<script>
+    layui.use(['form', 'jquery','upload','laydate','layedit'], function(){
+        var form = layui.form
+            ,upload = layui.upload
+            , laydate = layui.laydate
+            ,layedit = layui.layedit
+            ,$ = layui.jquery;
+        //日期
+        laydate.render({
+            elem: '#date'
+        });
+    });
+</script>
+{include file="index/footer" /}

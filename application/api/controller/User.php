@@ -388,6 +388,9 @@ class User extends Controller
     }
 
 
+    /**
+     * 获取分享二维码
+     */
     public function getShare() {
         header("Access-Control-Allow-Origin:*");
         header('Access-Control-Allow-Methods:POST');
@@ -402,10 +405,13 @@ class User extends Controller
             echo json_encode($return);exit;
         }
         $url = "https://api.weixin.qq.com/wxa/getwxacodeunlimit?access_token=" . $access_token;
-        //type = 1 找室友  type = 2 房源
+        //type = 1 找室友  type = 2 房源 type = 3 求租拼租
         if ($type == 2) {
             $data['scene'] = 'r' . $id;
             $data['path'] = 'pages/roommateDetail/roommateDetail';
+        }elseif($type == 3){
+            $data['scene'] = 'q' . $id;
+            $data['path'] = 'pages/wholeRentDeatil/wholeRentDeatil';
         }else{
             $data['scene'] = 'h' . $id;
             $data['path'] = 'pages/wholeRentDeatil/wholeRentDeatil';
@@ -414,6 +420,8 @@ class User extends Controller
         $res = $this->http($url, json_encode($data),1);
         if ($type == 2) {
             $path = 'uploads/qrcode/r' . $id . '.jpg';
+        }elseif($type == 3){
+            $path = 'uploads/qrcode/q' . $id . '.jpg';
         }else{
             $path = 'uploads/qrcode/h' . $id . '.jpg';
         }
@@ -422,8 +430,6 @@ class User extends Controller
         $return['status_code'] = 2000;
         $return['msg'] = 'ok';
         $return['data'] = config('appurl').'/' . $path;
-        // dd($id);
-        // echo '<img src="'.$path.'" />';exit;
         echo json_encode($return);exit;
     }
 

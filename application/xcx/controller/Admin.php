@@ -20,7 +20,7 @@ class Admin extends Controller{
         parent::__construct($request);
         $adminName=session('adminName');
         if(empty($adminName)){
-            $this->error('请先登录！','login/login');
+            $this->error('Please Login！','login/login');
         }
         if(isset($_SESSION['expiretime'])) {
             if($_SESSION['expiretime'] < time()) {
@@ -57,7 +57,7 @@ class Admin extends Controller{
             ->select();
         $loop = new Loops();
         foreach($admin as $k => $v){
-            $sex = $v['ad_sex']== 1 ? '男' :'女';
+            $sex = $v['ad_sex']== 1 ? 'Male' :'Female';
             $admin[$k]['adWechat'] = $loop->getUserNick($v['ad_wechat']);
             $admin[$k]['ad_roles'] = $this->getRoleName($v['ad_role']);
             $admin[$k]['ad_corp'] = $this->getCropName($v['ad_corp']);
@@ -129,9 +129,9 @@ class Admin extends Controller{
             ->where(['ad_id' => $ad_id])
             ->update(['ad_wechat' => $ad_wechat]);
         if($update){
-            $this->success('绑定成功！');
+            $this->success('Successfully！');
         }else{
-            $this->error('绑定失败!');
+            $this->error('Failed!');
         }
     }
 
@@ -329,9 +329,9 @@ ABN: 11 628 249 687</b>
 <br>
 <b style='color:rgb(237,125,49);font-weight:bold;'>W</b> https://huaxiangxiaobao.com/";
         if(!$mail->send()){
-            return json(['code'=>0,'msg'=>'发送失败！请联系管理员']);
+            return json(['code'=>0,'msg'=>'Failed,please Connect Administrator！']);
         }else{
-            return json(['code'=>1,'msg'=>'发送成功！']);
+            return json(['code'=>1,'msg'=>'Success！']);
         }
     }
     //修改管理员
@@ -350,7 +350,7 @@ ABN: 11 628 249 687</b>
                 ->where(['ad_email' => $data['ad_email']])
                 ->find();
             if($isRepeat){
-                $this->error('此邮箱已注册！','admin');
+                $this->error('Already Account！','admin');
             }
             if(isset($_POST['ad_role']) && $_POST['ad_role']){
                 $bill = $_POST['ad_role'];
@@ -370,9 +370,9 @@ ABN: 11 628 249 687</b>
             }
             $edit=Db::table('super_admin')->where(['ad_id' => $ad_id])->update($data);
             if($edit){
-                $this->success('修改管理员成功！','admin');
+                $this->success('Success！','admin');
             }else{
-                $this->error('您未做任何修改！','admin');
+                $this->error('Failed！','admin');
             }
         }else{
             $ad_role = intval(session('ad_role'));

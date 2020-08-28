@@ -10,7 +10,7 @@
 <div class="layui-body" style="width: 97%;">
     <div class="layui-main" style="width: 97%;">
         <fieldset class="layui-elem-field layui-field-title" style="margin-top: 30px;">
-            <legend>{if condition='$adminId eq 1'}{$lable.homepage}{else/}公司统计{/if}</legend>
+            <legend>{if condition='$adminId eq 1'}{$lable.homepage}{else/}{$lable.gongsidata}{/if}</legend>
         </fieldset>
     </div>
     <div style="padding: 10px; background-color: #F2F2F2;">
@@ -101,7 +101,7 @@
     {if condition='$adminId neq 1'}
     <div class="layui-main" style="width: 97%;">
         <fieldset class="layui-elem-field layui-field-title" style="margin-top: 30px;">
-            <legend>个人统计</legend>
+            <legend>{$lable.gerendata}</legend>
         </fieldset>
     </div>
     <div style="padding: 10px; background-color: #F2F2F2;">

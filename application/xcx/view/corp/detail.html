@@ -72,9 +72,9 @@
                             </div>
                             
                             <div class="layui-form-item one-pan">
-                                <label class="layui-form-label"><span style="color: red;">*</span>主页背景图</label>
+                                <label class="layui-form-label"><span style="color: red;">*</span>{$lable.beijingtu}</label>
                                 <div {if condition="$corp.backimg eq null"}class="layui-upload-drag"{/if} style="display:inline-block;" >
-                                {if condition="$corp.backimg eq null"}未上传{/if}
+                                {if condition="$corp.backimg eq null"}No Data{/if}
                                 <image id="logoPre"
                                        {if condition="$corp.backimg eq null"}
                                        {else/}
@@ -90,9 +90,9 @@
                             </div>
                         </div>
                         <div class="layui-form-item">
-                                <label class="layui-form-label"><span style="color: red;">*</span>前端颜色</label>
+                                <label class="layui-form-label"><span style="color: red;">*</span>{$lable.qianduancolor}</label>
                                 <div class="layui-input-block">
-                                    <input type="text" name="colour" value="{if condition='$corp.colour eq 1'}浅色{else/}深色{/if}" readonly autocomplete="off" class="layui-input">
+                                    <input type="text" name="colour" value="{if condition='$corp.colour eq 1'}{$lable.qianse}{else/}{$lable.shense}{/if}" readonly autocomplete="off" class="layui-input">
                                 </div>
                             </div>
                             <div class="layui-form-item">

@@ -1,4 +1,4 @@
-<?php if (!defined('THINK_PATH')) exit(); /*a:3:{s:88:"D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\public/../application/xcx\view\corp\add.html";i:1597886311;s:82:"D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\application\xcx\view\index\header.html";i:1591180794;s:82:"D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\application\xcx\view\index\footer.html";i:1577269681;}*/ ?>
+<?php if (!defined('THINK_PATH')) exit(); /*a:3:{s:88:"D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\public/../application/xcx\view\corp\add.html";i:1598603301;s:82:"D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\application\xcx\view\index\header.html";i:1591180794;s:82:"D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\application\xcx\view\index\footer.html";i:1577269681;}*/ ?>
 <!DOCTYPE html>
 <html style="height: 100%">
 <head>
@@ -85,8 +85,23 @@
                                     <div class="layui-form-mid layui-word-aux" style="margin-left: 39px; "><?php echo $lable['tupianRemark']; ?></div>
                                 </div>
                             </div>
+                             <div class="layui-form-item one-pan">
+                                <label class="layui-form-label"><span style="color: red;">*</span>miniLogo</label>
+                                <div class="layui-upload-drag" id="uploadLogom" style="display:inline-block;">
+                                    <image id="logoPrem">
+                                        <input type="hidden" lay-verify="imgReg" name="minilogo" id="minilogo" value=""/>
+                                    </image>
+                                    <div id="display">
+                                        <i class="layui-icon"></i>
+                                        <p><?php echo $lable['shangchuan']; ?></p>
+                                    </div>
+                                </div>
+                                <div class="one">
+                                    <div class="layui-form-mid layui-word-aux" style="margin-left: 39px; "><?php echo $lable['tupianRemark']; ?></div>
+                                </div>
+                            </div>
                             <div class="layui-form-item one-pan">
-                                <label class="layui-form-label"><span style="color: red;">*</span>主页背景图</label>
+                                <label class="layui-form-label"><span style="color: red;">*</span><?php echo $lable['beijingtu']; ?></label>
                                 <div class="layui-upload-drag" id="uploadImg" style="display:inline-block;">
                                     <image id="imgPre">
                                         <input type="hidden" lay-verify="imgReg" name="backimg" id="backimg" value=""/>
@@ -98,6 +113,13 @@
                                 </div>
                                 <div class="one">
                                     <div class="layui-form-mid layui-word-aux" style="margin-left: 39px; "><?php echo $lable['tupianRemark']; ?></div>
+                                </div>
+                            </div>
+                            <div class="layui-form-item">
+                                <label class="layui-form-label"><span style="color: red;">*</span><?php echo $lable['qianduancolor']; ?></label>
+                                <div class="layui-input-block">
+                                    <input type="radio" name="colour" value="1" title="<?php echo $lable['qianse']; ?>" checked>
+                                    <input type="radio" name="colour" value="2" title="<?php echo $lable['shense']; ?>">
                                 </div>
                             </div>
                             <div class="layui-form-item">
@@ -165,7 +187,26 @@
                 console.log(res);
                 $('#cp_logo').val('' +res.path + '');
             }
-        }); upload.render({
+        }); 
+         upload.render({
+            elem: '#uploadLogom'
+            ,url: '<?php echo url("xcx/corp/upload"); ?>'
+            ,exts: 'PNG|JPG'
+            ,size: '30000'
+            ,done: function(res){
+                layer.close(layer.msg());//关闭上传提示窗口
+                if(res.status == 0) {
+                    return layer.msg(res.message);
+                }
+                $('#uploadLogo').removeClass('layui-upload-drag');
+                $('#logoPrem').css('width','216px');
+                $('#logoPrem').css('height','150px');
+                $('#logoPrem').attr('src',"../../../"+res.path);
+                console.log(res);
+                $('#minilogo').val('' +res.path + '');
+            }
+        }); 
+        upload.render({
             elem: '#uploadImg'
             ,url: '<?php echo url("xcx/corp/upload"); ?>'
             ,exts: 'PNG|JPG'
