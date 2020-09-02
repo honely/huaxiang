@@ -45,15 +45,13 @@ class House extends Controller
             }
         }
         if(isset($area) && !empty($area) && $area){
-            // $area = explode(',',$area);
-            // $areas = '';
-            // foreach ($area as $key => $item){
-            //     $areas .= "'".$item."',";
-            // }
-            // $areas = rtrim($areas,',');
-            $areas = $area;
-            //$where.=" and area in (".$areas.")";
-            $where.=" and area like '%".$areas."%' ";
+            $area = explode(',',$area);
+            $areas = '';
+            foreach ($area as $key => $item){
+                $areas .= "'".$item."',";
+            }
+            $areas = rtrim($areas,',');
+            $where.=" and area in (".$areas.")";
         }
 
         //房屋类型
@@ -66,11 +64,6 @@ class House extends Controller
         Log::write('获取房源参数lease_term：'.$term,'info');
         if(isset($term) && !empty($term) && $term){
             $where.=" and find_in_set('".$term."',lease_term)";
-        }
-        //学校
-        $school = trim($this->request->param('school'));
-        if(isset($school) && !empty($school) && $school){
-            $where.=" and school = '".$school."'";
         }
 
         //是否包含家具
@@ -111,11 +104,12 @@ class House extends Controller
             $where.= " and ((live_date >= '".$mintime."' and live_date  <= '".$maxtime."')  or ( live_date = '0100-01-01' or live_date = '0000-00-00' ))";
         }
         //户型  卧室 1 2 3 4 5 5+
+        //李电话沟通换成12344+ 2020年9月1日16:42:51
         $house_room = $this->request->param('house_room');
         Log::write('卧室house_room：'.$house_room,'info');
         if(isset($house_room) && !empty($house_room) && $house_room){
-            if($house_room == '5+'){
-                $where.=" and house_room > 5";
+            if($house_room == '4+'){
+                $where.=" and house_room > 4";
             }else{
                 $where.=" and house_room = '".$house_room."'";
             }
@@ -125,7 +119,7 @@ class House extends Controller
         //性别
         $sex = trim($this->request->param('sex'));
         if(isset($sex) && !empty($sex) && $sex){
-            $where.=" and ( sex = '限".$sex."' or sex = '不限' ) ";
+            $where.=" and sex = '".$sex."' ";
         }
 
         //是否有视频vid  1 有视频 2  无视频
@@ -142,9 +136,20 @@ class House extends Controller
         if(isset($type) && !empty($type) && $type){
             $where.=" and type = '".$type."'";
         }
+        //宠物
         $pet = trim($this->request->param('pet'));
         if(isset($pet) && !empty($pet) && $pet){
-            $where.=" and ( pet = '".$pet."' or pet = '不限' )";
+            $where.=" and ( pet = '接受' or pet = '不限' ) ";
+        }
+        //吸烟
+        $smoke = trim($this->request->param('smoke'));
+        if(isset($smoke) && !empty($smoke) && $smoke){
+            $where.=" and ( smoke = '可以' or smoke = '不限' ) ";
+        }
+        //接受情侣
+        $is_couple = trim($this->request->param('is_couple'));
+        if(isset($is_couple) && !empty($is_couple) && $is_couple){
+            $where.=" and  is_couple = '接受' ";
         }
         //卫生间
         $toilet = $this->request->param('toilet');
@@ -239,14 +244,16 @@ class House extends Controller
             foreach ($house as $k => $v){
                 $colt = in_array($v['id'],$collects,true);
                 $house[$k]['is_colt'] = $colt ? 1 : 0;
-                $likes = in_array($v['id'],$likes,true);
-                $house[$k]['is_like'] = $likes ? 1 : 0;
+                $like = in_array($v['id'],$likes,true);
+                $house[$k]['is_like'] = $like ? 1 : 0;
+                $house[$k]['livedate'] = $this->liveDates($v['live_date']);
                 $house[$k]['is_new'] = $this->newTags($v['cdate']);
                 $house[$k]['tj'] = $v['tj'] == '是' ? '推荐房源'  : '';
                 $house[$k]['tingwei'] = $this->formatRoom($v['house_room']).''.$this->formatToilet($v['toilet']);
                 //如果是后端发布的房源，查询中介个人图像，公司名称中介logo
                 $pmInfo = $this->getPmname($v['is_admin'],$v['pm'],$v['user_id']);
                 $house[$k]['pm_name'] = $pmInfo['ad_realname'];
+                $house[$k]['mdate'] = date('Y-m-d',strtotime($v['mdate']));
                 $house[$k]['pm_avatar'] = $pmInfo['ad_img'];
                 if($v['is_admin'] == 2){
                     $house[$k]['corplogo'] = $this->getCorpLogo($v['corp']);
@@ -272,26 +279,22 @@ class House extends Controller
         $now = time();
         return $cdate < $now? 0 :1;
     }
-
-    public function checkImg($filePath){
-        //$filePath = "./uploads\admin\a.jpg";
-        $image = Image::open($filePath);
-        //长宽比超过2.5：1
-        $w = $image->width();
-        $h = $image->height();
-        $scale = $h / $w;
-        $default = 2.5;
-        if($scale > $default) {
-            //程序删掉这个图片
-            if(file_exists($filePath)){
-                unlink($filePath);
-            }
-            return 1;
-        } else {
-            return 2;
+    
+     public function liveDates($cdate){
+        if($cdate == "0000-00-00" || $cdate == "0100-01-01"){
+            return '随时入住';
+        }else{
+             return substr($cdate,5,5)."入住";
         }
     }
-
+    public function getLikes($uid){
+        $collects = Db::table('xcx_likes')
+            ->where(['uid' => $uid,'type' => 1])
+            ->field('tid')
+            ->select();
+        $collect =  array_column($collects,'tid');
+        return $collect;
+    }
 
     //压缩大于1.5m的房源图片
     public function compImages($files){
@@ -335,14 +338,6 @@ class House extends Controller
         $collect =  array_column($collects,'cl_house_id');
         return $collect;
     }
-    public function getLikes($uid){
-        $collects = Db::table('xcx_likes')
-            ->where(['uid' => $uid,'type' => 1])
-            ->field('tid')
-            ->select();
-        $collect =  array_column($collects,'tid');
-        return $collect;
-    }
 
     public function getCorpLogo($corp){
         $logo = Db::table('xcx_corp')->where(['cp_id' => $corp])->field('cp_logo')->find();
@@ -359,7 +354,7 @@ class House extends Controller
         }else if($admin == 2){
             $user = Db::table('super_admin')->where(['ad_id' => $pm])->field('ad_realname,ad_img')->find();
             $userName['ad_realname'] = $user['ad_realname'] ? $user['ad_realname'] : '外星人呀';
-            $userName['ad_img'] = $user['ad_img'] ? $user['ad_img'] : '';
+            $userName['ad_img'] = $user['ad_img'] ? 'https://wx.huaxiangxiaobao.com/'.$user['ad_img'] : 'https://wx.huaxiangxiaobao.com/static/logo.png';
         }
         return $userName;
     }
@@ -503,7 +498,7 @@ class House extends Controller
      * @return \think\response\Json
      * Dangmengmeng 2019年12月5日09:42:24
      */
-    public function upload(){
+   public function upload(){
         header("Access-Control-Allow-Origin:*");
         header('Access-Control-Allow-Methods:POST');
         header('Access-Control-Allow-Headers:x-requested-with, content-type');
@@ -511,28 +506,46 @@ class House extends Controller
         $file = $_FILES['file']['name'];
         if($file){
             $file = $this->request->file('file');
-            $config = [
-                'size' => 1024*1024*10,
-                'ext' => 'jpg,gif,png,bmp,jpeg,JPG,mp4,MP4'
-            ];
-            $size = $file->validate($config);
+            $file_type = $file->getInfo()['type'];
+            $size = false;
+            if(!in_array($file_type, ['image/jpg','image/png', 'image/jpeg', 'video/mp4', 'video/MP4'])) {
+                 return json(array('code'=>0,'path'=>'','msg'=> '系统仅支持jpg,jpeg,png格式图片,或MP4格式视频!'));
+            }
+            if(in_array($file_type, ['image/jpg','image/png', 'image/jpeg'])) {
+                $config = [
+                    'size' => 1024 * 1024 * 5,
+                    'ext' => 'jpg,png,jpeg'
+                ];   
+                $size = $file->validate($config);
+            }
+            if(in_array($file_type, ['video/mp4','video/MP4'])) {
+                $config = [
+                    'size' => 1024 * 1024 * 10,
+                    'ext' => 'mp4,MP4'
+                ];
+                $size = $file->validate($config);
+            }
             if($size){
                 $info = $file->move(ROOT_PATH . 'public' . DS . 'uploads/house/'.$path_date.'/');
                 if($info){
                     $path = 'uploads/house/'.$path_date.'/'.$info->getSaveName();
                     //判断一下图片宽高，如果比例长宽比超过2.5：1，则认定为长图
+                    $extension = $info->getExtension();
+                    if(in_array($extension, ['mp4', 'MP4'])) {
+                        return json(array('code'=>1,'path'=>$path,'msg'=> '图片上传成功！'));
+                    }
                     $check = $this->checkImg($path);
-                    if($check == 1){
+                    if($check == 2){
                         $path = $this->compImages($path);
                         return json(array('code'=>1,'path'=>$path,'msg'=> '图片上传成功！'));
-                    }else{
+                    } else {
                         return json(array('code'=>0,'path'=>'','msg'=> '为方便浏览房源实景，请勿上传长图！'));
                     }
                 }else{
                     if($file->getError() == '上传文件大小不符！'){
-                        return json(array('code'=>0,'path'=>'','msg'=> '文件大小超过10MB，请压缩后重新上传'));
+                        return json(array('code'=>0,'path'=>'','msg'=> '文件大小超过5MB，请压缩后重新上传'));
                     }elseif ($file->getError() == '上传文件后缀不允许'){
-                        return json(array('code'=>0,'path'=>'','msg'=> '系统仅支持jpg/bmp/gif/jpeg/png格式图片!'));
+                        return json(array('code'=>0,'path'=>'','msg'=> '系统仅支持jpg,jpeg,png格式图片!'));
                     }else{
                         return json(array('code'=>0,'path'=>'','msg'=> '图片上传失败,请联系管理员！<br/>错误信息：'.$file->getError()));
                     }
@@ -544,7 +557,26 @@ class House extends Controller
             return json(array('code'=>0,'path'=>'','msg'=> '没有接收到文件,请重试！'));
         }
     }
-
+      //检查图片宽高是否合适
+      //检查图片宽高是否合适
+  public function checkImg($filePath){
+        //$filePath = "./uploads\admin\a.jpg";
+        $image = Image::open($filePath);
+        //长宽比超过2.5：1
+        $w = $image->width();
+        $h = $image->height();
+        $scale = $h / $w;
+        $default = 2.5;
+        if($scale > $default) {
+            //程序删掉这个图片
+            if(file_exists($filePath)){
+                unlink($filePath);
+            }
+            return 1;
+        } else {
+            return 2;
+        }
+    }
     public function delImg(){
         header("Access-Control-Allow-Origin:*");
         header('Access-Control-Allow-Methods:POST');
@@ -835,7 +867,7 @@ class House extends Controller
         header('Access-Control-Allow-Headers:x-requested-with, content-type');
         $id = trim($this->request->param('id'));
         $uid = trim($this->request->param('uid'));
-        if(!$id){
+        if(!$id || !$uid){
             $res['code'] = 2;
             $res['msg'] = '缺少参数！';
             return json($res);
@@ -869,8 +901,8 @@ class House extends Controller
             $house['cover'] = $this->compImg($id,$cover);
             $house['sex'] = $this->compSex($house['sex']);
             $house['pet'] = $house['pet'].'宠物';
-            $house['is_couple'] =$house['is_couple'] ? $house['is_couple'].'情侣' :'不限情侣';
-            $house['smoke'] = $this->compSmoke($house['smoke']); //不限；是否
+            $house['is_couple'] =$house['is_couple'].'情侣';
+            $house['smoke'] = $house['smoke'].'吸烟';
             unset($house['thumnail']);
             unset($house['images']);
             $res['code'] = 1;
@@ -883,18 +915,19 @@ class House extends Controller
         return json($res);
     }
 
+
     public function compSex($sex){
         switch ($sex){
             case '不限':
-                $sexName = '男女不限';
+                $sexName = '性别不限';
                 break;
             default:
-                $sexName = "仅".$sex;
+                $sexName = "仅限".$sex."生";
         }
         return $sexName;
     }
 
-    public function compSmoke($pet){
+     public function compSmoke($pet){
         switch ($pet){
 //        不限；是否
             case '不限':
@@ -911,7 +944,6 @@ class House extends Controller
         }
         return $sexName;
     }
-
 
     public function compImg($id,$cover){
         $image = Image::open($cover);

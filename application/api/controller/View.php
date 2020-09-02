@@ -81,6 +81,7 @@ class View extends Controller
         $field = 'vh_id,vh_house_id';
         $col = new Views();
         if($type == 1){
+            $where['is_del'] = 1;
             $collects = $col->readData($where,$order,$limit,$page,$field);
         }elseif ($type == 2){
             $collects = $col->readDataV($where,$order,$limit,$page,$field);

@@ -140,8 +140,8 @@
                         <th lay-data="{field:'status',templet: '#status',width:110}">{$lable.shangxiaxian}</th>
                         {/if}
                         <th lay-data="{field:'pm' ,width:110}">PM</th>
-                        <th lay-data="{field:'corp' ,width:110}">{$lable.gongsi}</th>
-                        <th lay-data="{field:'user_id' ,width:110}">{$lable.poster}</th>
+                        <th lay-data="{field:'corp' ,width:110}">公司</th>
+                        <th lay-data="{field:'user_id' ,width:110}">发布人</th>
                         <th lay-data="{field:'cdate',width:105}">{$lable.updatetime}</th>
                         <th lay-data="{ width:116, toolbar: '#barDemo'}">{$lable.caozuo}</th>
                     </tr>
@@ -161,7 +161,7 @@
     <input type="checkbox" name="sex" lay-skin="switch" value="{{d.id}}" lay-text="{$lable.shi}|{$lable.fou}" lay-filter="topDemo" {{ d.top == '是' ? 'checked' : '' }}  {{ d.isTop == false ? 'disabled' : '' }}  {{ d.status == 0 ? 'disabled' : '' }}>
 </script>
 <script type="text/html" id="status">
-    <input type="checkbox" name="sex" lay-skin="switch" value="{{d.id}}" lay-text="{$lable.off}|{$lable.on}" lay-filter="statusDemo" {{ d.status == 1 ? 'checked' : '' }}  {{ d.status == 0 ? 'disabled' : '' }}>
+    <input type="checkbox" name="sex" lay-skin="switch" value="{{d.id}}" lay-text="{$lable.on}|{$lable.off}" lay-filter="statusDemo" {{ d.status == 1 ? 'checked' : '' }}  {{ d.status == 0 ? 'disabled' : '' }}>
 </script>
 <script type="text/html" id="switchTj">
     <input type="checkbox" name="sex" lay-skin="switch" value="{{d.id}}" lay-text="{$lable.shi}|{$lable.fou}" lay-filter="sexDemo" {{ d.tj == '是' ? 'checked' : '' }} {{ d.isTj == false ? 'disabled' : '' }}  {{ d.status == 0 ? 'disabled' : '' }}>

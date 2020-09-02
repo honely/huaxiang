@@ -69,8 +69,7 @@ class Mailer extends  Controller
     }
 
 
-
-    //用户咨询发邮件给公司联系方式
+ //用户咨询发邮件给公司联系方式
     public function mailCorp($corpName,$corpMail,$userNick,$userPhone,$userWechat,$type,$content){
         header("Access-Control-Allow-Origin:*");
         header('Access-Control-Allow-Methods:POST');
@@ -94,22 +93,21 @@ class Mailer extends  Controller
         $mail->addReplyTo($mailer,"Reply");
         $mail->Subject = "New Enquiry from Welhome/新用户咨询来自小宝租房";// 邮件标题
         $mail->Body = "Dear ".$corpName."，
-<br/><br/>
-This email is automatically generated. As this email is an automated notification we are unable to receive replies. Do not respond to this email address.
-<br/><br/>
-        From :".$userNick."
-<br/><br/>
-Tel: ".$userPhone."
-<br/><br/>
-Wechat：".$userWechat."<br/><br/>
-Enquiry Type: ".$type."<br/><br/>
-
-Message:".$content;
+            <br/><br/>
+            This email is automatically generated. As this email is an automated notification we are unable to receive replies. Do not respond to this email address.
+            <br/><br/>
+                    From :".$userNick."
+            <br/><br/>
+            Tel: ".$userPhone."
+            <br/><br/>
+            Wechat：".$userWechat."<br/><br/>
+            Enquiry Type: ".$type."<br/><br/>
+            
+            Message:".$content;
         if(!$mail->send()){
             return false;
         }else{
             return true;
         }
     }
-
 }

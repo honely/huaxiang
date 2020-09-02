@@ -249,11 +249,15 @@ class Languages extends Model
             'qianduancolor' => 'Banner Color',
             'qianse' => 'Light',
             'shense' => 'Dark',
+            'loadJob' => 'Lord Job',
+            'shense' => 'Dark',
         ];
         return $enLab;
     }
     public function getCn(){
         $cnLab = [
+            'loadJob' => '房东职业',
+            'beijingtu' => '主页背景图',
             'beijingtu' => '主页背景图',
             'qianduancolor' => '前端颜色',
             'qianse' => '浅色',

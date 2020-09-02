@@ -1,4 +1,4 @@
-<?php if (!defined('THINK_PATH')) exit(); /*a:3:{s:90:"D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\public/../application/xcx\view\house\edit.html";i:1598601075;s:82:"D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\application\xcx\view\index\header.html";i:1591180794;s:82:"D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\application\xcx\view\index\footer.html";i:1577269681;}*/ ?>
+<?php if (!defined('THINK_PATH')) exit(); /*a:3:{s:90:"D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\public/../application/xcx\view\house\edit.html";i:1598865126;s:82:"D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\application\xcx\view\index\header.html";i:1591180794;s:82:"D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\application\xcx\view\index\footer.html";i:1577269681;}*/ ?>
 <!DOCTYPE html>
 <html style="height: 100%">
 <head>
@@ -129,12 +129,15 @@
                 </div>
                 <div class="layui-form-item">
                     <label class="layui-form-label"><span style="color: red;">*</span><?php echo $lable['houseAddr']; ?></label>
-                    <div class="layui-input-block" id="input">
+                    <div class="layui-input-inline" style="width: 550px;">
                         <input type="text" name="address" id="end" autocomplete="off" class="layui-input" placeholder="<?php echo $lable['houseAddP']; ?>" lay-verify="required|addresss"  value="<?php echo $house['address']; ?>" >
                         <input type="text" name="address" id="address" style="display: none" readonly class="layui-input" lay-verify="required|addresss" value="<?php echo $house['address']; ?>"  placeholder="目的地取值">
 
                         <input type="hidden" name="x" id="x" lay-verify="addres"  autocomplete="off" class="layui-input" value="<?php echo $house['x']; ?>" >
                         <input type="hidden" name="y" id="y" lay-verify="addres"  autocomplete="off" class="layui-input" value="<?php echo $house['y']; ?>" >
+                    </div>
+                    <div class="layui-input-inline" style="width: 550px;">
+                        <span id="resetAdd" class="layui-btn">Reset Address</span>
                     </div>
                    <div class="layui-form-mid layui-word-aux" style="margin-left: 110px;color: red !important;"><?php echo $lable['selectAddNot']; ?></div>
                 </div>
@@ -149,15 +152,6 @@
                     <div class="layui-input-inline">
                         <input type="text" id="city" lay-verify="required|title" value="<?php echo $house['citys']; ?>" readonly class="layui-input">
                         <input type="hidden" name="city" id="citys" lay-verify="required|title" value="<?php echo $house['city']; ?>" readonly class="layui-input">
-                    </div>
-                    <label class="layui-form-label"><span style="color: red;">*</span><?php echo $lable['school']; ?></label>
-                    <div class="layui-input-inline">
-                        <select name="school" lay-verify="required" id="school">
-                            <option value=""><?php echo $lable['selectSchoolP']; ?></option>
-                            <?php if(is_array($school) || $school instanceof \think\Collection || $school instanceof \think\Paginator): $i = 0; $__LIST__ = $school;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$vo): $mod = ($i % 2 );++$i;?>
-                            <option value="<?php echo $vo['name']; ?>" <?php if($house['school'] == $vo['name']): ?>selected<?php endif; ?>><?php echo $vo['sname']; ?></option>
-                            <?php endforeach; endif; else: echo "" ;endif; ?>
-                        </select>
                     </div>
                 </div>
                 <div class="layui-form-item">
@@ -199,11 +193,11 @@
                 <div class="layui-form-item">
                     <label class="layui-form-label"><span style="color: red;">*</span><?php echo $lable['rentype']; ?></label>
                     <div class="layui-input-block">
-                        <input type="radio" name="type" value="整租" title="<?php echo $lable['zhengzu']; ?>" <?php if($house['type'] == '整租'): ?>checked<?php endif; ?>>
-                        <input type="radio" name="type" value="合租" title="<?php echo $lable['hezu']; ?>" <?php if($house['type'] == '合租'): ?>checked<?php endif; ?>>
+                        <input type="radio" name="type" value="整租" lay-filter="isRoomate" title="<?php echo $lable['zhengzu']; ?>" <?php if($house['type'] == '整租'): ?>checked<?php endif; ?>>
+                        <input type="radio" name="type" value="合租" lay-filter="isRoomate" title="<?php echo $lable['hezu']; ?>" <?php if($house['type'] == '合租'): ?>checked<?php endif; ?>>
                     </div>
                 </div>
-                <div class="layui-form-item">
+                <div class="layui-form-item roomate">
                     <label class="layui-form-label"><span style="color: red;">*</span><?php echo $lable['xingbie']; ?></label>
                     <div class="layui-input-block">
                         <input type="radio" name="sex" value="不限" title="<?php echo $lable['xingbiebuxian']; ?>" <?php if($house['sex'] == '不限'): ?>checked<?php endif; ?>>
@@ -211,7 +205,7 @@
                         <input type="radio" name="sex" value="限女性" title="<?php echo $lable['xiannvxing']; ?>" <?php if($house['sex'] == '限女性'): ?>checked<?php endif; ?>>
                     </div>
                 </div>
-                <div class="layui-form-item">
+                <div class="layui-form-item roomate">
                     <label class="layui-form-label"><span style="color: red;">*</span><?php echo $lable['pet']; ?></label>
                     <div class="layui-input-block">
                         <input type="radio" name="pet" value="不限" title="<?php echo $lable['petbuxian']; ?>" <?php if($house['pet'] == '不限'): ?>checked<?php endif; ?>>
@@ -224,6 +218,13 @@
                     <div class="layui-input-block">
                         <input type="radio" name="is_fur" value="否" title="<?php echo $lable['bujiaju']; ?>" <?php if($house['is_fur'] == '否'): ?>checked<?php endif; ?>>
                         <input type="radio" name="is_fur" value="是" title="<?php echo $lable['baojiaju']; ?>" <?php if($house['is_fur'] == '是'): ?>checked<?php endif; ?>>
+                    </div>
+                </div>
+                <div class="layui-form-item roomate">
+                    <label class="layui-form-label"><span style="color: red;">*</span>接受情侣</label>
+                    <div class="layui-input-block">
+                        <input type="radio" name="is_couple" value="接受" title="接受" checked>
+                        <input type="radio" name="is_couple" value="不接受" title="不接受">
                     </div>
                 </div>
                 <div class="layui-form-item" pane="">
@@ -292,7 +293,7 @@
                         <input type="radio" name="car" value="9" title="9" <?php if($house['car'] == '9'): ?>checked<?php endif; ?>>
                     </div>
                 </div>
-                <div class="layui-form-item">
+                <div class="layui-form-item  entire">
                     <label class="layui-form-label"><span style="color: red;">*</span><?php echo $lable['jiaju']; ?></label>
                     <div class="layui-input-block">
                         <?php if(is_array($all_four) || $all_four instanceof \think\Collection || $all_four instanceof \think\Paginator): $i = 0; $__LIST__ = $all_four;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$vo): $mod = ($i % 2 );++$i;?>
@@ -301,7 +302,7 @@
                     </div>
                 </div>
 
-                <div class="layui-form-item" pane="">
+                <div class="layui-form-item entire" pane="">
                     <label class="layui-form-label"><?php echo $lable['sheshi']; ?></label>
                     <div class="layui-input-block">
                         <?php if(is_array($all_set) || $all_set instanceof \think\Collection || $all_set instanceof \think\Paginator): $i = 0; $__LIST__ = $all_set;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$vo): $mod = ($i % 2 );++$i;?>
@@ -309,21 +310,50 @@
                         <?php endforeach; endif; else: echo "" ;endif; ?>
                     </div>
                 </div>
-
-<!--                <div class="layui-form-item" pane="">-->
-<!--                    <label class="layui-form-label"><?php echo $lable['zhoubian']; ?></label>-->
-<!--                    <div class="layui-input-block">-->
-<!--                        <?php if(is_array($all_trans) || $all_trans instanceof \think\Collection || $all_trans instanceof \think\Paginator): $i = 0; $__LIST__ = $all_trans;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$vo): $mod = ($i % 2 );++$i;?>-->
-<!--                        <input type="checkbox" class="checkbox" lay-skin="primary" name="sation[<?php echo $vo['trans']; ?>]" title="<?php echo $vo['transtitle']; ?>"  <?php echo !empty($vo['is_checked'])?'checked' : ''; ?>>-->
-<!--                        <?php endforeach; endif; else: echo "" ;endif; ?>-->
-<!--                    </div>-->
-<!--                </div>-->
                 <div class="layui-form-item" pane="">
                     <label class="layui-form-label"><?php echo $lable['biaoqian']; ?></label>
                     <div class="layui-input-block">
                         <?php if(is_array($tags) || $tags instanceof \think\Collection || $tags instanceof \think\Paginator): $i = 0; $__LIST__ = $tags;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$vo): $mod = ($i % 2 );++$i;?>
                         <input type="checkbox" class="checkbox tags"  lay-verify="required|des_tanlent" lay-skin="primary" name="tags[<?php echo $vo['name']; ?>]" title="<?php echo $vo['sname']; ?>" <?php echo !empty($vo['is_checked'])?'checked' : ''; ?>>
                         <?php endforeach; endif; else: echo "" ;endif; ?>
+                    </div>
+                </div>
+                <div class="layui-form-item roomate">
+                    <label class="layui-form-label"><span style="color: red;">*</span>室友数量</label>
+                    <div class="layui-input-block">
+                        <input type="radio" name="roomates" value="1" title="1" <?php if($house['roomates'] == '1'): ?>checked<?php endif; ?>>
+                        <input type="radio" name="roomates" value="2" title="2" <?php if($house['roomates'] == '2'): ?>checked<?php endif; ?>>
+                        <input type="radio" name="roomates" value="3" title="3" <?php if($house['roomates'] == '3'): ?>checked<?php endif; ?>>
+                        <input type="radio" name="roomates" value="4" title="4" <?php if($house['roomates'] == '4'): ?>checked<?php endif; ?>>
+                        <input type="radio" name="roomates" value="5" title="5" <?php if($house['roomates'] == '5'): ?>checked<?php endif; ?>>
+                        <input type="radio" name="roomates" value="6" title="6" <?php if($house['roomates'] == '6'): ?>checked<?php endif; ?>>
+                        <input type="radio" name="roomates" value="7" title="7" <?php if($house['roomates'] == '7'): ?>checked<?php endif; ?>>
+                        <input type="radio" name="roomates" value="8" title="8" <?php if($house['roomates'] == '8'): ?>checked<?php endif; ?>>
+                        <input type="radio" name="roomates" value="9" title="9" <?php if($house['roomates'] == '9'): ?>checked<?php endif; ?>>
+                    </div>
+                </div>
+                <fieldset class="layui-elem-field layui-field-title roomate" style="margin-top: 20px;">
+                    <legend>房东概况</legend>
+                </fieldset>
+                <div class="layui-form-item roomate">
+                    <label class="layui-form-label"><span style="color: red;">*</span><?php echo $lable['loadJob']; ?></label>
+                    <div class="layui-input-block">
+                        <input type="text" name="loard_job" value="<?php echo $house['loard_job']; ?>" maxlength="50" autocomplete="off" class="layui-input">
+                    </div>
+                </div>
+                <div class="layui-form-item roomate">
+                    <label class="layui-form-label"><span style="color: red;">*</span>是否吸烟</label>
+                    <div class="layui-input-block">
+                        <input type="radio" name="loard_smoke" value="不限" title="不限" <?php if($house['loard_smoke'] == '不限'): ?>checked<?php endif; ?>>
+                        <input type="radio" name="loard_smoke" value="是" title="是" <?php if($house['loard_smoke'] == '是'): ?>checked<?php endif; ?>>
+                        <input type="radio" name="loard_smoke" value="否" title="否" <?php if($house['loard_smoke'] == '否'): ?>checked<?php endif; ?>>
+                    </div>
+                </div>
+                <div class="layui-form-item roomate">
+                    <label class="layui-form-label"><span style="color: red;">*</span>可有宠物</label>
+                    <div class="layui-input-block">
+                        <input type="radio" name="loard_pet" value="是" title="是" <?php if($house['loard_pet'] == '是'): ?>checked<?php endif; ?>>
+                        <input type="radio" name="loard_pet" value="否" title="否" <?php if($house['loard_pet'] == '否'): ?>checked<?php endif; ?>>
                     </div>
                 </div>
                 <fieldset class="layui-elem-field layui-field-title" style="margin-top: 20px;">
@@ -505,6 +535,15 @@
         </div>
     </div>
     <script>
+        $('#resetAdd').click(function () {
+            //清空经纬度的赋值
+            $('#end').show();
+            $('#address').hide();
+            $('#end').val('');
+            $('#address').val('');
+            $('#x').val('');
+            $('#y').val('');
+        });
         //保存不更新状态
         $('#saveinfo').click(function () {
             $.ajax({
@@ -579,6 +618,16 @@
                 ,$ = layui.jquery
                 ,autocomplete = layui.autocomplete
                 ,element = layui.element;
+            form.on('radio(isRoomate)', function(data){
+                var isRoom = data.value;
+                if(isRoom == '合租'){
+                    $('.roomate').show();
+                    $('.entire').hide();
+                }else{
+                    $('.roomate').hide();
+                    $('.entire').show();
+                }
+            });
             var xhrOnProgress=function(fun) {
                 xhrOnProgress.onprogress = fun;
                 //绑定监听
@@ -605,6 +654,7 @@
                     var address = resp.label;
                     $('#address').val(address);
                     $('#end').hide();
+                    $('#end').removeAttr('readonly');
                     $('#address').show();
                     locationAD(address);
                 }
@@ -649,22 +699,6 @@
                         $('#end').focus();
                         return  layer.msg('我们尚未开展除墨尔本，悉尼，塔州，布里斯班四个地区外的业务，请重新填写地址');
                     }
-                    $.ajax({
-                        type: 'POST',
-                        url: "<?=url('house/getSchoolss')?>",
-                        data: {city:cityNames},
-                        dataType:  'json',
-                        success: function(data){
-                            console.log(data);
-                            var code=data.data;
-                            $("#school").html("<option value=''><?php echo $lable['selectSchoolP']; ?></option>");
-                            $.each(code, function(i, val) {
-                                var option1 = $("<option>").val(val.name).text(val.sname);
-                                $("#school").append(option1);
-                                form.render('select');
-                            });
-                        }
-                    });
                 });
 
             }
@@ -777,26 +811,6 @@
                         return "房源标签选择数不超过6个？";
                     }
                 }
-            });
-            form.on('select(bu_p_id)', function(data){
-                var id=data.value;
-                $.ajax({
-                    type: 'POST',
-                    url: "<?=url('house/getSchool')?>",
-                    data: {id:id},
-                    dataType:  'json',
-                    success: function(data){
-                        console.log(data);
-                        var code=data.data;
-                        $("#school").html("<option value=''>请选择校区</option>");
-                        $.each(code, function(i, val) {
-                            var option1 = $("<option>").val(val.name).text(val.name);
-                            $("#school").append(option1);
-                            form.render('select');
-                        });
-                        // $("#school").get(0).selectedIndex=0;
-                    }
-                });
             });
             //封面图上传
             upload.render({
@@ -1003,6 +1017,14 @@
     </script>
     <script>
         $(document).ready(function(){
+            var houseType = '<?php echo $house['type']; ?>';
+            if(houseType == '合租'){
+                $('.roomate').show();
+                $('.entire').hide();
+            }else{
+                $('.roomate').hide();
+                $('.entire').show();
+            }
             refersh();
         });
         function refersh() {

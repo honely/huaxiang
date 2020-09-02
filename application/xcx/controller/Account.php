@@ -19,12 +19,12 @@ class Account extends Controller
         parent::__construct($request);
         $adminName=session('adminName');
         if(empty($adminName)){
-            $this->error('请先登录！','login/login');
+            $this->error('Please Login！','login/login');
         }
         if(isset($_SESSION['expiretime'])) {
             if($_SESSION['expiretime'] < time()) {
                 unset($_SESSION['expiretime']);
-                $this->error('您的登录身份已过期，请重新登录！','login/login');
+                $this->error('Please Login！','login/login');
                 exit(0);
             } else {
                 $_SESSION['expiretime'] = time() + 1800; // 刷新时间戳
@@ -154,9 +154,9 @@ class Account extends Controller
             }
             $edit=Db::table('super_admin')->where(['ad_id' => $ad_id])->update($data);
             if($edit){
-                $this->success('修改成功！','personal');
+                $this->success('Successfully！','personal');
             }else{
-                $this->error('您未做任何修改！','personal');
+                $this->error('Failed！','personal');
             }
         }else{
             $adminInfo=Db::table('super_admin')
@@ -256,17 +256,17 @@ class Account extends Controller
             $data['code'] = $code;
             $data['phone'] = $phone;
             if($array['Code'] == 'OK'){
-                return  json(['code' => '1','msg' => '短信发送成功！','data' =>$code]);
+                return  json(['code' => '1','msg' => 'Send Successfully！','data' =>$code]);
             }else{
-                return  json(['code' => '0','msg' => '短信发送失败！']);
+                return  json(['code' => '0','msg' => 'Send Failed！']);
             }
         }else{
             $msg = new Msgs();
             $res = $msg->sendAus($code,$phone);
             if($res == 200){
-                return  json(['code' => '1','msg' => '短信发送成功！','data' =>$code]);
+                return  json(['code' => '1','msg' => 'Send Successfully！','data' =>$code]);
             }else{
-                return json(['code'=>0,'msg'=>'发送失败！请联系管理员']);
+                return json(['code'=>0,'msg'=>'Send Failed']);
             }
         }
     }
@@ -290,15 +290,15 @@ class Account extends Controller
         $code = trim($this->request->param('code'));
         $ucode = trim($this->request->param('ucode'));
         if($code != $ucode){
-            $this->error('验证码错误!');
+            $this->error('Wrong Verify code!');
         }
         $update = Db::table('super_admin')
             ->where(['ad_id' => $ad_id])
             ->update(['ad_phone' => $ad_phone]);
         if($update){
-            $this->success('绑定成功！');
+            $this->success('Successfully！');
         }else{
-            $this->error('绑定失败！');
+            $this->error('Failed！');
         }
     }
 
@@ -308,15 +308,15 @@ class Account extends Controller
         $code = trim($this->request->param('code'));
         $ucode = trim($this->request->param('ucode'));
         if($code != $ucode){
-            $this->error('验证码错误!');
+            $this->error('Wrong Verify code!');
         }
         $update = Db::table('super_admin')
             ->where(['ad_id' => $ad_id])
             ->update(['ad_email' => $ad_phone]);
         if($update){
-            $this->success('绑定成功！');
+            $this->success('Successfully！');
         }else{
-            $this->error('绑定失败!');
+            $this->error('Failed!');
         }
     }
 
@@ -362,9 +362,9 @@ This is an automatic email, please do not reply. ".$code."，请尽快处理！"
         $data['mail'] = $mailer;
         $data['code'] = $code;
         if(!$mail->send()){
-            return json(['code'=>0,'msg'=>'发送失败！请联系管理员']);
+            return json(['code'=>0,'msg'=>'Failed！please Connect Administrator']);
         }else{
-            return json(['code'=>1,'msg'=>'发送成功！','data' => $data]);
+            return json(['code'=>1,'msg'=>'Successfully！','data' => $data]);
         }
     }
 

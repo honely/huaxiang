@@ -116,7 +116,8 @@ class Msg extends Controller
         }
         return 2;
     }
-    public function netDate($date,$id){
+    
+     public function netDate($date,$id){
         $data = date("Y-m-d H:i:s",strtotime($date.' +5 days'));
         $today = date("Y-m-d H:i:s");
         if($today < $data){
@@ -125,7 +126,6 @@ class Msg extends Controller
                 ->update(['xcx_msg_isread' => 1]);
         }
     }
-    
     /***
      * @param $sendId string 发送者id 用来查找发送人昵称
      * @param $sendType  string 发送者类型

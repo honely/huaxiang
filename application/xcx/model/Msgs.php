@@ -26,17 +26,10 @@ class Msgs extends Model
         //如果不存在房源id表示是从找室友发起的会话
         date_default_timezone_set("Australia/Melbourne");
         $time = date('Y-m-d H:i:s');
-        if($hId){
-            //查询房源的发送人
-            $adminInfo = $this->getHouseAddAdminIdViaHouseId($hId);
-            $houseTitle = $adminInfo['title'];
-            $houseDSN = $adminInfo['dsn'];
-            //表明这一条房源记录为后端发送  前端客户和后端平台用户沟通
-            if($adminInfo['is_admin'] == 2){
-                //前端对后端发送消息 检测是否重复
-                //发起者为小程序用户  mp_utype = 1
-                //接受者为后端平台用户  mp_ultype = 2
-                $ulId = $adminInfo['pm'];
+        if(isset($hId)){
+            //hid = 0
+            //用户在公司个人主页发起的会话
+            if($hId == 0){
                 $isRepeat = Db::table('xcx_msg_person')
                     ->where("(mp_u_id = ".$uId." and mp_utype = 1 and mp_ul_id = ".$ulId." and mp_ultype = 2 and mp_isable = 1 ) or (mp_ul_id = ".$uId." and mp_ultype = 1 and mp_u_id = ".$ulId." and mp_utype = 2 and mp_isable = 1 )")
                     ->field('mp_id,mp_mod_time')
@@ -44,20 +37,6 @@ class Msgs extends Model
                 if($isRepeat['mp_id']){
                     //更新会话时间
                     Db::table('xcx_msg_person')->where(['mp_id' => $isRepeat['mp_id']])->update(['mp_mod_time' => $time]);
-                    //前台用户每次从房源详情发起对话，就自动携带房源信息，重复性校验，对于30分钟内同一房源，则不再重复发送
-                    //会话最后更新时间是否为30分钟之前
-                    //$newMin = date('Y-m-d H:i:s', strtotime($isRepeat['mp_mod_time'].' +30 minutes'));
-                   // if($newMin < $time){
-                        $msg['xcx_msg_mp_id'] = $isRepeat['mp_id'];
-                        $msg['xcx_msg_uid'] = $uId;
-                        $msg['xcx_msg_ul_id'] = $ulId;
-                        $msg['xcx_msg_u_type'] = 1;
-                        $msg['xcx_msg_ul_type'] = 2;
-                        $msg['xcx_msg_isread'] = 2;
-                        $msg['xcx_msg_content'] = '你好，我想咨询这个房源：（'.$houseTitle.'),房源编号：【'.$houseDSN.'】。';
-                        $msg['xcx_msg_add_time'] = $time;
-                        Db::table('xcx_msg_content')->insertGetId($msg);
-                   // }
                     return $isRepeat['mp_id'];
                 }else{
                     //写入一条创建会话的记录
@@ -68,34 +47,78 @@ class Msgs extends Model
                     $data['mp_ultype'] = 2;
                     $data['mp_utype'] = 1;
                     $insert = Db::table('xcx_msg_person')->insertGetId($data);
-                    $msg['xcx_msg_mp_id'] = $insert;
-                    $msg['xcx_msg_uid'] = $uId;
-                    $msg['xcx_msg_ul_id'] = $ulId;
-                    $msg['xcx_msg_u_type'] = 1;
-                    $msg['xcx_msg_ul_type'] = 2;
-                    $msg['xcx_msg_isread'] = 2;
-                    $msg['xcx_msg_content'] = '你好，我想咨询这个房源：（'.$houseTitle.'),房源编号：【'.$houseDSN.'】。';
-                    $msg['xcx_msg_add_time'] = $time;
-                    Db::table('xcx_msg_content')->insertGetId($msg);
                     return $insert ? $insert : 0;
                 }
-            }
-            if($adminInfo['is_admin'] == 1){
-                //前端对前端发送消息 检测是否重复
-                //发起者为小程序用户  mp_utype = 1
-                //接受者为后端平台用户  mp_ultype = 1
-                $ulId = $adminInfo['user_id'];
-                $isRepeat = Db::table('xcx_msg_person')
-                    ->where("(mp_u_id = ".$uId." and mp_utype = 1 and mp_ul_id = ".$ulId." and mp_ultype = 1 and mp_isable = 1 ) or (mp_ul_id = ".$uId." and mp_ultype = 1 and mp_u_id = ".$ulId." and mp_utype = 1 and mp_isable = 1 )")
-                    ->field('mp_id,mp_mod_time')
-                    ->find();
-                if($isRepeat['mp_id']){
-                    //更新会话时间
-                    Db::table('xcx_msg_person')->where(['mp_id' => $isRepeat['mp_id']])->update(['mp_mod_time' => $time]);
-                    //前台用户每次从房源详情发起对话，就自动携带房源信息，重复性校验，对于30分钟内同一房源，则不再重复发送
-                    //会话最后更新时间是否为30分钟之前
-                    //$newMin = date('Y-m-d H:i:s', strtotime($isRepeat['mp_mod_time'].' +30 minutes'));
-                    //if($newMin < $time){
+            }else{
+                //查询房源的发送人
+                $adminInfo = $this->getHouseAddAdminIdViaHouseId($hId);
+                $houseTitle = $adminInfo['title'];
+                $houseDSN = $adminInfo['dsn'];
+                //表明这一条房源记录为后端发送  前端客户和后端平台用户沟通
+                if($adminInfo['is_admin'] == 2){
+                    //前端对后端发送消息 检测是否重复
+                    //发起者为小程序用户  mp_utype = 1
+                    //接受者为后端平台用户  mp_ultype = 2
+                    $ulId = $adminInfo['pm'];
+                    $isRepeat = Db::table('xcx_msg_person')
+                        ->where("(mp_u_id = ".$uId." and mp_utype = 1 and mp_ul_id = ".$ulId." and mp_ultype = 2 and mp_isable = 1 ) or (mp_ul_id = ".$uId." and mp_ultype = 1 and mp_u_id = ".$ulId." and mp_utype = 2 and mp_isable = 1 )")
+                        ->field('mp_id,mp_mod_time')
+                        ->find();
+                    if($isRepeat['mp_id']){
+                        //更新会话时间
+                        Db::table('xcx_msg_person')->where(['mp_id' => $isRepeat['mp_id']])->update(['mp_mod_time' => $time]);
+                        //前台用户每次从房源详情发起对话，就自动携带房源信息，重复性校验，对于30分钟内同一房源，则不再重复发送
+                        //会话最后更新时间是否为30分钟之前
+                        //$newMin = date('Y-m-d H:i:s', strtotime($isRepeat['mp_mod_time'].' +30 minutes'));
+                        // if($newMin < $time){
+                        $msg['xcx_msg_mp_id'] = $isRepeat['mp_id'];
+                        $msg['xcx_msg_uid'] = $uId;
+                        $msg['xcx_msg_ul_id'] = $ulId;
+                        $msg['xcx_msg_u_type'] = 1;
+                        $msg['xcx_msg_ul_type'] = 2;
+                        $msg['xcx_msg_isread'] = 2;
+                        $msg['xcx_msg_content'] = '你好，我想咨询这个房源：（'.$houseTitle.'),房源编号：【'.$houseDSN.'】。';
+                        $msg['xcx_msg_add_time'] = $time;
+                        Db::table('xcx_msg_content')->insertGetId($msg);
+                        // }
+                        return $isRepeat['mp_id'];
+                    }else{
+                        //写入一条创建会话的记录
+                        $data['mp_u_id'] = $uId;
+                        $data['mp_ul_id'] = $ulId;
+                        $data['mp_add_time'] = $time;
+                        $data['mp_mod_time'] = $time;
+                        $data['mp_ultype'] = 2;
+                        $data['mp_utype'] = 1;
+                        $insert = Db::table('xcx_msg_person')->insertGetId($data);
+                        $msg['xcx_msg_mp_id'] = $insert;
+                        $msg['xcx_msg_uid'] = $uId;
+                        $msg['xcx_msg_ul_id'] = $ulId;
+                        $msg['xcx_msg_u_type'] = 1;
+                        $msg['xcx_msg_ul_type'] = 2;
+                        $msg['xcx_msg_isread'] = 2;
+                        $msg['xcx_msg_content'] = '你好，我想咨询这个房源：（'.$houseTitle.'),房源编号：【'.$houseDSN.'】。';
+                        $msg['xcx_msg_add_time'] = $time;
+                        Db::table('xcx_msg_content')->insertGetId($msg);
+                        return $insert ? $insert : 0;
+                    }
+                }
+                if($adminInfo['is_admin'] == 1){
+                    //前端对前端发送消息 检测是否重复
+                    //发起者为小程序用户  mp_utype = 1
+                    //接受者为后端平台用户  mp_ultype = 1
+                    $ulId = $adminInfo['user_id'];
+                    $isRepeat = Db::table('xcx_msg_person')
+                        ->where("(mp_u_id = ".$uId." and mp_utype = 1 and mp_ul_id = ".$ulId." and mp_ultype = 1 and mp_isable = 1 ) or (mp_ul_id = ".$uId." and mp_ultype = 1 and mp_u_id = ".$ulId." and mp_utype = 1 and mp_isable = 1 )")
+                        ->field('mp_id,mp_mod_time')
+                        ->find();
+                    if($isRepeat['mp_id']){
+                        //更新会话时间
+                        Db::table('xcx_msg_person')->where(['mp_id' => $isRepeat['mp_id']])->update(['mp_mod_time' => $time]);
+                        //前台用户每次从房源详情发起对话，就自动携带房源信息，重复性校验，对于30分钟内同一房源，则不再重复发送
+                        //会话最后更新时间是否为30分钟之前
+                        //$newMin = date('Y-m-d H:i:s', strtotime($isRepeat['mp_mod_time'].' +30 minutes'));
+                        //if($newMin < $time){
                         $msg['xcx_msg_mp_id'] = $isRepeat['mp_id'];
                         $msg['xcx_msg_uid'] = $uId;
                         $msg['xcx_msg_ul_id'] = $ulId;
@@ -105,29 +128,31 @@ class Msgs extends Model
                         $msg['xcx_msg_content'] = '你好，我想咨询这个房源：（'.$houseTitle.'),房源编号：【'.$houseDSN.'】。';
                         $msg['xcx_msg_add_time'] = $time;
                         Db::table('xcx_msg_content')->insertGetId($msg);
-                   // }
-                    return $isRepeat['mp_id'];
-                }else{
-                    //写入一条创建会话的记录
-                    $data['mp_u_id'] = $uId;
-                    $data['mp_ul_id'] = $ulId;
-                    $data['mp_add_time'] = $time;
-                    $data['mp_mod_time'] = $time;
-                    $data['mp_ultype'] = 1;
-                    $data['mp_utype'] = 1;
-                    $insert = Db::table('xcx_msg_person')->insertGetId($data);
-                    $msg['xcx_msg_mp_id'] = $insert;
-                    $msg['xcx_msg_uid'] = $uId;
-                    $msg['xcx_msg_ul_id'] = $ulId;
-                    $msg['xcx_msg_u_type'] = 1;
-                    $msg['xcx_msg_ul_type'] = 1;
-                    $msg['xcx_msg_isread'] = 2;
-                    $msg['xcx_msg_content'] = '你好，我想咨询这个房源：（'.$houseTitle.'),房源编号：【'.$houseDSN.'】。';
-                    $msg['xcx_msg_add_time'] = $time;
-                    Db::table('xcx_msg_content')->insertGetId($msg);
-                    return $insert ? $insert : 0;
+                        // }
+                        return $isRepeat['mp_id'];
+                    }else{
+                        //写入一条创建会话的记录
+                        $data['mp_u_id'] = $uId;
+                        $data['mp_ul_id'] = $ulId;
+                        $data['mp_add_time'] = $time;
+                        $data['mp_mod_time'] = $time;
+                        $data['mp_ultype'] = 1;
+                        $data['mp_utype'] = 1;
+                        $insert = Db::table('xcx_msg_person')->insertGetId($data);
+                        $msg['xcx_msg_mp_id'] = $insert;
+                        $msg['xcx_msg_uid'] = $uId;
+                        $msg['xcx_msg_ul_id'] = $ulId;
+                        $msg['xcx_msg_u_type'] = 1;
+                        $msg['xcx_msg_ul_type'] = 1;
+                        $msg['xcx_msg_isread'] = 2;
+                        $msg['xcx_msg_content'] = '你好，我想咨询这个房源：（'.$houseTitle.'),房源编号：【'.$houseDSN.'】。';
+                        $msg['xcx_msg_add_time'] = $time;
+                        Db::table('xcx_msg_content')->insertGetId($msg);
+                        return $insert ? $insert : 0;
+                    }
                 }
             }
+
         }
         //前端对前端发送消息
         $isRepeat = Db::table('xcx_msg_person')
@@ -148,7 +173,6 @@ class Msgs extends Model
         }
 
     }
-
     public function getHouseAddAdminIdViaHouseId($hid){
         $houseInfo = Db::table('tk_houses')
             ->where(['id' => $hid])

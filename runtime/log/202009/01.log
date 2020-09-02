@@ -1,0 +1,951 @@
+---------------------------------------------------------------
+[ 2020-09-01T16:16:16+08:00 ] 127.0.0.1 GET www.huaxiang.com/api/house/getlist
+[ info ] [ ROUTE ] array (
+  'type' => 'module',
+  'module' => 
+  array (
+    0 => 'api',
+    1 => 'house',
+    2 => 'getlist',
+  ),
+)
+[ info ] [ HEADER ] array (
+  'accept-language' => 'en-US,en;q=0.9,zh-CN;q=0.8,zh;q=0.7',
+  'accept-encoding' => 'gzip, deflate',
+  'accept' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.70 Safari/537.36',
+  'upgrade-insecure-requests' => '1',
+  'connection' => 'close',
+  'host' => 'www.huaxiang.com',
+)
+[ info ] [ PARAM ] array (
+  '/api/house/getlist' => '',
+)
+[ info ] [ RUN ] app\api\controller\House->getList[ D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\application\api\controller\House.php ]
+[ info ] 获取房源参数lease_term：
+---------------------------------------------------------------
+[ 2020-09-01T16:16:16+08:00 ] 127.0.0.1 GET www.huaxiang.com/api/house/getlist
+[ info ] 租房价格最大值：5000
+---------------------------------------------------------------
+[ 2020-09-01T16:16:16+08:00 ] 127.0.0.1 GET www.huaxiang.com/api/house/getlist
+[ info ] 租房价格最小值：0
+---------------------------------------------------------------
+[ 2020-09-01T16:16:16+08:00 ] 127.0.0.1 GET www.huaxiang.com/api/house/getlist
+[ info ] 卧室house_room：
+---------------------------------------------------------------
+[ 2020-09-01T16:16:16+08:00 ] 127.0.0.1 GET www.huaxiang.com/api/house/getlist
+[ info ] 车位car：
+---------------------------------------------------------------
+[ 2020-09-01T16:16:16+08:00 ] 127.0.0.1 GET www.huaxiang.com/api/house/getlist
+[ info ] 前端用户：进行了翻页，当前页码0
+---------------------------------------------------------------
+[ 2020-09-01T16:16:20+08:00 ] 127.0.0.1 GET www.huaxiang.com/api/house/getlist
+[运行时间：3.975699s] [吞吐率：0.25req/s] [内存消耗：2,786.90kb] [文件加载：58]
+[ info ] [ DB ] INIT mysql
+[ info ] [ CACHE ] INIT File
+[ sql ] [ DB ] CONNECT:[ UseTime:0.110137s ] mysql:host=127.0.0.1;port=3306;dbname=xcxnew;charset=utf8mb4
+[ sql ] [ SQL ] SHOW COLUMNS FROM `tk_houses` [ RunTime:0.178017s ]
+[ sql ] [ SQL ] SELECT `id`,`type`,`title`,`house_room`,`area`,`images`,`price`,`toilet`,`furniture`,`home`,`school`,`address`,`tj`,`top`,`mdate`,`cdate`,`tags`,`live_date`,`car`,`lease_term`,`video`,`is_admin`,`corp`,`pm`,`house_type`,`likes`,`loard_sex`,`loard_job`,`user_id`,`thumnail` FROM `tk_houses` WHERE  (  status = 1 and is_del = 1 and city = '墨尔本' and ( price <= 5000  and price >= 0  or price = -1 ) )  AND `is_del` = 1 ORDER BY `top` DESC,`cdate` DESC LIMIT 0,10 [ RunTime:0.078670s ]
+[ sql ] [ SQL ] UPDATE `tk_houses`  SET `cover`='uploads/compress/cp1050.png'  WHERE  `id` = 1050 [ RunTime:0.018802s ]
+[ sql ] [ SQL ] UPDATE `tk_houses`  SET `cover`='uploads/compress/cp1051.png'  WHERE  `id` = 1051 [ RunTime:0.000827s ]
+[ sql ] [ SQL ] UPDATE `tk_houses`  SET `cover`='uploads/compress/cp1049.png'  WHERE  `id` = 1049 [ RunTime:0.000767s ]
+[ sql ] [ SQL ] UPDATE `tk_houses`  SET `cover`='uploads/compress/cp1048.png'  WHERE  `id` = 1048 [ RunTime:0.000779s ]
+[ sql ] [ SQL ] UPDATE `tk_houses`  SET `cover`='uploads/compress/cp1047.png'  WHERE  `id` = 1047 [ RunTime:0.000691s ]
+[ sql ] [ SQL ] UPDATE `tk_houses`  SET `cover`='uploads/compress/cp1045.png'  WHERE  `id` = 1045 [ RunTime:0.000650s ]
+[ sql ] [ SQL ] UPDATE `tk_houses`  SET `cover`='uploads/compress/cp1044.png'  WHERE  `id` = 1044 [ RunTime:0.000752s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `tk_user` [ RunTime:0.054549s ]
+[ sql ] [ SQL ] UPDATE `tk_user`  SET `mdate`='2020-09-01 16:16:19'  WHERE  `id` = 0 [ RunTime:0.000505s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `xcx_collect` [ RunTime:0.058141s ]
+[ sql ] [ SQL ] SELECT `cl_house_id` FROM `xcx_collect` WHERE  `cl_user_id` = 0  AND `cl_type` = 1 [ RunTime:0.009130s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `xcx_likes` [ RunTime:0.063510s ]
+[ sql ] [ SQL ] SELECT `tid` FROM `xcx_likes` WHERE  `uid` = 0  AND `type` = 1 [ RunTime:0.000535s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `super_admin` [ RunTime:0.051110s ]
+[ sql ] [ SQL ] SELECT `ad_realname`,`ad_img` FROM `super_admin` WHERE  `ad_id` = 1 LIMIT 1 [ RunTime:0.000876s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `xcx_corp` [ RunTime:0.037862s ]
+[ sql ] [ SQL ] SELECT `cp_logo` FROM `xcx_corp` WHERE  `cp_id` = 1 LIMIT 1 [ RunTime:0.001058s ]
+[ sql ] [ SQL ] SELECT `colour` FROM `xcx_corp` WHERE  `cp_id` = 1 LIMIT 1 [ RunTime:0.000484s ]
+[ sql ] [ SQL ] SELECT `ad_realname`,`ad_img` FROM `super_admin` WHERE  `ad_id` = 1 LIMIT 1 [ RunTime:0.000393s ]
+[ sql ] [ SQL ] SELECT `cp_logo` FROM `xcx_corp` WHERE  `cp_id` = 1 LIMIT 1 [ RunTime:0.000352s ]
+[ sql ] [ SQL ] SELECT `colour` FROM `xcx_corp` WHERE  `cp_id` = 1 LIMIT 1 [ RunTime:0.000366s ]
+[ sql ] [ SQL ] SELECT `ad_realname`,`ad_img` FROM `super_admin` WHERE  `ad_id` = 1 LIMIT 1 [ RunTime:0.000484s ]
+[ sql ] [ SQL ] SELECT `cp_logo` FROM `xcx_corp` WHERE  `cp_id` = 4 LIMIT 1 [ RunTime:0.000505s ]
+[ sql ] [ SQL ] SELECT `colour` FROM `xcx_corp` WHERE  `cp_id` = 4 LIMIT 1 [ RunTime:0.000373s ]
+[ sql ] [ SQL ] SELECT `ad_realname`,`ad_img` FROM `super_admin` WHERE  `ad_id` = 2 LIMIT 1 [ RunTime:0.000368s ]
+[ sql ] [ SQL ] SELECT `cp_logo` FROM `xcx_corp` WHERE  `cp_id` = 1 LIMIT 1 [ RunTime:0.000362s ]
+[ sql ] [ SQL ] SELECT `colour` FROM `xcx_corp` WHERE  `cp_id` = 1 LIMIT 1 [ RunTime:0.000503s ]
+[ sql ] [ SQL ] SELECT `ad_realname`,`ad_img` FROM `super_admin` WHERE  `ad_id` = 1 LIMIT 1 [ RunTime:0.000427s ]
+[ sql ] [ SQL ] SELECT `cp_logo` FROM `xcx_corp` WHERE  `cp_id` = 1 LIMIT 1 [ RunTime:0.000382s ]
+[ sql ] [ SQL ] SELECT `colour` FROM `xcx_corp` WHERE  `cp_id` = 1 LIMIT 1 [ RunTime:0.000362s ]
+[ sql ] [ SQL ] SELECT `ad_realname`,`ad_img` FROM `super_admin` WHERE  `ad_id` = 1 LIMIT 1 [ RunTime:0.000370s ]
+[ sql ] [ SQL ] SELECT `cp_logo` FROM `xcx_corp` WHERE  `cp_id` = 1 LIMIT 1 [ RunTime:0.000406s ]
+[ sql ] [ SQL ] SELECT `colour` FROM `xcx_corp` WHERE  `cp_id` = 1 LIMIT 1 [ RunTime:0.000350s ]
+[ sql ] [ SQL ] SELECT `ad_realname`,`ad_img` FROM `super_admin` WHERE  `ad_id` = 1 LIMIT 1 [ RunTime:0.000385s ]
+[ sql ] [ SQL ] SELECT `cp_logo` FROM `xcx_corp` WHERE  `cp_id` = 1 LIMIT 1 [ RunTime:0.000355s ]
+[ sql ] [ SQL ] SELECT `colour` FROM `xcx_corp` WHERE  `cp_id` = 1 LIMIT 1 [ RunTime:0.000350s ]
+[ sql ] [ SQL ] SELECT `ad_realname`,`ad_img` FROM `super_admin` WHERE  `ad_id` = 1 LIMIT 1 [ RunTime:0.000378s ]
+[ sql ] [ SQL ] SELECT `cp_logo` FROM `xcx_corp` WHERE  `cp_id` = 1 LIMIT 1 [ RunTime:0.000374s ]
+[ sql ] [ SQL ] SELECT `colour` FROM `xcx_corp` WHERE  `cp_id` = 1 LIMIT 1 [ RunTime:0.000447s ]
+---------------------------------------------------------------
+[ 2020-09-01T16:16:31+08:00 ] 127.0.0.1 GET www.huaxiang.com/api/house/getlist?pet=123
+[ info ] [ ROUTE ] array (
+  'type' => 'module',
+  'module' => 
+  array (
+    0 => 'api',
+    1 => 'house',
+    2 => 'getlist',
+  ),
+)
+[ info ] [ HEADER ] array (
+  'accept-language' => 'en-US,en;q=0.9,zh-CN;q=0.8,zh;q=0.7',
+  'accept-encoding' => 'gzip, deflate',
+  'accept' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.70 Safari/537.36',
+  'upgrade-insecure-requests' => '1',
+  'connection' => 'close',
+  'host' => 'www.huaxiang.com',
+)
+[ info ] [ PARAM ] array (
+  '/api/house/getlist' => '',
+  'pet' => '123',
+)
+[ info ] [ RUN ] app\api\controller\House->getList[ D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\application\api\controller\House.php ]
+[ info ] 获取房源参数lease_term：
+---------------------------------------------------------------
+[ 2020-09-01T16:16:31+08:00 ] 127.0.0.1 GET www.huaxiang.com/api/house/getlist?pet=123
+[ info ] 租房价格最大值：5000
+---------------------------------------------------------------
+[ 2020-09-01T16:16:31+08:00 ] 127.0.0.1 GET www.huaxiang.com/api/house/getlist?pet=123
+[ info ] 租房价格最小值：0
+---------------------------------------------------------------
+[ 2020-09-01T16:16:31+08:00 ] 127.0.0.1 GET www.huaxiang.com/api/house/getlist?pet=123
+[ info ] 卧室house_room：
+---------------------------------------------------------------
+[ 2020-09-01T16:16:31+08:00 ] 127.0.0.1 GET www.huaxiang.com/api/house/getlist?pet=123
+[ info ] 车位car：
+---------------------------------------------------------------
+[ 2020-09-01T16:16:31+08:00 ] 127.0.0.1 GET www.huaxiang.com/api/house/getlist?pet=123
+[ info ] 前端用户：进行了翻页，当前页码0
+---------------------------------------------------------------
+[ 2020-09-01T16:16:33+08:00 ] 127.0.0.1 GET www.huaxiang.com/api/house/getlist?pet=123
+[运行时间：2.496500s] [吞吐率：0.40req/s] [内存消耗：2,783.62kb] [文件加载：58]
+[ info ] [ DB ] INIT mysql
+[ info ] [ CACHE ] INIT File
+[ sql ] [ DB ] CONNECT:[ UseTime:0.001613s ] mysql:host=127.0.0.1;port=3306;dbname=xcxnew;charset=utf8mb4
+[ sql ] [ SQL ] SHOW COLUMNS FROM `tk_houses` [ RunTime:0.016230s ]
+[ sql ] [ SQL ] SELECT `id`,`type`,`title`,`house_room`,`area`,`images`,`price`,`toilet`,`furniture`,`home`,`school`,`address`,`tj`,`top`,`mdate`,`cdate`,`tags`,`live_date`,`car`,`lease_term`,`video`,`is_admin`,`corp`,`pm`,`house_type`,`likes`,`loard_sex`,`loard_job`,`user_id`,`thumnail` FROM `tk_houses` WHERE  (  status = 1 and is_del = 1 and city = '墨尔本' and ( price <= 5000  and price >= 0  or price = -1 ) and ( pet = '接受' or pet = '不限' )  )  AND `is_del` = 1 ORDER BY `top` DESC,`cdate` DESC LIMIT 0,10 [ RunTime:0.005055s ]
+[ sql ] [ SQL ] UPDATE `tk_houses`  SET `cover`='uploads/compress/cp1050.png'  WHERE  `id` = 1050 [ RunTime:0.000936s ]
+[ sql ] [ SQL ] UPDATE `tk_houses`  SET `cover`='uploads/compress/cp1051.png'  WHERE  `id` = 1051 [ RunTime:0.000750s ]
+[ sql ] [ SQL ] UPDATE `tk_houses`  SET `cover`='uploads/compress/cp1049.png'  WHERE  `id` = 1049 [ RunTime:0.000717s ]
+[ sql ] [ SQL ] UPDATE `tk_houses`  SET `cover`='uploads/compress/cp1047.png'  WHERE  `id` = 1047 [ RunTime:0.000708s ]
+[ sql ] [ SQL ] UPDATE `tk_houses`  SET `cover`='uploads/compress/cp1045.png'  WHERE  `id` = 1045 [ RunTime:0.000744s ]
+[ sql ] [ SQL ] UPDATE `tk_houses`  SET `cover`='uploads/compress/cp1044.png'  WHERE  `id` = 1044 [ RunTime:0.000839s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `tk_user` [ RunTime:0.013561s ]
+[ sql ] [ SQL ] UPDATE `tk_user`  SET `mdate`='2020-09-01 16:16:33'  WHERE  `id` = 0 [ RunTime:0.000476s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `xcx_collect` [ RunTime:0.012287s ]
+[ sql ] [ SQL ] SELECT `cl_house_id` FROM `xcx_collect` WHERE  `cl_user_id` = 0  AND `cl_type` = 1 [ RunTime:0.000521s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `xcx_likes` [ RunTime:0.012563s ]
+[ sql ] [ SQL ] SELECT `tid` FROM `xcx_likes` WHERE  `uid` = 0  AND `type` = 1 [ RunTime:0.000491s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `super_admin` [ RunTime:0.011918s ]
+[ sql ] [ SQL ] SELECT `ad_realname`,`ad_img` FROM `super_admin` WHERE  `ad_id` = 1 LIMIT 1 [ RunTime:0.000488s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `xcx_corp` [ RunTime:0.012533s ]
+[ sql ] [ SQL ] SELECT `cp_logo` FROM `xcx_corp` WHERE  `cp_id` = 1 LIMIT 1 [ RunTime:0.000604s ]
+[ sql ] [ SQL ] SELECT `colour` FROM `xcx_corp` WHERE  `cp_id` = 1 LIMIT 1 [ RunTime:0.000530s ]
+[ sql ] [ SQL ] SELECT `ad_realname`,`ad_img` FROM `super_admin` WHERE  `ad_id` = 1 LIMIT 1 [ RunTime:0.000429s ]
+[ sql ] [ SQL ] SELECT `cp_logo` FROM `xcx_corp` WHERE  `cp_id` = 1 LIMIT 1 [ RunTime:0.000377s ]
+[ sql ] [ SQL ] SELECT `colour` FROM `xcx_corp` WHERE  `cp_id` = 1 LIMIT 1 [ RunTime:0.000381s ]
+[ sql ] [ SQL ] SELECT `ad_realname`,`ad_img` FROM `super_admin` WHERE  `ad_id` = 1 LIMIT 1 [ RunTime:0.000380s ]
+[ sql ] [ SQL ] SELECT `cp_logo` FROM `xcx_corp` WHERE  `cp_id` = 4 LIMIT 1 [ RunTime:0.000446s ]
+[ sql ] [ SQL ] SELECT `colour` FROM `xcx_corp` WHERE  `cp_id` = 4 LIMIT 1 [ RunTime:0.000386s ]
+[ sql ] [ SQL ] SELECT `ad_realname`,`ad_img` FROM `super_admin` WHERE  `ad_id` = 1 LIMIT 1 [ RunTime:0.000387s ]
+[ sql ] [ SQL ] SELECT `cp_logo` FROM `xcx_corp` WHERE  `cp_id` = 1 LIMIT 1 [ RunTime:0.000380s ]
+[ sql ] [ SQL ] SELECT `colour` FROM `xcx_corp` WHERE  `cp_id` = 1 LIMIT 1 [ RunTime:0.000397s ]
+[ sql ] [ SQL ] SELECT `ad_realname`,`ad_img` FROM `super_admin` WHERE  `ad_id` = 1 LIMIT 1 [ RunTime:0.000453s ]
+[ sql ] [ SQL ] SELECT `cp_logo` FROM `xcx_corp` WHERE  `cp_id` = 1 LIMIT 1 [ RunTime:0.000439s ]
+[ sql ] [ SQL ] SELECT `colour` FROM `xcx_corp` WHERE  `cp_id` = 1 LIMIT 1 [ RunTime:0.000365s ]
+[ sql ] [ SQL ] SELECT `ad_realname`,`ad_img` FROM `super_admin` WHERE  `ad_id` = 1 LIMIT 1 [ RunTime:0.000390s ]
+[ sql ] [ SQL ] SELECT `cp_logo` FROM `xcx_corp` WHERE  `cp_id` = 1 LIMIT 1 [ RunTime:0.000382s ]
+[ sql ] [ SQL ] SELECT `colour` FROM `xcx_corp` WHERE  `cp_id` = 1 LIMIT 1 [ RunTime:0.000354s ]
+[ sql ] [ SQL ] SELECT `ad_realname`,`ad_img` FROM `super_admin` WHERE  `ad_id` = 1 LIMIT 1 [ RunTime:0.000434s ]
+[ sql ] [ SQL ] SELECT `cp_logo` FROM `xcx_corp` WHERE  `cp_id` = 1 LIMIT 1 [ RunTime:0.000373s ]
+[ sql ] [ SQL ] SELECT `colour` FROM `xcx_corp` WHERE  `cp_id` = 1 LIMIT 1 [ RunTime:0.000375s ]
+---------------------------------------------------------------
+[ 2020-09-01T16:16:42+08:00 ] 127.0.0.1 GET www.huaxiang.com/api/house/getlist?pet=123&smoke=123
+[ info ] [ ROUTE ] array (
+  'type' => 'module',
+  'module' => 
+  array (
+    0 => 'api',
+    1 => 'house',
+    2 => 'getlist',
+  ),
+)
+[ info ] [ HEADER ] array (
+  'accept-language' => 'en-US,en;q=0.9,zh-CN;q=0.8,zh;q=0.7',
+  'accept-encoding' => 'gzip, deflate',
+  'accept' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.70 Safari/537.36',
+  'upgrade-insecure-requests' => '1',
+  'connection' => 'close',
+  'host' => 'www.huaxiang.com',
+)
+[ info ] [ PARAM ] array (
+  '/api/house/getlist' => '',
+  'pet' => '123',
+  'smoke' => '123',
+)
+[ info ] [ RUN ] app\api\controller\House->getList[ D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\application\api\controller\House.php ]
+[ info ] 获取房源参数lease_term：
+---------------------------------------------------------------
+[ 2020-09-01T16:16:42+08:00 ] 127.0.0.1 GET www.huaxiang.com/api/house/getlist?pet=123&smoke=123
+[ info ] 租房价格最大值：5000
+---------------------------------------------------------------
+[ 2020-09-01T16:16:42+08:00 ] 127.0.0.1 GET www.huaxiang.com/api/house/getlist?pet=123&smoke=123
+[ info ] 租房价格最小值：0
+---------------------------------------------------------------
+[ 2020-09-01T16:16:42+08:00 ] 127.0.0.1 GET www.huaxiang.com/api/house/getlist?pet=123&smoke=123
+[ info ] 卧室house_room：
+---------------------------------------------------------------
+[ 2020-09-01T16:16:42+08:00 ] 127.0.0.1 GET www.huaxiang.com/api/house/getlist?pet=123&smoke=123
+[ info ] 车位car：
+---------------------------------------------------------------
+[ 2020-09-01T16:16:42+08:00 ] 127.0.0.1 GET www.huaxiang.com/api/house/getlist?pet=123&smoke=123
+[ info ] 前端用户：进行了翻页，当前页码0
+---------------------------------------------------------------
+[ 2020-09-01T16:16:43+08:00 ] 127.0.0.1 GET www.huaxiang.com/api/house/getlist?pet=123&smoke=123
+[运行时间：1.428329s] [吞吐率：0.70req/s] [内存消耗：2,766.75kb] [文件加载：58]
+[ info ] [ DB ] INIT mysql
+[ info ] [ CACHE ] INIT File
+[ sql ] [ DB ] CONNECT:[ UseTime:0.001414s ] mysql:host=127.0.0.1;port=3306;dbname=xcxnew;charset=utf8mb4
+[ sql ] [ SQL ] SHOW COLUMNS FROM `tk_houses` [ RunTime:0.018228s ]
+[ sql ] [ SQL ] SELECT `id`,`type`,`title`,`house_room`,`area`,`images`,`price`,`toilet`,`furniture`,`home`,`school`,`address`,`tj`,`top`,`mdate`,`cdate`,`tags`,`live_date`,`car`,`lease_term`,`video`,`is_admin`,`corp`,`pm`,`house_type`,`likes`,`loard_sex`,`loard_job`,`user_id`,`thumnail` FROM `tk_houses` WHERE  (  status = 1 and is_del = 1 and city = '墨尔本' and ( price <= 5000  and price >= 0  or price = -1 ) and ( pet = '接受' or pet = '不限' )  and ( smoke = '可以' or smoke = '不限' )  )  AND `is_del` = 1 ORDER BY `top` DESC,`cdate` DESC LIMIT 0,10 [ RunTime:0.004321s ]
+[ sql ] [ SQL ] UPDATE `tk_houses`  SET `cover`='uploads/compress/cp1050.png'  WHERE  `id` = 1050 [ RunTime:0.000715s ]
+[ sql ] [ SQL ] UPDATE `tk_houses`  SET `cover`='uploads/compress/cp1051.png'  WHERE  `id` = 1051 [ RunTime:0.000677s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `tk_user` [ RunTime:0.013393s ]
+[ sql ] [ SQL ] UPDATE `tk_user`  SET `mdate`='2020-09-01 16:16:43'  WHERE  `id` = 0 [ RunTime:0.000507s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `xcx_collect` [ RunTime:0.013575s ]
+[ sql ] [ SQL ] SELECT `cl_house_id` FROM `xcx_collect` WHERE  `cl_user_id` = 0  AND `cl_type` = 1 [ RunTime:0.000557s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `xcx_likes` [ RunTime:0.012445s ]
+[ sql ] [ SQL ] SELECT `tid` FROM `xcx_likes` WHERE  `uid` = 0  AND `type` = 1 [ RunTime:0.000454s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `super_admin` [ RunTime:0.012332s ]
+[ sql ] [ SQL ] SELECT `ad_realname`,`ad_img` FROM `super_admin` WHERE  `ad_id` = 1 LIMIT 1 [ RunTime:0.000580s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `xcx_corp` [ RunTime:0.012349s ]
+[ sql ] [ SQL ] SELECT `cp_logo` FROM `xcx_corp` WHERE  `cp_id` = 1 LIMIT 1 [ RunTime:0.000550s ]
+[ sql ] [ SQL ] SELECT `colour` FROM `xcx_corp` WHERE  `cp_id` = 1 LIMIT 1 [ RunTime:0.000366s ]
+[ sql ] [ SQL ] SELECT `ad_realname`,`ad_img` FROM `super_admin` WHERE  `ad_id` = 1 LIMIT 1 [ RunTime:0.000400s ]
+[ sql ] [ SQL ] SELECT `cp_logo` FROM `xcx_corp` WHERE  `cp_id` = 1 LIMIT 1 [ RunTime:0.000355s ]
+[ sql ] [ SQL ] SELECT `colour` FROM `xcx_corp` WHERE  `cp_id` = 1 LIMIT 1 [ RunTime:0.000399s ]
+---------------------------------------------------------------
+[ 2020-09-01T16:17:02+08:00 ] 127.0.0.1 GET www.huaxiang.com/api/house/getlist?pet=123&smoke=123&is_couple=123
+[ info ] [ ROUTE ] array (
+  'type' => 'module',
+  'module' => 
+  array (
+    0 => 'api',
+    1 => 'house',
+    2 => 'getlist',
+  ),
+)
+[ info ] [ HEADER ] array (
+  'accept-language' => 'en-US,en;q=0.9,zh-CN;q=0.8,zh;q=0.7',
+  'accept-encoding' => 'gzip, deflate',
+  'accept' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.70 Safari/537.36',
+  'upgrade-insecure-requests' => '1',
+  'connection' => 'close',
+  'host' => 'www.huaxiang.com',
+)
+[ info ] [ PARAM ] array (
+  '/api/house/getlist' => '',
+  'pet' => '123',
+  'smoke' => '123',
+  'is_couple' => '123',
+)
+[ info ] [ RUN ] app\api\controller\House->getList[ D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\application\api\controller\House.php ]
+[ info ] 获取房源参数lease_term：
+---------------------------------------------------------------
+[ 2020-09-01T16:17:02+08:00 ] 127.0.0.1 GET www.huaxiang.com/api/house/getlist?pet=123&smoke=123&is_couple=123
+[ info ] 租房价格最大值：5000
+---------------------------------------------------------------
+[ 2020-09-01T16:17:02+08:00 ] 127.0.0.1 GET www.huaxiang.com/api/house/getlist?pet=123&smoke=123&is_couple=123
+[ info ] 租房价格最小值：0
+---------------------------------------------------------------
+[ 2020-09-01T16:17:02+08:00 ] 127.0.0.1 GET www.huaxiang.com/api/house/getlist?pet=123&smoke=123&is_couple=123
+[ info ] 卧室house_room：
+---------------------------------------------------------------
+[ 2020-09-01T16:17:02+08:00 ] 127.0.0.1 GET www.huaxiang.com/api/house/getlist?pet=123&smoke=123&is_couple=123
+[ info ] 车位car：
+---------------------------------------------------------------
+[ 2020-09-01T16:17:02+08:00 ] 127.0.0.1 GET www.huaxiang.com/api/house/getlist?pet=123&smoke=123&is_couple=123
+[ info ] 前端用户：进行了翻页，当前页码0
+---------------------------------------------------------------
+[ 2020-09-01T16:17:04+08:00 ] 127.0.0.1 GET www.huaxiang.com/api/house/getlist?pet=123&smoke=123&is_couple=123
+[运行时间：1.428437s] [吞吐率：0.70req/s] [内存消耗：2,766.81kb] [文件加载：58]
+[ info ] [ DB ] INIT mysql
+[ info ] [ CACHE ] INIT File
+[ sql ] [ DB ] CONNECT:[ UseTime:0.001205s ] mysql:host=127.0.0.1;port=3306;dbname=xcxnew;charset=utf8mb4
+[ sql ] [ SQL ] SHOW COLUMNS FROM `tk_houses` [ RunTime:0.018294s ]
+[ sql ] [ SQL ] SELECT `id`,`type`,`title`,`house_room`,`area`,`images`,`price`,`toilet`,`furniture`,`home`,`school`,`address`,`tj`,`top`,`mdate`,`cdate`,`tags`,`live_date`,`car`,`lease_term`,`video`,`is_admin`,`corp`,`pm`,`house_type`,`likes`,`loard_sex`,`loard_job`,`user_id`,`thumnail` FROM `tk_houses` WHERE  (  status = 1 and is_del = 1 and city = '墨尔本' and ( price <= 5000  and price >= 0  or price = -1 ) and ( pet = '接受' or pet = '不限' )  and ( smoke = '可以' or smoke = '不限' )  and  is_couple = '接受'  )  AND `is_del` = 1 ORDER BY `top` DESC,`cdate` DESC LIMIT 0,10 [ RunTime:0.004078s ]
+[ sql ] [ SQL ] UPDATE `tk_houses`  SET `cover`='uploads/compress/cp1050.png'  WHERE  `id` = 1050 [ RunTime:0.000783s ]
+[ sql ] [ SQL ] UPDATE `tk_houses`  SET `cover`='uploads/compress/cp1051.png'  WHERE  `id` = 1051 [ RunTime:0.000789s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `tk_user` [ RunTime:0.015477s ]
+[ sql ] [ SQL ] UPDATE `tk_user`  SET `mdate`='2020-09-01 16:17:04'  WHERE  `id` = 0 [ RunTime:0.000459s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `xcx_collect` [ RunTime:0.011863s ]
+[ sql ] [ SQL ] SELECT `cl_house_id` FROM `xcx_collect` WHERE  `cl_user_id` = 0  AND `cl_type` = 1 [ RunTime:0.000643s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `xcx_likes` [ RunTime:0.012875s ]
+[ sql ] [ SQL ] SELECT `tid` FROM `xcx_likes` WHERE  `uid` = 0  AND `type` = 1 [ RunTime:0.000456s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `super_admin` [ RunTime:0.012124s ]
+[ sql ] [ SQL ] SELECT `ad_realname`,`ad_img` FROM `super_admin` WHERE  `ad_id` = 1 LIMIT 1 [ RunTime:0.000518s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `xcx_corp` [ RunTime:0.013247s ]
+[ sql ] [ SQL ] SELECT `cp_logo` FROM `xcx_corp` WHERE  `cp_id` = 1 LIMIT 1 [ RunTime:0.000573s ]
+[ sql ] [ SQL ] SELECT `colour` FROM `xcx_corp` WHERE  `cp_id` = 1 LIMIT 1 [ RunTime:0.000358s ]
+[ sql ] [ SQL ] SELECT `ad_realname`,`ad_img` FROM `super_admin` WHERE  `ad_id` = 1 LIMIT 1 [ RunTime:0.000402s ]
+[ sql ] [ SQL ] SELECT `cp_logo` FROM `xcx_corp` WHERE  `cp_id` = 1 LIMIT 1 [ RunTime:0.000353s ]
+[ sql ] [ SQL ] SELECT `colour` FROM `xcx_corp` WHERE  `cp_id` = 1 LIMIT 1 [ RunTime:0.000361s ]
+---------------------------------------------------------------
+[ 2020-09-01T16:17:33+08:00 ] 127.0.0.1 GET www.huaxiang.com/api/house/getlist?pet=123&smoke=123&is_couple=123&sex=%E7%94%B7
+[ info ] [ ROUTE ] array (
+  'type' => 'module',
+  'module' => 
+  array (
+    0 => 'api',
+    1 => 'house',
+    2 => 'getlist',
+  ),
+)
+[ info ] [ HEADER ] array (
+  'accept-language' => 'en-US,en;q=0.9,zh-CN;q=0.8,zh;q=0.7',
+  'accept-encoding' => 'gzip, deflate',
+  'accept' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.70 Safari/537.36',
+  'upgrade-insecure-requests' => '1',
+  'connection' => 'close',
+  'host' => 'www.huaxiang.com',
+)
+[ info ] [ PARAM ] array (
+  '/api/house/getlist' => '',
+  'pet' => '123',
+  'smoke' => '123',
+  'is_couple' => '123',
+  'sex' => '男',
+)
+[ info ] [ RUN ] app\api\controller\House->getList[ D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\application\api\controller\House.php ]
+[ info ] 获取房源参数lease_term：
+---------------------------------------------------------------
+[ 2020-09-01T16:17:33+08:00 ] 127.0.0.1 GET www.huaxiang.com/api/house/getlist?pet=123&smoke=123&is_couple=123&sex=%E7%94%B7
+[ info ] 租房价格最大值：5000
+---------------------------------------------------------------
+[ 2020-09-01T16:17:33+08:00 ] 127.0.0.1 GET www.huaxiang.com/api/house/getlist?pet=123&smoke=123&is_couple=123&sex=%E7%94%B7
+[ info ] 租房价格最小值：0
+---------------------------------------------------------------
+[ 2020-09-01T16:17:33+08:00 ] 127.0.0.1 GET www.huaxiang.com/api/house/getlist?pet=123&smoke=123&is_couple=123&sex=%E7%94%B7
+[ info ] 卧室house_room：
+---------------------------------------------------------------
+[ 2020-09-01T16:17:33+08:00 ] 127.0.0.1 GET www.huaxiang.com/api/house/getlist?pet=123&smoke=123&is_couple=123&sex=%E7%94%B7
+[ info ] 车位car：
+---------------------------------------------------------------
+[ 2020-09-01T16:17:33+08:00 ] 127.0.0.1 GET www.huaxiang.com/api/house/getlist?pet=123&smoke=123&is_couple=123&sex=%E7%94%B7
+[ info ] 前端用户：进行了翻页，当前页码0
+---------------------------------------------------------------
+[ 2020-09-01T16:17:34+08:00 ] 127.0.0.1 GET www.huaxiang.com/api/house/getlist?pet=123&smoke=123&is_couple=123&sex=%E7%94%B7
+[运行时间：1.456179s] [吞吐率：0.69req/s] [内存消耗：2,767.10kb] [文件加载：58]
+[ info ] [ DB ] INIT mysql
+[ info ] [ CACHE ] INIT File
+[ sql ] [ DB ] CONNECT:[ UseTime:0.001831s ] mysql:host=127.0.0.1;port=3306;dbname=xcxnew;charset=utf8mb4
+[ sql ] [ SQL ] SHOW COLUMNS FROM `tk_houses` [ RunTime:0.016183s ]
+[ sql ] [ SQL ] SELECT `id`,`type`,`title`,`house_room`,`area`,`images`,`price`,`toilet`,`furniture`,`home`,`school`,`address`,`tj`,`top`,`mdate`,`cdate`,`tags`,`live_date`,`car`,`lease_term`,`video`,`is_admin`,`corp`,`pm`,`house_type`,`likes`,`loard_sex`,`loard_job`,`user_id`,`thumnail` FROM `tk_houses` WHERE  (  status = 1 and is_del = 1 and city = '墨尔本' and ( price <= 5000  and price >= 0  or price = -1 ) and ( sex = '男' or sex = '不限' )  and ( pet = '接受' or pet = '不限' )  and ( smoke = '可以' or smoke = '不限' )  and  is_couple = '接受'  )  AND `is_del` = 1 ORDER BY `top` DESC,`cdate` DESC LIMIT 0,10 [ RunTime:0.005339s ]
+[ sql ] [ SQL ] UPDATE `tk_houses`  SET `cover`='uploads/compress/cp1050.png'  WHERE  `id` = 1050 [ RunTime:0.000743s ]
+[ sql ] [ SQL ] UPDATE `tk_houses`  SET `cover`='uploads/compress/cp1051.png'  WHERE  `id` = 1051 [ RunTime:0.000758s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `tk_user` [ RunTime:0.015451s ]
+[ sql ] [ SQL ] UPDATE `tk_user`  SET `mdate`='2020-09-01 16:17:34'  WHERE  `id` = 0 [ RunTime:0.000458s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `xcx_collect` [ RunTime:0.012676s ]
+[ sql ] [ SQL ] SELECT `cl_house_id` FROM `xcx_collect` WHERE  `cl_user_id` = 0  AND `cl_type` = 1 [ RunTime:0.000523s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `xcx_likes` [ RunTime:0.013326s ]
+[ sql ] [ SQL ] SELECT `tid` FROM `xcx_likes` WHERE  `uid` = 0  AND `type` = 1 [ RunTime:0.000475s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `super_admin` [ RunTime:0.012921s ]
+[ sql ] [ SQL ] SELECT `ad_realname`,`ad_img` FROM `super_admin` WHERE  `ad_id` = 1 LIMIT 1 [ RunTime:0.000602s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `xcx_corp` [ RunTime:0.012618s ]
+[ sql ] [ SQL ] SELECT `cp_logo` FROM `xcx_corp` WHERE  `cp_id` = 1 LIMIT 1 [ RunTime:0.000528s ]
+[ sql ] [ SQL ] SELECT `colour` FROM `xcx_corp` WHERE  `cp_id` = 1 LIMIT 1 [ RunTime:0.000363s ]
+[ sql ] [ SQL ] SELECT `ad_realname`,`ad_img` FROM `super_admin` WHERE  `ad_id` = 1 LIMIT 1 [ RunTime:0.000403s ]
+[ sql ] [ SQL ] SELECT `cp_logo` FROM `xcx_corp` WHERE  `cp_id` = 1 LIMIT 1 [ RunTime:0.000358s ]
+[ sql ] [ SQL ] SELECT `colour` FROM `xcx_corp` WHERE  `cp_id` = 1 LIMIT 1 [ RunTime:0.000355s ]
+---------------------------------------------------------------
+[ 2020-09-01T17:42:20+08:00 ] 127.0.0.1 GET www.huaxiang.com/api/cate/getass?city=%E5%A2%A8%E5%B0%94%E6%9C%AC&keys=Clayton&type=%E5%90%88%E7%A7%9F
+[运行时间：0.642026s] [吞吐率：1.56req/s] [内存消耗：2,197.39kb] [文件加载：52]
+[ info ] [ ROUTE ] array (
+  'type' => 'module',
+  'module' => 
+  array (
+    0 => 'api',
+    1 => 'cate',
+    2 => 'getass',
+  ),
+)
+[ info ] [ HEADER ] array (
+  'accept-language' => 'en-US,en;q=0.9,zh-CN;q=0.8,zh;q=0.7',
+  'accept-encoding' => 'gzip, deflate',
+  'accept' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.70 Safari/537.36',
+  'upgrade-insecure-requests' => '1',
+  'connection' => 'close',
+  'host' => 'www.huaxiang.com',
+)
+[ info ] [ PARAM ] array (
+  '/api/cate/getass' => '',
+  'city' => '墨尔本',
+  'keys' => 'Clayton',
+  'type' => '合租',
+)
+[ info ] [ RUN ] app\api\controller\Cate->getass[ D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\application\api\controller\Cate.php ]
+[ info ] [ DB ] INIT mysql
+[ info ] [ LOG ] INIT File
+[ sql ] [ DB ] CONNECT:[ UseTime:0.123480s ] mysql:host=127.0.0.1;port=3306;dbname=xcxnew;charset=utf8mb4
+[ sql ] [ SQL ] SHOW COLUMNS FROM `tk_stop` [ RunTime:0.154856s ]
+[ sql ] [ SQL ] SELECT `stop`,`area` FROM `tk_stop` WHERE  `city` = '墨尔本'  AND (  stop like '%Clayton%' ) GROUP BY `stop` [ RunTime:0.037202s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `tk_houses` [ RunTime:0.017229s ]
+[ sql ] [ SQL ] SELECT COUNT(id) AS tp_count FROM `tk_houses` WHERE  (  status = 1 and is_del = 1 and city = '墨尔本' )  AND (  area = 'Clayton' and type = '合租' ) LIMIT 1 [ RunTime:0.051330s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `tk_school` [ RunTime:0.044482s ]
+[ sql ] [ SQL ] SELECT `sac`,`area`,`compus` FROM `tk_school` WHERE  `city` = '墨尔本'  AND (  sac like '%Clayton%' ) GROUP BY `area` [ RunTime:0.017976s ]
+[ sql ] [ SQL ] SELECT COUNT(id) AS tp_count FROM `tk_houses` WHERE  (  status = 1 and is_del = 1 and city = '墨尔本' )  AND (  area = 'Clayton'and type = '合租' ) LIMIT 1 [ RunTime:0.003627s ]
+[ sql ] [ SQL ] SELECT COUNT(id) AS tp_count FROM `tk_houses` WHERE  (  status = 1 and is_del = 1 and city = '墨尔本' )  AND (  area = 'Clayton South'and type = '合租' ) LIMIT 1 [ RunTime:0.003309s ]
+[ sql ] [ SQL ] SELECT COUNT(id) AS tp_count FROM `tk_houses` WHERE  (  status = 1 and is_del = 1 and city = '墨尔本' )  AND (  area = 'Glen Waverley'and type = '合租' ) LIMIT 1 [ RunTime:0.003199s ]
+[ sql ] [ SQL ] SELECT COUNT(id) AS tp_count FROM `tk_houses` WHERE  (  status = 1 and is_del = 1 and city = '墨尔本' )  AND (  area = 'Huntingdale'and type = '合租' ) LIMIT 1 [ RunTime:0.003247s ]
+[ sql ] [ SQL ] SELECT COUNT(id) AS tp_count FROM `tk_houses` WHERE  (  status = 1 and is_del = 1 and city = '墨尔本' )  AND (  area = 'Mount Waverley'and type = '合租' ) LIMIT 1 [ RunTime:0.003946s ]
+[ sql ] [ SQL ] SELECT COUNT(id) AS tp_count FROM `tk_houses` WHERE  (  status = 1 and is_del = 1 and city = '墨尔本' )  AND (  area = 'Notting hill'and type = '合租' ) LIMIT 1 [ RunTime:0.003262s ]
+[ sql ] [ SQL ] SELECT COUNT(id) AS tp_count FROM `tk_houses` WHERE  (  status = 1 and is_del = 1 and city = '墨尔本' )  AND (  area = 'Oakleigh'and type = '合租' ) LIMIT 1 [ RunTime:0.003139s ]
+[ sql ] [ SQL ] SELECT COUNT(id) AS tp_count FROM `tk_houses` WHERE  (  status = 1 and is_del = 1 and city = '墨尔本' )  AND (  area = 'Oakleigh East'and type = '合租' ) LIMIT 1 [ RunTime:0.003201s ]
+[ sql ] [ SQL ] SELECT `area` FROM `tk_houses` WHERE  `city` = '墨尔本'  AND (  area like '%Clayton%' ) GROUP BY `area` [ RunTime:0.026495s ]
+[ sql ] [ SQL ] SELECT COUNT(id) AS tp_count FROM `tk_houses` WHERE  (  status = 1 and is_del = 1 and city = '墨尔本' )  AND (  area = 'Clayton' and type = '合租' ) LIMIT 1 [ RunTime:0.003423s ]
+[ sql ] [ SQL ] SELECT COUNT(id) AS tp_count FROM `tk_houses` WHERE  (  status = 1 and is_del = 1 and city = '墨尔本' )  AND (  area = 'Clayton South' and type = '合租' ) LIMIT 1 [ RunTime:0.003663s ]
+---------------------------------------------------------------
+[ 2020-09-01T17:45:51+08:00 ] 127.0.0.1 GET www.huaxiang.com/api/cate/getass?city=%E5%A2%A8%E5%B0%94%E6%9C%AC&keys=Clayton&type=%E5%90%88%E7%A7%9F
+[运行时间：0.257991s] [吞吐率：3.88req/s] [内存消耗：2,218.03kb] [文件加载：56]
+[ info ] [ ROUTE ] array (
+  'type' => 'module',
+  'module' => 
+  array (
+    0 => 'api',
+    1 => 'cate',
+    2 => 'getass',
+  ),
+)
+[ info ] [ HEADER ] array (
+  'accept-language' => 'en-US,en;q=0.9,zh-CN;q=0.8,zh;q=0.7',
+  'accept-encoding' => 'gzip, deflate',
+  'accept' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.70 Safari/537.36',
+  'upgrade-insecure-requests' => '1',
+  'cache-control' => 'max-age=0',
+  'connection' => 'close',
+  'host' => 'www.huaxiang.com',
+)
+[ info ] [ PARAM ] array (
+  '/api/cate/getass' => '',
+  'city' => '墨尔本',
+  'keys' => 'Clayton',
+  'type' => '合租',
+)
+[ info ] [ RUN ] app\api\controller\Cate->getass[ D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\application\api\controller\Cate.php ]
+[ info ] [ DB ] INIT mysql
+[ info ] [ LOG ] INIT File
+[ sql ] [ DB ] CONNECT:[ UseTime:0.011617s ] mysql:host=127.0.0.1;port=3306;dbname=xcxnew;charset=utf8mb4
+[ sql ] [ SQL ] SHOW COLUMNS FROM `tk_stop` [ RunTime:0.013388s ]
+[ sql ] [ SQL ] SELECT `stop`,`area` FROM `tk_stop` WHERE  `city` = '墨尔本'  AND (  stop like '%Clayton%' ) GROUP BY `stop` [ RunTime:0.006563s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `tk_houses` [ RunTime:0.015048s ]
+[ sql ] [ SQL ] SELECT COUNT(id) AS tp_count FROM `tk_houses` WHERE  (  status = 1 and is_del = 1 and city = '墨尔本' )  AND (  area = 'Clayton' and type = '合租' ) LIMIT 1 [ RunTime:0.003426s ]
+[ error ] [8]Undefined index: count[D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\application\api\controller\Cate.php:185]
+---------------------------------------------------------------
+[ 2020-09-01T17:46:27+08:00 ] 127.0.0.1 GET www.huaxiang.com/api/cate/getass?city=%E5%A2%A8%E5%B0%94%E6%9C%AC&keys=Clayton&type=%E5%90%88%E7%A7%9F
+[运行时间：0.127452s] [吞吐率：7.85req/s] [内存消耗：2,223.49kb] [文件加载：56]
+[ info ] [ ROUTE ] array (
+  'type' => 'module',
+  'module' => 
+  array (
+    0 => 'api',
+    1 => 'cate',
+    2 => 'getass',
+  ),
+)
+[ info ] [ HEADER ] array (
+  'accept-language' => 'en-US,en;q=0.9,zh-CN;q=0.8,zh;q=0.7',
+  'accept-encoding' => 'gzip, deflate',
+  'accept' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.70 Safari/537.36',
+  'upgrade-insecure-requests' => '1',
+  'cache-control' => 'max-age=0',
+  'connection' => 'close',
+  'host' => 'www.huaxiang.com',
+)
+[ info ] [ PARAM ] array (
+  '/api/cate/getass' => '',
+  'city' => '墨尔本',
+  'keys' => 'Clayton',
+  'type' => '合租',
+)
+[ info ] [ RUN ] app\api\controller\Cate->getass[ D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\application\api\controller\Cate.php ]
+[ info ] [ DB ] INIT mysql
+[ info ] [ LOG ] INIT File
+[ sql ] [ DB ] CONNECT:[ UseTime:0.001281s ] mysql:host=127.0.0.1;port=3306;dbname=xcxnew;charset=utf8mb4
+[ sql ] [ SQL ] SHOW COLUMNS FROM `tk_stop` [ RunTime:0.013469s ]
+[ sql ] [ SQL ] SELECT `stop`,`area` FROM `tk_stop` WHERE  `city` = '墨尔本'  AND (  stop like '%Clayton%' ) GROUP BY `stop` [ RunTime:0.006839s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `tk_houses` [ RunTime:0.014992s ]
+[ sql ] [ SQL ] SELECT COUNT(id) AS tp_count FROM `tk_houses` WHERE  (  status = 1 and is_del = 1 and city = '墨尔本' )  AND (  area = 'Clayton' and type = '合租' ) LIMIT 1 [ RunTime:0.003977s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `tk_school` [ RunTime:0.013350s ]
+[ sql ] [ SQL ] SELECT `sac`,`area`,`compus` FROM `tk_school` WHERE  `city` = '墨尔本'  AND (  sac like '%Clayton%' ) GROUP BY `area` [ RunTime:0.006641s ]
+[ sql ] [ SQL ] SELECT COUNT(id) AS tp_count FROM `tk_houses` WHERE  (  status = 1 and is_del = 1 and city = '墨尔本' )  AND (  area = 'Clayton'and type = '合租' ) LIMIT 1 [ RunTime:0.003320s ]
+[ error ] [8]Undefined index: count[D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\application\api\controller\Cate.php:200]
+---------------------------------------------------------------
+[ 2020-09-01T17:47:09+08:00 ] 127.0.0.1 GET www.huaxiang.com/api/cate/getass?city=%E5%A2%A8%E5%B0%94%E6%9C%AC&keys=Clayton&type=%E5%90%88%E7%A7%9F
+[运行时间：0.176706s] [吞吐率：5.66req/s] [内存消耗：2,198.73kb] [文件加载：52]
+[ info ] [ ROUTE ] array (
+  'type' => 'module',
+  'module' => 
+  array (
+    0 => 'api',
+    1 => 'cate',
+    2 => 'getass',
+  ),
+)
+[ info ] [ HEADER ] array (
+  'accept-language' => 'en-US,en;q=0.9,zh-CN;q=0.8,zh;q=0.7',
+  'accept-encoding' => 'gzip, deflate',
+  'accept' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.70 Safari/537.36',
+  'upgrade-insecure-requests' => '1',
+  'cache-control' => 'max-age=0',
+  'connection' => 'close',
+  'host' => 'www.huaxiang.com',
+)
+[ info ] [ PARAM ] array (
+  '/api/cate/getass' => '',
+  'city' => '墨尔本',
+  'keys' => 'Clayton',
+  'type' => '合租',
+)
+[ info ] [ RUN ] app\api\controller\Cate->getass[ D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\application\api\controller\Cate.php ]
+[ info ] [ DB ] INIT mysql
+[ info ] [ LOG ] INIT File
+[ sql ] [ DB ] CONNECT:[ UseTime:0.012042s ] mysql:host=127.0.0.1;port=3306;dbname=xcxnew;charset=utf8mb4
+[ sql ] [ SQL ] SHOW COLUMNS FROM `tk_stop` [ RunTime:0.015296s ]
+[ sql ] [ SQL ] SELECT `stop`,`area` FROM `tk_stop` WHERE  `city` = '墨尔本'  AND (  stop like '%Clayton%' ) GROUP BY `stop` [ RunTime:0.006788s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `tk_houses` [ RunTime:0.015299s ]
+[ sql ] [ SQL ] SELECT COUNT(id) AS tp_count FROM `tk_houses` WHERE  (  status = 1 and is_del = 1 and city = '墨尔本' )  AND (  area = 'Clayton' and type = '合租' ) LIMIT 1 [ RunTime:0.003547s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `tk_school` [ RunTime:0.012285s ]
+[ sql ] [ SQL ] SELECT `sac`,`area`,`compus` FROM `tk_school` WHERE  `city` = '墨尔本'  AND (  sac like '%Clayton%' ) GROUP BY `area` [ RunTime:0.006517s ]
+[ sql ] [ SQL ] SELECT COUNT(id) AS tp_count FROM `tk_houses` WHERE  (  status = 1 and is_del = 1 and city = '墨尔本' )  AND (  area = 'Clayton'and type = '合租' ) LIMIT 1 [ RunTime:0.003667s ]
+[ sql ] [ SQL ] SELECT COUNT(id) AS tp_count FROM `tk_houses` WHERE  (  status = 1 and is_del = 1 and city = '墨尔本' )  AND (  area = 'Clayton South'and type = '合租' ) LIMIT 1 [ RunTime:0.003561s ]
+[ sql ] [ SQL ] SELECT COUNT(id) AS tp_count FROM `tk_houses` WHERE  (  status = 1 and is_del = 1 and city = '墨尔本' )  AND (  area = 'Glen Waverley'and type = '合租' ) LIMIT 1 [ RunTime:0.003479s ]
+[ sql ] [ SQL ] SELECT COUNT(id) AS tp_count FROM `tk_houses` WHERE  (  status = 1 and is_del = 1 and city = '墨尔本' )  AND (  area = 'Huntingdale'and type = '合租' ) LIMIT 1 [ RunTime:0.003135s ]
+[ sql ] [ SQL ] SELECT COUNT(id) AS tp_count FROM `tk_houses` WHERE  (  status = 1 and is_del = 1 and city = '墨尔本' )  AND (  area = 'Mount Waverley'and type = '合租' ) LIMIT 1 [ RunTime:0.003069s ]
+[ sql ] [ SQL ] SELECT COUNT(id) AS tp_count FROM `tk_houses` WHERE  (  status = 1 and is_del = 1 and city = '墨尔本' )  AND (  area = 'Notting hill'and type = '合租' ) LIMIT 1 [ RunTime:0.003780s ]
+[ sql ] [ SQL ] SELECT COUNT(id) AS tp_count FROM `tk_houses` WHERE  (  status = 1 and is_del = 1 and city = '墨尔本' )  AND (  area = 'Oakleigh'and type = '合租' ) LIMIT 1 [ RunTime:0.003401s ]
+[ sql ] [ SQL ] SELECT COUNT(id) AS tp_count FROM `tk_houses` WHERE  (  status = 1 and is_del = 1 and city = '墨尔本' )  AND (  area = 'Oakleigh East'and type = '合租' ) LIMIT 1 [ RunTime:0.003090s ]
+[ sql ] [ SQL ] SELECT `area` FROM `tk_houses` WHERE  `city` = '墨尔本'  AND (  area like '%Clayton%' ) GROUP BY `area` [ RunTime:0.004157s ]
+[ sql ] [ SQL ] SELECT COUNT(id) AS tp_count FROM `tk_houses` WHERE  (  status = 1 and is_del = 1 and city = '墨尔本' )  AND (  area = 'Clayton' and type = '合租' ) LIMIT 1 [ RunTime:0.003572s ]
+[ sql ] [ SQL ] SELECT COUNT(id) AS tp_count FROM `tk_houses` WHERE  (  status = 1 and is_del = 1 and city = '墨尔本' )  AND (  area = 'Clayton South' and type = '合租' ) LIMIT 1 [ RunTime:0.003269s ]
+---------------------------------------------------------------
+[ 2020-09-01T17:47:59+08:00 ] 127.0.0.1 GET www.huaxiang.com/api/cate/getass?city=%E5%A2%A8%E5%B0%94%E6%9C%AC&keys=Clayton&type=%E5%90%88%E7%A7%9F
+[运行时间：0.202222s] [吞吐率：4.95req/s] [内存消耗：2,198.68kb] [文件加载：52]
+[ info ] [ ROUTE ] array (
+  'type' => 'module',
+  'module' => 
+  array (
+    0 => 'api',
+    1 => 'cate',
+    2 => 'getass',
+  ),
+)
+[ info ] [ HEADER ] array (
+  'accept-language' => 'en-US,en;q=0.9,zh-CN;q=0.8,zh;q=0.7',
+  'accept-encoding' => 'gzip, deflate',
+  'accept' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.70 Safari/537.36',
+  'upgrade-insecure-requests' => '1',
+  'cache-control' => 'max-age=0',
+  'connection' => 'close',
+  'host' => 'www.huaxiang.com',
+)
+[ info ] [ PARAM ] array (
+  '/api/cate/getass' => '',
+  'city' => '墨尔本',
+  'keys' => 'Clayton',
+  'type' => '合租',
+)
+[ info ] [ RUN ] app\api\controller\Cate->getass[ D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\application\api\controller\Cate.php ]
+[ info ] [ DB ] INIT mysql
+[ info ] [ LOG ] INIT File
+[ sql ] [ DB ] CONNECT:[ UseTime:0.001247s ] mysql:host=127.0.0.1;port=3306;dbname=xcxnew;charset=utf8mb4
+[ sql ] [ SQL ] SHOW COLUMNS FROM `tk_stop` [ RunTime:0.038047s ]
+[ sql ] [ SQL ] SELECT `stop`,`area` FROM `tk_stop` WHERE  `city` = '墨尔本'  AND (  stop like '%Clayton%' ) GROUP BY `stop` [ RunTime:0.007406s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `tk_houses` [ RunTime:0.015272s ]
+[ sql ] [ SQL ] SELECT COUNT(id) AS tp_count FROM `tk_houses` WHERE  (  status = 1 and is_del = 1 and city = '墨尔本' )  AND (  area = 'Clayton' and type = '合租' ) LIMIT 1 [ RunTime:0.003576s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `tk_school` [ RunTime:0.013128s ]
+[ sql ] [ SQL ] SELECT `sac`,`area`,`compus` FROM `tk_school` WHERE  `city` = '墨尔本'  AND (  sac like '%Clayton%' ) GROUP BY `area` [ RunTime:0.006793s ]
+[ sql ] [ SQL ] SELECT COUNT(id) AS tp_count FROM `tk_houses` WHERE  (  status = 1 and is_del = 1 and city = '墨尔本' )  AND (  area = 'Clayton'and type = '合租' ) LIMIT 1 [ RunTime:0.003709s ]
+[ sql ] [ SQL ] SELECT COUNT(id) AS tp_count FROM `tk_houses` WHERE  (  status = 1 and is_del = 1 and city = '墨尔本' )  AND (  area = 'Clayton South'and type = '合租' ) LIMIT 1 [ RunTime:0.003181s ]
+[ sql ] [ SQL ] SELECT COUNT(id) AS tp_count FROM `tk_houses` WHERE  (  status = 1 and is_del = 1 and city = '墨尔本' )  AND (  area = 'Glen Waverley'and type = '合租' ) LIMIT 1 [ RunTime:0.003131s ]
+[ sql ] [ SQL ] SELECT COUNT(id) AS tp_count FROM `tk_houses` WHERE  (  status = 1 and is_del = 1 and city = '墨尔本' )  AND (  area = 'Huntingdale'and type = '合租' ) LIMIT 1 [ RunTime:0.003122s ]
+[ sql ] [ SQL ] SELECT COUNT(id) AS tp_count FROM `tk_houses` WHERE  (  status = 1 and is_del = 1 and city = '墨尔本' )  AND (  area = 'Mount Waverley'and type = '合租' ) LIMIT 1 [ RunTime:0.003586s ]
+[ sql ] [ SQL ] SELECT COUNT(id) AS tp_count FROM `tk_houses` WHERE  (  status = 1 and is_del = 1 and city = '墨尔本' )  AND (  area = 'Notting hill'and type = '合租' ) LIMIT 1 [ RunTime:0.003422s ]
+[ sql ] [ SQL ] SELECT COUNT(id) AS tp_count FROM `tk_houses` WHERE  (  status = 1 and is_del = 1 and city = '墨尔本' )  AND (  area = 'Oakleigh'and type = '合租' ) LIMIT 1 [ RunTime:0.003160s ]
+[ sql ] [ SQL ] SELECT COUNT(id) AS tp_count FROM `tk_houses` WHERE  (  status = 1 and is_del = 1 and city = '墨尔本' )  AND (  area = 'Oakleigh East'and type = '合租' ) LIMIT 1 [ RunTime:0.003401s ]
+[ sql ] [ SQL ] SELECT `area` FROM `tk_houses` WHERE  `city` = '墨尔本'  AND (  area like '%Clayton%' ) GROUP BY `area` [ RunTime:0.004082s ]
+[ sql ] [ SQL ] SELECT COUNT(id) AS tp_count FROM `tk_houses` WHERE  (  status = 1 and is_del = 1 and city = '墨尔本' )  AND (  area = 'Clayton' and type = '合租' ) LIMIT 1 [ RunTime:0.003323s ]
+[ sql ] [ SQL ] SELECT COUNT(id) AS tp_count FROM `tk_houses` WHERE  (  status = 1 and is_del = 1 and city = '墨尔本' )  AND (  area = 'Clayton South' and type = '合租' ) LIMIT 1 [ RunTime:0.003204s ]
+---------------------------------------------------------------
+[ 2020-09-01T17:48:01+08:00 ] 127.0.0.1 GET www.huaxiang.com/api/cate/getass?city=%E5%A2%A8%E5%B0%94%E6%9C%AC&keys=Clayton&type=%E5%90%88%E7%A7%9F
+[运行时间：0.166336s] [吞吐率：6.01req/s] [内存消耗：2,198.68kb] [文件加载：52]
+[ info ] [ ROUTE ] array (
+  'type' => 'module',
+  'module' => 
+  array (
+    0 => 'api',
+    1 => 'cate',
+    2 => 'getass',
+  ),
+)
+[ info ] [ HEADER ] array (
+  'accept-language' => 'en-US,en;q=0.9,zh-CN;q=0.8,zh;q=0.7',
+  'accept-encoding' => 'gzip, deflate',
+  'accept' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.70 Safari/537.36',
+  'upgrade-insecure-requests' => '1',
+  'cache-control' => 'max-age=0',
+  'connection' => 'close',
+  'host' => 'www.huaxiang.com',
+)
+[ info ] [ PARAM ] array (
+  '/api/cate/getass' => '',
+  'city' => '墨尔本',
+  'keys' => 'Clayton',
+  'type' => '合租',
+)
+[ info ] [ RUN ] app\api\controller\Cate->getass[ D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\application\api\controller\Cate.php ]
+[ info ] [ DB ] INIT mysql
+[ info ] [ LOG ] INIT File
+[ sql ] [ DB ] CONNECT:[ UseTime:0.001631s ] mysql:host=127.0.0.1;port=3306;dbname=xcxnew;charset=utf8mb4
+[ sql ] [ SQL ] SHOW COLUMNS FROM `tk_stop` [ RunTime:0.015168s ]
+[ sql ] [ SQL ] SELECT `stop`,`area` FROM `tk_stop` WHERE  `city` = '墨尔本'  AND (  stop like '%Clayton%' ) GROUP BY `stop` [ RunTime:0.006706s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `tk_houses` [ RunTime:0.014578s ]
+[ sql ] [ SQL ] SELECT COUNT(id) AS tp_count FROM `tk_houses` WHERE  (  status = 1 and is_del = 1 and city = '墨尔本' )  AND (  area = 'Clayton' and type = '合租' ) LIMIT 1 [ RunTime:0.003699s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `tk_school` [ RunTime:0.012459s ]
+[ sql ] [ SQL ] SELECT `sac`,`area`,`compus` FROM `tk_school` WHERE  `city` = '墨尔本'  AND (  sac like '%Clayton%' ) GROUP BY `area` [ RunTime:0.006451s ]
+[ sql ] [ SQL ] SELECT COUNT(id) AS tp_count FROM `tk_houses` WHERE  (  status = 1 and is_del = 1 and city = '墨尔本' )  AND (  area = 'Clayton'and type = '合租' ) LIMIT 1 [ RunTime:0.003437s ]
+[ sql ] [ SQL ] SELECT COUNT(id) AS tp_count FROM `tk_houses` WHERE  (  status = 1 and is_del = 1 and city = '墨尔本' )  AND (  area = 'Clayton South'and type = '合租' ) LIMIT 1 [ RunTime:0.003632s ]
+[ sql ] [ SQL ] SELECT COUNT(id) AS tp_count FROM `tk_houses` WHERE  (  status = 1 and is_del = 1 and city = '墨尔本' )  AND (  area = 'Glen Waverley'and type = '合租' ) LIMIT 1 [ RunTime:0.003364s ]
+[ sql ] [ SQL ] SELECT COUNT(id) AS tp_count FROM `tk_houses` WHERE  (  status = 1 and is_del = 1 and city = '墨尔本' )  AND (  area = 'Huntingdale'and type = '合租' ) LIMIT 1 [ RunTime:0.003314s ]
+[ sql ] [ SQL ] SELECT COUNT(id) AS tp_count FROM `tk_houses` WHERE  (  status = 1 and is_del = 1 and city = '墨尔本' )  AND (  area = 'Mount Waverley'and type = '合租' ) LIMIT 1 [ RunTime:0.003223s ]
+[ sql ] [ SQL ] SELECT COUNT(id) AS tp_count FROM `tk_houses` WHERE  (  status = 1 and is_del = 1 and city = '墨尔本' )  AND (  area = 'Notting hill'and type = '合租' ) LIMIT 1 [ RunTime:0.003363s ]
+[ sql ] [ SQL ] SELECT COUNT(id) AS tp_count FROM `tk_houses` WHERE  (  status = 1 and is_del = 1 and city = '墨尔本' )  AND (  area = 'Oakleigh'and type = '合租' ) LIMIT 1 [ RunTime:0.003551s ]
+[ sql ] [ SQL ] SELECT COUNT(id) AS tp_count FROM `tk_houses` WHERE  (  status = 1 and is_del = 1 and city = '墨尔本' )  AND (  area = 'Oakleigh East'and type = '合租' ) LIMIT 1 [ RunTime:0.003136s ]
+[ sql ] [ SQL ] SELECT `area` FROM `tk_houses` WHERE  `city` = '墨尔本'  AND (  area like '%Clayton%' ) GROUP BY `area` [ RunTime:0.003898s ]
+[ sql ] [ SQL ] SELECT COUNT(id) AS tp_count FROM `tk_houses` WHERE  (  status = 1 and is_del = 1 and city = '墨尔本' )  AND (  area = 'Clayton' and type = '合租' ) LIMIT 1 [ RunTime:0.003111s ]
+[ sql ] [ SQL ] SELECT COUNT(id) AS tp_count FROM `tk_houses` WHERE  (  status = 1 and is_del = 1 and city = '墨尔本' )  AND (  area = 'Clayton South' and type = '合租' ) LIMIT 1 [ RunTime:0.003912s ]
+---------------------------------------------------------------
+[ 2020-09-01T17:48:04+08:00 ] 127.0.0.1 GET www.huaxiang.com/api/cate/getass?city=%E5%A2%A8%E5%B0%94%E6%9C%AC&keys=Clayton&type=%E5%90%88%E7%A7%9F
+[运行时间：0.171636s] [吞吐率：5.83req/s] [内存消耗：2,198.68kb] [文件加载：52]
+[ info ] [ ROUTE ] array (
+  'type' => 'module',
+  'module' => 
+  array (
+    0 => 'api',
+    1 => 'cate',
+    2 => 'getass',
+  ),
+)
+[ info ] [ HEADER ] array (
+  'accept-language' => 'en-US,en;q=0.9,zh-CN;q=0.8,zh;q=0.7',
+  'accept-encoding' => 'gzip, deflate',
+  'accept' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.70 Safari/537.36',
+  'upgrade-insecure-requests' => '1',
+  'cache-control' => 'max-age=0',
+  'connection' => 'close',
+  'host' => 'www.huaxiang.com',
+)
+[ info ] [ PARAM ] array (
+  '/api/cate/getass' => '',
+  'city' => '墨尔本',
+  'keys' => 'Clayton',
+  'type' => '合租',
+)
+[ info ] [ RUN ] app\api\controller\Cate->getass[ D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\application\api\controller\Cate.php ]
+[ info ] [ DB ] INIT mysql
+[ info ] [ LOG ] INIT File
+[ sql ] [ DB ] CONNECT:[ UseTime:0.001478s ] mysql:host=127.0.0.1;port=3306;dbname=xcxnew;charset=utf8mb4
+[ sql ] [ SQL ] SHOW COLUMNS FROM `tk_stop` [ RunTime:0.014319s ]
+[ sql ] [ SQL ] SELECT `stop`,`area` FROM `tk_stop` WHERE  `city` = '墨尔本'  AND (  stop like '%Clayton%' ) GROUP BY `stop` [ RunTime:0.006951s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `tk_houses` [ RunTime:0.015502s ]
+[ sql ] [ SQL ] SELECT COUNT(id) AS tp_count FROM `tk_houses` WHERE  (  status = 1 and is_del = 1 and city = '墨尔本' )  AND (  area = 'Clayton' and type = '合租' ) LIMIT 1 [ RunTime:0.003530s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `tk_school` [ RunTime:0.013242s ]
+[ sql ] [ SQL ] SELECT `sac`,`area`,`compus` FROM `tk_school` WHERE  `city` = '墨尔本'  AND (  sac like '%Clayton%' ) GROUP BY `area` [ RunTime:0.007574s ]
+[ sql ] [ SQL ] SELECT COUNT(id) AS tp_count FROM `tk_houses` WHERE  (  status = 1 and is_del = 1 and city = '墨尔本' )  AND (  area = 'Clayton'and type = '合租' ) LIMIT 1 [ RunTime:0.003370s ]
+[ sql ] [ SQL ] SELECT COUNT(id) AS tp_count FROM `tk_houses` WHERE  (  status = 1 and is_del = 1 and city = '墨尔本' )  AND (  area = 'Clayton South'and type = '合租' ) LIMIT 1 [ RunTime:0.003214s ]
+[ sql ] [ SQL ] SELECT COUNT(id) AS tp_count FROM `tk_houses` WHERE  (  status = 1 and is_del = 1 and city = '墨尔本' )  AND (  area = 'Glen Waverley'and type = '合租' ) LIMIT 1 [ RunTime:0.003329s ]
+[ sql ] [ SQL ] SELECT COUNT(id) AS tp_count FROM `tk_houses` WHERE  (  status = 1 and is_del = 1 and city = '墨尔本' )  AND (  area = 'Huntingdale'and type = '合租' ) LIMIT 1 [ RunTime:0.003762s ]
+[ sql ] [ SQL ] SELECT COUNT(id) AS tp_count FROM `tk_houses` WHERE  (  status = 1 and is_del = 1 and city = '墨尔本' )  AND (  area = 'Mount Waverley'and type = '合租' ) LIMIT 1 [ RunTime:0.003142s ]
+[ sql ] [ SQL ] SELECT COUNT(id) AS tp_count FROM `tk_houses` WHERE  (  status = 1 and is_del = 1 and city = '墨尔本' )  AND (  area = 'Notting hill'and type = '合租' ) LIMIT 1 [ RunTime:0.003051s ]
+[ sql ] [ SQL ] SELECT COUNT(id) AS tp_count FROM `tk_houses` WHERE  (  status = 1 and is_del = 1 and city = '墨尔本' )  AND (  area = 'Oakleigh'and type = '合租' ) LIMIT 1 [ RunTime:0.003755s ]
+[ sql ] [ SQL ] SELECT COUNT(id) AS tp_count FROM `tk_houses` WHERE  (  status = 1 and is_del = 1 and city = '墨尔本' )  AND (  area = 'Oakleigh East'and type = '合租' ) LIMIT 1 [ RunTime:0.003464s ]
+[ sql ] [ SQL ] SELECT `area` FROM `tk_houses` WHERE  `city` = '墨尔本'  AND (  area like '%Clayton%' ) GROUP BY `area` [ RunTime:0.004347s ]
+[ sql ] [ SQL ] SELECT COUNT(id) AS tp_count FROM `tk_houses` WHERE  (  status = 1 and is_del = 1 and city = '墨尔本' )  AND (  area = 'Clayton' and type = '合租' ) LIMIT 1 [ RunTime:0.003395s ]
+[ sql ] [ SQL ] SELECT COUNT(id) AS tp_count FROM `tk_houses` WHERE  (  status = 1 and is_del = 1 and city = '墨尔本' )  AND (  area = 'Clayton South' and type = '合租' ) LIMIT 1 [ RunTime:0.003204s ]
+---------------------------------------------------------------
+[ 2020-09-01T17:48:51+08:00 ] 127.0.0.1 GET www.huaxiang.com/api/cate/getass?city=%E5%A2%A8%E5%B0%94%E6%9C%AC&keys=Clayton&type=%E5%90%88%E7%A7%9F
+[运行时间：0.171501s] [吞吐率：5.83req/s] [内存消耗：2,199.05kb] [文件加载：52]
+[ info ] [ ROUTE ] array (
+  'type' => 'module',
+  'module' => 
+  array (
+    0 => 'api',
+    1 => 'cate',
+    2 => 'getass',
+  ),
+)
+[ info ] [ HEADER ] array (
+  'accept-language' => 'en-US,en;q=0.9,zh-CN;q=0.8,zh;q=0.7',
+  'accept-encoding' => 'gzip, deflate',
+  'accept' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.70 Safari/537.36',
+  'upgrade-insecure-requests' => '1',
+  'cache-control' => 'max-age=0',
+  'connection' => 'close',
+  'host' => 'www.huaxiang.com',
+)
+[ info ] [ PARAM ] array (
+  '/api/cate/getass' => '',
+  'city' => '墨尔本',
+  'keys' => 'Clayton',
+  'type' => '合租',
+)
+[ info ] [ RUN ] app\api\controller\Cate->getass[ D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\application\api\controller\Cate.php ]
+[ info ] [ DB ] INIT mysql
+[ info ] [ LOG ] INIT File
+[ sql ] [ DB ] CONNECT:[ UseTime:0.001129s ] mysql:host=127.0.0.1;port=3306;dbname=xcxnew;charset=utf8mb4
+[ sql ] [ SQL ] SHOW COLUMNS FROM `tk_stop` [ RunTime:0.015128s ]
+[ sql ] [ SQL ] SELECT `stop`,`area` FROM `tk_stop` WHERE  `city` = '墨尔本'  AND (  stop like '%Clayton%' ) GROUP BY `stop` [ RunTime:0.007046s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `tk_houses` [ RunTime:0.014826s ]
+[ sql ] [ SQL ] SELECT COUNT(id) AS tp_count FROM `tk_houses` WHERE  (  status = 1 and is_del = 1 and city = '墨尔本' )  AND (  area = 'Clayton' and type = '合租' ) LIMIT 1 [ RunTime:0.003471s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `tk_school` [ RunTime:0.013396s ]
+[ sql ] [ SQL ] SELECT `sac`,`area`,`compus` FROM `tk_school` WHERE  `city` = '墨尔本'  AND (  sac like '%Clayton%' ) GROUP BY `area` [ RunTime:0.007107s ]
+[ sql ] [ SQL ] SELECT COUNT(id) AS tp_count FROM `tk_houses` WHERE  (  status = 1 and is_del = 1 and city = '墨尔本' )  AND (  area = 'Clayton'and type = '合租' ) LIMIT 1 [ RunTime:0.003421s ]
+[ sql ] [ SQL ] SELECT COUNT(id) AS tp_count FROM `tk_houses` WHERE  (  status = 1 and is_del = 1 and city = '墨尔本' )  AND (  area = 'Clayton South'and type = '合租' ) LIMIT 1 [ RunTime:0.003152s ]
+[ sql ] [ SQL ] SELECT COUNT(id) AS tp_count FROM `tk_houses` WHERE  (  status = 1 and is_del = 1 and city = '墨尔本' )  AND (  area = 'Glen Waverley'and type = '合租' ) LIMIT 1 [ RunTime:0.003149s ]
+[ sql ] [ SQL ] SELECT COUNT(id) AS tp_count FROM `tk_houses` WHERE  (  status = 1 and is_del = 1 and city = '墨尔本' )  AND (  area = 'Huntingdale'and type = '合租' ) LIMIT 1 [ RunTime:0.003178s ]
+[ sql ] [ SQL ] SELECT COUNT(id) AS tp_count FROM `tk_houses` WHERE  (  status = 1 and is_del = 1 and city = '墨尔本' )  AND (  area = 'Mount Waverley'and type = '合租' ) LIMIT 1 [ RunTime:0.003545s ]
+[ sql ] [ SQL ] SELECT COUNT(id) AS tp_count FROM `tk_houses` WHERE  (  status = 1 and is_del = 1 and city = '墨尔本' )  AND (  area = 'Notting hill'and type = '合租' ) LIMIT 1 [ RunTime:0.003691s ]
+[ sql ] [ SQL ] SELECT COUNT(id) AS tp_count FROM `tk_houses` WHERE  (  status = 1 and is_del = 1 and city = '墨尔本' )  AND (  area = 'Oakleigh'and type = '合租' ) LIMIT 1 [ RunTime:0.003264s ]
+[ sql ] [ SQL ] SELECT COUNT(id) AS tp_count FROM `tk_houses` WHERE  (  status = 1 and is_del = 1 and city = '墨尔本' )  AND (  area = 'Oakleigh East'and type = '合租' ) LIMIT 1 [ RunTime:0.003051s ]
+[ sql ] [ SQL ] SELECT `area` FROM `tk_houses` WHERE  `city` = '墨尔本'  AND (  area like '%Clayton%' ) GROUP BY `area` [ RunTime:0.003880s ]
+[ sql ] [ SQL ] SELECT COUNT(id) AS tp_count FROM `tk_houses` WHERE  (  status = 1 and is_del = 1 and city = '墨尔本' )  AND (  area = 'Clayton' and type = '合租' ) LIMIT 1 [ RunTime:0.003215s ]
+[ sql ] [ SQL ] SELECT COUNT(id) AS tp_count FROM `tk_houses` WHERE  (  status = 1 and is_del = 1 and city = '墨尔本' )  AND (  area = 'Clayton South' and type = '合租' ) LIMIT 1 [ RunTime:0.003266s ]
+---------------------------------------------------------------
+[ 2020-09-01T17:58:19+08:00 ] 127.0.0.1 GET www.huaxiang.com/api/cate/getass?city=%E5%A2%A8%E5%B0%94%E6%9C%AC&keys=Clayton&type=%E5%90%88%E7%A7%9F
+[运行时间：0.223640s] [吞吐率：4.47req/s] [内存消耗：2,199.09kb] [文件加载：52]
+[ info ] [ ROUTE ] array (
+  'type' => 'module',
+  'module' => 
+  array (
+    0 => 'api',
+    1 => 'cate',
+    2 => 'getass',
+  ),
+)
+[ info ] [ HEADER ] array (
+  'accept-language' => 'en-US,en;q=0.9,zh-CN;q=0.8,zh;q=0.7',
+  'accept-encoding' => 'gzip, deflate',
+  'accept' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.70 Safari/537.36',
+  'upgrade-insecure-requests' => '1',
+  'connection' => 'close',
+  'host' => 'www.huaxiang.com',
+)
+[ info ] [ PARAM ] array (
+  '/api/cate/getass' => '',
+  'city' => '墨尔本',
+  'keys' => 'Clayton',
+  'type' => '合租',
+)
+[ info ] [ RUN ] app\api\controller\Cate->getass[ D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\application\api\controller\Cate.php ]
+[ info ] [ DB ] INIT mysql
+[ info ] [ LOG ] INIT File
+[ sql ] [ DB ] CONNECT:[ UseTime:0.003864s ] mysql:host=127.0.0.1;port=3306;dbname=xcxnew;charset=utf8mb4
+[ sql ] [ SQL ] SHOW COLUMNS FROM `tk_stop` [ RunTime:0.014890s ]
+[ sql ] [ SQL ] SELECT `stop`,`area` FROM `tk_stop` WHERE  `city` = '墨尔本'  AND (  stop like '%Clayton%' ) GROUP BY `stop` [ RunTime:0.007216s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `tk_houses` [ RunTime:0.013373s ]
+[ sql ] [ SQL ] SELECT COUNT(id) AS tp_count FROM `tk_houses` WHERE  (  status = 1 and is_del = 1 and city = '墨尔本' )  AND (  area = 'Clayton' and type = '合租' ) LIMIT 1 [ RunTime:0.003729s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `tk_school` [ RunTime:0.013254s ]
+[ sql ] [ SQL ] SELECT `sac`,`area`,`compus` FROM `tk_school` WHERE  `city` = '墨尔本'  AND (  sac like '%Clayton%' ) GROUP BY `area` [ RunTime:0.008055s ]
+[ sql ] [ SQL ] SELECT COUNT(id) AS tp_count FROM `tk_houses` WHERE  (  status = 1 and is_del = 1 and city = '墨尔本' )  AND (  area = 'Clayton' and type = '合租' ) LIMIT 1 [ RunTime:0.003780s ]
+[ sql ] [ SQL ] SELECT COUNT(id) AS tp_count FROM `tk_houses` WHERE  (  status = 1 and is_del = 1 and city = '墨尔本' )  AND (  area = 'Clayton South' and type = '合租' ) LIMIT 1 [ RunTime:0.003141s ]
+[ sql ] [ SQL ] SELECT COUNT(id) AS tp_count FROM `tk_houses` WHERE  (  status = 1 and is_del = 1 and city = '墨尔本' )  AND (  area = 'Glen Waverley' and type = '合租' ) LIMIT 1 [ RunTime:0.003136s ]
+[ sql ] [ SQL ] SELECT COUNT(id) AS tp_count FROM `tk_houses` WHERE  (  status = 1 and is_del = 1 and city = '墨尔本' )  AND (  area = 'Huntingdale' and type = '合租' ) LIMIT 1 [ RunTime:0.003795s ]
+[ sql ] [ SQL ] SELECT COUNT(id) AS tp_count FROM `tk_houses` WHERE  (  status = 1 and is_del = 1 and city = '墨尔本' )  AND (  area = 'Mount Waverley' and type = '合租' ) LIMIT 1 [ RunTime:0.003299s ]
+[ sql ] [ SQL ] SELECT COUNT(id) AS tp_count FROM `tk_houses` WHERE  (  status = 1 and is_del = 1 and city = '墨尔本' )  AND (  area = 'Notting hill' and type = '合租' ) LIMIT 1 [ RunTime:0.003390s ]
+[ sql ] [ SQL ] SELECT COUNT(id) AS tp_count FROM `tk_houses` WHERE  (  status = 1 and is_del = 1 and city = '墨尔本' )  AND (  area = 'Oakleigh' and type = '合租' ) LIMIT 1 [ RunTime:0.003199s ]
+[ sql ] [ SQL ] SELECT COUNT(id) AS tp_count FROM `tk_houses` WHERE  (  status = 1 and is_del = 1 and city = '墨尔本' )  AND (  area = 'Oakleigh East' and type = '合租' ) LIMIT 1 [ RunTime:0.003088s ]
+[ sql ] [ SQL ] SELECT `area` FROM `tk_houses` WHERE  `city` = '墨尔本'  AND (  area like '%Clayton%' ) GROUP BY `area` [ RunTime:0.004427s ]
+[ sql ] [ SQL ] SELECT COUNT(id) AS tp_count FROM `tk_houses` WHERE  (  status = 1 and is_del = 1 and city = '墨尔本' )  AND (  area = 'Clayton' and type = '合租' ) LIMIT 1 [ RunTime:0.004068s ]
+[ sql ] [ SQL ] SELECT COUNT(id) AS tp_count FROM `tk_houses` WHERE  (  status = 1 and is_del = 1 and city = '墨尔本' )  AND (  area = 'Clayton South' and type = '合租' ) LIMIT 1 [ RunTime:0.003534s ]
+---------------------------------------------------------------
+[ 2020-09-01T17:59:03+08:00 ] 127.0.0.1 GET www.huaxiang.com/api/cate/getass?city=%E5%A2%A8%E5%B0%94%E6%9C%AC&keys=Clayton&type=%E5%90%88%E7%A7%9F
+[运行时间：0.183122s] [吞吐率：5.46req/s] [内存消耗：2,199.26kb] [文件加载：52]
+[ info ] [ ROUTE ] array (
+  'type' => 'module',
+  'module' => 
+  array (
+    0 => 'api',
+    1 => 'cate',
+    2 => 'getass',
+  ),
+)
+[ info ] [ HEADER ] array (
+  'accept-language' => 'en-US,en;q=0.9,zh-CN;q=0.8,zh;q=0.7',
+  'accept-encoding' => 'gzip, deflate',
+  'accept' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.70 Safari/537.36',
+  'upgrade-insecure-requests' => '1',
+  'cache-control' => 'max-age=0',
+  'connection' => 'close',
+  'host' => 'www.huaxiang.com',
+)
+[ info ] [ PARAM ] array (
+  '/api/cate/getass' => '',
+  'city' => '墨尔本',
+  'keys' => 'Clayton',
+  'type' => '合租',
+)
+[ info ] [ RUN ] app\api\controller\Cate->getass[ D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\application\api\controller\Cate.php ]
+[ info ] [ DB ] INIT mysql
+[ info ] [ LOG ] INIT File
+[ sql ] [ DB ] CONNECT:[ UseTime:0.001655s ] mysql:host=127.0.0.1;port=3306;dbname=xcxnew;charset=utf8mb4
+[ sql ] [ SQL ] SHOW COLUMNS FROM `tk_stop` [ RunTime:0.015377s ]
+[ sql ] [ SQL ] SELECT `stop`,`area` FROM `tk_stop` WHERE  `city` = '墨尔本'  AND (  stop like '%Clayton%' ) GROUP BY `stop` [ RunTime:0.006602s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `tk_houses` [ RunTime:0.015179s ]
+[ sql ] [ SQL ] SELECT COUNT(id) AS tp_count FROM `tk_houses` WHERE  (  status = 1 and is_del = 1 and city = '墨尔本' )  AND (  area = 'Clayton' and type = '合租' ) LIMIT 1 [ RunTime:0.003994s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `tk_school` [ RunTime:0.013895s ]
+[ sql ] [ SQL ] SELECT `sac`,`area`,`compus` FROM `tk_school` WHERE  `city` = '墨尔本'  AND (  sac like '%Clayton%' ) GROUP BY `area` [ RunTime:0.008734s ]
+[ sql ] [ SQL ] SELECT COUNT(id) AS tp_count FROM `tk_houses` WHERE  (  status = 1 and is_del = 1 and city = '墨尔本' )  AND (  area = 'Clayton' and type = '合租' ) LIMIT 1 [ RunTime:0.003840s ]
+[ sql ] [ SQL ] SELECT COUNT(id) AS tp_count FROM `tk_houses` WHERE  (  status = 1 and is_del = 1 and city = '墨尔本' )  AND (  area = 'Clayton South' and type = '合租' ) LIMIT 1 [ RunTime:0.003263s ]
+[ sql ] [ SQL ] SELECT COUNT(id) AS tp_count FROM `tk_houses` WHERE  (  status = 1 and is_del = 1 and city = '墨尔本' )  AND (  area = 'Glen Waverley' and type = '合租' ) LIMIT 1 [ RunTime:0.003137s ]
+[ sql ] [ SQL ] SELECT COUNT(id) AS tp_count FROM `tk_houses` WHERE  (  status = 1 and is_del = 1 and city = '墨尔本' )  AND (  area = 'Huntingdale' and type = '合租' ) LIMIT 1 [ RunTime:0.003088s ]
+[ sql ] [ SQL ] SELECT COUNT(id) AS tp_count FROM `tk_houses` WHERE  (  status = 1 and is_del = 1 and city = '墨尔本' )  AND (  area = 'Mount Waverley' and type = '合租' ) LIMIT 1 [ RunTime:0.003023s ]
+[ sql ] [ SQL ] SELECT COUNT(id) AS tp_count FROM `tk_houses` WHERE  (  status = 1 and is_del = 1 and city = '墨尔本' )  AND (  area = 'Notting hill' and type = '合租' ) LIMIT 1 [ RunTime:0.003258s ]
+[ sql ] [ SQL ] SELECT COUNT(id) AS tp_count FROM `tk_houses` WHERE  (  status = 1 and is_del = 1 and city = '墨尔本' )  AND (  area = 'Oakleigh' and type = '合租' ) LIMIT 1 [ RunTime:0.003255s ]
+[ sql ] [ SQL ] SELECT COUNT(id) AS tp_count FROM `tk_houses` WHERE  (  status = 1 and is_del = 1 and city = '墨尔本' )  AND (  area = 'Oakleigh East' and type = '合租' ) LIMIT 1 [ RunTime:0.003245s ]
+[ sql ] [ SQL ] SELECT `area` FROM `tk_houses` WHERE  `city` = '墨尔本'  AND (  area like '%Clayton%' ) GROUP BY `area` [ RunTime:0.003922s ]
+[ sql ] [ SQL ] SELECT COUNT(id) AS tp_count FROM `tk_houses` WHERE  (  status = 1 and is_del = 1 and city = '墨尔本' )  AND (  area = 'Clayton' and type = '合租' ) LIMIT 1 [ RunTime:0.003291s ]
+[ sql ] [ SQL ] SELECT COUNT(id) AS tp_count FROM `tk_houses` WHERE  (  status = 1 and is_del = 1 and city = '墨尔本' )  AND (  area = 'Clayton South' and type = '合租' ) LIMIT 1 [ RunTime:0.003136s ]
+---------------------------------------------------------------
+[ 2020-09-01T18:00:46+08:00 ] 127.0.0.1 GET www.huaxiang.com/api/cate/getass?city=%E5%A2%A8%E5%B0%94%E6%9C%AC&keys=Clayton&type=%E5%90%88%E7%A7%9F
+[运行时间：0.210391s] [吞吐率：4.75req/s] [内存消耗：2,199.26kb] [文件加载：52]
+[ info ] [ ROUTE ] array (
+  'type' => 'module',
+  'module' => 
+  array (
+    0 => 'api',
+    1 => 'cate',
+    2 => 'getass',
+  ),
+)
+[ info ] [ HEADER ] array (
+  'accept-language' => 'en-US,en;q=0.9,zh-CN;q=0.8,zh;q=0.7',
+  'accept-encoding' => 'gzip, deflate',
+  'accept' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.70 Safari/537.36',
+  'upgrade-insecure-requests' => '1',
+  'cache-control' => 'max-age=0',
+  'connection' => 'close',
+  'host' => 'www.huaxiang.com',
+)
+[ info ] [ PARAM ] array (
+  '/api/cate/getass' => '',
+  'city' => '墨尔本',
+  'keys' => 'Clayton',
+  'type' => '合租',
+)
+[ info ] [ RUN ] app\api\controller\Cate->getass[ D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\application\api\controller\Cate.php ]
+[ info ] [ DB ] INIT mysql
+[ info ] [ LOG ] INIT File
+[ sql ] [ DB ] CONNECT:[ UseTime:0.001209s ] mysql:host=127.0.0.1;port=3306;dbname=xcxnew;charset=utf8mb4
+[ sql ] [ SQL ] SHOW COLUMNS FROM `tk_stop` [ RunTime:0.015126s ]
+[ sql ] [ SQL ] SELECT `stop`,`area` FROM `tk_stop` WHERE  `city` = '墨尔本'  AND (  stop like '%Clayton%' ) GROUP BY `stop` [ RunTime:0.006860s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `tk_houses` [ RunTime:0.015352s ]
+[ sql ] [ SQL ] SELECT COUNT(id) AS tp_count FROM `tk_houses` WHERE  (  status = 1 and is_del = 1 and city = '墨尔本' )  AND (  area = 'Clayton' and type = '合租' ) LIMIT 1 [ RunTime:0.003525s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `tk_school` [ RunTime:0.013255s ]
+[ sql ] [ SQL ] SELECT `sac`,`area`,`compus` FROM `tk_school` WHERE  `city` = '墨尔本'  AND (  sac like '%Clayton%' ) GROUP BY `area` [ RunTime:0.007389s ]
+[ sql ] [ SQL ] SELECT COUNT(id) AS tp_count FROM `tk_houses` WHERE  (  status = 1 and is_del = 1 and city = '墨尔本' )  AND (  area = 'Clayton' and type = '合租' ) LIMIT 1 [ RunTime:0.003614s ]
+[ sql ] [ SQL ] SELECT COUNT(id) AS tp_count FROM `tk_houses` WHERE  (  status = 1 and is_del = 1 and city = '墨尔本' )  AND (  area = 'Clayton South' and type = '合租' ) LIMIT 1 [ RunTime:0.003502s ]
+[ sql ] [ SQL ] SELECT COUNT(id) AS tp_count FROM `tk_houses` WHERE  (  status = 1 and is_del = 1 and city = '墨尔本' )  AND (  area = 'Glen Waverley' and type = '合租' ) LIMIT 1 [ RunTime:0.003407s ]
+[ sql ] [ SQL ] SELECT COUNT(id) AS tp_count FROM `tk_houses` WHERE  (  status = 1 and is_del = 1 and city = '墨尔本' )  AND (  area = 'Huntingdale' and type = '合租' ) LIMIT 1 [ RunTime:0.003374s ]
+[ sql ] [ SQL ] SELECT COUNT(id) AS tp_count FROM `tk_houses` WHERE  (  status = 1 and is_del = 1 and city = '墨尔本' )  AND (  area = 'Mount Waverley' and type = '合租' ) LIMIT 1 [ RunTime:0.003517s ]
+[ sql ] [ SQL ] SELECT COUNT(id) AS tp_count FROM `tk_houses` WHERE  (  status = 1 and is_del = 1 and city = '墨尔本' )  AND (  area = 'Notting hill' and type = '合租' ) LIMIT 1 [ RunTime:0.003407s ]
+[ sql ] [ SQL ] SELECT COUNT(id) AS tp_count FROM `tk_houses` WHERE  (  status = 1 and is_del = 1 and city = '墨尔本' )  AND (  area = 'Oakleigh' and type = '合租' ) LIMIT 1 [ RunTime:0.003166s ]
+[ sql ] [ SQL ] SELECT COUNT(id) AS tp_count FROM `tk_houses` WHERE  (  status = 1 and is_del = 1 and city = '墨尔本' )  AND (  area = 'Oakleigh East' and type = '合租' ) LIMIT 1 [ RunTime:0.003318s ]
+[ sql ] [ SQL ] SELECT `area` FROM `tk_houses` WHERE  `city` = '墨尔本'  AND (  area like '%Clayton%' ) GROUP BY `area` [ RunTime:0.004099s ]
+[ sql ] [ SQL ] SELECT COUNT(id) AS tp_count FROM `tk_houses` WHERE  (  status = 1 and is_del = 1 and city = '墨尔本' )  AND (  area = 'Clayton' and type = '合租' ) LIMIT 1 [ RunTime:0.003448s ]
+[ sql ] [ SQL ] SELECT COUNT(id) AS tp_count FROM `tk_houses` WHERE  (  status = 1 and is_del = 1 and city = '墨尔本' )  AND (  area = 'Clayton South' and type = '合租' ) LIMIT 1 [ RunTime:0.003266s ]
+---------------------------------------------------------------
+[ 2020-09-01T18:01:47+08:00 ] 127.0.0.1 GET www.huaxiang.com//api/house/getlist?keys=Glen%20Waverley,Glen%20Waverley&area=Glen%20Waverley,Glen%20Waverley&type=%E5%90%88%E7%A7%9F
+[ info ] [ ROUTE ] array (
+  'type' => 'module',
+  'module' => 
+  array (
+    0 => 'api',
+    1 => 'house',
+    2 => 'getlist',
+  ),
+)
+[ info ] [ HEADER ] array (
+  'accept-language' => 'en-US,en;q=0.9,zh-CN;q=0.8,zh;q=0.7',
+  'accept-encoding' => 'gzip, deflate',
+  'accept' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.70 Safari/537.36',
+  'upgrade-insecure-requests' => '1',
+  'connection' => 'close',
+  'host' => 'www.huaxiang.com',
+)
+[ info ] [ PARAM ] array (
+  '/api/house/getlist' => '',
+  'keys' => 'Glen Waverley,Glen Waverley',
+  'area' => 'Glen Waverley,Glen Waverley',
+  'type' => '合租',
+)
+[ info ] [ RUN ] app\api\controller\House->getList[ D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\application\api\controller\House.php ]
+[ info ] 获取房源参数lease_term：
+---------------------------------------------------------------
+[ 2020-09-01T18:01:47+08:00 ] 127.0.0.1 GET www.huaxiang.com//api/house/getlist?keys=Glen%20Waverley,Glen%20Waverley&area=Glen%20Waverley,Glen%20Waverley&type=%E5%90%88%E7%A7%9F
+[ info ] 租房价格最大值：5000
+---------------------------------------------------------------
+[ 2020-09-01T18:01:47+08:00 ] 127.0.0.1 GET www.huaxiang.com//api/house/getlist?keys=Glen%20Waverley,Glen%20Waverley&area=Glen%20Waverley,Glen%20Waverley&type=%E5%90%88%E7%A7%9F
+[ info ] 租房价格最小值：0
+---------------------------------------------------------------
+[ 2020-09-01T18:01:47+08:00 ] 127.0.0.1 GET www.huaxiang.com//api/house/getlist?keys=Glen%20Waverley,Glen%20Waverley&area=Glen%20Waverley,Glen%20Waverley&type=%E5%90%88%E7%A7%9F
+[ info ] 卧室house_room：
+---------------------------------------------------------------
+[ 2020-09-01T18:01:47+08:00 ] 127.0.0.1 GET www.huaxiang.com//api/house/getlist?keys=Glen%20Waverley,Glen%20Waverley&area=Glen%20Waverley,Glen%20Waverley&type=%E5%90%88%E7%A7%9F
+[ info ] 车位car：
+---------------------------------------------------------------
+[ 2020-09-01T18:01:47+08:00 ] 127.0.0.1 GET www.huaxiang.com//api/house/getlist?keys=Glen%20Waverley,Glen%20Waverley&area=Glen%20Waverley,Glen%20Waverley&type=%E5%90%88%E7%A7%9F
+[ info ] 前端用户：进行了翻页，当前页码0
+---------------------------------------------------------------
+[ 2020-09-01T18:01:49+08:00 ] 127.0.0.1 GET www.huaxiang.com//api/house/getlist?keys=Glen%20Waverley,Glen%20Waverley&area=Glen%20Waverley,Glen%20Waverley&type=%E5%90%88%E7%A7%9F
+[运行时间：1.243423s] [吞吐率：0.80req/s] [内存消耗：2,763.90kb] [文件加载：58]
+[ info ] [ DB ] INIT mysql
+[ info ] [ CACHE ] INIT File
+[ sql ] [ DB ] CONNECT:[ UseTime:0.001378s ] mysql:host=127.0.0.1;port=3306;dbname=xcxnew;charset=utf8mb4
+[ sql ] [ SQL ] SHOW COLUMNS FROM `tk_houses` [ RunTime:0.020046s ]
+[ sql ] [ SQL ] SELECT `id`,`type`,`title`,`house_room`,`area`,`images`,`price`,`toilet`,`furniture`,`home`,`school`,`address`,`tj`,`top`,`mdate`,`cdate`,`tags`,`live_date`,`car`,`lease_term`,`video`,`is_admin`,`corp`,`pm`,`house_type`,`likes`,`loard_sex`,`loard_job`,`user_id`,`thumnail` FROM `tk_houses` WHERE  (  status = 1 and is_del = 1 and city = '墨尔本' and area in ('Glen Waverley','Glen Waverley') and ( price <= 5000  and price >= 0  or price = -1 ) and type = '合租' )  AND `is_del` = 1 ORDER BY `top` DESC,`cdate` DESC LIMIT 0,10 [ RunTime:0.030750s ]
+[ sql ] [ SQL ] UPDATE `tk_houses`  SET `cover`='uploads/compress/cp1048.png'  WHERE  `id` = 1048 [ RunTime:0.056999s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `tk_user` [ RunTime:0.021005s ]
+[ sql ] [ SQL ] UPDATE `tk_user`  SET `mdate`='2020-09-01 18:01:48'  WHERE  `id` = 0 [ RunTime:0.000414s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `xcx_collect` [ RunTime:0.052464s ]
+[ sql ] [ SQL ] SELECT `cl_house_id` FROM `xcx_collect` WHERE  `cl_user_id` = 0  AND `cl_type` = 1 [ RunTime:0.006551s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `xcx_likes` [ RunTime:0.038940s ]
+[ sql ] [ SQL ] SELECT `tid` FROM `xcx_likes` WHERE  `uid` = 0  AND `type` = 1 [ RunTime:0.000400s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `super_admin` [ RunTime:0.024700s ]
+[ sql ] [ SQL ] SELECT `ad_realname`,`ad_img` FROM `super_admin` WHERE  `ad_id` = 2 LIMIT 1 [ RunTime:0.001005s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `xcx_corp` [ RunTime:0.029792s ]
+[ sql ] [ SQL ] SELECT `cp_logo` FROM `xcx_corp` WHERE  `cp_id` = 1 LIMIT 1 [ RunTime:0.001155s ]
+[ sql ] [ SQL ] SELECT `colour` FROM `xcx_corp` WHERE  `cp_id` = 1 LIMIT 1 [ RunTime:0.000716s ]

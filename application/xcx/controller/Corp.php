@@ -123,6 +123,8 @@ class Corp extends Controller
             $data['cp_email']=$_POST['cp_email'];
             $data['cp_desc']=$_POST['cp_desc'];
             $data['cp_tel']=$_POST['cp_tel'];
+            $data['x']=$_POST['x'];
+            $data['y']=$_POST['y'];
             $data['cp_addtime']= date('Y-m-d H:i:s');
             $data['cp_udate']= date('Y-m-d H:i:s');
             $data['cp_fuzeren']='';
@@ -130,9 +132,9 @@ class Corp extends Controller
             $data['cp_add_admin'] = $adminId;
             $addBan=Db::table('xcx_corp')->insert($data);
             if($addBan){
-                $this->success('Successfully！','index');
+                $this->success('添加成功！','index');
             }else{
-                $this->error('Failed!','index');
+                $this->error('添加失败!','index');
             }
         }else{
             $lang = new Languages();
@@ -158,18 +160,20 @@ class Corp extends Controller
             $data['cp_email']=$_POST['cp_email'];
             $data['cp_desc']=$_POST['cp_desc'];
             $data['cp_tel']=$_POST['cp_tel'];
+            $data['x']=$_POST['x'];
+            $data['y']=$_POST['y'];
             $data['cp_udate']= date('Y-m-d H:i:s');
             $data['cp_fuzeren']='';
             $data['cp_able']=1;
             $data['cp_add_admin'] = $adminId;
             $update=Db::table('xcx_corp')->where(['cp_id'=> $ba_id])->update($data);
             if($update){
-                $this->success('Successfully！',$url);
+                $this->success('修改成功！',$url);
             }else{
-                $this->error('Failed！',$url);
+                $this->error('您未做任何修改！',$url);
             }
         }else{
-            $title = $type == 1 ? 'Company List' : 'My Company';
+            $title = $type == 1 ? '公司列表' : '我的公司';
             $banInfo=Db::table('xcx_corp')
                 ->where(['cp_id'=> $ba_id])
                 ->find();
@@ -188,9 +192,9 @@ class Corp extends Controller
         $ba_id=intval(trim($_GET['cp_id']));
         $delBan=Db::table('xcx_corp')->where(['cp_id'=> $ba_id])->delete();
         if($delBan){
-            $this->success('Successfully！','index');
+            $this->success('删除成功！','index');
         }else{
-            $this->error('Failed！','index');
+            $this->error('删除失败！','index');
         }
     }
 
@@ -204,10 +208,10 @@ class Corp extends Controller
             $path_date=date("Ymd",time());
             $path="/uploads/corp/".$path_date."/".$path_filename;
             // 成功上传后 返回上传信息
-            return json(array('state'=>1,'path'=>$path,'msg'=> 'Successfully！'));
+            return json(array('state'=>1,'path'=>$path,'msg'=> '图片上传成功！'));
         }else{
             // 上传失败返回错误信息
-            return json(array('state'=>0,'msg'=>'Failed！'));
+            return json(array('state'=>0,'msg'=>'上传失败,请重新上传！'));
         }
     }
 
@@ -335,7 +339,7 @@ class Corp extends Controller
                 ->where(['ad_email' => $data['ad_email']])
                 ->find();
             if($isRepeat){
-                $this->error('Already Account！','add');
+                $this->error('此邮箱已注册！','add');
             }
             $data['ad_isable'] = 2;
             if(isset($_POST['ad_corp']) && $_POST['ad_corp']){
@@ -366,9 +370,9 @@ class Corp extends Controller
                     ->find();
                 $this->sendEmail($adminInfo['ad_email']);
                 //给平台用户发送一条账户邮箱激活链接
-                $this->success('Success，Please Check your email account to active','my');
+                $this->success('添加成功，请查收账户激活邮件','my');
             }else{
-                $this->error('Failed','my');
+                $this->error('添加管理员失败','my');
             }
         }else{
             $cropId = session('ad_corp');
@@ -408,7 +412,7 @@ class Corp extends Controller
                 ->where(['ad_email' => $data['ad_email']])
                 ->find();
             if($isRepeat){
-                $this->error('Already Account！','admin');
+                $this->error('此邮箱已注册！','admin');
             }
             if(isset($_POST['ad_role']) && $_POST['ad_role']){
                 $bill = $_POST['ad_role'];
@@ -428,9 +432,9 @@ class Corp extends Controller
             }
             $edit=Db::table('super_admin')->where(['ad_id' => $ad_id])->update($data);
             if($edit){
-                $this->success('Successfully！','admin');
+                $this->success('修改管理员成功！','admin');
             }else{
-                $this->error('Failed！','admin');
+                $this->error('您未做任何修改！','admin');
             }
         }else{
             $lang = new Languages();

@@ -209,14 +209,14 @@
                     </div>
                 </div>
 
-                <div class="layui-form-item" pane="">
-                    <label class="layui-form-label">{$lable.zhoubian}</label>
-                    <div class="layui-input-block">
-                        {volist name='all_trans' id='vo'}
-                        <input type="checkbox" class="checkbox" lay-skin="primary" name="sation[{$vo.trans}]" title="{$vo.transtitle}" disabled  {$vo.is_checked ? 'checked' : ''}>
-                        {/volist}
-                    </div>
-                </div>
+<!--                <div class="layui-form-item" pane="">-->
+<!--                    <label class="layui-form-label">{$lable.zhoubian}</label>-->
+<!--                    <div class="layui-input-block">-->
+<!--                        {volist name='all_trans' id='vo'}-->
+<!--                        <input type="checkbox" class="checkbox" lay-skin="primary" name="sation[{$vo.trans}]" title="{$vo.transtitle}" disabled  {$vo.is_checked ? 'checked' : ''}>-->
+<!--                        {/volist}-->
+<!--                    </div>-->
+<!--                </div>-->
                 <div class="layui-form-item" pane="">
                     <label class="layui-form-label">{$lable.biaoqian}</label>
                     <div class="layui-input-block">
@@ -232,7 +232,7 @@
                 {if condition="$house.econtent eq null"}
                 <div class="layui-form-item layui-form-text" id="preTrans">
                     <div class="layui-input-block">
-                        <textarea placeholder="{$lable.houseDescP}" style="height: 400px;" maxlength="1500" name="content" id="contents" class="layui-textarea">{$house.content}</textarea>
+                        <textarea placeholder="{$lable.houseDescP}" style="height: 400px;" maxlength="5000" name="content" id="contents" class="layui-textarea">{$house.content}</textarea>
                     </div>
                 </div>
                 {else/}
@@ -240,7 +240,7 @@
                 <div class="layui-col-xs6">
                     <div class="grid-demo grid-demo-bg1">
                         <div class="layui-input-block">
-                            <textarea placeholder="{$lable.houseDescP}" style="height: 400px;" maxlength="1500" name="econtent" readonly id="english" class="layui-textarea">{$house.econtent}</textarea>
+                            <textarea placeholder="{$lable.houseDescP}" style="height: 400px;" maxlength="5000" name="econtent" readonly id="english" class="layui-textarea">{$house.econtent}</textarea>
                         </div>
                     </div>
                 </div>

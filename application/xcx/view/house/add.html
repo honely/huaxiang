@@ -27,6 +27,9 @@
     .layui-form-switch em {
         width: 90px;
     }
+    .roomate{
+        display: none;
+    }
 </style>
 <style>
     .dragPic{
@@ -102,12 +105,16 @@
                 </div>
                 <div class="layui-form-item">
                     <label class="layui-form-label"><span style="color: red;">*</span>{$lable.houseAddr}</label>
-                    <div class="layui-input-block" id="input">
+                    <div  class="layui-input-inline" id="input" style="width: 450px;">
                         <input type="text" id="end" autocomplete="off" class="layui-input" placeholder="{$lable.houseAddP}">
                         <input type="text" name="address" id="address" style="display: none" readonly class="layui-input" lay-verify="required|addresss"  placeholder="目的地取值">
                         <input type="hidden" name="x" id="x" lay-verify="addres" autocomplete="off" class="layui-input" >
                         <input type="hidden" name="y" id="y" lay-verify="addres" autocomplete="off" class="layui-input" >
                     </div>
+                    <div class="layui-input-inline">
+                        <span id="resetAdd" class="layui-btn">Reset Address</span>
+                    </div>
+                    <hr style="background-color: transparent;color: transparent">
                     <div class="layui-form-mid layui-word-aux" style="margin-left: 110px;color: red !important;">{$lable.selectAddNot}</div>
                 </div>
                 <div class="layui-form-item">
@@ -116,17 +123,11 @@
                         <input type="text" name="http"  placeholder="{$lable.houseUrlP}" id="orderHouse" autocomplete="off" class="layui-input" onblur="checkHouseUrl()">
                     </div>
                 </div>
-                <div class="layui-form-item">
+                <div class="layui-form-item" style="display: none">
                     <label class="layui-form-label"><span style="color: red;">*</span>{$lable.city}</label>
                     <div class="layui-input-inline">
                         <input type="text" id="city" lay-verify="required|title" value="{$lable.moerben}" readonly class="layui-input">
                         <input type="hidden" name="city" id="citys" lay-verify="required|title" value="{$lable.moerben}" readonly class="layui-input">
-                    </div>
-                    <label class="layui-form-label" style="width: 150px !important;"><span style="color: red;">*</span>{$lable.school}</label>
-                    <div class="layui-input-inline" style="width: 250px !important;">
-                        <select name="school" lay-verify="required" id="school">
-                            <option value="">{$lable.selectSchoolP}</option>
-                        </select>
                     </div>
                 </div>
                 <div class="layui-form-item">
@@ -169,31 +170,47 @@
                 <div class="layui-form-item">
                     <label class="layui-form-label"><span style="color: red;">*</span>{$lable.rentype}</label>
                     <div class="layui-input-block">
-                        <input type="radio" name="type" value="整租" title="{$lable.zhengzu}" checked>
-                        <input type="radio" name="type" value="合租" title="{$lable.hezu}">
+                        <input type="radio" name="type" value="整租" lay-filter="isRoomate" title="{$lable.zhengzu}" checked>
+                        <input type="radio" name="type" value="合租" lay-filter="isRoomate" title="{$lable.hezu}">
+                         <input type="hidden" id="roomate" value="1">
                     </div>
                 </div>
-                <div class="layui-form-item">
+                <div class="layui-form-item roomate">
                     <label class="layui-form-label"><span style="color: red;">*</span>{$lable.xingbie}</label>
                     <div class="layui-input-block">
                         <input type="radio" name="sex" value="不限" title="{$lable.xingbiebuxian}" checked>
-                        <input type="radio" name="sex" value="限男性" title="{$lable.xiannanxing}">
-                        <input type="radio" name="sex" value="限女性" title="{$lable.xiannvxing}">
+                        <input type="radio" name="sex" value="男" title="{$lable.xiannanxing}">
+                        <input type="radio" name="sex" value="女" title="{$lable.xiannvxing}">
                     </div>
                 </div>
                 <div class="layui-form-item">
                     <label class="layui-form-label"><span style="color: red;">*</span>{$lable.pet}</label>
                     <div class="layui-input-block">
-                        <input type="radio" name="pet" value="不限" title="{$lable.petbuxian}" checked>
+                        <input type="radio" name="pet" value="不接受" title="{$lable.petDis}" checked>
                         <input type="radio" name="pet" value="接受" title="{$lable.petAcc}">
-                        <input type="radio" name="pet" value="不接受" title="{$lable.petDis}">
+
                     </div>
                 </div>
-                <div class="layui-form-item">
+                <div class="layui-form-item roomate">
                     <label class="layui-form-label"><span style="color: red;">*</span>{$lable.shifoujiaju}</label>
                     <div class="layui-input-block">
                         <input type="radio" name="is_fur" value="否" title="{$lable.bujiaju}" checked>
                         <input type="radio" name="is_fur" value="是" title="{$lable.baojiaju}">
+                    </div>
+                </div>
+                <div class="layui-form-item roomate">
+                    <label class="layui-form-label"><span style="color: red;">*</span>可否吸烟</label>
+                    <div class="layui-input-block">
+                        <input type="radio" name="smoke" value="不可" title="不可" checked>
+                        <input type="radio" name="smoke" value="可以" title="可以">
+                    </div>
+                </div>
+                <div class="layui-form-item roomate">
+                    <label class="layui-form-label"><span style="color: red;">*</span>接受情侣</label>
+                    <div class="layui-input-block">
+                        <input type="radio" name="is_couple" value="不接受" title="不接受" checked>
+                        <input type="radio" name="is_couple" value="接受" title="接受">
+
                     </div>
                 </div>
                 <div class="layui-form-item" pane="">
@@ -263,13 +280,11 @@
                         <input type="radio" name="car" value="9" title="9">
                     </div>
                 </div>
-                <div class="layui-form-item">
+                <div class="layui-form-item entire">
                     <label class="layui-form-label"><span style="color: red;">*</span>{$lable.jiaju}</label>
                     <div class="layui-input-block">
                         <input type="checkbox" name="home[床]" lay-skin="primary" title="{$lable.chuang}">
                         <input type="checkbox" name="home[沙发]" lay-skin="primary" title="{$lable.shafa}">
-<!--                        <input type="checkbox" name="home[餐桌]" lay-skin="primary" title="{$lable.canzuo}">-->
-<!--                        <input type="checkbox" name="home[椅子]" lay-skin="primary" title="{$lable.yizi}">-->
                         <input type="checkbox" name="home[WIFI]" lay-skin="primary" title="{$lable.fWIFI}">
                         <input type="checkbox" name="home[空调]" lay-skin="primary" title="{$lable.kongtiao}">
                         <input type="checkbox" name="home[洗衣机]" lay-skin="primary" title="{$lable.xiyiji}">
@@ -285,39 +300,69 @@
                     </div>
                 </div>
 
-                <div class="layui-form-item" pane="">
+                <div class="layui-form-item entire" pane="">
                     <label class="layui-form-label">{$lable.sheshi}</label>
                     <div class="layui-input-block">
                         <input type="checkbox" name="furniture[游泳池]" lay-skin="primary" title="{$lable.yongchi}">
                         <input type="checkbox" name="furniture[健身房]" lay-skin="primary" title="{$lable.jianshenfang}">
                         <input type="checkbox" name="furniture[停车位]" lay-skin="primary" title="{$lable.tingchewei}">
                         <input type="checkbox" name="furniture[电影院]" lay-skin="primary" title="{$lable.dianyingyuan}">
-<!--                        <input type="checkbox" name="furniture[花园]" lay-skin="primary" title="{$lable.huayuan}">-->
                         <input type="checkbox" name="furniture[门禁]" lay-skin="primary" title="{$lable.menjin}">
                         <input type="checkbox" name="furniture[前台]" lay-skin="primary" title="{$lable.qiantai}">
                         <input type="checkbox" name="furniture[桑拿]" lay-skin="primary" title="{$lable.sangna}">
                     </div>
                 </div>
-
-<!--                <div class="layui-form-item" pane="">-->
-<!--                    <label class="layui-form-label">{$lable.zhoubian}</label>-->
-<!--                    <div class="layui-input-block">-->
-<!--                        <input type="checkbox" name="sation[巴士站]" lay-skin="primary" title="{$lable.bashizhan}">-->
-<!--                        <input type="checkbox" name="sation[火车站]" lay-skin="primary" title="{$lable.huochezhan}">-->
-<!--                        <input type="checkbox" name="sation[电车站]" lay-skin="primary" title="{$lable.dianchezhan}">-->
-<!--                        <input type="checkbox" name="sation[餐馆]" lay-skin="primary" title="{$lable.canguan}">-->
-<!--                        <input type="checkbox" name="sation[公园]" lay-skin="primary" title="{$lable.gongyuan}">-->
-<!--                        <input type="checkbox" name="sation[警察局]" lay-skin="primary" title="{$lable.jingcaju}">-->
-<!--                        <input type="checkbox" name="sation[医院]" lay-skin="primary" title="{$lable.yiyuan}">-->
-<!--                        <input type="checkbox" name="sation[超市]" lay-skin="primary" title="{$lable.chaoshi}">-->
-<!--                    </div>-->
-<!--                </div>-->
                 <div class="layui-form-item" pane="">
                     <label class="layui-form-label">{$lable.biaoqian}</label>
                     <div class="layui-input-block">
                         {volist name='tags' id='vo'}
                         <input type="checkbox" class="checkbox tags" lay-verify="required|des_tanlent"  lay-skin="primary" name="tags[{$vo.name}]" title="{$vo.sname}">
                         {/volist}
+                    </div>
+                </div>
+                <div class="layui-form-item roomate">
+                    <label class="layui-form-label"><span style="color: red;">*</span>室友数量</label>
+                    <div class="layui-input-block">
+                        <input type="radio" name="roomates" value="0" title="0" checked>
+                        <input type="radio" name="roomates" value="1" title="1">
+                        <input type="radio" name="roomates" value="2" title="2">
+                        <input type="radio" name="roomates" value="3" title="3">
+                        <input type="radio" name="roomates" value="4" title="4">
+                        <input type="radio" name="roomates" value="5" title="5">
+                        <input type="radio" name="roomates" value="6" title="6">
+                        <input type="radio" name="roomates" value="7" title="7">
+                        <input type="radio" name="roomates" value="8" title="8">
+                        <input type="radio" name="roomates" value="9" title="9">
+                    </div>
+                </div>
+                <fieldset class="layui-elem-field layui-field-title roomate" style="margin-top: 20px;">
+                    <legend>房东概况</legend>
+                </fieldset>
+                <div class="layui-form-item roomate">
+                    <label class="layui-form-label"><span style="color: red;">*</span>{$lable.loadJob}</label>
+                    <div class="layui-input-block">
+                        <input type="text" name="loard_job" maxlength="10" autocomplete="off" class="layui-input">
+                    </div>
+                </div>
+                <div class="layui-form-item roomate">
+                    <label class="layui-form-label"><span style="color: red;">*</span>房东性别</label>
+                    <div class="layui-input-block">
+                        <input type="radio" name="loard_sex" value="1" title="男" checked>
+                        <input type="radio" name="loard_sex" value="2" title="女">
+                    </div>
+                </div>
+                <div class="layui-form-item roomate">
+                    <label class="layui-form-label"><span style="color: red;">*</span>是否吸烟</label>
+                    <div class="layui-input-block">
+                        <input type="radio" name="loard_smoke" value="否" title="否" checked>
+                        <input type="radio" name="loard_smoke" value="是" title="是">
+                    </div>
+                </div>
+                <div class="layui-form-item roomate">
+                    <label class="layui-form-label"><span style="color: red;">*</span>宠物</label>
+                    <div class="layui-input-block">
+                        <input type="radio" name="loard_pet" value="无" title="无" checked>
+                        <input type="radio" name="loard_pet" value="有" title="有">
                     </div>
                 </div>
                 <fieldset class="layui-elem-field layui-field-title" style="margin-top: 20px;">
@@ -341,14 +386,14 @@
                     <div class="layui-col-xs6">
                         <div class="grid-demo grid-demo-bg1">
                             <div class="layui-input-block">
-                                <textarea lay-verify="required" placeholder="{$lable.transPlaceEn}" style="height: 400px;" maxlength="1500" name="econtent" id="english" class="layui-textarea"></textarea>
+                                <textarea lay-verify="required" placeholder="{$lable.transPlaceEn}" style="height: 400px;" maxlength="4000" name="econtent" id="english" class="layui-textarea"></textarea>
                             </div>
                         </div>
                     </div>
                     <div class="layui-col-xs6">
                         <div class="grid-demo">
                             <div class="layui-input-block" style="margin-left: 25px !important;">
-                                <textarea lay-verify="required" placeholder="{$lable.transPlaceCn}" style="height: 400px;" maxlength="1500" id="chinese" class="layui-textarea"></textarea>
+                                <textarea lay-verify="required" placeholder="{$lable.transPlaceCn}" style="height: 400px;" maxlength="800" id="chinese" name="content" class="layui-textarea"></textarea>
                             </div>
                         </div>
                     </div>
@@ -357,10 +402,10 @@
                     <legend>{$lable.lianxi}</legend>
                 </fieldset>
                 <div class="layui-form-item">
-                    <label class="layui-form-label"><span style="color: red;">*</span>{$lable.gongsi}</label>
+                    <label class="layui-form-label"><span style="color: red;">*</span>公司</label>
                     <div class="layui-input-inline">
                         <select name="corp" lay-filter="selectPm"  lay-search="" >
-                            <option value="">Pls Select</option>
+                            <option value="">Please Select</option>
                             {volist name='corp' id='vo'}
                             <option value="{$vo.cp_id}">{$vo.cp_name}</option>
                             {/volist}
@@ -369,26 +414,26 @@
                     <label class="layui-form-label" style="width: 150px !important;"><span style="color: red;">*</span>PM</label>
                     <div class="layui-input-inline" style="width: 250px !important;">
                         <select name="pm" lay-verify="required" lay-filter="selectPmInfo"  id="pm"  lay-search="">
-                            <option value="">Pls Select</option>
+                            <option value="">Please Select</option>
                         </select>
                     </div>
                 </div>
                 <div class="layui-form-item">
                     <label class="layui-form-label"><span style="color: red;">*</span>{$lable.xingming}</label>
                     <div class="layui-input-block">
-                        <input type="text" name="real_name" id='real_name' lay-verify="required|title" placeholder="{$lable.pleaseInput}" autocomplete="off" value="" class="layui-input">
+                        <input type="text" name="real_name" id='real_name' lay-verify="required|title"  autocomplete="off" value="" class="layui-input">
                     </div>
                 </div>
                 <div class="layui-form-item">
                     <label class="layui-form-label"><span style="color: red;">*</span>{$lable.dianhua}</label>
                     <div class="layui-input-block">
-                        <input type="text" name="tel" id="tel" lay-verify="required" placeholder="{$lable.pleaseInput}" autocomplete="off" value="" class="layui-input">
+                        <input type="text" name="tel" id="tel" lay-verify="required" autocomplete="off" value="" class="layui-input">
                     </div>
                 </div>
                 <div class="layui-form-item">
                     <label class="layui-form-label">{$lable.youxiang}</label>
                     <div class="layui-input-block">
-                        <input type="text" name="email" id="email" placeholder="{$lable.pleaseInput}" autocomplete="off" value="" class="layui-input">
+                        <input type="text" name="email" id="email" autocomplete="off" value="" class="layui-input">
                     </div>
                 </div>
                 <fieldset class="layui-elem-field layui-field-title" style="margin-top: 20px;">
@@ -427,6 +472,7 @@
                                         </div>
                                     </div>
                                 </div>
+                                <input type="hidden" class="layui-input" lay-verify="imgRegCaseType" />
                                 <div class="layui-upload">
                                     <button type="button" class="layui-btn layui-btn pull-left layui-btn-sm" id="slide-pc">{$lable.qitatupian}</button>
                                 </div>
@@ -437,8 +483,14 @@
                 <fieldset class="layui-elem-field layui-field-title" style="margin-top: 20px;">
                     <legend>{$lable.shipin}</legend>
                 </fieldset>
-                <div class="layui-form-mid layui-word-aux" style="margin-left: 40px;">{$lable.otherNotic}</div>
-                <div class="layui-form-item one-pan" style="margin-left: 40px;">
+                <div class="layui-btn upBtn" style="margin-left: 40px;">Upload</div>
+                <div class="layui-btn layui-btn-primary urlBtn" style="margin-left: 40px;">Video Url</div>
+                <br>
+                <div class="layui-form-mid layui-word-aux upNotice" style="margin-left: 40px;">{$lable.otherNotic}</div>
+                <div class="layui-form-mid layui-word-aux urlNotice" style="margin-left: 40px;display: none">5 minutes maxsize，40MB maximum Size{//$lable.otherNotic}</div>
+
+
+                <div class="layui-form-item one-pan one-video" style="margin-left: 40px;">
                     <div class="layui-upload-drag" id="uploadLogo" style="padding: 50px;">
                         <video id="logoPre" style="display: none" controls="controls" autobuffer="autobuffer" loop="loop" src="">
                             <input type="hidden" name="video" id="video" value=""/>
@@ -460,6 +512,26 @@
                     <div class="layui-btn layui-btn-sm" id="upload-video" style="margin-left: 20px;display:none;" >{$lable.shangchuan}</div>
                     <br/>
                 </div>
+                <div class="layui-form-item one-pan two-video" style="margin-left: 40px;display: none">
+                    <div class="layui-upload-drag" id="urlUploadLogo" style="padding: 20px;width:50%">
+                        <video id="uLogoPre" style="display: none" controls="controls" autobuffer="autobuffer" loop="loop" src="">
+                        </video>
+                        <!--进度条-->
+                        <div id="uJdT" style="width:200px;height:18px;position: absolute;top: 157px;left: 113px;display:none;">
+                            <div class="layui-progress layui-progress-big" lay-showPercent="true" lay-filter="demo">
+                                <div class="layui-progress-bar layui-bg-red" lay-percent="0%"></div>
+                            </div>
+                        </div>
+                        <!--删除按钮-->
+                        <div id="uVidDel" style="position: absolute;left: 60px;top: 18px;color: red;display: none;cursor: pointer;">{$lable.delete}</div>
+                        <div id="uDisplay">
+                            <input type="text" id="urlUpload"  placeholder="Bilibili视频链接" class="layui-input">
+                        </div>
+                    </div>
+                    <div class="layui-btn layui-btn-sm urlUploadLogo" style="margin-left: 20px;" id="uChoiceVid" >{$lable.shangchuan}</div>
+                    <br/>
+                </div>
+
                 <div class="layui-form-item">
                     <div class="layui-input-inline" style="width: 270px;margin-left: 40px;">
                         <button class="layui-btn" lay-submit>{$lable.fabu}</button>
@@ -473,6 +545,83 @@
         </div>
     </div>
     <script>
+        $('#resetAdd').click(function () {
+            //清空经纬度的赋值
+            $('#end').show();
+            $('#address').hide();
+            $('#end').val('');
+            $('#address').val('');
+            $('#x').val('');
+            $('#y').val('');
+        });
+        //更改视频div显示
+        $('.upBtn').click(function () {
+            $(".upBtn").removeClass("layui-btn-primary ");
+            $(".urlBtn").addClass("layui-btn-primary");
+            $('.one-video').show();
+            $('.two-video').hide();
+            $('.upNotice').show();
+            $('.urlNotice').hide();
+        });
+        $('.urlBtn').click(function () {
+            $(".urlBtn").removeClass("layui-btn-primary ");
+            $(".upBtn").addClass("layui-btn-primary");
+            $('.one-video').hide();
+            $('.two-video').show();
+            $('.upNotice').hide();
+            $('.urlNotice').show();
+        });
+        //远程上传
+        $('.urlUploadLogo').click(function () {
+            var url = $('#urlUpload').val();
+            $.ajax({
+                type: 'POST',
+                url: "<?=url('house/urlUpload')?>",
+                data:{'url':url},
+                beforeSend: function () {
+                    layer.msg('请稍等...');
+                },
+                success: function(data){
+                    if(data.code == 1){
+                        layer.msg(data.msg);
+                        $('#uLogoPre').show();
+                        // 删除显示
+                        $('#uVidDel').show();
+                        //父级样式
+                        $("#urlUploadLogo").removeAttr("style","");
+                        $('#urlUploadLogo').css("padding", "50px");
+                        // 上传显示，选择隐藏
+                        $('#uChoiceVid').hide();
+                        $('#uDisplay').hide();
+                        $('#uLogoPre').css('width','335px');
+                        $('#uLogoPre').css('height','251px');
+                        $('#uLogoPre').attr('src', data.filepath);
+                        $('#video').val(data.filepath);
+                    }else{
+                        layer.msg(data.msg);
+                    }
+                }
+            });
+        });
+
+        // 视频删除,样式重置，上传视频初始化
+        $('#uVidDel').click(function(event){
+            console.log("执行删除");
+            $('#uVidDel').hide();                                               //删除按钮隐藏
+            $('#uLogoPre').removeAttr('src');                                   //视频清空地址
+            $('#uLogoPre').css('width','');
+            $('#uLogoPre').css('height','');
+            $('#video').val('');
+            $('#uLogoPre').hide();                                              //视频隐藏
+            $('#uDisplay').show();                                              //提示图标，文字显示
+            $('#urlUploadLogo').css("padding", "20px");                 //父级初始样式
+            $('#urlUploadLogo').css("width", "50%");                    //父级初始样式
+            // 上传隐藏，选择显示
+            $('#uChoiceVid').show();
+            //初始化上传视频组件
+            upload.render();
+            event.stopPropagation();                                           //禁止冒泡
+        });
         //保存不更新状态
         $('#save').click(function () {
             $.ajax({
@@ -539,6 +688,18 @@
                 ,$ = layui.jquery
                 ,autocomplete = layui.autocomplete
                 ,element = layui.element;
+            form.on('radio(isRoomate)', function(data){
+                 var isRoom = data.value;
+                if(isRoom == '合租'){
+                    $('.roomate').show();
+                    $('#roomate').val(2);
+                    $('.entire').hide();
+                }else{
+                    $('.roomate').hide();
+                    $('#roomate').val(1);
+                    $('.entire').show();
+                }
+            });
             var xhrOnProgress=function(fun) {
                 xhrOnProgress.onprogress = fun;
                 //绑定监听
@@ -652,7 +813,7 @@
                     success: function(data){
                         console.log(data);
                         var code=data.data;
-                        $("#pm").html("<option value=\"\">Pls Select</option>");
+                        $("#pm").html("<option value=''>Please Select</option>");
                         $.each(code, function(i, val) {
                             var option1 = $("<option>").val(val.ad_id).text(val.ad_realname);
                             $("#pm").append(option1);
@@ -718,8 +879,14 @@
                 }
                 ,imgRegCaseType:function () {
                     var len = $(".img_url").length;
+                    var types = $("#roomate").val();
+                    if(types == 2){
+                        if (len < 2) {
+                            return "至少上传2张房源图片";
+                        }
+                    }
                     if (len > 8) {
-                        return "房源图片不超过8个？";
+                        return "房源图片不超过8个";
                     }
                 }
                 ,urlTest:function(value){
@@ -734,7 +901,7 @@
                 ,des_tanlent:function () {
                     var len = $(".tags:checked").length;
                     if (len > 6) {
-                        return "房源标签选择数不超过6个？";
+                        return "Maximum 6 tags!";
                     }
                 }
             });

@@ -161,13 +161,14 @@ class Cate extends Controller
      * @throws \think\db\exception\ModelNotFoundException
      * @throws \think\exception\DbException
      */
-    public function getass(){
+   public function getass(){
         header("Access-Control-Allow-Origin:*");
         header('Access-Control-Allow-Methods:POST');
         header('Access-Control-Allow-Headers:x-requested-with, content-type');
         $city = $this->request->param('city','墨尔本');
         $keys = trim($this->request->param('keys'));
-        if(!$keys || strlen($keys) < 3){
+        $type = trim($this->request->param('type'));
+        if(!$keys || strlen($keys) < 3 || !$type){
             $res['code'] =0;
             $res['msg'] ='请输入至少3个字符以上进行查找！';
             return json($res);
@@ -180,7 +181,12 @@ class Cate extends Controller
             ->group('stop')
             ->select();
         foreach ($stops as $k => $items){
-            $stops[$k]['count'] = $this->houseCount($city,"area = '".$items['area']."'");
+            $stops[$k]['count'] = $this->houseCount($city,"area = '".$items['area']."' and type = '".$type."'");
+        }
+        foreach ($stops as $k => $items){
+            if($items['count'] == 0){
+                unset($stops[$k]);
+            }
         }
         $data['stops'] = $stops;
         $school = Db::table('tk_school')
@@ -190,7 +196,12 @@ class Cate extends Controller
             ->group('area')
             ->select();
         foreach ($school as $k => $v){
-            $school[$k]['count'] = $this->houseCount($city,"area = '".$v['area']."'");
+            $school[$k]['count'] = $this->houseCount($city,"area = '".$v['area']."' and type = '".$type."'");
+        }
+        foreach ($school as $k => $v){
+            if($v['count'] == 0){
+                unset($school[$k]);
+            }
         }
         $arr = $school;
         $last_arr = [];
@@ -208,6 +219,9 @@ class Cate extends Controller
         $aschol = array_values($last_arr);
         foreach ($aschol as $k => $v){
             $aschol[$k]['area'] = rtrim($v['area'],',');
+            if($v['count'] == 0){
+                unset($aschol[$k]);
+            }
         }
         $data['school'] = $aschol;
         $area = Db::table('tk_houses')
@@ -217,7 +231,12 @@ class Cate extends Controller
             ->field('area')
             ->select();
         foreach ($area as $k => $items){
-            $area[$k]['count'] = $this->houseCount($city,"area = '".$items['area']."'");
+            $area[$k]['count'] = $this->houseCount($city,"area = '".$items['area']."' and type = '".$type."'");
+        }
+        foreach ($area as $k => $items){
+            if($items['count'] == 0){
+                unset($area[$k]);
+            }
         }
         $data['area'] = $area;
         if($data){
@@ -231,6 +250,7 @@ class Cate extends Controller
             return json($res);
         }
     }
+
 
     public function houseCount($city,$where){
         $wheres = "status = 1 and is_del = 1 and city = '".$city."'";

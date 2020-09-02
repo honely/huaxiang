@@ -203,7 +203,7 @@ class Rent extends Controller
     }
 
 
-
+ 
     public function myrent(){
         header("Access-Control-Allow-Origin:*");
         header('Access-Control-Allow-Methods:POST');
@@ -234,8 +234,8 @@ class Rent extends Controller
         $res['data'] = $result;
         return json($res);
     }
-
-
+    
+    
     public function rentpost(){
         header("Access-Control-Allow-Origin:*");
         header('Access-Control-Allow-Methods:POST');
@@ -247,24 +247,21 @@ class Rent extends Controller
             $res['msg'] = '缺少参数！';
             return json($res);
         }
-        // tags  title地区 户型 租期  图像 昵称 类型
+       // tags  title地区 户型 租期  图像 昵称 类型
         $house = Db::table('tk_forent')
             ->where(['id' => $id,'status' =>1])
             ->field('id,title,userid,city,area,room,mytags,type,leaseterm,status,livedate')
             ->find();
-
-        if (!is_null($house)) {
+        if (is_null($house)) {
             $res['code'] = 0;
             $res['msg'] = '该记录已经不存在了';
-            $res['data'] = null;
-            return $res;
+            return json($res);
         }
         if($house['status'] != 1){
             $res['code'] = 0;
             $res['msg'] = '该记录已被外星人劫持！';
             return json($res);
         }
-
         if($house){
             $loop = new Loops();
             $house['nickname'] =  $loop->getUserNick($house['userid']);
@@ -279,7 +276,7 @@ class Rent extends Controller
         return json($res);
     }
 
-
+    
     //求租拼租删除
     public function del(){
         header("Access-Control-Allow-Origin:*");
@@ -350,6 +347,6 @@ class Rent extends Controller
             return json($res);
         }
     }
-
-
+    
+    
 }

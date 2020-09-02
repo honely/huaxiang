@@ -149,7 +149,7 @@
     {{#  } }}
 </script>
 <script type="text/html" id="status">
-    <input type="checkbox" name="sex" lay-skin="switch" value="{{d.id}}" lay-text="{$lable.off}|{$lable.on}" lay-filter="statusDemo" {{ d.status == 1 ? 'checked' : '' }} {{ d.status == 0 ? 'disabled' : '' }} >
+    <input type="checkbox" name="sex" lay-skin="switch" value="{{d.id}}" lay-text="{$lable.on}|{$lable.off}" lay-filter="statusDemo" {{ d.status == 1 ? 'checked' : '' }} {{ d.status == 0 ? 'disabled' : '' }} >
 </script>
 <script>
     layui.use(['table','laydate','form','element'], function(){

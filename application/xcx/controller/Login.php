@@ -34,7 +34,7 @@ class Login extends Controller{
                             session('ad_wechat',$login['ad_wechat']);
                             session('ad_corp',$login['ad_corp']);
                             session('expiretime',time() + 1800);
-                            $this->success('Success！','index/index');
+                            $this->success('Successfully！','index/index');
                         }else{
                             $this->error('Wrong Account Or Password！','login');
                         }

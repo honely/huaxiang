@@ -20,12 +20,12 @@ class Index extends Controller
         parent::__construct($request);
         $adminName=session('adminName');
         if(empty($adminName)){
-            $this->error('请先登录！','login/login');
+            $this->error('Please Login！','login/login');
         }
         if(isset($_SESSION['expiretime'])) {
             if($_SESSION['expiretime'] < time()) {
                 unset($_SESSION['expiretime']);
-                $this->error('您的登录身份已过期，请重新登录！','login/login');
+                $this->error('Please Login！','login/login');
                 exit(0);
             } else {
                 $_SESSION['expiretime'] = time() + 1800; // 刷新时间戳
@@ -251,21 +251,21 @@ class Index extends Controller
             $adminInfo=Db::table('super_admin')->where(['ad_id' => $adminId])->field('ad_password')->find();
             $adPwd=$adminInfo['ad_password'];
             if($adPwd != $oldPwd){
-                $this->error('您输入的密码与原始密码不一致，请重新输入！');
+                $this->error('Wrong Old password！');
             }else{
                 if($newPwd != $newPwd1){
-                    $this->error('您两次输入的新密码不一致，请重新输入！');
+                    $this->error('Repassword is wrong！');
                 }else{
                     if($adPwd == $newPwd){
-                        $this->error('输入的新密码请勿与原密码相同！');
+                        $this->error('New password could not the same as the Old！');
                     }else{
                         $data['ad_password']=$newPwd;
                         $resetPwd=Db::table('super_admin')->where(['ad_id' => $adminId])->update($data);
                         if($resetPwd){
                             session(null);
-                            $this->success('修改密码成功，请重新登录！','login/login');
+                            $this->success('Successfully，Please relogin！','login/login');
                         }else{
-                            $this->error('修改密码失败','index');
+                            $this->error('Failed','index');
                         }
                     }
                 }

@@ -44,9 +44,17 @@
                             </div>
                             <div class="layui-form-item">
                                 <label class="layui-form-label"><span style="color: red;">*</span>{$lable.address}</label>
-                                <div class="layui-input-block">
-                                    <input type="text" name="cp_address" lay-verify="required|title" placeholder="{$lable.pleaseInput}" autocomplete="off" class="layui-input">
+                                <div class="layui-input-inline" id="input" style="width: 450px;">
+                                    <input type="text" id="end" autocomplete="off" class="layui-input" placeholder="{$lable.houseAddP}">
+                                    <input type="text" name="cp_address" id="address" style="display: none" readonly class="layui-input" lay-verify="required|addresss"  placeholder="目的地取值">
+                                    <input type="hidden" name="x" id="x" lay-verify="addres" autocomplete="off" class="layui-input" >
+                                    <input type="hidden" name="y" id="y" lay-verify="addres" autocomplete="off" class="layui-input" >
                                 </div>
+                                <div class="layui-input-inline">
+                                    <span id="resetAdd" class="layui-btn">重置地址</span>
+                                </div>
+                                <hr style="background-color: transparent;color: transparent">
+                                <div class="layui-form-mid layui-word-aux" style="margin-left: 110px;color: red !important;">{$lable.selectAddNot}</div>
                             </div>
                             <div class="layui-form-item one-pan">
                                 <label class="layui-form-label"><span style="color: red;">*</span>Logo</label>
@@ -63,7 +71,7 @@
                                     <div class="layui-form-mid layui-word-aux" style="margin-left: 39px; ">{$lable.tupianRemark}</div>
                                 </div>
                             </div>
-                             <div class="layui-form-item one-pan">
+                            <div class="layui-form-item one-pan">
                                 <label class="layui-form-label"><span style="color: red;">*</span>miniLogo</label>
                                 <div class="layui-upload-drag" id="uploadLogom" style="display:inline-block;">
                                     <image id="logoPrem">
@@ -115,7 +123,7 @@
                             <div class="layui-form-item layui-form-text">
                                 <label class="layui-form-label">{$lable.desc}</label>
                                 <div class="layui-input-block">
-                                    <textarea placeholder="{$lable.pleaseInput}" maxlength="500" name="cp_desc" class="layui-textarea"></textarea>
+                                    <textarea placeholder="{$lable.pleaseInput}" maxlength="150" name="cp_desc" class="layui-textarea"></textarea>
                                 </div>
                             </div>
                             <div class="layui-form-item">
@@ -132,10 +140,53 @@
     </div>
 </div>
 <script>
-    layui.use(['form', 'jquery','upload'], function(){
+    $('#resetAdd').click(function () {
+        //清空经纬度的赋值
+        $('#end').show();
+        $('#address').hide();
+        $('#end').val('');
+        $('#address').val('');
+        $('#x').val('');
+        $('#y').val('');
+    });
+    layui.link('/layui/src/autocomplete/autocomplete.css');
+    layui.config({
+        base: '/layui/src/autocomplete/'
+        , version: false,
+        debug: false,
+    });
+    layui.use(['form', 'jquery','upload','autocomplete','element'], function(){
         var form = layui.form
             ,upload = layui.upload
+            ,autocomplete = layui.autocomplete
+            ,element = layui.element
             ,$ = layui.jquery;
+        autocomplete.render({
+            elem: $('#end'),
+            response: {code: 'code', data: 'suggestions'},
+            template_val: '{{d.label}}',
+            template_txt: '{{d.label}}',
+            onselect: function (resp) {
+                console.log(resp);
+                var address = resp.label;
+                $('#address').val(address);
+                $('#end').hide();
+                $('#address').show();
+                locationAD(address);
+            }
+        });
+        let APP_ID_HERE = "QuHxU6ypXzp37Dci84o8";
+        let APP_CODE_HERE = "TDu_enlm0QIblRnIl33buw";
+        function locationAD(query) {
+            $.getJSON("https://geocoder.api.here.com/6.2/geocode.json?gen=9&searchtext=" + query + "&app_id=" + APP_ID_HERE + "&app_code=" + APP_CODE_HERE, function (data) {
+                console.log(data);
+                var lati = data["Response"]["View"][0]["Result"][0]["Location"]["DisplayPosition"]["Latitude"];
+                var longi = data["Response"]["View"][0]["Result"][0]["Location"]["DisplayPosition"]["Longitude"];
+                $('#x').val(lati);
+                $('#y').val(longi);
+            });
+
+        }
         form.verify({
             title: function(value){
                 if(value.length < 2){
@@ -165,8 +216,8 @@
                 console.log(res);
                 $('#cp_logo').val('' +res.path + '');
             }
-        }); 
-         upload.render({
+        });
+        upload.render({
             elem: '#uploadLogom'
             ,url: '{:url("xcx/corp/upload")}'
             ,exts: 'PNG|JPG'
@@ -183,7 +234,7 @@
                 console.log(res);
                 $('#minilogo').val('' +res.path + '');
             }
-        }); 
+        });
         upload.render({
             elem: '#uploadImg'
             ,url: '{:url("xcx/corp/upload")}'

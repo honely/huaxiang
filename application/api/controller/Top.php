@@ -29,6 +29,7 @@ class Top extends Controller
             return json($res);
         }
         $date = date('Y-m-d');
+        $datetime = date('Y-m-d H:i:s');
         $isTopable = $this->topCount($uId,$date);
         if(!$isTopable){
             $res['code'] = 0;
@@ -41,12 +42,12 @@ class Top extends Controller
         $log['tp_type'] = 1;
         $log['tp_aid'] = 0;
         $log['tp_date'] = $date;
-        $log['tp_top_time'] = date('Y-m-d H:i:s');
+        $log['tp_top_time'] = $datetime;
         $insert = Db::table('xcx_house_top')->insertGetId($log);
         //更新房源发布时间
         $updateHouseCtime = Db::table('tk_houses')
             ->where(['id' => $hid])
-            ->update(['cdate' => date('Y-m-d H:i:s')]);
+            ->update(['cdate' => $datetime,'mdate' => $datetime]);
         if($insert && $updateHouseCtime){
             $res['code'] = 1;
             $res['msg'] = '置顶成功！';
@@ -72,6 +73,7 @@ class Top extends Controller
             return json($res);
         }
         $date = date('Y-m-d');
+        $datetime = date('Y-m-d H:i:s');
         $isTopable = $this->topCount($uId,$date);
         if(!$isTopable){
             $res['code'] = 0;
@@ -84,12 +86,12 @@ class Top extends Controller
         $log['tp_aid'] = 0;
         $log['tp_type'] = 2;
         $log['tp_date'] = $date;
-        $log['tp_top_time'] = date('Y-m-d H:i:s');
+        $log['tp_top_time'] = $datetime;
         $insert = Db::table('xcx_house_top')->insertGetId($log);
         //更新房源发布时间
         $updateHouseCtime = Db::table('tk_forent')
             ->where(['id' => $hid])
-            ->update(['mdate' => date('Y-m-d H:i:s')]);
+            ->update(['mdate' => $datetime]);
         if($insert && $updateHouseCtime){
             $res['code'] = 1;
             $res['msg'] = '置顶成功！';

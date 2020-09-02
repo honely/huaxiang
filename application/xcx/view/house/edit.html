@@ -107,14 +107,19 @@
                 </div>
                 <div class="layui-form-item">
                     <label class="layui-form-label"><span style="color: red;">*</span>{$lable.houseAddr}</label>
-                    <div class="layui-input-block" id="input">
+                    <div class="layui-input-inline" style="width: 450px;">
                         <input type="text" name="address" id="end" autocomplete="off" class="layui-input" placeholder="{$lable.houseAddP}" lay-verify="required|addresss"  value="{$house.address}" >
                         <input type="text" name="address" id="address" style="display: none" readonly class="layui-input" lay-verify="required|addresss" value="{$house.address}"  placeholder="目的地取值">
 
                         <input type="hidden" name="x" id="x" lay-verify="addres"  autocomplete="off" class="layui-input" value="{$house.x}" >
                         <input type="hidden" name="y" id="y" lay-verify="addres"  autocomplete="off" class="layui-input" value="{$house.y}" >
                     </div>
-                   <div class="layui-form-mid layui-word-aux" style="margin-left: 110px;color: red !important;">{$lable.selectAddNot}</div>
+                    <div class="layui-input-inline">
+                        <span id="resetAdd" class="layui-btn">Reset Address</span>
+                    </div>
+                    <hr style="background-color: transparent;color: transparent">
+
+                    <div class="layui-form-mid layui-word-aux" style="margin-left: 110px;color: red !important;">{$lable.selectAddNot}</div>
                 </div>
                 <div class="layui-form-item">
                     <label class="layui-form-label">{$lable.houseUrl}</label>
@@ -127,15 +132,6 @@
                     <div class="layui-input-inline">
                         <input type="text" id="city" lay-verify="required|title" value="{$house.citys}" readonly class="layui-input">
                         <input type="hidden" name="city" id="citys" lay-verify="required|title" value="{$house.city}" readonly class="layui-input">
-                    </div>
-                    <label class="layui-form-label"><span style="color: red;">*</span>{$lable.school}</label>
-                    <div class="layui-input-inline">
-                        <select name="school" lay-verify="required" id="school">
-                            <option value="">{$lable.selectSchoolP}</option>
-                            {volist name='school' id='vo'}
-                            <option value="{$vo.name}" {if condition="$house.school eq $vo.name"}selected{/if}>{$vo.sname}</option>
-                            {/volist}
-                        </select>
                     </div>
                 </div>
                 <div class="layui-form-item">
@@ -179,29 +175,44 @@
                     <div class="layui-input-block">
                         <input type="radio" name="type" value="整租" title="{$lable.zhengzu}" {if condition="$house.type eq '整租'"}checked{/if}>
                         <input type="radio" name="type" value="合租" title="{$lable.hezu}" {if condition="$house.type eq '合租'"}checked{/if}>
+                        <input type="hidden" id="roomate" value="{if condition="$house.type eq '整租'"}1{else/}2{/if}">
                     </div>
                 </div>
                 <div class="layui-form-item">
                     <label class="layui-form-label"><span style="color: red;">*</span>{$lable.xingbie}</label>
                     <div class="layui-input-block">
                         <input type="radio" name="sex" value="不限" title="{$lable.xingbiebuxian}" {if condition="$house.sex eq '不限'"}checked{/if}>
-                        <input type="radio" name="sex" value="限男性" title="{$lable.xiannanxing}" {if condition="$house.sex eq '限男性'"}checked{/if}>
-                        <input type="radio" name="sex" value="限女性" title="{$lable.xiannvxing}" {if condition="$house.sex eq '限女性'"}checked{/if}>
+                        <input type="radio" name="sex" value="男" title="{$lable.xiannanxing}" {if condition="$house.sex eq '男'"}checked{/if}>
+                        <input type="radio" name="sex" value="女" title="{$lable.xiannvxing}" {if condition="$house.sex eq '女'"}checked{/if}>
                     </div>
                 </div>
                 <div class="layui-form-item">
                     <label class="layui-form-label"><span style="color: red;">*</span>{$lable.pet}</label>
                     <div class="layui-input-block">
-                        <input type="radio" name="pet" value="不限" title="{$lable.petbuxian}" {if condition="$house.pet eq '不限'"}checked{/if}>
-                        <input type="radio" name="pet" value="接受" title="{$lable.petAcc}" {if condition="$house.pet eq '接受'"}checked{/if}>
                         <input type="radio" name="pet" value="不接受" title="{$lable.petDis}" {if condition="$house.pet eq '不接受'"}checked{/if}>
+                        <input type="radio" name="pet" value="接受" title="{$lable.petAcc}" {if condition="$house.pet eq '接受'"}checked{/if}>
                     </div>
                 </div>
-                <div class="layui-form-item">
+                <div class="layui-form-item roomate">
                     <label class="layui-form-label"><span style="color: red;">*</span>{$lable.shifoujiaju}</label>
                     <div class="layui-input-block">
                         <input type="radio" name="is_fur" value="否" title="{$lable.bujiaju}" {if condition="$house.is_fur eq '否'"}checked{/if}>
                         <input type="radio" name="is_fur" value="是" title="{$lable.baojiaju}" {if condition="$house.is_fur eq '是'"}checked{/if}>
+                    </div>
+                </div>
+                <div class="layui-form-item roomate">
+                    <label class="layui-form-label"><span style="color: red;">*</span>可否吸烟</label>
+                    <div class="layui-input-block">
+                        <input type="radio" name="smoke" value="不可" title="不可" {if condition="$house.smoke eq '不可'"}checked{/if}>
+                        <input type="radio" name="smoke" value="可以" title="可以" {if condition="$house.smoke eq '可以'"}checked{/if}>
+                    </div>
+                </div>
+                <div class="layui-form-item roomate">
+                    <label class="layui-form-label"><span style="color: red;">*</span>接受情侣</label>
+                    <div class="layui-input-block">
+                        <input type="radio" name="is_couple" value="不接受" title="不接受" {if condition="$house.is_couple eq '不接受'"}checked{/if}>
+                        <input type="radio" name="is_couple" value="接受" title="接受" {if condition="$house.is_couple eq '接受'"}checked{/if}>
+
                     </div>
                 </div>
                 <div class="layui-form-item" pane="">
@@ -270,7 +281,7 @@
                         <input type="radio" name="car" value="9" title="9" {if condition="$house.car eq '9'"}checked{/if}>
                     </div>
                 </div>
-                <div class="layui-form-item">
+                <div class="layui-form-item entire">
                     <label class="layui-form-label"><span style="color: red;">*</span>{$lable.jiaju}</label>
                     <div class="layui-input-block">
                         {volist name='all_four' id='vo'}
@@ -279,7 +290,7 @@
                     </div>
                 </div>
 
-                <div class="layui-form-item" pane="">
+                <div class="layui-form-item entire" pane="">
                     <label class="layui-form-label">{$lable.sheshi}</label>
                     <div class="layui-input-block">
                         {volist name='all_set' id='vo'}
@@ -287,15 +298,6 @@
                         {/volist}
                     </div>
                 </div>
-
-<!--                <div class="layui-form-item" pane="">-->
-<!--                    <label class="layui-form-label">{$lable.zhoubian}</label>-->
-<!--                    <div class="layui-input-block">-->
-<!--                        {volist name='all_trans' id='vo'}-->
-<!--                        <input type="checkbox" class="checkbox" lay-skin="primary" name="sation[{$vo.trans}]" title="{$vo.transtitle}"  {$vo.is_checked ? 'checked' : ''}>-->
-<!--                        {/volist}-->
-<!--                    </div>-->
-<!--                </div>-->
                 <div class="layui-form-item" pane="">
                     <label class="layui-form-label">{$lable.biaoqian}</label>
                     <div class="layui-input-block">
@@ -304,10 +306,55 @@
                         {/volist}
                     </div>
                 </div>
+                <div class="layui-form-item roomate">
+                    <label class="layui-form-label"><span style="color: red;">*</span>室友数量</label>
+                    <div class="layui-input-block">
+                        <input type="radio" name="roomates" value="0" title="0" {if condition="$house.roomates eq '0'"}checked{/if}>
+                        <input type="radio" name="roomates" value="1" title="1" {if condition="$house.roomates eq '1'"}checked{/if}>
+                        <input type="radio" name="roomates" value="2" title="2" {if condition="$house.roomates eq '2'"}checked{/if}>
+                        <input type="radio" name="roomates" value="3" title="3" {if condition="$house.roomates eq '3'"}checked{/if}>
+                        <input type="radio" name="roomates" value="4" title="4" {if condition="$house.roomates eq '4'"}checked{/if}>
+                        <input type="radio" name="roomates" value="5" title="5" {if condition="$house.roomates eq '5'"}checked{/if}>
+                        <input type="radio" name="roomates" value="6" title="6" {if condition="$house.roomates eq '6'"}checked{/if}>
+                        <input type="radio" name="roomates" value="7" title="7" {if condition="$house.roomates eq '7'"}checked{/if}>
+                        <input type="radio" name="roomates" value="8" title="8" {if condition="$house.roomates eq '8'"}checked{/if}>
+                        <input type="radio" name="roomates" value="9" title="9" {if condition="$house.roomates eq '9'"}checked{/if}>
+                    </div>
+                </div>
+                <fieldset class="layui-elem-field layui-field-title roomate" style="margin-top: 20px;">
+                    <legend>房东概况</legend>
+                </fieldset>
+                <div class="layui-form-item roomate">
+                    <label class="layui-form-label"><span style="color: red;">*</span>{$lable.loadJob}</label>
+                    <div class="layui-input-block">
+                        <input type="text" name="loard_job" value="{$house.loard_job}" maxlength="10" autocomplete="off" class="layui-input">
+                    </div>
+                </div>
+                <div class="layui-form-item roomate">
+                    <label class="layui-form-label"><span style="color: red;">*</span>房东性别</label>
+                    <div class="layui-input-block">
+                        <input type="radio" name="loard_sex" value="1" title="男" {if condition="$house.loard_sex eq 1"}checked{/if}>
+                        <input type="radio" name="loard_sex" value="2" title="女" {if condition="$house.loard_sex eq 2"}checked{/if}>
+                    </div>
+                </div>
+                <div class="layui-form-item roomate">
+                    <label class="layui-form-label"><span style="color: red;">*</span>是否吸烟</label>
+                    <div class="layui-input-block">
+                        <input type="radio" name="loard_smoke" value="否" title="否" {if condition="$house.loard_smoke eq '否'"}checked{/if}>
+                        <input type="radio" name="loard_smoke" value="是" title="是" {if condition="$house.loard_smoke eq '是'"}checked{/if}>
+                    </div>
+                </div>
+                <div class="layui-form-item roomate">
+                    <label class="layui-form-label"><span style="color: red;">*</span>可有宠物</label>
+                    <div class="layui-input-block">
+                        <input type="radio" name="loard_pet" value="无" title="无" {if condition="$house.loard_pet eq '无'"}checked{/if}>
+                        <input type="radio" name="loard_pet" value="有" title="有" {if condition="$house.loard_pet eq '有'"}checked{/if}>
+                    </div>
+                </div>
                 <fieldset class="layui-elem-field layui-field-title" style="margin-top: 20px;">
                     <legend>{$lable.jianjie}</legend>
                 </fieldset>
-              <div style="margin:0 auto !important;color: red !important;clear:both;text-align: center">{$lable.transNoticNew}</div>
+                <div style="margin:0 auto !important;color: red !important;clear:both;text-align: center">{$lable.transNoticNew}</div>
                 <div class="layui-row">
                     <div class="layui-col-xs6">
                         <div class="grid-demo grid-demo-bg1">
@@ -321,30 +368,30 @@
                     </div>
                 </div>
                 <div class="layui-row" id="translate" style="margin-top: 12px;">
-                <div class="layui-col-xs6">
-                    <div class="grid-demo grid-demo-bg1">
-                        <div class="layui-input-block">
-                            <textarea placeholder="{$lable.transPlaceEn}" style="height: 400px;" maxlength="1500" name="econtent"  lay-verify="required" id="english" class="layui-textarea">{$house.econtent}</textarea>
+                    <div class="layui-col-xs6">
+                        <div class="grid-demo grid-demo-bg1">
+                            <div class="layui-input-block">
+                                <textarea placeholder="{$lable.transPlaceEn}" style="height: 400px;" maxlength="4000" name="econtent"  lay-verify="required" id="english" class="layui-textarea">{$house.econtent}</textarea>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="layui-col-xs6">
+                        <div class="grid-demo">
+                            <div class="layui-input-block" style="margin-left: 25px !important;">
+                                <textarea placeholder="{$lable.transPlaceCn}" lay-verify="required"  style="height: 400px;" maxlength="800" name="content" id="chinese" class="layui-textarea">{$house.content}</textarea>
+                            </div>
                         </div>
                     </div>
                 </div>
-                <div class="layui-col-xs6">
-                    <div class="grid-demo">
-                        <div class="layui-input-block" style="margin-left: 25px !important;">
-                            <textarea placeholder="{$lable.transPlaceCn}" lay-verify="required"  style="height: 400px;" maxlength="1500" name="content" id="chinese" class="layui-textarea">{$house.content}</textarea>
-                        </div>
-                    </div>
-                </div>
-            </div>
 
                 <fieldset class="layui-elem-field layui-field-title" style="margin-top: 20px;">
                     <legend>{$lable.lianxi}</legend>
                 </fieldset>
                 <div class="layui-form-item">
-                    <label class="layui-form-label"><span style="color: red;">*</span>{$lable.gongsi}</label>
+                    <label class="layui-form-label"><span style="color: red;">*</span>Company</label>
                     <div class="layui-input-inline">
                         <select name="corp" lay-filter="selectPm"  lay-search="" >
-                            <option value="">Pls Select</option>
+                            <option value="">Please Select</option>
                             {volist name='corp' id='vo'}
                             <option value="{$vo.cp_id}"  {if condition="$house.corp eq $vo.cp_id"}selected{/if}>{$vo.cp_name}</option>
                             {/volist}
@@ -353,7 +400,7 @@
                     <label class="layui-form-label" style="width: 150px !important;"><span style="color: red;">*</span>PM</label>
                     <div class="layui-input-inline" style="width: 250px !important;">
                         <select name="pm" lay-verify="required" lay-filter="selectPmInfo"  id="pm"  lay-search="">
-                            <option value="">Pls Select</option>
+                            <option value="">Please Select</option>
                             {volist name='pminfo' id='vo'}
                             <option value="{$vo.ad_id}"  {if condition="$house.pm eq $vo.ad_id"}selected{/if}>{$vo.ad_realname}</option>
                             {/volist}
@@ -363,19 +410,19 @@
                 <div class="layui-form-item">
                     <label class="layui-form-label"><span style="color: red;">*</span>{$lable.xingming}</label>
                     <div class="layui-input-block">
-                        <input type="text" name="real_name" id="real_name" lay-verify="required|title" placeholder="{$lable.pleaseInput}" value="{$house.real_name}" autocomplete="off" class="layui-input">
+                        <input type="text" name="real_name" id="real_name" lay-verify="required|title"  value="{$house.real_name}" autocomplete="off" class="layui-input">
                     </div>
                 </div>
                 <div class="layui-form-item">
                     <label class="layui-form-label"><span style="color: red;">*</span>{$lable.dianhua}</label>
                     <div class="layui-input-block">
-                        <input type="text" name="tel" id="tel" lay-verify="required" placeholder="{$lable.pleaseInput}" value="{$house.tel}" autocomplete="off" class="layui-input">
+                        <input type="text" name="tel" id="tel" lay-verify="required" value="{$house.tel}" autocomplete="off" class="layui-input">
                     </div>
                 </div>
                 <div class="layui-form-item">
                     <label class="layui-form-label">{$lable.youxiang}</label>
                     <div class="layui-input-block">
-                        <input type="text" name="email" id="email" lay-verify="emails" placeholder="{$lable.pleaseInput}" value="{$house.email}" autocomplete="off" class="layui-input">
+                        <input type="text" name="email" id="email" lay-verify="emails" value="{$house.email}" autocomplete="off" class="layui-input">
                     </div>
                 </div>
                 <fieldset class="layui-elem-field layui-field-title" style="margin-top: 20px;">
@@ -425,10 +472,11 @@
                                                 </div>
                                                 {/volist}
                                                 {else/}
-                                                未上传
+                                                NoData
                                                 {/if}
                                             </div>
                                         </div>
+                                         <input type="hidden" class="layui-input" lay-verify="imgRegCaseType" />
                                     </div>
                                 </div>
                                 <div class="layui-upload">
@@ -486,6 +534,15 @@
         </div>
     </div>
     <script>
+        $('#resetAdd').click(function () {
+            //清空经纬度的赋值
+            $('#end').show();
+            $('#address').hide();
+            $('#end').val('');
+            $('#address').val('');
+            $('#x').val('');
+            $('#y').val('');
+        });
         //保存不更新状态
         $('#saveinfo').click(function () {
             $.ajax({
@@ -560,6 +617,18 @@
                 ,$ = layui.jquery
                 ,autocomplete = layui.autocomplete
                 ,element = layui.element;
+            form.on('radio(isRoomate)', function(data){
+                var isRoom = data.value;
+                if(isRoom == '合租'){
+                    $('.roomate').show();
+                    $('#roomate').val(2);
+                    $('.entire').hide();
+                }else{
+                    $('.roomate').hide();
+                    $('#roomate').val(1);
+                    $('.entire').show();
+                }
+            });
             var xhrOnProgress=function(fun) {
                 xhrOnProgress.onprogress = fun;
                 //绑定监听
@@ -673,7 +742,7 @@
                     success: function(data){
                         console.log(data);
                         var code=data.data;
-                        $("#pm").html("<option value=''></option>");
+                        $("#pm").html("<option value=''>Please Select</option>");
                         $.each(code, function(i, val) {
                             var option1 = $("<option>").val(val.ad_id).text(val.ad_realname);
                             $("#pm").append(option1);
@@ -716,31 +785,37 @@
             form.verify({
                 title: function(value){
                     if(value.length < 2){
-                        return '标题至少得2个字符啊';
+                        return 'Minimum 2 letters';
                     }
                 },addres: function(value){
                     if(!value){
-                        return '请输入正确的地址信息,并在推荐地址里选择！';
+                        return 'Please enter correct Address and Select form options！';
                     }
                 },prices: function(value){
                     if(value <-1){
-                        return '价格不能小于零！';
+                        return 'Price is more than 0！';
                     }
                 },addresss: function(value){
                     var values = value.split(',');
                     if(values.length < 3){
-                        return '请输入正确的地址信息！';
+                        return 'Please enter correct Address！';
                     }
                 }
                 ,imgReg:function (value) {
                     if(value.length <= 0){
-                        return '请上传封面图片';
+                        return 'Please Upload Cover Images';
                     }
                 }
                 ,imgRegCaseType:function () {
                     var len = $(".img_url").length;
+                    var types = $("#roomate").val();
+                    if(types == 2){
+                        if (len < 2) {
+                            return "至少上传2张房源图片";
+                        }
+                    }
                     if (len > 8) {
-                        return "房源图片不超过8个？";
+                        return "房源图片不超过8个";
                     }
                 }
                 ,urlTest:function(value){
@@ -748,14 +823,14 @@
                         var Expression=/http(s)?:\/\/([\w-]+\.)+[\w-]+(\/[\w- .\/?%&=]*)?/;
                         if(Expression.test(value)){
                         }else{
-                            return "请输入正确的链接！";
+                            return "Please enter Correct Urls！";
                         }
                     }
                 }
                 ,des_tanlent:function () {
                     var len = $(".tags:checked").length;
                     if (len > 6) {
-                        return "房源标签选择数不超过6个？";
+                        return "Maxinum 6 tags？";
                     }
                 }
             });
@@ -975,6 +1050,14 @@
     </script>
     <script>
         $(document).ready(function(){
+            var houseType = '{$house.type}';
+            if(houseType == '合租'){
+                $('.roomate').show();
+                $('.entire').hide();
+            }else{
+                $('.roomate').hide();
+                $('.entire').show();
+            }
             refersh();
         });
         function refersh() {

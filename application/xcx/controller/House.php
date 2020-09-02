@@ -15,6 +15,8 @@ use think\Controller;
 use think\Db;
 use think\Image;
 use think\Request;
+use UrlVideo\BiliBili;
+use UrlVideo\Youtube;
 
 class House extends Controller{
     public function __construct(Request $request = null)
@@ -27,7 +29,7 @@ class House extends Controller{
         if(isset($_SESSION['expiretime'])) {
             if($_SESSION['expiretime'] < time()) {
                 unset($_SESSION['expiretime']);
-                $this->error('您的登录身份已过期，请重新登录！','login/login');
+                $this->error('Please Login！','login/login');
                 exit(0);
             } else {
                 $_SESSION['expiretime'] = time() + 1800; // 刷新时间戳
@@ -386,9 +388,9 @@ class House extends Controller{
             $add=Db::table('tk_houses')->insert($data);
             $url =   $typess==1 ? 'myhouse' : 'index';
             if($add){
-                $this->success('Success！',$url);
+                $this->success('SuccessFully！',$url);
             }else{
-                $this->error('Fail！',$url);
+                $this->error('Failed！',$url);
             }
         }else{
             $lang = new Languages();
@@ -456,7 +458,7 @@ class House extends Controller{
     {
         if($this->request->isPost()){
             $res['code']=1;
-            $res['msg'] = '上传成功！';
+            $res['msg'] = 'Upload success！';
             $file = $this->request->file('file');
             $config = [
                 'size' => 1024*1024*10
@@ -464,18 +466,17 @@ class House extends Controller{
             $size = $file->validate($config);
             if($size){
                 $info = $file->move(ROOT_PATH . 'public' . DS . 'uploads/ceshi');
-                $res['name'] = $info->getFilename();
-                $res['filepath'] = 'uploads/text/'.$info->getSaveName();
-                $check = $this->checkImg($res['filepath']);
-                if($check == 1){
-                    $this->compImg($res['filepath']);
+                //halt( $info);
+                if($info){
+                    $res['name'] = $info->getFilename();
+                    $res['filepath'] = 'uploads/ceshi/'.$info->getSaveName();
                 }else{
                     $res['code'] = 0;
-                    $res['msg'] = '为方便浏览房源实景，请勿上传长图！';
+                    $res['msg'] = 'Upload Failed！'.$file->getError();
                 }
             }else{
                 $res['code'] = 0;
-                $res['msg'] = '文件大小不超过10M！';
+                $res['msg'] = '10M maximum Size！';
             }
             return $res;
         }
@@ -503,7 +504,7 @@ class House extends Controller{
 
     public function getCityName($id){
         $city = Db::table('tk_cate')->where(['id' =>$id])->field('name')->find();
-        return $city ? $city['name'] : '未知城市';
+        return $city ? $city['name'] : 'Unknown City';
     }
 
     //重新生成找室友编码
@@ -688,9 +689,9 @@ class House extends Controller{
             $url = $type == 1 ? 'index' : 'myhouse';
             $add=Db::table('tk_houses')->where(['id' => $id])->update($data);
             if($add){
-                $this->success('Success！',$url);
+                $this->success('SuccessFully！',$url);
             }else{
-                $this->error('Fail！',$url);
+                $this->error('Failed！',$url);
             }
         }else{
             $houseInfo = Db::table('tk_houses')->where(['id' => $id])->find();
@@ -1029,19 +1030,19 @@ class House extends Controller{
                     $res['msg'] ='置顶失败！此城市的置顶数量已达上限，请取消别的置顶再置顶此房源！';
                     return $res;
                 }
-                $msg = '置顶';
+                $msg = 'Top ';
                 $data['top'] = '是';
             }else{
-                $msg = '取消置顶';
+                $msg = 'UnTop';
                 $data['top'] = '否';
             }
             $changeStatus = Db::table('tk_houses')->where(['id' => $ba_id])->update($data);
             if($changeStatus){
                 $res['code'] = 1;
-                $res['msg'] = $msg.'成功！';
+                $res['msg'] = $msg.'SuccessFully！';
             }else{
                 $res['code'] = 0;
-                $res['msg'] = $msg.'失败！';
+                $res['msg'] = $msg.'Failed！';
             }
         }else{
             $res['code'] = 0;
@@ -1065,7 +1066,7 @@ class House extends Controller{
                     $res['msg'] ='推荐失败！此城市的推荐数量已达上限！';
                     return $res;
                 }
-                $msg = '推荐';
+                $msg = 'Recommended ';
                 $data['tj'] = '是';
             }else{
                 $msg = '取消推荐';
@@ -1074,10 +1075,10 @@ class House extends Controller{
             $changeStatus = Db::table('tk_houses')->where(['id' => $ba_id])->update($data);
             if($changeStatus){
                 $res['code'] = 1;
-                $res['msg'] = $msg.'成功！';
+                $res['msg'] = $msg.'SuccessFully！';
             }else{
                 $res['code'] = 0;
-                $res['msg'] = $msg.'失败！';
+                $res['msg'] = $msg.'Failed！';
             }
         }else{
             $res['code'] = 0;
@@ -1095,21 +1096,21 @@ class House extends Controller{
         if($ba_id && isset($change)){
             //如果选中状态是true,后台数据将要改为手机 显示
             if($change){
-                $msg = '上线';
+                $msg = 'Online ';
                 $data['status'] = 1;
                 $data['cdate'] = $date;
             }else{
-                $msg = '下线';
+                $msg = 'Off line';
                 $data['status'] = 2;
                 $data['cdate'] = $date;
             }
             $changeStatus = Db::table('tk_houses')->where(['id' => $ba_id])->update($data);
             if($changeStatus){
                 $res['code'] = 1;
-                $res['msg'] = $msg.'成功！';
+                $res['msg'] = $msg.'SuccessFully！';
             }else{
                 $res['code'] = 0;
-                $res['msg'] = $msg.'失败！';
+                $res['msg'] = $msg.'Failed！';
             }
         }else{
             $res['code'] = 0;
@@ -1533,9 +1534,9 @@ class House extends Controller{
             ->where(['mp_hid' => $id])
             ->update(['mp_isable' =>2]);
         if($dels){
-            $this->success('删除成功！','index');
+            $this->success('SuccessFully！','index');
         }else{
-            $this->error('删除失败！','index');
+            $this->error('Failed！','index');
         }
     }
 
@@ -1555,7 +1556,7 @@ class House extends Controller{
                 ->where(['id' => $value])
                 ->update(['is_del' => 2]);
         }
-        $this->success('删除成功！','index');
+        $this->success('SuccessFully！','index');
     }
 
     //通用缩略图上传接口
@@ -1563,7 +1564,7 @@ class House extends Controller{
     {
         if($this->request->isPost()){
             $res['code']=1;
-            $res['msg'] = '上传成功！';
+            $res['msg'] = 'Upload SuccessFully！';
             $file = $this->request->file('file');
             $config = [
                 'size' => 1024*1024*30
@@ -1575,45 +1576,40 @@ class House extends Controller{
                 if($info){
                     $res['name'] = $info->getFilename();
                     $res['filepath'] = 'uploads/text/'.$info->getSaveName();
-                    $check = $this->checkImg($res['filepath']);
-                    if($check == 1){
-                       $this->compImg($res['filepath']);
-                    }else{
-                        $res['code'] = 0;
-                        $res['msg'] = '为方便浏览房源实景，请勿上传长图！';
-                    }
-
                 }else{
                     $res['code'] = 0;
-                    $res['msg'] = '上传失败！'.$file->getError();
+                    $res['msg'] = 'Upload Failed！'.$file->getError();
                 }
             }else{
                 $res['code'] = 0;
-                $res['msg'] = '文件大小不超过10M！';
+                $res['msg'] = '10M maximum Size！';
             }
             return $res;
         }
     }
 
-
-    public function checkImg($filePath){
-        //$filePath = "./uploads\admin\a.jpg";
-        $image = Image::open($filePath);
-        //长宽比超过2.5：1
-        $w = $image->width();
-        $h = $image->height();
-        $scale = $h / $w;
-        $default = 2.5;
-        if($scale > $default) {
-            //程序删掉这个图片
-            if(file_exists($filePath)){
-                unlink($filePath);
+    //通过url上传视频
+    public function urlUpload($url)
+    {
+        if ($this->request->isPost()) {
+            $url = $this->request->param('url');
+            if (preg_match('/(bilibili\.com)/',$url)) {
+                $BiliBili = new BiliBili();
+                $res = $BiliBili->download($url);
+                return $res;
+            } elseif(preg_match('/(youtube\.be|youtube\.com)/',$url)) {
+                $Youtube = new Youtube();
+                $res = $Youtube->download($url);
+                return $res;
+            }else {
+                $res['code'] = 0;
+                $res['msg'] = '请输入正确的视频地址！';
+                return $res;
             }
-            return 1;
-        } else {
-            return 2;
         }
     }
+
+
     public function video(){
         if($_POST){
             $data = $_POST;
@@ -1644,7 +1640,7 @@ class House extends Controller{
     {
         if($this->request->isPost()){
             $res['code']=1;
-            $res['msg'] = '上传成功！';
+            $res['msg'] = 'Upload SuccessFully！';
             $file = $this->request->file('file');
             $config = [
                 'size' => 1024*1024*10
@@ -1659,11 +1655,11 @@ class House extends Controller{
                     $res['filepath'] = 'uploads/text/'.$info->getSaveName();
                 }else{
                     $res['code'] = 0;
-                    $res['msg'] = '上传失败！'.$file->getError();
+                    $res['msg'] = 'Upload Failed！'.$file->getError();
                 }
             }else{
                 $res['code'] = 0;
-                $res['msg'] = '文件大小不超过10M！';
+                $res['msg'] = '10M maximum Size！';
             }
             return $res;
         }
@@ -1680,9 +1676,9 @@ class House extends Controller{
             $data['tags'] = rtrim($bills,',');
             $update = Db::table('tk_houses')->where(['id' => $id])->update($data);
             if($update){
-                $this->success('更新成功！','index');
+                $this->success('SuccessFully！','index');
             }else{
-                $this->error('更新失败！','index');
+                $this->error('Failed！','index');
             }
         }else{
             //读取房源的tags
@@ -1718,10 +1714,10 @@ class House extends Controller{
                 ->find();
             if($isRepeat){
                 $res['code'] = 2;
-                $res['msg'] = '这个房源已经添加过了呢！';
+                $res['msg'] = 'Already House url！';
             }else {
                 $res['code'] = 1;
-                $res['msg'] = '独一无二的房源链接';
+                $res['msg'] = 'Available!';
             }
         }else{
             $isRepeat=Db::table('tk_houses')
@@ -1729,10 +1725,10 @@ class House extends Controller{
                 ->find();
             if($isRepeat){
                 $res['code'] = 2;
-                $res['msg'] = '这个房源已经添加过了呢！';
+                $res['msg'] = 'Already House url！！';
             }else {
                 $res['code'] = 1;
-                $res['msg'] = '独一无二的房源链接';
+                $res['msg'] = 'Available!';
             }
         }
         return $res;
@@ -1926,7 +1922,7 @@ class House extends Controller{
         $date = date('Y-m-d');
         $isTopable = $this->topCount($adminId,$date);
         if(!$isTopable){
-            $this->success('您今日的置顶次数已用光！');
+            $this->success('You have no times left！');
         }
         //写入一条置顶记录；
         $log['tp_hid'] = $hid;
@@ -1950,7 +1946,7 @@ class House extends Controller{
         if($insert && $updateHouseCtime){
             $this->success($msg);
         }
-        $this->error('置顶失败！');
+        $this->error('Failed！');
     }
 
 

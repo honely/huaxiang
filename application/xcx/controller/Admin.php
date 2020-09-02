@@ -25,7 +25,7 @@ class Admin extends Controller{
         if(isset($_SESSION['expiretime'])) {
             if($_SESSION['expiretime'] < time()) {
                 unset($_SESSION['expiretime']);
-                $this->error('您的登录身份已过期，请重新登录！','login/login');
+                $this->error('Please Login！','login/login');
                 exit(0);
             } else {
                 $_SESSION['expiretime'] = time() + 1800; // 刷新时间戳
@@ -57,7 +57,7 @@ class Admin extends Controller{
             ->select();
         $loop = new Loops();
         foreach($admin as $k => $v){
-            $sex = $v['ad_sex']== 1 ? 'Male' :'Female';
+            $sex = $v['ad_sex']== 1 ? '男' :'女';
             $admin[$k]['adWechat'] = $loop->getUserNick($v['ad_wechat']);
             $admin[$k]['ad_roles'] = $this->getRoleName($v['ad_role']);
             $admin[$k]['ad_corp'] = $this->getCropName($v['ad_corp']);
@@ -192,19 +192,19 @@ class Admin extends Controller{
         if($ba_id && isset($change)){
             //如果选中状态是true,后台数据将要改为手机 显示
             if($change){
-                $msg = '显示';
+                $msg = 'Show';
                 $data['ad_isable'] = '1';
             }else{
-                $msg = '隐藏';
+                $msg = 'Hide';
                 $data['ad_isable'] = '2';
             }
             $changeStatus = Db::table('super_admin')->where(['ad_id' => $ba_id])->update($data);
             if($changeStatus){
                 $res['code'] = 1;
-                $res['msg'] = $msg.'成功！';
+                $res['msg'] = $msg.'Successfully！';
             }else{
                 $res['code'] = 0;
-                $res['msg'] = $msg.'失败！';
+                $res['msg'] = $msg.'Failed！';
             }
         }else{
             $res['code'] = 0;
@@ -227,7 +227,7 @@ class Admin extends Controller{
                 ->where(['ad_email' => $data['ad_email']])
                 ->find();
             if($isRepeat){
-                $this->error('此邮箱已注册！','admin');
+                $this->error('Already Account！','admin');
             }
             $data['ad_isable'] = 2;
             if(isset($_POST['ad_role']) && $_POST['ad_role']){
@@ -265,9 +265,9 @@ class Admin extends Controller{
                     ->find();
                 $this->sendEmail($adminInfo['ad_email']);
                 //给平台用户发送一条账户邮箱激活链接
-                $this->success('添加成功，请查收账户激活邮件','admin');
+                $this->success('Please Check Your Email Account to active ','admin');
             }else{
-                $this->error('添加管理员失败','admin');
+                $this->error('Failed','admin');
             }
         }else{
             $where = '1 = 1';
@@ -329,9 +329,9 @@ ABN: 11 628 249 687</b>
 <br>
 <b style='color:rgb(237,125,49);font-weight:bold;'>W</b> https://huaxiangxiaobao.com/";
         if(!$mail->send()){
-            return json(['code'=>0,'msg'=>'Failed,please Connect Administrator！']);
+            return json(['code'=>0,'msg'=>'发送失败！请联系管理员']);
         }else{
-            return json(['code'=>1,'msg'=>'Success！']);
+            return json(['code'=>1,'msg'=>'发送成功！']);
         }
     }
     //修改管理员
@@ -350,7 +350,7 @@ ABN: 11 628 249 687</b>
                 ->where(['ad_email' => $data['ad_email']])
                 ->find();
             if($isRepeat){
-                $this->error('Already Account！','admin');
+                $this->error('此邮箱已注册！','admin');
             }
             if(isset($_POST['ad_role']) && $_POST['ad_role']){
                 $bill = $_POST['ad_role'];
@@ -370,7 +370,7 @@ ABN: 11 628 249 687</b>
             }
             $edit=Db::table('super_admin')->where(['ad_id' => $ad_id])->update($data);
             if($edit){
-                $this->success('Success！','admin');
+                $this->success('Successfully！','admin');
             }else{
                 $this->error('Failed！','admin');
             }
@@ -471,19 +471,19 @@ ABN: 11 628 249 687</b>
                 ->find();
             if($isRepeat){
                 $res['code'] = 2;
-                $res['msg'] = '此工号已注册！';
+                $res['msg'] = 'Already Account！';
             }else{
                 $res['code'] = 1;
-                $res['msg'] = '此工号经系统检测可用。';
+                $res['msg'] = 'Available。';
             }
         }else{
             $isRepeat=Db::table('super_admin')->where(['ad_bid' => $ad_phone])->find();
             if($isRepeat){
                 $res['code'] = 2;
-                $res['msg'] = '此工号已注册！';
+                $res['msg'] = 'Already Account！';
             }else {
                 $res['code'] = 1;
-                $res['msg'] = '此工号经系统检测可用。';
+                $res['msg'] = 'Available。';
             }
         }
         return $res;
@@ -502,19 +502,19 @@ ABN: 11 628 249 687</b>
                 ->find();
             if($isRepeat){
                 $res['code'] = 2;
-                $res['msg'] = '此邮箱已注册！';
+                $res['msg'] = 'Already Account！！';
             }else{
                 $res['code'] = 1;
-                $res['msg'] = '此邮箱经系统检测可用。';
+                $res['msg'] = 'Available。';
             }
         }else{
             $isRepeat=Db::table('super_admin')->where(['ad_email' => $ad_email])->find();
             if($isRepeat){
                 $res['code'] = 2;
-                $res['msg'] = '此邮箱已注册！';
+                $res['msg'] = 'Already Account！';
             }else {
                 $res['code'] = 1;
-                $res['msg'] = '此邮箱经系统检测可用。';
+                $res['msg'] = 'Available。';
             }
         }
         return $res;
@@ -546,11 +546,11 @@ ABN: 11 628 249 687</b>
                     $res['filepath'] = 'uploads/admin/'.$info->getSaveName();
                 }else{
                     $res['code'] = 0;
-                    $res['msg'] = '上传失败！'.$file->getError();
+                    $res['msg'] = 'Failed！'.$file->getError();
                 }
             }else{
                 $res['code'] = 0;
-                $res['msg'] = '文件大小不超过10M！';
+                $res['msg'] = '10M maximum Size！';
             }
             return $res;
         }
@@ -566,9 +566,9 @@ ABN: 11 628 249 687</b>
         $ad_id=intval($_GET['ad_id']);
         $del=Db::table('super_admin')->where(['ad_id' => $ad_id])->delete();
         if($del){
-            $this->success('删除管理员成功','admin');
+            $this->success('Successfully','admin');
         }else{
-            $this->error('删除管理员失败','admin');
+            $this->error('Failed','admin');
         }
     }
 
@@ -678,9 +678,9 @@ ABN: 11 628 249 687</b>
         $data['r_power']=implode(',',array_unique($ids));
         $addRole=Db::table('super_role')->insert($data);
         if($addRole){
-            $this->success('添加角色成功','role');
+            $this->success('Successfully','role');
         }else{
-            $this->error('添加角色失败','role');
+            $this->error('Failed','role');
         }
     }
 
@@ -731,9 +731,9 @@ ABN: 11 628 249 687</b>
         $data['r_power']=implode(',',array_unique($ids));
         $edit=Db::table('super_role')->where(['r_id' => $r_id])->update($data);
         if($edit){
-            $this->success('修改角色成功','role');
+            $this->success('Successfully','role');
         }else{
-            $this->error('修改角色失败','role');
+            $this->error('Failed','role');
         }
     }
 
@@ -742,9 +742,9 @@ ABN: 11 628 249 687</b>
         $r_id=intval($_GET['r_id']);
         $del=Db::table('super_role')->where(['r_id' => $r_id])->delete();
         if($del){
-            $this->success('删除角色成功','role');
+            $this->success('Successfully','role');
         }else{
-            $this->error('删除角色失败','role');
+            $this->error('Failed','role');
         }
     }
 
@@ -804,9 +804,9 @@ ABN: 11 628 249 687</b>
             $data['m_sort']=$_POST['m_sort'];
             $addMenu=Db::table('super_menu')->insert($data);
             if($addMenu){
-                $this->success('添加菜单成功！','menu');
+                $this->success('Successfully！','menu');
             }else{
-                $this->error('添加菜单失败！','menu');
+                $this->error('Failed！','menu');
             }
         }else{
             if(isset($_GET)){
@@ -839,9 +839,9 @@ ABN: 11 628 249 687</b>
                 $data['m_sort']=$_POST['m_sort'];
                 $editMenu=Db::table('super_menu')->where(['m_id' => $m_id])->update($data);
                 if($editMenu){
-                    $this->success('修改菜单成功！','menu');
+                    $this->success('Successfully！','menu');
                 }else{
-                    $this->error('修改菜单失败！','menu');
+                    $this->error('Failed！','menu');
                 }
             }else{
                 if(isset($_GET)){
@@ -872,9 +872,9 @@ ABN: 11 628 249 687</b>
         }else{
             $del=Db::table('super_menu')->where(['m_id' => $m_id])->delete();
             if($del){
-                $this->success('删除成功！','menu');
+                $this->success('Successfully！','menu');
             }else{
-                $this->error('删除失败！','menu');
+                $this->error('Failed！','menu');
             }
         }
     }
@@ -890,9 +890,9 @@ ABN: 11 628 249 687</b>
             $del[$key]['phone'] = substr_replace($v['tel'], '****', 3, 4);;
         }
         if($del){
-            $this->success('读取成功！','',$del);
+            $this->success('Successfully！','',$del);
         }else{
-            $this->error('删除失败！');
+            $this->error('Failed！');
         }
     }
 

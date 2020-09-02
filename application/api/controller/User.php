@@ -388,10 +388,7 @@ class User extends Controller
     }
 
 
-    /**
-     * 获取分享二维码
-     */
-    public function getShare() {
+      public function getShare() {
         header("Access-Control-Allow-Origin:*");
         header('Access-Control-Allow-Methods:POST');
         header('Access-Control-Allow-Headers:x-requested-with, content-type');
@@ -405,25 +402,30 @@ class User extends Controller
             echo json_encode($return);exit;
         }
         $url = "https://api.weixin.qq.com/wxa/getwxacodeunlimit?access_token=" . $access_token;
-        //type = 1 找室友  type = 2 房源 type = 3 求租拼租
-        if ($type == 2) {
+        //type=1找室友r type=2整租房源 h  type=3求租拼租 q   type =4 合租房源  c
+        if ($type == 1) {
             $data['scene'] = 'r' . $id;
             $data['path'] = 'pages/roommateDetail/roommateDetail';
+        }elseif($type == 2){
+            $data['scene'] = 'h' . $id;
+            $data['path'] = 'pages/wholeRentDeatil/wholeRentDeatil';
         }elseif($type == 3){
             $data['scene'] = 'q' . $id;
             $data['path'] = 'pages/wholeRentDeatil/wholeRentDeatil';
-        }else{
-            $data['scene'] = 'h' . $id;
+        }elseif($type == 4){
+            $data['scene'] = 'c' . $id;
             $data['path'] = 'pages/wholeRentDeatil/wholeRentDeatil';
         }
         $data['width'] = '180';
         $res = $this->http($url, json_encode($data),1);
-        if ($type == 2) {
+        if ($type == 1) {
             $path = 'uploads/qrcode/r' . $id . '.jpg';
+        }elseif($type == 2){
+            $path = 'uploads/qrcode/h' . $id . '.jpg';
         }elseif($type == 3){
             $path = 'uploads/qrcode/q' . $id . '.jpg';
-        }else{
-            $path = 'uploads/qrcode/h' . $id . '.jpg';
+        }elseif($type == 4){
+            $path = 'uploads/qrcode/c' . $id . '.jpg';
         }
         file_put_contents($path, $res);
 

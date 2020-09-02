@@ -1,11 +1,12 @@
 {include file="index/header" /}
 <style>
-    .logoPre{
+    .logoPre {
         width: 216px;
         height: 150px;
     }
-    .casePre{
-        display:none;
+
+    .casePre {
+        display: none;
     }
 </style>
 <div class="layui-body">
@@ -27,193 +28,273 @@
             <div class="layui-tab-item layui-show">
                 <div style="margin: 10px">
                     <div style="padding: 15px;">
-                        <form class="layui-form" action="<?=url('corp/edit')?>?cp_id={$corp.cp_id}&type={$type}" method="post">
+                        <form class="layui-form" action="<?=url('corp/edit')?>?cp_id={$corp.cp_id}&type={$type}"
+                              method="post">
                             <div class="layui-form-item">
                                 <label class="layui-form-label"><span style="color: red;">*</span>{$lable.gongsimingcheng}</label>
                                 <div class="layui-input-block">
-                                    <input type="text" name="cp_name" lay-verify="required|title" value="{$corp.cp_name}" autocomplete="off" class="layui-input">
+                                    <input type="text" name="cp_name" lay-verify="required|title"
+                                           value="{$corp.cp_name}" autocomplete="off" class="layui-input">
                                 </div>
                             </div>
                             <div class="layui-form-item">
                                 <label class="layui-form-label"><span style="color: red;">*</span>ABN</label>
                                 <div class="layui-input-block">
-                                    <input type="text" name="cp_identity" lay-verify="required|title" value="{$corp.cp_identity}"  autocomplete="off" class="layui-input">
+                                    <input type="text" name="cp_identity" lay-verify="required|title"
+                                           value="{$corp.cp_identity}" autocomplete="off" class="layui-input">
                                 </div>
                             </div>
                             <div class="layui-form-item">
-                                <label class="layui-form-label"><span style="color: red;">*</span>{$lable.address}</label>
-                                <div class="layui-input-block">
-                                    <input type="text" name="cp_address" lay-verify="required|title" value="{$corp.cp_address}"  autocomplete="off" class="layui-input">
+                                <label class="layui-form-label"><span
+                                        style="color: red;">*</span>{$lable.houseAddr}</label>
+                                <div class="layui-input-inline" style="width: 450px;">
+                                    <input type="text" name="cp_address" id="end" autocomplete="off" class="layui-input"
+                                           placeholder="{$lable.houseAddP}" lay-verify="required|addresss"
+                                           value="{$corp.cp_address}">
+                                    <input type="text" name="cp_address" id="address" style="display: none" readonly
+                                           class="layui-input" lay-verify="required|addresss" value="{$corp.cp_address}"
+                                           placeholder="目的地取值">
+                                    <input type="hidden" name="x" id="x" lay-verify="addres" autocomplete="off"
+                                           class="layui-input" value="{$corp.x}">
+                                    <input type="hidden" name="y" id="y" lay-verify="addres" autocomplete="off"
+                                           class="layui-input" value="{$corp.y}">
+                                </div>
+                                <div class="layui-input-inline">
+                                    <span id="resetAdd" class="layui-btn">Reset Address</span>
+                                </div>
+                                <hr style="background-color: transparent;color: transparent">
+                                <div class="layui-form-mid layui-word-aux"
+                                     style="margin-left: 110px;color: red !important;">{$lable.selectAddNot}
                                 </div>
                             </div>
-                            
-                            
+
+
                             <div class="layui-form-item one-pan">
                                 <label class="layui-form-label"><span style="color: red;">*</span>Logo</label>
-                                <div {if condition="$corp.cp_logo eq null"}class="layui-upload-drag"{/if} id="uploadLogo" style="display:inline-block;" >
+                                <div {if condition="$corp.cp_logo eq null" }class="layui-upload-drag" {
+                                /if} id="uploadLogo" style="display:inline-block;" >
                                 <image id="logoPre"
-                                       {if condition="$corp.cp_logo eq null"}
-                                       {else/}
+                                       {if condition="$corp.cp_logo eq null" }
+                                       {else
+                                /}
                                 src="__PUBLIC__/{$corp.cp_logo}"
                                 class="logoPre"
                                 {/if}
                                 >
-                                <input type="hidden" lay-verify="imgReg" name="cp_logo" id="cp_logo" value="{$corp.cp_logo}"/>
+                                <input type="hidden" lay-verify="imgReg" name="cp_logo" id="cp_logo"
+                                       value="{$corp.cp_logo}"/>
                                 </image>
                             </div>
                             <div class="one">
-                                <div class="layui-form-mid layui-word-aux" style="margin-left: 39px; ">{$lable.tupianRemark}</div>
+                                <div class="layui-form-mid layui-word-aux" style="margin-left: 39px; ">
+                                    {$lable.tupianRemark}
+                                </div>
                             </div>
                     </div>
-                    
-                        <div class="layui-form-item one-pan">
-                                <label class="layui-form-label"><span style="color: red;">*</span>miniLogo</label>
-                                <div {if condition="$corp.minilogo eq null"}class="layui-upload-drag"{/if} id="uploadLogom" style="display:inline-block;" >
-                                <image id="logoPrem"
-                                       {if condition="$corp.minilogo eq null"}
-                                       {else/}
-                                src="__PUBLIC__/{$corp.minilogo}"
-                                class="logoPre"
-                                {/if}
-                                >
-                                <input type="hidden" lay-verify="imgReg" name="minilogo" id="minilogo" value="{$corp.minilogo}"/>
-                                </image>
-                            </div>
-                            <div class="one">
-                                <div class="layui-form-mid layui-word-aux" style="margin-left: 39px; ">{$lable.tupianRemark}</div>
-                            </div>
-                    </div>
-                    
-                    <div class="layui-form-item one-pan">
-                        <label class="layui-form-label"><span style="color: red;">*</span>{$lable.beijingtu}</label>
-                        <div {if condition="$corp.backimg eq null"}class="layui-upload-drag"{/if} id="uploadImg" style="display:inline-block;" >
 
-                        <image id="imgPre"
-                               {if condition="$corp.backimg eq null"}
-                               {else/}
-                        src="__PUBLIC__/{$corp.backimg}"
+                    <div class="layui-form-item one-pan">
+                        <label class="layui-form-label"><span style="color: red;">*</span>miniLogo</label>
+                        <div {if condition="$corp.minilogo eq null" }class="layui-upload-drag" {
+                        /if} id="uploadLogom" style="display:inline-block;" >
+                        <image id="logoPrem"
+                               {if condition="$corp.minilogo eq null" }
+                               {else
+                        /}
+                        src="__PUBLIC__/{$corp.minilogo}"
                         class="logoPre"
                         {/if}
                         >
-
-                        <div id="displays" style="display: {if condition="$corp.backimg eq null"}block{else/}none{/if}">
-                            <i class="layui-icon"></i>
-                            <p>{$lable.shangchuan}</p>
-                        </div>
-                        <input type="hidden" lay-verify="imgReg" name="backimg" id="backimg" value="{$corp.backimg}"/>
+                        <input type="hidden" lay-verify="imgReg" name="minilogo" id="minilogo"
+                               value="{$corp.minilogo}"/>
                         </image>
                     </div>
                     <div class="one">
-                        <div class="layui-form-mid layui-word-aux" style="margin-left: 39px; ">{$lable.tupianRemark}</div>
+                        <div class="layui-form-mid layui-word-aux" style="margin-left: 39px; ">{$lable.tupianRemark}
+                        </div>
                     </div>
                 </div>
-                 <div class="layui-form-item">
-                    <label class="layui-form-label"><span style="color: red;">*</span>{$lable.qianduancolor}</label>
-                    <div class="layui-input-block">
-                        <input type="radio" name="colour" value="1" title="{$lable.qianse}" {if condition="$corp.colour eq 1"}checked{/if}>
-                        <input type="radio" name="colour" value="2" title="{$lable.shense}" {if condition="$corp.colour eq 2"}checked{/if}>
-                    </div>
+
+                <div class="layui-form-item one-pan">
+                    <label class="layui-form-label"><span style="color: red;">*</span>{$lable.beijingtu}</label>
+                    <div {if condition="$corp.backimg eq null" }class="layui-upload-drag" {
+                    /if} id="uploadImg" style="display:inline-block;" >
+
+                    <image id="imgPre"
+                           {if condition="$corp.backimg eq null" }
+                           {else
+                    /}
+                    src="__PUBLIC__/{$corp.backimg}"
+                    class="logoPre"
+                    {/if}
+                    >
+
+                    <div id="displays" style="display: {if condition=" $corp.backimg eq null
+                    "}block{else/}none{/if}">
+                    <i class="layui-icon"></i>
+                    <p>{$lable.shangchuan}</p>
                 </div>
-                    <div class="layui-form-item">
-                        <label class="layui-form-label"><span style="color: red;">*</span>{$lable.youxiang}</label>
-                        <div class="layui-input-block">
-                            <input type="text" name="cp_email" lay-verify="required|title" value="{$corp.cp_email}"  autocomplete="off" class="layui-input">
-                        </div>
-                    </div>
-                    <div class="layui-form-item">
-                        <label class="layui-form-label"><span style="color: red;">*</span>{$lable.dianhua}</label>
-                        <div class="layui-input-block">
-                            <input type="text" name="cp_tel" lay-verify="required|title" value="{$corp.cp_tel}"  autocomplete="off" class="layui-input">
-                        </div>
-                    </div>
-                    <div class="layui-form-item layui-form-text">
-                        <label class="layui-form-label">{$lable.desc}</label>
-                        <div class="layui-input-block">
-                            <textarea maxlength="500" name="cp_desc" class="layui-textarea">{$corp.cp_desc}</textarea>
-                        </div>
-                    </div>
-                    <div class="layui-form-item">
-                        <div class="layui-input-block">
-                            <button class="layui-btn" lay-submit lay-filter="saveInfo">{$lable.gengxin}</button>
-                            <a class="layui-btn layui-btn-primary" href="javascript:history.go(-1);">{$lable.back}</a>
-                        </div>
-                    </div>
-                    </form>
-                </div>
+                <input type="hidden" lay-verify="imgReg" name="backimg" id="backimg" value="{$corp.backimg}"/>
+                </image>
+            </div>
+            <div class="one">
+                <div class="layui-form-mid layui-word-aux" style="margin-left: 39px; ">{$lable.tupianRemark}</div>
             </div>
         </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label"><span style="color: red;">*</span>{$lable.qianduancolor}</label>
+            <div class="layui-input-block">
+                <input type="radio" name="colour" value="1" title="{$lable.qianse}" {if condition="$corp.colour eq 1"
+                       }checked{/if}>
+                <input type="radio" name="colour" value="2" title="{$lable.shense}" {if condition="$corp.colour eq 2"
+                       }checked{/if}>
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label"><span style="color: red;">*</span>{$lable.youxiang}</label>
+            <div class="layui-input-block">
+                <input type="text" name="cp_email" lay-verify="required|title" value="{$corp.cp_email}"
+                       autocomplete="off" class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label"><span style="color: red;">*</span>{$lable.dianhua}</label>
+            <div class="layui-input-block">
+                <input type="text" name="cp_tel" lay-verify="required|title" value="{$corp.cp_tel}" autocomplete="off"
+                       class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item layui-form-text">
+            <label class="layui-form-label">{$lable.desc}</label>
+            <div class="layui-input-block">
+                <textarea maxlength="150" name="cp_desc" class="layui-textarea">{$corp.cp_desc}</textarea>
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <div class="layui-input-block">
+                <button class="layui-btn" lay-submit lay-filter="saveInfo">{$lable.gengxin}</button>
+                <a class="layui-btn layui-btn-primary" href="javascript:history.go(-1);">{$lable.back}</a>
+            </div>
+        </div>
+        </form>
     </div>
 </div>
 </div>
+</div>
+</div>
+</div>
 <script>
-    layui.use(['form', 'jquery','upload'], function(){
+    $('#resetAdd').click(function () {
+        //清空经纬度的赋值
+        $('#end').show();
+        $('#address').hide();
+        $('#end').val('');
+        $('#address').val('');
+        $('#x').val('');
+        $('#y').val('');
+    });
+    layui.link('/layui/src/autocomplete/autocomplete.css');
+    layui.config({
+        base: '/layui/src/autocomplete/'
+        , version: false,
+        debug: false,
+    });
+    layui.use(['form', 'jquery', 'upload', 'autocomplete'], function () {
         var form = layui.form
-            ,upload = layui.upload
-            ,$ = layui.jquery;
+            , upload = layui.upload
+            , autocomplete = layui.autocomplete
+            , $ = layui.jquery;
+        autocomplete.render({
+            elem: $('#end'),
+            response: {code: 'code', data: 'suggestions'},
+            template_val: '{{d.label}}',
+            template_txt: '{{d.label}}',
+            onselect: function (resp) {
+                console.log(resp);
+                var address = resp.label;
+                $('#address').val(address);
+                $('#end').hide();
+                $('#address').show();
+                locationAD(address);
+            }
+        });
+        let APP_ID_HERE = "QuHxU6ypXzp37Dci84o8";
+        let APP_CODE_HERE = "TDu_enlm0QIblRnIl33buw";
+
+        function locationAD(query) {
+            $.getJSON("https://geocoder.api.here.com/6.2/geocode.json?gen=9&searchtext=" + query + "&app_id=" + APP_ID_HERE + "&app_code=" + APP_CODE_HERE, function (data) {
+                console.log(data);
+                var lati = data["Response"]["View"][0]["Result"][0]["Location"]["DisplayPosition"]["Latitude"];
+                var longi = data["Response"]["View"][0]["Result"][0]["Location"]["DisplayPosition"]["Longitude"];
+                $('#x').val(lati);
+                $('#y').val(longi);
+            });
+
+        }
+
         form.verify({
-            title: function(value){
-                if(value.length < 2){
+            title: function (value) {
+                if (value.length < 2) {
                     return '至少得2个字符啊';
                 }
             }
-            ,imgReg:function (value) {
-                if(value.length <= 0){
+            , imgReg: function (value) {
+                if (value.length <= 0) {
                     return 'Images Required';
                 }
             }
         });
-         upload.render({
+        upload.render({
             elem: '#uploadLogom'
-            ,url: '{:url("xcx/corp/upload")}'
-            ,exts: 'PNG|JPG'
-            ,size: '30000'
-            ,done: function(res){
+            , url: '{:url("xcx/corp/upload")}'
+            , exts: 'PNG|JPG'
+            , size: '30000'
+            , done: function (res) {
                 layer.close(layer.msg());//关闭上传提示窗口
-                if(res.status == 0) {
+                if (res.status == 0) {
                     return layer.msg(res.message);
                 }
                 $('#uploadLogo').removeClass('layui-upload-drag');
-                $('#logoPrem').css('width','216px');
-                $('#logoPrem').css('height','150px');
-                $('#logoPrem').attr('src',"__PUBLIC__/"+res.path);
+                $('#logoPrem').css('width', '216px');
+                $('#logoPrem').css('height', '150px');
+                $('#logoPrem').attr('src', "__PUBLIC__/" + res.path);
                 console.log(res);
-                $('#minilogo').val('' +res.path + '');
+                $('#minilogo').val('' + res.path + '');
             }
-        }); 
+        });
         upload.render({
             elem: '#uploadLogo'
-            ,url: '{:url("xcx/corp/upload")}'
-            ,exts: 'PNG|JPG'
-            ,size: '30000'
-            ,done: function(res){
+            , url: '{:url("xcx/corp/upload")}'
+            , exts: 'PNG|JPG'
+            , size: '30000'
+            , done: function (res) {
                 layer.close(layer.msg());//关闭上传提示窗口
-                if(res.status == 0) {
+                if (res.status == 0) {
                     return layer.msg(res.message);
                 }
                 $('#uploadLogo').removeClass('layui-upload-drag');
-                $('#logoPre').css('width','216px');
-                $('#logoPre').css('height','150px');
-                $('#logoPre').attr('src',"__PUBLIC__/"+res.path);
+                $('#logoPre').css('width', '216px');
+                $('#logoPre').css('height', '150px');
+                $('#logoPre').attr('src', "__PUBLIC__/" + res.path);
                 console.log(res);
-                $('#cp_logo').val('' +res.path + '');
+                $('#cp_logo').val('' + res.path + '');
             }
         });
         upload.render({
             elem: '#uploadImg'
-            ,url: '{:url("xcx/corp/upload")}'
-            ,exts: 'PNG|JPG'
-            ,size: '30000'
-            ,done: function(res){
+            , url: '{:url("xcx/corp/upload")}'
+            , exts: 'PNG|JPG'
+            , size: '30000'
+            , done: function (res) {
                 layer.close(layer.msg());//关闭上传提示窗口
-                if(res.status == 0) {
+                if (res.status == 0) {
                     return layer.msg(res.message);
                 }
                 $('#uploadImg').removeClass('layui-upload-drag');
-                $('#imgPre').css('width','216px');
-                $('#imgPre').css('height','150px');
-                $('#imgPre').attr('src',"__PUBLIC__/"+res.path);
+                $('#imgPre').css('width', '216px');
+                $('#imgPre').css('height', '150px');
+                $('#imgPre').attr('src', "__PUBLIC__/" + res.path);
                 console.log(res);
-                $('#backimg').val('' +res.path + '');
+                $('#backimg').val('' + res.path + '');
             }
         });
     });

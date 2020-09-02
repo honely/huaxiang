@@ -1,0 +1,28 @@
+---------------------------------------------------------------
+[ 2020-09-02T09:59:35+08:00 ] 127.0.0.1 GET www.huaxiang.com/xcx/login/login.html
+[运行时间：0.191677s] [吞吐率：5.22req/s] [内存消耗：1,567.78kb] [文件加载：46]
+[ info ] [ ROUTE ] array (
+  'type' => 'module',
+  'module' => 
+  array (
+    0 => 'xcx',
+    1 => 'login',
+    2 => 'login',
+  ),
+)
+[ info ] [ HEADER ] array (
+  'accept-language' => 'en-US,en;q=0.9,zh-CN;q=0.8,zh;q=0.7',
+  'accept-encoding' => 'gzip, deflate',
+  'accept' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.70 Safari/537.36',
+  'upgrade-insecure-requests' => '1',
+  'connection' => 'close',
+  'host' => 'www.huaxiang.com',
+)
+[ info ] [ PARAM ] array (
+  '/xcx/login/login_html' => '',
+)
+[ info ] [ RUN ] app\xcx\controller\Login->login[ D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\application\xcx\controller\Login.php ]
+[ info ] [ VIEW ] D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\public/../application/xcx\view\login\login.html [ array (
+) ]
+[ info ] [ LOG ] INIT File

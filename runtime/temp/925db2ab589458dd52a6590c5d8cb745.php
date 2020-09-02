@@ -1,4 +1,4 @@
-<?php if (!defined('THINK_PATH')) exit(); /*a:3:{s:89:"D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\public/../application/xcx\view\corp\edit.html";i:1598603611;s:82:"D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\application\xcx\view\index\header.html";i:1591180794;s:82:"D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\application\xcx\view\index\footer.html";i:1577269681;}*/ ?>
+<?php if (!defined('THINK_PATH')) exit(); /*a:3:{s:89:"D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\public/../application/xcx\view\corp\edit.html";i:1598854792;s:82:"D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\application\xcx\view\index\header.html";i:1591180794;s:82:"D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\application\xcx\view\index\footer.html";i:1577269681;}*/ ?>
 <!DOCTYPE html>
 <html style="height: 100%">
 <head>
@@ -63,13 +63,18 @@
                                 </div>
                             </div>
                             <div class="layui-form-item">
-                                <label class="layui-form-label"><span style="color: red;">*</span><?php echo $lable['address']; ?></label>
-                                <div class="layui-input-block">
-                                    <input type="text" name="cp_address" lay-verify="required|title" value="<?php echo $corp['cp_address']; ?>"  autocomplete="off" class="layui-input">
+                                <label class="layui-form-label"><span style="color: red;">*</span><?php echo $lable['houseAddr']; ?></label>
+                                <div class="layui-input-inline" style="width: 550px;">
+                                    <input type="text" name="address" id="end" autocomplete="off" class="layui-input" placeholder="<?php echo $lable['houseAddP']; ?>" lay-verify="required|addresss"  value="<?php echo $corp['cp_address']; ?>" >
+                                    <input type="text" name="address" id="address" style="display: none" readonly class="layui-input" lay-verify="required|addresss" value="<?php echo $corp['cp_address']; ?>"  placeholder="目的地取值">
+                                    <input type="hidden" name="x" id="x" lay-verify="addres"  autocomplete="off" class="layui-input" value="<?php echo $corp['x']; ?>" >
+                                    <input type="hidden" name="y" id="y" lay-verify="addres"  autocomplete="off" class="layui-input" value="<?php echo $corp['y']; ?>" >
                                 </div>
+                                <div class="layui-input-inline" style="width: 550px;">
+                                    <span id="resetAdd" class="layui-btn">Reset Address</span>
+                                </div>
+                                <div class="layui-form-mid layui-word-aux" style="margin-left: 110px;color: red !important;"><?php echo $lable['selectAddNot']; ?></div>
                             </div>
-                            
-                            
                             <div class="layui-form-item one-pan">
                                 <label class="layui-form-label"><span style="color: red;">*</span>Logo</label>
                                 <div <?php if($corp['cp_logo'] == null): ?>class="layui-upload-drag"<?php endif; ?> id="uploadLogo" style="display:inline-block;" >
@@ -165,10 +170,52 @@
 </div>
 </div>
 <script>
-    layui.use(['form', 'jquery','upload'], function(){
+    $('#resetAdd').click(function () {
+        //清空经纬度的赋值
+        $('#end').show();
+        $('#address').hide();
+        $('#end').val('');
+        $('#address').val('');
+        $('#x').val('');
+        $('#y').val('');
+    });
+    layui.link('/layui/src/autocomplete/autocomplete.css');
+    layui.config({
+        base: '/layui/src/autocomplete/'
+        , version: false,
+        debug: false,
+    });
+    layui.use(['form', 'jquery','upload', 'autocomplete'], function(){
         var form = layui.form
             ,upload = layui.upload
+            ,autocomplete = layui.autocomplete
             ,$ = layui.jquery;
+        autocomplete.render({
+            elem: $('#end'),
+            response: {code: 'code', data: 'suggestions'},
+            template_val: '{{d.label}}',
+            template_txt: '{{d.label}}',
+            onselect: function (resp) {
+                console.log(resp);
+                var address = resp.label;
+                $('#address').val(address);
+                $('#end').hide();
+                $('#address').show();
+                locationAD(address);
+            }
+        });
+        let APP_ID_HERE = "QuHxU6ypXzp37Dci84o8";
+        let APP_CODE_HERE = "TDu_enlm0QIblRnIl33buw";
+        function locationAD(query) {
+            $.getJSON("https://geocoder.api.here.com/6.2/geocode.json?gen=9&searchtext=" + query + "&app_id=" + APP_ID_HERE + "&app_code=" + APP_CODE_HERE, function (data) {
+                console.log(data);
+                var lati = data["Response"]["View"][0]["Result"][0]["Location"]["DisplayPosition"]["Latitude"];
+                var longi = data["Response"]["View"][0]["Result"][0]["Location"]["DisplayPosition"]["Longitude"];
+                $('#x').val(lati);
+                $('#y').val(longi);
+            });
+
+        }
         form.verify({
             title: function(value){
                 if(value.length < 2){
