@@ -37,6 +37,8 @@
                                     <option value="4">{$lable.postby}</option>
                                     <option value="3">{$lable.houseAddr}</option>
                                     <option value="5">{$lable.detail}</option>
+                                    <option value="6">公司</option>
+                                    <option value="7">PM</option>
                                 </select>
                             </div>
                             <div class="layui-input-inline" style="width:160px;">
@@ -127,7 +129,7 @@
                         <th lay-data="{field:'title',width:230}">{$lable.title}</th>
                         <th lay-data="{field:'address',width:120}">{$lable.address}</th>
                         <th lay-data="{field:'price',width:120}">{$lable.rentp}</th>
-                        <th lay-data="{field:'collection',width:70}">{$lable.like}</th>
+                        <th lay-data="{field:'type',width:70}">类型</th>
                         <th lay-data="{field:'view',width:70}">{$lable.view}</th>
                         {if condition='$topable eq true'}
                         <th lay-data="{field:'top', templet: '#top1',width:85}">{$lable.top}</th>
@@ -136,13 +138,13 @@
                         <th lay-data="{field:'tj', templet: '#switchTj',width:85}">{$lable.tuijian}</th>
                         {/if}
                         <th lay-data="{field:'statuss',width:70}">{$lable.status}</th>
-                        {if condition='$offable eq true'}
-                        <th lay-data="{field:'status',templet: '#status',width:110}">{$lable.shangxiaxian}</th>
-                        {/if}
                         <th lay-data="{field:'pm' ,width:110}">PM</th>
                         <th lay-data="{field:'corp' ,width:110}">公司</th>
                         <th lay-data="{field:'user_id' ,width:110}">发布人</th>
                         <th lay-data="{field:'cdate',width:105}">{$lable.updatetime}</th>
+                        {if condition='$offable eq true'}
+                        <th lay-data="{field:'status',templet: '#status',width:110}">{$lable.shangxiaxian}</th>
+                        {/if}
                         <th lay-data="{ width:116, toolbar: '#barDemo'}">{$lable.caozuo}</th>
                     </tr>
                     </thead>

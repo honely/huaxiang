@@ -1,4 +1,4 @@
-<?php if (!defined('THINK_PATH')) exit(); /*a:3:{s:93:"D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\public/../application/xcx\view\house\myhouse.html";i:1596628984;s:82:"D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\application\xcx\view\index\header.html";i:1591180794;s:82:"D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\application\xcx\view\index\footer.html";i:1577269681;}*/ ?>
+<?php if (!defined('THINK_PATH')) exit(); /*a:3:{s:93:"D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\public/../application/xcx\view\house\myhouse.html";i:1598797997;s:82:"D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\application\xcx\view\index\header.html";i:1591180794;s:82:"D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\application\xcx\view\index\footer.html";i:1577269681;}*/ ?>
 <!DOCTYPE html>
 <html style="height: 100%">
 <head>
@@ -171,7 +171,7 @@
     {{#  } }}
 </script>
 <script type="text/html" id="status">
-    <input type="checkbox" name="sex" lay-skin="switch" value="{{d.id}}" lay-text="<?php echo $lable['off']; ?>|<?php echo $lable['on']; ?>" lay-filter="statusDemo" {{ d.status == 1 ? 'checked' : '' }} {{ d.status == 0 ? 'disabled' : '' }} >
+    <input type="checkbox" name="sex" lay-skin="switch" value="{{d.id}}" lay-text="<?php echo $lable['on']; ?>|<?php echo $lable['off']; ?>" lay-filter="statusDemo" {{ d.status == 1 ? 'checked' : '' }} {{ d.status == 0 ? 'disabled' : '' }} >
 </script>
 <script>
     layui.use(['table','laydate','form','element'], function(){

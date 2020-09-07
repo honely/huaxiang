@@ -5,7 +5,6 @@
  *Times:17:13
  */
 namespace app\xcx\controller;
-use app\admin\model\Commons;
 use app\xcx\model\Loops;
 use think\Controller;
 use PHPExcel_IOFactory;

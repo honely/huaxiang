@@ -82,7 +82,7 @@ class User extends Controller
             $this->sucess(0, 'openid不能为空','');
         }else{
             $user = Db::table('tk_user')
-                ->where('openid', $data['openid'])
+                ->where(['openid'=>$data['openid']])
                 ->field('id,openid,nickname,birth,sex,real_name,tel,avaurl,wchat')
                 ->find();
             if($user){

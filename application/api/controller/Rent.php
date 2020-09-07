@@ -6,6 +6,7 @@ namespace app\api\controller;
 
 use app\xcx\model\Loops;
 use think\Controller;
+use app\xcx\model\Views;
 use think\Db;
 use think\Log;
 
@@ -78,6 +79,9 @@ class Rent extends Controller
         }
         $mate = Db::table('tk_forent')
             ->where(['id' => $id])->find();
+             //写入一条浏览记录
+        $col = new Views();
+        $col->addView($uid,$id,3);
         if($mate){
             $msg = new Loops();
             $house['nickname'] = $msg->getUserNick($mate['userid']);

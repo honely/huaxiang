@@ -232,7 +232,7 @@ class House extends Controller
             }
         }
         $order = $orders;
-        $field = 'id,type,title,house_room,area,images,price,toilet,furniture,home,school,address,tj,top,mdate,cdate,tags,area,live_date,car,lease_term,video,is_admin,corp,pm,house_type,likes,loard_sex,loard_job,user_id';
+        $field = 'id,type,title,house_room,area,images,price,toilet,furniture,home,school,address,tj,top,mdate,cdate,tags,area,live_date,car,lease_term,video,is_admin,corp,pm,house_type,likes,loard_sex,loard_job,user_id,publish_date';
         $housem = new Housem();
         $house = $housem->readData($where,$order,$limit,$page,$field);
         //更新上次登录时间
@@ -253,7 +253,7 @@ class House extends Controller
                 //如果是后端发布的房源，查询中介个人图像，公司名称中介logo
                 $pmInfo = $this->getPmname($v['is_admin'],$v['pm'],$v['user_id']);
                 $house[$k]['pm_name'] = $pmInfo['ad_realname'];
-                $house[$k]['mdate'] = date('Y-m-d',strtotime($v['mdate']));
+                $house[$k]['mdate'] = date('Y-m-d',strtotime($v['cdate']));
                 $house[$k]['pm_avatar'] = $pmInfo['ad_img'];
                 if($v['is_admin'] == 2){
                     $house[$k]['corplogo'] = $this->getCorpLogo($v['corp']);
@@ -275,7 +275,7 @@ class House extends Controller
 
     public function newTags($cdate){
         //三天之内的房源都是新房源
-        $cdate = strtotime($cdate.' +3 days');
+        $cdate = strtotime($cdate.' +2 days');
         $now = time();
         return $cdate < $now? 0 :1;
     }
@@ -503,7 +503,7 @@ class House extends Controller
         header('Access-Control-Allow-Methods:POST');
         header('Access-Control-Allow-Headers:x-requested-with, content-type');
         $path_date=date("Ym",time());
-        $file = $_FILES['file']['name'];
+        $file = isset($_FILES['file']['name']);
         if($file){
             $file = $this->request->file('file');
             $file_type = $file->getInfo()['type'];
@@ -554,7 +554,7 @@ class House extends Controller
                 return json(array('code'=>0,'path'=>'','msg'=> '文件大小不超过10M，或格式错误！'));
             }
         }else{
-            return json(array('code'=>0,'path'=>'','msg'=> '没有接收到文件,请重试！'));
+            return json(array('code'=>0,'path'=>'','msg'=> '没有接收到文件,请在手机上的小程序重试！'));
         }
     }
       //检查图片宽高是否合适

@@ -163,6 +163,42 @@ class House extends Controller{
                 $where.=" and content like '%".$keywords."%' ";
             }
         }
+        //公司
+        if($keytype == 6){
+            if(isset($keywords) && !empty($keywords)){
+                $users = Db::table('xcx_corp')
+                    ->where("cp_name like '%".$keywords."%'")
+                    ->column('cp_id');
+                $userStr = '';
+                if($users){
+                    foreach ($users as $k => $v){
+                        $userStr.= ",'".$v."'";
+                    }
+                }
+                $userIdsStr = trim($userStr,',');
+                if($userIdsStr){
+                    $where .=' and  ( corp  in ('.$userIdsStr.') and is_admin = 2 ) ';
+                }
+            }
+        }
+        //PM
+        if($keytype == 7){
+            if(isset($keywords) && !empty($keywords)){
+                $users = Db::table('super_admin')
+                    ->where("ad_realname like '%".$keywords."%'")
+                    ->column('ad_id');
+                $userStr = '';
+                if($users){
+                    foreach ($users as $k => $v){
+                        $userStr.= ",'".$v."'";
+                    }
+                }
+                $userIdsStr = trim($userStr,',');
+                if($userIdsStr){
+                    $where .=' and  ( pm  in ('.$userIdsStr.') and is_admin = 2 ) ';
+                }
+            }
+        }
         if(isset($city) && !empty($city) && $city){
             $where.=" and city = '".$city."'";
         }
@@ -250,14 +286,14 @@ class House extends Controller{
             ->where(['ad_id' => $pm])
             ->field('ad_realname')
             ->find();
-        return $pminfo ? $pminfo['ad_realname'] : 'Unknown';
+        return $pminfo ? $pminfo['ad_realname'] : '';
     }
     public function getCorp($price){
         $pminfo = Db::table('xcx_corp')
             ->where(['cp_id' => $price])
             ->field('cp_name')
             ->find();
-        return $pminfo ? $pminfo['cp_name'] : 'Unknown';
+        return $pminfo ? $pminfo['cp_name'] : '';
     }
 
     public function getPrice($price){
@@ -401,6 +437,7 @@ class House extends Controller{
             $all_tags = Db::table('xcx_tags')
                 ->where(['type' => 1])
                 ->field('id,name,ename')
+                ->order('torder asc,id desc')
                 ->select();
             foreach ($all_tags as $k => $v){
                 if($langs == 'En'){
@@ -495,6 +532,7 @@ class House extends Controller{
         $all_tags = Db::table('xcx_tags')
             ->where(['type' => 1])
             ->field('id,name')
+            ->order('torder asc,id desc')
             ->select();
         $this->assign('tags',$all_tags);
         $this->assign('typess',1);
@@ -940,6 +978,7 @@ class House extends Controller{
             $all_tags = Db::table('xcx_tags')
                 ->where(['type' => 1])
                 ->field('id,name,ename')
+                ->order('torder asc,id desc')
                 ->select();
             $langs = $lang->getLang();
             foreach ($all_tags as $key => &$val) {
@@ -1474,6 +1513,7 @@ class House extends Controller{
         $all_tags = Db::table('xcx_tags')
             ->where(['type' => 1])
             ->field('id,name,ename')
+            ->order('torder asc,id desc')
             ->select();
         $langs = $lang->getLang();
         foreach ($all_tags as $key => &$val) {
@@ -1690,6 +1730,7 @@ class House extends Controller{
             $all_tags = Db::table('xcx_tags')
                 ->where(['type' => 1])
                 ->field('id,name')
+                ->order('torder asc,id desc')
                 ->select();
             foreach ($all_tags as $key => &$val) {
                 $all_tags[$key]['is_checked'] = false;

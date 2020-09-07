@@ -1,4 +1,4 @@
-<?php if (!defined('THINK_PATH')) exit(); /*a:3:{s:91:"D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\public/../application/xcx\view\house\index.html";i:1598600626;s:82:"D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\application\xcx\view\index\header.html";i:1591180794;s:82:"D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\application\xcx\view\index\footer.html";i:1577269681;}*/ ?>
+<?php if (!defined('THINK_PATH')) exit(); /*a:3:{s:91:"D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\public/../application/xcx\view\house\index.html";i:1599027995;s:82:"D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\application\xcx\view\index\header.html";i:1591180794;s:82:"D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\application\xcx\view\index\footer.html";i:1577269681;}*/ ?>
 <!DOCTYPE html>
 <html style="height: 100%">
 <head>
@@ -59,6 +59,8 @@
                                     <option value="4"><?php echo $lable['postby']; ?></option>
                                     <option value="3"><?php echo $lable['houseAddr']; ?></option>
                                     <option value="5"><?php echo $lable['detail']; ?></option>
+                                    <option value="6">公司</option>
+                                    <option value="7">PM</option>
                                 </select>
                             </div>
                             <div class="layui-input-inline" style="width:160px;">
@@ -149,7 +151,7 @@
                         <th lay-data="{field:'title',width:230}"><?php echo $lable['title']; ?></th>
                         <th lay-data="{field:'address',width:120}"><?php echo $lable['address']; ?></th>
                         <th lay-data="{field:'price',width:120}"><?php echo $lable['rentp']; ?></th>
-                        <th lay-data="{field:'collection',width:70}"><?php echo $lable['like']; ?></th>
+                        <th lay-data="{field:'type',width:70}">类型</th>
                         <th lay-data="{field:'view',width:70}"><?php echo $lable['view']; ?></th>
                         <?php if($topable == true): ?>
                         <th lay-data="{field:'top', templet: '#top1',width:85}"><?php echo $lable['top']; ?></th>
@@ -157,13 +159,13 @@
                         <th lay-data="{field:'tj', templet: '#switchTj',width:85}"><?php echo $lable['tuijian']; ?></th>
                         <?php endif; ?>
                         <th lay-data="{field:'statuss',width:70}"><?php echo $lable['status']; ?></th>
+                        <th lay-data="{field:'pm' ,width:110}">PM</th>
+                        <th lay-data="{field:'corp' ,width:110}">公司</th>
+                        <th lay-data="{field:'user_id' ,width:110}">发布人</th>
+                        <th lay-data="{field:'cdate',width:105}"><?php echo $lable['updatetime']; ?></th>
                         <?php if($offable == true): ?>
                         <th lay-data="{field:'status',templet: '#status',width:110}"><?php echo $lable['shangxiaxian']; ?></th>
                         <?php endif; ?>
-                        <th lay-data="{field:'pm' ,width:110}">PM</th>
-                        <th lay-data="{field:'corp' ,width:110}"><?php echo $lable['gongsi']; ?></th>
-                        <th lay-data="{field:'user_id' ,width:110}"><?php echo $lable['poster']; ?></th>
-                        <th lay-data="{field:'cdate',width:105}"><?php echo $lable['updatetime']; ?></th>
                         <th lay-data="{ width:116, toolbar: '#barDemo'}"><?php echo $lable['caozuo']; ?></th>
                     </tr>
                     </thead>
@@ -182,7 +184,7 @@
     <input type="checkbox" name="sex" lay-skin="switch" value="{{d.id}}" lay-text="<?php echo $lable['shi']; ?>|<?php echo $lable['fou']; ?>" lay-filter="topDemo" {{ d.top == '是' ? 'checked' : '' }}  {{ d.isTop == false ? 'disabled' : '' }}  {{ d.status == 0 ? 'disabled' : '' }}>
 </script>
 <script type="text/html" id="status">
-    <input type="checkbox" name="sex" lay-skin="switch" value="{{d.id}}" lay-text="<?php echo $lable['off']; ?>|<?php echo $lable['on']; ?>" lay-filter="statusDemo" {{ d.status == 1 ? 'checked' : '' }}  {{ d.status == 0 ? 'disabled' : '' }}>
+    <input type="checkbox" name="sex" lay-skin="switch" value="{{d.id}}" lay-text="<?php echo $lable['on']; ?>|<?php echo $lable['off']; ?>" lay-filter="statusDemo" {{ d.status == 1 ? 'checked' : '' }}  {{ d.status == 0 ? 'disabled' : '' }}>
 </script>
 <script type="text/html" id="switchTj">
     <input type="checkbox" name="sex" lay-skin="switch" value="{{d.id}}" lay-text="<?php echo $lable['shi']; ?>|<?php echo $lable['fou']; ?>" lay-filter="sexDemo" {{ d.tj == '是' ? 'checked' : '' }} {{ d.isTj == false ? 'disabled' : '' }}  {{ d.status == 0 ? 'disabled' : '' }}>

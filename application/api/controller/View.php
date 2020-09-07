@@ -2,6 +2,7 @@
 
 
 namespace app\api\controller;
+use app\xcx\model\Loops;
 use app\xcx\model\Views;
 use think\Controller;
 use think\Db;
@@ -69,35 +70,72 @@ class View extends Controller
         header("Access-Control-Allow-Origin:*");
         header('Access-Control-Allow-Methods:POST');
         header('Access-Control-Allow-Headers:x-requested-with, content-type');
-        $uId = intval(trim($this->request->param('uid')));
-        $type = intval(trim($this->request->param('type',1)));
-        $page = intval(trim($this->request->param('page',0)));
-        $limit = intval(trim($this->request->param('limit',10)));
-        $where = [
-            'vh_userid' => $uId,
-            'vh_type' => $type,
-        ];
-        $order = 'vh_add_time desc';
-        $field = 'vh_id,vh_house_id';
-        $col = new Views();
-        if($type == 1){
-            $where['is_del'] = 1;
-            $collects = $col->readData($where,$order,$limit,$page,$field);
-        }elseif ($type == 2){
-            $collects = $col->readDataV($where,$order,$limit,$page,$field);
+        $uId = intval(trim($this->request->param('uid',0)));
+        if($uId == 0){
+            $res['code'] = 1;
+            $res['msg'] = '数据为空！';
+            return json($res);
         }
-
-        if($collects){
+        $where = 'vh_userid = '.$uId;
+        $collection = Db::table('xcx_view_history')
+            ->where($where)
+            ->limit(30)
+            ->order('vh_add_time desc')
+            ->select();
+        if($collection){
+            foreach ($collection as $k => $v){
+                if($v['vh_type'] == 1){
+                    $houseInfo = $this->gethouse($v['vh_house_id']);
+                    $collection[$k]['cover'] =$houseInfo['cover'];
+                    $collection[$k]['title'] =$houseInfo['title'];
+                    $collection[$k]['type'] =$houseInfo['type'];
+                }else{
+                    $coltInfo = $this->getcolt($v['vh_house_id']);
+                    $collection[$k]['title'] =$coltInfo['title'];
+                    $collection[$k]['type'] =$coltInfo['type'];
+                }
+                $collection[$k]['vh_add_time'] = date('Y-m-d',strtotime($v['vh_add_time']));
+            }
+            $keys = array_unique(array_column($collection, 'vh_add_time'));
+            $newDatas = [];
+            foreach ($keys as $key) {
+                $temp = [];
+                foreach ($collection as $data) {
+                    if($key == $data['vh_add_time']) {
+                        $temp[] = $data;
+                    }
+                }
+                $newDatas[] = ['date' => $key, 'house' => $temp];
+            }
             $res['code'] = 1;
             $res['msg'] = '读取成功！';
-            $res['data'] = $collects;
+            $res['data'] = $newDatas;
             return json($res);
         }
         $res['code'] = 1;
         $res['msg'] = '数据为空！';
-        $res['data'] = $collects;
+        $res['data'] = $collection;
         return json($res);
-
     }
+
+
+    public function gethouse($hid){
+        $houseInfo = Db::table('tk_houses')
+            ->where(['id' => $hid])
+            ->field('title,type,cover')
+            ->find();
+        return $houseInfo ? $houseInfo : null;
+    }
+
+
+
+    public function getcolt($id){
+        $houseInfo = Db::table('tk_forent')
+            ->where(['id' => $id])
+            ->field('title,type')
+            ->find();
+        return $houseInfo ? $houseInfo : null;
+    }
+
 
 }

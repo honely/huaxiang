@@ -1,4 +1,4 @@
-<?php if (!defined('THINK_PATH')) exit(); /*a:3:{s:89:"D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\public/../application/xcx\view\house\add.html";i:1598875679;s:82:"D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\application\xcx\view\index\header.html";i:1591180794;s:82:"D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\application\xcx\view\index\footer.html";i:1577269681;}*/ ?>
+<?php if (!defined('THINK_PATH')) exit(); /*a:3:{s:89:"D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\public/../application/xcx\view\house\add.html";i:1598977635;s:82:"D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\application\xcx\view\index\header.html";i:1591180794;s:82:"D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\application\xcx\view\index\footer.html";i:1577269681;}*/ ?>
 <!DOCTYPE html>
 <html style="height: 100%">
 <head>
@@ -194,21 +194,23 @@
                     <div class="layui-input-block">
                         <input type="radio" name="type" value="整租" lay-filter="isRoomate" title="<?php echo $lable['zhengzu']; ?>" checked>
                         <input type="radio" name="type" value="合租" lay-filter="isRoomate" title="<?php echo $lable['hezu']; ?>">
+                         <input type="hidden" id="roomate" value="1">
                     </div>
                 </div>
                 <div class="layui-form-item roomate">
                     <label class="layui-form-label"><span style="color: red;">*</span><?php echo $lable['xingbie']; ?></label>
                     <div class="layui-input-block">
                         <input type="radio" name="sex" value="不限" title="<?php echo $lable['xingbiebuxian']; ?>" checked>
-                        <input type="radio" name="sex" value="限男性" title="<?php echo $lable['xiannanxing']; ?>">
-                        <input type="radio" name="sex" value="限女性" title="<?php echo $lable['xiannvxing']; ?>">
+                        <input type="radio" name="sex" value="男" title="<?php echo $lable['xiannanxing']; ?>">
+                        <input type="radio" name="sex" value="女" title="<?php echo $lable['xiannvxing']; ?>">
                     </div>
                 </div>
                 <div class="layui-form-item">
                     <label class="layui-form-label"><span style="color: red;">*</span><?php echo $lable['pet']; ?></label>
                     <div class="layui-input-block">
-                        <input type="radio" name="pet" value="接受" title="<?php echo $lable['petAcc']; ?>" checked>
-                        <input type="radio" name="pet" value="不接受" title="<?php echo $lable['petDis']; ?>">
+                        <input type="radio" name="pet" value="不接受" title="<?php echo $lable['petDis']; ?>" checked>
+                        <input type="radio" name="pet" value="接受" title="<?php echo $lable['petAcc']; ?>">
+
                     </div>
                 </div>
                 <div class="layui-form-item roomate">
@@ -228,8 +230,9 @@
                 <div class="layui-form-item roomate">
                     <label class="layui-form-label"><span style="color: red;">*</span>接受情侣</label>
                     <div class="layui-input-block">
-                        <input type="radio" name="is_couple" value="接受" title="接受">
                         <input type="radio" name="is_couple" value="不接受" title="不接受" checked>
+                        <input type="radio" name="is_couple" value="接受" title="接受">
+
                     </div>
                 </div>
                 <div class="layui-form-item" pane="">
@@ -304,8 +307,6 @@
                     <div class="layui-input-block">
                         <input type="checkbox" name="home[床]" lay-skin="primary" title="<?php echo $lable['chuang']; ?>">
                         <input type="checkbox" name="home[沙发]" lay-skin="primary" title="<?php echo $lable['shafa']; ?>">
-                        <!--                        <input type="checkbox" name="home[餐桌]" lay-skin="primary" title="<?php echo $lable['canzuo']; ?>">-->
-                        <!--                        <input type="checkbox" name="home[椅子]" lay-skin="primary" title="<?php echo $lable['yizi']; ?>">-->
                         <input type="checkbox" name="home[WIFI]" lay-skin="primary" title="<?php echo $lable['fWIFI']; ?>">
                         <input type="checkbox" name="home[空调]" lay-skin="primary" title="<?php echo $lable['kongtiao']; ?>">
                         <input type="checkbox" name="home[洗衣机]" lay-skin="primary" title="<?php echo $lable['xiyiji']; ?>">
@@ -344,7 +345,8 @@
                 <div class="layui-form-item roomate">
                     <label class="layui-form-label"><span style="color: red;">*</span>室友数量</label>
                     <div class="layui-input-block">
-                        <input type="radio" name="roomates" value="1" title="1" checked>
+                        <input type="radio" name="roomates" value="0" title="0" checked>
+                        <input type="radio" name="roomates" value="1" title="1">
                         <input type="radio" name="roomates" value="2" title="2">
                         <input type="radio" name="roomates" value="3" title="3">
                         <input type="radio" name="roomates" value="4" title="4">
@@ -406,14 +408,14 @@
                     <div class="layui-col-xs6">
                         <div class="grid-demo grid-demo-bg1">
                             <div class="layui-input-block">
-                                <textarea lay-verify="required" placeholder="<?php echo $lable['transPlaceEn']; ?>" style="height: 400px;" maxlength="5000" name="econtent" id="english" class="layui-textarea"></textarea>
+                                <textarea lay-verify="required" placeholder="<?php echo $lable['transPlaceEn']; ?>" style="height: 400px;" maxlength="4000" name="econtent" id="english" class="layui-textarea"></textarea>
                             </div>
                         </div>
                     </div>
                     <div class="layui-col-xs6">
                         <div class="grid-demo">
                             <div class="layui-input-block" style="margin-left: 25px !important;">
-                                <textarea lay-verify="required" placeholder="<?php echo $lable['transPlaceCn']; ?>" style="height: 400px;" maxlength="5000" id="chinese" class="layui-textarea"></textarea>
+                                <textarea lay-verify="required" placeholder="<?php echo $lable['transPlaceCn']; ?>" style="height: 400px;" maxlength="800" id="chinese" name="content" class="layui-textarea"></textarea>
                             </div>
                         </div>
                     </div>
@@ -492,6 +494,7 @@
                                         </div>
                                     </div>
                                 </div>
+                                <input type="hidden" class="layui-input" lay-verify="imgRegCaseType" />
                                 <div class="layui-upload">
                                     <button type="button" class="layui-btn layui-btn pull-left layui-btn-sm" id="slide-pc"><?php echo $lable['qitatupian']; ?></button>
                                 </div>
@@ -708,12 +711,14 @@
                 ,autocomplete = layui.autocomplete
                 ,element = layui.element;
             form.on('radio(isRoomate)', function(data){
-                var isRoom = data.value;
+                 var isRoom = data.value;
                 if(isRoom == '合租'){
                     $('.roomate').show();
+                    $('#roomate').val(2);
                     $('.entire').hide();
                 }else{
                     $('.roomate').hide();
+                    $('#roomate').val(1);
                     $('.entire').show();
                 }
             });
@@ -896,8 +901,14 @@
                 }
                 ,imgRegCaseType:function () {
                     var len = $(".img_url").length;
+                    var types = $("#roomate").val();
+                    if(types == 2){
+                        if (len < 2) {
+                            return "至少上传2张房源图片";
+                        }
+                    }
                     if (len > 8) {
-                        return "房源图片不超过8个？";
+                        return "房源图片不超过8个";
                     }
                 }
                 ,urlTest:function(value){
@@ -912,7 +923,7 @@
                 ,des_tanlent:function () {
                     var len = $(".tags:checked").length;
                     if (len > 6) {
-                        return "房源标签选择数不超过6个？";
+                        return "Maximum 6 tags!";
                     }
                 }
             });
