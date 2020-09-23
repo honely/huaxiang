@@ -1,0 +1,700 @@
+---------------------------------------------------------------
+[ 2020-09-18T09:57:24+08:00 ] 127.0.0.1 GET www.huaxiang.com/
+[运行时间：0.142673s] [吞吐率：7.01req/s] [内存消耗：1,643.12kb] [文件加载：47]
+[ info ] [ ROUTE ] array (
+  'type' => 'module',
+  'module' => 
+  array (
+    0 => '',
+    1 => NULL,
+    2 => NULL,
+  ),
+)
+[ info ] [ HEADER ] array (
+  'accept-language' => 'en-US,en;q=0.9,zh-CN;q=0.8,zh;q=0.7',
+  'accept-encoding' => 'gzip, deflate',
+  'accept' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.70 Safari/537.36',
+  'upgrade-insecure-requests' => '1',
+  'connection' => 'close',
+  'host' => 'www.huaxiang.com',
+)
+[ info ] [ PARAM ] array (
+)
+[ info ] [ SESSION ] INIT array (
+  'id' => '',
+  'var_session_id' => '',
+  'prefix' => 'think',
+  'type' => '',
+  'auto_start' => true,
+)
+[ info ] [ VIEW ] D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\thinkphp\tpl\dispatch_jump.tpl [ array (
+  0 => 'code',
+  1 => 'msg',
+  2 => 'data',
+  3 => 'url',
+  4 => 'wait',
+) ]
+[ info ] [ LOG ] INIT File
+---------------------------------------------------------------
+[ 2020-09-18T09:57:28+08:00 ] 127.0.0.1 GET www.huaxiang.com/xcx/login/login.html
+[运行时间：0.083068s] [吞吐率：12.04req/s] [内存消耗：1,568.58kb] [文件加载：46]
+[ info ] [ ROUTE ] array (
+  'type' => 'module',
+  'module' => 
+  array (
+    0 => 'xcx',
+    1 => 'login',
+    2 => 'login',
+  ),
+)
+[ info ] [ HEADER ] array (
+  'cookie' => 'PHPSESSID=vu4hifeuinfqemvbf1v5fcfv05',
+  'accept-language' => 'en-US,en;q=0.9,zh-CN;q=0.8,zh;q=0.7',
+  'accept-encoding' => 'gzip, deflate',
+  'referer' => 'http://www.huaxiang.com/',
+  'accept' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.70 Safari/537.36',
+  'upgrade-insecure-requests' => '1',
+  'connection' => 'close',
+  'host' => 'www.huaxiang.com',
+)
+[ info ] [ PARAM ] array (
+  '/xcx/login/login_html' => '',
+)
+[ info ] [ RUN ] app\xcx\controller\Login->login[ D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\application\xcx\controller\Login.php ]
+[ info ] [ VIEW ] D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\public/../application/xcx\view\login\login.html [ array (
+) ]
+[ info ] [ LOG ] INIT File
+---------------------------------------------------------------
+[ 2020-09-18T09:58:48+08:00 ] 127.0.0.1 GET www.huaxiang.com/api/rent/getlist
+[运行时间：0.313354s] [吞吐率：3.19req/s] [内存消耗：2,500.55kb] [文件加载：54]
+[ info ] [ ROUTE ] array (
+  'type' => 'module',
+  'module' => 
+  array (
+    0 => 'api',
+    1 => 'rent',
+    2 => 'getlist',
+  ),
+)
+[ info ] [ HEADER ] array (
+  'cookie' => 'PHPSESSID=vu4hifeuinfqemvbf1v5fcfv05',
+  'accept-language' => 'en-US,en;q=0.9,zh-CN;q=0.8,zh;q=0.7',
+  'accept-encoding' => 'gzip, deflate',
+  'accept' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.70 Safari/537.36',
+  'upgrade-insecure-requests' => '1',
+  'connection' => 'close',
+  'host' => 'www.huaxiang.com',
+)
+[ info ] [ PARAM ] array (
+  '/api/rent/getlist' => '',
+)
+[ info ] [ RUN ] app\api\controller\Rent->getList[ D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\application\api\controller\Rent.php ]
+[ info ] [ DB ] INIT mysql
+[ info ] [ LOG ] INIT File
+[ sql ] [ DB ] CONNECT:[ UseTime:0.017677s ] mysql:host=127.0.0.1;port=3306;dbname=xcxnew;charset=utf8mb4
+[ sql ] [ SQL ] SHOW COLUMNS FROM `tk_forent` [ RunTime:0.058094s ]
+[ sql ] [ SQL ] SELECT * FROM `tk_forent` WHERE  (  1 = 1  ) ORDER BY `cdate` DESC LIMIT 0,12 [ RunTime:0.010044s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `xcx_collect` [ RunTime:0.027649s ]
+[ sql ] [ SQL ] SELECT `cl_house_id` FROM `xcx_collect` WHERE  `cl_user_id` = 0  AND `cl_type` = 3 [ RunTime:0.024217s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `xcx_likes` [ RunTime:0.021335s ]
+[ sql ] [ SQL ] SELECT `tid` FROM `xcx_likes` WHERE  `uid` = 0  AND `type` = 3 [ RunTime:0.000490s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `tk_user` [ RunTime:0.027005s ]
+[ sql ] [ SQL ] SELECT `avaurl` FROM `tk_user` WHERE  `id` = 7 LIMIT 1 [ RunTime:0.014352s ]
+[ sql ] [ SQL ] SELECT `nickname` FROM `tk_user` WHERE  `id` = 7 LIMIT 1 [ RunTime:0.000519s ]
+[ sql ] [ SQL ] SELECT `avaurl` FROM `tk_user` WHERE  `id` = 1 LIMIT 1 [ RunTime:0.000380s ]
+[ sql ] [ SQL ] SELECT `nickname` FROM `tk_user` WHERE  `id` = 1 LIMIT 1 [ RunTime:0.000381s ]
+[ sql ] [ SQL ] SELECT `avaurl` FROM `tk_user` WHERE  `id` = 1 LIMIT 1 [ RunTime:0.000358s ]
+[ sql ] [ SQL ] SELECT `nickname` FROM `tk_user` WHERE  `id` = 1 LIMIT 1 [ RunTime:0.000430s ]
+[ sql ] [ SQL ] SELECT `avaurl` FROM `tk_user` WHERE  `id` = 1 LIMIT 1 [ RunTime:0.000375s ]
+[ sql ] [ SQL ] SELECT `nickname` FROM `tk_user` WHERE  `id` = 1 LIMIT 1 [ RunTime:0.000501s ]
+[ sql ] [ SQL ] SELECT `avaurl` FROM `tk_user` WHERE  `id` = 1 LIMIT 1 [ RunTime:0.000476s ]
+[ sql ] [ SQL ] SELECT `nickname` FROM `tk_user` WHERE  `id` = 1 LIMIT 1 [ RunTime:0.000476s ]
+[ sql ] [ SQL ] SELECT `avaurl` FROM `tk_user` WHERE  `id` = 1 LIMIT 1 [ RunTime:0.000387s ]
+[ sql ] [ SQL ] SELECT `nickname` FROM `tk_user` WHERE  `id` = 1 LIMIT 1 [ RunTime:0.000426s ]
+[ sql ] [ SQL ] SELECT `avaurl` FROM `tk_user` WHERE  `id` = 1 LIMIT 1 [ RunTime:0.000390s ]
+[ sql ] [ SQL ] SELECT `nickname` FROM `tk_user` WHERE  `id` = 1 LIMIT 1 [ RunTime:0.000370s ]
+[ sql ] [ SQL ] SELECT `avaurl` FROM `tk_user` WHERE  `id` = 1 LIMIT 1 [ RunTime:0.000401s ]
+[ sql ] [ SQL ] SELECT `nickname` FROM `tk_user` WHERE  `id` = 1 LIMIT 1 [ RunTime:0.000385s ]
+[ sql ] [ SQL ] SELECT `avaurl` FROM `tk_user` WHERE  `id` = 1 LIMIT 1 [ RunTime:0.000366s ]
+[ sql ] [ SQL ] SELECT `nickname` FROM `tk_user` WHERE  `id` = 1 LIMIT 1 [ RunTime:0.000359s ]
+[ sql ] [ SQL ] SELECT `avaurl` FROM `tk_user` WHERE  `id` = 1 LIMIT 1 [ RunTime:0.000366s ]
+[ sql ] [ SQL ] SELECT `nickname` FROM `tk_user` WHERE  `id` = 1 LIMIT 1 [ RunTime:0.000366s ]
+[ sql ] [ SQL ] SELECT `avaurl` FROM `tk_user` WHERE  `id` = 1 LIMIT 1 [ RunTime:0.000705s ]
+[ sql ] [ SQL ] SELECT `nickname` FROM `tk_user` WHERE  `id` = 1 LIMIT 1 [ RunTime:0.000549s ]
+[ sql ] [ SQL ] SELECT `avaurl` FROM `tk_user` WHERE  `id` = 1 LIMIT 1 [ RunTime:0.000391s ]
+[ sql ] [ SQL ] SELECT `nickname` FROM `tk_user` WHERE  `id` = 1 LIMIT 1 [ RunTime:0.000582s ]
+---------------------------------------------------------------
+[ 2020-09-18T09:58:57+08:00 ] 127.0.0.1 GET www.huaxiang.com/api/rent/getlist
+[运行时间：0.167312s] [吞吐率：5.98req/s] [内存消耗：2,500.55kb] [文件加载：54]
+[ info ] [ ROUTE ] array (
+  'type' => 'module',
+  'module' => 
+  array (
+    0 => 'api',
+    1 => 'rent',
+    2 => 'getlist',
+  ),
+)
+[ info ] [ HEADER ] array (
+  'cookie' => 'PHPSESSID=vu4hifeuinfqemvbf1v5fcfv05',
+  'accept-language' => 'en-US,en;q=0.9,zh-CN;q=0.8,zh;q=0.7',
+  'accept-encoding' => 'gzip, deflate',
+  'accept' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.70 Safari/537.36',
+  'upgrade-insecure-requests' => '1',
+  'connection' => 'close',
+  'host' => 'www.huaxiang.com',
+)
+[ info ] [ PARAM ] array (
+  '/api/rent/getlist' => '',
+)
+[ info ] [ RUN ] app\api\controller\Rent->getList[ D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\application\api\controller\Rent.php ]
+[ info ] [ DB ] INIT mysql
+[ info ] [ LOG ] INIT File
+[ sql ] [ DB ] CONNECT:[ UseTime:0.001308s ] mysql:host=127.0.0.1;port=3306;dbname=xcxnew;charset=utf8mb4
+[ sql ] [ SQL ] SHOW COLUMNS FROM `tk_forent` [ RunTime:0.017211s ]
+[ sql ] [ SQL ] SELECT * FROM `tk_forent` WHERE  (  1 = 1  ) ORDER BY `cdate` DESC LIMIT 0,12 [ RunTime:0.001331s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `xcx_collect` [ RunTime:0.013992s ]
+[ sql ] [ SQL ] SELECT `cl_house_id` FROM `xcx_collect` WHERE  `cl_user_id` = 0  AND `cl_type` = 3 [ RunTime:0.000810s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `xcx_likes` [ RunTime:0.018687s ]
+[ sql ] [ SQL ] SELECT `tid` FROM `xcx_likes` WHERE  `uid` = 0  AND `type` = 3 [ RunTime:0.000709s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `tk_user` [ RunTime:0.015364s ]
+[ sql ] [ SQL ] SELECT `avaurl` FROM `tk_user` WHERE  `id` = 7 LIMIT 1 [ RunTime:0.001537s ]
+[ sql ] [ SQL ] SELECT `nickname` FROM `tk_user` WHERE  `id` = 7 LIMIT 1 [ RunTime:0.000605s ]
+[ sql ] [ SQL ] SELECT `avaurl` FROM `tk_user` WHERE  `id` = 1 LIMIT 1 [ RunTime:0.000877s ]
+[ sql ] [ SQL ] SELECT `nickname` FROM `tk_user` WHERE  `id` = 1 LIMIT 1 [ RunTime:0.000733s ]
+[ sql ] [ SQL ] SELECT `avaurl` FROM `tk_user` WHERE  `id` = 1 LIMIT 1 [ RunTime:0.000568s ]
+[ sql ] [ SQL ] SELECT `nickname` FROM `tk_user` WHERE  `id` = 1 LIMIT 1 [ RunTime:0.000764s ]
+[ sql ] [ SQL ] SELECT `avaurl` FROM `tk_user` WHERE  `id` = 1 LIMIT 1 [ RunTime:0.000687s ]
+[ sql ] [ SQL ] SELECT `nickname` FROM `tk_user` WHERE  `id` = 1 LIMIT 1 [ RunTime:0.000397s ]
+[ sql ] [ SQL ] SELECT `avaurl` FROM `tk_user` WHERE  `id` = 1 LIMIT 1 [ RunTime:0.000560s ]
+[ sql ] [ SQL ] SELECT `nickname` FROM `tk_user` WHERE  `id` = 1 LIMIT 1 [ RunTime:0.000464s ]
+[ sql ] [ SQL ] SELECT `avaurl` FROM `tk_user` WHERE  `id` = 1 LIMIT 1 [ RunTime:0.000394s ]
+[ sql ] [ SQL ] SELECT `nickname` FROM `tk_user` WHERE  `id` = 1 LIMIT 1 [ RunTime:0.000399s ]
+[ sql ] [ SQL ] SELECT `avaurl` FROM `tk_user` WHERE  `id` = 1 LIMIT 1 [ RunTime:0.000380s ]
+[ sql ] [ SQL ] SELECT `nickname` FROM `tk_user` WHERE  `id` = 1 LIMIT 1 [ RunTime:0.000376s ]
+[ sql ] [ SQL ] SELECT `avaurl` FROM `tk_user` WHERE  `id` = 1 LIMIT 1 [ RunTime:0.000592s ]
+[ sql ] [ SQL ] SELECT `nickname` FROM `tk_user` WHERE  `id` = 1 LIMIT 1 [ RunTime:0.000445s ]
+[ sql ] [ SQL ] SELECT `avaurl` FROM `tk_user` WHERE  `id` = 1 LIMIT 1 [ RunTime:0.000399s ]
+[ sql ] [ SQL ] SELECT `nickname` FROM `tk_user` WHERE  `id` = 1 LIMIT 1 [ RunTime:0.000375s ]
+[ sql ] [ SQL ] SELECT `avaurl` FROM `tk_user` WHERE  `id` = 1 LIMIT 1 [ RunTime:0.000403s ]
+[ sql ] [ SQL ] SELECT `nickname` FROM `tk_user` WHERE  `id` = 1 LIMIT 1 [ RunTime:0.000373s ]
+[ sql ] [ SQL ] SELECT `avaurl` FROM `tk_user` WHERE  `id` = 1 LIMIT 1 [ RunTime:0.000373s ]
+[ sql ] [ SQL ] SELECT `nickname` FROM `tk_user` WHERE  `id` = 1 LIMIT 1 [ RunTime:0.000368s ]
+[ sql ] [ SQL ] SELECT `avaurl` FROM `tk_user` WHERE  `id` = 1 LIMIT 1 [ RunTime:0.000371s ]
+[ sql ] [ SQL ] SELECT `nickname` FROM `tk_user` WHERE  `id` = 1 LIMIT 1 [ RunTime:0.000371s ]
+---------------------------------------------------------------
+[ 2020-09-18T09:59:12+08:00 ] 127.0.0.1 GET www.huaxiang.com/api/rent/getlist
+[运行时间：0.136899s] [吞吐率：7.30req/s] [内存消耗：2,500.59kb] [文件加载：54]
+[ info ] [ ROUTE ] array (
+  'type' => 'module',
+  'module' => 
+  array (
+    0 => 'api',
+    1 => 'rent',
+    2 => 'getlist',
+  ),
+)
+[ info ] [ HEADER ] array (
+  'cookie' => 'PHPSESSID=vu4hifeuinfqemvbf1v5fcfv05',
+  'accept-language' => 'en-US,en;q=0.9,zh-CN;q=0.8,zh;q=0.7',
+  'accept-encoding' => 'gzip, deflate',
+  'accept' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.70 Safari/537.36',
+  'upgrade-insecure-requests' => '1',
+  'cache-control' => 'max-age=0',
+  'connection' => 'close',
+  'host' => 'www.huaxiang.com',
+)
+[ info ] [ PARAM ] array (
+  '/api/rent/getlist' => '',
+)
+[ info ] [ RUN ] app\api\controller\Rent->getList[ D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\application\api\controller\Rent.php ]
+[ info ] [ DB ] INIT mysql
+[ info ] [ LOG ] INIT File
+[ sql ] [ DB ] CONNECT:[ UseTime:0.001391s ] mysql:host=127.0.0.1;port=3306;dbname=xcxnew;charset=utf8mb4
+[ sql ] [ SQL ] SHOW COLUMNS FROM `tk_forent` [ RunTime:0.015549s ]
+[ sql ] [ SQL ] SELECT * FROM `tk_forent` WHERE  (  1 = 1  ) ORDER BY `cdate` DESC LIMIT 0,12 [ RunTime:0.001052s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `xcx_collect` [ RunTime:0.011930s ]
+[ sql ] [ SQL ] SELECT `cl_house_id` FROM `xcx_collect` WHERE  `cl_user_id` = 0  AND `cl_type` = 3 [ RunTime:0.000496s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `xcx_likes` [ RunTime:0.011744s ]
+[ sql ] [ SQL ] SELECT `tid` FROM `xcx_likes` WHERE  `uid` = 0  AND `type` = 3 [ RunTime:0.000458s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `tk_user` [ RunTime:0.011822s ]
+[ sql ] [ SQL ] SELECT `avaurl` FROM `tk_user` WHERE  `id` = 7 LIMIT 1 [ RunTime:0.000505s ]
+[ sql ] [ SQL ] SELECT `nickname` FROM `tk_user` WHERE  `id` = 7 LIMIT 1 [ RunTime:0.000368s ]
+[ sql ] [ SQL ] SELECT `avaurl` FROM `tk_user` WHERE  `id` = 1 LIMIT 1 [ RunTime:0.000513s ]
+[ sql ] [ SQL ] SELECT `nickname` FROM `tk_user` WHERE  `id` = 1 LIMIT 1 [ RunTime:0.000406s ]
+[ sql ] [ SQL ] SELECT `avaurl` FROM `tk_user` WHERE  `id` = 1 LIMIT 1 [ RunTime:0.000364s ]
+[ sql ] [ SQL ] SELECT `nickname` FROM `tk_user` WHERE  `id` = 1 LIMIT 1 [ RunTime:0.000391s ]
+[ sql ] [ SQL ] SELECT `avaurl` FROM `tk_user` WHERE  `id` = 1 LIMIT 1 [ RunTime:0.000376s ]
+[ sql ] [ SQL ] SELECT `nickname` FROM `tk_user` WHERE  `id` = 1 LIMIT 1 [ RunTime:0.000374s ]
+[ sql ] [ SQL ] SELECT `avaurl` FROM `tk_user` WHERE  `id` = 1 LIMIT 1 [ RunTime:0.000479s ]
+[ sql ] [ SQL ] SELECT `nickname` FROM `tk_user` WHERE  `id` = 1 LIMIT 1 [ RunTime:0.000431s ]
+[ sql ] [ SQL ] SELECT `avaurl` FROM `tk_user` WHERE  `id` = 1 LIMIT 1 [ RunTime:0.000418s ]
+[ sql ] [ SQL ] SELECT `nickname` FROM `tk_user` WHERE  `id` = 1 LIMIT 1 [ RunTime:0.000378s ]
+[ sql ] [ SQL ] SELECT `avaurl` FROM `tk_user` WHERE  `id` = 1 LIMIT 1 [ RunTime:0.000374s ]
+[ sql ] [ SQL ] SELECT `nickname` FROM `tk_user` WHERE  `id` = 1 LIMIT 1 [ RunTime:0.000373s ]
+[ sql ] [ SQL ] SELECT `avaurl` FROM `tk_user` WHERE  `id` = 1 LIMIT 1 [ RunTime:0.000399s ]
+[ sql ] [ SQL ] SELECT `nickname` FROM `tk_user` WHERE  `id` = 1 LIMIT 1 [ RunTime:0.000384s ]
+[ sql ] [ SQL ] SELECT `avaurl` FROM `tk_user` WHERE  `id` = 1 LIMIT 1 [ RunTime:0.000364s ]
+[ sql ] [ SQL ] SELECT `nickname` FROM `tk_user` WHERE  `id` = 1 LIMIT 1 [ RunTime:0.000369s ]
+[ sql ] [ SQL ] SELECT `avaurl` FROM `tk_user` WHERE  `id` = 1 LIMIT 1 [ RunTime:0.000372s ]
+[ sql ] [ SQL ] SELECT `nickname` FROM `tk_user` WHERE  `id` = 1 LIMIT 1 [ RunTime:0.000372s ]
+[ sql ] [ SQL ] SELECT `avaurl` FROM `tk_user` WHERE  `id` = 1 LIMIT 1 [ RunTime:0.000377s ]
+[ sql ] [ SQL ] SELECT `nickname` FROM `tk_user` WHERE  `id` = 1 LIMIT 1 [ RunTime:0.000363s ]
+[ sql ] [ SQL ] SELECT `avaurl` FROM `tk_user` WHERE  `id` = 1 LIMIT 1 [ RunTime:0.000366s ]
+[ sql ] [ SQL ] SELECT `nickname` FROM `tk_user` WHERE  `id` = 1 LIMIT 1 [ RunTime:0.000686s ]
+---------------------------------------------------------------
+[ 2020-09-18T09:59:59+08:00 ] 127.0.0.1 GET www.huaxiang.com/api/rent/getlist
+[运行时间：0.143989s] [吞吐率：6.94req/s] [内存消耗：2,500.63kb] [文件加载：54]
+[ info ] [ ROUTE ] array (
+  'type' => 'module',
+  'module' => 
+  array (
+    0 => 'api',
+    1 => 'rent',
+    2 => 'getlist',
+  ),
+)
+[ info ] [ HEADER ] array (
+  'cookie' => 'PHPSESSID=vu4hifeuinfqemvbf1v5fcfv05',
+  'accept-language' => 'en-US,en;q=0.9,zh-CN;q=0.8,zh;q=0.7',
+  'accept-encoding' => 'gzip, deflate',
+  'accept' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.70 Safari/537.36',
+  'upgrade-insecure-requests' => '1',
+  'cache-control' => 'max-age=0',
+  'connection' => 'close',
+  'host' => 'www.huaxiang.com',
+)
+[ info ] [ PARAM ] array (
+  '/api/rent/getlist' => '',
+)
+[ info ] [ RUN ] app\api\controller\Rent->getList[ D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\application\api\controller\Rent.php ]
+[ info ] [ DB ] INIT mysql
+[ info ] [ LOG ] INIT File
+[ sql ] [ DB ] CONNECT:[ UseTime:0.001175s ] mysql:host=127.0.0.1;port=3306;dbname=xcxnew;charset=utf8mb4
+[ sql ] [ SQL ] SHOW COLUMNS FROM `tk_forent` [ RunTime:0.013904s ]
+[ sql ] [ SQL ] SELECT * FROM `tk_forent` WHERE  (  1 = 1  ) ORDER BY `cdate` DESC LIMIT 0,12 [ RunTime:0.001295s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `xcx_collect` [ RunTime:0.012343s ]
+[ sql ] [ SQL ] SELECT `cl_house_id` FROM `xcx_collect` WHERE  `cl_user_id` = 0  AND `cl_type` = 3 [ RunTime:0.000507s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `xcx_likes` [ RunTime:0.011863s ]
+[ sql ] [ SQL ] SELECT `tid` FROM `xcx_likes` WHERE  `uid` = 0  AND `type` = 3 [ RunTime:0.000484s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `tk_user` [ RunTime:0.013812s ]
+[ sql ] [ SQL ] SELECT `avaurl` FROM `tk_user` WHERE  `id` = 7 LIMIT 1 [ RunTime:0.000539s ]
+[ sql ] [ SQL ] SELECT `nickname` FROM `tk_user` WHERE  `id` = 7 LIMIT 1 [ RunTime:0.000372s ]
+[ sql ] [ SQL ] SELECT `avaurl` FROM `tk_user` WHERE  `id` = 1 LIMIT 1 [ RunTime:0.000367s ]
+[ sql ] [ SQL ] SELECT `nickname` FROM `tk_user` WHERE  `id` = 1 LIMIT 1 [ RunTime:0.000376s ]
+[ sql ] [ SQL ] SELECT `avaurl` FROM `tk_user` WHERE  `id` = 1 LIMIT 1 [ RunTime:0.000371s ]
+[ sql ] [ SQL ] SELECT `nickname` FROM `tk_user` WHERE  `id` = 1 LIMIT 1 [ RunTime:0.000481s ]
+[ sql ] [ SQL ] SELECT `avaurl` FROM `tk_user` WHERE  `id` = 1 LIMIT 1 [ RunTime:0.000414s ]
+[ sql ] [ SQL ] SELECT `nickname` FROM `tk_user` WHERE  `id` = 1 LIMIT 1 [ RunTime:0.000457s ]
+[ sql ] [ SQL ] SELECT `avaurl` FROM `tk_user` WHERE  `id` = 1 LIMIT 1 [ RunTime:0.000386s ]
+[ sql ] [ SQL ] SELECT `nickname` FROM `tk_user` WHERE  `id` = 1 LIMIT 1 [ RunTime:0.000400s ]
+[ sql ] [ SQL ] SELECT `avaurl` FROM `tk_user` WHERE  `id` = 1 LIMIT 1 [ RunTime:0.000414s ]
+[ sql ] [ SQL ] SELECT `nickname` FROM `tk_user` WHERE  `id` = 1 LIMIT 1 [ RunTime:0.000415s ]
+[ sql ] [ SQL ] SELECT `avaurl` FROM `tk_user` WHERE  `id` = 1 LIMIT 1 [ RunTime:0.000384s ]
+[ sql ] [ SQL ] SELECT `nickname` FROM `tk_user` WHERE  `id` = 1 LIMIT 1 [ RunTime:0.000388s ]
+[ sql ] [ SQL ] SELECT `avaurl` FROM `tk_user` WHERE  `id` = 1 LIMIT 1 [ RunTime:0.000398s ]
+[ sql ] [ SQL ] SELECT `nickname` FROM `tk_user` WHERE  `id` = 1 LIMIT 1 [ RunTime:0.000406s ]
+[ sql ] [ SQL ] SELECT `avaurl` FROM `tk_user` WHERE  `id` = 1 LIMIT 1 [ RunTime:0.000421s ]
+[ sql ] [ SQL ] SELECT `nickname` FROM `tk_user` WHERE  `id` = 1 LIMIT 1 [ RunTime:0.000490s ]
+[ sql ] [ SQL ] SELECT `avaurl` FROM `tk_user` WHERE  `id` = 1 LIMIT 1 [ RunTime:0.000836s ]
+[ sql ] [ SQL ] SELECT `nickname` FROM `tk_user` WHERE  `id` = 1 LIMIT 1 [ RunTime:0.000403s ]
+[ sql ] [ SQL ] SELECT `avaurl` FROM `tk_user` WHERE  `id` = 1 LIMIT 1 [ RunTime:0.000366s ]
+[ sql ] [ SQL ] SELECT `nickname` FROM `tk_user` WHERE  `id` = 1 LIMIT 1 [ RunTime:0.000363s ]
+[ sql ] [ SQL ] SELECT `avaurl` FROM `tk_user` WHERE  `id` = 1 LIMIT 1 [ RunTime:0.000364s ]
+[ sql ] [ SQL ] SELECT `nickname` FROM `tk_user` WHERE  `id` = 1 LIMIT 1 [ RunTime:0.000356s ]
+---------------------------------------------------------------
+[ 2020-09-18T10:12:13+08:00 ] 127.0.0.1 GET www.huaxiang.com/api/rent/getlist
+[运行时间：0.167651s] [吞吐率：5.96req/s] [内存消耗：2,512.68kb] [文件加载：54]
+[ info ] [ ROUTE ] array (
+  'type' => 'module',
+  'module' => 
+  array (
+    0 => 'api',
+    1 => 'rent',
+    2 => 'getlist',
+  ),
+)
+[ info ] [ HEADER ] array (
+  'cookie' => 'PHPSESSID=vu4hifeuinfqemvbf1v5fcfv05',
+  'accept-language' => 'en-US,en;q=0.9,zh-CN;q=0.8,zh;q=0.7',
+  'accept-encoding' => 'gzip, deflate',
+  'accept' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.70 Safari/537.36',
+  'upgrade-insecure-requests' => '1',
+  'cache-control' => 'max-age=0',
+  'connection' => 'close',
+  'host' => 'www.huaxiang.com',
+)
+[ info ] [ PARAM ] array (
+  '/api/rent/getlist' => '',
+)
+[ info ] [ RUN ] app\api\controller\Rent->getList[ D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\application\api\controller\Rent.php ]
+[ info ] [ DB ] INIT mysql
+[ info ] [ LOG ] INIT File
+[ sql ] [ DB ] CONNECT:[ UseTime:0.003928s ] mysql:host=127.0.0.1;port=3306;dbname=xcxnew;charset=utf8mb4
+[ sql ] [ SQL ] SHOW COLUMNS FROM `tk_forent` [ RunTime:0.016104s ]
+[ sql ] [ SQL ] SELECT * FROM `tk_forent` WHERE  (  1 = 1  ) ORDER BY `cdate` DESC LIMIT 0,12 [ RunTime:0.001280s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `xcx_collect` [ RunTime:0.013129s ]
+[ sql ] [ SQL ] SELECT `cl_house_id` FROM `xcx_collect` WHERE  `cl_user_id` = 0  AND `cl_type` = 3 [ RunTime:0.000644s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `xcx_likes` [ RunTime:0.012903s ]
+[ sql ] [ SQL ] SELECT `tid` FROM `xcx_likes` WHERE  `uid` = 0  AND `type` = 3 [ RunTime:0.000502s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `tk_user` [ RunTime:0.013267s ]
+[ sql ] [ SQL ] SELECT `avaurl` FROM `tk_user` WHERE  `id` = 7 LIMIT 1 [ RunTime:0.000904s ]
+[ sql ] [ SQL ] SELECT `nickname` FROM `tk_user` WHERE  `id` = 7 LIMIT 1 [ RunTime:0.000524s ]
+[ sql ] [ SQL ] SELECT `sex` FROM `tk_user` WHERE  `id` = 7 LIMIT 1 [ RunTime:0.000384s ]
+[ sql ] [ SQL ] SELECT `avaurl` FROM `tk_user` WHERE  `id` = 1 LIMIT 1 [ RunTime:0.000450s ]
+[ sql ] [ SQL ] SELECT `nickname` FROM `tk_user` WHERE  `id` = 1 LIMIT 1 [ RunTime:0.000545s ]
+[ sql ] [ SQL ] SELECT `sex` FROM `tk_user` WHERE  `id` = 1 LIMIT 1 [ RunTime:0.000452s ]
+[ sql ] [ SQL ] SELECT `avaurl` FROM `tk_user` WHERE  `id` = 1 LIMIT 1 [ RunTime:0.000356s ]
+[ sql ] [ SQL ] SELECT `nickname` FROM `tk_user` WHERE  `id` = 1 LIMIT 1 [ RunTime:0.000329s ]
+[ sql ] [ SQL ] SELECT `sex` FROM `tk_user` WHERE  `id` = 1 LIMIT 1 [ RunTime:0.000310s ]
+[ sql ] [ SQL ] SELECT `avaurl` FROM `tk_user` WHERE  `id` = 1 LIMIT 1 [ RunTime:0.000311s ]
+[ sql ] [ SQL ] SELECT `nickname` FROM `tk_user` WHERE  `id` = 1 LIMIT 1 [ RunTime:0.000431s ]
+[ sql ] [ SQL ] SELECT `sex` FROM `tk_user` WHERE  `id` = 1 LIMIT 1 [ RunTime:0.000376s ]
+[ sql ] [ SQL ] SELECT `avaurl` FROM `tk_user` WHERE  `id` = 1 LIMIT 1 [ RunTime:0.000369s ]
+[ sql ] [ SQL ] SELECT `nickname` FROM `tk_user` WHERE  `id` = 1 LIMIT 1 [ RunTime:0.000365s ]
+[ sql ] [ SQL ] SELECT `sex` FROM `tk_user` WHERE  `id` = 1 LIMIT 1 [ RunTime:0.000354s ]
+[ sql ] [ SQL ] SELECT `avaurl` FROM `tk_user` WHERE  `id` = 1 LIMIT 1 [ RunTime:0.000433s ]
+[ sql ] [ SQL ] SELECT `nickname` FROM `tk_user` WHERE  `id` = 1 LIMIT 1 [ RunTime:0.000376s ]
+[ sql ] [ SQL ] SELECT `sex` FROM `tk_user` WHERE  `id` = 1 LIMIT 1 [ RunTime:0.000425s ]
+[ sql ] [ SQL ] SELECT `avaurl` FROM `tk_user` WHERE  `id` = 1 LIMIT 1 [ RunTime:0.000390s ]
+[ sql ] [ SQL ] SELECT `nickname` FROM `tk_user` WHERE  `id` = 1 LIMIT 1 [ RunTime:0.000355s ]
+[ sql ] [ SQL ] SELECT `sex` FROM `tk_user` WHERE  `id` = 1 LIMIT 1 [ RunTime:0.000369s ]
+[ sql ] [ SQL ] SELECT `avaurl` FROM `tk_user` WHERE  `id` = 1 LIMIT 1 [ RunTime:0.000368s ]
+[ sql ] [ SQL ] SELECT `nickname` FROM `tk_user` WHERE  `id` = 1 LIMIT 1 [ RunTime:0.000366s ]
+[ sql ] [ SQL ] SELECT `sex` FROM `tk_user` WHERE  `id` = 1 LIMIT 1 [ RunTime:0.000356s ]
+[ sql ] [ SQL ] SELECT `avaurl` FROM `tk_user` WHERE  `id` = 1 LIMIT 1 [ RunTime:0.000370s ]
+[ sql ] [ SQL ] SELECT `nickname` FROM `tk_user` WHERE  `id` = 1 LIMIT 1 [ RunTime:0.000428s ]
+[ sql ] [ SQL ] SELECT `sex` FROM `tk_user` WHERE  `id` = 1 LIMIT 1 [ RunTime:0.000375s ]
+[ sql ] [ SQL ] SELECT `avaurl` FROM `tk_user` WHERE  `id` = 1 LIMIT 1 [ RunTime:0.000377s ]
+[ sql ] [ SQL ] SELECT `nickname` FROM `tk_user` WHERE  `id` = 1 LIMIT 1 [ RunTime:0.000368s ]
+[ sql ] [ SQL ] SELECT `sex` FROM `tk_user` WHERE  `id` = 1 LIMIT 1 [ RunTime:0.000404s ]
+[ sql ] [ SQL ] SELECT `avaurl` FROM `tk_user` WHERE  `id` = 1 LIMIT 1 [ RunTime:0.000409s ]
+[ sql ] [ SQL ] SELECT `nickname` FROM `tk_user` WHERE  `id` = 1 LIMIT 1 [ RunTime:0.000368s ]
+[ sql ] [ SQL ] SELECT `sex` FROM `tk_user` WHERE  `id` = 1 LIMIT 1 [ RunTime:0.000353s ]
+[ sql ] [ SQL ] SELECT `avaurl` FROM `tk_user` WHERE  `id` = 1 LIMIT 1 [ RunTime:0.000377s ]
+[ sql ] [ SQL ] SELECT `nickname` FROM `tk_user` WHERE  `id` = 1 LIMIT 1 [ RunTime:0.000373s ]
+[ sql ] [ SQL ] SELECT `sex` FROM `tk_user` WHERE  `id` = 1 LIMIT 1 [ RunTime:0.000360s ]
+---------------------------------------------------------------
+[ 2020-09-18T10:13:28+08:00 ] 127.0.0.1 GET www.huaxiang.com/api/rent/getlist
+[运行时间：0.150747s] [吞吐率：6.63req/s] [内存消耗：2,512.70kb] [文件加载：54]
+[ info ] [ ROUTE ] array (
+  'type' => 'module',
+  'module' => 
+  array (
+    0 => 'api',
+    1 => 'rent',
+    2 => 'getlist',
+  ),
+)
+[ info ] [ HEADER ] array (
+  'cookie' => 'PHPSESSID=vu4hifeuinfqemvbf1v5fcfv05',
+  'accept-language' => 'en-US,en;q=0.9,zh-CN;q=0.8,zh;q=0.7',
+  'accept-encoding' => 'gzip, deflate',
+  'accept' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.70 Safari/537.36',
+  'upgrade-insecure-requests' => '1',
+  'cache-control' => 'max-age=0',
+  'connection' => 'close',
+  'host' => 'www.huaxiang.com',
+)
+[ info ] [ PARAM ] array (
+  '/api/rent/getlist' => '',
+)
+[ info ] [ RUN ] app\api\controller\Rent->getList[ D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\application\api\controller\Rent.php ]
+[ info ] [ DB ] INIT mysql
+[ info ] [ LOG ] INIT File
+[ sql ] [ DB ] CONNECT:[ UseTime:0.001608s ] mysql:host=127.0.0.1;port=3306;dbname=xcxnew;charset=utf8mb4
+[ sql ] [ SQL ] SHOW COLUMNS FROM `tk_forent` [ RunTime:0.015369s ]
+[ sql ] [ SQL ] SELECT `id`,`title`,`type`,`userid`,`mdate` FROM `tk_forent` WHERE  (  1 = 1  ) ORDER BY `cdate` DESC LIMIT 0,12 [ RunTime:0.000802s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `xcx_collect` [ RunTime:0.012662s ]
+[ sql ] [ SQL ] SELECT `cl_house_id` FROM `xcx_collect` WHERE  `cl_user_id` = 0  AND `cl_type` = 3 [ RunTime:0.000742s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `xcx_likes` [ RunTime:0.013354s ]
+[ sql ] [ SQL ] SELECT `tid` FROM `xcx_likes` WHERE  `uid` = 0  AND `type` = 3 [ RunTime:0.000483s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `tk_user` [ RunTime:0.013273s ]
+[ sql ] [ SQL ] SELECT `avaurl` FROM `tk_user` WHERE  `id` = 7 LIMIT 1 [ RunTime:0.000643s ]
+[ sql ] [ SQL ] SELECT `nickname` FROM `tk_user` WHERE  `id` = 7 LIMIT 1 [ RunTime:0.000420s ]
+[ sql ] [ SQL ] SELECT `sex` FROM `tk_user` WHERE  `id` = 7 LIMIT 1 [ RunTime:0.000377s ]
+[ sql ] [ SQL ] SELECT `avaurl` FROM `tk_user` WHERE  `id` = 1 LIMIT 1 [ RunTime:0.000378s ]
+[ sql ] [ SQL ] SELECT `nickname` FROM `tk_user` WHERE  `id` = 1 LIMIT 1 [ RunTime:0.000374s ]
+[ sql ] [ SQL ] SELECT `sex` FROM `tk_user` WHERE  `id` = 1 LIMIT 1 [ RunTime:0.000404s ]
+[ sql ] [ SQL ] SELECT `avaurl` FROM `tk_user` WHERE  `id` = 1 LIMIT 1 [ RunTime:0.000368s ]
+[ sql ] [ SQL ] SELECT `nickname` FROM `tk_user` WHERE  `id` = 1 LIMIT 1 [ RunTime:0.000366s ]
+[ sql ] [ SQL ] SELECT `sex` FROM `tk_user` WHERE  `id` = 1 LIMIT 1 [ RunTime:0.000450s ]
+[ sql ] [ SQL ] SELECT `avaurl` FROM `tk_user` WHERE  `id` = 1 LIMIT 1 [ RunTime:0.000389s ]
+[ sql ] [ SQL ] SELECT `nickname` FROM `tk_user` WHERE  `id` = 1 LIMIT 1 [ RunTime:0.000412s ]
+[ sql ] [ SQL ] SELECT `sex` FROM `tk_user` WHERE  `id` = 1 LIMIT 1 [ RunTime:0.000368s ]
+[ sql ] [ SQL ] SELECT `avaurl` FROM `tk_user` WHERE  `id` = 1 LIMIT 1 [ RunTime:0.000368s ]
+[ sql ] [ SQL ] SELECT `nickname` FROM `tk_user` WHERE  `id` = 1 LIMIT 1 [ RunTime:0.000624s ]
+[ sql ] [ SQL ] SELECT `sex` FROM `tk_user` WHERE  `id` = 1 LIMIT 1 [ RunTime:0.000358s ]
+[ sql ] [ SQL ] SELECT `avaurl` FROM `tk_user` WHERE  `id` = 1 LIMIT 1 [ RunTime:0.000568s ]
+[ sql ] [ SQL ] SELECT `nickname` FROM `tk_user` WHERE  `id` = 1 LIMIT 1 [ RunTime:0.000373s ]
+[ sql ] [ SQL ] SELECT `sex` FROM `tk_user` WHERE  `id` = 1 LIMIT 1 [ RunTime:0.000368s ]
+[ sql ] [ SQL ] SELECT `avaurl` FROM `tk_user` WHERE  `id` = 1 LIMIT 1 [ RunTime:0.000375s ]
+[ sql ] [ SQL ] SELECT `nickname` FROM `tk_user` WHERE  `id` = 1 LIMIT 1 [ RunTime:0.000360s ]
+[ sql ] [ SQL ] SELECT `sex` FROM `tk_user` WHERE  `id` = 1 LIMIT 1 [ RunTime:0.000364s ]
+[ sql ] [ SQL ] SELECT `avaurl` FROM `tk_user` WHERE  `id` = 1 LIMIT 1 [ RunTime:0.000362s ]
+[ sql ] [ SQL ] SELECT `nickname` FROM `tk_user` WHERE  `id` = 1 LIMIT 1 [ RunTime:0.000362s ]
+[ sql ] [ SQL ] SELECT `sex` FROM `tk_user` WHERE  `id` = 1 LIMIT 1 [ RunTime:0.000363s ]
+[ sql ] [ SQL ] SELECT `avaurl` FROM `tk_user` WHERE  `id` = 1 LIMIT 1 [ RunTime:0.000384s ]
+[ sql ] [ SQL ] SELECT `nickname` FROM `tk_user` WHERE  `id` = 1 LIMIT 1 [ RunTime:0.000412s ]
+[ sql ] [ SQL ] SELECT `sex` FROM `tk_user` WHERE  `id` = 1 LIMIT 1 [ RunTime:0.000364s ]
+[ sql ] [ SQL ] SELECT `avaurl` FROM `tk_user` WHERE  `id` = 1 LIMIT 1 [ RunTime:0.000351s ]
+[ sql ] [ SQL ] SELECT `nickname` FROM `tk_user` WHERE  `id` = 1 LIMIT 1 [ RunTime:0.000348s ]
+[ sql ] [ SQL ] SELECT `sex` FROM `tk_user` WHERE  `id` = 1 LIMIT 1 [ RunTime:0.000426s ]
+[ sql ] [ SQL ] SELECT `avaurl` FROM `tk_user` WHERE  `id` = 1 LIMIT 1 [ RunTime:0.000382s ]
+[ sql ] [ SQL ] SELECT `nickname` FROM `tk_user` WHERE  `id` = 1 LIMIT 1 [ RunTime:0.000360s ]
+[ sql ] [ SQL ] SELECT `sex` FROM `tk_user` WHERE  `id` = 1 LIMIT 1 [ RunTime:0.000358s ]
+[ sql ] [ SQL ] SELECT `avaurl` FROM `tk_user` WHERE  `id` = 1 LIMIT 1 [ RunTime:0.000363s ]
+[ sql ] [ SQL ] SELECT `nickname` FROM `tk_user` WHERE  `id` = 1 LIMIT 1 [ RunTime:0.000452s ]
+[ sql ] [ SQL ] SELECT `sex` FROM `tk_user` WHERE  `id` = 1 LIMIT 1 [ RunTime:0.000464s ]
+---------------------------------------------------------------
+[ 2020-09-18T10:14:27+08:00 ] 127.0.0.1 GET www.huaxiang.com/api/rent/getlist
+[运行时间：0.154519s] [吞吐率：6.47req/s] [内存消耗：2,512.70kb] [文件加载：54]
+[ info ] [ ROUTE ] array (
+  'type' => 'module',
+  'module' => 
+  array (
+    0 => 'api',
+    1 => 'rent',
+    2 => 'getlist',
+  ),
+)
+[ info ] [ HEADER ] array (
+  'cookie' => 'PHPSESSID=vu4hifeuinfqemvbf1v5fcfv05',
+  'accept-language' => 'en-US,en;q=0.9,zh-CN;q=0.8,zh;q=0.7',
+  'accept-encoding' => 'gzip, deflate',
+  'accept' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.70 Safari/537.36',
+  'upgrade-insecure-requests' => '1',
+  'cache-control' => 'max-age=0',
+  'connection' => 'close',
+  'host' => 'www.huaxiang.com',
+)
+[ info ] [ PARAM ] array (
+  '/api/rent/getlist' => '',
+)
+[ info ] [ RUN ] app\api\controller\Rent->getList[ D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\application\api\controller\Rent.php ]
+[ info ] [ DB ] INIT mysql
+[ info ] [ LOG ] INIT File
+[ sql ] [ DB ] CONNECT:[ UseTime:0.001213s ] mysql:host=127.0.0.1;port=3306;dbname=xcxnew;charset=utf8mb4
+[ sql ] [ SQL ] SHOW COLUMNS FROM `tk_forent` [ RunTime:0.012804s ]
+[ sql ] [ SQL ] SELECT `id`,`title`,`type`,`userid`,`mdate` FROM `tk_forent` WHERE  (  1 = 1  ) ORDER BY `cdate` DESC LIMIT 0,12 [ RunTime:0.001007s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `xcx_collect` [ RunTime:0.012087s ]
+[ sql ] [ SQL ] SELECT `cl_house_id` FROM `xcx_collect` WHERE  `cl_user_id` = 0  AND `cl_type` = 3 [ RunTime:0.000624s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `xcx_likes` [ RunTime:0.013652s ]
+[ sql ] [ SQL ] SELECT `tid` FROM `xcx_likes` WHERE  `uid` = 0  AND `type` = 3 [ RunTime:0.000593s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `tk_user` [ RunTime:0.012850s ]
+[ sql ] [ SQL ] SELECT `avaurl` FROM `tk_user` WHERE  `id` = 7 LIMIT 1 [ RunTime:0.000596s ]
+[ sql ] [ SQL ] SELECT `nickname` FROM `tk_user` WHERE  `id` = 7 LIMIT 1 [ RunTime:0.000401s ]
+[ sql ] [ SQL ] SELECT `sex` FROM `tk_user` WHERE  `id` = 7 LIMIT 1 [ RunTime:0.000346s ]
+[ sql ] [ SQL ] SELECT `avaurl` FROM `tk_user` WHERE  `id` = 1 LIMIT 1 [ RunTime:0.000687s ]
+[ sql ] [ SQL ] SELECT `nickname` FROM `tk_user` WHERE  `id` = 1 LIMIT 1 [ RunTime:0.000427s ]
+[ sql ] [ SQL ] SELECT `sex` FROM `tk_user` WHERE  `id` = 1 LIMIT 1 [ RunTime:0.000377s ]
+[ sql ] [ SQL ] SELECT `avaurl` FROM `tk_user` WHERE  `id` = 1 LIMIT 1 [ RunTime:0.000356s ]
+[ sql ] [ SQL ] SELECT `nickname` FROM `tk_user` WHERE  `id` = 1 LIMIT 1 [ RunTime:0.000351s ]
+[ sql ] [ SQL ] SELECT `sex` FROM `tk_user` WHERE  `id` = 1 LIMIT 1 [ RunTime:0.000371s ]
+[ sql ] [ SQL ] SELECT `avaurl` FROM `tk_user` WHERE  `id` = 1 LIMIT 1 [ RunTime:0.000360s ]
+[ sql ] [ SQL ] SELECT `nickname` FROM `tk_user` WHERE  `id` = 1 LIMIT 1 [ RunTime:0.000422s ]
+[ sql ] [ SQL ] SELECT `sex` FROM `tk_user` WHERE  `id` = 1 LIMIT 1 [ RunTime:0.000412s ]
+[ sql ] [ SQL ] SELECT `avaurl` FROM `tk_user` WHERE  `id` = 1 LIMIT 1 [ RunTime:0.000539s ]
+[ sql ] [ SQL ] SELECT `nickname` FROM `tk_user` WHERE  `id` = 1 LIMIT 1 [ RunTime:0.000383s ]
+[ sql ] [ SQL ] SELECT `sex` FROM `tk_user` WHERE  `id` = 1 LIMIT 1 [ RunTime:0.000344s ]
+[ sql ] [ SQL ] SELECT `avaurl` FROM `tk_user` WHERE  `id` = 1 LIMIT 1 [ RunTime:0.000374s ]
+[ sql ] [ SQL ] SELECT `nickname` FROM `tk_user` WHERE  `id` = 1 LIMIT 1 [ RunTime:0.000633s ]
+[ sql ] [ SQL ] SELECT `sex` FROM `tk_user` WHERE  `id` = 1 LIMIT 1 [ RunTime:0.000805s ]
+[ sql ] [ SQL ] SELECT `avaurl` FROM `tk_user` WHERE  `id` = 1 LIMIT 1 [ RunTime:0.000527s ]
+[ sql ] [ SQL ] SELECT `nickname` FROM `tk_user` WHERE  `id` = 1 LIMIT 1 [ RunTime:0.000330s ]
+[ sql ] [ SQL ] SELECT `sex` FROM `tk_user` WHERE  `id` = 1 LIMIT 1 [ RunTime:0.000305s ]
+[ sql ] [ SQL ] SELECT `avaurl` FROM `tk_user` WHERE  `id` = 1 LIMIT 1 [ RunTime:0.000294s ]
+[ sql ] [ SQL ] SELECT `nickname` FROM `tk_user` WHERE  `id` = 1 LIMIT 1 [ RunTime:0.000290s ]
+[ sql ] [ SQL ] SELECT `sex` FROM `tk_user` WHERE  `id` = 1 LIMIT 1 [ RunTime:0.000293s ]
+[ sql ] [ SQL ] SELECT `avaurl` FROM `tk_user` WHERE  `id` = 1 LIMIT 1 [ RunTime:0.000310s ]
+[ sql ] [ SQL ] SELECT `nickname` FROM `tk_user` WHERE  `id` = 1 LIMIT 1 [ RunTime:0.000544s ]
+[ sql ] [ SQL ] SELECT `sex` FROM `tk_user` WHERE  `id` = 1 LIMIT 1 [ RunTime:0.000300s ]
+[ sql ] [ SQL ] SELECT `avaurl` FROM `tk_user` WHERE  `id` = 1 LIMIT 1 [ RunTime:0.000300s ]
+[ sql ] [ SQL ] SELECT `nickname` FROM `tk_user` WHERE  `id` = 1 LIMIT 1 [ RunTime:0.000288s ]
+[ sql ] [ SQL ] SELECT `sex` FROM `tk_user` WHERE  `id` = 1 LIMIT 1 [ RunTime:0.000286s ]
+[ sql ] [ SQL ] SELECT `avaurl` FROM `tk_user` WHERE  `id` = 1 LIMIT 1 [ RunTime:0.000311s ]
+[ sql ] [ SQL ] SELECT `nickname` FROM `tk_user` WHERE  `id` = 1 LIMIT 1 [ RunTime:0.000290s ]
+[ sql ] [ SQL ] SELECT `sex` FROM `tk_user` WHERE  `id` = 1 LIMIT 1 [ RunTime:0.000303s ]
+[ sql ] [ SQL ] SELECT `avaurl` FROM `tk_user` WHERE  `id` = 1 LIMIT 1 [ RunTime:0.000299s ]
+[ sql ] [ SQL ] SELECT `nickname` FROM `tk_user` WHERE  `id` = 1 LIMIT 1 [ RunTime:0.000318s ]
+[ sql ] [ SQL ] SELECT `sex` FROM `tk_user` WHERE  `id` = 1 LIMIT 1 [ RunTime:0.000360s ]
+---------------------------------------------------------------
+[ 2020-09-18T10:21:41+08:00 ] 127.0.0.1 GET www.huaxiang.com/api/rent/getlist
+[运行时间：0.170838s] [吞吐率：5.85req/s] [内存消耗：2,513.16kb] [文件加载：54]
+[ info ] [ ROUTE ] array (
+  'type' => 'module',
+  'module' => 
+  array (
+    0 => 'api',
+    1 => 'rent',
+    2 => 'getlist',
+  ),
+)
+[ info ] [ HEADER ] array (
+  'cookie' => 'PHPSESSID=vu4hifeuinfqemvbf1v5fcfv05',
+  'accept-language' => 'en-US,en;q=0.9,zh-CN;q=0.8,zh;q=0.7',
+  'accept-encoding' => 'gzip, deflate',
+  'accept' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.70 Safari/537.36',
+  'upgrade-insecure-requests' => '1',
+  'cache-control' => 'max-age=0',
+  'connection' => 'close',
+  'host' => 'www.huaxiang.com',
+)
+[ info ] [ PARAM ] array (
+  '/api/rent/getlist' => '',
+)
+[ info ] [ RUN ] app\api\controller\Rent->getList[ D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\application\api\controller\Rent.php ]
+[ info ] [ DB ] INIT mysql
+[ info ] [ LOG ] INIT File
+[ sql ] [ DB ] CONNECT:[ UseTime:0.003843s ] mysql:host=127.0.0.1;port=3306;dbname=xcxnew;charset=utf8mb4
+[ sql ] [ SQL ] SHOW COLUMNS FROM `tk_forent` [ RunTime:0.012802s ]
+[ sql ] [ SQL ] SELECT `id`,`title`,`type`,`userid`,`mdate` FROM `tk_forent` WHERE  (  1 = 1  ) ORDER BY `cdate` DESC LIMIT 0,12 [ RunTime:0.001117s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `xcx_collect` [ RunTime:0.012467s ]
+[ sql ] [ SQL ] SELECT `cl_house_id` FROM `xcx_collect` WHERE  `cl_user_id` = 0  AND `cl_type` = 3 [ RunTime:0.000574s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `xcx_likes` [ RunTime:0.011661s ]
+[ sql ] [ SQL ] SELECT `tid` FROM `xcx_likes` WHERE  `uid` = 0  AND `type` = 3 [ RunTime:0.000470s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `tk_user` [ RunTime:0.012764s ]
+[ sql ] [ SQL ] SELECT `avaurl` FROM `tk_user` WHERE  `id` = 7 LIMIT 1 [ RunTime:0.000567s ]
+[ sql ] [ SQL ] SELECT `nickname` FROM `tk_user` WHERE  `id` = 7 LIMIT 1 [ RunTime:0.000506s ]
+[ sql ] [ SQL ] SELECT `sex` FROM `tk_user` WHERE  `id` = 7 LIMIT 1 [ RunTime:0.000452s ]
+[ sql ] [ SQL ] SELECT `avaurl` FROM `tk_user` WHERE  `id` = 1 LIMIT 1 [ RunTime:0.000411s ]
+[ sql ] [ SQL ] SELECT `nickname` FROM `tk_user` WHERE  `id` = 1 LIMIT 1 [ RunTime:0.000373s ]
+[ sql ] [ SQL ] SELECT `sex` FROM `tk_user` WHERE  `id` = 1 LIMIT 1 [ RunTime:0.000370s ]
+[ sql ] [ SQL ] SELECT `avaurl` FROM `tk_user` WHERE  `id` = 1 LIMIT 1 [ RunTime:0.000364s ]
+[ sql ] [ SQL ] SELECT `nickname` FROM `tk_user` WHERE  `id` = 1 LIMIT 1 [ RunTime:0.000372s ]
+[ sql ] [ SQL ] SELECT `sex` FROM `tk_user` WHERE  `id` = 1 LIMIT 1 [ RunTime:0.000392s ]
+[ sql ] [ SQL ] SELECT `avaurl` FROM `tk_user` WHERE  `id` = 1 LIMIT 1 [ RunTime:0.000718s ]
+[ sql ] [ SQL ] SELECT `nickname` FROM `tk_user` WHERE  `id` = 1 LIMIT 1 [ RunTime:0.000576s ]
+[ sql ] [ SQL ] SELECT `sex` FROM `tk_user` WHERE  `id` = 1 LIMIT 1 [ RunTime:0.000409s ]
+[ sql ] [ SQL ] SELECT `avaurl` FROM `tk_user` WHERE  `id` = 1 LIMIT 1 [ RunTime:0.000383s ]
+[ sql ] [ SQL ] SELECT `nickname` FROM `tk_user` WHERE  `id` = 1 LIMIT 1 [ RunTime:0.000383s ]
+[ sql ] [ SQL ] SELECT `sex` FROM `tk_user` WHERE  `id` = 1 LIMIT 1 [ RunTime:0.000357s ]
+[ sql ] [ SQL ] SELECT `avaurl` FROM `tk_user` WHERE  `id` = 1 LIMIT 1 [ RunTime:0.000376s ]
+[ sql ] [ SQL ] SELECT `nickname` FROM `tk_user` WHERE  `id` = 1 LIMIT 1 [ RunTime:0.000363s ]
+[ sql ] [ SQL ] SELECT `sex` FROM `tk_user` WHERE  `id` = 1 LIMIT 1 [ RunTime:0.000390s ]
+[ sql ] [ SQL ] SELECT `avaurl` FROM `tk_user` WHERE  `id` = 1 LIMIT 1 [ RunTime:0.000417s ]
+[ sql ] [ SQL ] SELECT `nickname` FROM `tk_user` WHERE  `id` = 1 LIMIT 1 [ RunTime:0.000422s ]
+[ sql ] [ SQL ] SELECT `sex` FROM `tk_user` WHERE  `id` = 1 LIMIT 1 [ RunTime:0.000431s ]
+[ sql ] [ SQL ] SELECT `avaurl` FROM `tk_user` WHERE  `id` = 1 LIMIT 1 [ RunTime:0.000434s ]
+[ sql ] [ SQL ] SELECT `nickname` FROM `tk_user` WHERE  `id` = 1 LIMIT 1 [ RunTime:0.000501s ]
+[ sql ] [ SQL ] SELECT `sex` FROM `tk_user` WHERE  `id` = 1 LIMIT 1 [ RunTime:0.000373s ]
+[ sql ] [ SQL ] SELECT `avaurl` FROM `tk_user` WHERE  `id` = 1 LIMIT 1 [ RunTime:0.000373s ]
+[ sql ] [ SQL ] SELECT `nickname` FROM `tk_user` WHERE  `id` = 1 LIMIT 1 [ RunTime:0.000415s ]
+[ sql ] [ SQL ] SELECT `sex` FROM `tk_user` WHERE  `id` = 1 LIMIT 1 [ RunTime:0.000376s ]
+[ sql ] [ SQL ] SELECT `avaurl` FROM `tk_user` WHERE  `id` = 1 LIMIT 1 [ RunTime:0.000408s ]
+[ sql ] [ SQL ] SELECT `nickname` FROM `tk_user` WHERE  `id` = 1 LIMIT 1 [ RunTime:0.000356s ]
+[ sql ] [ SQL ] SELECT `sex` FROM `tk_user` WHERE  `id` = 1 LIMIT 1 [ RunTime:0.000366s ]
+[ sql ] [ SQL ] SELECT `avaurl` FROM `tk_user` WHERE  `id` = 1 LIMIT 1 [ RunTime:0.000385s ]
+[ sql ] [ SQL ] SELECT `nickname` FROM `tk_user` WHERE  `id` = 1 LIMIT 1 [ RunTime:0.000363s ]
+[ sql ] [ SQL ] SELECT `sex` FROM `tk_user` WHERE  `id` = 1 LIMIT 1 [ RunTime:0.000366s ]
+[ sql ] [ SQL ] SELECT `avaurl` FROM `tk_user` WHERE  `id` = 1 LIMIT 1 [ RunTime:0.000458s ]
+[ sql ] [ SQL ] SELECT `nickname` FROM `tk_user` WHERE  `id` = 1 LIMIT 1 [ RunTime:0.000457s ]
+[ sql ] [ SQL ] SELECT `sex` FROM `tk_user` WHERE  `id` = 1 LIMIT 1 [ RunTime:0.000374s ]
+---------------------------------------------------------------
+[ 2020-09-18T10:28:41+08:00 ] 127.0.0.1 GET www.huaxiang.com/api/rent/rentDetail?id=1&uid=23
+[运行时间：0.326047s] [吞吐率：3.07req/s] [内存消耗：2,618.10kb] [文件加载：57]
+[ info ] [ ROUTE ] array (
+  'type' => 'module',
+  'module' => 
+  array (
+    0 => 'api',
+    1 => 'rent',
+    2 => 'rentDetail',
+  ),
+)
+[ info ] [ HEADER ] array (
+  'cookie' => 'PHPSESSID=vu4hifeuinfqemvbf1v5fcfv05',
+  'accept-language' => 'en-US,en;q=0.9,zh-CN;q=0.8,zh;q=0.7',
+  'accept-encoding' => 'gzip, deflate',
+  'accept' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.70 Safari/537.36',
+  'upgrade-insecure-requests' => '1',
+  'connection' => 'close',
+  'host' => 'www.huaxiang.com',
+)
+[ info ] [ PARAM ] array (
+  '/api/rent/rentDetail' => '',
+  'id' => '1',
+  'uid' => '23',
+)
+[ info ] [ RUN ] app\api\controller\Rent->rentDetail[ D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\application\api\controller\Rent.php ]
+[ info ] [ DB ] INIT mysql
+[ info ] [ CACHE ] INIT File
+[ info ] [ LOG ] INIT File
+[ sql ] [ DB ] CONNECT:[ UseTime:0.004322s ] mysql:host=127.0.0.1;port=3306;dbname=xcxnew;charset=utf8mb4
+[ sql ] [ SQL ] SHOW COLUMNS FROM `tk_forent` [ RunTime:0.014391s ]
+[ sql ] [ SQL ] SELECT * FROM `tk_forent` WHERE  `id` = 1 LIMIT 1 [ RunTime:0.025905s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `xcx_view_history` [ RunTime:0.012643s ]
+[ sql ] [ SQL ] DELETE FROM `xcx_view_history`    WHERE  `vh_userid` = 23  AND `vh_house_id` = 1  AND `vh_type` = 3 [ RunTime:0.034161s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `tk_roommates` [ RunTime:0.017143s ]
+[ sql ] [ SQL ] UPDATE `tk_roommates`  SET `view`=`view`+1  WHERE  `id` = 1 [ RunTime:0.040593s ]
+[ sql ] [ SQL ] INSERT INTO `xcx_view_history` (`vh_userid` , `vh_house_id` , `vh_type` , `vh_add_time`) VALUES (23 , 1 , 3 , '2020-09-18 10:28:40') [ RunTime:0.002345s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `tk_user` [ RunTime:0.013607s ]
+[ sql ] [ SQL ] SELECT `nickname` FROM `tk_user` WHERE  `id` = 7 LIMIT 1 [ RunTime:0.001069s ]
+[ sql ] [ SQL ] SELECT `avaurl` FROM `tk_user` WHERE  `id` = 7 LIMIT 1 [ RunTime:0.000534s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `xcx_collect` [ RunTime:0.014549s ]
+[ sql ] [ SQL ] SELECT `cl_house_id` FROM `xcx_collect` WHERE  `cl_user_id` = 23  AND `cl_type` = 3 [ RunTime:0.000771s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `xcx_likes` [ RunTime:0.013734s ]
+[ sql ] [ SQL ] SELECT `tid` FROM `xcx_likes` WHERE  `uid` = 23  AND `type` = 2 [ RunTime:0.000428s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `tk_comment` [ RunTime:0.012398s ]
+[ sql ] [ SQL ] SELECT * FROM `tk_comment` WHERE  `type` = 2  AND `repy` = 1  AND `status` = 1  AND `tid` = 1 ORDER BY `cid` DESC LIMIT 20 [ RunTime:0.000746s ]
+---------------------------------------------------------------
+[ 2020-09-18T10:31:44+08:00 ] 127.0.0.1 GET www.huaxiang.com/api/rent/rentDetail?id=1&uid=23
+[运行时间：0.203439s] [吞吐率：4.92req/s] [内存消耗：2,619.49kb] [文件加载：57]
+[ info ] [ ROUTE ] array (
+  'type' => 'module',
+  'module' => 
+  array (
+    0 => 'api',
+    1 => 'rent',
+    2 => 'rentDetail',
+  ),
+)
+[ info ] [ HEADER ] array (
+  'cookie' => 'PHPSESSID=vu4hifeuinfqemvbf1v5fcfv05',
+  'accept-language' => 'en-US,en;q=0.9,zh-CN;q=0.8,zh;q=0.7',
+  'accept-encoding' => 'gzip, deflate',
+  'accept' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.70 Safari/537.36',
+  'upgrade-insecure-requests' => '1',
+  'cache-control' => 'max-age=0',
+  'connection' => 'close',
+  'host' => 'www.huaxiang.com',
+)
+[ info ] [ PARAM ] array (
+  '/api/rent/rentDetail' => '',
+  'id' => '1',
+  'uid' => '23',
+)
+[ info ] [ RUN ] app\api\controller\Rent->rentDetail[ D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\application\api\controller\Rent.php ]
+[ info ] [ DB ] INIT mysql
+[ info ] [ CACHE ] INIT File
+[ info ] [ LOG ] INIT File
+[ sql ] [ DB ] CONNECT:[ UseTime:0.010761s ] mysql:host=127.0.0.1;port=3306;dbname=xcxnew;charset=utf8mb4
+[ sql ] [ SQL ] SHOW COLUMNS FROM `tk_forent` [ RunTime:0.013365s ]
+[ sql ] [ SQL ] SELECT * FROM `tk_forent` WHERE  `id` = 1 LIMIT 1 [ RunTime:0.000816s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `xcx_view_history` [ RunTime:0.012853s ]
+[ sql ] [ SQL ] DELETE FROM `xcx_view_history`    WHERE  `vh_userid` = 23  AND `vh_house_id` = 1  AND `vh_type` = 3 [ RunTime:0.010278s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `tk_roommates` [ RunTime:0.013489s ]
+[ sql ] [ SQL ] UPDATE `tk_roommates`  SET `view`=`view`+1  WHERE  `id` = 1 [ RunTime:0.000563s ]
+[ sql ] [ SQL ] INSERT INTO `xcx_view_history` (`vh_userid` , `vh_house_id` , `vh_type` , `vh_add_time`) VALUES (23 , 1 , 3 , '2020-09-18 10:31:44') [ RunTime:0.000378s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `tk_user` [ RunTime:0.013141s ]
+[ sql ] [ SQL ] SELECT `nickname` FROM `tk_user` WHERE  `id` = 7 LIMIT 1 [ RunTime:0.000595s ]
+[ sql ] [ SQL ] SELECT `avaurl` FROM `tk_user` WHERE  `id` = 7 LIMIT 1 [ RunTime:0.000475s ]
+[ sql ] [ SQL ] SELECT `sex` FROM `tk_user` WHERE  `id` = 7 LIMIT 1 [ RunTime:0.000377s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `xcx_collect` [ RunTime:0.013183s ]
+[ sql ] [ SQL ] SELECT `cl_house_id` FROM `xcx_collect` WHERE  `cl_user_id` = 23  AND `cl_type` = 3 [ RunTime:0.000884s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `xcx_likes` [ RunTime:0.013520s ]
+[ sql ] [ SQL ] SELECT `tid` FROM `xcx_likes` WHERE  `uid` = 23  AND `type` = 2 [ RunTime:0.000777s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `tk_comment` [ RunTime:0.013397s ]
+[ sql ] [ SQL ] SELECT * FROM `tk_comment` WHERE  `type` = 2  AND `repy` = 1  AND `status` = 1  AND `tid` = 1 ORDER BY `cid` DESC LIMIT 20 [ RunTime:0.000719s ]

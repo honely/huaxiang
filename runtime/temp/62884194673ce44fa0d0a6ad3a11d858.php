@@ -1,4 +1,4 @@
-<?php if (!defined('THINK_PATH')) exit(); /*a:3:{s:90:"D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\public/../application/xcx\view\help\index.html";i:1597117162;s:82:"D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\application\xcx\view\index\header.html";i:1591180794;s:82:"D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\application\xcx\view\index\footer.html";i:1577269681;}*/ ?>
+<?php if (!defined('THINK_PATH')) exit(); /*a:3:{s:90:"D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\public/../application/xcx\view\help\index.html";i:1599642613;s:82:"D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\application\xcx\view\index\header.html";i:1591180794;s:82:"D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\application\xcx\view\index\footer.html";i:1577269681;}*/ ?>
 <!DOCTYPE html>
 <html style="height: 100%">
 <head>
@@ -40,6 +40,9 @@
         <thead>
         <tr>
             <th lay-data="{field:'h_id',width:80}">Id</th>
+            <th lay-data="{field:'area'}">区域</th>
+            <th lay-data="{field:'lease_term'}">租期</th>
+            <th lay-data="{field:'h_room_type'}">户型</th>
             <th lay-data="{field:'h_need'}">需求</th>
             <th lay-data="{field:'h_wechat'}">微信</th>
             <th lay-data="{field:'h_air'}">是否接机</th>
@@ -56,6 +59,8 @@
 <script type="text/html" id="barDemo">
     <a class="layui-btn layui-btn-xs" lay-event="review">查看</a>
     <a class="layui-btn layui-btn-xs layui-btn-danger" lay-event="del">删除</a>
+
+
 </script>
 <script>
     layui.use(['table','laydate','form'], function(){

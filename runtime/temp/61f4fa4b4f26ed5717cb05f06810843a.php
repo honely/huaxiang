@@ -1,4 +1,4 @@
-<?php if (!defined('THINK_PATH')) exit(); /*a:3:{s:89:"D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\public/../application/xcx\view\house\add.html";i:1598977635;s:82:"D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\application\xcx\view\index\header.html";i:1591180794;s:82:"D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\application\xcx\view\index\footer.html";i:1577269681;}*/ ?>
+<?php if (!defined('THINK_PATH')) exit(); /*a:3:{s:89:"D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\public/../application/xcx\view\house\add.html";i:1600741373;s:82:"D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\application\xcx\view\index\header.html";i:1591180794;s:82:"D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\application\xcx\view\index\footer.html";i:1577269681;}*/ ?>
 <!DOCTYPE html>
 <html style="height: 100%">
 <head>
@@ -22,6 +22,9 @@
 <body class="layui-layout-body" style="height: 100%">
 
 <style>
+    .notclick{
+        pointer-events: none;
+    }
     .one-pan{
         position: relative;
     }
@@ -122,11 +125,14 @@
                 <div class="layui-form-item">
                     <label class="layui-form-label"><span style="color: red;">*</span><?php echo $lable['houseName']; ?></label>
                     <div class="layui-input-block">
-                        <input type="text" name="title" lay-verify="required|title" placeholder="<?php echo $lable['houseNameP']; ?>" maxlength="50" autocomplete="off" class="layui-input">
+                        <input type="text" name="title" lay-verify="required|title" placeholder="<?php echo $lable['houseNameP']; ?>" maxlength="100" autocomplete="off" class="layui-input">
                     </div>
                 </div>
                 <div class="layui-form-item">
                     <label class="layui-form-label"><span style="color: red;">*</span><?php echo $lable['houseAddr']; ?></label>
+                    <div class="layui-input-inline" style="width: 120px;margin-right: 0px;">
+                        <input type="text" class="layui-input" name="street" placeholder="Room Number" >
+                    </div>
                     <div  class="layui-input-inline" id="input" style="width: 450px;">
                         <input type="text" id="end" autocomplete="off" class="layui-input" placeholder="<?php echo $lable['houseAddP']; ?>">
                         <input type="text" name="address" id="address" style="display: none" readonly class="layui-input" lay-verify="required|addresss"  placeholder="目的地取值">
@@ -155,7 +161,7 @@
                 <div class="layui-form-item">
                     <label class="layui-form-label"><span style="color: red;">*</span><?php echo $lable['rent']; ?></label>
                     <div class="layui-input-inline" style="width: 230px !important;">
-                        <input type="number" min="0" name="price" lay-verify="required|prices" placeholder="<?php echo $lable['rentPriceP']; ?>" id="price" autocomplete="off" class="layui-input">
+                        <input type="number" min="0" max="9999" name="price" lay-verify="required|prices" placeholder="<?php echo $lable['rentPriceP']; ?>" id="price" autocomplete="off" onblur="checkprice()" class="layui-input">
                     </div>
                     <div class="layui-input-inline">
                         <input type="checkbox" lay-skin="switch" lay-filter="switchRent" lay-text="<?php echo $lable['zujinkeyi']; ?>|<?php echo $lable['zujinkeyi']; ?>">
@@ -490,11 +496,11 @@
                                     <div class="dragPic">
                                         <div class="dragPic">
                                             <div class="dragPicBox clearfix" node-type="box" id="slide-pc-priview">
+                                                <input type="hidden" value="" lay-verify="imgRegCaseType"  />
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                                <input type="hidden" class="layui-input" lay-verify="imgRegCaseType" />
                                 <div class="layui-upload">
                                     <button type="button" class="layui-btn layui-btn pull-left layui-btn-sm" id="slide-pc"><?php echo $lable['qitatupian']; ?></button>
                                 </div>
@@ -547,7 +553,7 @@
                         <!--删除按钮-->
                         <div id="uVidDel" style="position: absolute;left: 60px;top: 18px;color: red;display: none;cursor: pointer;"><?php echo $lable['delete']; ?></div>
                         <div id="uDisplay">
-                            <input type="text" id="urlUpload"  placeholder="Bilibili视频链接" class="layui-input">
+                            <input type="text" id="urlUpload"  placeholder="Youtube link or Bilibili link" class="layui-input">
                         </div>
                     </div>
                     <div class="layui-btn layui-btn-sm urlUploadLogo" style="margin-left: 20px;" id="uChoiceVid" ><?php echo $lable['shangchuan']; ?></div>
@@ -609,6 +615,8 @@
                         $('#uLogoPre').show();
                         // 删除显示
                         $('#uVidDel').show();
+                        $(".upBtn").addClass("notclick");
+                        $(".urlBtn").addClass("notclick");
                         //父级样式
                         $("#urlUploadLogo").removeAttr("style","");
                         $('#urlUploadLogo').css("padding", "50px");
@@ -630,6 +638,8 @@
         $('#uVidDel').click(function(event){
             console.log("执行删除");
             $('#uVidDel').hide();                                               //删除按钮隐藏
+            $(".upBtn").removeClass("notclick");
+            $(".urlBtn").removeClass("notclick");
             $('#uLogoPre').removeAttr('src');                                   //视频清空地址
             $('#uLogoPre').css('width','');
             $('#uLogoPre').css('height','');
@@ -641,8 +651,8 @@
             // 上传隐藏，选择显示
             $('#uChoiceVid').show();
             //初始化上传视频组件
-            upload.render();
-            event.stopPropagation();                                           //禁止冒泡
+            //upload.render();
+            //event.stopPropagation();                                           //禁止冒泡
         });
         //保存不更新状态
         $('#save').click(function () {
@@ -904,11 +914,11 @@
                     var types = $("#roomate").val();
                     if(types == 2){
                         if (len < 2) {
-                            return "至少上传2张房源图片";
+                            return "至少上传3张房源图片";
                         }
                     }
-                    if (len > 8) {
-                        return "房源图片不超过8个";
+                    if (len > 16) {
+                        return "房源图片不超过16张";
                     }
                 }
                 ,urlTest:function(value){
@@ -973,7 +983,7 @@
                 elem: '.uploadLogo'
                 ,auto:false
                 ,url: '<?php echo url("house/upload"); ?>'
-                ,size:10240 //限制文件大小，单位 KB
+                ,size:25600 //限制文件大小，单位 KB
                 ,acceptMime: 'video/mp4'
                 ,ext: 'mp4'
                 ,accept: 'video' //限制文件大小，单位 KB
@@ -984,13 +994,15 @@
                     element.progress('demo', value+'%');//设置页面进度条
                 }
                 ,choose:function(obj){
-                    console.log("执行上传视频选择")
+                    console.log("执行上传视频选择");
                     obj.preview(function(index, file, result){
-                        console.log("预览视频")
+                        console.log("预览视频");
                         let url = URL.createObjectURL(file);
                         $('#logoPre').show();
                         // 删除显示
                         $('#vidDel').show();
+                        $(".upBtn").addClass("notclick");
+                        $(".urlBtn").addClass("notclick");
                         // 上传显示，选择隐藏
                         // $('#upload-video').show();
                         $('#choiceVid').hide();
@@ -1000,44 +1012,34 @@
                         $('#logoPre').css('height','251px');
                         $('#logoPre').attr('src', url);
                         let timer = setTimeout(function(){
+                            console.log(1111111);
                             layer.close(layer.index);
                             let video_time = document.getElementById("logoPre").duration;
                             console.log(video_time);
-                            if(video_time > 125){
-                                layer.msg('上传视频不能超过120秒', {icon: 2})
+                            if(video_time >= 90) {
+                                $('#vidDel').hide();                                               //删除按钮隐藏
+                                $(".upBtn").removeClass("notclick");
+                                $(".urlBtn").removeClass("notclick");
+                                $("#jdT").hide();
+                                $('#logoPre').removeAttr('src');                                   //视频清空地址
+                                $('#logoPre').css('width','');
+                                $('#logoPre').css('height','');
+                                $('#video').val('');
+                                $('#logoPre').hide();                                              //视频隐藏
+                                $('#display').show();                                              //提示图标，文字显示
+                                $('#uploadLogo').addClass("layui-upload-drag");                    //父级初始样式
+                                // 上传隐藏，选择显示
+                                $('#upload-video').hide();
+                                $('#choiceVid').show();
+                                return layer.msg('上传视频不能超过120秒', {icon: 2});
+                            }else{
+                                $("#jdT").show();
+                                $('#logoPre').attr('autoplay', 'autoplay');
+                                console.log("定时器执行，上传点击事件");
+                                $('#upload-video').click();
                             }
                             clearTimeout(timer);
                         },1000);
-                        // 显示进度条
-                        // 上传显示进度条
-                        $("#jdT").show();
-                        // 创建定时器 0.5秒后执行  然后清除定时器，让他只执行一次
-                        var d1 = setInterval(function(){
-                            $('#logoPre').attr('autoplay', 'autoplay');
-                            console.log("定时器执行，上传点击事件")
-                            $('#upload-video').click();
-                            clearTimeout(d1);
-                        },500);
-
-
-                        // 视频删除,样式重置，上传视频初始化
-                        $('#vidDel').click(function(event){
-                            console.log("执行删除");
-                            $('#vidDel').hide();                                               //删除按钮隐藏
-                            $('#logoPre').removeAttr('src');                                   //视频清空地址
-                            $('#logoPre').css('width','');
-                            $('#logoPre').css('height','');
-                            $('#video').val('');
-                            $('#logoPre').hide();                                              //视频隐藏
-                            $('#display').show();                                              //提示图标，文字显示
-                            $('#uploadLogo').addClass("layui-upload-drag");                    //父级初始样式
-                            // 上传隐藏，选择显示
-                            $('#upload-video').hide();
-                            $('#choiceVid').show();
-                            //初始化上传视频组件
-                            upload.render();
-                            event.stopPropagation();                                           //禁止冒泡
-                        });
                     });
                 }
                 ,before: function(input){
@@ -1047,21 +1049,42 @@
                     console.log(input)
                 }
                 ,done: function(res){
-                    $('#logoPre').removeAttr('src');
-                    $('#video').val('');
-                    console.log(res.filepath);
-                    layer.close(loading);
-                    $('#video').val(res.filepath);
-                    $('#uploadLogo').removeClass('layui-upload-drag');
-                    $('#logoPre').css('width','335px');
-                    $('#logoPre').css('height','251px');
-                    $('#logoPre').attr('src',"../../../"+res.filepath);
-                    $('#display').hide();
-                    layer.msg(res.msg, {icon: 1, time: 1000});
-                    // 上传完成隐藏进度条  进度条重置，解决再次上传初始为100%的问题
-                    $("#jdT").hide();
-                    $(".layui-bg-red").css("width","");
-                    $(".layui-progress-text").text("0%");
+                    console.log(res);
+                    if(res.code == 1){
+                        layer.msg(res.msg);
+                        console.log(res.filepath);
+                        $('#logoPre').removeAttr('src');
+                        $('#video').val('');
+                        layer.close(loading);
+                        $('#video').val(res.filepath);
+                        $('#uploadLogo').removeClass('layui-upload-drag');
+                        $('#logoPre').css('width','335px');
+                        $('#logoPre').css('height','251px');
+                        $('#logoPre').attr('src',"../../../"+res.filepath);
+                        $('#display').hide();
+                        layer.msg(res.msg, {icon: 1, time: 1000});
+                        // 上传完成隐藏进度条  进度条重置，解决再次上传初始为100%的问题
+                        $("#jdT").hide();
+                        $(".layui-bg-red").css("width","");
+                        $(".layui-progress-text").text("0%");
+                    }else{
+                        $('#vidDel').hide();                                               //删除按钮隐藏
+                        $(".upBtn").removeClass("notclick");
+                        $(".urlBtn").removeClass("notclick");
+                        $("#jdT").hide();
+                        $('#logoPre').removeAttr('src');                                   //视频清空地址
+                        $('#logoPre').css('width','');
+                        $('#logoPre').css('height','');
+                        $('#video').val('');
+                        $('#logoPre').hide();                                              //视频隐藏
+                        $('#display').show();                                              //提示图标，文字显示
+                        $('#uploadLogo').addClass("layui-upload-drag");                    //父级初始样式
+                        // 上传隐藏，选择显示
+                        $('#upload-video').hide();
+                        $('#choiceVid').show();
+                        layer.close(loading);
+                        return layer.msg('shangchuancuowu', {icon: 2});
+                    }
                 }
                 ,error: function(res){
                     layer.msg(res.msg, {icon: 2, time: 1000});
@@ -1100,6 +1123,15 @@
                         console.log(error);
                     }
                 })
+            }
+
+        }
+        
+        function checkprice(){
+            var price = $('#price').val();
+            if(price > 9999){
+               layer.alert('租金不超过9999', {icon: 2});
+               $('#price').val('');
             }
 
         }

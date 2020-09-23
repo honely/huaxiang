@@ -58,6 +58,7 @@
                                     <input type="radio" name="b_type" lay-filter="b_type" value="1" title="内部固定富文本" checked>
                                     <input type="radio" name="b_type" lay-filter="b_type" value="2" title="外部链接">
                                     <input type="radio" name="b_type" lay-filter="b_type" value="3" title="其他小程序">
+                                    <input type="radio" name="b_type" lay-filter="b_type" value="4" title="只展示不跳转">
                                 </div>
                             </div>
                             <div class="layui-form-item">
@@ -163,6 +164,14 @@
                 $('#b_path').show();
                 $('#urls').removeAttr('lay-verify');
                 $('#appid').attr('lay-verify','required');
+            }else if(type == 4){
+                $('#b_content').hide();
+                $('#b_url').hide();
+                $('#b_appid').hide();
+                $('#b_path').hide();
+                $('#urls').removeAttr('lay-verify');
+                $('#b_content').removeAttr('lay-verify');
+                $('#appid').removeAttr('lay-verify');
             }
         });
         //自定义验证规则

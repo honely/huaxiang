@@ -65,7 +65,7 @@ class Help extends Controller
         header('Access-Control-Allow-Methods:POST');
         header('Access-Control-Allow-Headers:x-requested-with, content-type');
         $uid = $this->request->param('uid',0);
-        $limit = $this->request->param('limit',2);
+        $limit = $this->request->param('limit',10);
         $page = $this->request->param('page',0);
         if(!$uid){
             $res['code'] = 0;
@@ -79,7 +79,7 @@ class Help extends Controller
             ->find();
         if($myneed){
             //读取符合条件的所有房源
-            $where ='1 = 1';
+            $where ='status = 1 and is_del = 1';
             //价格区域
             $maxprice = $myneed['h_price_max'];
             $mimprice = $myneed['h_price_min'];
@@ -94,62 +94,60 @@ class Help extends Controller
             //整租合租
             $type = $myneed['h_house_type'];
             if(isset($type) && !empty($type) && $type){
-                $where.=" and  house_type = '".$type."' ";
+                $where.=" and house_type  = '".$type."' ";
             }
             //租房类型  公寓 别墅 联排别墅
             $housetype = $myneed['h_house_style'];
             if(isset($housetype) && !empty($housetype) && $housetype){
                 $where.=" and  type = '".$housetype."' ";
             }
-            //户型 几居室  需要处理一下
-            //一室 两室 三室 四室及以上
-            //1 2 3 4 5 6 7 8 9 0
-            $houseroom = $myneed['h_room_type'];
-            if(isset($houseroom) && !empty($houseroom) && $houseroom){
-                $room = $this->roomFormat($houseroom);
-                $where.=" and ".$room;
+            $tags = $myneed['h_room_type'];
+            
+            if(isset($tags) && !empty($tags) && $tags){
+                $where.=" and (";
+                $tgs = explode(',',$tags);
+                
+                for($i=0;$i<count($tgs);$i++){
+                    $room[$i] = $this->roomFormat($tgs[$i]);
+                    if($i == (count($tgs)-1)){
+                        $where.=" house_room ".$room[$i]." ";
+                    }else{
+                        $where.="  house_room ".$room[$i]."  or ";
+                    }
+                }
+                $where.=" ) ";
             }
             //城市
             $city = $myneed['h_regin'];
             if(isset($city) && !empty($city) && $city){
                 $where.=" and  city = '".$city."' ";
             }
+            
+            $term = trim($myneed['lease_term'],',');
+            if(isset($term) && !empty($term) && $term){
+                $where.=" and (";
+                $tgs = explode(',',$term);
+                for($i=0;$i<count($tgs);$i++){
+                    if($i == (count($tgs)-1)){
+                        $where.=" find_in_set('".$tgs[$i]."',lease_term)";
+                    }else{
+                        $where.=" find_in_set('".$tgs[$i]."',lease_term) or ";
+                    }
+                }
+                $where.=" ) ";
+            }
+            
             //区域
             $area = explode(',',$myneed['area']);
             $areas = '';
             foreach ($area as $key => $item){
-                $areas .= "'".$item."',";
+                $areas .= "'".$item."',"; 
             }
             $areas = rtrim($areas,',');
             $where.=" and area in (".$areas.")";
-
-            //宠物 需要处理  可以  不可以
-            //接受 不接受
-            // $pet = $myneed['pet'];
-            // if(isset($pet) && !empty($pet) && $pet){
-            //     if($pet == '可以'){
-            //         $pets = '接受';
-            //     }else{
-            //         $pets = '不接受';
-            //     }
-            //     $where.=" and  pet = '".$pets."' ";
-            // }
-            // //房源特色
-            // $tags = $myneed['tags'];
-            // if(isset($tags) && !empty($tags) && $tags){
-            //     $where.=" and (";
-            //     $tgs = explode(',',$tags);
-            //     for($i=0;$i<count($tgs);$i++){
-            //         if($i == (count($tgs)-1)){
-            //             $where.=" find_in_set('".$tgs[$i]."',tags)";
-            //         }else{
-            //             $where.=" find_in_set('".$tgs[$i]."',tags) and ";
-            //         }
-            //     }
-            //     $where.=" ) ";
-            // }
-            $fields = "id,address,title,house_type,toilet,car,house_room,area,price,images";
+            $fields = "id,address,title,house_type,toilet,type,car,house_room,area,price,images";
             $hous = new Housem();
+           // dump($where);
             $houses = $hous->readData($where,'id desc',$limit,$page,$fields);
             if($houses){
                 //是否收藏
@@ -165,7 +163,7 @@ class Help extends Controller
             $res['data'] = $myneed;
             $res['house'] = $houses;
             $res['count'] = $count;
-            //$res['where'] = $where;
+            $res['where'] = $where;
             return json($res);
         }
         $res['code'] = 1;
@@ -192,16 +190,18 @@ class Help extends Controller
         //1 2 3 4 5 6 7 8 9 0
         switch ($room){
             case '一室':
-                $where = 'house_room = 1 ';
+                $where = ' = 1';
                 break;
             case '两室':
-                $where = 'house_room = 2 ';
+                $where = ' = 2';
+            case '二室':
+                $where = ' = 2';
                 break;
             case '三室':
-                $where = 'house_room = 3 ';
+                $where = ' = 3';
                 break;
             case '四室及以上':
-                $where = 'house_room >= 4 ';
+                $where = ' >= 4 ';
                 break;
             default:
                 $where = '1 = 1';

@@ -1,4 +1,4 @@
-<?php if (!defined('THINK_PATH')) exit(); /*a:3:{s:93:"D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\public/../application/xcx\view\house\myhouse.html";i:1598797997;s:82:"D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\application\xcx\view\index\header.html";i:1591180794;s:82:"D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\application\xcx\view\index\footer.html";i:1577269681;}*/ ?>
+<?php if (!defined('THINK_PATH')) exit(); /*a:3:{s:93:"D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\public/../application/xcx\view\house\myhouse.html";i:1599030311;s:82:"D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\application\xcx\view\index\header.html";i:1591180794;s:82:"D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\application\xcx\view\index\footer.html";i:1577269681;}*/ ?>
 <!DOCTYPE html>
 <html style="height: 100%">
 <head>
@@ -59,6 +59,8 @@
                                     <option value="4"><?php echo $lable['postby']; ?></option>
                                     <option value="3"><?php echo $lable['houseAddr']; ?></option>
                                     <option value="5"><?php echo $lable['detail']; ?></option>
+                                    <option value="6">公司</option>
+                                    <option value="7">PM</option>
                                 </select>
                             </div>
                             <div class="layui-input-inline" style="width:160px;">
@@ -143,16 +145,16 @@
                         <th lay-data="{field:'title',width:230}"><?php echo $lable['title']; ?></th>
                         <th lay-data="{field:'address',width:220}"><?php echo $lable['address']; ?></th>
                         <th lay-data="{field:'price',width:120}"><?php echo $lable['rentp']; ?></th>
-                        <th lay-data="{field:'collection',width:70}"><?php echo $lable['like']; ?></th>
+                        <th lay-data="{field:'type',width:70}">类型</th>
                         <th lay-data="{field:'view',width:70}"><?php echo $lable['view']; ?></th>
                         <th lay-data="{field:'statuss',width:70}"><?php echo $lable['status']; ?></th>
-                        <?php if($offable == true): ?>
-                        <th lay-data="{field:'status',templet: '#status',width:110}"><?php echo $lable['shangxiaxian']; ?></th>
-                        <?php endif; ?>
                         <th lay-data="{field:'pm' ,width:110}">PM</th>
                         <th lay-data="{field:'corp' ,width:110}">公司</th>
                         <th lay-data="{field:'user_id' ,width:110}">发布人</th>
                         <th lay-data="{field:'cdate',width:120}"><?php echo $lable['updatetime']; ?></th>
+                        <?php if($offable == true): ?>
+                        <th lay-data="{field:'status',templet: '#status',width:110}"><?php echo $lable['shangxiaxian']; ?></th>
+                        <?php endif; ?>
                         <th lay-data="{ width:200, toolbar: '#barDemo'}"><?php echo $lable['caozuo']; ?></th>
                     </tr>
                     </thead>

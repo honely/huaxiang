@@ -79,13 +79,15 @@ class Rent extends Controller
         }
         $mate = Db::table('tk_forent')
             ->where(['id' => $id])->find();
-             //写入一条浏览记录
+        //写入一条浏览记录
         $col = new Views();
         $col->addView($uid,$id,3);
         if($mate){
             $msg = new Loops();
-            $house['nickname'] = $msg->getUserNick($mate['userid']);
-            $house['avaurl'] = $msg->getUserAvatar($mate['userid']);
+            $mate['nickname'] = $msg->getUserNick($mate['userid']);
+            $mate['avaurl'] = $msg->getUserAvatar($mate['userid']);
+            $mate['is_colt'] = $this->getColt($mate['id'],$uid);
+            $mate['is_like'] = $this->getLikes($mate['id'],$uid);
             $comment = Db::table('tk_comment')
                 ->where(['type' => 2,'repy' => 1,'status' =>1,'tid' => $id])
                 ->order('cid desc')
@@ -109,6 +111,45 @@ class Rent extends Controller
         return json($res);
     }
 
+
+    public function getCollects($uid){
+        $collects = Db::table('xcx_collect')
+            ->where(['cl_user_id' => $uid,'cl_type' => 3])
+            ->field('cl_house_id')
+            ->select();
+        $collect =  array_column($collects,'cl_house_id');
+        return $collect;
+    }
+
+    public function getLike($uid){
+        $collects = Db::table('xcx_likes')
+            ->where(['uid' => $uid,'type' => 3])
+            ->field('tid')
+            ->select();
+        $collect =  array_column($collects,'tid');
+        return $collect;
+    }
+
+    public function getColt($id,$uid){
+        $collects = Db::table('xcx_collect')
+            ->where(['cl_user_id' => $uid,'cl_type' => 3])
+            ->field('cl_house_id')
+            ->select();
+        $collect =  array_column($collects,'cl_house_id');
+        $colt = in_array($id,$collect,true);
+        return $colt ? 1 : 0;
+    }
+    public function getLikes($id,$uid){
+        $collects = Db::table('xcx_likes')
+            ->where(['uid' => $uid,'type' => 2])
+            ->field('tid')
+            ->select();
+        $collect =  array_column($collects,'tid');
+        $colt = in_array($id,$collect,true);
+        return $colt ? 1 : 0;
+    }
+
+
     public function getReplay($cid){
         $comment = Db::table('tk_comment')
             ->where(['repy' => 2,'status' =>1,'repyid' => $cid])
@@ -120,7 +161,7 @@ class Rent extends Controller
             foreach ($comment as $k => $v){
                 $comment[$k]['nickname'] = $loop->getUserNick($v['userid']);
                 $comment[$k]['avatar'] = $loop->getUserAvatar($v['userid']);
-                $comment[$k]['replys'] = $this->getReplay($v['cid']);
+                //$comment[$k]['replys'] = $this->getReplay($v['cid']);
             }
         }
         return $comment;
@@ -143,7 +184,7 @@ class Rent extends Controller
         $where = "1 = 1 ";
         $keys = trim($this->request->param('keys'));
         if(isset($keys) && !empty($keys) && $keys){
-            $where.=" and ( title like '%".$keys."%' or desc like '%".$keys."%' )";
+            $where.=" and ( title like '%".$keys."%' or descs like '%".$keys."%' )";
             if($uid){
                 $this->addQueryLog($uid,$keys,3);
             }
@@ -177,13 +218,24 @@ class Rent extends Controller
         $result = Db::table('tk_forent')
             ->where($where)
             ->limit(($page)*$limit,$limit)
+            ->field('id,title,type,userid,mdate')
             ->order($order)
             ->select();
         if($result){
             $msg = new Loops();
+            //是否收藏
+            $collects = $this->getCollects($uid);
+            //dump($collects);
+            $likes = $this->getLike($uid);
             foreach ($result as $k => $v){
+                $colt = in_array($v['id'],$collects,true);
+                $result[$k]['is_colt'] = $colt ? 1 : 0;
+                $like = in_array($v['id'],$likes,true);
+                $result[$k]['is_like'] = $like ? 1 : 0;
+                $result[$k]['mdate'] = date('Y-m-d',strtotime($v['mdate']));
                 $result[$k]['avatar'] = $msg->getUserAvatar($v['userid']);
                 $result[$k]['nickname'] = $msg->getUserNick($v['userid']);
+                $result[$k]['sex'] = $msg->getUserSex($v['userid']);
             }
             $res['code'] = 1;
             $res['msg'] = '读取成功！';
@@ -207,7 +259,7 @@ class Rent extends Controller
     }
 
 
- 
+
     public function myrent(){
         header("Access-Control-Allow-Origin:*");
         header('Access-Control-Allow-Methods:POST');
@@ -238,8 +290,8 @@ class Rent extends Controller
         $res['data'] = $result;
         return json($res);
     }
-    
-    
+
+
     public function rentpost(){
         header("Access-Control-Allow-Origin:*");
         header('Access-Control-Allow-Methods:POST');
@@ -251,7 +303,7 @@ class Rent extends Controller
             $res['msg'] = '缺少参数！';
             return json($res);
         }
-       // tags  title地区 户型 租期  图像 昵称 类型
+        // tags  title地区 户型 租期  图像 昵称 类型
         $house = Db::table('tk_forent')
             ->where(['id' => $id,'status' =>1])
             ->field('id,title,userid,city,area,room,mytags,type,leaseterm,status,livedate')
@@ -280,7 +332,7 @@ class Rent extends Controller
         return json($res);
     }
 
-    
+
     //求租拼租删除
     public function del(){
         header("Access-Control-Allow-Origin:*");
@@ -351,6 +403,6 @@ class Rent extends Controller
             return json($res);
         }
     }
-    
-    
+
+
 }

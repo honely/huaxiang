@@ -1,0 +1,512 @@
+---------------------------------------------------------------
+[ 2020-09-22T14:07:03+08:00 ] 127.0.0.1 GET www.huaxiang.com/api/map/getMap
+[ info ] 租房价格最大值：9999
+---------------------------------------------------------------
+[ 2020-09-22T14:07:03+08:00 ] 127.0.0.1 GET www.huaxiang.com/api/map/getMap
+[ info ] 租房价格最小值：0
+---------------------------------------------------------------
+[ 2020-09-22T14:07:03+08:00 ] 127.0.0.1 GET www.huaxiang.com/api/map/getMap
+[ info ] 卧室house_room：
+---------------------------------------------------------------
+[ 2020-09-22T14:07:03+08:00 ] 127.0.0.1 GET www.huaxiang.com/api/map/getMap
+[ info ] 车位car：
+---------------------------------------------------------------
+[ 2020-09-22T14:07:03+08:00 ] 127.0.0.1 GET www.huaxiang.com/api/map/getMap
+[ info ] 前端用户：进行了翻页，当前页码0
+---------------------------------------------------------------
+[ 2020-09-22T14:07:05+08:00 ] 127.0.0.1 GET www.huaxiang.com/api/map/getMap
+[运行时间：1.555611s] [吞吐率：0.64req/s] [内存消耗：2,660.16kb] [文件加载：58]
+[ info ] [ DB ] INIT mysql
+[ info ] [ CACHE ] INIT File
+[ sql ] [ DB ] CONNECT:[ UseTime:0.001074s ] mysql:host=127.0.0.1;port=3306;dbname=xcxnew;charset=utf8mb4
+[ sql ] [ SQL ] SHOW COLUMNS FROM `tk_houses` [ RunTime:0.017380s ]
+[ sql ] [ SQL ] SELECT `id`,`type`,`x`,`y`,`thumnail`,`images` FROM `tk_houses` WHERE  (  status = 1 and is_del = 1 and city = '墨尔本' and ( price <= 9999  and price >= 0  or price = -1 )and x > -38.236429802959 and  x < -37.337108197041 and y > 144.38272079813 and y < 145.52067720187 )  AND `is_del` = 1 GROUP BY `x` ORDER BY `top` DESC,`cdate` DESC LIMIT 0,76 [ RunTime:0.009828s ]
+[ sql ] [ SQL ] UPDATE `tk_houses`  SET `cover`='uploads/compress/cp1049.png'  WHERE  `id` = 1049 [ RunTime:0.000598s ]
+[ sql ] [ SQL ] UPDATE `tk_houses`  SET `cover`='uploads/compress/cp1048.png'  WHERE  `id` = 1048 [ RunTime:0.000699s ]
+[ sql ] [ SQL ] UPDATE `tk_houses`  SET `cover`='uploads/compress/cp1047.png'  WHERE  `id` = 1047 [ RunTime:0.000579s ]
+[ sql ] [ SQL ] SELECT COUNT(id) AS tp_count FROM `tk_houses` WHERE  (  status = 1 and is_del = 1 and city = '墨尔本' and ( price <= 9999  and price >= 0  or price = -1 )and x > -38.236429802959 and  x < -37.337108197041 and y > 144.38272079813 and y < 145.52067720187 )  AND `is_del` = 1 LIMIT 1 [ RunTime:0.003193s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `xcx_collect` [ RunTime:0.014773s ]
+[ sql ] [ SQL ] SELECT `cl_house_id` FROM `xcx_collect` WHERE  `cl_user_id` = 0  AND `cl_type` = 1 [ RunTime:0.000412s ]
+---------------------------------------------------------------
+[ 2020-09-22T14:07:05+08:00 ] 127.0.0.1 GET www.huaxiang.com/api/map/getMap
+[ info ] [ ROUTE ] array (
+  'type' => 'module',
+  'module' => 
+  array (
+    0 => 'api',
+    1 => 'map',
+    2 => 'getMap',
+  ),
+)
+[ info ] [ HEADER ] array (
+  'cookie' => 'PHPSESSID=tasm9hma1gchb90a5hh5dtd8g2',
+  'accept-language' => 'en-US,en;q=0.9,zh-CN;q=0.8,zh;q=0.7',
+  'accept-encoding' => 'gzip, deflate',
+  'accept' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.70 Safari/537.36',
+  'upgrade-insecure-requests' => '1',
+  'cache-control' => 'max-age=0',
+  'connection' => 'close',
+  'host' => 'www.huaxiang.com',
+)
+[ info ] [ PARAM ] array (
+  '/api/map/getMap' => '',
+)
+[ info ] [ RUN ] app\api\controller\Map->getMap[ D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\application\api\controller\Map.php ]
+[ info ] 获取房源参数lease_term：
+---------------------------------------------------------------
+[ 2020-09-22T14:07:05+08:00 ] 127.0.0.1 GET www.huaxiang.com/api/map/getMap
+[ info ] 租房价格最大值：9999
+---------------------------------------------------------------
+[ 2020-09-22T14:07:05+08:00 ] 127.0.0.1 GET www.huaxiang.com/api/map/getMap
+[ info ] 租房价格最小值：0
+---------------------------------------------------------------
+[ 2020-09-22T14:07:05+08:00 ] 127.0.0.1 GET www.huaxiang.com/api/map/getMap
+[ info ] 卧室house_room：
+---------------------------------------------------------------
+[ 2020-09-22T14:07:05+08:00 ] 127.0.0.1 GET www.huaxiang.com/api/map/getMap
+[ info ] 车位car：
+---------------------------------------------------------------
+[ 2020-09-22T14:07:05+08:00 ] 127.0.0.1 GET www.huaxiang.com/api/map/getMap
+[ info ] 前端用户：进行了翻页，当前页码0
+---------------------------------------------------------------
+[ 2020-09-22T14:07:06+08:00 ] 127.0.0.1 GET www.huaxiang.com/api/map/getMap
+[运行时间：1.478861s] [吞吐率：0.68req/s] [内存消耗：2,660.16kb] [文件加载：58]
+[ info ] [ DB ] INIT mysql
+[ info ] [ CACHE ] INIT File
+[ sql ] [ DB ] CONNECT:[ UseTime:0.001033s ] mysql:host=127.0.0.1;port=3306;dbname=xcxnew;charset=utf8mb4
+[ sql ] [ SQL ] SHOW COLUMNS FROM `tk_houses` [ RunTime:0.015711s ]
+[ sql ] [ SQL ] SELECT `id`,`type`,`x`,`y`,`thumnail`,`images` FROM `tk_houses` WHERE  (  status = 1 and is_del = 1 and city = '墨尔本' and ( price <= 9999  and price >= 0  or price = -1 )and x > -38.236429802959 and  x < -37.337108197041 and y > 144.38272079813 and y < 145.52067720187 )  AND `is_del` = 1 GROUP BY `x` ORDER BY `top` DESC,`cdate` DESC LIMIT 0,76 [ RunTime:0.009863s ]
+[ sql ] [ SQL ] UPDATE `tk_houses`  SET `cover`='uploads/compress/cp1049.png'  WHERE  `id` = 1049 [ RunTime:0.000573s ]
+[ sql ] [ SQL ] UPDATE `tk_houses`  SET `cover`='uploads/compress/cp1048.png'  WHERE  `id` = 1048 [ RunTime:0.000671s ]
+[ sql ] [ SQL ] UPDATE `tk_houses`  SET `cover`='uploads/compress/cp1047.png'  WHERE  `id` = 1047 [ RunTime:0.000612s ]
+[ sql ] [ SQL ] SELECT COUNT(id) AS tp_count FROM `tk_houses` WHERE  (  status = 1 and is_del = 1 and city = '墨尔本' and ( price <= 9999  and price >= 0  or price = -1 )and x > -38.236429802959 and  x < -37.337108197041 and y > 144.38272079813 and y < 145.52067720187 )  AND `is_del` = 1 LIMIT 1 [ RunTime:0.003499s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `xcx_collect` [ RunTime:0.012724s ]
+[ sql ] [ SQL ] SELECT `cl_house_id` FROM `xcx_collect` WHERE  `cl_user_id` = 0  AND `cl_type` = 1 [ RunTime:0.000415s ]
+---------------------------------------------------------------
+[ 2020-09-22T14:07:21+08:00 ] 127.0.0.1 GET www.huaxiang.com/api/map/getMap
+[ info ] [ ROUTE ] array (
+  'type' => 'module',
+  'module' => 
+  array (
+    0 => 'api',
+    1 => 'map',
+    2 => 'getMap',
+  ),
+)
+[ info ] [ HEADER ] array (
+  'cookie' => 'PHPSESSID=tasm9hma1gchb90a5hh5dtd8g2',
+  'accept-language' => 'en-US,en;q=0.9,zh-CN;q=0.8,zh;q=0.7',
+  'accept-encoding' => 'gzip, deflate',
+  'accept' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.70 Safari/537.36',
+  'upgrade-insecure-requests' => '1',
+  'cache-control' => 'max-age=0',
+  'connection' => 'close',
+  'host' => 'www.huaxiang.com',
+)
+[ info ] [ PARAM ] array (
+  '/api/map/getMap' => '',
+)
+[ info ] [ RUN ] app\api\controller\Map->getMap[ D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\application\api\controller\Map.php ]
+[ info ] 获取房源参数lease_term：
+---------------------------------------------------------------
+[ 2020-09-22T14:07:21+08:00 ] 127.0.0.1 GET www.huaxiang.com/api/map/getMap
+[ info ] 租房价格最大值：9999
+---------------------------------------------------------------
+[ 2020-09-22T14:07:21+08:00 ] 127.0.0.1 GET www.huaxiang.com/api/map/getMap
+[ info ] 租房价格最小值：0
+---------------------------------------------------------------
+[ 2020-09-22T14:07:21+08:00 ] 127.0.0.1 GET www.huaxiang.com/api/map/getMap
+[ info ] 卧室house_room：
+---------------------------------------------------------------
+[ 2020-09-22T14:07:21+08:00 ] 127.0.0.1 GET www.huaxiang.com/api/map/getMap
+[ info ] 车位car：
+---------------------------------------------------------------
+[ 2020-09-22T14:07:21+08:00 ] 127.0.0.1 GET www.huaxiang.com/api/map/getMap
+[ info ] 前端用户：进行了翻页，当前页码0
+---------------------------------------------------------------
+[ 2020-09-22T14:07:24+08:00 ] 127.0.0.1 GET www.huaxiang.com/api/map/getMap
+[运行时间：3.129137s] [吞吐率：0.32req/s] [内存消耗：2,663.36kb] [文件加载：58]
+[ info ] [ DB ] INIT mysql
+[ info ] [ CACHE ] INIT File
+[ sql ] [ DB ] CONNECT:[ UseTime:0.001356s ] mysql:host=127.0.0.1;port=3306;dbname=xcxnew;charset=utf8mb4
+[ sql ] [ SQL ] SHOW COLUMNS FROM `tk_houses` [ RunTime:0.015061s ]
+[ sql ] [ SQL ] SELECT `id`,`type`,`x`,`y`,`thumnail`,`images` FROM `tk_houses` WHERE  (  status = 1 and is_del = 1 and city = '墨尔本' and ( price <= 9999  and price >= 0  or price = -1 )and x > -38.236429802959 and  x < -37.337108197041 and y > 144.38272079813 and y < 145.52067720187 )  AND `is_del` = 1 ORDER BY `top` DESC,`cdate` DESC LIMIT 0,76 [ RunTime:0.003942s ]
+[ sql ] [ SQL ] UPDATE `tk_houses`  SET `cover`='uploads/compress/cp1057.png'  WHERE  `id` = 1057 [ RunTime:0.000878s ]
+[ sql ] [ SQL ] UPDATE `tk_houses`  SET `cover`='uploads/compress/cp1054.png'  WHERE  `id` = 1054 [ RunTime:0.000662s ]
+[ sql ] [ SQL ] UPDATE `tk_houses`  SET `cover`='uploads/compress/cp1050.png'  WHERE  `id` = 1050 [ RunTime:0.000828s ]
+[ sql ] [ SQL ] UPDATE `tk_houses`  SET `cover`='uploads/compress/cp1051.png'  WHERE  `id` = 1051 [ RunTime:0.000678s ]
+[ sql ] [ SQL ] UPDATE `tk_houses`  SET `cover`='uploads/compress/cp1049.png'  WHERE  `id` = 1049 [ RunTime:0.000684s ]
+[ sql ] [ SQL ] UPDATE `tk_houses`  SET `cover`='uploads/compress/cp1048.png'  WHERE  `id` = 1048 [ RunTime:0.000691s ]
+[ sql ] [ SQL ] UPDATE `tk_houses`  SET `cover`='uploads/compress/cp1047.png'  WHERE  `id` = 1047 [ RunTime:0.000551s ]
+[ sql ] [ SQL ] SELECT COUNT(id) AS tp_count FROM `tk_houses` WHERE  (  status = 1 and is_del = 1 and city = '墨尔本' and ( price <= 9999  and price >= 0  or price = -1 )and x > -38.236429802959 and  x < -37.337108197041 and y > 144.38272079813 and y < 145.52067720187 )  AND `is_del` = 1 LIMIT 1 [ RunTime:0.003242s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `xcx_collect` [ RunTime:0.014240s ]
+[ sql ] [ SQL ] SELECT `cl_house_id` FROM `xcx_collect` WHERE  `cl_user_id` = 0  AND `cl_type` = 1 [ RunTime:0.000422s ]
+---------------------------------------------------------------
+[ 2020-09-22T14:16:06+08:00 ] 127.0.0.1 GET www.huaxiang.com/api/map/getMap
+[ info ] [ ROUTE ] array (
+  'type' => 'module',
+  'module' => 
+  array (
+    0 => 'api',
+    1 => 'map',
+    2 => 'getMap',
+  ),
+)
+[ info ] [ HEADER ] array (
+  'cookie' => 'PHPSESSID=tasm9hma1gchb90a5hh5dtd8g2',
+  'accept-language' => 'en-US,en;q=0.9,zh-CN;q=0.8,zh;q=0.7',
+  'accept-encoding' => 'gzip, deflate',
+  'accept' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.70 Safari/537.36',
+  'upgrade-insecure-requests' => '1',
+  'cache-control' => 'max-age=0',
+  'connection' => 'close',
+  'host' => 'www.huaxiang.com',
+)
+[ info ] [ PARAM ] array (
+  '/api/map/getMap' => '',
+)
+[ info ] [ RUN ] app\api\controller\Map->getMap[ D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\application\api\controller\Map.php ]
+[ info ] 获取房源参数lease_term：
+---------------------------------------------------------------
+[ 2020-09-22T14:16:06+08:00 ] 127.0.0.1 GET www.huaxiang.com/api/map/getMap
+[ info ] 租房价格最大值：9999
+---------------------------------------------------------------
+[ 2020-09-22T14:16:06+08:00 ] 127.0.0.1 GET www.huaxiang.com/api/map/getMap
+[ info ] 租房价格最小值：0
+---------------------------------------------------------------
+[ 2020-09-22T14:16:06+08:00 ] 127.0.0.1 GET www.huaxiang.com/api/map/getMap
+[ info ] 卧室house_room：
+---------------------------------------------------------------
+[ 2020-09-22T14:16:06+08:00 ] 127.0.0.1 GET www.huaxiang.com/api/map/getMap
+[ info ] 车位car：
+---------------------------------------------------------------
+[ 2020-09-22T14:16:06+08:00 ] 127.0.0.1 GET www.huaxiang.com/api/map/getMap
+[ info ] 前端用户：进行了翻页，当前页码0
+---------------------------------------------------------------
+[ 2020-09-22T14:16:07+08:00 ] 127.0.0.1 GET www.huaxiang.com/api/map/getMap
+[运行时间：0.170299s] [吞吐率：5.87req/s] [内存消耗：2,559.44kb] [文件加载：58]
+[ info ] [ DB ] INIT mysql
+[ sql ] [ DB ] CONNECT:[ UseTime:0.003978s ] mysql:host=127.0.0.1;port=3306;dbname=xcxnew;charset=utf8mb4
+[ sql ] [ SQL ] SHOW COLUMNS FROM `tk_houses` [ RunTime:0.015854s ]
+[ sql ] [ SQL ] SELECT COUNT(*) AS tp_count FROM ( SELECT `id`,`type`,`x`,`y`,`thumnail`,`images`,count(x) FROM `tk_houses` WHERE  (  status = 1 and is_del = 1 and city = '墨尔本' and ( price <= 9999  and price >= 0  or price = -1 )and x > -38.236429802959 and  x < -37.337108197041 and y > 144.38272079813 and y < 145.52067720187 )  AND `is_del` = 1 GROUP BY `x` ORDER BY `top` DESC,`cdate` DESC LIMIT 0,76 ) `_group_count_` LIMIT 1 [ RunTime:0.023681s ]
+[ error ] [1]Call to a member function select() on integer[D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\application\xcx\model\Housem.php:56]
+---------------------------------------------------------------
+[ 2020-09-22T14:17:07+08:00 ] 127.0.0.1 GET www.huaxiang.com/api/map/getMap
+[ info ] [ ROUTE ] array (
+  'type' => 'module',
+  'module' => 
+  array (
+    0 => 'api',
+    1 => 'map',
+    2 => 'getMap',
+  ),
+)
+[ info ] [ HEADER ] array (
+  'cookie' => 'PHPSESSID=tasm9hma1gchb90a5hh5dtd8g2',
+  'accept-language' => 'en-US,en;q=0.9,zh-CN;q=0.8,zh;q=0.7',
+  'accept-encoding' => 'gzip, deflate',
+  'accept' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.70 Safari/537.36',
+  'upgrade-insecure-requests' => '1',
+  'cache-control' => 'max-age=0',
+  'connection' => 'close',
+  'host' => 'www.huaxiang.com',
+)
+[ info ] [ PARAM ] array (
+  '/api/map/getMap' => '',
+)
+[ info ] [ RUN ] app\api\controller\Map->getMap[ D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\application\api\controller\Map.php ]
+[ info ] 获取房源参数lease_term：
+---------------------------------------------------------------
+[ 2020-09-22T14:17:07+08:00 ] 127.0.0.1 GET www.huaxiang.com/api/map/getMap
+[ info ] 租房价格最大值：9999
+---------------------------------------------------------------
+[ 2020-09-22T14:17:07+08:00 ] 127.0.0.1 GET www.huaxiang.com/api/map/getMap
+[ info ] 租房价格最小值：0
+---------------------------------------------------------------
+[ 2020-09-22T14:17:07+08:00 ] 127.0.0.1 GET www.huaxiang.com/api/map/getMap
+[ info ] 卧室house_room：
+---------------------------------------------------------------
+[ 2020-09-22T14:17:07+08:00 ] 127.0.0.1 GET www.huaxiang.com/api/map/getMap
+[ info ] 车位car：
+---------------------------------------------------------------
+[ 2020-09-22T14:17:07+08:00 ] 127.0.0.1 GET www.huaxiang.com/api/map/getMap
+[ info ] 前端用户：进行了翻页，当前页码0
+---------------------------------------------------------------
+[ 2020-09-22T14:17:07+08:00 ] 127.0.0.1 GET www.huaxiang.com/api/map/getMap
+[运行时间：0.099080s] [吞吐率：10.09req/s] [内存消耗：2,565.54kb] [文件加载：58]
+[ info ] [ DB ] INIT mysql
+[ sql ] [ DB ] CONNECT:[ UseTime:0.001183s ] mysql:host=127.0.0.1;port=3306;dbname=xcxnew;charset=utf8mb4
+[ sql ] [ SQL ] SHOW COLUMNS FROM `tk_houses` [ RunTime:0.014882s ]
+[ sql ] [ SQL ] SELECT `id`,`type`,`x`,`y`,`thumnail`,`images` FROM `tk_houses` WHERE  (  status = 1 and is_del = 1 and city = '墨尔本' and ( price <= 9999  and price >= 0  or price = -1 )and x > -38.236429802959 and  x < -37.337108197041 and y > 144.38272079813 and y < 145.52067720187 )  AND `is_del` = 1 GROUP BY `x` ORDER BY `top` DESC,`cdate` DESC LIMIT 0,76 [ RunTime:0.009849s ]
+[ error ] [1]Call to a member function count() on array[D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\application\xcx\model\Housem.php:56]
+---------------------------------------------------------------
+[ 2020-09-22T14:17:30+08:00 ] 127.0.0.1 GET www.huaxiang.com/api/map/getMap
+[ info ] [ ROUTE ] array (
+  'type' => 'module',
+  'module' => 
+  array (
+    0 => 'api',
+    1 => 'map',
+    2 => 'getMap',
+  ),
+)
+[ info ] [ HEADER ] array (
+  'cookie' => 'PHPSESSID=tasm9hma1gchb90a5hh5dtd8g2',
+  'accept-language' => 'en-US,en;q=0.9,zh-CN;q=0.8,zh;q=0.7',
+  'accept-encoding' => 'gzip, deflate',
+  'accept' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.70 Safari/537.36',
+  'upgrade-insecure-requests' => '1',
+  'cache-control' => 'max-age=0',
+  'connection' => 'close',
+  'host' => 'www.huaxiang.com',
+)
+[ info ] [ PARAM ] array (
+  '/api/map/getMap' => '',
+)
+[ info ] [ RUN ] app\api\controller\Map->getMap[ D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\application\api\controller\Map.php ]
+[ info ] 获取房源参数lease_term：
+---------------------------------------------------------------
+[ 2020-09-22T14:17:30+08:00 ] 127.0.0.1 GET www.huaxiang.com/api/map/getMap
+[ info ] 租房价格最大值：9999
+---------------------------------------------------------------
+[ 2020-09-22T14:17:30+08:00 ] 127.0.0.1 GET www.huaxiang.com/api/map/getMap
+[ info ] 租房价格最小值：0
+---------------------------------------------------------------
+[ 2020-09-22T14:17:30+08:00 ] 127.0.0.1 GET www.huaxiang.com/api/map/getMap
+[ info ] 卧室house_room：
+---------------------------------------------------------------
+[ 2020-09-22T14:17:30+08:00 ] 127.0.0.1 GET www.huaxiang.com/api/map/getMap
+[ info ] 车位car：
+---------------------------------------------------------------
+[ 2020-09-22T14:17:30+08:00 ] 127.0.0.1 GET www.huaxiang.com/api/map/getMap
+[ info ] 前端用户：进行了翻页，当前页码0
+---------------------------------------------------------------
+[ 2020-09-22T14:17:30+08:00 ] 127.0.0.1 GET www.huaxiang.com/api/map/getMap
+[运行时间：0.072676s] [吞吐率：13.76req/s] [内存消耗：1,588.13kb] [文件加载：48]
+[ error ] [4]syntax error, unexpected '->' (T_OBJECT_OPERATOR)[D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\application\xcx\model\Housem.php:56]
+---------------------------------------------------------------
+[ 2020-09-22T14:35:02+08:00 ] 127.0.0.1 GET www.huaxiang.com/api/map/getMap
+[ info ] [ ROUTE ] array (
+  'type' => 'module',
+  'module' => 
+  array (
+    0 => 'api',
+    1 => 'map',
+    2 => 'getMap',
+  ),
+)
+[ info ] [ HEADER ] array (
+  'cookie' => 'PHPSESSID=tasm9hma1gchb90a5hh5dtd8g2',
+  'accept-language' => 'en-US,en;q=0.9,zh-CN;q=0.8,zh;q=0.7',
+  'accept-encoding' => 'gzip, deflate',
+  'accept' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.70 Safari/537.36',
+  'upgrade-insecure-requests' => '1',
+  'cache-control' => 'max-age=0',
+  'connection' => 'close',
+  'host' => 'www.huaxiang.com',
+)
+[ info ] [ PARAM ] array (
+  '/api/map/getMap' => '',
+)
+[ info ] [ RUN ] app\api\controller\Map->getMap[ D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\application\api\controller\Map.php ]
+[ info ] 获取房源参数lease_term：
+---------------------------------------------------------------
+[ 2020-09-22T14:35:02+08:00 ] 127.0.0.1 GET www.huaxiang.com/api/map/getMap
+[ info ] 租房价格最大值：9999
+---------------------------------------------------------------
+[ 2020-09-22T14:35:02+08:00 ] 127.0.0.1 GET www.huaxiang.com/api/map/getMap
+[ info ] 租房价格最小值：0
+---------------------------------------------------------------
+[ 2020-09-22T14:35:02+08:00 ] 127.0.0.1 GET www.huaxiang.com/api/map/getMap
+[ info ] 卧室house_room：
+---------------------------------------------------------------
+[ 2020-09-22T14:35:02+08:00 ] 127.0.0.1 GET www.huaxiang.com/api/map/getMap
+[ info ] 车位car：
+---------------------------------------------------------------
+[ 2020-09-22T14:35:02+08:00 ] 127.0.0.1 GET www.huaxiang.com/api/map/getMap
+[ info ] 前端用户：进行了翻页，当前页码0
+---------------------------------------------------------------
+[ 2020-09-22T14:35:04+08:00 ] 127.0.0.1 GET www.huaxiang.com/api/map/getMap
+[运行时间：1.746659s] [吞吐率：0.57req/s] [内存消耗：2,660.23kb] [文件加载：58]
+[ info ] [ DB ] INIT mysql
+[ info ] [ CACHE ] INIT File
+[ sql ] [ DB ] CONNECT:[ UseTime:0.003911s ] mysql:host=127.0.0.1;port=3306;dbname=xcxnew;charset=utf8mb4
+[ sql ] [ SQL ] SHOW COLUMNS FROM `tk_houses` [ RunTime:0.016596s ]
+[ sql ] [ SQL ] SELECT  count(`x`) as count,id,type,x,y,thumnail,images FROM `tk_houses` WHERE  (  status = 1 and is_del = 1 and city = '墨尔本' and ( price <= 9999  and price >= 0  or price = -1 )and x > -38.236429802959 and  x < -37.337108197041 and y > 144.38272079813 and y < 145.52067720187 )  AND `is_del` = 1 GROUP BY `x` ORDER BY `top` DESC,`cdate` DESC LIMIT 0,76 [ RunTime:0.013834s ]
+[ sql ] [ SQL ] UPDATE `tk_houses`  SET `cover`='uploads/compress/cp1049.png'  WHERE  `id` = 1049 [ RunTime:0.011593s ]
+[ sql ] [ SQL ] UPDATE `tk_houses`  SET `cover`='uploads/compress/cp1048.png'  WHERE  `id` = 1048 [ RunTime:0.000586s ]
+[ sql ] [ SQL ] UPDATE `tk_houses`  SET `cover`='uploads/compress/cp1047.png'  WHERE  `id` = 1047 [ RunTime:0.000682s ]
+[ sql ] [ SQL ] SELECT COUNT(id) AS tp_count FROM `tk_houses` WHERE  (  status = 1 and is_del = 1 and city = '墨尔本' and ( price <= 9999  and price >= 0  or price = -1 )and x > -38.236429802959 and  x < -37.337108197041 and y > 144.38272079813 and y < 145.52067720187 )  AND `is_del` = 1 LIMIT 1 [ RunTime:0.003423s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `xcx_collect` [ RunTime:0.026066s ]
+[ sql ] [ SQL ] SELECT `cl_house_id` FROM `xcx_collect` WHERE  `cl_user_id` = 0  AND `cl_type` = 1 [ RunTime:0.007626s ]
+---------------------------------------------------------------
+[ 2020-09-22T14:36:10+08:00 ] 127.0.0.1 GET www.huaxiang.com/api/map/getMap
+[ info ] [ ROUTE ] array (
+  'type' => 'module',
+  'module' => 
+  array (
+    0 => 'api',
+    1 => 'map',
+    2 => 'getMap',
+  ),
+)
+[ info ] [ HEADER ] array (
+  'cookie' => 'PHPSESSID=tasm9hma1gchb90a5hh5dtd8g2',
+  'accept-language' => 'en-US,en;q=0.9,zh-CN;q=0.8,zh;q=0.7',
+  'accept-encoding' => 'gzip, deflate',
+  'accept' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.70 Safari/537.36',
+  'upgrade-insecure-requests' => '1',
+  'cache-control' => 'max-age=0',
+  'connection' => 'close',
+  'host' => 'www.huaxiang.com',
+)
+[ info ] [ PARAM ] array (
+  '/api/map/getMap' => '',
+)
+[ info ] [ RUN ] app\api\controller\Map->getMap[ D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\application\api\controller\Map.php ]
+[ info ] 获取房源参数lease_term：
+---------------------------------------------------------------
+[ 2020-09-22T14:36:10+08:00 ] 127.0.0.1 GET www.huaxiang.com/api/map/getMap
+[ info ] 租房价格最大值：9999
+---------------------------------------------------------------
+[ 2020-09-22T14:36:10+08:00 ] 127.0.0.1 GET www.huaxiang.com/api/map/getMap
+[ info ] 租房价格最小值：0
+---------------------------------------------------------------
+[ 2020-09-22T14:36:10+08:00 ] 127.0.0.1 GET www.huaxiang.com/api/map/getMap
+[ info ] 卧室house_room：
+---------------------------------------------------------------
+[ 2020-09-22T14:36:10+08:00 ] 127.0.0.1 GET www.huaxiang.com/api/map/getMap
+[ info ] 车位car：
+---------------------------------------------------------------
+[ 2020-09-22T14:36:10+08:00 ] 127.0.0.1 GET www.huaxiang.com/api/map/getMap
+[ info ] 前端用户：进行了翻页，当前页码0
+---------------------------------------------------------------
+[ 2020-09-22T14:36:11+08:00 ] 127.0.0.1 GET www.huaxiang.com/api/map/getMap
+[运行时间：1.487532s] [吞吐率：0.67req/s] [内存消耗：2,586.79kb] [文件加载：55]
+[ info ] [ DB ] INIT mysql
+[ info ] [ CACHE ] INIT File
+[ sql ] [ DB ] CONNECT:[ UseTime:0.001294s ] mysql:host=127.0.0.1;port=3306;dbname=xcxnew;charset=utf8mb4
+[ sql ] [ SQL ] SHOW COLUMNS FROM `tk_houses` [ RunTime:0.014493s ]
+[ sql ] [ SQL ] SELECT  count(`x`) as count,id,type,x,y,thumnail,images FROM `tk_houses` WHERE  (  status = 1 and is_del = 1 and city = '墨尔本' and ( price <= 9999  and price >= 0  or price = -1 )and x > -38.236429802959 and  x < -37.337108197041 and y > 144.38272079813 and y < 145.52067720187 )  AND `is_del` = 1 GROUP BY `x` ORDER BY `top` DESC,`cdate` DESC LIMIT 0,76 [ RunTime:0.009945s ]
+[ sql ] [ SQL ] UPDATE `tk_houses`  SET `cover`='uploads/compress/cp1049.png'  WHERE  `id` = 1049 [ RunTime:0.000726s ]
+[ sql ] [ SQL ] UPDATE `tk_houses`  SET `cover`='uploads/compress/cp1048.png'  WHERE  `id` = 1048 [ RunTime:0.000576s ]
+[ sql ] [ SQL ] UPDATE `tk_houses`  SET `cover`='uploads/compress/cp1047.png'  WHERE  `id` = 1047 [ RunTime:0.000714s ]
+---------------------------------------------------------------
+[ 2020-09-22T14:36:40+08:00 ] 127.0.0.1 GET www.huaxiang.com/api/map/getMap
+[ info ] [ ROUTE ] array (
+  'type' => 'module',
+  'module' => 
+  array (
+    0 => 'api',
+    1 => 'map',
+    2 => 'getMap',
+  ),
+)
+[ info ] [ HEADER ] array (
+  'cookie' => 'PHPSESSID=tasm9hma1gchb90a5hh5dtd8g2',
+  'accept-language' => 'en-US,en;q=0.9,zh-CN;q=0.8,zh;q=0.7',
+  'accept-encoding' => 'gzip, deflate',
+  'accept' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.70 Safari/537.36',
+  'upgrade-insecure-requests' => '1',
+  'cache-control' => 'max-age=0',
+  'connection' => 'close',
+  'host' => 'www.huaxiang.com',
+)
+[ info ] [ PARAM ] array (
+  '/api/map/getMap' => '',
+)
+[ info ] [ RUN ] app\api\controller\Map->getMap[ D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\application\api\controller\Map.php ]
+[ info ] 获取房源参数lease_term：
+---------------------------------------------------------------
+[ 2020-09-22T14:36:40+08:00 ] 127.0.0.1 GET www.huaxiang.com/api/map/getMap
+[ info ] 租房价格最大值：9999
+---------------------------------------------------------------
+[ 2020-09-22T14:36:40+08:00 ] 127.0.0.1 GET www.huaxiang.com/api/map/getMap
+[ info ] 租房价格最小值：0
+---------------------------------------------------------------
+[ 2020-09-22T14:36:40+08:00 ] 127.0.0.1 GET www.huaxiang.com/api/map/getMap
+[ info ] 卧室house_room：
+---------------------------------------------------------------
+[ 2020-09-22T14:36:40+08:00 ] 127.0.0.1 GET www.huaxiang.com/api/map/getMap
+[ info ] 车位car：
+---------------------------------------------------------------
+[ 2020-09-22T14:36:40+08:00 ] 127.0.0.1 GET www.huaxiang.com/api/map/getMap
+[ info ] 前端用户：进行了翻页，当前页码0
+---------------------------------------------------------------
+[ 2020-09-22T14:36:41+08:00 ] 127.0.0.1 GET www.huaxiang.com/api/map/getMap
+[运行时间：1.482396s] [吞吐率：0.67req/s] [内存消耗：2,659.97kb] [文件加载：58]
+[ info ] [ DB ] INIT mysql
+[ info ] [ CACHE ] INIT File
+[ sql ] [ DB ] CONNECT:[ UseTime:0.001341s ] mysql:host=127.0.0.1;port=3306;dbname=xcxnew;charset=utf8mb4
+[ sql ] [ SQL ] SHOW COLUMNS FROM `tk_houses` [ RunTime:0.015346s ]
+[ sql ] [ SQL ] SELECT  count(`x`) as count,id,type,x,y,thumnail,images FROM `tk_houses` WHERE  (  status = 1 and is_del = 1 and city = '墨尔本' and ( price <= 9999  and price >= 0  or price = -1 )and x > -38.236429802959 and  x < -37.337108197041 and y > 144.38272079813 and y < 145.52067720187 )  AND `is_del` = 1 GROUP BY `x` ORDER BY `top` DESC,`cdate` DESC LIMIT 0,76 [ RunTime:0.015250s ]
+[ sql ] [ SQL ] UPDATE `tk_houses`  SET `cover`='uploads/compress/cp1049.png'  WHERE  `id` = 1049 [ RunTime:0.000835s ]
+[ sql ] [ SQL ] UPDATE `tk_houses`  SET `cover`='uploads/compress/cp1048.png'  WHERE  `id` = 1048 [ RunTime:0.000759s ]
+[ sql ] [ SQL ] UPDATE `tk_houses`  SET `cover`='uploads/compress/cp1047.png'  WHERE  `id` = 1047 [ RunTime:0.000894s ]
+[ sql ] [ SQL ] SELECT COUNT(id) AS tp_count FROM `tk_houses` WHERE  (  status = 1 and is_del = 1 and city = '墨尔本' and ( price <= 9999  and price >= 0  or price = -1 )and x > -38.236429802959 and  x < -37.337108197041 and y > 144.38272079813 and y < 145.52067720187 )  AND `is_del` = 1 LIMIT 1 [ RunTime:0.003288s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `xcx_collect` [ RunTime:0.014267s ]
+[ sql ] [ SQL ] SELECT `cl_house_id` FROM `xcx_collect` WHERE  `cl_user_id` = 0  AND `cl_type` = 1 [ RunTime:0.000423s ]
+---------------------------------------------------------------
+[ 2020-09-22T14:37:47+08:00 ] 127.0.0.1 GET www.huaxiang.com/api/map/getMap
+[ info ] [ ROUTE ] array (
+  'type' => 'module',
+  'module' => 
+  array (
+    0 => 'api',
+    1 => 'map',
+    2 => 'getMap',
+  ),
+)
+[ info ] [ HEADER ] array (
+  'cookie' => 'PHPSESSID=tasm9hma1gchb90a5hh5dtd8g2',
+  'accept-language' => 'en-US,en;q=0.9,zh-CN;q=0.8,zh;q=0.7',
+  'accept-encoding' => 'gzip, deflate',
+  'accept' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.70 Safari/537.36',
+  'upgrade-insecure-requests' => '1',
+  'cache-control' => 'max-age=0',
+  'connection' => 'close',
+  'host' => 'www.huaxiang.com',
+)
+[ info ] [ PARAM ] array (
+  '/api/map/getMap' => '',
+)
+[ info ] [ RUN ] app\api\controller\Map->getMap[ D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\application\api\controller\Map.php ]
+[ info ] 获取房源参数lease_term：
+---------------------------------------------------------------
+[ 2020-09-22T14:37:47+08:00 ] 127.0.0.1 GET www.huaxiang.com/api/map/getMap
+[ info ] 租房价格最大值：9999
+---------------------------------------------------------------
+[ 2020-09-22T14:37:47+08:00 ] 127.0.0.1 GET www.huaxiang.com/api/map/getMap
+[ info ] 租房价格最小值：0
+---------------------------------------------------------------
+[ 2020-09-22T14:37:47+08:00 ] 127.0.0.1 GET www.huaxiang.com/api/map/getMap
+[ info ] 卧室house_room：
+---------------------------------------------------------------
+[ 2020-09-22T14:37:47+08:00 ] 127.0.0.1 GET www.huaxiang.com/api/map/getMap
+[ info ] 车位car：
+---------------------------------------------------------------
+[ 2020-09-22T14:37:47+08:00 ] 127.0.0.1 GET www.huaxiang.com/api/map/getMap
+[ info ] 前端用户：进行了翻页，当前页码0
+---------------------------------------------------------------
+[ 2020-09-22T14:37:49+08:00 ] 127.0.0.1 GET www.huaxiang.com/api/map/getMap
+[运行时间：1.488090s] [吞吐率：0.67req/s] [内存消耗：2,660.59kb] [文件加载：58]
+[ info ] [ DB ] INIT mysql
+[ info ] [ CACHE ] INIT File
+[ sql ] [ DB ] CONNECT:[ UseTime:0.001598s ] mysql:host=127.0.0.1;port=3306;dbname=xcxnew;charset=utf8mb4
+[ sql ] [ SQL ] SHOW COLUMNS FROM `tk_houses` [ RunTime:0.014108s ]
+[ sql ] [ SQL ] SELECT  count(`x`) as count,id,type,x,y,thumnail,images FROM `tk_houses` WHERE  (  status = 1 and is_del = 1 and city = '墨尔本' and ( price <= 9999  and price >= 0  or price = -1 )and x > -38.236429802959 and  x < -37.337108197041 and y > 144.38272079813 and y < 145.52067720187 )  AND `is_del` = 1 GROUP BY `x` ORDER BY `top` DESC,`cdate` DESC LIMIT 0,76 [ RunTime:0.010467s ]
+[ sql ] [ SQL ] UPDATE `tk_houses`  SET `cover`='uploads/compress/cp1049.png'  WHERE  `id` = 1049 [ RunTime:0.000711s ]
+[ sql ] [ SQL ] UPDATE `tk_houses`  SET `cover`='uploads/compress/cp1048.png'  WHERE  `id` = 1048 [ RunTime:0.000599s ]
+[ sql ] [ SQL ] UPDATE `tk_houses`  SET `cover`='uploads/compress/cp1047.png'  WHERE  `id` = 1047 [ RunTime:0.000596s ]
+[ sql ] [ SQL ] SELECT COUNT(id) AS tp_count FROM `tk_houses` WHERE  (  status = 1 and is_del = 1 and city = '墨尔本' and ( price <= 9999  and price >= 0  or price = -1 )and x > -38.236429802959 and  x < -37.337108197041 and y > 144.38272079813 and y < 145.52067720187 )  AND `is_del` = 1 LIMIT 1 [ RunTime:0.003211s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `xcx_collect` [ RunTime:0.014764s ]
+[ sql ] [ SQL ] SELECT `cl_house_id` FROM `xcx_collect` WHERE  `cl_user_id` = 0  AND `cl_type` = 1 [ RunTime:0.000504s ]

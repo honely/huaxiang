@@ -37,8 +37,30 @@ class Housem extends Model
         }
         return $result ? $result :  null;
     }
-    
-    
+    public function houscount($where){
+        $result = Db::table('tk_houses')
+            ->where($where)
+            ->where(['is_del' => 1])
+            ->count('id');
+        return $result;
+    }
+    public function readDatas($where,$order,$limit,$page,$field){
+        $result = Db::table('tk_houses')
+            ->where($where)
+            ->where(['is_del' => 1])
+            ->limit(($page)*$limit,$limit)
+            ->orderRaw($order)
+            ->group('x')
+            ->field($field)
+            ->select();
+        foreach ($result as $k => $v){
+            $images = $v['thumnail'] ? $v['thumnail'] : $this->formatImg($v['images']);
+            $result[$k]['images'] = $images;
+            $result[$k]['cover'] = $this->compCover($v['id'],$images);
+        }
+        return $result ? $result :  null;
+    }
+
     public function houseCot($where){
         $result = Db::table('tk_houses')
             ->where($where)

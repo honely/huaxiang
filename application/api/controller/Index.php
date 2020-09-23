@@ -206,30 +206,41 @@ class Index extends Controller
         $url = "https://apis.map.qq.com/ws/geocoder/v1/?location={$x},{$y}&get_poi=1&key=OB5BZ-DEO6S-TQOOY-6JYID-Y2FL6-CVFPN";
         $res = file_get_contents($url);
         $res = json_decode($res, true);
+        //dump($res);
         if ($res['status'] == 0) {
             if (@$res['result']['address_component']['nation'] =='澳大利亚') {
                 if(@$res['result']['address_component']['ad_level_1'] == '塔斯马尼亚'){
-                    $row = @$res['result']['address_component']['ad_level_1'];
+                    $row = @$res['result']['address_component']['locality'];
                 }else{
-                    $row = @$res['result']['address_component']['ad_level_2'];
+                    $row = @$res['result']['address_component']['locality'];
                 }
             } else {
-                $row = @$res['result']['address_component']['city'];
+                $row = @$res['result']['address_component']['locality'];
             }
             if (!@$row) {
-                $city = Db::table('tk_cate')->where('pid', 0)->order('id DESC')->value('name');
+                $city = '墨尔本';
+                $x = '-37.809970';
+                $y = '144.964471';
             } else {
                 $condition['name'] = ['like', "%{$row}%"];
                 $condition['pid'] = 0;
-                $city  = Db::table('tk_cate')->where($condition)->value('name');
+                $info  = Db::table('tk_cate')->where($condition)->field('name,x,y')->find();
+                $city = $info['name'];
+                 $x = $info['x'];
+                  $y = $info['y'];
                 if (!@$city) {
-                    $city = Db::table('tk_cate')->where('pid', 0)->order('id ASC')->value('name');
+                    $info = Db::table('tk_cate')->where('pid', 0)->order('id ASC')->field('name,x,y')->find();
+                    $city = $info['name'];
+                 $x = $info['x'];
+                  $y = $info['y'];
                 }
             }
 
             $ress['code'] = 1;
             $ress['msg'] = 'ok！';
             $ress['data'] = @$city;
+            $ress['x'] = @$x;
+            $ress['y'] = @$y;
             return json($ress);
         }
         $ress['code'] = 0;

@@ -148,6 +148,26 @@ class Colt extends Controller
     }
 
 
+   public function canColt(){
+        header("Access-Control-Allow-Origin:*");
+        header('Access-Control-Allow-Methods:POST');
+        header('Access-Control-Allow-Headers:x-requested-with, content-type');
+        $ids = $this->request->param('id');
+        $type = $this->request->param('type');
+        $uid = $this->request->param('uid');
+        $colt =  Db::table('xcx_collect')
+            ->where(['cl_house_id' => $ids,'cl_type' => $type,'cl_user_id' =>$uid])
+            ->field('cl_id')
+            ->find();
+        Db::table('xcx_collect')
+            ->where(['cl_id' => $colt['cl_id']])
+            ->delete();
+        Db::table('tk_user')->where(['id' =>$uid])->setDec('count');
+        $res['code'] = 1;
+        $res['msg'] = '取消收藏成功！';
+        return json($res);
+    }
+
     public function getCollect(){
         header("Access-Control-Allow-Origin:*");
         header('Access-Control-Allow-Methods:POST');
@@ -170,6 +190,9 @@ class Colt extends Controller
             foreach ($collection as $k => $v){
                 if($v['cl_type'] == 1){
                     $houseInfo = $this->gethouse($v['cl_house_id']);
+                    if(!$houseInfo){
+                        unset($collection[$k]);
+                    }
                     $collection[$k]['imgs'] =$houseInfo['imgs'];
                     $collection[$k]['title'] =$houseInfo['title'];
                     $collection[$k]['price'] =$houseInfo['price'];
@@ -199,6 +222,7 @@ class Colt extends Controller
 
     public function gethouse($hid){
         $houseInfo = Db::table('tk_houses')
+            ->where('status = 1 and is_del = 1')
             ->where(['id' => $hid])
             ->field('title,price,images,type,address,thumnail')
             ->find();

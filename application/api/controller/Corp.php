@@ -154,7 +154,7 @@ class Corp extends Controller
         $res = file_get_contents($url);
         file_put_contents('uploads/corp/'.$id.'.png', $res);
         $data['id'] = $id;
-        $img = config('appurl').'/uploads/corp/'.$id.'.png';
+        $img = 'https://cs.huaxiangxiaobao.com/uploads/corp/'.$id.'.png';
         Db::table('xcx_corp')->where(['cp_id' => $id])->update(['area_img' => $img]);
     }
     

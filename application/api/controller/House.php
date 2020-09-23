@@ -35,12 +35,15 @@ class House extends Controller
         }
         //如果key == area 只查询area
         //如果不相等 都查询
-        if($area != $keys){
-            if(isset($keys) && !empty($keys) && $keys){
-                $where.=" and ( title like '%".$keys."%' or dsn like '%".$keys."%'  or school like '%".$keys."%' or city like '%".$keys."%' or area like '%".$keys."%')";
-                //写入一条关键词查询记录
-                if($uid){
-                    $this->addQueryLog($uid,$keys,1);
+        $areakey = trim($this->request->param('areakey',0));
+        if($areakey == 0){
+            if($area != $keys){
+                if(isset($keys) && !empty($keys) && $keys){
+                    $where.=" and ( title like '%".$keys."%' or dsn like '%".$keys."%'  or school like '%".$keys."%' or city like '%".$keys."%' or area like '%".$keys."%')";
+                    //写入一条关键词查询记录
+                    if($uid){
+                        $this->addQueryLog($uid,$keys,1);
+                    }
                 }
             }
         }
@@ -79,7 +82,7 @@ class House extends Controller
         Log::write('租房价格最大值：'.$maxprice,'info');
         $mimprice = trim($this->request->param('minprice','0'));
         Log::write('租房价格最小值：'.$mimprice,'info');
-        $maxprice = $maxprice ? $maxprice : '5000';
+        $maxprice = $maxprice ? $maxprice : '9999';
         $mimprice = $mimprice ? $mimprice : '0';
         if(isset($maxprice) && !empty($maxprice) && $maxprice){
             $where.=" and ( price <= ".$maxprice." ";
@@ -240,6 +243,7 @@ class House extends Controller
         if($house){
             //是否收藏
             $collects = $this->getCollects($uid);
+            //dump($collects);
             $likes = $this->getLikes($uid);
             foreach ($house as $k => $v){
                 $colt = in_array($v['id'],$collects,true);
@@ -284,7 +288,7 @@ class House extends Controller
         if($cdate == "0000-00-00" || $cdate == "0100-01-01"){
             return '随时入住';
         }else{
-             return substr($cdate,5,5)."入住";
+             return date('m月d日',strtotime($cdate))."入住";
         }
     }
     public function getLikes($uid){
@@ -520,7 +524,7 @@ class House extends Controller
             }
             if(in_array($file_type, ['video/mp4','video/MP4'])) {
                 $config = [
-                    'size' => 1024 * 1024 * 10,
+                    'size' => 1024 * 1024 * 25,
                     'ext' => 'mp4,MP4'
                 ];
                 $size = $file->validate($config);

@@ -1,4 +1,4 @@
-<?php if (!defined('THINK_PATH')) exit(); /*a:3:{s:90:"D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\public/../application/xcx\view\house\edit.html";i:1598865126;s:82:"D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\application\xcx\view\index\header.html";i:1591180794;s:82:"D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\application\xcx\view\index\footer.html";i:1577269681;}*/ ?>
+<?php if (!defined('THINK_PATH')) exit(); /*a:3:{s:90:"D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\public/../application/xcx\view\house\edit.html";i:1600741289;s:82:"D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\application\xcx\view\index\header.html";i:1591180794;s:82:"D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\application\xcx\view\index\footer.html";i:1577269681;}*/ ?>
 <!DOCTYPE html>
 <html style="height: 100%">
 <head>
@@ -22,6 +22,9 @@
 <body class="layui-layout-body" style="height: 100%">
 
 <style>
+    .notclick{
+        pointer-events: none;
+    }
     .one-pan{
         position: relative;
     }
@@ -123,23 +126,28 @@
                 <div class="layui-form-item">
                     <label class="layui-form-label"><span style="color: red;">*</span><?php echo $lable['houseName']; ?></label>
                     <div class="layui-input-block">
-                        <input type="text" name="title" lay-verify="required|title" placeholder="<?php echo $lable['houseNameP']; ?>" maxlength="50"  autocomplete="off" value="<?php echo $house['title']; ?>" class="layui-input">
+                        <input type="text" name="title" lay-verify="required|title" placeholder="<?php echo $lable['houseNameP']; ?>" maxlength="100"  autocomplete="off" value="<?php echo $house['title']; ?>" class="layui-input">
                         <input type="hidden" value="<?php echo $house['id']; ?>" id="id" class="layui-input">
                     </div>
                 </div>
                 <div class="layui-form-item">
                     <label class="layui-form-label"><span style="color: red;">*</span><?php echo $lable['houseAddr']; ?></label>
-                    <div class="layui-input-inline" style="width: 550px;">
+                    <div class="layui-input-inline" style="width: 120px;margin-right: 0px;">
+                        <input type="text" class="layui-input" name="street" placeholder="Room Number" value="<?php echo $house['street']; ?>" >
+                    </div>
+                    <div class="layui-input-inline" style="width: 450px;">
                         <input type="text" name="address" id="end" autocomplete="off" class="layui-input" placeholder="<?php echo $lable['houseAddP']; ?>" lay-verify="required|addresss"  value="<?php echo $house['address']; ?>" >
                         <input type="text" name="address" id="address" style="display: none" readonly class="layui-input" lay-verify="required|addresss" value="<?php echo $house['address']; ?>"  placeholder="目的地取值">
 
                         <input type="hidden" name="x" id="x" lay-verify="addres"  autocomplete="off" class="layui-input" value="<?php echo $house['x']; ?>" >
                         <input type="hidden" name="y" id="y" lay-verify="addres"  autocomplete="off" class="layui-input" value="<?php echo $house['y']; ?>" >
                     </div>
-                    <div class="layui-input-inline" style="width: 550px;">
+                    <div class="layui-input-inline">
                         <span id="resetAdd" class="layui-btn">Reset Address</span>
                     </div>
-                   <div class="layui-form-mid layui-word-aux" style="margin-left: 110px;color: red !important;"><?php echo $lable['selectAddNot']; ?></div>
+                    <hr style="background-color: transparent;color: transparent">
+
+                    <div class="layui-form-mid layui-word-aux" style="margin-left: 110px;color: red !important;"><?php echo $lable['selectAddNot']; ?></div>
                 </div>
                 <div class="layui-form-item">
                     <label class="layui-form-label"><?php echo $lable['houseUrl']; ?></label>
@@ -157,7 +165,7 @@
                 <div class="layui-form-item">
                     <label class="layui-form-label"><span style="color: red;">*</span><?php echo $lable['rent']; ?></label>
                     <div class="layui-input-inline" style="width: 230px !important;">
-                        <input type="number" <?php if($house['price'] == -1): ?>min="-1"<?php else: ?>min="0"<?php endif; ?> name="price" lay-verify="required|prices" placeholder="<?php echo $lable['rentPriceP']; ?>" style="display:<?php if($house['price'] == -1): ?>none<?php else: ?>block<?php endif; ?>" id="price" value="<?php echo $house['price']; ?>" autocomplete="off" class="layui-input">
+                        <input type="number" <?php if($house['price'] == -1): ?>min="-1"<?php else: ?>min="0"<?php endif; ?>  max="9999" name="price" lay-verify="required|prices" placeholder="<?php echo $lable['rentPriceP']; ?>" style="display:<?php if($house['price'] == -1): ?>none<?php else: ?>block<?php endif; ?>" id="price" onblur="checkprice()" value="<?php echo $house['price']; ?>" autocomplete="off" class="layui-input">
                     </div>
                     <div class="layui-input-inline">
                         <input type="checkbox" lay-skin="switch" lay-filter="switchRent" lay-text="<?php echo $lable['zujinkeyi']; ?>|<?php echo $lable['zujinkeyi']; ?>" <?php if($house['price'] == -1): ?>checked<?php else: endif; ?>>
@@ -193,27 +201,27 @@
                 <div class="layui-form-item">
                     <label class="layui-form-label"><span style="color: red;">*</span><?php echo $lable['rentype']; ?></label>
                     <div class="layui-input-block">
-                        <input type="radio" name="type" value="整租" lay-filter="isRoomate" title="<?php echo $lable['zhengzu']; ?>" <?php if($house['type'] == '整租'): ?>checked<?php endif; ?>>
-                        <input type="radio" name="type" value="合租" lay-filter="isRoomate" title="<?php echo $lable['hezu']; ?>" <?php if($house['type'] == '合租'): ?>checked<?php endif; ?>>
+                        <input type="radio" name="type" value="整租" title="<?php echo $lable['zhengzu']; ?>" <?php if($house['type'] == '整租'): ?>checked<?php endif; ?>>
+                        <input type="radio" name="type" value="合租" title="<?php echo $lable['hezu']; ?>" <?php if($house['type'] == '合租'): ?>checked<?php endif; ?>>
+                        <input type="hidden" id="roomate" value="<?php if($house['type'] == '整租'): ?>1<?php else: ?>2<?php endif; ?>">
                     </div>
                 </div>
                 <div class="layui-form-item roomate">
                     <label class="layui-form-label"><span style="color: red;">*</span><?php echo $lable['xingbie']; ?></label>
                     <div class="layui-input-block">
                         <input type="radio" name="sex" value="不限" title="<?php echo $lable['xingbiebuxian']; ?>" <?php if($house['sex'] == '不限'): ?>checked<?php endif; ?>>
-                        <input type="radio" name="sex" value="限男性" title="<?php echo $lable['xiannanxing']; ?>" <?php if($house['sex'] == '限男性'): ?>checked<?php endif; ?>>
-                        <input type="radio" name="sex" value="限女性" title="<?php echo $lable['xiannvxing']; ?>" <?php if($house['sex'] == '限女性'): ?>checked<?php endif; ?>>
-                    </div>
-                </div>
-                <div class="layui-form-item roomate">
-                    <label class="layui-form-label"><span style="color: red;">*</span><?php echo $lable['pet']; ?></label>
-                    <div class="layui-input-block">
-                        <input type="radio" name="pet" value="不限" title="<?php echo $lable['petbuxian']; ?>" <?php if($house['pet'] == '不限'): ?>checked<?php endif; ?>>
-                        <input type="radio" name="pet" value="接受" title="<?php echo $lable['petAcc']; ?>" <?php if($house['pet'] == '接受'): ?>checked<?php endif; ?>>
-                        <input type="radio" name="pet" value="不接受" title="<?php echo $lable['petDis']; ?>" <?php if($house['pet'] == '不接受'): ?>checked<?php endif; ?>>
+                        <input type="radio" name="sex" value="男" title="<?php echo $lable['xiannanxing']; ?>" <?php if($house['sex'] == '男'): ?>checked<?php endif; ?>>
+                        <input type="radio" name="sex" value="女" title="<?php echo $lable['xiannvxing']; ?>" <?php if($house['sex'] == '女'): ?>checked<?php endif; ?>>
                     </div>
                 </div>
                 <div class="layui-form-item">
+                    <label class="layui-form-label"><span style="color: red;">*</span><?php echo $lable['pet']; ?></label>
+                    <div class="layui-input-block">
+                        <input type="radio" name="pet" value="不接受" title="<?php echo $lable['petDis']; ?>" <?php if($house['pet'] == '不接受'): ?>checked<?php endif; ?>>
+                        <input type="radio" name="pet" value="接受" title="<?php echo $lable['petAcc']; ?>" <?php if($house['pet'] == '接受'): ?>checked<?php endif; ?>>
+                    </div>
+                </div>
+                <div class="layui-form-item roomate">
                     <label class="layui-form-label"><span style="color: red;">*</span><?php echo $lable['shifoujiaju']; ?></label>
                     <div class="layui-input-block">
                         <input type="radio" name="is_fur" value="否" title="<?php echo $lable['bujiaju']; ?>" <?php if($house['is_fur'] == '否'): ?>checked<?php endif; ?>>
@@ -221,10 +229,18 @@
                     </div>
                 </div>
                 <div class="layui-form-item roomate">
+                    <label class="layui-form-label"><span style="color: red;">*</span>可否吸烟</label>
+                    <div class="layui-input-block">
+                        <input type="radio" name="smoke" value="不可" title="不可" <?php if($house['smoke'] == '不可'): ?>checked<?php endif; ?>>
+                        <input type="radio" name="smoke" value="可以" title="可以" <?php if($house['smoke'] == '可以'): ?>checked<?php endif; ?>>
+                    </div>
+                </div>
+                <div class="layui-form-item roomate">
                     <label class="layui-form-label"><span style="color: red;">*</span>接受情侣</label>
                     <div class="layui-input-block">
-                        <input type="radio" name="is_couple" value="接受" title="接受" checked>
-                        <input type="radio" name="is_couple" value="不接受" title="不接受">
+                        <input type="radio" name="is_couple" value="不接受" title="不接受" <?php if($house['is_couple'] == '不接受'): ?>checked<?php endif; ?>>
+                        <input type="radio" name="is_couple" value="接受" title="接受" <?php if($house['is_couple'] == '接受'): ?>checked<?php endif; ?>>
+
                     </div>
                 </div>
                 <div class="layui-form-item" pane="">
@@ -293,7 +309,7 @@
                         <input type="radio" name="car" value="9" title="9" <?php if($house['car'] == '9'): ?>checked<?php endif; ?>>
                     </div>
                 </div>
-                <div class="layui-form-item  entire">
+                <div class="layui-form-item entire">
                     <label class="layui-form-label"><span style="color: red;">*</span><?php echo $lable['jiaju']; ?></label>
                     <div class="layui-input-block">
                         <?php if(is_array($all_four) || $all_four instanceof \think\Collection || $all_four instanceof \think\Paginator): $i = 0; $__LIST__ = $all_four;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$vo): $mod = ($i % 2 );++$i;?>
@@ -321,6 +337,7 @@
                 <div class="layui-form-item roomate">
                     <label class="layui-form-label"><span style="color: red;">*</span>室友数量</label>
                     <div class="layui-input-block">
+                        <input type="radio" name="roomates" value="0" title="0" <?php if($house['roomates'] == '0'): ?>checked<?php endif; ?>>
                         <input type="radio" name="roomates" value="1" title="1" <?php if($house['roomates'] == '1'): ?>checked<?php endif; ?>>
                         <input type="radio" name="roomates" value="2" title="2" <?php if($house['roomates'] == '2'): ?>checked<?php endif; ?>>
                         <input type="radio" name="roomates" value="3" title="3" <?php if($house['roomates'] == '3'): ?>checked<?php endif; ?>>
@@ -338,28 +355,34 @@
                 <div class="layui-form-item roomate">
                     <label class="layui-form-label"><span style="color: red;">*</span><?php echo $lable['loadJob']; ?></label>
                     <div class="layui-input-block">
-                        <input type="text" name="loard_job" value="<?php echo $house['loard_job']; ?>" maxlength="50" autocomplete="off" class="layui-input">
+                        <input type="text" name="loard_job" value="<?php echo $house['loard_job']; ?>" maxlength="10" autocomplete="off" class="layui-input">
+                    </div>
+                </div>
+                <div class="layui-form-item roomate">
+                    <label class="layui-form-label"><span style="color: red;">*</span>房东性别</label>
+                    <div class="layui-input-block">
+                        <input type="radio" name="loard_sex" value="1" title="男" <?php if($house['loard_sex'] == 1): ?>checked<?php endif; ?>>
+                        <input type="radio" name="loard_sex" value="2" title="女" <?php if($house['loard_sex'] == 2): ?>checked<?php endif; ?>>
                     </div>
                 </div>
                 <div class="layui-form-item roomate">
                     <label class="layui-form-label"><span style="color: red;">*</span>是否吸烟</label>
                     <div class="layui-input-block">
-                        <input type="radio" name="loard_smoke" value="不限" title="不限" <?php if($house['loard_smoke'] == '不限'): ?>checked<?php endif; ?>>
-                        <input type="radio" name="loard_smoke" value="是" title="是" <?php if($house['loard_smoke'] == '是'): ?>checked<?php endif; ?>>
                         <input type="radio" name="loard_smoke" value="否" title="否" <?php if($house['loard_smoke'] == '否'): ?>checked<?php endif; ?>>
+                        <input type="radio" name="loard_smoke" value="是" title="是" <?php if($house['loard_smoke'] == '是'): ?>checked<?php endif; ?>>
                     </div>
                 </div>
                 <div class="layui-form-item roomate">
                     <label class="layui-form-label"><span style="color: red;">*</span>可有宠物</label>
                     <div class="layui-input-block">
-                        <input type="radio" name="loard_pet" value="是" title="是" <?php if($house['loard_pet'] == '是'): ?>checked<?php endif; ?>>
-                        <input type="radio" name="loard_pet" value="否" title="否" <?php if($house['loard_pet'] == '否'): ?>checked<?php endif; ?>>
+                        <input type="radio" name="loard_pet" value="无" title="无" <?php if($house['loard_pet'] == '无'): ?>checked<?php endif; ?>>
+                        <input type="radio" name="loard_pet" value="有" title="有" <?php if($house['loard_pet'] == '有'): ?>checked<?php endif; ?>>
                     </div>
                 </div>
                 <fieldset class="layui-elem-field layui-field-title" style="margin-top: 20px;">
                     <legend><?php echo $lable['jianjie']; ?></legend>
                 </fieldset>
-              <div style="margin:0 auto !important;color: red !important;clear:both;text-align: center"><?php echo $lable['transNoticNew']; ?></div>
+                <div style="margin:0 auto !important;color: red !important;clear:both;text-align: center"><?php echo $lable['transNoticNew']; ?></div>
                 <div class="layui-row">
                     <div class="layui-col-xs6">
                         <div class="grid-demo grid-demo-bg1">
@@ -373,30 +396,30 @@
                     </div>
                 </div>
                 <div class="layui-row" id="translate" style="margin-top: 12px;">
-                <div class="layui-col-xs6">
-                    <div class="grid-demo grid-demo-bg1">
-                        <div class="layui-input-block">
-                            <textarea placeholder="<?php echo $lable['transPlaceEn']; ?>" style="height: 400px;" maxlength="1500" name="econtent"  lay-verify="required" id="english" class="layui-textarea"><?php echo $house['econtent']; ?></textarea>
+                    <div class="layui-col-xs6">
+                        <div class="grid-demo grid-demo-bg1">
+                            <div class="layui-input-block">
+                                <textarea placeholder="<?php echo $lable['transPlaceEn']; ?>" style="height: 400px;" maxlength="4000" name="econtent"  lay-verify="required" id="english" class="layui-textarea"><?php echo $house['econtent']; ?></textarea>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="layui-col-xs6">
+                        <div class="grid-demo">
+                            <div class="layui-input-block" style="margin-left: 25px !important;">
+                                <textarea placeholder="<?php echo $lable['transPlaceCn']; ?>" lay-verify="required"  style="height: 400px;" maxlength="800" name="content" id="chinese" class="layui-textarea"><?php echo $house['content']; ?></textarea>
+                            </div>
                         </div>
                     </div>
                 </div>
-                <div class="layui-col-xs6">
-                    <div class="grid-demo">
-                        <div class="layui-input-block" style="margin-left: 25px !important;">
-                            <textarea placeholder="<?php echo $lable['transPlaceCn']; ?>" lay-verify="required"  style="height: 400px;" maxlength="1500" name="content" id="chinese" class="layui-textarea"><?php echo $house['content']; ?></textarea>
-                        </div>
-                    </div>
-                </div>
-            </div>
 
                 <fieldset class="layui-elem-field layui-field-title" style="margin-top: 20px;">
                     <legend><?php echo $lable['lianxi']; ?></legend>
                 </fieldset>
                 <div class="layui-form-item">
-                    <label class="layui-form-label"><span style="color: red;">*</span><?php echo $lable['gongsi']; ?></label>
+                    <label class="layui-form-label"><span style="color: red;">*</span>Company</label>
                     <div class="layui-input-inline">
                         <select name="corp" lay-filter="selectPm"  lay-search="" >
-                            <option value="">Pls Select</option>
+                            <option value="">Please Select</option>
                             <?php if(is_array($corp) || $corp instanceof \think\Collection || $corp instanceof \think\Paginator): $i = 0; $__LIST__ = $corp;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$vo): $mod = ($i % 2 );++$i;?>
                             <option value="<?php echo $vo['cp_id']; ?>"  <?php if($house['corp'] == $vo['cp_id']): ?>selected<?php endif; ?>><?php echo $vo['cp_name']; ?></option>
                             <?php endforeach; endif; else: echo "" ;endif; ?>
@@ -405,7 +428,7 @@
                     <label class="layui-form-label" style="width: 150px !important;"><span style="color: red;">*</span>PM</label>
                     <div class="layui-input-inline" style="width: 250px !important;">
                         <select name="pm" lay-verify="required" lay-filter="selectPmInfo"  id="pm"  lay-search="">
-                            <option value="">Pls Select</option>
+                            <option value="">Please Select</option>
                             <?php if(is_array($pminfo) || $pminfo instanceof \think\Collection || $pminfo instanceof \think\Paginator): $i = 0; $__LIST__ = $pminfo;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$vo): $mod = ($i % 2 );++$i;?>
                             <option value="<?php echo $vo['ad_id']; ?>"  <?php if($house['pm'] == $vo['ad_id']): ?>selected<?php endif; ?>><?php echo $vo['ad_realname']; ?></option>
                             <?php endforeach; endif; else: echo "" ;endif; ?>
@@ -415,19 +438,19 @@
                 <div class="layui-form-item">
                     <label class="layui-form-label"><span style="color: red;">*</span><?php echo $lable['xingming']; ?></label>
                     <div class="layui-input-block">
-                        <input type="text" name="real_name" id="real_name" lay-verify="required|title" placeholder="<?php echo $lable['pleaseInput']; ?>" value="<?php echo $house['real_name']; ?>" autocomplete="off" class="layui-input">
+                        <input type="text" name="real_name" id="real_name" lay-verify="required|title"  value="<?php echo $house['real_name']; ?>" autocomplete="off" class="layui-input">
                     </div>
                 </div>
                 <div class="layui-form-item">
                     <label class="layui-form-label"><span style="color: red;">*</span><?php echo $lable['dianhua']; ?></label>
                     <div class="layui-input-block">
-                        <input type="text" name="tel" id="tel" lay-verify="required" placeholder="<?php echo $lable['pleaseInput']; ?>" value="<?php echo $house['tel']; ?>" autocomplete="off" class="layui-input">
+                        <input type="text" name="tel" id="tel" lay-verify="required" value="<?php echo $house['tel']; ?>" autocomplete="off" class="layui-input">
                     </div>
                 </div>
                 <div class="layui-form-item">
                     <label class="layui-form-label"><?php echo $lable['youxiang']; ?></label>
                     <div class="layui-input-block">
-                        <input type="text" name="email" id="email" lay-verify="emails" placeholder="<?php echo $lable['pleaseInput']; ?>" value="<?php echo $house['email']; ?>" autocomplete="off" class="layui-input">
+                        <input type="text" name="email" id="email" lay-verify="emails" value="<?php echo $house['email']; ?>" autocomplete="off" class="layui-input">
                     </div>
                 </div>
                 <fieldset class="layui-elem-field layui-field-title" style="margin-top: 20px;">
@@ -474,7 +497,7 @@
                                                     </span>
                                                 </div>
                                                 <?php endforeach; endif; else: echo "" ;endif; else: ?>
-                                                未上传
+                                                NoData
                                                 <?php endif; ?>
                                             </div>
                                         </div>
@@ -490,8 +513,13 @@
                 <fieldset class="layui-elem-field layui-field-title" style="margin-top: 20px;">
                     <legend><?php echo $lable['shipin']; ?></legend>
                 </fieldset>
-                <div class="layui-form-mid layui-word-aux" style="margin-left: 40px;"><?php echo $lable['otherNotic']; ?></div>
-                <div class="layui-form-item one-pan" style="margin-left: 40px;">
+                <div class="layui-btn upBtn <?php if($house['video'] != null): ?>notclick<?php endif; ?>" style="margin-left: 40px;">Upload</div>
+                <div class="layui-btn layui-btn-primary urlBtn <?php if($house['video'] != null): ?>notclick<?php endif; ?>" style="margin-left: 40px;">Video Url</div>
+                <br>
+                <div class="layui-form-mid layui-word-aux upNotice" style="margin-left: 40px;"><?php echo $lable['otherNotic']; ?></div>
+                <div class="layui-form-mid layui-word-aux urlNotice" style="margin-left: 40px;display: none">5 minutes maxsize，40MB maximum Size</div>
+
+                <div class="layui-form-item one-pan one-video" style="margin-left: 40px;">
                     <div class="layui-upload-drag" id="uploadLogo" style="padding: 50px;display: inline-block;">
                         <?php if($house['video'] != null): ?>
                         <video id="logoPre" controls="controls" autobuffer="autobuffer" style="width: 335px;height: 215px;" autoplay="autoplay" loop="loop" src="<?php if($house['video'] != null): ?>../../../<?php echo $house['video']; else: endif; ?>">
@@ -511,15 +539,34 @@
                                 <div class="layui-progress-bar layui-bg-red" lay-percent="0%"></div>
                             </div>
                         </div>
-                        <div id="vidDel" style="position: absolute;left: 60px;top: 18px;color: red;cursor: pointer;"><?php echo $lable['delete']; ?></div>
+                        <div id="vidDel" style="position: absolute;left: 60px;top: 18px;color: red;display: none;cursor: pointer;"><?php echo $lable['delete']; ?></div>
                         <div id="display">
                             <i class="layui-icon"></i>
                             <p><?php echo $lable['xuanzeshipim']; ?></p>
                         </div>
                         <?php endif; ?>
                     </div>
-                    <div class="layui-btn layui-btn-sm uploadLogo" style="margin-left: 20px;" id="choiceVid" ><?php echo $lable['shangchuan']; ?></div>
+                    <div class="layui-btn layui-btn-sm uploadLogo" style="margin-left: 20px;<?php if($house['video'] != null): ?>display: none<?php endif; ?>" id="choiceVid" ><?php echo $lable['shangchuan']; ?></div>
                     <div class="layui-btn layui-btn-sm" id="upload-video" style="margin-left: 20px;display: none" ><?php echo $lable['shangchuan']; ?></div>
+                    <br/>
+                </div>
+                <div class="layui-form-item one-pan two-video" style="margin-left: 40px;display: none">
+                    <div class="layui-upload-drag" id="urlUploadLogo" style="padding: 20px;width:50%">
+                        <video id="uLogoPre" style="display: none" controls="controls" autobuffer="autobuffer" loop="loop" src="">
+                        </video>
+                        <!--进度条-->
+                        <div id="uJdT" style="width:200px;height:18px;position: absolute;top: 157px;left: 113px;display:none;">
+                            <div class="layui-progress layui-progress-big" lay-showPercent="true" lay-filter="demo">
+                                <div class="layui-progress-bar layui-bg-red" lay-percent="0%"></div>
+                            </div>
+                        </div>
+                        <!--删除按钮-->
+                        <div id="uVidDel" style="position: absolute;left: 60px;top: 18px;color: red;display: none;cursor: pointer;"><?php echo $lable['delete']; ?></div>
+                        <div id="uDisplay">
+                            <input type="text" id="urlUpload"  placeholder="Youtube link or Bilibili link" class="layui-input">
+                        </div>
+                    </div>
+                    <div class="layui-btn layui-btn-sm urlUploadLogo" style="margin-left: 20px;" id="uChoiceVid" ><?php echo $lable['shangchuan']; ?></div>
                     <br/>
                 </div>
                 <div class="layui-form-item">
@@ -543,6 +590,78 @@
             $('#address').val('');
             $('#x').val('');
             $('#y').val('');
+        });
+        //更改视频div显示
+        $('.upBtn').click(function () {
+            $(".upBtn").removeClass("layui-btn-primary ");
+            $(".urlBtn").addClass("layui-btn-primary");
+            $('.one-video').show();
+            $('.two-video').hide();
+            $('.upNotice').show();
+            $('.urlNotice').hide();
+        });
+        $('.urlBtn').click(function () {
+            $(".urlBtn").removeClass("layui-btn-primary ");
+            $(".upBtn").addClass("layui-btn-primary");
+            $('.one-video').hide();
+            $('.two-video').show();
+            $('.upNotice').hide();
+            $('.urlNotice').show();
+        });
+        //远程上传
+        $('.urlUploadLogo').click(function () {
+            var url = $('#urlUpload').val();
+            $.ajax({
+                type: 'POST',
+                url: "<?=url('house/urlUpload')?>",
+                data:{'url':url},
+                beforeSend: function () {
+                    layer.msg('请稍等...');
+                },
+                success: function(data){
+                    if(data.code == 1){
+                        layer.msg(data.msg);
+                        $('#uLogoPre').show();
+                        // 删除显示
+                        $('#uVidDel').show();
+                        $(".upBtn").addClass("notclick");
+                        $(".urlBtn").addClass("notclick");
+                        //父级样式
+                        $("#urlUploadLogo").removeAttr("style","");
+                        $('#urlUploadLogo').css("padding", "50px");
+                        // 上传显示，选择隐藏
+                        $('#uChoiceVid').hide();
+                        $('#uDisplay').hide();
+                        $('#uLogoPre').css('width','335px');
+                        $('#uLogoPre').css('height','251px');
+                        $('#uLogoPre').attr('src', data.filepath);
+                        $('#video').val(data.filepath);
+                    }else{
+                        layer.msg(data.msg);
+                    }
+                }
+            });
+        });
+
+        // 视频删除,样式重置，上传视频初始化
+        $('#uVidDel').click(function(event){
+            console.log("执行删除");
+            $('#uVidDel').hide();                                               //删除按钮隐藏
+            $(".upBtn").removeClass("notclick");
+            $(".urlBtn").removeClass("notclick");
+            $('#uLogoPre').removeAttr('src');                                   //视频清空地址
+            $('#uLogoPre').css('width','');
+            $('#uLogoPre').css('height','');
+            $('#video').val('');
+            $('#uLogoPre').hide();                                              //视频隐藏
+            $('#uDisplay').show();                                              //提示图标，文字显示
+            $('#urlUploadLogo').css("padding", "20px");                 //父级初始样式
+            $('#urlUploadLogo').css("width", "50%");                    //父级初始样式
+            // 上传隐藏，选择显示
+            $('#uChoiceVid').show();
+            //初始化上传视频组件
+            //upload.render();
+            //event.stopPropagation();                                           //禁止冒泡
         });
         //保存不更新状态
         $('#saveinfo').click(function () {
@@ -622,9 +741,11 @@
                 var isRoom = data.value;
                 if(isRoom == '合租'){
                     $('.roomate').show();
+                    $('#roomate').val(2);
                     $('.entire').hide();
                 }else{
                     $('.roomate').hide();
+                    $('#roomate').val(1);
                     $('.entire').show();
                 }
             });
@@ -654,7 +775,6 @@
                     var address = resp.label;
                     $('#address').val(address);
                     $('#end').hide();
-                    $('#end').removeAttr('readonly');
                     $('#address').show();
                     locationAD(address);
                 }
@@ -699,6 +819,22 @@
                         $('#end').focus();
                         return  layer.msg('我们尚未开展除墨尔本，悉尼，塔州，布里斯班四个地区外的业务，请重新填写地址');
                     }
+                    $.ajax({
+                        type: 'POST',
+                        url: "<?=url('house/getSchoolss')?>",
+                        data: {city:cityNames},
+                        dataType:  'json',
+                        success: function(data){
+                            console.log(data);
+                            var code=data.data;
+                            $("#school").html("<option value=''><?php echo $lable['selectSchoolP']; ?></option>");
+                            $.each(code, function(i, val) {
+                                var option1 = $("<option>").val(val.name).text(val.sname);
+                                $("#school").append(option1);
+                                form.render('select');
+                            });
+                        }
+                    });
                 });
 
             }
@@ -726,7 +862,7 @@
                     success: function(data){
                         console.log(data);
                         var code=data.data;
-                        $("#pm").html("<option value=''></option>");
+                        $("#pm").html("<option value=''>Please Select</option>");
                         $.each(code, function(i, val) {
                             var option1 = $("<option>").val(val.ad_id).text(val.ad_realname);
                             $("#pm").append(option1);
@@ -769,31 +905,37 @@
             form.verify({
                 title: function(value){
                     if(value.length < 2){
-                        return '标题至少得2个字符啊';
+                        return 'Minimum 2 letters';
                     }
                 },addres: function(value){
                     if(!value){
-                        return '请输入正确的地址信息,并在推荐地址里选择！';
+                        return 'Please enter correct Address and Select form options！';
                     }
                 },prices: function(value){
                     if(value <-1){
-                        return '价格不能小于零！';
+                        return 'Price is more than 0！';
                     }
                 },addresss: function(value){
                     var values = value.split(',');
                     if(values.length < 3){
-                        return '请输入正确的地址信息！';
+                        return 'Please enter correct Address！';
                     }
                 }
                 ,imgReg:function (value) {
                     if(value.length <= 0){
-                        return '请上传封面图片';
+                        return 'Please Upload Cover Images';
                     }
                 }
                 ,imgRegCaseType:function () {
                     var len = $(".img_url").length;
-                    if (len > 8) {
-                        return "房源图片不超过8个？";
+                    var types = $("#roomate").val();
+                    if(types == 2){
+                        if (len < 2) {
+                            return "至少上传3张房源图片";
+                        }
+                    }
+                    if (len > 16) {
+                        return "房源图片不超过16张";
                     }
                 }
                 ,urlTest:function(value){
@@ -801,16 +943,36 @@
                         var Expression=/http(s)?:\/\/([\w-]+\.)+[\w-]+(\/[\w- .\/?%&=]*)?/;
                         if(Expression.test(value)){
                         }else{
-                            return "请输入正确的链接！";
+                            return "Please enter Correct Urls！";
                         }
                     }
                 }
                 ,des_tanlent:function () {
                     var len = $(".tags:checked").length;
                     if (len > 6) {
-                        return "房源标签选择数不超过6个？";
+                        return "Maxinum 6 tags？";
                     }
                 }
+            });
+            form.on('select(bu_p_id)', function(data){
+                var id=data.value;
+                $.ajax({
+                    type: 'POST',
+                    url: "<?=url('house/getSchool')?>",
+                    data: {id:id},
+                    dataType:  'json',
+                    success: function(data){
+                        console.log(data);
+                        var code=data.data;
+                        $("#school").html("<option value=''>请选择校区</option>");
+                        $.each(code, function(i, val) {
+                            var option1 = $("<option>").val(val.name).text(val.name);
+                            $("#school").append(option1);
+                            form.render('select');
+                        });
+                        // $("#school").get(0).selectedIndex=0;
+                    }
+                });
             });
             //封面图上传
             upload.render({
@@ -820,8 +982,8 @@
                 ,size: 1024*5
                 ,done: function(res){
                     layer.close(layer.msg());//关闭上传提示窗口
-                    if(res.status == 0) {
-                        return layer.msg(res.message);
+                    if(res.code == 0) {
+                        return layer.msg(res.msg, {icon: 2});
                     }
                     $('#uploadImg').removeClass('layui-upload-drag');
                     $('#logoPreimg').css('width','91%');
@@ -838,7 +1000,7 @@
                 elem: '.uploadLogo'
                 ,auto:false
                 ,url: '<?php echo url("house/upload"); ?>'
-                ,size:10240 //限制文件大小，单位 KB
+                ,size:25600 //限制文件大小，单位 KB
                 ,acceptMime: 'video/mp4'
                 ,ext: 'mp4'
                 ,accept: 'video' //限制文件大小，单位 KB
@@ -849,13 +1011,15 @@
                     element.progress('demo', value+'%');//设置页面进度条
                 }
                 ,choose:function(obj){
-                    console.log("执行上传视频选择")
+                    console.log("执行上传视频选择");
                     obj.preview(function(index, file, result){
-                        console.log("预览视频")
+                        console.log("预览视频");
                         let url = URL.createObjectURL(file);
                         $('#logoPre').show();
                         // 删除显示
                         $('#vidDel').show();
+                        $(".upBtn").addClass("notclick");
+                        $(".urlBtn").addClass("notclick");
                         // 上传显示，选择隐藏
                         // $('#upload-video').show();
                         $('#choiceVid').hide();
@@ -865,25 +1029,34 @@
                         $('#logoPre').css('height','251px');
                         $('#logoPre').attr('src', url);
                         let timer = setTimeout(function(){
+                            console.log(1111111);
                             layer.close(layer.index);
                             let video_time = document.getElementById("logoPre").duration;
                             console.log(video_time);
-                            if(video_time > 125){
-                                layer.msg('上传视频不能超过120秒', {icon: 2})
+                            if(video_time >= 90) {
+                                $('#vidDel').hide();                                               //删除按钮隐藏
+                                $(".upBtn").removeClass("notclick");
+                                $(".urlBtn").removeClass("notclick");
+                                $("#jdT").hide();
+                                $('#logoPre').removeAttr('src');                                   //视频清空地址
+                                $('#logoPre').css('width','');
+                                $('#logoPre').css('height','');
+                                $('#video').val('');
+                                $('#logoPre').hide();                                              //视频隐藏
+                                $('#display').show();                                              //提示图标，文字显示
+                                $('#uploadLogo').addClass("layui-upload-drag");                    //父级初始样式
+                                // 上传隐藏，选择显示
+                                $('#upload-video').hide();
+                                $('#choiceVid').show();
+                                return layer.msg('上传视频不能超过120秒', {icon: 2});
+                            }else{
+                                $("#jdT").show();
+                                $('#logoPre').attr('autoplay', 'autoplay');
+                                console.log("定时器执行，上传点击事件");
+                                $('#upload-video').click();
                             }
                             clearTimeout(timer);
                         },1000);
-                        // 显示进度条
-                        // 上传显示进度条
-                        $("#jdT").show();
-                        // 创建定时器 0.5秒后执行  然后清除定时器，让他只执行一次
-                        var d1 = setInterval(function(){
-                            $('#logoPre').attr('autoplay', 'autoplay');
-                            console.log("定时器执行，上传点击事件")
-                            $('#upload-video').click();
-                            clearTimeout(d1);
-                        },500);
-                        console.log('dingshiqiwancheng');
                     });
                 }
                 ,before: function(input){
@@ -893,21 +1066,42 @@
                     console.log(input)
                 }
                 ,done: function(res){
-                    console.log(res.filepath);
-                    $('#logoPre').removeAttr('src');
-                    $('#video').val('');
-                    layer.close(loading);
-                    $('#video').val(res.filepath);
-                    $('#uploadLogo').removeClass('layui-upload-drag');
-                    $('#logoPre').css('width','335px');
-                    $('#logoPre').css('height','251px');
-                    $('#logoPre').attr('src',"../../../"+res.filepath);
-                    $('#display').hide();
-                    layer.msg(res.msg, {icon: 1, time: 1000});
-                    // 上传完成隐藏进度条  进度条重置，解决再次上传初始为100%的问题
-                    $("#jdT").hide();
-                    $(".layui-bg-red").css("width","");
-                    $(".layui-progress-text").text("0%");
+                    console.log(res);
+                    if(res.code == 1){
+                        layer.msg(res.msg);
+                        console.log(res.filepath);
+                        $('#logoPre').removeAttr('src');
+                        $('#video').val('');
+                        layer.close(loading);
+                        $('#video').val(res.filepath);
+                        $('#uploadLogo').removeClass('layui-upload-drag');
+                        $('#logoPre').css('width','335px');
+                        $('#logoPre').css('height','251px');
+                        $('#logoPre').attr('src',"../../../"+res.filepath);
+                        $('#display').hide();
+                        layer.msg(res.msg, {icon: 1, time: 1000});
+                        // 上传完成隐藏进度条  进度条重置，解决再次上传初始为100%的问题
+                        $("#jdT").hide();
+                        $(".layui-bg-red").css("width","");
+                        $(".layui-progress-text").text("0%");
+                    }else{
+                        $('#vidDel').hide();                                               //删除按钮隐藏
+                        $(".upBtn").removeClass("notclick");
+                        $(".urlBtn").removeClass("notclick");
+                        $("#jdT").hide();
+                        $('#logoPre').removeAttr('src');                                   //视频清空地址
+                        $('#logoPre').css('width','');
+                        $('#logoPre').css('height','');
+                        $('#video').val('');
+                        $('#logoPre').hide();                                              //视频隐藏
+                        $('#display').show();                                              //提示图标，文字显示
+                        $('#uploadLogo').addClass("layui-upload-drag");                    //父级初始样式
+                        // 上传隐藏，选择显示
+                        $('#upload-video').hide();
+                        $('#choiceVid').show();
+                        layer.close(loading);
+                        return layer.msg('shangchuancuowu', {icon: 2});
+                    }
                 }
                 ,error: function(res){
                     layer.msg(res.msg, {icon: 2, time: 1000});
@@ -933,6 +1127,8 @@
                 var upload = layui.upload;
                 console.log("执行删除");
                 $('#vidDel').hide();                                               //删除按钮隐藏
+                $(".upBtn").removeClass("notclick");
+                $(".urlBtn").removeClass("notclick");
                 $("#jdT").hide();
                 $('#logoPre').removeAttr('src');                                   //视频清空地址
                 $('#logoPre').css('width','');
@@ -969,6 +1165,15 @@
                         console.log(error);
                     }
                 })
+            }
+
+        }
+        
+         function checkprice(){
+            var price = $('#price').val();
+            if(price > 9999){
+               layer.alert('租金不超过9999', {icon: 2});
+               $('#price').val('');
             }
 
         }
