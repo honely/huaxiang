@@ -59,7 +59,7 @@ class Rent extends Controller
         if($edit){
             $res['code'] = 1;
             $res['msg'] = '修改成功！';
-            $res['id'] = $edit;
+            $res['id'] = $id;
             return json($res);
         }
         $res['code'] = 0;
@@ -89,21 +89,25 @@ class Rent extends Controller
             $mate['is_colt'] = $this->getColt($mate['id'],$uid);
             $mate['is_like'] = $this->getLikes($mate['id'],$uid);
             $comment = Db::table('tk_comment')
-                ->where(['type' => 2,'repy' => 1,'status' =>1,'tid' => $id])
-                ->order('cid desc')
-                ->limit(20)
-                ->select();
+                    ->where(['type' => 2,'repy' => 1,'status' =>1,'tid' => $id])
+                    //->orderRaw()
+                    ->order('cid desc')
+                    ->limit(2)
+                    ->select();
             if($comment){
+                $loop = new Loops();
                 foreach ($comment as $k => $v){
-                    $comment[$k]['nickname'] = $msg->getUserNick($v['userid']);
-                    $comment[$k]['avatar'] = $msg->getUserAvatar($v['userid']);
+                    $comment[$k]['nickname'] = $loop->getUserNick($v['userid']);
+                    $comment[$k]['avatar'] = $loop->getUserAvatar($v['userid']);
                     $comment[$k]['replys'] = $this->getReplay($v['cid']);
                 }
             }
-            $mate['comment'] = $comment;
+            $commc = Db::table('tk_comment')->where(['type' => 2,'repy' => 1,'status' =>1,'tid' => $id])->count('cid');
             $res['code'] = 1;
             $res['msg'] = '读取成功！';
             $res['data'] = $mate;
+            $res['comment'] = $comment;
+            $res['countc'] = $commc;
             return json($res);
         }
         $res['code'] = 1;
@@ -181,7 +185,7 @@ class Rent extends Controller
         $uid = trim($this->request->param('uid',0));
         //区域里面  热门  学校  所有区
         //热门区域
-        $where = "1 = 1 ";
+        $where = "status = 1 ";
         $keys = trim($this->request->param('keys'));
         if(isset($keys) && !empty($keys) && $keys){
             $where.=" and ( title like '%".$keys."%' or descs like '%".$keys."%' )";
@@ -194,6 +198,11 @@ class Rent extends Controller
         if(isset($type) && !empty($type) && $type){
             $where.=" and type = '".$type."'";
         }
+         //城市
+        $city = trim($this->request->param('city'));
+        if(isset($city) && !empty($city) && $city){
+            $where.=" and city = '".$city."'";
+        }
         //性别
         $sex = trim($this->request->param('sex'));
         if(isset($sex) && !empty($sex) && $sex){
@@ -201,16 +210,20 @@ class Rent extends Controller
         }
         //入住时间最大值 最小值 mintime  结束    maxtime  左边加5天
         $mintime = trim($this->request->param('mintime'));
-        $maxtime = trim($this->request->param('maxtime'));
+        $maxtime = trim($this->request->param('minaxtime'));
         if((isset($mintime) && !empty($mintime) && $mintime) && !$maxtime){
+            $mintime = date('Y-m-d',strtotime($mintime));
             $where.=" and livedate >= '".$mintime."' ";
         }
 
         if((isset($maxtime) && !empty($maxtime) && $maxtime) && !$mintime){
-            $where.=" and livedate  <= '".$maxtime."'";
+            $maxtime = date('Y-m-d',strtotime($maxtime));
+            $where.=" and livedate  <= '".$maxtime."' ";
         }
         if($mintime && $maxtime){
-            $where.= " and ((livedate >= '".$mintime."' and livedate  <= '".$maxtime."')";
+            $mintime = date('Y-m-d',strtotime($mintime));
+            $maxtime = date('Y-m-d',strtotime($maxtime));
+            $where.= " and livedate >= '".$mintime."' and livedate  <= '".$maxtime."' ";
         }
         $page = trim($this->request->param('page','0','intval'));
         $limit = 12;
@@ -218,7 +231,7 @@ class Rent extends Controller
         $result = Db::table('tk_forent')
             ->where($where)
             ->limit(($page)*$limit,$limit)
-            ->field('id,title,type,userid,mdate')
+            ->field('id,title,type,userid,mdate,likes,sex,cdate')
             ->order($order)
             ->select();
         if($result){
@@ -235,16 +248,18 @@ class Rent extends Controller
                 $result[$k]['mdate'] = date('Y-m-d',strtotime($v['mdate']));
                 $result[$k]['avatar'] = $msg->getUserAvatar($v['userid']);
                 $result[$k]['nickname'] = $msg->getUserNick($v['userid']);
-                $result[$k]['sex'] = $msg->getUserSex($v['userid']);
+                $result[$k]['sex'] = $v['sex'] == 1 ? '男' : '女';
             }
             $res['code'] = 1;
             $res['msg'] = '读取成功！';
             $res['data'] = $result;
+            $res['where'] = $where;
             return json($res);
         }
         $res['code'] = 1;
         $res['msg'] = '数据为空！';
         $res['data'] = $result;
+         $res['where'] = $where;
         return json($res);
     }
 
@@ -272,7 +287,7 @@ class Rent extends Controller
         }
         $limit = trim($this->request->param('limit','10'));
         $page = trim($this->request->param('page','0'));
-        $where = "status =1 and userid = ".$uid;
+        $where = "userid = ".$uid;
         $order = 'mdate desc';
         $result = Db::table('tk_forent')
             ->where($where)
@@ -378,7 +393,7 @@ class Rent extends Controller
         header('Access-Control-Allow-Headers:x-requested-with, content-type');
         $id = trim($this->request->param('id'));
         $status = trim($this->request->param('status'));
-        if (!@$id || $status) {
+        if (!@$id || !@$status) {
             $res['code'] = 0;
             $res['msg'] = '缺少参数！';
             return json($res);

@@ -7,6 +7,7 @@ use app\xcx\model\Msgs;
 use app\xcx\model\Subscp;
 use think\Controller;
 use think\Db;
+use think\Image;
 use think\Loader;
 use think\Log;
 
@@ -168,7 +169,7 @@ class Msg extends Controller
                     ]);
 
             }
-            if ($receive['able_sub'] != 1) {
+            if ($receive['able_sub'] <= 0) {
                 //用户拒绝接收消息
                 Db::table('xcx_sub_msg')
                     ->where(['ss_id' => $logId])
@@ -190,6 +191,10 @@ class Msg extends Controller
                         'ss_status' => 2,
                         'ss_remarks' => $data['ss_remarks'] . '2.发送成功：已发送订阅消息到用户手机。',
                     ]);
+                //减少一次消息通知2020年9月28日11:27:17
+                Db::table('tk_user')
+                    ->where(['openid' => $uOpen])
+                    ->setDec('able_sub');
             } else {
                 //发送失败
                 Db::table('xcx_sub_msg')
@@ -338,6 +343,9 @@ class Msg extends Controller
         //检测该用户是否绑定后端平台用户
         $where = "(mp_u_id = " . $uId . " and mp_utype = 1 and mp_isable = 1) or (mp_ul_id = " . $uId . " and mp_ultype = 1 and  mp_isable = 1)";
         $isBindAdmin = $this->isBindAdmin($uId);
+        //用户新消息提醒次数
+        $remindCount = Db::table('tk_user')->where(['id' =>$uId])->field('able_sub')->find();
+        $remindCount = $remindCount['able_sub'];
         $msg = new Loops();
         if ($isBindAdmin) {
             $adId = intval($isBindAdmin['ad_id']);
@@ -381,6 +389,7 @@ class Msg extends Controller
             $res['code'] = 1;
             $res['msg'] = '读取成功1！';
             $res['data'] = $list;
+            $res['remind'] = $remindCount;
             return json($res);
         } else {
             //没有绑定后端平台用户
@@ -420,12 +429,14 @@ class Msg extends Controller
                 $res['code'] = 1;
                 $res['msg'] = '读取成功2！';
                 $res['data'] = $list;
+                $res['remind'] = $remindCount;
                 return json($res);
             }
         }
         $res['code'] = 1;
         $res['msg'] = '数据为空！';
         $res['data'] = null;
+        $res['remind'] = $remindCount;
         return json($res);
     }
 
@@ -581,6 +592,8 @@ class Msg extends Controller
         $mpid = intval(trim($this->request->param('mpid')));
         //会话id
         $uId = intval(trim($this->request->param('uid')));
+        //type 消息类型 1.文本消息 2 图片消息
+        $type = intval(trim($this->request->param('type',1)));
         //会话内容
         //消息接受者信息
         $ulInfo = $this->getUlidAndType($mpid, $uId);
@@ -595,13 +608,16 @@ class Msg extends Controller
             $res['msg'] = '发送内容不能为空！';
             return json($res);
         }
+        Log::write("消息类型type=".$type."&contents=".$content, 'info');
         $data['xcx_msg_mp_id'] = $mpid;
         $data['xcx_msg_uid'] = $uId;
         $data['xcx_msg_ul_id'] = $ulInfo['ul_id'];
         $data['xcx_msg_ul_type'] = $ulInfo['ul_type'];
         //后端发送
         $data['xcx_msg_u_type'] = 1;
+        $data['xcx_msg_type'] = $type;
         $data['xcx_msg_content'] = $content;
+        $data['xcx_msg_hid'] = $ulInfo['hid'];
         date_default_timezone_set("Australia/Melbourne");
         $data['xcx_msg_add_time'] = date('Y-m-d H:i:s');
         $datas['mp_mod_time'] = date('Y-m-d H:i:s');
@@ -610,7 +626,13 @@ class Msg extends Controller
         if($ulInfo['ul_type'] == 2){
             $hid = $ulInfo['hid'];
             $address = $this->getHouseAdd($hid);
-            $this->sendEmail($mpid, $uId, $ulInfo['ul_id'], $content,$address,1);
+            $address = $address['street']."  ".$address['address']."  ".$address['dsn'];
+            $content = $this->getEmailsContent($type,$content);
+            //查看当前消息是否为该房源该回话的第一条消息
+            $isFrist = $this->isFristMsg($mpid,$ulInfo['hid']);
+            Log::write('消息条数：$isFrist=' . $isFrist."房源ID=".$ulInfo['hid']."&contents=".$content, 'info');
+            $isRe = $isFrist > 1 ? 1 : 2;
+            $this->sendEmail($mpid, $uId, $ulInfo['ul_id'], $content,$address,$isRe);
         }
         //更新会话修改时间
         Db::table('xcx_msg_person')->where(['mp_id' => $mpid])->update($datas);
@@ -625,14 +647,31 @@ class Msg extends Controller
         $res['id'] = $sendMsg;
         return json($res);
     }
+    
+    
+    public function isFristMsg($mpid,$hid){
+        $count = Db::table('xcx_msg_content')
+        ->where(['xcx_msg_mp_id' => $mpid,'xcx_msg_hid' => $hid,'xcx_msg_isable' => 1])
+        ->count('xcx_msg_id');
+        return $count;
+    }
+    
+    public function getEmailsContent($type,$content){
+         if($type == 1){
+           return  $content;
+        }else{
+            $str = "<img src='https://".$_SERVER['SERVER_NAME']."/".$content."' style='width:230px;height:230px'/>";
+            return $str; 
+        }
+    }
 
 
     public function getHouseAdd($hid){
         $houseInfo = Db::table('tk_houses')
             ->where(['id' => $hid])
-            ->field('address,street')
+            ->field('address,street,dsn')
             ->find();
-        return $houseInfo ? $houseInfo['street'].' '.$houseInfo['address'] : '';
+        return $houseInfo ? $houseInfo : '';
     }
 
 
@@ -647,7 +686,7 @@ class Msg extends Controller
      */
     public function forwardToMsg($mpid, $uId, $content)
     {
-        Log::write('邮件回复消息转发到站内信：uid=' . $uId . ',$mpid=' . $mpid . ',$content=' . $content, 'info');
+        Log::write('邮件回复消息转发到站内信：uid=' . $uId . ',$mpid=' . $mpid, 'info');
         $ulInfo = $this->getUlidAndType($mpid, $uId);
         if (!$mpid || !$uId) {
             $res['code'] = 0;
@@ -659,6 +698,7 @@ class Msg extends Controller
             $res['msg'] = '发送内容不能为空！';
             return json($res);
         }
+        date_default_timezone_set("Australia/Melbourne");
         $data['xcx_msg_mp_id'] = $mpid;
         $data['xcx_msg_uid'] = $uId;
         $data['xcx_msg_ul_id'] = $ulInfo['ul_id'];
@@ -666,16 +706,29 @@ class Msg extends Controller
         //后端发送
         $data['xcx_msg_u_type'] = 1;
         $data['xcx_msg_content'] = $content;
-        date_default_timezone_set("Australia/Melbourne");
+        $data['xcx_msg_hid'] = $ulInfo['hid'];
         $data['xcx_msg_add_time'] = date('Y-m-d H:i:s');
+        foreach($content as $key => $val){
+            
+            $data['xcx_msg_type'] = $val['type'];
+            $content = $this->getMsgContent($val['type'],$val['msg']);
+            $data['xcx_msg_content'] =  $content;
+            $sendMsg = Db::table('xcx_msg_content')->insertGetId($data);
+            Log::write('转发到站内信：type=' . $val['type'] . ',xcx_msg_content=' . $content, 'info');
+        }
         $datas['mp_mod_time'] = date('Y-m-d H:i:s');
-        $sendMsg = Db::table('xcx_msg_content')->insertGetId($data);
+       
         //更新会话修改时间
         //转发邮件 前端用户不发送邮件
         if($ulInfo['ul_type'] == 2){
             $hid = $ulInfo['hid'];
             if($hid != 0){
                 $address = $this->getHouseAdd($hid);
+                $address = $address['street']."  ".$address['address']."and 房源ID：".$address['dsn'];
+                 //查看当前消息是否为该房源该回话的第一条消息
+                $isFrist = $this->isFristMsg($mpid,$ulInfo['hid']);
+                 Log::write('消息条数：$isFrist=' . $isFrist."房源ID=".$ulInfo['hid'], 'info');
+                $isRe = $isFrist > 1 ? 1 : 2;
                 $this->sendEmail($mpid, $uId, $ulInfo['ul_id'], $content,$address,1);
             }
         }
@@ -691,6 +744,32 @@ class Msg extends Controller
         $res['id'] = $sendMsg;
         return json($res);
     }
+    
+    
+    
+    public function getMsgContent($type,$image){
+        if($type == 1){
+           return  $image;
+        }else{
+            $imageName = "msg".date("His",time())."_".rand(1111,9999).'.png';
+            if (strstr($image,",")){
+                $image = explode(',',$image);
+                $image = $image[1];
+            }
+    
+            $path = "uploads/msgimg/".date("Ymd",time());
+            if (!is_dir($path)){ //判断目录是否存在 不存在就创建
+                mkdir($path,0777,true);
+            }
+            $imageSrc=  $path."/". $imageName;  //图片名字
+            $r = file_put_contents(ROOT_PATH ."public/".$imageSrc, base64_decode($image));//返回的是字节数
+            return $imageSrc; 
+        }
+        
+    }
+    
+    
+    
 
     //邮件转发
     public function sendEmail($mpid, $uId, $ulId, $content,$title,$type)
@@ -702,7 +781,7 @@ class Msg extends Controller
         Log::write($pre.'New enquiry from '.$fromName.' via Welhome', 'info');
         $subject = $pre.'New enquiry from '.$fromName.' via Welhome';
         $emails = new Mailer();
-        $content=$content."for ".$title;
+        $content=$content."<br/> <br/> <br/> for address:【".$title."】";
         //根据消息id和发送者id判断接收人姓名和邮箱
         $user = $this->getUlInfo($mpid, $uId);
         Log::write('邮件转发：uid=' . $uId . ',$mpid=' . $mpid . ',$content=' . $content, 'info');
@@ -782,6 +861,9 @@ class Msg extends Controller
                     if ($v['xcx_msg_uid'] == $uid) {
                         $msgList[$k]['xcx_msg_uid'] = $uid;
                     }
+                    if($v['xcx_msg_type'] == 2){
+                        $msgList[$k]['xcx_msg_content'] = "https://".$_SERVER['SERVER_NAME']."/".$v['xcx_msg_content'];
+                    }
                 }
             } else {
                 foreach ($msgList as $k => $v) {
@@ -789,6 +871,10 @@ class Msg extends Controller
                         Db::table('xcx_msg_content')
                             ->where(['xcx_msg_mp_id' => $mpid, 'xcx_msg_isable' => 1, 'xcx_msg_ul_id' => $uid])
                             ->update(['xcx_msg_isread' => 1]);
+                    
+                    }
+                    if($v['xcx_msg_type'] == 2){
+                        $msgList[$k]['xcx_msg_content'] = "https://".$_SERVER['SERVER_NAME']."/".$v['xcx_msg_content'];
                     }
                 }
             }
@@ -803,7 +889,7 @@ class Msg extends Controller
                 ->column('mp_hid');
             $field = 'id,type,title,house_room,price,toilet,car,house_type';
             $houses = Db::table('tk_houses')
-                ->where(['id' => $hid])
+                ->where(['id' => $hid[0]])
                 ->field($field)
                 ->find();
             $res['code'] = 1;
@@ -1075,6 +1161,210 @@ class Msg extends Controller
     {
         $message = json_encode($message);
         return preg_replace("#(\\\ud[0-9a-f]{3})#i", "", $message);
+    }
+
+
+    public function sendAdmin(){
+        header("Access-Control-Allow-Origin:*");
+        header('Access-Control-Allow-Methods:POST');
+        header('Access-Control-Allow-Headers:x-requested-with, content-type');
+        $hid = trim($this->request->param('hid'));
+        $uid = trim($this->request->param('uid'));
+        $name = trim($this->request->param('name'));
+        $phone = trim($this->request->param('phone'));
+        $email = trim($this->request->param('email'));
+        $save = trim($this->request->param('is_save'));
+        $type = trim($this->request->param('type'));
+        $content = trim($this->request->param('content'));
+        if(!$hid || !$name || !$phone ||  !$type || !$uid){
+            $res['code'] = 2;
+            $res['msg'] = '缺少参数！';
+            return json($res);
+        }
+        //更新用户信息
+        if($save == 1){
+            Db::table('tk_user')->where(['id' => $uid])->update(['tel' => $phone,'email' => $email,'real_name' => $name]);
+        }
+
+        $house = Db::table('tk_houses')
+            ->where(['id' => $hid])
+            ->field('street,address,pm')
+            ->find();
+        $loop = new Loops();
+        $address = $house['street'].''.$house['address'];
+        $adminEmail = $loop->getAdminEmail($house['pm']);
+        if($content != ''){
+            //发送站内信
+            $msgm = new Msgs();
+            $Touchid = $msgm->createTouch($uid, $house['pm'], $hid);
+            $this->sendAmsg($Touchid,$uid,$content);
+        }
+        $type = $this->forType($type);
+        $mailer = new Mailer();
+        $mpid = $Touchid;
+        $uId = $uid;
+        $formName = $loop->getUserNick($uId);
+        $res = $mailer->mailPm($type,$adminEmail,$name,$mpid,$uId,$formName,$phone,$address,$content);
+        if(!$res){
+            return json(['code'=>0,'msg'=>'发送失败！请联系管理员']);
+        }else{
+            return json(['code'=>1,'msg'=>'发送成功！']);
+        }
+        return json(['code'=>1,'msg'=>'发送成功！']);
+    }
+
+
+
+    //对于一个房源新发送一条消息
+    public function sendAmsg($mpid,$uId,$content){
+        $ulInfo = $this->getUlidAndType($mpid, $uId);
+        $data['xcx_msg_mp_id'] = $mpid;
+        $data['xcx_msg_uid'] = $uId;
+        $data['xcx_msg_ul_id'] = $ulInfo['ul_id'];
+        $data['xcx_msg_ul_type'] = $ulInfo['ul_type'];
+        $data['xcx_msg_u_type'] = 1;
+        $data['xcx_msg_type'] = 1;
+        $data['xcx_msg_content'] = $content;
+        date_default_timezone_set("Australia/Melbourne");
+        $data['xcx_msg_add_time'] = date('Y-m-d H:i:s');
+        $datas['mp_mod_time'] = date('Y-m-d H:i:s');
+        $data['xcx_msg_hid'] = $ulInfo['hid'];
+        Db::table('xcx_msg_content')->insertGetId($data);
+        //更新会话修改时间
+        Db::table('xcx_msg_person')->where(['mp_id' => $mpid])->update($datas);
+    }
+
+
+    public function forType($type){
+        switch ($type){
+//        Inspection/ Available Date/ Application/ Length of lease
+            case 1:
+                $room = 'Inspection';
+                break;
+            case 2:
+                $room = 'Length of lease';
+                break;
+            case 3:
+                $room = 'Available Date';
+                break;
+            case 4:
+                $room = 'Application';
+                break;
+            default:
+                $room ='Others';
+        }
+        return $room;
+    }
+
+   public function upImg(){
+        header("Access-Control-Allow-Origin:*");
+        header('Access-Control-Allow-Methods:POST');
+        header('Access-Control-Allow-Headers:x-requested-with, content-type');
+        $path_date=date("Ym",time());
+        $file = isset($_FILES['file']['name']);
+        if($file){
+            $file = $this->request->file('file');
+            $file_type = $file->getInfo()['type'];
+            $size = false;
+            if(!in_array($file_type, ['image/jpg','image/png', 'image/jpeg', 'video/mp4', 'video/MP4'])) {
+                return json(array('code'=>0,'path'=>'','msg'=> '系统仅支持jpg,jpeg,png格式图片,或MP4格式视频!'));
+            }
+            if(in_array($file_type, ['image/jpg','image/png', 'image/jpeg'])) {
+                $config = [
+                    'size' => 1024 * 1024 * 5,
+                    'ext' => 'jpg,png,jpeg'
+                ];
+                $size = $file->validate($config);
+            }
+            if(in_array($file_type, ['video/mp4','video/MP4'])) {
+                $config = [
+                    'size' => 1024 * 1024 * 25,
+                    'ext' => 'mp4,MP4'
+                ];
+                $size = $file->validate($config);
+            }
+            if($size){
+                $info = $file->move(ROOT_PATH . 'public' . DS . 'uploads/msg/'.$path_date.'/');
+                if($info){
+                    $path = 'uploads/msg/'.$path_date.'/'.$info->getSaveName();
+                    //判断一下图片宽高，如果比例长宽比超过2.5：1，则认定为长图
+                    $extension = $info->getExtension();
+                    if(in_array($extension, ['mp4', 'MP4'])) {
+                        return json(array('code'=>1,'path'=>$path,'msg'=> '图片上传成功！'));
+                    }
+                    $check = $this->checkImg($path);
+                    if($check == 2){
+                        $path = $this->compImages($path);
+                        return json(array('code'=>1,'path'=>$path,'msg'=> '图片上传成功！'));
+                    } else {
+                        return json(array('code'=>0,'path'=>'','msg'=> '为方便浏览房源实景，请勿上传长图！'));
+                    }
+                }else{
+                    if($file->getError() == '上传文件大小不符！'){
+                        return json(array('code'=>0,'path'=>'','msg'=> '文件大小超过5MB，请压缩后重新上传'));
+                    }elseif ($file->getError() == '上传文件后缀不允许'){
+                        return json(array('code'=>0,'path'=>'','msg'=> '系统仅支持jpg,jpeg,png格式图片!'));
+                    }else{
+                        return json(array('code'=>0,'path'=>'','msg'=> '图片上传失败,请联系管理员！<br/>错误信息：'.$file->getError()));
+                    }
+                }
+            }else{
+                return json(array('code'=>0,'path'=>'','msg'=> '文件大小不超过10M，或格式错误！'));
+            }
+        }else{
+            return json(array('code'=>0,'path'=>'','msg'=> '没有接收到文件,请在手机上的小程序重试！'));
+        }
+    }
+    public function checkImg($filePath){
+        $image = Image::open($filePath);
+        //长宽比超过2.5：1
+        $w = $image->width();
+        $h = $image->height();
+        $scale = $h / $w;
+        $default = 2.5;
+        if($scale > $default) {
+            //程序删掉这个图片
+            if(file_exists($filePath)){
+                unlink($filePath);
+            }
+            return 1;
+        } else {
+            return 2;
+        }
+    }
+
+    //压缩大于1.5m的房源图片
+    public function compImages($files){
+        $file = "./".$files;
+        $size = filesize($file);
+        $imgSize = ceil($size/1024);
+        $Size1 = 1.5*1024;
+        $Size2 = 2.5*1024;
+        $Size3 = 3*1024;
+        $Size4 = 6*1024;
+        if($Size1 < $imgSize){
+            return $file;
+        }elseif($Size2 > $imgSize && $imgSize > $Size1){
+            $this->compressImg($file,80);
+        }elseif($Size3 > $imgSize && $imgSize > $Size2){
+            $this->compressImg($file,70);
+        }elseif($Size4 > $imgSize && $imgSize > $Size3){
+            $this->compressImg($file,60);
+        }else{
+            $this->compressImg($file,40);
+        }
+        return $files;
+    }
+
+    /***
+     * @param $filePath string 文件路径
+     * @param $quality int 压缩比率
+     * @return mixed
+     */
+    public function compressImg($filePath,$quality){
+        $image = Image::open($filePath);
+        $image->save($filePath,null,$quality);
+        return $filePath;
     }
 
 

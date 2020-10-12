@@ -679,4 +679,40 @@ class User extends Controller
         $res['msg'] = '绑定失败！';
         return json($res);
     }
+    
+    
+    
+    //增加一次消息通知2020年9月28日11:30:48
+    public function incSub(){
+        header("Access-Control-Allow-Origin:*");
+        header('Access-Control-Allow-Methods:POST');
+        header('Access-Control-Allow-Headers:x-requested-with, content-type');
+        $openid = $this->request->param('openid');
+        if (!@$openid) {
+            $res['code'] = 0;
+            $res['msg'] = 'openid为空！';
+            return json($res);
+        }
+        $user = Db::table('tk_user')
+            ->where(['openid' => $openid])
+            ->find();
+        if(!$user){
+            $res['code'] = 0;
+            $res['msg'] = '未找到用户！';
+            return json($res);
+        }
+        $update = Db::table('tk_user')
+            ->where(['openid' => $openid])
+            ->setInc('able_sub');
+        if($update){
+            $res['code'] = 1;
+            $res['msg'] = '操作成功！';
+            return json($res);
+        }
+        $res['code'] = 0;
+        $res['msg'] = '绑定失败！';
+        return json($res);
+    }
+    
+    
 }

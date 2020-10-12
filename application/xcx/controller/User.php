@@ -435,6 +435,7 @@ class User extends Controller{
     public function sendmsg(){
         $mpid = trim($this->request->param('mpid','1','intval'));
         $content = trim($this->request->param('content'));
+        $type = trim($this->request->param('type'));
         $uId = session('adminId');
         //消息接受者信息
         $ulInfo = $this->getUlidAndType($mpid,$uId);
@@ -443,6 +444,7 @@ class User extends Controller{
         $data['xcx_msg_ul_id'] = $ulInfo['ul_id'];
         $data['xcx_msg_ul_type'] = $ulInfo['ul_type'];
         //后端发送
+        $data['xcx_msg_type'] = $type;
         $data['xcx_msg_u_type'] = 2;
         $data['xcx_msg_content'] = $content;
         date_default_timezone_set("Australia/Melbourne");
@@ -451,6 +453,7 @@ class User extends Controller{
         $sendMsg = Db::table('xcx_msg_content')->insertGetId($data);
         //更新会话修改时间
         Db::table('xcx_msg_person')->where(['mp_id' => $mpid])->update($datas);
+        return json(['code' => 1 ,'msg' => '消息发送成功！']);
     }
 
     public function getUlidAndType($mpid,$uId){
@@ -595,6 +598,14 @@ class User extends Controller{
             ->where(['xcx_msg_mp_id' => $mpid,'xcx_msg_isable' =>1])
             ->order('xcx_msg_add_time')
             ->select();
+        $hid = Db::table('xcx_msg_person')
+            ->where(['mp_id' => $mpid])
+            ->column('mp_hid');
+        $field = 'id,title';
+        $houses = Db::table('tk_houses')
+            ->where(['id' => $hid[0]])
+            ->field($field)
+            ->find();
         $user['unickname']=$unickname;
         $user['uavatar']=$uavatar;
         $user['avatar']=$avatar;
@@ -611,10 +622,40 @@ class User extends Controller{
                     $msgList[$k]['postit'] = $uId == $v['xcx_msg_uid'] ? 'message-r': 'message-l';
                 }
             }
-            return json(['code' => 1 ,'msg' => '读取成功！','data' => $msgList,'user' => $user]);
+            return json(['code' => 1 ,'msg' => '读取成功！','data' => $msgList,'user' => $user,'house' =>$houses]);
         }else{
             $msgList = null;
             return json(['code' => 0 ,'msg' => '读取失败！','data' => $msgList,'user' => $user]);
+        }
+    }
+    
+    
+     //通用缩略图上传接口
+    public function upload()
+    {
+        if($this->request->isPost()){
+            $res['code']=1;
+            $res['msg'] = 'Upload SuccessFully！';
+            $file = $this->request->file('file');
+            $config = [
+                'size' => 1024*1024*30
+            ];
+            $size = $file->validate($config);
+            if($size){
+                $info = $file->move(ROOT_PATH . 'public' . DS . 'uploads/amsg');
+                //halt( $info);
+                if($info){
+                    $res['name'] = $info->getFilename();
+                    $res['filepath'] = 'uploads/amsg/'.$info->getSaveName();
+                }else{
+                    $res['code'] = 0;
+                    $res['msg'] = 'Upload Failed！'.$file->getError();
+                }
+            }else{
+                $res['code'] = 0;
+                $res['msg'] = '10M maximum Size！';
+            }
+            return $res;
         }
     }
 

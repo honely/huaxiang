@@ -33,22 +33,14 @@ class Loops extends Model
         return $user ? $user['avaurl'] : '';
     }
 
-
-    public function getUserEmail($uid){
-        $user = Db::table('tk_user')->where(['id' => $uid])->field('email')->find();
-        return $user ? $user['email'] : '';
-    }
-
-    public function getAdminEmail($uid){
-        $user = Db::table('super_admin')->where(['ad_id' => $uid])->field('ad_email')->find();
-        return $user ? $user['ad_email'] : '';
-    }
-
     public function getAdminAvatar($adminId){
         $user = Db::table('super_admin')->where(['ad_id' => $adminId])->field('ad_img')->find();
         return $user['ad_img'] ? 'https://wx.huaxiangxiaobao.com/'.$user['ad_img'] : 'https://wx.huaxiangxiaobao.com/static/logo.png';
     }
-
+     public function getUserSex($uid){
+        $user = Db::table('tk_user')->where(['id' => $uid])->field('sex')->find();
+        return $user ? $user['sex'] : '男';
+    }
     public function getAdminNick($adminId){
         $user = Db::table('super_admin')->where(['ad_id' => $adminId])->field('ad_realname')->find();
         return $user ? $user['ad_realname'] : '外星人';
@@ -65,6 +57,18 @@ class Loops extends Model
         }
         return $userName;
     }
+    
+    
+    
+    public function getUserEmail($uid){
+        $user = Db::table('tk_user')->where(['id' => $uid])->field('email')->find();
+        return $user ? $user['email'] : '';
+    }
+
+    public function getAdminEmail($uid){
+        $user = Db::table('super_admin')->where(['ad_id' => $uid])->field('ad_email')->find();
+        return $user ? $user['ad_email'] : '';
+    }
 
 
     public function getUserNick($uid){
@@ -73,10 +77,6 @@ class Loops extends Model
     }
 
 
-    public function getUserSex($uid){
-        $user = Db::table('tk_user')->where(['id' => $uid])->field('sex')->find();
-        return $user ? $user['sex'] : '男';
-    }
     public function getUserNicks($uid,$admin){
         if($admin == 1){
             $user = Db::table('tk_user')->where(['id' => $uid])->field('nickname')->find();

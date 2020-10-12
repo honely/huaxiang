@@ -143,7 +143,7 @@ class Mailer extends Controller
         $mail->Password = 'test.message';             // SMTP 密码  部分邮箱是授权码(例如163邮箱)
         $mail->SMTPSecure = 'ssl';                    // 允许 TLS 或者ssl协议
         $mail->Port = 465;                            // 服务器端口 25 或者465 具体要看邮箱服务器支持
-
+       
         // 利用会话id使用邮箱
         $mail->SetFrom('testmessage+' . $mpid . 'D' . $uId . '@welho.me', $formName);  //发件人
 
@@ -157,6 +157,69 @@ class Mailer extends Controller
             return json(['code' => 1, 'msg' => '发送成功！']);
         }
     }
+    
+    /**
+     * 邮件发送
+     * @param string $type 咨询类型
+     * @param string $toMail 接收邮件者邮箱
+     * @param string $toName 接收邮件者名称
+     * @param string $mpid 会话id
+     * @param string $uId 接收邮件者用户id
+     * @param string $formName 发送人昵称
+     * @param string $phone 发送人电话
+     * @param string $address 房源地址
+     * @param string $content 消息内容
+     * @return boolean
+     */
+    public function mailPm($type = '入住时间', $toMail = '1149054548@qq.com', $toName = '接收邮件者名称', $mpid = '46', $uId = '78', $formName = '发送人昵称', $phone = '15210030318', $address = '房源地址', $content = '消息内容')
+    {
+        Log::write('邮件转发MailerPm：$toMail=' . $toMail . '$toName' . $toName, 'info');
+        // 拼接html页面
+        $url = "https://".$_SERVER['SERVER_NAME'];
+        $nowTime = date('Y/m/d H:i');
+        $fp = fopen('./public/email.html', "r"); //只读打开模板
+        $body = fread($fp, filesize('./public/email.html'));//读取模板中内容
+        $body = str_replace("{type}", $type, $body);//咨询类型
+        $body = str_replace("{nowTime}", $nowTime, $body);//发送时间
+        $body = str_replace("{url}", $url, $body);//站内回复地址
+        $body = str_replace("{formName}", $formName, $body);//发送人昵称
+        $body = str_replace("{phone}", $phone, $body);//发送人电话
+        $body = str_replace("{address}", $address, $body);//房源地址
+        $body = str_replace("{content}", $content, $body);//消息内容
+        fclose($fp);
+        
+        Loader::import('phpmailer.phpmailer');//加载extend中的自定义类
+        $mail = new PHPMailer();
+        //服务器配置
+        $mail->CharSet = "UTF-8";                     //设定邮件编码
+        $mail->SMTPDebug = 0;                        // 调试模式输出
+        $mail->isSMTP();                             // 使用SMTP
+        $mail->Host = 'mail.welho.me';                // SMTP服务器
+        $mail->SMTPAuth = true;                      // 允许 SMTP 认证
+        $mail->Username = 'testmessage@welho.me';                // SMTP 用户名  即邮箱的用户名
+        $mail->Password = 'test.message';             // SMTP 密码  部分邮箱是授权码(例如163邮箱)
+        $mail->SMTPSecure = 'ssl';                    // 允许 TLS 或者ssl协议
+        $mail->Port = 465;                            // 服务器端口 25 或者465 具体要看邮箱服务器支持
+
+        // 利用会话id使用邮箱
+        $mail->SetFrom('testmessage+' . $mpid . 'D' . $uId . '@welho.me', $formName);  //发件人
+
+        $subject = 'New enquiry from '.$formName.' for '.$address.' via Welhome';
+        $mail->Subject = $subject;
+
+        $mail->MsgHTML($body);
+
+        $mail->AddAddress($toMail, $toName);
+        Log::write('邮件转发MailerPm：$toMail=' . $toMail . '$toName' . $toName, 'info');
+        if (!$mail->send()) {
+             Log::write('失败MailerPm：', 'info');
+            return json(['code' => 0, 'msg' => '发送失败！请联系管理员']);
+        } else {
+            Log::write('成功MailerPm：', 'info');
+            return json(['code' => 1, 'msg' => '发送成功！']);
+        }
+    }
+    
 
     // 获取邮件内容
     public function getEmail()

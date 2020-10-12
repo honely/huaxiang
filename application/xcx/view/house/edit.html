@@ -288,7 +288,7 @@
                     </div>
                 </div>
                 <div class="layui-form-item entire">
-                    <label class="layui-form-label"><span style="color: red;">*</span>{$lable.jiaju}</label>
+                    <label class="layui-form-label">{$lable.jiaju}</label>
                     <div class="layui-input-block">
                         {volist name='all_four' id='vo'}
                         <input type="checkbox" class="checkbox" lay-skin="primary" name="home[{$vo.furn}]" title="{$vo.transtitle}"  {$vo.is_checked ? 'checked' : ''}>
@@ -963,8 +963,8 @@
                 ,size: 1024*5
                 ,done: function(res){
                     layer.close(layer.msg());//关闭上传提示窗口
-                    if(res.code == 0) {
-                        return layer.msg(res.msg, {icon: 2});
+                    if(res.status == 0) {
+                        return layer.msg(res.message);
                     }
                     $('#uploadImg').removeClass('layui-upload-drag');
                     $('#logoPreimg').css('width','91%');
@@ -976,7 +976,8 @@
                 }
             });
 
-            //视频上传
+
+ //视频上传
             upload.render({
                 elem: '.uploadLogo'
                 ,auto:false
@@ -1014,7 +1015,7 @@
                             layer.close(layer.index);
                             let video_time = document.getElementById("logoPre").duration;
                             console.log(video_time);
-                            if(video_time >= 90) {
+                            if(video_time >= 120) {
                                 $('#vidDel').hide();                                               //删除按钮隐藏
                                 $(".upBtn").removeClass("notclick");
                                 $(".urlBtn").removeClass("notclick");
@@ -1088,6 +1089,8 @@
                     layer.msg(res.msg, {icon: 2, time: 1000});
                 }
             });
+
+
         });
     </script>
     {include file="index/footer" /}

@@ -110,7 +110,7 @@ class Index extends Controller
         $unread = $this->getUnreadMsg($adminId);
         $unread = $unread > 100 ? '99+' : $unread;
         $this->assign('unread',$unread);
-        //获取未处理的帮我找房
+         //获取未处理的帮我找房
         $helpread = $this->gethelp();
         $helpread = $helpread > 100 ? '99+' : $helpread;
         $this->assign('helpread',$helpread);
@@ -121,6 +121,13 @@ class Index extends Controller
         $this->assign('lable',$enLab);
         return  $this->fetch();
     }
+    
+     public function gethelp(){
+        $count = Db::table('xcx_helpme')
+            ->where(['h_is_review' =>  2])
+            ->count('h_id');
+        return $count;
+    }
 
     public function changelang(){
         $lang = $this->request->param('lang');
@@ -128,12 +135,7 @@ class Index extends Controller
         session('language',$lang);
         return json(['code' => 1,'msg' => 'success']);
     }
-    public function gethelp(){
-        $count = Db::table('xcx_helpme')
-            ->where(['h_is_review' =>  2])
-            ->count('h_id');
-        return $count;
-    }
+
 
     public function unread(){
         $adminid = session('adminId');

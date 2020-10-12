@@ -37,11 +37,17 @@ class Map extends Controller
         header('Access-Control-Allow-Headers:x-requested-with, content-type');
         $southwest = trim($this->request->param('southwest','-37.89130,144.90010'));
         $northeast = trim($this->request->param('northeast','-37.72855,145.02884'));
+        if(!$southwest || !$northeast){
+            $res['code'] = 0;
+            $res['msg'] = '缺少参数！';
+            return json($res);
+        }
         $sounth = explode(',',$southwest);
         $north = explode(',',$northeast);
         if(!$north[0] || !$north[1] || !$sounth[0] || !$sounth[1]){
             $res['code'] = 0;
             $res['msg'] = '缺少参数！';
+            return json($res);
         }
         $uid = trim($this->request->param('uid'));
         $city = trim($this->request->param('city', '墨尔本'));
@@ -193,31 +199,43 @@ class Map extends Controller
             }
             $where .= " ) ";
         }
-        //宠物
-        $limit = trim($this->request->param('limit', '76'));
-        $page = trim($this->request->param('page', '0'));
-        Log::write('前端用户：' . $uid . '进行了翻页，当前页码' . $page, 'info');
         $order = 'top desc,cdate desc';
-        $field = ' count(`x`) as count,id,type,x,y,thumnail,images';
+       $field = 'id,type,x,y';
         $housem = new Housem();
-        $houses = $housem->readDatas($where, $order, $limit, $page, $field);
+        $houses = Db::table('tk_houses')
+            ->where($where)
+            ->order($order)
+            ->field($field)
+            ->limit(30)
+            ->select();
         $houseCount = $housem->houscount($where);
         if ($houses) {
             //是否收藏
             $collects = $this->getCollects($uid);
             $nowCount = 0;
-            foreach ($houses as $k => $v){
+            $house = [];
+            foreach ($houses as $key => $val) {
+                $sum_x_y = ($val['x'] + $val['y']) . 'str';
+                if(array_key_exists($sum_x_y, $house)) {
+                    $house[$sum_x_y]['count'] += 1;
+                    continue;
+                }
+                $house[$sum_x_y] = $val;
+                $house[$sum_x_y]['count'] = 1;
+            }
+
+            foreach ($house as $k => $v){
                 $colt = in_array($v['id'],$collects,true);
-                $houses[$k]['is_colt'] = $colt ? 1 : 0;
+                $house[$k]['is_colt'] = $colt ? 1 : 0;
                 $nowCount += $v['count'];
                 $count = $v['count'] >9 ? 10 : $v['count'];
-                $houses[$k]['mark_url'] = 'https://oa.huaxiangxiaobao.com/xcx/new/'.$count.'.png';
+                $house[$k]['mark_url'] = 'https://oa.huaxiangxiaobao.com/xcx/new/'.$count.'.png';
             }
             $res['code'] = 1;
             $res['msg'] = '读取成功！';
             $res['totalcount'] = $houseCount;
             $res['nowcount'] = $nowCount;
-            $res['data'] = $houses;
+            $res['data'] = array_column($house, null);
             $res['where'] = $where;
             return json($res);
         }

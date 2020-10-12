@@ -19,7 +19,7 @@ class Collects extends Model
         //更新房源收藏量  浏览类型1房源；2找室友
         if($type == 1 ){
             Db::table('tk_houses')->where(['id' =>$hid])->setInc('collection');
-        }elseif($type == 3){
+        }elseif($type == 3 ){
             Db::table('tk_forent')->where(['id' =>$hid])->setInc('collection');
         }else{
             Db::table('tk_roommates')->where(['id' =>$hid])->setInc('collection');

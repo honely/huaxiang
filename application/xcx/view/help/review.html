@@ -16,6 +16,19 @@
                     </div>
                 </div>
                 <div class="layui-form-item">
+                    <label class="layui-form-label">租房区域</label>
+                    <div class="layui-input-block">
+                        <input type="text" value="{$help.h_regin|default=''}{$help.area|default=''}" readonly class="layui-input">
+                    </div>
+                </div>
+                
+                <div class="layui-form-item">
+                    <label class="layui-form-label">租期</label>
+                    <div class="layui-input-block">
+                        <input type="text" value="{$help.lease_term|default=''}" readonly class="layui-input">
+                    </div>
+                </div>
+                <div class="layui-form-item">
                     <label class="layui-form-label">户型</label>
                     <div class="layui-input-block">
                         <input type="text" value="{$help.h_room_type|default=''}" readonly class="layui-input">
@@ -27,34 +40,24 @@
                         <input type="text" value="{$help.h_house_style|default=''}" readonly class="layui-input">
                     </div>
                 </div>
-                <div class="layui-form-item">
-                    <label class="layui-form-label">租房城市</label>
-                    <div class="layui-input-block">
-                        <input type="text" value="{$help.h_regin|default=''}" readonly class="layui-input">
-                    </div>
-                </div>
-                <div class="layui-form-item">
-                    <label class="layui-form-label">租房区域</label>
-                    <div class="layui-input-block">
-                        <input type="text" value="{$help.area|default=''}" readonly class="layui-input">
-                    </div>
-                </div>
-                <div class="layui-form-item">
-                    <label class="layui-form-label">租房区域</label>
-                    <div class="layui-input-block">
-                        <input type="text" value="{$help.lease_term|default=''}" readonly class="layui-input">
-                    </div>
-                </div>
+                
                 <div class="layui-form-item">
                     <label class="layui-form-label">租房需求</label>
+                     
                     <div class="layui-input-block">
-                        <input type="text" value="{$help.h_need|default=''}" readonly class="layui-input">
+                        <textarea name="h_need" class="layui-textarea">{$help.h_need|default=''}</textarea>
                     </div>
                 </div>
                 <div class="layui-form-item">
                     <label class="layui-form-label">提交时间</label>
                     <div class="layui-input-block">
                         <input type="text" value="{$help.h_addtime|default=''}" readonly class="layui-input">
+                    </div>
+                </div>
+                  <div class="layui-form-item">
+                    <label class="layui-form-label">姓名</label>
+                    <div class="layui-input-block">
+                        <input type="text" value="{$help.h_name|default=''}" readonly class="layui-input">
                     </div>
                 </div>
                 <div class="layui-form-item">

@@ -1,0 +1,208 @@
+---------------------------------------------------------------
+[ 2020-09-24T09:43:46+08:00 ] 127.0.0.1 GET www.huaxiang.com/
+[运行时间：0.218723s] [吞吐率：4.57req/s] [内存消耗：1,643.12kb] [文件加载：47]
+[ info ] [ ROUTE ] array (
+  'type' => 'module',
+  'module' => 
+  array (
+    0 => '',
+    1 => NULL,
+    2 => NULL,
+  ),
+)
+[ info ] [ HEADER ] array (
+  'accept-language' => 'en-US,en;q=0.9,zh-CN;q=0.8,zh;q=0.7',
+  'accept-encoding' => 'gzip, deflate',
+  'accept' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.70 Safari/537.36',
+  'upgrade-insecure-requests' => '1',
+  'connection' => 'close',
+  'host' => 'www.huaxiang.com',
+)
+[ info ] [ PARAM ] array (
+)
+[ info ] [ SESSION ] INIT array (
+  'id' => '',
+  'var_session_id' => '',
+  'prefix' => 'think',
+  'type' => '',
+  'auto_start' => true,
+)
+[ info ] [ VIEW ] D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\thinkphp\tpl\dispatch_jump.tpl [ array (
+  0 => 'code',
+  1 => 'msg',
+  2 => 'data',
+  3 => 'url',
+  4 => 'wait',
+) ]
+[ info ] [ LOG ] INIT File
+---------------------------------------------------------------
+[ 2020-09-24T09:43:49+08:00 ] 127.0.0.1 GET www.huaxiang.com/xcx/login/login.html
+[运行时间：0.091944s] [吞吐率：10.88req/s] [内存消耗：1,568.58kb] [文件加载：46]
+[ info ] [ ROUTE ] array (
+  'type' => 'module',
+  'module' => 
+  array (
+    0 => 'xcx',
+    1 => 'login',
+    2 => 'login',
+  ),
+)
+[ info ] [ HEADER ] array (
+  'cookie' => 'PHPSESSID=r9k4fo72ktge865fgk0hncg4i5',
+  'accept-language' => 'en-US,en;q=0.9,zh-CN;q=0.8,zh;q=0.7',
+  'accept-encoding' => 'gzip, deflate',
+  'referer' => 'http://www.huaxiang.com/',
+  'accept' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.70 Safari/537.36',
+  'upgrade-insecure-requests' => '1',
+  'connection' => 'close',
+  'host' => 'www.huaxiang.com',
+)
+[ info ] [ PARAM ] array (
+  '/xcx/login/login_html' => '',
+)
+[ info ] [ RUN ] app\xcx\controller\Login->login[ D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\application\xcx\controller\Login.php ]
+[ info ] [ VIEW ] D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\public/../application/xcx\view\login\login.html [ array (
+) ]
+[ info ] [ LOG ] INIT File
+---------------------------------------------------------------
+[ 2020-09-24T09:44:28+08:00 ] 127.0.0.1 GET www.huaxiang.com/api/house/getlist
+[ info ] [ ROUTE ] array (
+  'type' => 'module',
+  'module' => 
+  array (
+    0 => 'api',
+    1 => 'house',
+    2 => 'getlist',
+  ),
+)
+[ info ] [ HEADER ] array (
+  'cookie' => 'PHPSESSID=r9k4fo72ktge865fgk0hncg4i5',
+  'accept-language' => 'en-US,en;q=0.9,zh-CN;q=0.8,zh;q=0.7',
+  'accept-encoding' => 'gzip, deflate',
+  'accept' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.70 Safari/537.36',
+  'upgrade-insecure-requests' => '1',
+  'connection' => 'close',
+  'host' => 'www.huaxiang.com',
+)
+[ info ] [ PARAM ] array (
+  '/api/house/getlist' => '',
+)
+[ info ] [ RUN ] app\api\controller\House->getList[ D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\application\api\controller\House.php ]
+[ info ] 获取房源参数lease_term：
+---------------------------------------------------------------
+[ 2020-09-24T09:44:28+08:00 ] 127.0.0.1 GET www.huaxiang.com/api/house/getlist
+[ info ] 租房价格最大值：5000
+---------------------------------------------------------------
+[ 2020-09-24T09:44:28+08:00 ] 127.0.0.1 GET www.huaxiang.com/api/house/getlist
+[ info ] 租房价格最小值：0
+---------------------------------------------------------------
+[ 2020-09-24T09:44:28+08:00 ] 127.0.0.1 GET www.huaxiang.com/api/house/getlist
+[ info ] 卧室house_room：
+---------------------------------------------------------------
+[ 2020-09-24T09:44:28+08:00 ] 127.0.0.1 GET www.huaxiang.com/api/house/getlist
+[ info ] 车位car：
+---------------------------------------------------------------
+[ 2020-09-24T09:44:28+08:00 ] 127.0.0.1 GET www.huaxiang.com/api/house/getlist
+[ info ] 前端用户：进行了翻页，当前页码0
+---------------------------------------------------------------
+[ 2020-09-24T09:44:34+08:00 ] 127.0.0.1 GET www.huaxiang.com/api/house/getlist
+[运行时间：5.696137s] [吞吐率：0.18req/s] [内存消耗：2,791.71kb] [文件加载：58]
+[ info ] [ DB ] INIT mysql
+[ info ] [ CACHE ] INIT File
+[ sql ] [ DB ] CONNECT:[ UseTime:0.360400s ] mysql:host=127.0.0.1;port=3306;dbname=xcxnew;charset=utf8mb4
+[ sql ] [ SQL ] SHOW COLUMNS FROM `tk_houses` [ RunTime:0.498271s ]
+[ sql ] [ SQL ] SELECT `id`,`type`,`title`,`house_room`,`area`,`images`,`price`,`toilet`,`furniture`,`home`,`school`,`address`,`tj`,`top`,`mdate`,`cdate`,`tags`,`live_date`,`car`,`lease_term`,`video`,`is_admin`,`corp`,`pm`,`house_type`,`likes`,`loard_sex`,`loard_job`,`user_id`,`publish_date`,`thumnail` FROM `tk_houses` WHERE  (  status = 1 and is_del = 1 and city = '墨尔本' and ( price <= 5000  and price >= 0  or price = -1 ) )  AND `is_del` = 1 ORDER BY `top` DESC,`cdate` DESC LIMIT 0,10 [ RunTime:0.083921s ]
+[ sql ] [ SQL ] UPDATE `tk_houses`  SET `cover`='uploads/compress/cp1057.png'  WHERE  `id` = 1057 [ RunTime:0.045161s ]
+[ sql ] [ SQL ] UPDATE `tk_houses`  SET `cover`='uploads/compress/cp1054.png'  WHERE  `id` = 1054 [ RunTime:0.001033s ]
+[ sql ] [ SQL ] UPDATE `tk_houses`  SET `cover`='uploads/compress/cp1050.png'  WHERE  `id` = 1050 [ RunTime:0.000802s ]
+[ sql ] [ SQL ] UPDATE `tk_houses`  SET `cover`='uploads/compress/cp1051.png'  WHERE  `id` = 1051 [ RunTime:0.001010s ]
+[ sql ] [ SQL ] UPDATE `tk_houses`  SET `cover`='uploads/compress/cp1049.png'  WHERE  `id` = 1049 [ RunTime:0.000529s ]
+[ sql ] [ SQL ] UPDATE `tk_houses`  SET `cover`='uploads/compress/cp1048.png'  WHERE  `id` = 1048 [ RunTime:0.000551s ]
+[ sql ] [ SQL ] UPDATE `tk_houses`  SET `cover`='uploads/compress/cp1047.png'  WHERE  `id` = 1047 [ RunTime:0.000686s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `tk_user` [ RunTime:0.061271s ]
+[ sql ] [ SQL ] UPDATE `tk_user`  SET `mdate`='2020-09-24 09:44:34'  WHERE  `id` = 0 [ RunTime:0.000577s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `xcx_collect` [ RunTime:0.057847s ]
+[ sql ] [ SQL ] SELECT `cl_house_id` FROM `xcx_collect` WHERE  `cl_user_id` = 0  AND `cl_type` = 1 [ RunTime:0.009106s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `xcx_likes` [ RunTime:0.046192s ]
+[ sql ] [ SQL ] SELECT `tid` FROM `xcx_likes` WHERE  `uid` = 0  AND `type` = 1 [ RunTime:0.000681s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `super_admin` [ RunTime:0.048079s ]
+[ sql ] [ SQL ] SELECT `ad_realname`,`ad_img` FROM `super_admin` WHERE  `ad_id` = 1 LIMIT 1 [ RunTime:0.001125s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `xcx_corp` [ RunTime:0.046717s ]
+[ sql ] [ SQL ] SELECT `cp_logo` FROM `xcx_corp` WHERE  `cp_id` = 1 LIMIT 1 [ RunTime:0.000754s ]
+[ sql ] [ SQL ] SELECT `colour` FROM `xcx_corp` WHERE  `cp_id` = 1 LIMIT 1 [ RunTime:0.000354s ]
+[ sql ] [ SQL ] SELECT `ad_realname`,`ad_img` FROM `super_admin` WHERE  `ad_id` = 1 LIMIT 1 [ RunTime:0.000333s ]
+[ sql ] [ SQL ] SELECT `cp_logo` FROM `xcx_corp` WHERE  `cp_id` = 1 LIMIT 1 [ RunTime:0.000302s ]
+[ sql ] [ SQL ] SELECT `colour` FROM `xcx_corp` WHERE  `cp_id` = 1 LIMIT 1 [ RunTime:0.000426s ]
+[ sql ] [ SQL ] SELECT `ad_realname`,`ad_img` FROM `super_admin` WHERE  `ad_id` = 1 LIMIT 1 [ RunTime:0.000455s ]
+[ sql ] [ SQL ] SELECT `cp_logo` FROM `xcx_corp` WHERE  `cp_id` = 1 LIMIT 1 [ RunTime:0.000865s ]
+[ sql ] [ SQL ] SELECT `colour` FROM `xcx_corp` WHERE  `cp_id` = 1 LIMIT 1 [ RunTime:0.000455s ]
+[ sql ] [ SQL ] SELECT `ad_realname`,`ad_img` FROM `super_admin` WHERE  `ad_id` = 1 LIMIT 1 [ RunTime:0.000389s ]
+[ sql ] [ SQL ] SELECT `cp_logo` FROM `xcx_corp` WHERE  `cp_id` = 1 LIMIT 1 [ RunTime:0.000355s ]
+[ sql ] [ SQL ] SELECT `colour` FROM `xcx_corp` WHERE  `cp_id` = 1 LIMIT 1 [ RunTime:0.000388s ]
+[ sql ] [ SQL ] SELECT `ad_realname`,`ad_img` FROM `super_admin` WHERE  `ad_id` = 1 LIMIT 1 [ RunTime:0.000698s ]
+[ sql ] [ SQL ] SELECT `cp_logo` FROM `xcx_corp` WHERE  `cp_id` = 4 LIMIT 1 [ RunTime:0.000471s ]
+[ sql ] [ SQL ] SELECT `colour` FROM `xcx_corp` WHERE  `cp_id` = 4 LIMIT 1 [ RunTime:0.000369s ]
+[ sql ] [ SQL ] SELECT `ad_realname`,`ad_img` FROM `super_admin` WHERE  `ad_id` = 2 LIMIT 1 [ RunTime:0.000380s ]
+[ sql ] [ SQL ] SELECT `cp_logo` FROM `xcx_corp` WHERE  `cp_id` = 1 LIMIT 1 [ RunTime:0.000550s ]
+[ sql ] [ SQL ] SELECT `colour` FROM `xcx_corp` WHERE  `cp_id` = 1 LIMIT 1 [ RunTime:0.000493s ]
+[ sql ] [ SQL ] SELECT `ad_realname`,`ad_img` FROM `super_admin` WHERE  `ad_id` = 1 LIMIT 1 [ RunTime:0.000411s ]
+[ sql ] [ SQL ] SELECT `cp_logo` FROM `xcx_corp` WHERE  `cp_id` = 1 LIMIT 1 [ RunTime:0.000392s ]
+[ sql ] [ SQL ] SELECT `colour` FROM `xcx_corp` WHERE  `cp_id` = 1 LIMIT 1 [ RunTime:0.000322s ]
+---------------------------------------------------------------
+[ 2020-09-24T09:46:27+08:00 ] 127.0.0.1 GET www.huaxiang.com/api/house/delimg
+[运行时间：0.095227s] [吞吐率：10.50req/s] [内存消耗：1,642.19kb] [文件加载：45]
+[ info ] [ ROUTE ] array (
+  'type' => 'module',
+  'module' => 
+  array (
+    0 => 'api',
+    1 => 'house',
+    2 => 'delimg',
+  ),
+)
+[ info ] [ HEADER ] array (
+  'cookie' => 'PHPSESSID=r9k4fo72ktge865fgk0hncg4i5',
+  'accept-language' => 'en-US,en;q=0.9,zh-CN;q=0.8,zh;q=0.7',
+  'accept-encoding' => 'gzip, deflate',
+  'accept' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.70 Safari/537.36',
+  'upgrade-insecure-requests' => '1',
+  'connection' => 'close',
+  'host' => 'www.huaxiang.com',
+)
+[ info ] [ PARAM ] array (
+  '/api/house/delimg' => '',
+)
+[ info ] [ RUN ] app\api\controller\House->delImg[ D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\application\api\controller\House.php ]
+[ info ] [ LOG ] INIT File
+---------------------------------------------------------------
+[ 2020-09-24T10:31:26+08:00 ] 127.0.0.1 GET www.huaxiang.com/api/house/delimg
+[运行时间：0.135877s] [吞吐率：7.36req/s] [内存消耗：1,616.79kb] [文件加载：44]
+[ info ] [ ROUTE ] array (
+  'type' => 'module',
+  'module' => 
+  array (
+    0 => 'api',
+    1 => 'house',
+    2 => 'delimg',
+  ),
+)
+[ info ] [ HEADER ] array (
+  'cookie' => 'PHPSESSID=r9k4fo72ktge865fgk0hncg4i5',
+  'accept-language' => 'en-US,en;q=0.9,zh-CN;q=0.8,zh;q=0.7',
+  'accept-encoding' => 'gzip, deflate',
+  'accept' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.70 Safari/537.36',
+  'upgrade-insecure-requests' => '1',
+  'cache-control' => 'max-age=0',
+  'connection' => 'close',
+  'host' => 'www.huaxiang.com',
+)
+[ info ] [ PARAM ] array (
+  '/api/house/delimg' => '',
+)
+[ info ] [ RUN ] app\api\controller\House->delImg[ D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\application\api\controller\House.php ]
+[ info ] [ LOG ] INIT File

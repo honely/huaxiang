@@ -50,7 +50,7 @@ class Subscp extends Model
             "template_id" => "9NEqSIAuFl9AjDItgILGP1iNAP-vgCOWEVuiGYie1a0",
             //指定发送到开发版
             "miniprogram_state" => "formal",
-            "page" => "pages/list/list",
+            "page" => "pages/index/index",
             'data' =>[
                 'thing4' =>[
                     'value' => $uNick
@@ -124,9 +124,9 @@ class Subscp extends Model
 
     public function getPages($tid,$type){
         if($type == 1){
-            $pages = "pages/cotenancyDetail/cotenancyDetail?source=service&listId=".$tid;
+            $pages = "pages/cotenancyDetail/cotenancyDetail?listId=".$tid;
         }else{
-            $pages = "pages/list/list";
+            $pages = "pages/index/index";
         }
         return $pages;
     }

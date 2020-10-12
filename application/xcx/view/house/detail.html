@@ -115,7 +115,7 @@
                     </div>
                 </div>
                 <div class="layui-form-item roomate">
-                    <label class="layui-form-label"><span style="color: red;">*</span>{$lable.shifoujiaju}</label>
+                    <label class="layui-form-label">{$lable.shifoujiaju}</label>
                     <div class="layui-input-block">
                         <input type="radio" name="is_fur" disabled value="否" title="{$lable.bujiaju}" {if condition="$house.is_fur eq '否'"}checked{/if}>
                         <input type="radio" name="is_fur" disabled value="是" title="{$lable.baojiaju}" {if condition="$house.is_fur eq '是'"}checked{/if}>
@@ -209,7 +209,7 @@
                     </div>
                 </div>
                 <div class="layui-form-item  entire">
-                    <label class="layui-form-label"><span style="color: red;">*</span>{$lable.jiaju}</label>
+                    <label class="layui-form-label">{$lable.jiaju}</label>
                     <div class="layui-input-block">
                         {volist name='all_four' id='vo'}
                         <input type="checkbox" class="checkbox" disabled lay-skin="primary" name="home[{$vo.furn}]" title="{$vo.transtitle}"  {$vo.is_checked ? 'checked' : ''}>
@@ -284,7 +284,7 @@
                 {if condition="$house.econtent eq null"}
                 <div class="layui-form-item layui-form-text" id="preTrans">
                     <div class="layui-input-block">
-                        <textarea placeholder="{$lable.houseDescP}" style="height: 400px;" maxlength="5000" name="content" id="contents" class="layui-textarea">{$house.content}</textarea>
+                        <textarea placeholder="{$lable.houseDescP}" style="height: 400px;" maxlength="5000" readonly name="content" id="contents" class="layui-textarea">{$house.content}</textarea>
                     </div>
                 </div>
                 {else/}

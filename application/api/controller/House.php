@@ -586,9 +586,7 @@ class House extends Controller
         header('Access-Control-Allow-Methods:POST');
         header('Access-Control-Allow-Headers:x-requested-with, content-type');
         $img = trim($this->request->param('img'));
-        $path_date=date("Ym",time());
-        $path_time = date("Ymd",time());
-        $file = 'uploads/house/'.$path_date.'/'.$path_time.'/'.$img;
+        $file = $img;
         if(file_exists($file)){
             if (!unlink($file)){
                 $res['code'] = 0;

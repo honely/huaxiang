@@ -165,10 +165,14 @@
         overflow-y: auto;
         height: 582px;
     }
+    .imgs{
+        width: 150px;
+        height: 150px;
+    }
 </style>
 <div style="margin: 20px;">
     <span class="layui-breadcrumb" lay-separator=">">
-        <a><cite>站内信{$Think.version}</cite></a>
+        <a><cite>站内信</cite></a>
     </span>
 </div>
 <div>
@@ -196,6 +200,7 @@
                 <span class="layim-chat-username" id="current-nick">花香小宝</span>
                 <input type="hidden" id="avatar" value="{$avatar}">
                 <input type="hidden" id="nickname" value="{$nickname}">
+                <p style="margin-top: 10px;" id="houseInfo">房源标题：<span style="color: #00a2d4" id="houseName">South Yarra 阳光大床房转租 赠送家具</span> <span class="layui-btn layui-btn-xs" id="showDetail" data-id="0">查看详情</span></p>
             </div>
             <div class="layim-chat-main">
                 <ul id="msglist">
@@ -204,11 +209,13 @@
             </div>
             <div class="foooter" style="display: none" id="foooter">
                 <div class="layui-form-item layui-form-text" style="position: fixed;bottom: 0;width: 100%;height: 25px;">
-                    <div class="layui-input-inline" style="width: 70%">
+                    <div class="layui-input-inline" style="width: 60%">
                         <input type="text" placeholder="请输入你想说的话..." class="layui-input" id="content" style="border-radius: 105px;">
+                        <input type="text" class="layui-input" id="msgType" style="border-radius: 105px;" value="1">
                     </div>
                     <div class="layui-input-inline">
                         <span class="layui-btn" id="send" data-id="0" style="border-radius: 50px;">发送</span>
+                        <span class="layui-btn" id="uploadImg" data-id="0" style="border-radius: 50px;">选择图片</span>
                     </div>
                 </div>
             </div>
@@ -221,9 +228,57 @@
         position: fixed;
         width: 100%;
         bottom: 0;
-
     }
 </style>
+<script>
+    layui.use(['form', 'jquery','upload'], function(){
+        var form = layui.form
+            ,upload = layui.upload
+            ,$ = layui.jquery;
+        //封面图上传
+
+        upload.render({
+            elem: '#uploadImg'
+            ,url: "<?=url('user/upload')?>?"
+            ,exts: 'jpg|png|jpeg|gif|bmp|JPG'
+            ,size: 1024*5
+            ,multiple: true
+            ,done: function(res){
+                var mpid = $('#send').attr('data-id');
+                var content = res.filepath;
+                $.ajax({
+                    type: 'POST',
+                    url: "<?=url('user/sendmsg')?>",
+                    data: {mpid:mpid,content:content,type:2},
+                    dataType:  'json',
+                    success: function(data){
+                        layer.msg(data.msg);
+                        var avatar = $('#avatar').val();
+                        var nickname = $('#nickname').val();
+                        var now = new Date();
+                        var year = now.getFullYear(); //得到年份
+                        var month = now.getMonth()+1;//得到月份
+                        var date = now.getDate();//得到日期
+                        var hour = now.getHours();//得到小时
+                        var minu = now.getMinutes();//得到分钟
+                        var sec = now.getSeconds();//得到秒
+                        var nowDate = year+'-'+month+'-'+date+' '+hour+':'+minu+':'+sec;
+                        var html ='<li class="myMsg li">\n' +
+                            '                        <div class="layim-chat-user">\n' +
+                            '                            <img class="m-img" src="'+avatar+'" alt="">\n' +
+                            '                            <cite class="mycite">\n' +
+                            '                                <i>'+nowDate+'</i>\n' +
+                            '                                '+nickname+'\n' +
+                            '                            </cite>\n' +
+                            '                        </div><img class="layim-chat-text imgs" src="__PUBLIC__/'+content+'"  onclick="previewImg(this)">\n' +
+                                '                    </li>';
+                        $('#msglist').append(html);
+                    }
+                });
+            }
+        });
+    });
+</script>
 <script>
     $(document).keyup(function(event){
         if(event.keyCode ==13){
@@ -238,6 +293,7 @@
             var hour = now.getHours();//得到小时
             var minu = now.getMinutes();//得到分钟
             var sec = now.getSeconds();//得到秒
+            var type =$("#msgType").val();
             var nowDate = year+'-'+month+'-'+date+' '+hour+':'+minu+':'+sec;
             var html ='<li class="myMsg li">\n' +
                 '                        <div class="layim-chat-user">\n' +
@@ -246,25 +302,32 @@
                 '                                <i>'+nowDate+'</i>\n' +
                 '                                '+nickname+'\n' +
                 '                            </cite>\n' +
-                '                        </div>\n' +
-                '                        <div class="layim-chat-text">\n' +
-                '                            '+content+'\n' +
-                '                        </div>\n' +
-                '                    </li>';
+                '                        </div>\n';
+            if(type == 1){
+                html +='<div class="layim-chat-text">\n' +
+                    '                            '+content+'\n' +
+                    '                        </div>\n' +
+                    '                    </li>';
+            }else{
+                html +='<img class="layim-chat-text imgs" src="__PUBLIC__/'+content+'"  onclick="previewImg(this)">\n' +
+                    '                    </li>';
+            }
             $('#msglist').append(html);
             $('#content').val('');
             $.ajax({
                 type: 'POST',
                 url: "<?=url('user/sendmsg')?>",
-                data: {mpid:mpid,content:content},
+                data: {mpid:mpid,content:content,type:type},
                 dataType:  'json',
                 success: function(data){
+                    layer.msg(data.msg);
                 }
             });
         }
     });
     $($(".layim-chat-main")).height(document.documentElement.clientHeight-225);
     $($(".layui-left-chat")).height(document.documentElement.clientHeight-65);
+    $($("#houseInfo")).hide();
     $('#send').click(function () {
         var mpid = $('#send').attr('data-id');
         var avatar = $('#avatar').val();
@@ -277,6 +340,7 @@
         var hour = now.getHours();//得到小时
         var minu = now.getMinutes();//得到分钟
         var sec = now.getSeconds();//得到秒
+        var type =$("#msgType").val();
         var nowDate = year+'-'+month+'-'+date+' '+hour+':'+minu+':'+sec;
         var html ='<li class="myMsg li">\n' +
             '                        <div class="layim-chat-user">\n' +
@@ -285,26 +349,48 @@
             '                                <i>'+nowDate+'</i>\n' +
             '                                '+nickname+'\n' +
             '                            </cite>\n' +
-            '                        </div>\n' +
-            '                        <div class="layim-chat-text">\n' +
-            '                            '+content+'\n' +
-            '                        </div>\n' +
-            '                    </li>';
+            '                        </div>\n' ;
+        if(type == 1){
+            html +='<div class="layim-chat-text">\n' +
+                '                            '+content+'\n' +
+                '                        </div>\n' +
+                '                    </li>';
+        }else{
+            html +='<img class="layim-chat-text imgs" src="__PUBLIC__/'+content+'"  onclick="previewImg(this)">\n' +
+                '                    </li>';
+        }
         $('#msglist').append(html);
         $('#content').val('');
         $.ajax({
             type: 'POST',
             url: "<?=url('user/sendmsg')?>",
-            data: {mpid:mpid,content:content},
+            data: {mpid:mpid,content:content,type:type},
             dataType:  'json',
             success: function(data){
+                layer.msg(data.msg);
             }
         });
-    })
+    });
+    $('#showDetail').click(function () {
+        layui.use(['layer'], function(){
+            var layer = layui.layer;
+            var id = $('#showDetail').attr('data-id');
+            layer.open({
+                type: 2,
+                title: '查看详情',
+                shadeClose: true,
+                shade: false,
+                maxmin: true,
+                area: ['80%', '80%'],
+                content: "<?=url('house/detail')?>?id="+id
+            });
+        })
+    });
     $("#chat-list li").click(function(){
         $(this).addClass("layim-this").siblings().removeClass("layim-this");
         $('#foooter').show();
         $("#msglist").empty();
+        $("#houseInfo").show();
         //假装消除未读
         $(this).children('.friend-count').remove();
         var img = $(this).children('.friend-img').attr('src');
@@ -325,6 +411,8 @@
                     console.log(msgs);
                     var user = data.user;
                     console.log(user);
+                    var house = data.house;
+                    console.log(house);
                     var str = '';
                     for (var i = 0; i <msgs.length; i++) {
                         if(msgs[i].postit == 'message-r'){
@@ -336,11 +424,16 @@
                                 '                                <i>'+msgs[i].xcx_msg_add_time+'</i>\n' +
                                 '                                '+user.nickname+'\n' +
                                 '                            </cite>\n' +
-                                '                        </div>\n' +
-                                '                        <div class="layim-chat-text">\n' +
-                                '                            '+msgs[i].xcx_msg_content+'\n' +
-                                '                        </div>\n' +
-                                '                    </li>';
+                                '                        </div>\n';
+                            if(msgs[i].xcx_msg_type == 1){
+                                str +='<div class="layim-chat-text">\n' +
+                                    '                            '+msgs[i].xcx_msg_content+'\n' +
+                                    '                        </div>\n' +
+                                    '                    </li>';
+                            }else{
+                                str +='<img class="layim-chat-text imgs" src="__PUBLIC__/'+msgs[i].xcx_msg_content+'"  onclick="previewImg(this)">\n' +
+                                    '                    </li>';
+                            }
                         }else{
                             //消息是你的消息在左边
                             str +='<li class="u-msg li">\n' +
@@ -350,21 +443,45 @@
                                 '                                <i>'+msgs[i].xcx_msg_add_time+'</i>\n' +
                                 '                               '+user.unickname+'\n' +
                                 '                            </cite>\n' +
-                                '                        </div>\n' +
-                                '                        <div class="ulayim-chat-text">\n' +
-                                '                            '+msgs[i].xcx_msg_content+'\n' +
-                                '\n' +
-                                '                        </div>\n' +
-                                '                    </li>';
+                                '                        </div>\n';
+                            ;
+                            if(msgs[i].xcx_msg_type == 1){
+                                str +='<div class="ulayim-chat-text">\n' +
+                                    '                            '+msgs[i].xcx_msg_content+'\n' +
+                                    '                        </div>\n' +
+                                    '                    </li>';
+                            }else{
+                                str +='<img class="ulayim-chat-text imgs" src="__PUBLIC__/'+msgs[i].xcx_msg_content+'"  onclick="previewImg(this)">\n' +
+                                    '                    </li>';
+                            }
 
                         }
                     }
                     $("#msglist").html(str);
+                    $("#houseName").html(house.title);
+                    $("#showDetail").attr('data-id',house.id);
                 }else{
 
                 }
             }
         });
     });
+    function previewImg(obj) {
+        var img = new Image();
+        img.src = obj.src;
+        var imgHtml = "<img src='" + obj.src + "' />";
+        layui.use(['layer'], function(){
+            var layer = layui.layer;
+            layer.open({
+                type: 1,
+                shade: false,
+                title: false, //不显示标题
+                area: [600+'px', 480+'px'],
+                content: imgHtml,
+                cancel: function () {
+                }
+            });
+        });
+    }
 </script>
 {include file="index/footer" /}

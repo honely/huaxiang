@@ -163,7 +163,7 @@ class House extends Controller{
                 $where.=" and content like '%".$keywords."%' ";
             }
         }
-        //公司
+               //公司
         if($keytype == 6){
             if(isset($keywords) && !empty($keywords)){
                 $users = Db::table('xcx_corp')
@@ -719,7 +719,7 @@ class House extends Controller{
             }else{
                 $data['images'] ='';
             }
-            $data['publish_date'] = date('Y-m-d H:i:s');
+            //$data['publish_date'] = date('Y-m-d H:i:s');
             $data['mdate'] = date('Y-m-d H:i:s');
             $data['cdate'] = date('Y-m-d H:i:s');
             $data['status'] = $status ==0 ? 1 : 0;
@@ -1807,16 +1807,8 @@ class House extends Controller{
     }
 
     public function myData(){
-        //$userId = session('ad_wechat');
         $adminId = session('adminId');
-        //$corpId = session('ad_corp');
-        //我的房源显示我发布的房源或者pm是我的房源
         $where ='is_del = 1 and  ( user_id = '.$adminId.' or pm = '.$adminId.') and is_admin = 2 ';
-//        if($userId){
-//            $where ='is_del = 1 and  (( user_id = '.$userId.' and is_admin = 1 ) or ( user_id = '.$adminId.' and is_admin = 2))';
-//        }else{
-//            $where ='is_del = 1 and  user_id = '.$adminId.' and is_admin = 2 ';
-//        }
         $keywords = trim($this->request->param('keywords'));
         $time = trim($this->request->param('time'));
         $keytype = trim($this->request->param('keytype'));
@@ -1862,6 +1854,42 @@ class House extends Controller{
         if(isset($status) && !empty($status) && $status){
             $status = $status == 3 ? 0:$status;
             $where.=" and status = ".$status;
+        }
+         //公司
+        if($keytype == 6){
+            if(isset($keywords) && !empty($keywords)){
+                $users = Db::table('xcx_corp')
+                    ->where("cp_name like '%".$keywords."%'")
+                    ->column('cp_id');
+                $userStr = '';
+                if($users){
+                    foreach ($users as $k => $v){
+                        $userStr.= ",'".$v."'";
+                    }
+                }
+                $userIdsStr = trim($userStr,',');
+                if($userIdsStr){
+                    $where .=' and  ( corp  in ('.$userIdsStr.') and is_admin = 2 ) ';
+                }
+            }
+        }
+        //PM
+        if($keytype == 7){
+            if(isset($keywords) && !empty($keywords)){
+                $users = Db::table('super_admin')
+                    ->where("ad_realname like '%".$keywords."%'")
+                    ->column('ad_id');
+                $userStr = '';
+                if($users){
+                    foreach ($users as $k => $v){
+                        $userStr.= ",'".$v."'";
+                    }
+                }
+                $userIdsStr = trim($userStr,',');
+                if($userIdsStr){
+                    $where .=' and  ( pm  in ('.$userIdsStr.') and is_admin = 2 ) ';
+                }
+            }
         }
 
         if(isset($time) && !empty($time)){

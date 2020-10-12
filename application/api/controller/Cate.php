@@ -257,7 +257,6 @@ class Cate extends Controller
         $count = Db::table('tk_houses')
             ->where($wheres)
             ->where($where)
-            ->group()
             ->count('id');
         return $count ? $count : 0;
     }
@@ -270,15 +269,28 @@ class Cate extends Controller
         header("Access-Control-Allow-Origin:*");
         header('Access-Control-Allow-Methods:POST');
         header('Access-Control-Allow-Headers:x-requested-with, content-type');
-        $x = $this->request->param('x','-37.80989');
-        $y = $this->request->param('y','144.95976');
-        $r = $this->request->param('r','3000');
-        $cate = $this->request->param('cate','600-6000-0061');
+        $x = $this->request->param('x');
+        $y = $this->request->param('y');
+        $r = $this->request->param('r');
+        $cate = $this->request->param('cate');
         if($cate == '400-4100-0035'){
             $cate = '400-4100-0038';
         }
         $at=$x."%2C".$y;
         $url="https://browse.search.hereapi.com/v1/browse?at=".$at."&categories=".$cate."&circle=".$at."%3Br%3D".$r."&limit=5&apiKey=WgZd-Ykul-3XNV5agUgW2vMohtzAlYEA64GIQvcrfaw";
+        $res = json_decode(file_get_contents($url),true);
+        return json($res);
+    }
+    
+    
+    //获取附近公交线路
+    public function getnearbus(){
+        header("Access-Control-Allow-Origin:*");
+        header('Access-Control-Allow-Methods:POST');
+        header('Access-Control-Allow-Headers:x-requested-with, content-type');
+        $x = $this->request->param('x','-37.80989');
+        $y = $this->request->param('y','144.95976');
+        $url="https://transit.hereapi.com/v8/stations?in=".$x.",".$y."&return=transport&place=stop&apiKey=WgZd-Ykul-3XNV5agUgW2vMohtzAlYEA64GIQvcrfaw";
         $res = json_decode(file_get_contents($url),true);
         return json($res);
     }

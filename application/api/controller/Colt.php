@@ -28,6 +28,7 @@ class Colt extends Controller
         header('Access-Control-Allow-Headers:x-requested-with, content-type');
         $uId = intval(trim($this->request->param('uid','0')));
         $hid = intval(trim($this->request->param('hid')));
+        $type = intval(trim($this->request->param('type',1)));
         if($uId == 0){
             $res['code'] = 0;
             $res['msg'] = '您暂未登录无法收藏！';
@@ -39,7 +40,7 @@ class Colt extends Controller
             return json($res);
         }
         $col = new Collects();
-        $add = $col->addCollect($uId,$hid,1);
+        $add = $col->addCollect($uId,$hid,$type);
         if($add){
             $res['code'] = 1;
             $res['msg'] = '收藏成功！';
@@ -125,7 +126,7 @@ class Colt extends Controller
     }
 
 
-   public function canCollect(){
+    public function canCollect(){
         header("Access-Control-Allow-Origin:*");
         header('Access-Control-Allow-Methods:POST');
         header('Access-Control-Allow-Headers:x-requested-with, content-type');
@@ -148,7 +149,7 @@ class Colt extends Controller
     }
 
 
-   public function canColt(){
+    public function canColt(){
         header("Access-Control-Allow-Origin:*");
         header('Access-Control-Allow-Methods:POST');
         header('Access-Control-Allow-Headers:x-requested-with, content-type');
@@ -168,48 +169,79 @@ class Colt extends Controller
         return json($res);
     }
 
-    public function getCollect(){
+    public function getCollect()
+    {
         header("Access-Control-Allow-Origin:*");
         header('Access-Control-Allow-Methods:POST');
         header('Access-Control-Allow-Headers:x-requested-with, content-type');
-        $uId = intval(trim($this->request->param('uid',0)));
-        $page = intval(trim($this->request->param('page',0)));
-        $limit = intval(trim($this->request->param('limit',10)));
-        if($uId == 0){
-            $res['code'] = 1;
-            $res['msg'] = '数据为空！';
+        $uId = intval(trim($this->request->param('uid', 0)));
+        $page = intval(trim($this->request->param('page', 0)));
+        $limit = intval(trim($this->request->param('limit', 5)));
+        $type = trim($this->request->param('type'));
+        if ($uId == 0) {
+            $res['code'] = 0;
+            $res['msg'] = '缺少参数！';
             return json($res);
         }
-        $where = 'cl_user_id = '.$uId;
+        if($type && isset($type)){
+            $collection = Db::table('xcx_collect')
+                ->join('tk_houses','xcx_collect.cl_house_id = tk_houses.id')
+                ->where("cl_type = 1 and type = '".$type."' and cl_user_id = ".$uId)
+                ->limit(($page) * $limit, $limit)
+                ->field('xcx_collect.*,tk_houses.id,tk_houses.images,tk_houses.thumnail,tk_houses.title,tk_houses.price,tk_houses.type,tk_houses.house_room,tk_houses.address,tk_houses.car,tk_houses.toilet,tk_houses.house_type')
+                ->order('cl_addtime desc')
+                ->select();
+            if($collection){
+                foreach ($collection as $k => $v){
+                    $images = $v['thumnail'] ? $v['thumnail'] : $this->formatImg($v['images']);
+                    $collection[$k]['imgs'] =$images;
+                }
+                $res['code'] = 1;
+                $res['msg'] = '读取成功！';
+                $res['data'] =$collection;
+                return json($res);
+            }else{
+                $res['code'] = 1;
+                $res['msg'] = '数据为空！';
+                $res['data'] = $collection;
+                return json($res);
+            }
+        }
+        $where = 'cl_user_id = ' . $uId;
         $collection = Db::table('xcx_collect')
             ->where($where)
-            ->limit(($page)*$limit,$limit)
+            ->limit(($page) * $limit, $limit)
             ->order('cl_addtime desc')
             ->select();
-        if($collection){
-            foreach ($collection as $k => $v){
-                if($v['cl_type'] == 1){
+        if ($collection) {
+            foreach ($collection as $k => $v) {
+                if ($v['cl_type'] == 1) {
                     $houseInfo = $this->gethouse($v['cl_house_id']);
-                    if(!$houseInfo){
+                    if (!$houseInfo) {
                         unset($collection[$k]);
+                    } else {
+                        $collection[$k]['imgs'] = $houseInfo['imgs'];
+                        $collection[$k]['title'] = $houseInfo['title'];
+                        $collection[$k]['price'] = $houseInfo['price'];
+                        $collection[$k]['type'] = $houseInfo['type'];
+                        $collection[$k]['house_room'] = $houseInfo['house_room'];
+                        $collection[$k]['address'] = $houseInfo['address'];
+                        $collection[$k]['car'] = $houseInfo['car'];
+                        $collection[$k]['toilet'] = $houseInfo['toilet'];
+                        $collection[$k]['house_type'] = $houseInfo['house_type'];
                     }
-                    $collection[$k]['imgs'] =$houseInfo['imgs'];
-                    $collection[$k]['title'] =$houseInfo['title'];
-                    $collection[$k]['price'] =$houseInfo['price'];
-                    $collection[$k]['type'] =$houseInfo['type'];
-                    $collection[$k]['address'] =$houseInfo['address'];
-                }else{
+                } else {
                     $coltInfo = $this->getcolt($v['cl_house_id']);
-                    $collection[$k]['title'] =$coltInfo['title'];
-                    $collection[$k]['type'] =$coltInfo['type'];
-                    $collection[$k]['userid'] =$coltInfo['userid'];
-                    $collection[$k]['avatar'] =$coltInfo['avatar'];
-                    $collection[$k]['nickname'] =$coltInfo['nickname'];
+                    $collection[$k]['title'] = $coltInfo['title'];
+                    $collection[$k]['type'] = $coltInfo['type'];
+                    $collection[$k]['userid'] = $coltInfo['userid'];
+                    $collection[$k]['avatar'] = $coltInfo['avatar'];
+                    $collection[$k]['nickname'] = $coltInfo['nickname'];
                 }
             }
             $res['code'] = 1;
             $res['msg'] = '读取成功！';
-            $res['data'] = $collection;
+            $res['data'] = array_column($collection, null);
             return json($res);
         }
         $res['code'] = 1;
@@ -224,16 +256,23 @@ class Colt extends Controller
         $houseInfo = Db::table('tk_houses')
             ->where('status = 1 and is_del = 1')
             ->where(['id' => $hid])
-            ->field('title,price,images,type,address,thumnail')
+            ->field('title,price,images,type,address,thumnail,house_room,car,toilet,house_type')
             ->find();
         if($houseInfo){
-            $houseInfo['imgs'] = $houseInfo['thumnail'] ? $houseInfo['thumnail'].",".$houseInfo['images'] : $houseInfo['images'];
+            $images = $houseInfo['thumnail'] ? $houseInfo['thumnail'] : $this->formatImg($houseInfo['images']);
+            $houseInfo['imgs'] = $images;
             unset($houseInfo['images']);
             unset($houseInfo['thumnail']);
         }
         return $houseInfo ? $houseInfo : null;
     }
 
+
+    public function formatImg($imgs){
+        $imgsa = explode(',',$imgs);
+        $img = $imgsa[0];
+        return $img;
+    }
 
 
     public function getcolt($id){
@@ -248,8 +287,8 @@ class Colt extends Controller
         }
         return $houseInfo ? $houseInfo : null;
     }
-  
-   public function updateUserColl(){
+
+    public function updateUserColl(){
         $sql = "select cl_user_id, count(*) as count from xcx_collect group by  cl_user_id";
         $ress = Db::query($sql);
         foreach ($ress as $k => $v){
