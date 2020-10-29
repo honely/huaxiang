@@ -57,10 +57,20 @@ class House extends Controller
             $where.=" and area in (".$areas.")";
         }
 
-        //房屋类型
-        $house_type = trim($this->request->param('house_type'));
+       //房屋类型 房型多选
+        $house_type = $this->request->param('house_type');
         if(isset($house_type) && !empty($house_type) && $house_type){
-            $where.=" and house_type = '".$house_type."'";
+            $where.=" and (";
+            $tgs = explode(',',$house_type);
+            for($i=0;$i<count($tgs);$i++){
+                $room[$i] = $tgs[$i];
+                if($i == (count($tgs)-1)){
+                    $where.=" house_type = '".$room[$i]."' ";
+                }else{
+                    $where.=" house_type = '".$room[$i]."' or ";
+                }
+            }
+            $where.=" ) ";
         }
         //租期发布多选，帅选单选
         $term = $this->request->param('lease_term');
@@ -78,7 +88,7 @@ class House extends Controller
         //所有有房源的区
         //租房价格最大值 最小值
         //租房价格最大值 最小值
-        $maxprice = trim($this->request->param('maxprice','5000'));
+        $maxprice = trim($this->request->param('maxprice','9999'));
         Log::write('租房价格最大值：'.$maxprice,'info');
         $mimprice = trim($this->request->param('minprice','0'));
         Log::write('租房价格最小值：'.$mimprice,'info');
@@ -108,14 +118,28 @@ class House extends Controller
         }
         //户型  卧室 1 2 3 4 5 5+
         //李电话沟通换成12344+ 2020年9月1日16:42:51
-        $house_room = $this->request->param('house_room');
-        Log::write('卧室house_room：'.$house_room,'info');
-        if(isset($house_room) && !empty($house_room) && $house_room){
-            if($house_room == '4+'){
-                $where.=" and house_room > 4";
-            }else{
-                $where.=" and house_room = '".$house_room."'";
+        //户型多选
+        $tags = $this->request->param('house_room');
+        if(isset($tags) && !empty($tags) && $tags){
+            $where.=" and (";
+            $tgs = explode(',',$tags);
+            for($i=0;$i<count($tgs);$i++){
+                $room[$i] = $tgs[$i];
+                if($i == (count($tgs)-1)){
+                    if($room[$i] == '4+'){
+                        $where.=" house_room > 4";
+                    }else{
+                        $where.=" house_room = '".$room[$i]."' ";
+                    }
+                }else{
+                    if($room[$i] == '4+'){
+                        $where.=" house_room > 4  or ";
+                    }else{
+                        $where.=" house_room = '".$room[$i]."' or ";
+                    }
+                }
             }
+            $where.=" ) ";
         }
         //更多 房源特色，出租方式，性别，宠物，楼宇设施
 
@@ -134,10 +158,19 @@ class House extends Controller
                 $where .=" and video = '' ";
             }
         }
-        //出租方式
+        //出租方式 房东直租 中介整租
         $type = trim($this->request->param('type'));
+        $is_admin = trim($this->request->param('is_admin'));
         if(isset($type) && !empty($type) && $type){
-            $where.=" and type = '".$type."'";
+            if($type == '整租'){
+                if(isset($is_admin) && !empty($is_admin) && $is_admin){
+                    $where.=" and type = '".$type."' and is_admin = ".$is_admin;
+                }else{
+                    $where.=" and type = '".$type."'";
+                }
+            }else{
+                $where.=" and type = '".$type."'";
+            }
         }
         //宠物
         $pet = trim($this->request->param('pet'));
@@ -457,6 +490,7 @@ class House extends Controller
             $res['countl'] = $house['countl'];
             $res['comment'] = $house['comment'] ;
             $res['countc'] = $house['countc'];
+            $res['insptime'] = $house['insptime'];
             return json($res);
         }
         $res['code'] = 0;
@@ -610,6 +644,7 @@ class House extends Controller
         header('Access-Control-Allow-Methods:POST');
         header('Access-Control-Allow-Headers:x-requested-with, content-type');
         $uid = intval(trim($this->request->param('uid')));
+        $type = trim($this->request->param('type','整租'));
         if(!$uid){
             $res['code'] = 0;
             $res['msg'] = '缺少参数';
@@ -617,10 +652,10 @@ class House extends Controller
         }
         $limit = trim($this->request->param('limit','10'));
         $page = trim($this->request->param('page','0'));
-        $where = "(is_del =1 and user_id = ".$uid." and is_admin = 1 )";
+        $where = "(is_del =1 and user_id = ".$uid." and is_admin = 1  and type = '".$type."' )";
         $isBindAdmin = $this->isBindAdmin($uid);
         if($isBindAdmin){
-            $where.=" or (is_del =1 and user_id = ".$isBindAdmin['ad_id']." and is_admin = 2)";
+            $where.=" or (is_del =1 and user_id = ".$isBindAdmin['ad_id']." and is_admin = 2  and type = '".$type."' )";
         }
         $order = 'mdate desc';
         $field = 'id,user_id,mdate,title,type,images,price,status,address,house_type';

@@ -106,7 +106,7 @@ class Mailer extends Controller
             <br/><br/>
             Tel: " . $userPhone . "
             <br/><br/>
-            Wechat：" . $userWechat . "<br/><br/>
+            Email：" . $userWechat . "<br/><br/>
             Enquiry Type: " . $type . "<br/><br/>
             
             Message:" . $content;
@@ -295,4 +295,36 @@ class Mailer extends Controller
         $Msg->forwardToMsg($mpid, $uId, $content);
     }
 
+
+
+
+
+    public function mailtorenter($user, $subject, $contents)
+    {
+        header("Access-Control-Allow-Origin:*");
+        header('Access-Control-Allow-Methods:POST');
+        header('Access-Control-Allow-Headers:x-requested-with, content-type');
+        Loader::import('phpmailer.phpmailer');//加载extend中的自定义类
+        $mailer = $user;
+        $mail = new PHPMailer();
+        $toemail = $mailer;//收件人
+        $mail->isSMTP();// 使用SMTP服务
+        $mail->CharSet = "utf8";// 编码格式为utf8，不设置编码的话，中文会出现乱码
+        $mail->Host = "mail.welho.me";// 发送方的SMTP服务器地址
+        $mail->SMTPAuth = true;// 是否使用身份验证
+        $mail->Username = "customerservices@welho.me";
+        $mail->Password = "hxxb0401!!";
+        $mail->SMTPSecure = "ssl";// 使用ssl协议方式
+        $mail->Port = 465;
+        $mail->setFrom("customerservices@welho.me", "花香小宝");
+        $mail->addAddress($toemail, 'Wang');
+        $mail->addReplyTo($mailer, "Reply");
+        $mail->Subject = $subject;// 邮件标题
+        $mail->Body = $contents;
+        if (!$mail->send()) {
+            return json(['code' => 0, 'msg' => '发送失败！请联系管理员']);
+        } else {
+            return json(['code' => 1, 'msg' => '发送成功！']);
+        }
+    }
 }

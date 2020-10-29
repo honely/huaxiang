@@ -1,0 +1,129 @@
+{include file="index/header" /}
+<!-- 配置文件 -->
+<script type="text/javascript" src="__PUBLIC__/ueditor/ueditor.config.js"></script>
+<!-- 编辑器源码文件 -->
+<script type="text/javascript" src="__PUBLIC__/ueditor/ueditor.all.js"></script>
+<!-- 实例化编辑器 -->
+<script type="text/javascript">
+    var ue = UE.getEditor('container');
+</script>
+<style>
+    .one-pan{
+        position: relative;
+    }
+    .one{
+        position: absolute;
+        left:300px;
+        top:0;
+    }
+    .logoPre{
+        width: 216px;
+        height: 150px;
+    }
+    .casePre{
+        display:none;
+    }
+</style>
+<div class="layui-body">
+    <div style="margin: 20px;">
+    <span class="layui-breadcrumb" lay-separator=">">
+        <a>tickrent</a>
+        <a href="<?=url('apply/guide')?>">申请指南</a>
+        <a><cite>修改</cite></a>
+    </span>
+        <div style="float:right;">
+            <a href="<?=url('apply/guide')?>" class="layui-btn layui-btn-primary layui-btn-sm">
+                <i class="layui-icon layui-icon-return"></i>
+                返回列表</a>
+        </div>
+    </div>
+    <hr/>
+    <div class="layui-tab">
+        <div class="layui-tab-content">
+            <!--基本信息-->
+            <div class="layui-tab-item layui-show">
+                <div style="margin: 10px">
+                    <div style="padding: 15px;">
+                        <form class="layui-form" action="<?=url('apply/edit')?>?id={$apply.id}" method="post">
+                            <div class="layui-form-item">
+                                <label class="layui-form-label"><span style="color: red;">*</span>标题</label>
+                                <div class="layui-input-block">
+                                    <input type="text" name="title" lay-verify="required|title" placeholder="请输入标题" value="{$apply.title}" autocomplete="off" class="layui-input">
+                                </div>
+                            </div>
+                            <div class="layui-form-item one-pan">
+                                <label class="layui-form-label"><span style="color: red;">*</span>封面图片</label>
+
+                                <div {if condition="$apply.images eq null"}class="layui-upload-drag"{/if} id="uploadLogo" style="display:inline-block;" >
+                                <image id="logoPre"
+                                       {if condition="$apply.images eq null"}
+                                       {else/}
+                                src="__PUBLIC__/{$apply.images}"
+                                class="logoPre"
+                                {/if}
+                                >
+                                <input type="hidden" lay-verify="imgReg" name="images" id="images" value="{$apply.images}"/>
+                                </image>
+                            </div>
+                            <div class="one">
+                                <div class="layui-form-mid layui-word-aux" style="margin-left: 39px; ">图片要求，最大800KB，支持JPG/JEPG/PNG格式</div>
+                            </div>
+                    </div>
+                            <div class="layui-form-item" id="b_content">
+                                <label class="layui-form-label"><span style="color: red;">*</span>内容</label>
+                                <div class="layui-input-block">
+                                    <script id="container" name="content"  style="width:1024px;height:500px;" type="text/plain">{$apply.content}</script>
+                                </div>
+                            </div>
+                            <div class="layui-form-item">
+                                <div class="layui-input-block">
+                                    <button class="layui-btn" lay-submit lay-filter="saveInfo">修改</button>
+                                    <a class="layui-btn layui-btn-primary" href="<?=url('apply/guide')?>">返回</a>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    layui.use(['form', 'jquery','upload'], function(){
+        var form = layui.form
+            ,upload = layui.upload
+            ,$ = layui.jquery;
+        form.verify({
+            title: function(value){
+                if(value.length < 2){
+                    return '至少得2个字符啊';
+                }
+            }
+            ,imgReg:function (value) {
+                if(value.length <= 0){
+                    return '请上传图片';
+                }
+            }
+        });
+        upload.render({
+            elem: '#uploadLogo'
+            ,url: '{:url("xcx/apply/upload")}'
+            ,exts: 'PNG|JPG'
+            ,size: '30000'
+            ,done: function(res){
+                layer.close(layer.msg());//关闭上传提示窗口
+                if(res.status == 0) {
+                    return layer.msg(res.message);
+                }
+                $('#uploadLogo').removeClass('layui-upload-drag');
+                $('#logoPre').css('width','216px');
+                $('#display').hide();
+                $('#logoPre').css('height','150px');
+                $('#logoPre').attr('src',"__PUBLIC__/"+res.path);
+                console.log(res);
+                $('#images').val('' +res.path + '');
+            }
+        });
+    });
+</script>
+{include file="index/footer" /}

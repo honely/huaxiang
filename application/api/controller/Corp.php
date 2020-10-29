@@ -109,7 +109,7 @@ class Corp extends Controller
             $admin['corp'] = Db::table('xcx_corp')->where(['cp_id' => $id])->find();
             //我的团队
             $team= Db::table('super_admin')
-                ->where(['ad_corp' => $id])
+                ->where(" find_in_set('".$id."',ad_corp)")
                 ->field('ad_id,ad_realname,ad_img')
                 ->select();
             if($team){
@@ -149,15 +149,13 @@ class Corp extends Controller
     
     
     
-     public function get_area_id($id, $x, $y) {
-       $url =  "https://image.maps.ls.hereapi.com/mia/1.6/mapview?c={$x}%2C{$y}&z=17&w=750&h=475&f=1&apiKey=WgZd-Ykul-3XNV5agUgW2vMohtzAlYEA64GIQvcrfaw";
+    public function get_area_id($id, $x, $y) {
+         $url ="https://image.maps.ls.hereapi.com/mia/1.6/mapview?poix0={$x}%2C{$y}%3Bred%3Bred%3B40%3BC&z=17&w=750&h=475&f=1&apiKey=WgZd-Ykul-3XNV5agUgW2vMohtzAlYEA64GIQvcrfaw";
         $res = file_get_contents($url);
         file_put_contents('uploads/corp/'.$id.'.png', $res);
-        $data['id'] = $id;
-        $img = 'https://cs.huaxiangxiaobao.com/uploads/corp/'.$id.'.png';
+        $img = "https://".$_SERVER['SERVER_NAME']."/uploads/corp/".$id.".png";
         Db::table('xcx_corp')->where(['cp_id' => $id])->update(['area_img' => $img]);
     }
-    
     public function contact(){
         header("Access-Control-Allow-Origin:*");
         header('Access-Control-Allow-Methods:POST');
@@ -166,12 +164,12 @@ class Corp extends Controller
         $uid = trim($this->request->param('uid'));
         $name = trim($this->request->param('name'));
         $phone = trim($this->request->param('phone'));
-        $wechat = trim($this->request->param('wechat'));
+        $email = trim($this->request->param('email'));
         $save = trim($this->request->param('is_save'));
         $type = trim($this->request->param('type'));
         $content = trim($this->request->param('content'));
         $data = $this->request->param();
-        if(!$cid || !$name || !$phone || !$wechat || !$type || !$content || !$uid){
+        if(!$cid || !$name || !$phone || !$type || !$uid){
             $res['code'] = 2;
             $res['msg'] = '缺少参数！';
             return json($res);
@@ -182,7 +180,7 @@ class Corp extends Controller
                 'cid' => $cid,
                 'name' => $name,
                 'phone' => $phone,
-                'wechat' => $wechat,
+                'email' => $email,
                 'save' => $save,
                 'type' => $type,
                 'content' => $content,
@@ -190,7 +188,7 @@ class Corp extends Controller
                 'status' => 3,
             ]);
         if($save == 1){
-            Db::table('tk_user')->where(['id' => $uid])->update(['tel' => $phone,'wchat' => $wechat,'real_name' => $name]);
+            Db::table('tk_user')->where(['id' => $uid])->update(['tel' => $phone,'email' => $email,'real_name' => $name]);
         }
         $corp = Db::table('xcx_corp')
             ->where(['cp_id' => $cid])
@@ -198,6 +196,7 @@ class Corp extends Controller
             ->find();
         $type = $this->forType($type);
         $mailer = new Mailer();
+        $wechat= $email;
         $res = $mailer->mailCorp($corp['cp_name'],$corp['cp_email'],$name,$phone,$wechat,$type,$content);
         if(!$res){
             Db::table('xcx_contactcorp')->where(['id' => $insert])->update(['status' =>2]);
@@ -227,6 +226,32 @@ class Corp extends Controller
                 $room ='Others';
         }
         return $room;
+    }
+    
+    
+    public function getCorp(){
+        header("Access-Control-Allow-Origin:*");
+        header('Access-Control-Allow-Methods:POST');
+        header('Access-Control-Allow-Headers:x-requested-with, content-type');
+        $corp = Db::table('xcx_corp')
+                ->where(['cp_able' => 1])
+                ->limit(6)
+                ->order('cp_id desc')
+                ->field('cp_id,cp_name,minilogo')
+                ->select();
+        if($corp){
+            foreach ($corp as $k => $v){
+                $corp[$k]['cp_logo'] = "https://".$_SERVER['SERVER_NAME']."/".$v['minilogo'];
+            }
+            $res['code'] = 1;
+            $res['msg'] = '读取成功！';
+            $res['data'] = $corp;
+            return json($res);
+        }
+        $res['code'] = 1;
+        $res['msg'] = '数据为空！';
+        $res['data'] = $corp;
+        return json($res);
     }
 
 }

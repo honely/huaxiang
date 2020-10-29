@@ -827,7 +827,7 @@ class House extends Controller{
                     'is_checked' => false
                 ],
                 [
-                    'set' => '门禁系统',
+                    'set' => '门禁',
                     'setitle' => $enLab['menjin'],
                     'is_checked' => false
                 ],
@@ -937,7 +937,7 @@ class House extends Controller{
                     'transtitle' => $enLab['nuanqi'],
                     'is_checked' => false
                 ],[
-                    'furn' => '电烤箱',
+                    'furn' => '烤箱',
                     'transtitle' => $enLab['kaoxiang'],
                     'is_checked' => false
                 ],
@@ -1357,7 +1357,7 @@ class House extends Controller{
                 'is_checked' => false
             ],
             [
-                'set' => '门禁系统',
+                'set' => '门禁',
                 'setitle' => $enLab['menjin'],
                 'is_checked' => false
             ],
@@ -1464,7 +1464,7 @@ class House extends Controller{
                 'transtitle' => $enLab['nuanqi'],
                 'is_checked' => false
             ],[
-                'furn' => '电烤箱',
+                'furn' => '烤箱',
                 'transtitle' => $enLab['kaoxiang'],
                 'is_checked' => false
             ],

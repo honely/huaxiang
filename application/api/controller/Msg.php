@@ -13,78 +13,12 @@ use think\Log;
 
 class Msg extends Controller
 {
-    /**
-     * 发送验证码
-     * @return bool
-     * @throws \think\db\exception\DataNotFoundException
-     * @throws \think\db\exception\ModelNotFoundException
-     * @throws \think\exception\DbException
-     */
-    public function checkMsg()
-    {
-        $message = Db::table('xcx_msg_content')->field('xcx_msg_mp_id, xcx_msg_add_time, xcx_msg_uid,xcx_msg_content,xcx_msg_ul_id')
-            ->where(['xcx_msg_isread' => 2, 'xcx_msg_isable' => 1])
-            ->group('xcx_msg_mp_id')->order('xcx_msg_id asc')->select();
-        dump($message);
-        if (!$message) {
-            return 1;
-        }
-        //设置时区问题
-        date_default_timezone_set("Australia/Melbourne");
-        $time = time();
-
-        $date = date('Y-m-d H:i:s', time());
-        foreach ($message as $key => $val) {
-            $diff_num = $time - strtotime($val['xcx_msg_add_time']);
-            //dump($val['xcx_msg_add_time'].'-'.$date);
-            if ($diff_num <= 300) {
-                continue;
-            }
-            $users = Db::table('xcx_msg_person')
-                ->field('mp_id,mp_u_id, mp_ul_id,mp_utype,mp_ultype')
-                ->where('mp_id', '=', $val['xcx_msg_mp_id'])
-                ->where('mp_isable = 1')
-                ->find();
-            dump($users);
-            if (!$users) {
-                continue;
-            }
-            //会话发起者 等于 消息发送者 发送未读提醒给 消息接受者
-            if ($users['mp_u_id'] == $val['xcx_msg_uid']) {
-                //如果消息接受者类型为后端用户
-                if ($users['mp_ultype'] == 2) {
-                    dump('会话发起者等于消息发送者发送未读提醒给消息接受者,消息接受者类型为后端用户adminid=' . $users['mp_ul_id']);
-                    //  $this->sendNotAdminMsg($users['mp_ul_id']);
-                } else {
-                    //消息接受者为前端用户
-                    dump('会话发起者等于消息发送者发送未读提醒给消息接受者,消息接受者为前端用户userid=' . $users['mp_ul_id']);
-                    //  $this->sendNotMsg($users['mp_ul_id']);
-                }
-            } else {
-                //会话的接受者 等于 消息发送者  发送未读提醒给 消息发起者
-                //如果消息发起者为后端用户
-                if ($users['mp_utype'] == 2) {
-                    dump('会话的接受者 等于 消息发送者  发送未读提醒给 消息发起者,消息发起者为后端用户adminid=' . $users['mp_u_id']);
-                    //  $this->sendNotAdminMsg($users['mp_u_id']);
-                } else if ($users['mp_ultype'] == 2) {
-                    dump('会话的接受者 bu等于 消息发送者  发送未读提醒给 消息发起者,消息发起者为后端用户adminid=' . $users['mp_ul_id']);
-                    //  $this->sendNotAdminMsg($users['mp_ul_id']);
-                } else {
-                    dump('会话的接受者 等于 消息发送者  发送未读提醒给 消息发起者,消息发起者为q前端用户userid=' . $users['mp_u_id']);
-                    //   $this->sendNotMsg($users['mp_u_id']);
-                }
-
-            }
-        }
-        return 2;
-    }
-
     public function checkMsgs()
     {
         $message = Db::table('xcx_msg_content')
             ->where(['xcx_msg_isread' => 2, 'xcx_msg_isable' => 1])
             ->group('xcx_msg_mp_id')->order('xcx_msg_id asc')->select();
-
+        dump($message);
         if (!$message) {
             return 1;
         }
@@ -124,12 +58,14 @@ class Msg extends Controller
 
     public function netDate($date, $id)
     {
-        $data = date("Y-m-d H:i:s", strtotime($date . ' +3 days'));
-        $today = date("Y-m-d H:i:s");
-        if ($today < $data) {
+       $data = strtotime($date . ' +3 days');
+        $today = time();
+        if($today > $data) {
             Db::table('xcx_msg_content')
                 ->where(['xcx_msg_id' => $id])
                 ->update(['xcx_msg_isread' => 1]);
+        }else{
+            dump('dayu');
         }
     }
 
@@ -626,7 +562,8 @@ class Msg extends Controller
         if($ulInfo['ul_type'] == 2){
             $hid = $ulInfo['hid'];
             $address = $this->getHouseAdd($hid);
-            $address = $address['street']."  ".$address['address']."  ".$address['dsn'];
+            $adds = $address['street'] ? $address['street'].'/'.$address['address'] : $address['address'];
+            $address = $adds."  ".$address['dsn'];
             $content = $this->getEmailsContent($type,$content);
             //查看当前消息是否为该房源该回话的第一条消息
             $isFrist = $this->isFristMsg($mpid,$ulInfo['hid']);
@@ -724,8 +661,8 @@ class Msg extends Controller
             $hid = $ulInfo['hid'];
             if($hid != 0){
                 $address = $this->getHouseAdd($hid);
-                $address = $address['street']."  ".$address['address']."and 房源ID：".$address['dsn'];
-                 //查看当前消息是否为该房源该回话的第一条消息
+                $adds = $address['street'] ? $address['street'].'/'.$address['address'] : $address['address'];
+                $address = $adds."and 房源ID：".$address['dsn'];               //查看当前消息是否为该房源该回话的第一条消息
                 $isFrist = $this->isFristMsg($mpid,$ulInfo['hid']);
                  Log::write('消息条数：$isFrist=' . $isFrist."房源ID=".$ulInfo['hid'], 'info');
                 $isRe = $isFrist > 1 ? 1 : 2;
@@ -879,6 +816,27 @@ class Msg extends Controller
                 }
             }
 
+            $msg = new Loops();
+            $user['unickname'] = $ulInfo['unickname'];
+            $user['uavaurl'] = $ulInfo['uavaurl'];
+            $user['inickname'] = $msg->getUserNick($uid);
+            $user['iavaurl'] = $msg->getUserAvatar($uid);
+            $hid = Db::table('xcx_msg_person')
+                ->where(['mp_id' => $mpid])
+                ->column('mp_hid');
+            $field = 'id,type,title,house_room,price,toilet,car,house_type';
+            $houses = Db::table('tk_houses')
+                ->where(['id' => $hid[0]])
+                ->field($field)
+                ->find();
+            $res['code'] = 1;
+            $res['msg'] = '读取成功！';
+            $res['data'] = $msgList;
+            $res['user'] = $user;
+            $res['house'] = $houses;
+            return json($res);
+        }else{
+            
             $msg = new Loops();
             $user['unickname'] = $ulInfo['unickname'];
             $user['uavaurl'] = $ulInfo['uavaurl'];
@@ -1175,10 +1133,9 @@ class Msg extends Controller
         $email = trim($this->request->param('email'));
         $save = trim($this->request->param('is_save'));
         $type = trim($this->request->param('type'));
-        $content = trim($this->request->param('content'));
         if(!$hid || !$name || !$phone ||  !$type || !$uid){
             $res['code'] = 2;
-            $res['msg'] = '缺少参数！';
+            $res['msg'] = '缺少参数1！';
             return json($res);
         }
         //更新用户信息
@@ -1191,20 +1148,18 @@ class Msg extends Controller
             ->field('street,address,pm')
             ->find();
         $loop = new Loops();
-        $address = $house['street'].''.$house['address'];
+        $address = $house['street'] ? $house['street'].'/'.$house['address'] : $house['address'];
         $adminEmail = $loop->getAdminEmail($house['pm']);
-        if($content != ''){
-            //发送站内信
-            $msgm = new Msgs();
-            $Touchid = $msgm->createTouch($uid, $house['pm'], $hid);
-            $this->sendAmsg($Touchid,$uid,$content);
-        }
+        $typeC = $this->forTypeC($type);
         $type = $this->forType($type);
+        $msgm = new Msgs();
+        $Touchid = $msgm->createTouch($uid, $house['pm'], $hid);
+        $this->sendAmsg($Touchid,$uid,$typeC);
         $mailer = new Mailer();
         $mpid = $Touchid;
         $uId = $uid;
         $formName = $loop->getUserNick($uId);
-        $res = $mailer->mailPm($type,$adminEmail,$name,$mpid,$uId,$formName,$phone,$address,$content);
+        $res = $mailer->mailPm($type,$adminEmail,$name,$mpid,$uId,$formName,$phone,$address,$type);
         if(!$res){
             return json(['code'=>0,'msg'=>'发送失败！请联系管理员']);
         }else{
@@ -1252,6 +1207,26 @@ class Msg extends Controller
                 break;
             default:
                 $room ='Others';
+        }
+        return $room;
+    }
+    
+    public function forTypeC($type){
+        switch ($type){
+            case 1:
+                $room = '看房时间';
+                break;
+            case 2:
+                $room = '租期长度';
+                break;
+            case 3:
+                $room = '允许入住日期';
+                break;
+            case 4:
+                $room = '如何申请';
+                break;
+            default:
+                $room ='其他';
         }
         return $room;
     }

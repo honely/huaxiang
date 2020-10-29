@@ -90,7 +90,7 @@
             }else if(obj.event === 'edit'){
                 window.location.href='<?=url("corp/edit")?>?cp_id='+h_id;
             }else if(obj.event === 'del'){
-                layer.confirm('{$lable.deleteConfirm}！', {
+                layer.confirm('确定删除该公司？删除后不可恢复！', {
                     btn : [ '{$lable.sure}', '{$lable.cancel}' ]//按钮
                 }, function() {
                     $.ajax({

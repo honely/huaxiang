@@ -133,6 +133,52 @@ class Cate extends Controller
     }
 
 
+    public function getallarea(){
+        header("Access-Control-Allow-Origin:*");
+        header('Access-Control-Allow-Methods:POST');
+        header('Access-Control-Allow-Headers:x-requested-with, content-type');
+        $city = trim($this->request->param('city','27'));
+        $result = Db::table('tk_cate')
+            ->where(['pid' => $city,'type' =>1])
+            ->field('id,name')
+            ->order('name')
+            ->select();
+        $orgData = [];
+        foreach ($result as $key => &$val) {
+            $result[$key]['key'] = $this->getFristName($val['name']);
+            $orgData[] = [
+                'fristName' => $val['key'],
+                'cur' => $val
+            ];
+        }unset($val);
+        $keys = array_unique(array_column($result, 'key'));
+        $newDatas = [];
+        foreach ($keys as $key) {
+            $temp = [];
+            foreach ($result as $data) {
+                if($key == $data['key']) {
+                    $temp[] = $data;
+                }
+            }
+            $newDatas[] = ['firstName' => $key, 'cur' => $temp];
+        }
+//        dump($newDatas);exit;
+        if($newDatas){
+            $res['code'] =1;
+            $res['msg'] ='读取成功！';
+            $res['data'] =$newDatas;
+            return json($res);
+        }else{
+            $res['code'] =1;
+            $res['msg'] ='数据为空';
+            return json($res);
+        }
+    }
+
+    public function getFristName($area){
+        $fristName = substr(trim($area), 0, 1 );
+        return strtoupper($fristName);
+    }
     public function getsarea($line){
         $lines = Db::table('tk_school')
             ->where(['school' => $line])

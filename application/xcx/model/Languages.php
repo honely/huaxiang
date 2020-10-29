@@ -439,7 +439,7 @@ class Languages extends Model
             'fanhui' => '返回',
             'zujinkeyi' => '租金可议',
             'houseNameP' => '请输入房源名称',
-            'houseAddP' => '请输入房源地址',
+            'houseAddP' => '请输入地址',
             'selectAddNot' => '必须从下拉框中选择对应地址，否则无法显示地理位置',
             'houseUrlP' => '请输入房源链接',
             'rentPriceP' => '请输入租金',

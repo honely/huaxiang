@@ -92,10 +92,25 @@ class Help extends Controller
                 $where.=" and price >= ".$mimprice."  or price = -1 )";
             }
             //整租合租
-            $type = $myneed['h_house_type'];
-            if(isset($type) && !empty($type) && $type){
-                $where.=" and house_type  = '".$type."' ";
+            // $type = $myneed['h_house_type'];
+            // if(isset($type) && !empty($type) && $type){
+            //     $where.=" and house_type  = '".$type."' ";
+            // }
+             $house_type = $myneed['h_house_type'];
+            if(isset($house_type) && !empty($house_type) && $house_type){
+                $where.=" and (";
+                $tgs = explode(',',$house_type);
+                for($i=0;$i<count($tgs);$i++){
+                    $room[$i] = $tgs[$i];
+                    if($i == (count($tgs)-1)){
+                        $where.=" house_type = '".$room[$i]."' ";
+                    }else{
+                        $where.=" house_type = '".$room[$i]."' or ";
+                    }
+                }
+                $where.=" ) ";
             }
+            
             //租房类型  公寓 别墅 联排别墅
             $housetype = $myneed['h_house_style'];
             if(isset($housetype) && !empty($housetype) && $housetype){

@@ -73,17 +73,17 @@ class Loops extends Model
 
     public function getUserNick($uid){
         $user = Db::table('tk_user')->where(['id' => $uid])->field('nickname')->find();
-        return $user ? $user['nickname'] : '外星人呀';
+        return $user ? $user['nickname'] : '';
     }
 
 
     public function getUserNicks($uid,$admin){
         if($admin == 1){
             $user = Db::table('tk_user')->where(['id' => $uid])->field('nickname')->find();
-            $userName = $user ? $user['nickname'] : '外星人呀';
+            $userName = $user ? $user['nickname'] : '';
         }else if($admin == 2){
             $user = Db::table('super_admin')->where(['ad_id' => $uid])->field('ad_realname')->find();
-            $userName = $user ? $user['ad_realname'] : '外星人呀';
+            $userName = $user ? $user['ad_realname'] : '';
         }
         return $userName;
     }

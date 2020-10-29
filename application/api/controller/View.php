@@ -87,8 +87,13 @@ class View extends Controller
                 if($v['vh_type'] == 1){
                     $houseInfo = $this->gethouse($v['vh_house_id']);
                     $collection[$k]['cover'] =$houseInfo['cover'];
-                    $collection[$k]['title'] =$houseInfo['title'];
+                    $collection[$k]['house_type'] =$houseInfo['house_type'];
+                    $collection[$k]['house_room'] =$houseInfo['house_room'];
+                    $collection[$k]['toilet'] =$houseInfo['toilet'];
+                    $collection[$k]['car'] =$houseInfo['car'];
+                    $collection[$k]['price'] =$houseInfo['price'];
                     $collection[$k]['type'] =$houseInfo['type'];
+                    $collection[$k]['title'] =$houseInfo['title'];
                 }else{
                     $coltInfo = $this->getcolt($v['vh_house_id']);
                     $collection[$k]['title'] =$coltInfo['title'];
@@ -122,7 +127,7 @@ class View extends Controller
     public function gethouse($hid){
         $houseInfo = Db::table('tk_houses')
             ->where(['id' => $hid])
-            ->field('title,type,cover')
+            ->field('title,type,cover,house_type,house_room,car,toilet,price,title')
             ->find();
         return $houseInfo ? $houseInfo : null;
     }

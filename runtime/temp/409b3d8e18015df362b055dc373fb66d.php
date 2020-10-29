@@ -1,4 +1,4 @@
-<?php if (!defined('THINK_PATH')) exit(); /*a:3:{s:93:"D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\public/../application/xcx\view\account\phone.html";i:1595853907;s:82:"D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\application\xcx\view\index\header.html";i:1591180794;s:82:"D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\application\xcx\view\index\footer.html";i:1577269681;}*/ ?>
+<?php if (!defined('THINK_PATH')) exit(); /*a:3:{s:93:"D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\public/../application/xcx\view\account\phone.html";i:1602829222;s:82:"D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\application\xcx\view\index\header.html";i:1591180794;s:82:"D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\application\xcx\view\index\footer.html";i:1577269681;}*/ ?>
 <!DOCTYPE html>
 <html style="height: 100%">
 <head>
@@ -48,7 +48,7 @@
             </div>
             <div class="layui-form-item">
                 <div class="layui-input-block">
-                    <span class="layui-btn" lay-submit onclick="closeAlls()"><?php echo $lable['cemail']; ?></span>
+                    <span class="layui-btn" lay-submit onclick="closeAlls()"><?php echo $lable['gengxinshouji']; ?></span>
                 </div>
             </div>
         </form>
@@ -143,8 +143,9 @@
                     }
                 },1000);
             }
+        }else{
+            return layer.msg('手机号格式错误！');
         }
-        return layer.msg('手机号格式错误！');
     });
 </script>
 </div>

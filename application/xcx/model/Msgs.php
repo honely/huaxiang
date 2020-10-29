@@ -47,6 +47,7 @@ class Msgs extends Model
                     $data['mp_mod_time'] = $time;
                     $data['mp_ultype'] = 2;
                     $data['mp_utype'] = 1;
+                    $data['mp_hid'] = $hId;
                     $insert = Db::table('xcx_msg_person')->insertGetId($data);
                     return $insert ? $insert : 0;
                 }
@@ -123,6 +124,9 @@ class Msgs extends Model
             $data['mp_ul_id'] = $ulId;
             $data['mp_add_time'] = $time;
             $data['mp_mod_time'] = $time;
+            $data['mp_ultype'] = 1;
+            $data['mp_utype'] = 1;
+            $data['mp_hid'] = $hId;
             $insert = Db::table('xcx_msg_person')->insertGetId($data);
             return $insert ? $insert : 0;
         }

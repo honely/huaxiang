@@ -176,7 +176,7 @@ class Colt extends Controller
         header('Access-Control-Allow-Headers:x-requested-with, content-type');
         $uId = intval(trim($this->request->param('uid', 0)));
         $page = intval(trim($this->request->param('page', 0)));
-        $limit = intval(trim($this->request->param('limit', 5)));
+        $limit = intval(trim($this->request->param('limit', 10)));
         $type = trim($this->request->param('type'));
         if ($uId == 0) {
             $res['code'] = 0;
@@ -193,7 +193,7 @@ class Colt extends Controller
                 ->select();
             if($collection){
                 foreach ($collection as $k => $v){
-                    $images = $v['thumnail'] ? $v['thumnail'] : $this->formatImg($v['images']);
+                    $images = $this->formatImgs($v['thumnail'],$v['images']);
                     $collection[$k]['imgs'] =$images;
                 }
                 $res['code'] = 1;
@@ -232,11 +232,16 @@ class Colt extends Controller
                     }
                 } else {
                     $coltInfo = $this->getcolt($v['cl_house_id']);
-                    $collection[$k]['title'] = $coltInfo['title'];
-                    $collection[$k]['type'] = $coltInfo['type'];
-                    $collection[$k]['userid'] = $coltInfo['userid'];
-                    $collection[$k]['avatar'] = $coltInfo['avatar'];
-                    $collection[$k]['nickname'] = $coltInfo['nickname'];
+                    if (!$coltInfo) {
+                        unset($collection[$k]);
+                    } else {
+                        $collection[$k]['title'] = $coltInfo['title'];
+                        $collection[$k]['type'] = $coltInfo['type'];
+                        $collection[$k]['userid'] = $coltInfo['userid'];
+                        $collection[$k]['avatar'] = $coltInfo['avatar'];
+                        $collection[$k]['nickname'] = $coltInfo['nickname'];
+                    }
+                   
                 }
             }
             $res['code'] = 1;
@@ -259,7 +264,7 @@ class Colt extends Controller
             ->field('title,price,images,type,address,thumnail,house_room,car,toilet,house_type')
             ->find();
         if($houseInfo){
-            $images = $houseInfo['thumnail'] ? $houseInfo['thumnail'] : $this->formatImg($houseInfo['images']);
+            $images = $this->formatImg($houseInfo['thumnail'],$houseInfo['images']);
             $houseInfo['imgs'] = $images;
             unset($houseInfo['images']);
             unset($houseInfo['thumnail']);
@@ -268,16 +273,26 @@ class Colt extends Controller
     }
 
 
-    public function formatImg($imgs){
-        $imgsa = explode(',',$imgs);
-        $img = $imgsa[0];
+    public function formatImg($thumb,$imgs){
+        $img = $thumb ? $thumb.",".$imgs : $imgs;
         return $img;
     }
+
+    public function formatImgs($thumb,$imgs){
+        if($thumb){
+            return $thumb;
+        }else{
+            $imgarr = explode(',',$imgs);
+            $imgs = $imgarr[0];
+            return $imgs;
+        }
+    }
+
 
 
     public function getcolt($id){
         $houseInfo = Db::table('tk_forent')
-            ->where(['id' => $id])
+            ->where(['id' => $id,'status' => 1])
             ->field('title,type,userid')
             ->find();
         if($houseInfo){

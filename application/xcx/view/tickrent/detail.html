@@ -1,0 +1,517 @@
+{include file="index/header" /}
+<style>
+    .one-pan {
+        position: relative;
+    }
+
+    .one {
+        position: absolute;
+        left: 300px;
+        top: 0;
+    }
+
+    .logoPre {
+        width: 216px;
+        height: 150px;
+    }
+
+    .logoPreimg {
+        width: 216px;
+        height: 150px;
+    }
+
+    .layui-upload-img {
+        width: 90px;
+        height: 90px;
+        margin: 0;
+    }
+
+    .pic-more {
+        width: 100%;
+        margin: 10px 0px 0px 0px;
+    }
+
+    .pic-more li {
+        width: 300px;
+        float: left;
+        margin-right: 5px;
+        margin-top: 10px;
+    }
+
+    .pic-more li .layui-input {
+        display: initial;
+    }
+
+    .pic-more li a {
+        position: absolute;
+        top: 0;
+        display: block;
+    }
+
+    #slide-pc-priview .item_img img {
+        width: 277px;
+        height: 177px
+    }
+
+    #slide-pc-priview li {
+        position: relative;
+    }
+
+    #slide-pc-priview li .operate {
+        color: #000;
+        display: none;
+    }
+
+    #slide-pc-priview li .toleft {
+        position: absolute;
+        top: 40px;
+        left: 1px;
+        cursor: pointer;
+    }
+
+    #slide-pc-priview li .toright {
+        position: absolute;
+        top: 40px;
+        right: 1px;
+        cursor: pointer;
+    }
+
+    #slide-pc-priview li .close {
+        position: absolute;
+        top: 5px;
+        right: 5px;
+        cursor: pointer;
+    }
+
+    #slide-pc-priview li:hover .operate {
+        display: block;
+    }
+
+    .item_img img {
+        width: 277px;
+        height: 177px
+    }
+
+    .layui-table th, .layui-table td {
+        position: relative;
+        padding: 9px 15px;
+        min-height: 20px;
+        line-height: 40px;
+        font-size: 14px;
+    }
+
+    .layui-table-cell {
+        height: 40px;
+        line-height: 40px;
+        padding: 0 15px;
+        position: relative;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        box-sizing: border-box;
+    }
+</style>
+<div class="layui-body" style="background-color: #f5f6fa">
+    <div style="margin: 10px">
+        <div style="padding: 15px;">
+            <table cellspacing="0" cellpadding="0" border="0" class="layui-table" lay-skin="line"
+                   style="background-color: white;border-color: #f5f6fa;">
+                <thead>
+                <tr style="background-color: white;color: black;">
+                    <th data-field="APPLY_ID">
+                        <div class="layui-table-cell laytable-cell-1-APPLY_ID"><b>申请ID</b></div>
+                    </th>
+                    <th data-field="house_addr">
+                        <div class="layui-table-cell laytable-cell-1-house_addr"><b>房源地址</b></div>
+                    </th>
+                    <th data-field="agent">
+                        <div class="layui-table-cell laytable-cell-1-agent"><b>PM姓名</b></div>
+                    </th>
+                    <th data-field="people_name">
+                        <div class="layui-table-cell laytable-cell-1-people_name"><b>申请人姓名</b></div>
+                    </th>
+                    <th data-field="status">
+                        <div class="layui-table-cell laytable-cell-1-status"><b>申请状态</b></div>
+                    </th>
+                    <th data-field="is_seen">
+                        <div class="layui-table-cell laytable-cell-1-is_seen"><b>看房情况</b></div>
+                    </th>
+                    <th data-field="rent">
+                        <div class="layui-table-cell laytable-cell-1-rent"><b>原租金</b></div>
+                    </th>
+                    <th data-field="trent">
+                        <div class="layui-table-cell laytable-cell-1-trent"><b>提议租金</b></div>
+                    </th>
+                    <th data-field="lease_term">
+                        <div class="layui-table-cell laytable-cell-1-lease_term"><b>提议租期/月</b></div>
+                    </th>
+                    <th data-field="live_date">
+                        <div class="layui-table-cell laytable-cell-1-live_date"><b>入住时间</b></div>
+                    </th>
+                    <th data-field="prerent">
+                        <div class="layui-table-cell laytable-cell-1-prerent"><b>预付房租</b></div>
+                    </th>
+                    <th data-field="cl">
+                        <div class="layui-table-cell laytable-cell-1-cl"><b>材料分值</b></div>
+                    </th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr data-index="0" class="layui-table-click" style="background-color: white">
+                    <td data-field="APPLY_ID">
+                        <div class="layui-table-cell laytable-cell-1-APPLY_ID">{$data.APPLY_ID}</div>
+                    </td>
+                    <td data-field="house_addr">
+                        <div class="layui-table-cell laytable-cell-1-house_addr">{$data.house_addr}</div>
+                    </td>
+                    <td data-field="agent">
+                        <div class="layui-table-cell laytable-cell-1-agent">{$data.agent}</div>
+                    </td>
+                    <td data-field="people_name">
+                        <div class="layui-table-cell laytable-cell-1-people_name">{$data.people_name}</div>
+                    </td>
+                    <td data-field="status">
+                        <div class="layui-table-cell laytable-cell-1-status">{$data.status}</div>
+                    </td>
+                    <td data-field="is_seen">
+                        <div class="layui-table-cell laytable-cell-1-is_seen">{$data.is_seen}</div>
+                    </td>
+                    <td data-field="rent">
+                        <div class="layui-table-cell laytable-cell-1-rent">{$data.rent}</div>
+                    </td>
+                    <td data-field="trent">
+                        <div class="layui-table-cell laytable-cell-1-trent">{$data.trent}</div>
+                    </td>
+                    <td data-field="lease_term">
+                        <div class="layui-table-cell laytable-cell-1-lease_term">{$data.lease_term}</div>
+                    </td>
+                    <td data-field="live_date">
+                        <div class="layui-table-cell laytable-cell-1-live_date">{$data.live_date}</div>
+                    </td>
+                    <td data-field="prerent">
+                        <div class="layui-table-cell laytable-cell-1-prerent">{$data.prerent}</div>
+                    </td>
+                    <td data-field="cl">
+                        <div class="layui-table-cell laytable-cell-1-cl"></div>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="12">
+                        <a href="#" id="apply_do" class="layui-btn layui-btn-warm layui-btn-sm ">同意/拒绝申请</a>
+                        <a href="#" class="layui-btn layui-btn-warm layui-btn-sm "
+                           style="background-color: white;color:#FFB800;border: 1px #FFB800 solid">转发申请</a>
+                        <a href="#" class="layui-btn layui-btn-warm layui-btn-sm "
+                           style="background-color: white;color:#FFB800;border: 1px #FFB800 solid">推荐人核实</a>
+                        <a href="#" class="layui-btn layui-btn-warm layui-btn-sm "
+                           style="background-color: white;color:#FFB800;border: 1px #FFB800 solid">联系申请人</a>
+                        <a href="#" class="layui-btn layui-btn-warm layui-btn-sm "
+                           style="background-color: white;color:#FFB800;border: 1px #FFB800 solid">导出申请</a>
+                    </td>
+                </tr>
+
+                </tbody>
+            </table>
+            <li style="margin:24px 0px">
+                <a href="#" class="layui-btn" style="background-color: #6b48ff" id="apply_a">申请概览</a>
+                <a href="#" class="layui-btn" style="background-color: #ffffff;color: black" id="material_a">材料与协议</a>
+                <a href="#" class="layui-btn" style="background-color: #ffffff;color: black">申请备注</a>
+            </li>
+            <div id="apply_div" style="background-color: #ffffff;padding: 10px 0px;">
+                <div>
+                    <div style="margin:20px 0px;padding:10px 50px;background-color: #f7f6ff">
+                        <h3 style="color: black;border-left: 4px solid #6b48ff;padding-left: 10px;"><b>房源基本信息</b></h3>
+                    </div>
+                    <div style="padding:10px 50px;">
+                        <label style="display: inline-block;width: 100px;color: #999999">地址</label>
+                        <span style="display: inline-block;color: black;width: 200px">{$data.house_addr}</span>
+                        <label style="display: inline-block;width: 100px;color: #999999">是否看房</label>
+                        <span style="display: inline-block;color: black;width: 200px">{$data.is_seen}</span>
+                        <label style="display: inline-block;width: 100px;color: #999999">预付房租</label>
+                        <span style="display: inline-block;color: black;width: 200px">{$data.prerent}</span>
+                        <label style="display: inline-block;width: 100px;color: #999999">入住时间</label>
+                        <span style="display: inline-block;color: black;width: 200px">{$data.live_date}</span>
+                    </div>
+                    <div style="padding:10px 50px;">
+                        <label style="display: inline-block;width: 100px;color: #999999">房屋类型</label>
+                        <span style="display: inline-block;color: black;width: 200px">{$data.house_type}</span>
+                        <label style="display: inline-block;width: 100px;color: #999999">原租金</label>
+                        <span style="display: inline-block;color: black;width: 200px">{$data.rent}</span>
+                        <label style="display: inline-block;width: 100px;color: #999999">提议租期/月</label>
+                        <span style="display: inline-block;color: black;width: 200px">{$data.lease_term}</span>
+                        <label style="display: inline-block;width: 200px;color: #999999">是否接受当前房源状态</label>
+                        <span style="display: inline-block;color: black;width: 200px">{$data.is_accept}</span>
+                    </div>
+                    <div style="padding:10px 50px;">
+                        <label style="display: inline-block;width: 100px;color: #999999">户型</label>
+                        <span style="display: inline-block;color: black;width: 200px">{$data.house_unit}</span>
+                        <label style="display: inline-block;width: 100px;color: #999999">提议租金</label>
+                        <span style="display: inline-block;color: black;width: 200px">{$data.trent}</span>
+                        <label style="display: inline-block;width: 100px;color: #999999">押金</label>
+                        <span style="display: inline-block;color: black;width: 200px">{$data.bond}</span>
+                    </div>
+                </div>
+                <div>
+                    <div style="margin:20px 0px;padding:10px 50px;background-color: #f7f6ff">
+                        <h3 style="color: black;border-left: 4px solid #6b48ff;padding-left: 10px;"><b>个人基本信息</b></h3>
+                    </div>
+                    <div style="padding:10px 50px;">
+                        <label style="display: inline-block;width: 100px;color: #999999">姓氏</label>
+                        <span style="display: inline-block;color: black;width: 200px">{$data.last_name}</span>
+                        <label style="display: inline-block;width: 100px;color: #999999">国籍</label>
+                        <span style="display: inline-block;color: black;width: 200px">{$data.country}</span>
+                        <label style="display: inline-block;width: 100px;color: #999999">电子邮箱</label>
+                        <span style="display: inline-block;color: black;width: 200px">{$data.email}</span>
+                    </div>
+                    <div style="padding:10px 50px;">
+                        <label style="display: inline-block;width: 100px;color: #999999">名字</label>
+                        <span style="display: inline-block;color: black;width: 200px">{$data.first_name}</span>
+                        <label style="display: inline-block;width: 100px;color: #999999">出生日期</label>
+                        <span style="display: inline-block;color: black;width: 200px">{$data.birthday}</span>
+                        <label style="display: inline-block;width: 100px;color: #999999">身份</label>
+                        <span style="display: inline-block;color: black;width: 200px">{$data.occupation}</span>
+                    </div>
+                    <div style="padding:10px 50px;">
+                        <label style="display: inline-block;width: 100px;color: #999999">性别</label>
+                        <span style="display: inline-block;color: black;width: 200px">{$data.sex}</span>
+                        <label style="display: inline-block;width: 100px;color: #999999">手机号</label>
+                        <span style="display: inline-block;color: black;width: 200px">{$data.mobile}</span>
+                        <label style="display: inline-block;width: 100px;color: #999999">学校</label>
+                        <span style="display: inline-block;color: black;width: 200px">{$data.school}</span>
+                    </div>
+                </div>
+                {if condition="empty($data.people) neq true"}
+                <div>
+                    <div style="margin:20px 0px;padding:10px 50px;background-color: #f7f6ff">
+                        <h3 style="color: black;border-left: 4px solid #6b48ff;padding-left: 10px;"><b>同住人信息</b></h3>
+                    </div>
+                    {volist name="data.people" id="vo"}
+                    <div style="padding:10px 50px;">
+                        <label style="display: inline-block;width: 100px;color: #999999">姓名</label>
+                        <span style="display: inline-block;color: black;width: 200px">{$vo.last_name}-{$vo.first_name}</span>
+                        <label style="display: inline-block;width: 100px;color: #999999">关系</label>
+                        <span style="display: inline-block;color: black;width: 200px">{$vo.rela}</span>
+                        <label style="display: inline-block;width: 100px;color: #999999">年龄</label>
+                        <span style="display: inline-block;color: black;width: 200px">{$vo.age}</span>
+                        <label style="display: inline-block;width: 100px;color: #999999">联系方式</label>
+                        <span style="display: inline-block;color: black;width: 200px">{$vo.mobile}</span>
+                    </div>
+                    {/volist}
+                </div>
+                {/if}
+                {if condition="empty($data.pet) neq true"}
+                <div>
+                    <div style="margin:20px 0px;padding:10px 50px;background-color: #f7f6ff">
+                        <h3 style="color: black;border-left: 4px solid #6b48ff;padding-left: 10px;"><b>宠物信息</b></h3>
+                    </div>
+                    <div style="padding:10px 50px;"><label style="display: inline-block;width: 100px;color: #999999">宠物数量</label><span
+                            style="display: inline-block;color: black;width: 200px">{$data.pet_num}</span></div>
+                    {volist name="data.pet" id="vo"}
+                    <div style="padding:10px 50px;">
+                        <label style="display: inline-block;width: 100px;color: #999999">名字</label>
+                        <span style="display: inline-block;color: black;width: 200px">{$vo.name}</span>
+                        <label style="display: inline-block;width: 100px;color: #999999">宠物注册号</label>
+                        <span style="display: inline-block;color: black;width: 200px">{$vo.number}</span>
+                        <label style="display: inline-block;width: 100px;color: #999999">年龄</label>
+                        <span style="display: inline-block;color: black;width: 200px">{$vo.age}</span>
+                        <label style="display: inline-block;width: 100px;color: #999999">图片</label>
+                        <span style="display: inline-block;color: black;width: 200px"><img src="{$vo.image}"
+                                                                                           style="width: 100px" alt=""></span>
+                    </div>
+                    <div style="padding:10px 50px;">
+                        <label style="display: inline-block;width: 100px;color: #999999">类型</label>
+                        <span style="display: inline-block;color: black;width: 200px">{$vo.type}</span>
+                    </div>
+                    {/volist}
+                </div>
+                {/if}
+                <div>
+                    <div style="margin:20px 0px;padding:10px 50px;background-color: #f7f6ff">
+                        <h3 style="color: black;border-left: 4px solid #6b48ff;padding-left: 10px;"><b>紧急联系人</b></h3>
+                    </div>
+                    <div style="padding:10px 50px;">
+                        <label style="display: inline-block;width: 100px;color: #999999">姓名</label>
+                        <span style="display: inline-block;color: black;width: 200px">{$data.contact_name}</span>
+                        <label style="display: inline-block;width: 100px;color: #999999">联系方式</label>
+                        <span style="display: inline-block;color: black;width: 200px">{$data.contact_mobile}</span>
+                        <label style="display: inline-block;width: 100px;color: #999999">地址</label>
+                        <span style="display: inline-block;color: black;width: 200px">{$data.contact_addr}</span>
+                    </div>
+                    <div style="padding:10px 50px;">
+                        <label style="display: inline-block;width: 100px;color: #999999">关系</label>
+                        <span style="display: inline-block;color: black;width: 200px">{$data.contact_rela}</span>
+                        <label style="display: inline-block;width: 100px;color: #999999">电子邮箱</label>
+                        <span style="display: inline-block;color: black;width: 200px">{$data.contact_email}</span>
+                    </div>
+                </div>
+                <div>
+                    <div style="margin:20px 0px;padding:10px 50px;background-color: #f7f6ff">
+                        <h3 style="color: black;border-left: 4px solid #6b48ff;padding-left: 10px;"><b>推荐人</b></h3>
+                    </div>
+                    <div style="padding:10px 50px;">
+                        <label style="display: inline-block;width: 100px;color: #999999">姓名</label>
+                        <span style="display: inline-block;color: black;width: 200px">{$data.referee_name}</span>
+                        <label style="display: inline-block;width: 100px;color: #999999">联系方式</label>
+                        <span style="display: inline-block;color: black;width: 200px">{$data.referee_mobile}</span>
+                        <label style="display: inline-block;width: 100px;color: #999999">地址</label>
+                        <span style="display: inline-block;color: black;width: 200px">{$data.referee_addr}</span>
+                    </div>
+                    <div style="padding:10px 50px;">
+                        <label style="display: inline-block;width: 100px;color: #999999">关系</label>
+                        <span style="display: inline-block;color: black;width: 200px">{$data.referee_rela}</span>
+                        <label style="display: inline-block;width: 100px;color: #999999">电子邮箱</label>
+                        <span style="display: inline-block;color: black;width: 200px">{$data.referee_email}</span>
+                    </div>
+                </div>
+                {if condition="empty($data.history) neq true"}
+                <div>
+                    <div style="margin:20px 0px;padding:10px 50px;background-color: #f7f6ff">
+                        <h3 style="color: black;border-left: 4px solid #6b48ff;padding-left: 10px;"><b>租房历史</b></h3>
+                    </div>
+                    {volist name="data.history" id="vo"}
+                    <div style="padding:10px 50px;">
+                        <label style="display: inline-block;width: 100px;color: #999999">居住情况</label>
+                        <span style="display: inline-block;color: black;width: 200px">{$vo.live_type}</span>
+                        <label style="display: inline-block;width: 100px;color: #999999">周租金</label>
+                        <span style="display: inline-block;color: black;width: 200px">{$vo.rent}</span>
+                        <label style="display: inline-block;width: 100px;color: #999999">房东/中介</label>
+                        <span style="display: inline-block;color: black;width: 200px">{$vo.is_land}</span>
+                        <label style="display: inline-block;width: 100px;color: #999999">电子邮箱</label>
+                        <span style="display: inline-block;color: black;width: 200px">{$vo.email}</span>
+                    </div>
+                    <div style="padding:10px 50px;">
+                        <label style="display: inline-block;width: 100px;color: #999999">地址</label>
+                        <span style="display: inline-block;color: black;width: 200px">{$vo.house_addr}</span>
+                        <label style="display: inline-block;width: 100px;color: #999999">居住时长</label>
+                        <span style="display: inline-block;color: black;width: 200px">{$vo.live_time}</span>
+                        <label style="display: inline-block;width: 100px;color: #999999">联系方式</label>
+                        <span style="display: inline-block;color: black;width: 200px">{$vo.mobile}</span>
+                        <label style="display: inline-block;width: 200px;color: #999999">押金是否返还</label>
+                        <span style="display: inline-block;color: black;width: 200px">{$vo.is_br}</span>
+                    </div>
+                    {/volist}
+                </div>
+                {/if}
+            </div>
+            <div id="material_div" style="background-color: #ffffff;padding: 10px 0px;display: none">
+                <div style="padding:10px 50px;">
+                    {volist name="data.material" id="vo" key="k"}
+                    {if condition="$k%5 eq 0"}
+                </div>
+                <div style="padding:10px 50px;">
+                    {/if}
+                    <div style="display: inline-block">
+                        <div style="margin: 20px 0px 20px 10px;">
+                            <img src="/uploads/pdf.png" id="material_img{$vo.id}" alt="">
+                        </div>
+                        <div style="color: #cccccc;">
+                            <input type="checkbox" value="{$vo.id}" name="material_box">
+                            <span style="display: inline-block;width: 120px;margin-left: 10px">{$vo.name}</span>
+                        </div>
+                    </div>
+                    {/volist}
+                    <div style="margin: 50px 0px 10px 0px">
+                        <a href="#" class="layui-btn layui-btn-warm layui-btn-sm "
+                           style="background-color: white;color:#FFB800;border: 1px #FFB800 solid;width: 80px">下载</a>
+                    </div>
+                </div>
+                <div>
+                    <div style="margin:20px 0px;padding:10px 50px;">
+                        <h3 style="color: black;border-left: 4px solid #6b48ff;padding-left: 10px;"><b>隐私协议</b></h3>
+                    </div>
+                    <div style="padding:10px 50px;">
+                        <span style="display: inline-block;color: black;">爱好了干哈了干哈了刚回来干哈了规划厉害了更好拉和管理规划拉和管理安华高喇汗国喇汗国喇汗国了哈格里韩国拉回来给和爱好了干哈了干哈了刚回来干哈了规划厉害了更好拉和管理规划拉和管理安华高喇汗国喇汗国喇汗国了哈格里韩国拉回来给和爱好了干哈了干哈了刚回来干哈了规划厉害了更好拉和管理规划拉和管理安华高喇汗国喇汗国喇汗国了哈格里韩国拉回来给和爱好了干哈了干哈了刚回来干哈了规划厉害了更好拉和管理规划拉和管理安华高喇汗国喇汗国喇汗国了哈格里韩国拉回来给和爱好了干哈了干哈了刚回来干哈了规划厉害了更好拉和管理规划拉和管理安华高喇汗国喇汗国喇汗国了哈格里韩国拉回来给和</span>
+                    </div>
+                    <div style="padding:10px 50px;">
+                        <h4 style="color: black;font-size: 14px"><b>我知晓并同意以上内容</b></h4>
+                        <div style="margin: 50px 0px 10px 0px">
+                            <a href="#" class="layui-btn layui-btn-warm layui-btn-sm "
+                               style="background-color: white;color:#FFB800;border: 1px #FFB800 solid;width: 80px">导出协议</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    layui.use(['form', 'jquery', 'upload', 'laydate', 'layedit'], function () {
+        var form = layui.form
+            , upload = layui.upload
+            , laydate = layui.laydate
+            , layedit = layui.layedit
+            , $ = layui.jquery;
+        //日期
+        laydate.render({
+            elem: '#date'
+        });
+    });
+    $("#apply_a").click(function () {
+        $("#apply_div").show();
+        $("#material_div").hide();
+        $("#apply_a").css({"background-color": "#6b48ff", "color": "white"});
+        $("#material_a").css({"background-color": "#ffffff", "color": "black"});
+    });
+    $("#material_a").click(function () {
+        $("#material_div").show();
+        $("#apply_div").hide();
+        $("#material_a").css({"background-color": "#6b48ff", "color": "white"});
+        $("#apply_a").css({"background-color": "#ffffff", "color": "black"});
+    });
+
+    $("input[name='material_box']").change(function () {
+        if ($(this).is(":checked")) {
+            $(this).parent().css({"color": "#6b48ff"});
+            $('#material_img' + $(this).val()).attr('src', '/uploads/pdf2.png');
+        } else {
+            $(this).parent().css({"color": "#cccccc"});
+            $('#material_img' + $(this).val()).attr('src', '/uploads/pdf.png');
+        }
+    });
+    $("#apply_do").click(function () {
+        layer.confirm('同意/拒绝申请', {
+            btn: ['同意申请', '拒绝申请', '取消']//按钮
+        }, function () {
+            $.ajax({
+                type: 'POST',
+                url: "<?=url('tickrent/applyDo')?>",
+                data: {ids: "{$id}", act: 1},
+                dataType: 'json',
+                success: function (data) {
+                    if (data.code == '1') {
+                        layer.alert('同意申请成功！', {
+                            icon: 1,
+                            skin: 'layer-ext-moon',
+                            time: 2000,
+                            end: function () {
+                                window.location.href = '<?=url("tickrent/detail")?>?id=' + "{$id}";
+                            }
+                        });
+                    }
+                }
+            });
+        }, function () {
+            $.ajax({
+                type: 'POST',
+                url: "<?=url('tickrent/applyDo')?>",
+                data: {ids: "{$id}", act: 2},
+                dataType: 'json',
+                success: function (data) {
+                    if (data.code == '1') {
+                        layer.alert('拒绝申请成功！', {
+                            icon: 1,
+                            skin: 'layer-ext-moon',
+                            time: 2000,
+                            end: function () {
+                                window.location.href = '<?=url("tickrent/detail")?>?id=' + "{$id}";
+                            }
+                        });
+                    }
+                }
+            });
+        }, function () {
+            layer.msg('取消操作！');
+        });
+    });
+
+</script>
+{include file="index/footer" /}

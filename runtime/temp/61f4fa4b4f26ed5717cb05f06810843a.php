@@ -1,4 +1,4 @@
-<?php if (!defined('THINK_PATH')) exit(); /*a:3:{s:89:"D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\public/../application/xcx\view\house\add.html";i:1600741373;s:82:"D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\application\xcx\view\index\header.html";i:1591180794;s:82:"D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\application\xcx\view\index\footer.html";i:1577269681;}*/ ?>
+<?php if (!defined('THINK_PATH')) exit(); /*a:3:{s:89:"D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\public/../application/xcx\view\house\add.html";i:1600830512;s:82:"D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\application\xcx\view\index\header.html";i:1591180794;s:82:"D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\application\xcx\view\index\footer.html";i:1577269681;}*/ ?>
 <!DOCTYPE html>
 <html style="height: 100%">
 <head>
@@ -220,7 +220,7 @@
                     </div>
                 </div>
                 <div class="layui-form-item roomate">
-                    <label class="layui-form-label"><span style="color: red;">*</span><?php echo $lable['shifoujiaju']; ?></label>
+                    <label class="layui-form-label"><?php echo $lable['shifoujiaju']; ?></label>
                     <div class="layui-input-block">
                         <input type="radio" name="is_fur" value="否" title="<?php echo $lable['bujiaju']; ?>" checked>
                         <input type="radio" name="is_fur" value="是" title="<?php echo $lable['baojiaju']; ?>">
@@ -309,7 +309,7 @@
                     </div>
                 </div>
                 <div class="layui-form-item entire">
-                    <label class="layui-form-label"><span style="color: red;">*</span><?php echo $lable['jiaju']; ?></label>
+                    <label class="layui-form-label"><?php echo $lable['jiaju']; ?></label>
                     <div class="layui-input-block">
                         <input type="checkbox" name="home[床]" lay-skin="primary" title="<?php echo $lable['chuang']; ?>">
                         <input type="checkbox" name="home[沙发]" lay-skin="primary" title="<?php echo $lable['shafa']; ?>">
@@ -979,6 +979,7 @@
             });
 
             //视频上传
+             //视频上传
             upload.render({
                 elem: '.uploadLogo'
                 ,auto:false
@@ -1016,7 +1017,7 @@
                             layer.close(layer.index);
                             let video_time = document.getElementById("logoPre").duration;
                             console.log(video_time);
-                            if(video_time >= 90) {
+                            if(video_time >= 120) {
                                 $('#vidDel').hide();                                               //删除按钮隐藏
                                 $(".upBtn").removeClass("notclick");
                                 $(".urlBtn").removeClass("notclick");

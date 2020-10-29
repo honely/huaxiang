@@ -3,6 +3,7 @@
 
 namespace app\xcx\controller;
 
+use app\xcx\model\Languages;
 use app\xcx\model\Loops;
 use think\Controller;
 use think\Db;
@@ -30,9 +31,23 @@ class Forent extends Controller
     }
     public function index(){
         $adminId = session('adminId');
+        $lang = new Languages();
+        $enLab = $lang->getLanguages();
+        $this->assign('lable',$enLab);
         return $this->fetch();
     }
 
+    public function delBatch(){
+        $ids = ltrim($this->request->param('ids'),',');
+        $idArr = explode(',',$ids);
+        foreach($idArr as $key => $value)
+        {
+            Db::table('tk_forent')
+                ->where(['id' => $value])
+                ->delete();
+        }
+        $this->success('SuccessFully！','index');
+    }
     public function indexData(){
         $where =' status <= 2';
         $keywords = trim($this->request->param('keywords'));

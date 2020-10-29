@@ -21,8 +21,8 @@ class Views extends Model
         //更新房源浏览量  浏览类型1房源；2找室友
         if($type == 1 ){
             Db::table('tk_houses')->where(['id' =>$hid])->setInc('view');
-        }else{
-            Db::table('tk_roommates')->where(['id' =>$hid])->setInc('view');
+        }elseif($type == 3){
+            Db::table('tk_forent')->where(['id' =>$hid])->setInc('view');
         }
 
         $insert = Db::table('xcx_view_history')->insertGetId($data);

@@ -190,6 +190,13 @@ class Corp extends Controller
 
     public function del(){
         $ba_id=intval(trim($_GET['cp_id']));
+         //是否可以删除
+        $isDel = Db::table('super_admin')
+            ->where("ad_corp in (".$ba_id.")")
+            ->find();
+        if($isDel){
+            $this->error('删除失败,此公司下有员工暂时无法删除！','index');
+        }
         $delBan=Db::table('xcx_corp')->where(['cp_id'=> $ba_id])->delete();
         if($delBan){
             $this->success('删除成功！','index');
@@ -544,5 +551,68 @@ ABN: 11 628 249 687</b>
         }else{
             return json(['code'=>1,'msg'=>'发送成功！']);
         }
+    }
+
+
+    /***
+     * 中介申请入住页面渲染
+     * @return mixed
+     */
+    public function apply(){
+        $lang = new Languages();
+        $enLab = $lang->getLanguages();
+        $this->assign('lable',$enLab);
+        return $this->fetch();
+    }
+
+    /**
+     * 中介申请入住数据
+     * @return \think\response\Json
+     * @throws \think\Exception
+     * @throws \think\db\exception\DataNotFoundException
+     * @throws \think\db\exception\ModelNotFoundException
+     * @throws \think\exception\DbException
+     */
+    public function applyData(){
+        $count=Db::table('tk_corpapply')
+            ->count('i_id');
+        $page= $this->request->param('page',1,'intval');
+        $limit=$this->request->param('limit',50,'intval');
+        $example=Db::table('tk_corpapply')
+            ->limit(($page-1)*$limit,$limit)
+            ->order('ctime desc')
+            ->select();
+        $loop = new Loops();
+        if($example){
+            foreach ($example as $k => $v){
+                $example[$k]['status'] = $this->getStatus($v['status']);
+                $example[$k]['uid'] = $loop->getUserNick($v['uid']);
+            }
+
+        }
+        $res['code'] = 0;
+        $res['msg'] = "";
+        $res['data'] = $example;
+        $res['count'] = $count;
+        return json($res);
+    }
+
+    public function getStatus($status){
+        switch ($status)
+        {
+            //`status` tinyint(1) DEFAULT '1' COMMENT '状态：1待处理；2不合适；3已入驻',
+            case 1:
+                $type = '待处理';
+                break;
+            case 2:
+                $type = '不合适';
+                break;
+            case 3:
+                $type = '已入驻';
+                break;
+            default:
+                $type = '---';
+        }
+        return $type;
     }
 }

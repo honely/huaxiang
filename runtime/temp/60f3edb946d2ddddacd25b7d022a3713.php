@@ -1,4 +1,4 @@
-<?php if (!defined('THINK_PATH')) exit(); /*a:3:{s:92:"D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\public/../application/xcx\view\forent\index.html";i:1598525061;s:82:"D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\application\xcx\view\index\header.html";i:1591180794;s:82:"D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\application\xcx\view\index\footer.html";i:1577269681;}*/ ?>
+<?php if (!defined('THINK_PATH')) exit(); /*a:3:{s:92:"D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\public/../application/xcx\view\forent\index.html";i:1603163625;s:82:"D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\application\xcx\view\index\header.html";i:1591180794;s:82:"D:\phpStudy\PHPTutorial\WWW\newxcx\huaxiang\application\xcx\view\index\footer.html";i:1577269681;}*/ ?>
 <!DOCTYPE html>
 <html style="height: 100%">
 <head>
@@ -68,11 +68,22 @@
                     </div>
                 </form>
             </section>
+            <section class="panel panel-padding" style="padding-top: 0px;padding-left: 10px;">
+                <form class="layui-form layui-form-pane1">
+                    <div class="layui-form-item  demoTable">
+                        <div class="layui-inline" style="margin-top: 5px;">
+                            <div class="layui-input-inline" >
+                                <span class="layui-btn layui-btn-sm layui-btn-danger" data-type="getCheckData">删除</span>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </section>
             <section class="panel panel-padding">
                 <table lay-skin="line" class="layui-table" lay-filter="demo" lay-data="{height: 'full-200', cellMinWidth:60, url:'/xcx/forent/indexData/', limit:50,limits:[50] ,id: 'testReload',page:true}" >
                     <thead>
                     <tr>
-                        <th lay-data="{field:'id' ,width:80}">id</th>
+                        <th lay-data="{field:'id' ,type:'checkbox',width:80}">id</th>
                         <th lay-data="{field:'title',width:150}">标题</th>
                         <th lay-data="{field:'city',width:100}">城市</th>
                         <th lay-data="{field:'school',width:120}">校区</th>
@@ -141,6 +152,42 @@
                         console.log(data);
                     }
                 });
+            },
+            getCheckData: function(){ //获取选中数据
+                var ids = '';
+                var checkStatus = table.checkStatus('testReload')
+                    ,data = checkStatus.data;
+                if(data.length <= 0){
+                    layer.msg('请至少选择一条记录！');
+                }else{
+                    layer.confirm('确定批量删除这些记录？', {
+                        btn : [ '<?php echo $lable['sure']; ?>', '<?php echo $lable['cancel']; ?>' ]//按钮
+                    }, function() {
+                        for(var i=0;i<data.length;i++){
+                            ids+=','+checkStatus.data[i].id;
+                        }
+                        $.ajax({
+                            type: 'POST',
+                            url: "<?=url('forent/delBatch')?>?ids="+ids,
+                            data: {ids:ids},
+                            dataType:  'json',
+                            success: function(data){
+                                if(data.code == '1'){
+                                    layer.alert('<?php echo $lable['deleteSuc']; ?>！', {
+                                        icon: 1,
+                                        skin: 'layer-ext-moon',
+                                        time: 2000,
+                                        end: function(){
+                                            window.location.href='<?=url("forent/index")?>';
+                                        }
+                                    });
+                                }
+                            }
+                        });
+                    },function(){
+                        layer.msg('<?php echo $lable['quxiaocaozuo']; ?>！');
+                    });
+                }
             }
 
         };

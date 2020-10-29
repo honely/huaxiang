@@ -4,8 +4,10 @@
 namespace app\api\controller;
 
 
+use phpmailer\PHPMailer;
 use think\Controller;
 use think\Db;
+use think\Loader;
 use think\Log;
 
 class User extends Controller
@@ -596,8 +598,8 @@ class User extends Controller
         header('Access-Control-Allow-Headers:x-requested-with, content-type');
         $id = $this->request->param('id');
         $phone = $this->request->param('phone');
-        $code = $this->request->param('code');
         $ucode = $this->request->param('ucode');
+        $code = $ucode;
         if (!@$id) {
             $res['code'] = 0;
             $res['msg'] = '用户id为空！';
@@ -715,4 +717,97 @@ class User extends Controller
     }
     
     
+ public function mailto(){
+        header("Access-Control-Allow-Origin:*");
+        header('Access-Control-Allow-Methods:POST');
+        header('Access-Control-Allow-Headers:x-requested-with, content-type');
+        Loader::import('phpmailer.phpmailer');//加载extend中的自定义类
+        $mailer = trim($this->request->param('email'));
+        if(!$mailer){
+            return json(['code'=>0,'msg'=>'缺少参数']);
+        }
+        $mail = new PHPMailer();
+        $toemail = $mailer;//收件人
+        $mail->isSMTP();// 使用SMTP服务
+        $mail->CharSet = "utf8";// 编码格式为utf8，不设置编码的话，中文会出现乱码
+        $mail->Host = "mail.welho.me";// 发送方的SMTP服务器地址
+        $mail->SMTPAuth = true;// 是否使用身份验证
+        $mail->Username = "customerservices@welho.me";
+        $mail->Password = "hxxb0401!!";
+        $mail->SMTPSecure = "ssl";// 使用ssl协议方式
+        $mail->Port = 465;
+        $mail->setFrom("customerservices@welho.me","花香小宝");
+        $mail->addAddress($toemail,'Wang');
+        $mail->addReplyTo($mailer,"Reply");
+        $mail->Subject = "【EMAIL VERIFICATION】WELHOME AGENT PLATFORM//【邮箱验证】小宝经纪人平台";// 邮件标题
+        $code = mt_rand(999, 9999);
+        $mail->isHTML(true);
+        $mail->Body = "Dear Agent,
+<br/>
+<br/>
+You're update your email address on the Welhome Agent Platform.
+
+<br/>
+<br/>
+Verification code:".$code."
+<br/>
+<br/>
+Expire in 3 mins
+
+<br/>
+<br/>
+
+This is an automatic email, please do not reply. ".$code."，请尽快处理！";
+        $data['mail'] = $mailer;
+        $data['code'] = $code;
+        if(!$mail->send()){
+            return json(['code'=>0,'msg'=>'Failed！please Connect Administrator']);
+        }else{
+            return json(['code'=>1,'msg'=>'Successfully！','data' => $data]);
+        }
+    }
+    
+    
+    public function updatemail(){
+        header("Access-Control-Allow-Origin:*");
+        header('Access-Control-Allow-Methods:POST');
+        header('Access-Control-Allow-Headers:x-requested-with, content-type');
+        $id = $this->request->param('id');
+        $email = $this->request->param('email');
+        if (!@$id) {
+            $res['code'] = 0;
+            $res['msg'] = '用户id为空！';
+            return json($res);
+        }
+        if (!@$email) {
+            $res['code'] = 0;
+            $res['msg'] = '邮箱为空！';
+            return json($res);
+        }
+        $user = Db::table('tk_user')
+            ->where(['id' => $id])
+            ->field('email')
+            ->find();
+        if(!$user){
+            $res['code'] = 0;
+            $res['msg'] = '无此用户！';
+            return json($res);
+        }
+        if($user['email'] == $email){
+            $res['code'] = 0;
+            $res['msg'] = '与此前邮箱重复！';
+            return json($res);
+        }
+        $update = Db::table('tk_user')
+            ->where(['id' => $id])
+            ->update(['email' => $email]);
+        if($update){
+            $res['code'] = 1;
+            $res['msg'] = '修改成功！';
+            return json($res);
+        }
+        $res['code'] = 0;
+        $res['msg'] = '修改失败！';
+        return json($res);
+    }
 }

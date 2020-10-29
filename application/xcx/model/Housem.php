@@ -37,7 +37,7 @@ class Housem extends Model
                 $images = $v['thumnail'] ? $v['thumnail'] : $this->formatImg($v['images']);
                 $result[$k]['images'] = $images;
                 $result[$k]['cover'] = $this->compCover($v['id'],$images);
-                $result[$k]['address'] = $v['street'].' '.$v['address'];
+                $result[$k]['address'] = $v['street'] ? $v['street'].'/'.$v['address'] : $v['address'] ;
             }
         }
         return $result ? $result :  null;
@@ -192,6 +192,7 @@ class Housem extends Model
         $loardHouse =[];
         $comment =[];
         $commc = 0;
+        $inspectTime =[];
         $house = Db::table('tk_houses')
             ->where(['id' => $id])
             ->find();
@@ -219,10 +220,6 @@ class Housem extends Model
             $res['countc'] = $commc;
             return $res;
         }
-        if (!$house['area_img']) {
-            $this->get_area_id($house['id'], $house['x'], $house['y']);
-
-        }
         $house = Db::table('tk_houses')
             ->where(['id' => $id])
             ->find();
@@ -246,7 +243,7 @@ class Housem extends Model
             //$house['house_room'] = $this->numRoom($house['house_room']);
             $house['logo'] = $this->getAdminLogo($house['corp']);
             $house['minilogo'] = $this->getMiniLogo($house['corp']);
-            $house['address'] = $house['street'].' '.$house['address'];
+            $house['address'] = $house['street'] ? $house['street'].'/'.$house['address'] : $house['address'];
             $house['is_colt'] = $this->getColt($house['id'],$uid);
             $house['is_like'] = $this->getLikes($house['id'],$uid);
             //$house['colour'] = $this->getColour($house['corp']);
@@ -262,6 +259,14 @@ class Housem extends Model
                 $house['avatar'] = $loop->getAdminAvatar($house['pm']);
                 $whereloard ="status = 1 and type = '".$house['type']."' and pm = ".$house['pm']." and id != ".$id;
                 $loadLimit = 2;
+                $date = date('Y-m-d H:i:s');
+                $inspectTime = Db::table('tk_houseplan')
+                    ->where("hp_plandate != ''")
+                    ->where("hp_endtime > '".$date."'")
+                    ->where(['hp_hid' => $id,'hp_status' =>1,'hp_type' =>1])
+                    ->order('hp_plandate desc')
+                    ->field('hp_id,hp_plandate,hp_lastime')
+                    ->select();
             }else{
                 $house['real_name'] = $loop->getUserNick($house['user_id']);
                 $house['avatar'] = $loop->getUserAvatar($house['user_id']);
@@ -269,6 +274,7 @@ class Housem extends Model
                 $loadLimit = 8;
             }
             $loardHouse = $this->readData($whereloard,'id desc',$loadLimit,0,$fields);
+            $loardHouseCount = $this->houseCount($whereloard);
             if($house['type'] == "合租"){
                 $comment = Db::table('tk_comment')
                     ->where(['type' => 1,'repy' => 1,'status' =>1,'tid' => $id])
@@ -296,9 +302,10 @@ class Housem extends Model
         $res['other'] = $areaHouse;
         $res['counto'] = sizeof($areaHouse);
         $res['loard'] = $loardHouse;
-        $res['countl'] = sizeof($loardHouse);
+        $res['countl'] = $loardHouseCount;
         $res['comment'] = $comment;
         $res['countc'] = $commc;
+        $res['insptime'] = $inspectTime;
         return $res;
     }
 
@@ -425,14 +432,14 @@ class Housem extends Model
 
 
 
-    public function get_area_id($id, $x, $y) {
-        $url =  "https://image.maps.ls.hereapi.com/mia/1.6/mapview?c={$x}%2C{$y}&z=17&w=750&h=475&f=1&apiKey=WgZd-Ykul-3XNV5agUgW2vMohtzAlYEA64GIQvcrfaw";
-        $res = file_get_contents($url);
-        file_put_contents('uploads/area/'.$id.'.png', $res);
-        $data['id'] = $id;
-        $img = 'https://wx.huaxiangxiaobao.com/uploads/area/'.$id.'.png';
-        Db::table('tk_houses')->where(['id' => $id])->update(['area_img' => $img]);
-    }
+    // public function get_area_id($id, $x, $y) {
+    //     $url =  "https://image.maps.ls.hereapi.com/mia/1.6/mapview?c={$x}%2C{$y}&z=17&w=750&h=475&f=1&apiKey=WgZd-Ykul-3XNV5agUgW2vMohtzAlYEA64GIQvcrfaw";
+    //     $res = file_get_contents($url);
+    //     file_put_contents('uploads/area/'.$id.'.png', $res);
+    //     $data['id'] = $id;
+    //     $img = 'https://wx.huaxiangxiaobao.com/uploads/area/'.$id.'.png';
+    //     Db::table('tk_houses')->where(['id' => $id])->update(['area_img' => $img]);
+    // }
 
 
     public function numRoom($room){
@@ -463,7 +470,7 @@ class Housem extends Model
     public function houseCount($where){
         $count = Db::table('tk_houses')
             ->where($where)
-            ->count();
+            ->count('id');
         return $count ? $count : 0 ;
     }
 

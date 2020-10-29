@@ -26,7 +26,7 @@
             </div>
             <div class="layui-form-item">
                 <div class="layui-input-block">
-                    <span class="layui-btn" lay-submit onclick="closeAlls()">{$lable.cemail}</span>
+                    <span class="layui-btn" lay-submit onclick="closeAlls()">{$lable.gengxinshouji}</span>
                 </div>
             </div>
         </form>
@@ -121,8 +121,9 @@
                     }
                 },1000);
             }
+        }else{
+            return layer.msg('手机号格式错误！');
         }
-        return layer.msg('手机号格式错误！');
     });
 </script>
 {include file="index/footer" /}

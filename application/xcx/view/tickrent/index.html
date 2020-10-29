@@ -1,0 +1,329 @@
+{include file="index/header" /}
+<style>
+    .layui-table-cell{
+        height:36px !important;
+        line-height:36px !important;
+        clear: both;
+    }
+    .layui-form-item {
+        margin-bottom: 0px !important;
+        clear: both;
+        *zoom: 1;
+    }
+    body{
+        background-color: #f5f6fa
+    }
+    .layui-table thead tr{
+        background-color: #ffffff;
+    }
+</style>
+<div class="layui-tab layui-tab-brief" lay-filter="docDemoTabBrief" style="background-color: #f5f6fa">
+    <div class="layui-tab-content" style="height: 100px;">
+        <div class="layui-tab-item layui-show" style="background-color: white">
+            <section class="panel panel-padding" style="padding-top: 0px;padding-left: 10px;">
+                <form class="layui-form layui-form-pane1">
+                    <div class="layui-form-item  demoTable" style="padding-top: 20px">
+                        <div class="layui-inline" >
+                            <label class="layui-form-label" style="padding: 9px 14px;width: 57px;font-weight: bold">申请ID</label>
+                            <div class="layui-input-inline" style="width:160px;">
+                                <input type="text" name="APPLY_ID" id="APPLY_ID"  placeholder="请输入" class="layui-input">
+                            </div>
+                        </div>
+                        <div class="layui-inline">
+                            <label class="layui-form-label" style="padding: 9px 14px;width: 70px;font-weight: bold">房源地址</label>
+                            <div class="layui-input-inline">
+                                <input type="text" name="house_addr"  class="layui-input" id="house_addr" placeholder="请输入" >
+                            </div>
+                        </div>
+                        <div class="layui-inline" >
+                            <label class="layui-form-label" style="padding: 9px 14px;width: 57px;font-weight: bold">PM姓名</label>
+                            <div class="layui-input-inline" style="width:160px;">
+                                <input type="text" name="agent" id="agent"  placeholder="请输入" class="layui-input">
+                            </div>
+                        </div>
+                        <div class="layui-inline" >
+                            <label class="layui-form-label" style="padding: 9px 14px;width: 70px;font-weight: bold">申请人姓名</label>
+                            <div class="layui-input-inline" style="width:160px;">
+                                <input type="text" name="people_name" id="people_name"  placeholder="请输入" class="layui-input">
+                            </div>
+                        </div>
+                        <div class="layui-inline">
+                            <label class="layui-form-label" style="padding: 9px 14px;width: 60px;font-weight: bold">申请状态</label>
+                            <div class="layui-input-inline" style="width:110px;">
+                                <select name="status" id="statu">
+                                    <option value="">全部</option>
+                                    <option value="0">未读</option>
+                                    <option value="2">处理中</option>
+                                    <option value="1">已读</option>
+                                    <option value="9">已删除</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="layui-inline">
+                            <div class="layui-input-inline" >
+                                <span class="layui-btn layui-btn-sm " data-type="reload">查询</span>
+                                <a href="<?=url('tickrent/index')?>" class="layui-btn layui-btn-warm layui-btn-sm ">刷新</a>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </section>
+            <section class="panel panel-padding">
+                <table lay-skin="line" class="layui-table" lay-filter="demo"  lay-data="{height: 'full-200', cellMinWidth:60, url:'/xcx/tickrent/applyData/', limit:20,limits:[20] ,id: 'testReload',page:true}" >
+                    <thead>
+                    <tr style="background-color: white">
+                        <th lay-data="{type:'checkbox', width:48}">id</th>
+                        <th lay-data="{field:'APPLY_ID' ,width:110}">申请ID</th>
+                        <th lay-data="{field:'house_addr',width:120}">房源地址</th>
+                        <th lay-data="{field:'agent' ,width:110}">PM姓名</th>
+                        <th lay-data="{field:'people_name' ,width:110}">申请人姓名</th>
+                        <th lay-data="{field:'status' ,width:110}">申请状态</th>
+                        <th lay-data="{field:'is_seen',width:120}">看房情况</th>
+                        <th lay-data="{field:'rent',width:120}">原租金</th>
+                        <th lay-data="{field:'trent',width:120}">提议租金</th>
+                        <th lay-data="{field:'lease_term',width:120}">提议租期/月</th>
+                        <th lay-data="{field:'live_date',width:120}">入住时间</th>
+                        <th lay-data="{field:'prerent',width:120}">预付房租</th>
+                        <th lay-data="{field:'cl',width:120}">材料分值</th>
+                        <th lay-data="{ width:116, toolbar: '#barDemo'}">操作</th>
+                    </tr>
+                    </thead>
+                </table>
+            </section>
+        </div>
+    </div>
+</div>
+<script type="text/html" id="barDemo">
+    <a class="layui-btn layui-btn-xs  layui-btn-warm" lay-event="alert">详情</a>
+</script>
+<script>
+    layui.use(['table','laydate','form','element'], function(){
+        var table = layui.table
+            ,form = layui.form
+            ,element = layui.element
+            ,laydate = layui.laydate;
+        laydate.render({
+            elem: '#time'
+            ,range: true
+        });
+        form.on('checkbox(top123)', function(data){
+            var check = this.checked ? '是' : '否';
+            $('#top').val(check);
+        });
+        form.on('checkbox(tj123)', function(data){
+            var check = this.checked ? '是' : '否';
+            $('#tj').val(check);
+        });
+        form.on('select(bu_p_id)', function(data){
+            var city=data.value;
+            $.ajax({
+                type: 'POST',
+                url: "<?=url('house/getarea')?>?city="+city,
+                data: {city:city},
+                dataType:  'json',
+                success: function(data){
+                    var code=data.data;
+                    console.log(code);
+                    $("#bu_c_id").html("<option value=''>区域</option>");
+                    $.each(code, function(i, val) {
+                        var option1 = $("<option>").val(val.area).text(val.area);
+                        $("#bu_c_id").append(option1);
+                        form.render('select');
+                    });
+                    $("#bu_c_id").get(0).selectedIndex=0;
+                }
+            });
+        });
+        form.on('select(reOrder)', function(data){
+            console.log(data);
+            var order = data.value;
+            var APPLY_ID = $('#APPLY_ID').val();
+            var house_addr = $('#house_addr').val();
+            var agent = $('#agent').val();
+            var people_name = $('#people_name').val();
+            var status = $('#statu').val();
+            table.reload('testReload', {
+                url: '/xcx/tickrent/applyData/'
+                ,page: {
+                    curr: 1 //重新从第 1 页开始
+                }
+                ,where: {
+                    APPLY_ID: APPLY_ID,
+                    house_addr: house_addr,
+                    agent: agent,
+                    people_name: people_name,
+                    status: status,
+                    order: order
+                },
+                success:function (data) {
+                    console.log(data);
+                }
+            });
+        });
+        //监听是否开启操作
+        form.on('switch(topDemo)', function(obj){
+            var id = this.value;
+            //如果选中状态是true,后台数据将要改为显示
+            var change = obj.elem.checked;
+            if(change){
+                change = 1;
+            }else{
+                change = 0;
+            }
+            $.ajax({
+                type: 'POST',
+                url: "<?=url('house/status')?>?id="+id+ "&change="+change,
+                dataType:  'json',
+                success: function(data){
+                    layer.msg(data.msg,{
+                        time: 1500
+                    },function () {
+                        location.reload();
+                    });
+                }
+            });
+        });
+
+
+        //监听是否开启操作
+        form.on('switch(sexDemo)', function(obj){
+            var id = this.value;
+            //如果选中状态是true,后台数据将要改为显示
+            var change = obj.elem.checked;
+            if(change){
+                change = 1;
+            }else{
+                change = 0;
+            }
+            $.ajax({
+                type: 'POST',
+                url: "<?=url('house/tjstatus')?>?id="+id+ "&change="+change,
+                dataType:  'json',
+                success: function(data){
+                    layer.msg(data.msg,{
+                        time: 1500
+                    },function () {
+                        location.reload();
+                    });
+                }
+            });
+        });
+
+
+        //监听是否开启操作
+        form.on('switch(statusDemo)', function(obj){
+            var id = this.value;
+            //如果选中状态是true,后台数据将要改为显示
+            var change = obj.elem.checked;
+            if(change){
+                change = 1;
+            }else{
+                change = 0;
+            }
+            $.ajax({
+                type: 'POST',
+                url: "<?=url('house/onstatus')?>?id="+id+ "&change="+change,
+                dataType:  'json',
+                success: function(data){
+                    layer.msg(data.msg,{
+                        time: 1500
+                    },function () {
+                        location.reload();
+                    });
+                }
+            });
+        });
+
+        var $ = layui.$, active = {
+            reload: function(){
+                var APPLY_ID = $('#APPLY_ID').val();
+                var house_addr = $('#house_addr').val();
+                var agent = $('#agent').val();
+                var people_name = $('#people_name').val();
+                var status = $('#statu').val();
+                table.reload('testReload', {
+                    url: '/xcx/tickrent/applyData/'
+                    ,page: {
+                        curr: 1 //重新从第 1 页开始
+                    }
+                    ,where: {
+                        APPLY_ID: APPLY_ID,
+                        house_addr: house_addr,
+                        agent: agent,
+                        people_name: people_name,
+                        status: status
+//                        order: order
+                    },
+                    success:function (data) {
+                        console.log(data);
+                    }
+                });
+            },
+            getCheckData: function(){ //获取选中数据
+                var ids = '';
+                var checkStatus = table.checkStatus('testReload')
+                    ,data = checkStatus.data;
+                if(data.length <= 0){
+                    layer.msg('请至少选择一条记录！');
+                }else{
+                    layer.confirm('删除', {
+                        btn : [ '确定', '取消' ]//按钮
+                    }, function() {
+                        for(var i=0;i<data.length;i++){
+                            ids+=','+checkStatus.data[i].id;
+                        }
+                        $.ajax({
+                            type: 'POST',
+                            url: "<?=url('house/delBatch')?>?ids="+ids,
+                            data: {ids:ids},
+                            dataType:  'json',
+                            success: function(data){
+                                if(data.code == '1'){
+                                    layer.alert('确定删除么！', {
+                                        icon: 1,
+                                        skin: 'layer-ext-moon',
+                                        time: 2000,
+                                        end: function(){
+                                            window.location.href='<?=url("house/index")?>';
+                                        }
+                                    });
+                                }
+                            }
+                        });
+                    },function(){
+                        layer.msg('取消操作！');
+                    });
+                }
+            }
+        };
+        $('.demoTable .layui-btn').on('click', function(){
+            var type = $(this).data('type');
+            active[type] ? active[type].call(this) : '';
+        });
+        table.on('tool(demo)', function(obj){
+            var data = obj.data;
+            var id = data.id;
+            if(obj.event === 'edit'){
+                window.location.href='<?=url("tickrent/edit")?>?id='+id+'&type=1';
+            }else if(obj.event === 'alert'){
+                layer.open({
+                    type: 2,
+                    title: '详情',
+                    shadeClose: true,
+                    shade: false,
+                    maxmin: true,
+                    area: ['80%', '80%'],
+                    content: "<?=url('tickrent/detail')?>?id="+id
+                });
+            }else if(obj.event === 'tags'){
+                window.location.href='<?=url("house/tags")?>?id='+id;
+            }
+        });
+    });
+    function addArt() {
+        window.location.href='<?=url("house/add")?>?typess=2';
+    }    function addArt1() {
+        window.location.href='<?=url("house/add1")?>';
+    }
+</script>
+{include file="index/footer" /}

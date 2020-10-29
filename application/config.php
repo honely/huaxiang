@@ -335,8 +335,14 @@ return [
     ],
     'appurl' =>'https://cs.huaxiangxiaobao.com',
     'compImg' => 'http://www.huaxiang.com/',
+    //小宝租房
     'wx' => [
         'appid' => 'wx45426a13290ecb64',
         'appsecret' => '0c323386f153831f379938f2c659fff7',
     ],
+    //tickrent
+    'rwx' => [
+        'appid' => 'wxbaff89f847b0f15f',
+        'appsecret' => 'e7c3c83243c6ae7be399f9ce32a9f74b',
+    ]
 ];
