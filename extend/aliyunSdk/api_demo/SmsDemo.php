@@ -35,9 +35,9 @@ class SmsDemo
         $domain = "dysmsapi.aliyuncs.com";
 
         // TODO 此处需要替换成开发者自己的AK (https://ak-console.aliyun.com/)
-        $accessKeyId = "LTAI4FvWRcR8oo6xqhNcQYek"; // AccessKeyId
+        $accessKeyId = ""; // AccessKeyId
 
-        $accessKeySecret = "1GkpmfyyJ3Tis4BDBjIp5QkVWMIqoc"; // AccessKeySecret
+        $accessKeySecret = ""; // AccessKeySecret
 
         // 暂时不支持多Region
         $region = "cn-hangzhou";
@@ -78,10 +78,10 @@ class SmsDemo
         $request->setPhoneNumbers($phone);
 
         // 必填，设置签名名称，应严格按"签名名称"填写，请参考: https://dysms.console.aliyun.com/dysms.htm#/develop/sign
-        $request->setSignName("花香小宝");
+        $request->setSignName("");
 
         // 必填，设置模板CODE，应严格按"模板CODE"填写, 请参考: https://dysms.console.aliyun.com/dysms.htm#/develop/template
-        $request->setTemplateCode("SMS_179075283");
+        $request->setTemplateCode("");
 
         // 可选，设置模板参数, 假如模板中存在变量需要替换则为必填项
         $request->setTemplateParam(json_encode(array("code"=>$code), JSON_UNESCAPED_UNICODE));
@@ -117,10 +117,10 @@ class SmsDemo
         $request->setPhoneNumbers($phone);
 
         // 必填，设置签名名称，应严格按"签名名称"填写，请参考: https://dysms.console.aliyun.com/dysms.htm#/develop/sign
-        $request->setSignName("花香小宝");
+        $request->setSignName("");
 
         // 必填，设置模板CODE，应严格按"模板CODE"填写, 请参考: https://dysms.console.aliyun.com/dysms.htm#/develop/template
-        $request->setTemplateCode("SMS_181430320");
+        $request->setTemplateCode("");
 
         // 可选，设置模板参数, 假如模板中存在变量需要替换则为必填项
         $request->setTemplateParam(json_encode(array("code"=>$code), JSON_UNESCAPED_UNICODE));
@@ -157,10 +157,10 @@ class SmsDemo
         $request->setPhoneNumbers($phone);
 
         // 必填，设置签名名称，应严格按"签名名称"填写，请参考: https://dysms.console.aliyun.com/dysms.htm#/develop/sign
-        $request->setSignName("花香小宝");
+        $request->setSignName("");
 
         // 必填，设置模板CODE，应严格按"模板CODE"填写, 请参考: https://dysms.console.aliyun.com/dysms.htm#/develop/template
-        $request->setTemplateCode("SMS_192940066");
+        $request->setTemplateCode("");
 
         // 可选，设置模板参数, 假如模板中存在变量需要替换则为必填项
         $request->setTemplateParam(json_encode(array("name"=>$name), JSON_UNESCAPED_UNICODE));
